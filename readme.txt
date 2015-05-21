@@ -1,6 +1,7 @@
 === Italy Cookie Choices ===
-Contributors: Enea Overclokk 
-Tags: cookies, cookie law
+Contributors: overclokk
+Donate link: 
+Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent
 Requires at least: 3.8
 Tested up to: 4.3.0
 Stable tag: 1.0.0
@@ -8,7 +9,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website.
+a notice to the user only the very first time that visits your website without degrading website performance.
 
 == Description ==
 
@@ -16,7 +17,9 @@ Italy Cookie Choices allows you to easily comply with the european cookie law, s
 a notice to the user only the very first time that visits your website.
 Message, position and the style can be easyly modified through the plugin menu. 
 
-The plugin will not add any CSS stylesheet or Javascript file but only inline script, what does not make your web site load more slowly. 
+The plugin will not add any CSS stylesheet or Javascript file but only inline script, what does not make your web site load more slowly.
+
+Notify any issue on github repository https://github.com/overclokk/italy-cookie-choices/issues
 
 == Installation ==
 
@@ -45,7 +48,29 @@ Probably, you already have visited the site before, so you accepted the use of c
 == Changelog ==
 
 = 1.0 =
+Release Date: May 21st, 2015
+
+Dev time: 50h
+
 * First release.
 
 == Upgrade Notice ==
-= 1.0 = First First release.
+
+= 1.0 =
+First release.
+
+== Translations ==
+ 
+* English: default, always included.
+* Italian: Italiano, sempre incluso.
+
+*Note:* This plugins is localized/ translateable by default. This is very important for all users worldwide. So please contribute your language to the plugin to make it even more useful. For translating I recommend the awesome ["Codestyling Localization" plugin](http://wordpress.org/extend/plugins/codestyling-localization/) and for validating the ["Poedit Editor"](http://www.poedit.net/).
+ 
+== Additional Info ==
+
+**Idea Behind / Philosophy:** Italy Cookie Choices allows you to easily comply with the european cookie law, showing
+a notice to the user only the very first time that visits your website without degrading website performance..
+ 
+== Credits ==
+
+* [www.cookiechoices.org](https://www.cookiechoices.org/)
