@@ -102,7 +102,11 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             add_action( 'wp_footer', array( $this, 'print_script_inline'), '9' );
 
-        
+            /**
+             * Only for debug
+             */
+            // var_dump($_COOKIE);
+            // var_dump(headers_list());
         }
 
         /**
@@ -451,9 +455,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             /**
              * Snippet for display banner
+             * @uses json_encode Funzione usate per il testo del messaggio.
+             *                   Ricordarsi che aggiunge già
+             *                   le doppie virgolette "" alla stringa
              * @var string
              */
-            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '("' . esc_html( $this->options['text'] ) . '", "' . esc_html( $this->options['button_text'] ) . '", "' . esc_html( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
+            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
 
             echo '<!-- Italy Cookie Choices --><script>';
             require 'js/cookiechoices.php';
