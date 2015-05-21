@@ -47,7 +47,15 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.1 =
+Release Date: 
+
+Dev time: 50h
+
+* Fix special char visualization
+* Add italian translations
+
+= 1.0.0 =
 Release Date: May 21st, 2015
 
 Dev time: 50h
@@ -56,7 +64,7 @@ Dev time: 50h
 
 == Upgrade Notice ==
 
-= 1.0 =
+= 1.0.0 =
 First release.
 
 == Translations ==
