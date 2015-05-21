@@ -1,0 +1,109 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: italy-cookie-choices\n"
+"POT-Creation-Date: 2015-05-22 00:10+0100\n"
+"PO-Revision-Date: 2015-05-22 00:10+0100\n"
+"Last-Translator: Enea Overclokk <info@overclokk.net>\n"
+"Language-Team: info@overclokk.net\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8\n"
+"X-Poedit-Basepath: ..\\\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: .git\n"
+
+#: italy-cookie-choices.php:118
+msgid "Italy Cookie Choices Dashboard"
+msgstr "Pannello di Italy Cookie Choices"
+
+#: italy-cookie-choices.php:132
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Non hai abbastanza permessi per visualizzare questa pagina."
+
+#: italy-cookie-choices.php:195
+msgid "Italy Cookie Choices options page"
+msgstr "Pagina opzioni per Italy Cookie Choices"
+
+#: italy-cookie-choices.php:205
+msgid "Activate"
+msgstr "Attiva"
+
+#: italy-cookie-choices.php:217
+msgid "Where display the banner"
+msgstr "Dove mostrare il banner"
+
+#: italy-cookie-choices.php:228
+msgid "Text to display"
+msgstr "Text da mostrara"
+
+#: italy-cookie-choices.php:239
+msgid "URL for cookie policy"
+msgstr "URL per la cookie policy"
+
+#: italy-cookie-choices.php:250
+msgid "Anchor text for URL"
+msgstr "Anchor text per la URL"
+
+#: italy-cookie-choices.php:261
+msgid "Button text"
+msgstr "Testo per il bottone"
+
+#: italy-cookie-choices.php:286
+msgid "Customize your banner for cookie law"
+msgstr "Personalizza il banner per la Cookie Law"
+
+#: italy-cookie-choices.php:301
+msgid "Display banner for Cookie Law in front-end"
+msgstr "Visualizza il banner nel front-end"
+
+#: italy-cookie-choices.php:321
+msgid "Top Bar (Default, Display a top bar wth your message)"
+msgstr "Top Bar (Default, verrà visualizzata una barra in cima alla pagina)"
+
+#: italy-cookie-choices.php:329
+msgid "Dialog (Display an overlay with your message)"
+msgstr "Dialog (Visualizza un popup con il tuo messaggio)"
+
+#: italy-cookie-choices.php:344
+msgid "Your short cookie policy"
+msgstr "La tua informativa breve"
+
+#: italy-cookie-choices.php:346
+msgid ""
+"People will see this notice only the first time that they enter your site"
+msgstr ""
+"Le persone visualizzeranno il messaggio la prima volta che visiteranno il "
+"tuo sito"
+
+#: italy-cookie-choices.php:360
+msgid "e.g. http://www.aboutcookies.org/"
+msgstr "es: http://www.aboutcookies.org/"
+
+#: italy-cookie-choices.php:363
+msgid "Insert here the link to your policy page"
+msgstr "Inserisci il link alla tua pagina per la cookie policy"
+
+#: italy-cookie-choices.php:377
+msgid "e.g. More Info"
+msgstr "es: Maggiori informazioni"
+
+#: italy-cookie-choices.php:380
+msgid "Insert here anchor text for the link"
+msgstr "Inserisci qui l'anchor text per il link"
+
+#: italy-cookie-choices.php:394
+msgid "e.g. Close"
+msgstr "es: Chiudi"
+
+#: italy-cookie-choices.php:397
+msgid "Insert here name of button (e.g. \"Close\") "
+msgstr "Inserisci il nome del pulsante (es: Chiudi)"
+
+#~ msgid "More Info"
+#~ msgstr "Più info"
