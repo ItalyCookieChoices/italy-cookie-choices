@@ -125,11 +125,11 @@ module.exports = function(grunt) {
                 files: {
                     // Specify the files you want to commit
                     src: [
-                        'bower.json', //For now bower it is not uploaded
+                        // 'bower.json', //For now bower it is not uploaded
                         'readme.txt',
                         'README.md',
                         'package.json',
-                        'italystrap.php'
+                        'italy-cookie-choices.php'
                         ]
                 }
             }
