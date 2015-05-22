@@ -3,7 +3,7 @@
  * Plugin Name: Italy Cookie Choices
  * Plugin URI: https://plus.google.com/u/0/communities/109254048492234113886
  * Description: Minimal code to make sure your website repect the Italian coockie law
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Enea Overclokk
  * Author URI: https://plus.google.com/u/0/communities/109254048492234113886
  * Text Domain: italy-cookie-choices
