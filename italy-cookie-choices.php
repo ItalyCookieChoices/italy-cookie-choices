@@ -342,6 +342,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         ?>
 
             <textarea rows="5" name="italy_cookie_choices[text]" id="italy_cookie_choices[text]" placeholder="<?php _e( 'Your short cookie policy', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['text'] ); ?></textarea>
+            <br>
             <label for="italy_cookie_choices[text]">
                 <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
             </label>
