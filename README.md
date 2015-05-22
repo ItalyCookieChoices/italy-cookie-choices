@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent  
 **Requires at least:** 3.8  
 **Tested up to:** 4.3.0  
-**Stable tag:** 1.0.0  
+**Stable tag:** 1.1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -55,7 +55,16 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 ## Changelog ##
 
-### 1.0 ###
+### 1.1.0 ###
+Release Date: 
+
+**Dev time:** 10h  
+
+* Fix special char visualization
+* Add italian translations
+* Removed default text
+
+### 1.0.0 ###
 **Release Date:** May 21st, 2015  
 
 **Dev time:** 50h  
@@ -64,7 +73,7 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 ## Upgrade Notice ##
 
-### 1.0 ###
+### 1.0.0 ###
 First release.
 
 ## Translations ##
