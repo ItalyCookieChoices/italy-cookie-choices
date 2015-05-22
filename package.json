@@ -27,6 +27,7 @@
     "grunt-contrib-compress": "^0.13.0",
     "grunt-github-releaser": "^0.1.17",
     "grunt-contrib-copy": "^0.8.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-uglify": "^0.9.1"
   }
 }

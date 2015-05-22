@@ -1,47 +1,24 @@
-'use strict';
 module.exports = function(grunt) {
-
+    'use strict';
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        // uglify: {
-            // dist: {
-            //     files: {
-            //         'js/home.min.js': [
-            //             'js/src/bootstrapJS/transition.js',
-            //             // 'js/src/bootstrapJS/alert.js',
-            //             // 'js/src/bootstrapJS/button.js',
-            //             'js/src/bootstrapJS/carousel.js',
-            //             'js/src/bootstrapJS/collapse.js',
-            //             'js/src/bootstrapJS/dropdown.js',
-            //             // 'js/src/bootstrapJS/modal.js',
-            //             // 'js/src/bootstrapJS/tooltip.js',
-            //             // 'js/src/bootstrapJS/popover.js',
-            //             // 'js/src/bootstrapJS/scrollspy.js',
-            //             // 'js/src/bootstrapJS/tab.js',
-            //             // 'js/src/bootstrapJS/affix.js',
-            //             'js/src/home.js' // <- Modify this
-            //         ],                  
-            //     }
-            // },
-        //     admin: {
-        //         files: {
-        //             'admin/js/gallery-settings.min.js': [
-        //                 'admin/js/src/gallery-settings.js'
-        //                 ],
-        //             'js/unveil.min.js': [
-        //                 'js/src/unveil.js'
-        //                 ]
-        //         }
-        //     }
-        // },
 
-        // jshint: {
-        //     all: [
-        //         'js/src/*.js',
-        //         '!js/bootstrap.min.js',
-        //         '!js/jquery.min.js'
-        //     ]
-        // },
+        jshint: { // https://github.com/gruntjs/grunt-contrib-jshint
+            all: [
+                'Gruntfile.js',
+                'js/*.js',
+            ]
+        },
+
+        uglify: {
+            dist: {
+                files: {
+                    'js/cookiechoices.php': [
+                        'js/cookiechoices.js'
+                    ],                  
+                }
+            }
+        },
 
         // compass:{ // https://github.com/gruntjs/grunt-contrib-compass
         //     src:{
@@ -94,20 +71,6 @@ module.exports = function(grunt) {
                   src: ['readme.txt']
             },
         },
-
-        // 'copy-part-of-file': { // https://github.com/dehru/grunt-copy-part-of-file
-        //     copyReadme: {
-        //         options: {
-        //             sourceFileStartPattern: '=== ItalyStrap ===',
-        //             sourceFileEndPattern: 'First release.',
-        //             destinationFileStartPattern: '=== ItalyStrap ===',
-        //             destinationFileEndPattern: 'First release.'
-        //         },
-        //         files: {
-        //             'README.md': ['readme.txt']
-        //         }
-        //     }
-        // },
 
         wp_readme_to_markdown: { // https://www.npmjs.com/package/grunt-wp-readme-to-markdown
             readme: {
@@ -288,8 +251,8 @@ module.exports = function(grunt) {
 
     });
 
-    // grunt.loadNpmTasks('grunt-contrib-jshint');
-    // grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     // grunt.loadNpmTasks('grunt-contrib-csslint');
     // grunt.loadNpmTasks('grunt-contrib-compass');
     // grunt.loadNpmTasks('grunt-contrib-less');
@@ -299,7 +262,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.loadNpmTasks('grunt-version');
-    // grunt.loadNpmTasks('grunt-copy-part-of-file');
     grunt.loadNpmTasks('grunt-wp-readme-to-markdown');
     grunt.loadNpmTasks('grunt-git');
     grunt.loadNpmTasks('grunt-prompt');
@@ -378,4 +340,4 @@ module.exports = function(grunt) {
       grunt.log.writeln(filepath + ' has ' + action);
     });
 
-}
+};
