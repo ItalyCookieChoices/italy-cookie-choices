@@ -202,7 +202,6 @@ module.exports = function(grunt) {
         copy: { // https://github.com/gruntjs/grunt-contrib-copy
             tosvn: {
                 expand: true,
-                // cwd: 'src',
                 src: [
                     '**',
                     '!node_modules/**',
@@ -220,7 +219,6 @@ module.exports = function(grunt) {
             },
             totag: {
                 expand: true,
-                // cwd: 'src',
                 src: [
                     '**',
                     '!node_modules/**',
