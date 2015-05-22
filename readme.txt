@@ -47,6 +47,13 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 == Changelog ==
 
+= 1.1.1 =
+Release Date: 
+
+Dev time: 1h
+
+* Add scroll event
+
 = 1.1.0 =
 Release Date: 
 

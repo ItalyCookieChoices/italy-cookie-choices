@@ -129,7 +129,9 @@
         var fragment = document.createDocumentFragment();
         fragment.appendChild(consentElement);
         document.body.appendChild(fragment.cloneNode(true));
-        document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
+        // document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
+        document.onclick = _dismissLinkClick;
+        document.onscroll = _dismissLinkClick;
       }
     }
 
@@ -143,7 +145,7 @@
 
     function _removeCookieConsent() {
       var cookieChoiceElement = document.getElementById(cookieConsentId);
-      if (cookieChoiceElement != null) {
+      if (cookieChoiceElement !== null) {
         cookieChoiceElement.parentNode.removeChild(cookieChoiceElement);
       }
     }
