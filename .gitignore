@@ -19,3 +19,6 @@ bower_components
 composer.lock
 vendor/mobiledetect/mobiledetectlib
 vendor/composer/installed.json
+
+#File bak
+*.bak
