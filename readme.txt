@@ -47,13 +47,14 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.1.0 =
 Release Date: 
 
-Dev time: 50h
+Dev time: 10h
 
 * Fix special char visualization
 * Add italian translations
+* Removed default text
 
 = 1.0.0 =
 Release Date: May 21st, 2015
