@@ -47,6 +47,13 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 == Changelog ==
 
+= 1.1.2 =
+Release Date: 
+
+Dev time: 10min
+
+* Fix z-index issue
+
 = 1.1.1 =
 Release Date: 
 

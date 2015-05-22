@@ -32,7 +32,7 @@
 
     function _createHeaderElement(cookieText, dismissText, linkText, linkHref) {
       var butterBarStyles = 'position:fixed;width:100%;background-color:#eee;' +
-          'margin:0; left:0; top:0;padding:4px;z-index:1000;text-align:center;';
+          'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:center;';
 
       var cookieConsentElement = document.createElement('div');
       cookieConsentElement.id = cookieConsentId;
