@@ -21,6 +21,10 @@ The plugin will not add any CSS stylesheet or Javascript file but only inline sc
 
 Notify any issue on github repository https://github.com/overclokk/italy-cookie-choices/issues
 
+= Anonymize Analytics IP =
+
+Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
+
 == Installation ==
 
 1. Upload `italy-cookie-choices` folder to the `/wp-content/plugins/` directory
@@ -48,21 +52,21 @@ Probably, you already have visited the site before, so you accepted the use of c
 == Changelog ==
 
 = 1.1.2 =
-Release Date: 
+Release Date: May 22st, 2015
 
 Dev time: 10min
 
 * Fix z-index issue
 
 = 1.1.1 =
-Release Date: 
+Release Date: May 22st, 2015
 
 Dev time: 1h
 
 * Add scroll event
 
 = 1.1.0 =
-Release Date: 
+Release Date: May 22st, 2015
 
 Dev time: 10h
 
