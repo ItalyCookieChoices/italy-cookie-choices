@@ -191,7 +191,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * 
              */
             add_settings_section(
-                'italy_cl_pluginPage_section', 
+                'setting_section', 
                 __( 'Italy Cookie Choices options page', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_settings_section_callback'), 
                 'italy_cl_options_group'
@@ -205,7 +205,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 __( 'Activate', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_active'), 
                 'italy_cl_options_group', 
-                'italy_cl_pluginPage_section'
+                'setting_section'
                 );
 
             /**
@@ -217,7 +217,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 __( 'Where display the banner', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_banner'), 
                 'italy_cl_options_group', 
-                'italy_cl_pluginPage_section'
+                'setting_section'
                 );
 
             /**
@@ -228,7 +228,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 __( 'Text to display', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_text'), 
                 'italy_cl_options_group', 
-                'italy_cl_pluginPage_section'
+                'setting_section'
                 );
 
             /**
@@ -239,7 +239,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 __( 'URL for cookie policy', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_url'), 
                 'italy_cl_options_group', 
-                'italy_cl_pluginPage_section'
+                'setting_section'
                 );
 
             /**
@@ -250,7 +250,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 __( 'Anchor text for URL', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_anchor_text'), 
                 'italy_cl_options_group', 
-                'italy_cl_pluginPage_section'
+                'setting_section'
                 );
 
             /**
@@ -261,7 +261,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 __( 'Button text', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_button_text'), 
                 'italy_cl_options_group', 
-                'italy_cl_pluginPage_section'
+                'setting_section'
                 );
 
             /**
@@ -464,9 +464,15 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
 
+            /**
+             * Noscript snippet in case browser has JavaScript disabled
+             * @var string
+             */
+            $noscript = '<noscript><div id="cookieChoiceInfo" style="position: fixed; width: 100%; margin: 0px; left: 0px; top: 0px; padding: 4px; z-index: 9999; text-align: center; background-color: rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left: 8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left: 24px;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
+
             echo '<!-- Italy Cookie Choices --><script>';
             require 'js/cookiechoices.php';
-            echo $banner . '</script>';
+            echo $banner . '</script>' . $noscript;
 
         }
 
