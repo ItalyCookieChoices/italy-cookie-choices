@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: italy-cookie-choices\n"
 "POT-Creation-Date: 2015-05-22 11:14+0100\n"
-"PO-Revision-Date: 2015-05-22 11:14+0100\n"
+"PO-Revision-Date: 2015-05-25 13:12+0100\n"
 "Last-Translator: Enea Overclokk <info@overclokk.net>\n"
 "Language-Team: info@overclokk.net\n"
 "Language: it_IT\n"
@@ -40,7 +40,7 @@ msgstr "Dove mostrare il banner"
 
 #: italy-cookie-choices.php:228
 msgid "Text to display"
-msgstr "Text da mostrara"
+msgstr "Testo da mostrare"
 
 #: italy-cookie-choices.php:239
 msgid "URL for cookie policy"
@@ -87,7 +87,7 @@ msgstr "es: http://www.aboutcookies.org/"
 
 #: italy-cookie-choices.php:363
 msgid "Insert here the link to your policy page"
-msgstr "Inserisci il link alla tua pagina per la cookie policy"
+msgstr "Inserisci il link alla tua pagina con l'informativa estesa"
 
 #: italy-cookie-choices.php:377
 msgid "e.g. More Info"
@@ -103,7 +103,8 @@ msgstr "es: Chiudi"
 
 #: italy-cookie-choices.php:397
 msgid "Insert here name of button (e.g. \"Close\") "
-msgstr "Inserisci il nome del pulsante (es: Chiudi)"
+msgstr ""
+"Inserisci il testo del link per chiudere il popup/banner (es: Chiudi)"
 
 #~ msgid "More Info"
 #~ msgstr "Più info"

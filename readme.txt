@@ -51,6 +51,14 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 == Changelog ==
 
+= 1.1.3 =
+Release Date: May 25st, 2015
+
+Dev time: 10min
+
+* Fix admin UX https://github.com/overclokk/italy-cookie-choices/issues/14
+* Fix Typo
+
 = 1.1.2 =
 Release Date: May 22st, 2015
 
