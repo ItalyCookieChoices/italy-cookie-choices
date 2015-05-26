@@ -53,6 +53,32 @@ module.exports = function(grunt) {
         //     }
         // },
 
+        gitcheckout: {
+            devtomaster: { // Mi sposto da Dev a master
+                options: {
+                    branch: 'master'
+                }
+            },
+            mastertodev: { // Mi sposto da master a Dev
+                options: {
+                    branch: 'Dev'
+                }
+            }
+        },
+
+        gitmerge: {
+            fromdev: { // Prima devo essewre in master e poi fare il merge da Dev
+                options: {
+                    branch: 'Dev'
+                }
+            },
+            frommaster: { // Prima devo essere in dev e poi fare il merge sa master
+                options: {
+                    branch: 'master'
+                }
+            }
+        },
+
         version: {  // https://www.npmjs.com/package/grunt-version
                     // http://jayj.dk/using-grunt-automate-theme-releases/
             // bower: {
@@ -93,6 +119,19 @@ module.exports = function(grunt) {
                         'README.md',
                         'package.json',
                         'italy-cookie-choices.php'
+                        ]
+                }
+            },
+           first:{
+                options: {
+                    message: 'Commit before deploy of new version'
+                },
+                files: {
+                    src: [
+                        '*.js',
+                        '*.txt',
+                        '*.php',
+                        '*.json'
                         ]
                 }
             }
@@ -298,11 +337,9 @@ module.exports = function(grunt) {
      *
      * Aggiornare la lingua con poedit
      *
-     * Merge Dev into Master
-     * 
-     * Checkout in master (not dev)
-     * 
      * Change version only in package.json
+     *
+     * 
      * $ grunt deploy
      * 
      * Poi nella cartella svn-wordpress
@@ -310,14 +347,20 @@ module.exports = function(grunt) {
      * dx mouse e committ
      */
     grunt.registerTask('deploy', [
+                                'gitcommit:first',
+                                'gitcheckout:devtomaster',
+                                'gitmerge:fromdev',
                                 'version',
                                 'wp_readme_to_markdown',
-                                'gitcommit',
+                                'gitcommit:version',
                                 'gitpush',
                                 'prompt',
                                 'compress',
                                 'github-release',
                                 'copy',
+                                'gitcheckout:mastertodev',
+                                'gitmerge:frommaster',
+                                'gitpush',
                                 ]);
 
     grunt.registerTask('release', [
