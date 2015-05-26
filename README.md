@@ -2,9 +2,9 @@
 **Contributors:** overclokk  
 Donate link: 
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent  
-**Requires at least:** 3.8  
+**Requires at least:** 4.1  
 **Tested up to:** 4.3.0  
-**Stable tag:** 1.1.2  
+**Stable tag:** 1.1.3  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -20,6 +20,10 @@ Message, position and the style can be easyly modified through the plugin menu.
 The plugin will not add any CSS stylesheet or Javascript file but only inline script, what does not make your web site load more slowly.
 
 Notify any issue on github repository https://github.com/overclokk/italy-cookie-choices/issues
+
+### Anonymize Analytics IP ###
+
+Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
 
 ## Installation ##
 
@@ -55,22 +59,33 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 ## Changelog ##
 
+### 1.1.3 ###
+**Release Date:** May 26th, 2015  
+
+**Dev time:** 5h  
+
+* Fixed admin UX https://github.com/overclokk/italy-cookie-choices/issues/14
+* Fixed Typo in lang
+* Changed WP compatibility to 4.1
+* Added noscript in case browser has JavaScript disabled https://github.com/overclokk/italy-cookie-choices/issues/8
+* Fixed click event https://github.com/overclokk/italy-cookie-choices/issues/15
+
 ### 1.1.2 ###
-Release Date: 
+**Release Date:** May 22st, 2015  
 
 **Dev time:** 10min  
 
 * Fix z-index issue
 
 ### 1.1.1 ###
-Release Date: 
+**Release Date:** May 22st, 2015  
 
 **Dev time:** 1h  
 
 * Add scroll event
 
 ### 1.1.0 ###
-Release Date: 
+**Release Date:** May 22st, 2015  
 
 **Dev time:** 10h  
 
