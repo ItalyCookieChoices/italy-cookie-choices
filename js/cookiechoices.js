@@ -14,6 +14,22 @@
  limitations under the License.
  */
 
+/**
+ * Posizione banner nella funzione _createHeaderElement 
+ * @type {String}
+ */
+var elPos = 'fixed';
+/**
+ * Classe aggiuntiva per il link info
+ * @type {String}
+ */
+var infoClass = '';
+/**
+ * Classe aggiuntiva per il link di accettazione
+ * @type {String}
+ */
+var closeClass = ''; 
+
 (function(window) {
 
   if (!!window.cookieChoices) {
@@ -31,7 +47,7 @@
     var dismissLinkId = 'cookieChoiceDismiss';
 
     function _createHeaderElement(cookieText, dismissText, linkText, linkHref) {
-      var butterBarStyles = 'position:fixed;width:100%;background-color:#eee;' +
+      var butterBarStyles = 'position:' + elPos + ';width:100%;background-color:#eee;' +
           'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:center;';
 
       var cookieConsentElement = document.createElement('div');
@@ -100,6 +116,7 @@
       var dismissLink = document.createElement('a');
       _setElementText(dismissLink, dismissText);
       dismissLink.id = dismissLinkId;
+      dismissLink.className = closeClass;
       dismissLink.href = '#';
       dismissLink.style.marginLeft = '24px';
       return dismissLink;
@@ -108,6 +125,7 @@
     function _createInformationLink(linkText, linkHref) {
       var infoLink = document.createElement('a');
       _setElementText(infoLink, linkText);
+      infoLink.className = infoClass;
       infoLink.href = linkHref;
       infoLink.target = '_blank';
       infoLink.style.marginLeft = '8px';
@@ -129,8 +147,8 @@
         var fragment = document.createDocumentFragment();
         fragment.appendChild(consentElement);
         document.body.appendChild(fragment.cloneNode(true));
-        // document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
-        document.onclick = _dismissLinkClick;
+        document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
+        // document.onclick = _dismissLinkClick;
         document.onscroll = _dismissLinkClick;
       }
     }
