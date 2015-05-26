@@ -59,7 +59,7 @@ Dev time: 5h
 * Fixed admin UX https://github.com/overclokk/italy-cookie-choices/issues/14
 * Fixed Typo in lang
 * Changed WP compatibility to 4.1
-* Added noscript in case browser has JavaScript disabled
+* Added noscript in case browser has JavaScript disabled https://github.com/overclokk/italy-cookie-choices/issues/8
 * Fixed click event https://github.com/overclokk/italy-cookie-choices/issues/15
 
 = 1.1.2 =
