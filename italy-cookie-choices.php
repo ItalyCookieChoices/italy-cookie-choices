@@ -341,7 +341,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
         ?>
 
-            <textarea rows="5" name="italy_cookie_choices[text]" id="italy_cookie_choices[text]" placeholder="<?php _e( 'Your short cookie policy', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['text'] ); ?></textarea>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[text]" id="italy_cookie_choices[text]" placeholder="<?php _e( 'Your short cookie policy', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['text'] ); ?></textarea>
             <br>
             <label for="italy_cookie_choices[text]">
                 <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
@@ -358,8 +358,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         public function italy_cl_option_url($args) {
 
         ?>
-            <input type="text" id="italy_cookie_choices[url]" name="italy_cookie_choices[url]" value="<?php echo esc_url( $this->options['url'] ); ?>" placeholder="<?php _e( 'e.g. http://www.aboutcookies.org/', 'italy-cookie-choices' ) ?>" />
-
+            <input type="text" id="italy_cookie_choices[url]" name="italy_cookie_choices[url]" value="<?php echo esc_url( $this->options['url'] ); ?>" placeholder="<?php _e( 'e.g. http://www.aboutcookies.org/', 'italy-cookie-choices' ) ?>" size="70" />
+            <br>
             <label for="italy_cookie_choices[url]">
                 <?php echo __( 'Insert here the link to your policy page', 'italy-cookie-choices' ); ?>
             </label>
@@ -464,11 +464,14 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
 
+            $cookieName = 'displayCookieConsent';
+            $cookieVal = 'y';
+
             /**
              * Noscript snippet in case browser has JavaScript disabled
              * @var string
              */
-            $noscript = '<noscript><div id="cookieChoiceInfo" style="position: fixed; width: 100%; margin: 0px; left: 0px; top: 0px; padding: 4px; z-index: 9999; text-align: center; background-color: rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left: 8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left: 24px;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
+            $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
 
             echo '<!-- Italy Cookie Choices --><script>';
             require 'js/cookiechoices.php';
