@@ -2,7 +2,7 @@
 Contributors: overclokk
 Donate link: 
 Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent
-Requires at least: 3.8
+Requires at least: 4.1
 Tested up to: 4.3.0
 Stable tag: 1.1.2
 License: GPLv2 or later
