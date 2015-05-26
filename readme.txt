@@ -52,12 +52,15 @@ Probably, you already have visited the site before, so you accepted the use of c
 == Changelog ==
 
 = 1.1.3 =
-Release Date: May 25st, 2015
+Release Date: May 26th, 2015
 
-Dev time: 10min
+Dev time: 5h
 
-* Fix admin UX https://github.com/overclokk/italy-cookie-choices/issues/14
-* Fix Typo
+* Fixed admin UX https://github.com/overclokk/italy-cookie-choices/issues/14
+* Fixed Typo in lang
+* Changed WP compatibility to 4.1
+* Added noscript in case browser has JavaScript disabled
+* Fixed click event https://github.com/overclokk/italy-cookie-choices/issues/15
 
 = 1.1.2 =
 Release Date: May 22st, 2015
