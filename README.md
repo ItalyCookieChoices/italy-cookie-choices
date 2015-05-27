@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent  
 **Requires at least:** 4.1  
 **Tested up to:** 4.3.0  
-**Stable tag:** 1.1.3  
+**Stable tag:** 1.2.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -42,6 +42,14 @@ will not be shown again.
 
 Probably, you already have visited the site before, so you accepted the use of cookies and the plugin installed a cookie in your browser to know it. If you want to test if the plugin is working properly, try removing the cookies `displayCookieConsent` from your web browser or navigating in incognito mode. If you think that the plugin is not working properly, just open an issue here https://github.com/overclokk/italy-cookie-choices/issues and I will check it for you.
 
+### Does it work in static HTML pages? ###
+
+Yes, simply copy the snippet generate by "Italy Cookie Choses for WordPress" and put in your HTML footer before </body> tag
+
+### I use Async JS and CSS plugin, but the banner doesn't display ###
+
+You have to uncheck the "Detect <script> tags in wp_footer" in Async JS and CSS plugin settings page and refresh page.
+
 ## Screenshots ##
 
 ### 1. Italy Cookie Choices Options Menu ###
@@ -58,6 +66,16 @@ Probably, you already have visited the site before, so you accepted the use of c
 
 
 ## Changelog ##
+
+### 1.2.0 ###
+**Release Date:** May 27th, 2015  
+
+**Dev time:** 20h  
+
+* [Fixed duble alert box in admin when options are saved](https://github.com/overclokk/italy-cookie-choices/issues/13)
+* [Add options for mouse scroll event](https://github.com/overclokk/italy-cookie-choices/issues/19)
+* [Added options for add margin at top of the page if topbar is used](https://github.com/overclokk/italy-cookie-choices/issues/6)
+* Added advanced options for set Cookie name and Cookie value for an eventual migration to this plugin
 
 ### 1.1.3 ###
 **Release Date:** May 26th, 2015  
