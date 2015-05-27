@@ -14,22 +14,6 @@
  limitations under the License.
  */
 
-/**
- * Posizione banner nella funzione _createHeaderElement 
- * @type {String}
- */
-var elPos = 'fixed';
-/**
- * Classe aggiuntiva per il link info
- * @type {String}
- */
-var infoClass = '';
-/**
- * Classe aggiuntiva per il link di accettazione
- * @type {String}
- */
-var closeClass = ''; 
-
 (function(window) {
 
   if (!!window.cookieChoices) {
@@ -37,16 +21,21 @@ var closeClass = '';
   }
 
   var document = window.document;
+  var html = document.documentElement;//Per aggiungere un margin-top al tag HTML
   // IE8 does not support textContent, so we should fallback to innerText.
   var supportsTextContent = 'textContent' in document.body;
 
   var cookieChoices = (function() {
 
-    var cookieName = 'displayCookieConsent';
+    // var cookieName = 'displayCookieConsent';
+    var cookieName = coNA;
     var cookieConsentId = 'cookieChoiceInfo';
     var dismissLinkId = 'cookieChoiceDismiss';
 
     function _createHeaderElement(cookieText, dismissText, linkText, linkHref) {
+
+      if( htmlM ) html.className += ' icc';
+
       var butterBarStyles = 'position:' + elPos + ';width:100%;background-color:#eee;' +
           'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:center;';
 
@@ -133,6 +122,7 @@ var closeClass = '';
     }
 
     function _dismissLinkClick() {
+     if ( htmlM ) html.classList.remove("icc");
       _saveUserPreference();
       _removeCookieConsent();
       return false;
@@ -149,7 +139,7 @@ var closeClass = '';
         document.body.appendChild(fragment.cloneNode(true));
         document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
         // document.onclick = _dismissLinkClick;
-        document.onscroll = _dismissLinkClick;
+        if (scroll) document.onscroll = _dismissLinkClick;
       }
     }
 
@@ -172,7 +162,8 @@ var closeClass = '';
       // Set the cookie expiry to one year after today.
       var expiryDate = new Date();
       expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-      document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
+      // document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
+      document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString();
     }
 
     function _shouldDisplayConsent() {

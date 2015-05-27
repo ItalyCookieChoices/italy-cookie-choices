@@ -83,6 +83,18 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         private $options = array();
 
         /**
+         * Default Cookie name
+         * @var string
+         */
+        private $cookieName = 'displayCookieConsent';
+
+        /**
+         * Default cookie value
+         * @var string
+         */
+        private $cookieVal = 'y';
+
+        /**
          * [__construct description]
          */
         public function __construct(){
@@ -134,7 +146,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 ?>
                 <div class="wrap">
 
-                        <?php settings_errors(); ?>
+                        <?php //settings_errors('italy_cookie_id'); ?>
 
                     <form action='options.php' method='post'>
                         
@@ -221,6 +233,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
+             * Checkbox for scroll event
+             */
+            add_settings_field( 
+                'scroll', 
+                __( 'Mouse scroll event', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_scroll'), 
+                'italy_cl_options_group', 
+                'setting_section'
+                );
+
+            /**
              * 
              */
             add_settings_field( 
@@ -262,6 +285,59 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 array( $this, 'italy_cl_option_button_text'), 
                 'italy_cl_options_group', 
                 'setting_section'
+                );
+
+            /**
+             * Settings sections for Style
+             */
+            add_settings_section(
+                'style_setting_section', 
+                __( 'Style settings', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_style_settings_section_callback'), 
+                'italy_cl_options_group'
+            );
+
+            /**
+             * Checkbox for activation
+             */
+            add_settings_field( 
+                'html_margin', 
+                __( 'HTML top margin', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_html_margin'), 
+                'italy_cl_options_group', 
+                'style_setting_section'
+                );
+
+            /**
+             * Settings sections for Advanced options
+             */
+            add_settings_section(
+                'advanced_setting_section', 
+                __( 'Advanced settngs', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_advanced_settings_section_callback'), 
+                'italy_cl_options_group'
+            );
+
+            /**
+             * 
+             */
+            add_settings_field( 
+                'cookie_name', 
+                __( 'Cookie name', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_cookie_name'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+
+            /**
+             * 
+             */
+            add_settings_field( 
+                'cookie_value', 
+                __( 'Cookie value', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_cookie_value'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
                 );
 
             /**
@@ -327,6 +403,24 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             <label for="radio_2">
                 <?php _e( 'Dialog (Display an overlay with your message)', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
+         * Snippet for checkbox
+         * @return strimg       Activate banner in front-end Default doesn't display
+         */
+        public function italy_cl_option_scroll($args) {
+
+            $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
+        ?>
+
+            <input type='checkbox' name='italy_cookie_choices[scroll]' <?php checked( $scroll, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[scroll]">
+                <?php _e( 'Accepts disclosures on mouse scroll event', 'italy-cookie-choices' ); ?>
             </label>
 
         <?php
@@ -403,6 +497,92 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * NUOVA SETTINGS SECTIONS PER LO STIILE
+         */
+
+        /**
+         * [italy_cl_settings_section_callback description]
+         * @return [type] [description]
+         */
+        public function italy_cl_style_settings_section_callback() { 
+
+            _e( 'Customize your style settings', 'italy-cookie-choices' );
+
+        }
+
+        /**
+         * Snippet for checkbox
+         * @return strimg       Activate banner in front-end Default doesn't display
+         */
+        public function italy_cl_option_html_margin($args) {
+
+            $html_margin = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
+
+        ?>
+
+            <input type='checkbox' name='italy_cookie_choices[html_margin]' <?php checked( $html_margin, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[html_margin]">
+                <?php _e( 'Add a page top margin for info top bar', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+
+        /**
+         * NUOVA SETTINGS SECTIONS PER LE OPZIONI AVANZATE
+         */
+
+        /**
+         * [italy_cl_settings_section_callback description]
+         * @return [type] [description]
+         */
+        public function italy_cl_advanced_settings_section_callback() { 
+
+            _e( 'Customize your advanced settings', 'italy-cookie-choices' );
+
+        }
+
+        /**
+         * Snippet for cookie name
+         * @return strimg       Activate banner in front-end Default doesn't display
+         */
+        public function italy_cl_option_cookie_name($args) {
+
+            $cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : '' ;
+
+        ?>
+            <input type="text" id="italy_cookie_choices[cookie_name]" name="italy_cookie_choices[cookie_name]" value="<?php echo esc_attr( $cookie_name ); ?>" placeholder="<?php echo esc_attr( $this->cookieName ); ?>" />
+
+            <label for="italy_cookie_choices[cookie_name]">
+                <?php _e( 'Insert your cookie name (Default: displayCookieConsent)', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
+         * Snippet for cookie value
+         * @return strimg       Activate banner in front-end Default doesn't display
+         */
+        public function italy_cl_option_cookie_value($args) {
+
+            $cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
+
+        ?>
+            <input type="text" id="italy_cookie_choices[cookie_value]" name="italy_cookie_choices[cookie_value]" value="<?php echo esc_attr( $cookie_value ); ?>" placeholder="<?php echo esc_attr( $this->cookieVal ); ?>" />
+
+            <label for="italy_cookie_choices[cookie_value]">
+                <?php _e( 'Insert your cookie value (Default: y)', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * Sanitize data
          * @param  array $input Data to sanitize
          * @return array        Data sanitized
@@ -417,6 +597,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             if( isset( $input['banner'] ) )
                 $new_input['banner'] =  $input['banner'];
 
+            if( isset( $input['scroll'] ) )
+                $new_input['scroll'] =  $input['scroll'];
+
             if( isset( $input['text'] ) )
                 $new_input['text'] = sanitize_text_field( $input['text'] );
 
@@ -428,6 +611,32 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             if( isset( $input['button_text'] ) )
                 $new_input['button_text'] = sanitize_text_field( $input['button_text'] );
+
+            /**
+             * Sezione per lo stile
+             */
+            if( isset( $input['html_margin'] ) )
+                $new_input['html_margin'] =  $input['html_margin'];
+
+            /**
+             * Sezione per le opzioni avanzate
+             * Esempio per add_settings_error()
+             * @link https://wordpress.org/support/topic/how-to-use-add_settings_error-for-nested-options-array?replies=2
+             * @link http://pastebin.com/K4kJ0DNG
+             */
+            if( empty( $input['cookie_name'] ) ){
+                add_settings_error( 'italy_cookie_id', 'cookie_name_ID', __('Cookie name field it can\'t be empty. Restored default name.', 'italy-cookie-choices' ), 'error');
+                $new_input['cookie_name'] = $this->cookieName;
+            }
+            else
+                $new_input['cookie_name'] =  sanitize_text_field( $input['cookie_name'] );
+
+            if( empty( $input['cookie_value'] ) ){
+                add_settings_error( 'italy_cookie_id', 'cookie_name_ID', __('Cookie value field it can\'t be empty. Restored default value.', 'italy-cookie-choices' ), 'error');
+                $new_input['cookie_value'] =  $this->cookieVal;
+            }
+            else
+                $new_input['cookie_value'] = sanitize_text_field( $input['cookie_value'] );
 
             return $new_input;
 
@@ -455,6 +664,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             else
                 $banner = '';
 
+            $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
+
             /**
              * Snippet for display banner
              * @uses json_encode Funzione usate per il testo del messaggio.
@@ -464,8 +675,44 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
 
-            $cookieName = 'displayCookieConsent';
-            $cookieVal = 'y';
+            /**
+             * ADVANCED OPTIONS
+             */
+            /**
+             * Cookie name
+             * @var string
+             */
+            $cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : $this->cookieName ;
+
+            /**
+             * Cookie value
+             * @var string/bolean
+             */
+            $cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
+
+            /**
+             * Se l'optione è selezionata aggiunge un margine per non nascondere il contenuto dalla top bar
+             * @var string
+             */
+            $style = '<style>.icc{margin-top:36px}</style>';
+            
+            /**
+             * If is set hmll_margin checkbox in admin panel then add margin-top to HTML tag
+             * @var [type]
+             */
+            $htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
+            
+            /**
+             * Declarations of JS variables and set parameters
+             * var elPos = Gestisce la Posizione banner nella funzione _createHeaderElement
+             * var infoClass = aggiunge una classe personalizzata per il link info
+             * var closeClass = aggiunge una classe personalizzata per il link di accettazione
+             * var htmlM = Aggiunge un margine a HTML per la top bar
+             * var coNA = cookie name
+             * var coVA = cookie val
+             * @var string
+             */
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '";';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
@@ -473,7 +720,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
 
-            echo '<!-- Italy Cookie Choices --><script>';
+            echo '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
             require 'js/cookiechoices.php';
             echo $banner . '</script>' . $noscript;
 
