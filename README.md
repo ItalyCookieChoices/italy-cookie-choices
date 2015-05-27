@@ -48,7 +48,7 @@ Yes, simply copy the snippet generate by "Italy Cookie Choses for WordPress" and
 
 ### I use Async JS and CSS plugin, but the banner doesn't display ###
 
-You have to uncheck the "Detect <script> tags in wp_footer" in Async JS and CSS plugin settings page and refresh page.
+You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS plugin settings page and refresh page.
 
 ## Screenshots ##
 
