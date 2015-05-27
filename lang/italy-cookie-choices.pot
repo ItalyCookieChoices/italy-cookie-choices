@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Italy Cookie Choices\n"
-"POT-Creation-Date: 2015-05-22 00:09+0100\n"
+"POT-Creation-Date: 2015-05-27 17:38+0100\n"
 "PO-Revision-Date: 2015-05-21 20:22+0100\n"
 "Last-Translator: Enea Overclokk <info@overclokk.net>\n"
 "Language-Team: info@overclokk.net\n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8\n"
+"X-Generator: Poedit 1.8.1\n"
 "X-Poedit-Basepath: ..\\\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -19,86 +19,142 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
 
-#: italy-cookie-choices.php:118
+#: italy-cookie-choices.php:130
 msgid "Italy Cookie Choices Dashboard"
 msgstr ""
 
-#: italy-cookie-choices.php:132
+#: italy-cookie-choices.php:144
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: italy-cookie-choices.php:195
+#: italy-cookie-choices.php:207
 msgid "Italy Cookie Choices options page"
 msgstr ""
 
-#: italy-cookie-choices.php:205
+#: italy-cookie-choices.php:217
 msgid "Activate"
 msgstr ""
 
-#: italy-cookie-choices.php:217
+#: italy-cookie-choices.php:229
 msgid "Where display the banner"
 msgstr ""
 
-#: italy-cookie-choices.php:228
+#: italy-cookie-choices.php:240
+msgid "Mouse scroll event"
+msgstr ""
+
+#: italy-cookie-choices.php:251
 msgid "Text to display"
 msgstr ""
 
-#: italy-cookie-choices.php:239
+#: italy-cookie-choices.php:262
 msgid "URL for cookie policy"
 msgstr ""
 
-#: italy-cookie-choices.php:250
+#: italy-cookie-choices.php:273
 msgid "Anchor text for URL"
 msgstr ""
 
-#: italy-cookie-choices.php:261
+#: italy-cookie-choices.php:284
 msgid "Button text"
 msgstr ""
 
-#: italy-cookie-choices.php:286
+#: italy-cookie-choices.php:295
+msgid "Style settings"
+msgstr ""
+
+#: italy-cookie-choices.php:305
+msgid "HTML top margin"
+msgstr ""
+
+#: italy-cookie-choices.php:316
+msgid "Advanced settngs"
+msgstr ""
+
+#: italy-cookie-choices.php:326
+msgid "Cookie name"
+msgstr ""
+
+#: italy-cookie-choices.php:337
+msgid "Cookie value"
+msgstr ""
+
+#: italy-cookie-choices.php:362
 msgid "Customize your banner for cookie law"
 msgstr ""
 
-#: italy-cookie-choices.php:301
+#: italy-cookie-choices.php:377
 msgid "Display banner for Cookie Law in front-end"
 msgstr ""
 
-#: italy-cookie-choices.php:321
+#: italy-cookie-choices.php:397
 msgid "Top Bar (Default, Display a top bar wth your message)"
 msgstr ""
 
-#: italy-cookie-choices.php:329
+#: italy-cookie-choices.php:405
 msgid "Dialog (Display an overlay with your message)"
 msgstr ""
 
-#: italy-cookie-choices.php:344
+#: italy-cookie-choices.php:423
+msgid "Accepts disclosures on mouse scroll event"
+msgstr ""
+
+#: italy-cookie-choices.php:438
 msgid "Your short cookie policy"
 msgstr ""
 
-#: italy-cookie-choices.php:346
+#: italy-cookie-choices.php:441
 msgid "People will see this notice only the first time that they enter your site"
 msgstr ""
 
-#: italy-cookie-choices.php:360
+#: italy-cookie-choices.php:455
 msgid "e.g. http://www.aboutcookies.org/"
 msgstr ""
 
-#: italy-cookie-choices.php:363
+#: italy-cookie-choices.php:458
 msgid "Insert here the link to your policy page"
 msgstr ""
 
-#: italy-cookie-choices.php:377
+#: italy-cookie-choices.php:472
 msgid "e.g. More Info"
 msgstr ""
 
-#: italy-cookie-choices.php:380
+#: italy-cookie-choices.php:475
 msgid "Insert here anchor text for the link"
 msgstr ""
 
-#: italy-cookie-choices.php:394
+#: italy-cookie-choices.php:489
 msgid "e.g. Close"
 msgstr ""
 
-#: italy-cookie-choices.php:397
+#: italy-cookie-choices.php:492
 msgid "Insert here name of button (e.g. \"Close\") "
+msgstr ""
+
+#: italy-cookie-choices.php:509
+msgid "Customize your style settings"
+msgstr ""
+
+#: italy-cookie-choices.php:525
+msgid "Add a page top margin for info top bar"
+msgstr ""
+
+#: italy-cookie-choices.php:543
+msgid "Customize your advanced settings"
+msgstr ""
+
+#: italy-cookie-choices.php:559
+msgid "Insert your cookie name (Default: displayCookieConsent)"
+msgstr ""
+
+#: italy-cookie-choices.php:578
+msgid "Insert your cookie value (Default: y)"
+msgstr ""
+
+#: italy-cookie-choices.php:628
+msgid "Cookie name field it can't be empty. Restored default name."
+msgstr ""
+
+#: italy-cookie-choices.php:635
+msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
