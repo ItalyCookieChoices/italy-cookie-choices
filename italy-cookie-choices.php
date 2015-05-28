@@ -183,7 +183,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'text'          => '',
                 'url'           => '',
                 'anchor_text'   => '',
-                'button_text'   => ''
+                'button_text'   => '',
+                'cookie_name'   => $this->cookieName,
+                'cookie_value'   => $this->cookieVal
 
                 );
 
@@ -239,6 +241,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'scroll', 
                 __( 'Mouse scroll event', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_scroll'), 
+                'italy_cl_options_group', 
+                'setting_section'
+                );
+
+            /**
+             * Checkbox for reload page
+             */
+            add_settings_field( 
+                'reload', 
+                __( 'Refresh page', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_reload'), 
                 'italy_cl_options_group', 
                 'setting_section'
                 );
@@ -428,6 +441,24 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * Snippet for reload
+         * @return strimg       Reload page after click
+         */
+        public function italy_cl_option_reload($args) {
+
+            $reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
+        ?>
+
+            <input type='checkbox' name='italy_cookie_choices[reload]' <?php checked( $reload, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[reload]">
+                <?php _e( 'Refresh page after button click', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * Textarea for the message to display
          * @return string
          */
@@ -550,7 +581,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          */
         public function italy_cl_option_cookie_name($args) {
 
-            $cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : '' ;
+            $cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : $this->cookieName ;
 
         ?>
             <input type="text" id="italy_cookie_choices[cookie_name]" name="italy_cookie_choices[cookie_name]" value="<?php echo esc_attr( $cookie_name ); ?>" placeholder="<?php echo esc_attr( $this->cookieName ); ?>" />
@@ -599,6 +630,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             if( isset( $input['scroll'] ) )
                 $new_input['scroll'] =  $input['scroll'];
+
+            if( isset( $input['reload'] ) )
+                $new_input['reload'] =  $input['reload'];
 
             if( isset( $input['text'] ) )
                 $new_input['text'] = sanitize_text_field( $input['text'] );
@@ -666,6 +700,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
 
+            $reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
+
             /**
              * Snippet for display banner
              * @uses json_encode Funzione usate per il testo del messaggio.
@@ -710,9 +746,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * var htmlM = Aggiunge un margine a HTML per la top bar
              * var coNA = cookie name
              * var coVA = cookie val
+             * var rel = Setto il reload per la pagina all'accettazione
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '";';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '";';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled

@@ -125,6 +125,7 @@
      if ( htmlM ) html.classList.remove("icc");
       _saveUserPreference();
       _removeCookieConsent();
+      if ( rel ) document.location.reload();
       return false;
     }
 
