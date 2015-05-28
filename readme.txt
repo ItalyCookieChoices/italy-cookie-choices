@@ -59,6 +59,15 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 == Changelog ==
 
+= 1.2.1 =
+Release Date: May 28th, 2015
+
+Dev time: 2h
+
+* [Added checkbox for refresh page after button click](https://wordpress.org/support/topic/aggiunta-del-refresh-dopo-lok?replies=3)
+* [Fixed cookie name issue](https://github.com/overclokk/italy-cookie-choices/issues/21)
+
+
 = 1.2.0 =
 Release Date: May 27th, 2015
 
