@@ -59,6 +59,13 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 == Changelog ==
 
+= 1.2.2 =
+Release Date: May 29th, 2015
+
+Dev time: 1h
+
+* [Fixed cookie setting path to root](https://github.com/overclokk/italy-cookie-choices/issues/20)
+
 = 1.2.1 =
 Release Date: May 28th, 2015
 
