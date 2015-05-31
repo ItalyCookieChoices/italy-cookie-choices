@@ -154,3 +154,4 @@ a notice to the user only the very first time that visits your website without d
 == Credits ==
 
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
+* [Loghino piccolo](http://www.posizionamento-seo.com/)
