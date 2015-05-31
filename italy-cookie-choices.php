@@ -358,7 +358,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             add_settings_field( 
                 'slug', 
-                __( 'Cookie policy page URL', 'italy-cookie-choices' ), 
+                __( 'Cookie policy page slug', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_slug'), 
                 'italy_cl_options_group', 
                 'advanced_setting_section'
