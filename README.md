@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent  
 **Requires at least:** 4.1  
 **Tested up to:** 4.3.0  
-**Stable tag:** 1.2.2  
+**Stable tag:** 1.2.3  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -66,6 +66,14 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 
 ## Changelog ##
+
+### 1.2.3 ###
+**Release Date:** May 31th, 2015  
+
+**Dev time:** 3h  
+
+* Added slug input for your cookie policy page to display only topbar
+* Added option for target _blank
 
 ### 1.2.2 ###
 **Release Date:** May 29th, 2015  
@@ -154,3 +162,4 @@ a notice to the user only the very first time that visits your website without d
 ## Credits ##
 
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
+* [Loghino piccolo](http://www.posizionamento-seo.com/)
