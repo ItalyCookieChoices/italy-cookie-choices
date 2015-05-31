@@ -356,6 +356,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             /**
              * 
              */
+            add_settings_field( 
+                'slug', 
+                __( 'Cookie policy page URL', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_slug'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+
+            /**
+             * 
+             */
             register_setting(
                 'italy_cl_options_group',
                 'italy_cookie_choices',
@@ -614,6 +625,25 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * Slug for cookie policy page
+         * @return strimg       Slug for cookie policy page Default null
+         */
+        public function italy_cl_option_slug($args) {
+
+            $slug = ( isset( $this->options['slug'] ) ) ? $this->options['slug'] : '' ;
+
+        ?>
+            <input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. your-policy-url.html', 'italy-cookie-choices' ); ?>" />
+
+            <label for="italy_cookie_choices[slug]">
+                <?php _e( 'Insert your cookie policy page slug (e.g. your-policy-url), it will display only topbar in your cookie policy page', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * Sanitize data
          * @param  array $input Data to sanitize
          * @return array        Data sanitized
@@ -672,6 +702,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             else
                 $new_input['cookie_value'] = sanitize_text_field( $input['cookie_value'] );
 
+            if( isset( $input['slug'] ) )
+                $new_input['slug'] = sanitize_text_field( $input['slug'] );
+
             return $new_input;
 
         }
@@ -691,15 +724,26 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             if ( !isset( $this->options['active'] ) )
                 return;
 
-            if ( $this->options['banner'] === '1' )
+            /**
+             * Select what kind of banner to display
+             */
+            if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) )
                 $banner = 'Bar';
             elseif ( $this->options['banner'] === '2' )
                 $banner = 'Dialog';
             else
                 $banner = '';
 
+            /**
+             * Accept on scroll
+             * @var bol
+             */
             $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
 
+            /**
+             * Reload on accept
+             * @var bol
+             */
             $reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
 
             /**
