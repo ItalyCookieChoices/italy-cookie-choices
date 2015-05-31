@@ -116,7 +116,7 @@
       _setElementText(infoLink, linkText);
       infoLink.className = infoClass;
       infoLink.href = linkHref;
-      infoLink.target = '_blank';
+      if (tar) infoLink.target = '_blank';
       infoLink.style.marginLeft = '8px';
       return infoLink;
     }

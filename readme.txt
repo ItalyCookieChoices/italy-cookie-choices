@@ -62,9 +62,10 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 = 1.2.3 =
 Release Date: May 31th, 2015
 
-Dev time: 2h
+Dev time: 3h
 
 * Added slug input for your cookie policy page to display only topbar
+* Added option for target _blank
 
 = 1.2.2 =
 Release Date: May 29th, 2015

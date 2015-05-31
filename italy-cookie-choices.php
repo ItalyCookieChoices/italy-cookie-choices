@@ -365,6 +365,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
+             * Checkbox for activation
+             */
+            add_settings_field( 
+                'target', 
+                __( 'Open policy in new page', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_target'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+
+            /**
              * 
              */
             register_setting(
@@ -644,6 +655,26 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * Snippet for target checkbox
+         * @return strimg       Activate for open policy page in new tab 
+         *                      Default open in same tab
+         */
+        public function italy_cl_option_target($args) {
+
+            $target = ( isset( $this->options['target'] ) ) ? $this->options['target'] : '' ;
+
+        ?>
+
+            <input type='checkbox' name='italy_cookie_choices[target]' <?php checked( $target, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[target]">
+                <?php _e( 'Open your cookie policy page in new one', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * Sanitize data
          * @param  array $input Data to sanitize
          * @return array        Data sanitized
@@ -704,6 +735,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             if( isset( $input['slug'] ) )
                 $new_input['slug'] = sanitize_text_field( $input['slug'] );
+
+            if( isset( $input['target'] ) )
+                $new_input['target'] =  $input['target'];
 
             return $new_input;
 
@@ -778,9 +812,15 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             
             /**
              * If is set hmll_margin checkbox in admin panel then add margin-top to HTML tag
-             * @var [type]
+             * @var bol
              */
             $htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
+
+            /**
+             * If set open policy page in new browser tab
+             * @var bol
+             */
+            $target = ( isset( $this->options['target'] ) ) ? $this->options['target'] : '' ;
             
             /**
              * Declarations of JS variables and set parameters
@@ -791,9 +831,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * var coNA = cookie name
              * var coVA = cookie val
              * var rel = Setto il reload per la pagina all'accettazione
+             * var tar = Target -blank
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '";';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '";';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
