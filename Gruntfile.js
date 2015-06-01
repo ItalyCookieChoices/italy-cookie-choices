@@ -17,6 +17,13 @@ module.exports = function(grunt) {
                         'js/cookiechoices.js'
                     ],                  
                 }
+            },
+            admin: {
+                files: {
+                    'admin/js/script.min.js': [
+                        'admin/js/src/script.js'
+                    ]
+                }
             }
         },
 

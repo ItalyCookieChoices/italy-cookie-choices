@@ -112,6 +112,13 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             /**
              * 
              */
+            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_color_picker') );
+
+            // add_action( 'admin_init', array( $this, 'print_script_in_admin') );
+
+            /**
+             * 
+             */
             add_action( 'wp_footer', array( $this, 'print_script_inline'), '9' );
 
             /**
@@ -319,7 +326,16 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 array( $this, 'italy_cl_option_html_margin'), 
                 'italy_cl_options_group', 
                 'style_setting_section'
-                );
+            );
+
+            add_settings_field( 
+                'banner_bg', 
+                __( 'Banner Background color', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_banner_bg'), 
+                'italy_cl_options_group', 
+                'style_setting_section'
+            );
+
 
             /**
              * Settings sections for Advanced options
@@ -582,6 +598,26 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
         }
 
+        /**
+         * Snippet for checkbox
+         * @return strimg       Activate banner in front-end Default doesn't display
+         */
+        public function italy_cl_option_banner_bg($args) {
+
+            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
+
+        ?>
+
+            <input type="text" id="italy_cookie_choices[banner_bg]" name="italy_cookie_choices[banner_bg]" value="<?php echo esc_attr( $banner_bg ); ?>" placeholder="<?php echo esc_attr( $banner_bg ); ?>" class="color-field" data-default-color="#fff"/>
+
+
+            <label for="italy_cookie_choices[banner_bg]">
+                <?php _e( 'Custom Background color for banner', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
 
         /**
          * NUOVA SETTINGS SECTIONS PER LE OPZIONI AVANZATE
@@ -713,6 +749,11 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             if( isset( $input['html_margin'] ) )
                 $new_input['html_margin'] =  $input['html_margin'];
 
+            if( empty( $input['banner_bg'] ) )
+                $new_input['banner_bg'] =  '#fff';
+            elseif ( isset( $input['banner_bg'] ) )
+                $new_input['banner_bg'] =  sanitize_text_field( $input['banner_bg'] );
+
             /**
              * Sezione per le opzioni avanzate
              * Esempio per add_settings_error()
@@ -740,6 +781,41 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 $new_input['target'] =  $input['target'];
 
             return $new_input;
+
+        }
+
+        /**
+         * Function for color picker in admin
+         * @param  string $hook_suffix Hook for script
+         * @return               Append script
+         * @link https://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
+         * @link http://code.tutsplus.com/articles/how-to-use-wordpress-color-picker-api--wp-33067
+         */
+        public function enqueue_color_picker( $hook_suffix ) {
+
+                // first check that $hook_suffix is appropriate for your admin page
+                wp_enqueue_style( 'wp-color-picker' );
+
+                // wp_enqueue_script( 'jquery' );
+
+                wp_enqueue_script(
+                    'italy-cookie-choices-script',
+                    plugins_url('admin/js/src/script.js', ITALY_COOKIE_CHOICES_FILE ),
+                    array(
+                        // 'jquery',
+                        'wp-color-picker'
+                        ),
+                    null,
+                    true
+                    );
+
+        }
+
+        public function print_script_in_admin(){
+
+            // return '<script>jQuery(document).ready(function($){
+            //             $(".color-field").wpColorPicker();
+            //         });</script>';
 
         }
 
@@ -821,6 +897,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * @var bol
              */
             $target = ( isset( $this->options['target'] ) ) ? $this->options['target'] : '' ;
+
+            /**
+             * Colore dello sfondo della dialog/topbar
+             * @var string
+             */
+            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '' ;
             
             /**
              * Declarations of JS variables and set parameters
@@ -832,9 +914,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * var coVA = cookie val
              * var rel = Setto il reload per la pagina all'accettazione
              * var tar = Target -blank
+             * var bgB = Colore del background della topbar/dialog
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '";';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '";';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
