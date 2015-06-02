@@ -1,7 +1,7 @@
 === Italy Cookie Choices ===
-Contributors: overclokk
+Contributors: overclokk, Andrea Pernici
 Donate link: 
-Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent
+Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
 Requires at least: 4.1
 Tested up to: 4.3.0
 Stable tag: 1.2.3
@@ -9,9 +9,12 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website without degrading website performance.
+a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside posts, pages and widgets until consent.
+Plugin requirement PHP >= 5.3
 
 == Description ==
+
+The Cookie Law is one of the most stupid law in the world. Maybe made by someone, who doesn't really understand how the web works. 
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website.
@@ -58,6 +61,13 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 4. Italy Cookie Choices Dialog Box in front end
 
 == Changelog ==
+
+= 1.3.0 =
+Release Date: May 31th, 2015
+
+Dev time: 3h
+
+* Added new input for banner background color
 
 = 1.2.3 =
 Release Date: May 31th, 2015
