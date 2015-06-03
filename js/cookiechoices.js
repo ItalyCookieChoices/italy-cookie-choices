@@ -172,47 +172,6 @@
       return !document.cookie.match(new RegExp(cookieName + '=([^;]+)'));
     }
 
-    function allowCookie() {
-      var x=document.getElementsByClassName("el");
-      var patt = new RegExp("<script.*?\/script>");
-            //var patt = new RegExp("script");
-            //var resun = patt.test("<script src=\"ciao.js\"><\/script>");
-            //console.log(resun);
-            // console.log(x.length);
-            var i;
-            for (i = 0; i < x.length; i++) {
-              console.log(jsArr[i]);
-              var res = patt.test(jsArr[i]);
-              console.log(res);
-              if (res) {
-                var regex = /<script.*?src="(.*?)"/;
-                var src = regex.exec(jsArr[i])[1];
-                loadJS(src);
-                console.log(src);
-              } else {
-                x[i].removeChild(x[i].childNodes[0]);
-                var str = x[i].innerHTML;
-                // var res = str.replace(/<!--(.*?)-->/g, "$1");
-                // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
-                res = str.replace(/<cookie>/g, jsArr[i]);
-                x[i].innerHTML = res;
-              }
-
-              _saveUserPreference();
-            }
-          }
-
-          function loadJS(file) {
-                    // DOM: Create the script element
-                    var jsElm = document.createElement("script");
-                    // set the type attribute
-                    jsElm.type = "application/javascript";
-                    // make the script element load file
-                    jsElm.src = file;
-                    // finally insert the element to the body element in order to load the script
-                    document.body.appendChild(jsElm);
-                  }
-
     var exports = {};
     exports.showCookieConsentBar = showCookieConsentBar;
     exports.showCookieConsentDialog = showCookieConsentDialog;
@@ -222,3 +181,48 @@
   window.cookieChoices = cookieChoices;
   return cookieChoices;
 })(this);
+
+// function allowCookie() {
+//   var x=document.getElementsByClassName("el");
+//   var patt = new RegExp("<script.*?\/script>");
+//   //var patt = new RegExp("script");
+//   //var resun = patt.test("<script src=\"ciao.js\"><\/script>");
+//   //console.log(resun);
+//   // console.log(x.length);
+//   var i;
+//   for (i = 0; i < x.length; i++) {
+//     // console.log(jsArr[i]);
+//     var res = patt.test(jsArr[i]);
+//     // console.log(res);
+//     if (res) {
+//       var regex = /<script.*?src="(.*?)"/;
+//       var src = regex.exec(jsArr[i])[1];
+//       loadJS(src);
+//       // console.log(src);
+//     } else {
+//       x[i].removeChild(x[i].childNodes[0]);
+//       var str = x[i].innerHTML;
+//       // var res = str.replace(/<!--(.*?)-->/g, "$1");
+//       // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
+//       res = str.replace(/<cookie>/g, jsArr[i]);
+//       x[i].innerHTML = res;
+//     }
+//       var cookieName = coNA;
+//       var expiryDate = new Date();
+//       expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+//       // document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
+//       document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString() + ';path=/';
+
+//   }
+// }
+
+// function loadJS(file) {
+//   // DOM: Create the script element
+//   var jsElm = document.createElement("script");
+//   // set the type attribute
+//   jsElm.type = "application/javascript";
+//   // make the script element load file
+//   jsElm.src = file;
+//   // finally insert the element to the body element in order to load the script
+//   document.body.appendChild(jsElm);
+// }

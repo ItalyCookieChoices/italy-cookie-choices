@@ -1048,7 +1048,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             $js = '<script>
 
-                    // var jsArr = ' . wp_json_encode( $this->js_array ) . ';
+                    var jsArr = ' . wp_json_encode( $this->js_array ) . ';
 
                 // function allowCookie() {
 
@@ -1072,46 +1072,46 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 //     }
                 // }
 
-            //     function allowCookie() {
-            //         var x=document.getElementsByClassName("el");
-            //         var patt = new RegExp("<script.*?\/script>");
-            // //var patt = new RegExp("script");
-            // //var resun = patt.test("<script src=\"ciao.js\"><\/script>");
-            // //console.log(resun);
-            // // console.log(x.length);
-            //         var i;
-            //         for (i = 0; i < x.length; i++) {
-            //             console.log(jsArr[i]);
-            //             var res = patt.test(jsArr[i]);
-            //             console.log(res);
-            //             if (res) {
-            //                 var regex = /<script.*?src="(.*?)"/;
-            //                 var src = regex.exec(jsArr[i])[1];
-            //                 loadJS(src);
-            //                 console.log(src);
-            //             } else {
-            //                 x[i].removeChild(x[i].childNodes[0]);
-            //                 var str = x[i].innerHTML;
-            //     // var res = str.replace(/<!--(.*?)-->/g, "$1");
-            //     // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
-            //                 var res = str.replace(/<cookie>/g, jsArr[i]);
-            //                 x[i].innerHTML = res;
-            //             }
+                function allowCookie() {
+                    var x=document.getElementsByClassName("el");
+                    var patt = new RegExp("<script.*?\/script>");
+            //var patt = new RegExp("script");
+            //var resun = patt.test("<script src=\"ciao.js\"><\/script>");
+            //console.log(resun);
+            // console.log(x.length);
+                    var i;
+                    for (i = 0; i < x.length; i++) {
+                        console.log(jsArr[i]);
+                        var res = patt.test(jsArr[i]);
+                        console.log(res);
+                        if (res) {
+                            var regex = /<script.*?src="(.*?)"/;
+                            var src = regex.exec(jsArr[i])[1];
+                            loadJS(src);
+                            console.log(src);
+                        } else {
+                            x[i].removeChild(x[i].childNodes[0]);
+                            var str = x[i].innerHTML;
+                // var res = str.replace(/<!--(.*?)-->/g, "$1");
+                // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
+                            var res = str.replace(/<cookie>/g, jsArr[i]);
+                            x[i].innerHTML = res;
+                        }
 
-            //             var cookieName="' . esc_attr( $this->options['cookie_name'] ) . '";var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear()+1);document.cookie=cookieName+"=' . esc_attr( $this->options['cookie_value'] ) . '; expires="+expiryDate.toGMTString()+"; path=/";
-            //         }
-            //     }
+                        var cookieName="' . esc_attr( $this->options['cookie_name'] ) . '";var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear()+1);document.cookie=cookieName+"=' . esc_attr( $this->options['cookie_value'] ) . '; expires="+expiryDate.toGMTString()+"; path=/";
+                    }
+                }
 
-            //     function loadJS(file) {
-            //         // DOM: Create the script element
-            //         var jsElm = document.createElement("script");
-            //         // set the type attribute
-            //         jsElm.type = "application/javascript";
-            //         // make the script element load file
-            //         jsElm.src = file;
-            //         // finally insert the element to the body element in order to load the script
-            //         document.body.appendChild(jsElm);
-            //     }
+                function loadJS(file) {
+                    // DOM: Create the script element
+                    var jsElm = document.createElement("script");
+                    // set the type attribute
+                    jsElm.type = "application/javascript";
+                    // make the script element load file
+                    jsElm.src = file;
+                    // finally insert the element to the body element in order to load the script
+                    document.body.appendChild(jsElm);
+                }
 
             </script>';
 
