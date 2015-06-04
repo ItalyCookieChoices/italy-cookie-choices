@@ -138,6 +138,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
                 $this->options = get_option( 'italy_cookie_choices' );
 
+                add_shortcode( 'accept_button', array( $this, 'accept_button' ) );
+
                 $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : null ;
 
                 // var_dump($block);
@@ -1087,6 +1089,14 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             echo '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
             require 'js/cookiechoices.php';
             echo $banner . '</script>' . $noscript;
+
+        }
+
+        public function accept_button( $atts, $content = null ) {
+
+            $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
+
+            return '<span class="el"><button onclick="allowCookie()">' . esc_attr( $button_text ) . '</button></span>';
 
         }
 
