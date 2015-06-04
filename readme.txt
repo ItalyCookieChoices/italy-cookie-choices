@@ -22,7 +22,7 @@ Message, position and the style can be easyly modified through the plugin menu.
 
 The plugin will not add any CSS stylesheet or Javascript file but only inline script, what does not make your web site load more slowly.
 
-Notify any issue on github repository https://github.com/overclokk/italy-cookie-choices/issues
+Notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
 = Anonymize Analytics IP =
 

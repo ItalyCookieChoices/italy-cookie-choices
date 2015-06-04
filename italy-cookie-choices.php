@@ -138,6 +138,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
                 $this->options = get_option( 'italy_cookie_choices' );
 
+                $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : null ;
+
+                // var_dump($block);
+
                 if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ){
 
                     /**
@@ -145,17 +149,32 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                      */
                     add_action( 'wp_footer', array( $this, 'print_script_inline'), '9' );
 
+
+                    $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
+
+                    $text = ( isset( $this->options['text'] ) ) ? $this->options['text']    : '' ;
+
+                    $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
+
+                    $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : '' ;
+
+                    $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
+
+
+
                     /**
                      * Replacement for regex
                      * @var string
                      */
                     // $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color: #f2dede;border: 1px solid #eed3d7; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">' . esc_attr( $this->options['text'] ) . '<button onclick="allowCookie()">Try it</button></div><!-- $0 --></div>';
                     // 
-                    $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color: #f2dede;border: 1px solid #eed3d7; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">' . esc_attr( $this->options['text'] ) . '<button onclick="allowCookie()">Try it</button></div><cookie></div>';
+                    $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . esc_attr( $text ) . '<button onclick="allowCookie()">' . esc_attr( $button_text ) . '</button></div><cookie></div>';
 
-                    add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
+                    if ($block)
+                        add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
 
-                    add_filter('widget_display_callback', array( $this, 'WidgetErase' ), 11, 3);
+                    if ( $widget_block )
+                        add_filter('widget_display_callback', array( $this, 'WidgetErase' ), 11, 3);
 
                     /**
                      * Only for debug
@@ -426,6 +445,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'target', 
                 __( 'Open policy in new page', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_target'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+
+            /**
+             * 
+             */
+            add_settings_field( 
+                'block', 
+                __( 'Third part cookie block (beta)', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_block'), 
                 'italy_cl_options_group', 
                 'advanced_setting_section'
                 );
@@ -750,6 +780,32 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * Snippet for target checkbox
+         * @return strimg       Activate for open policy page in new tab 
+         *                      Default open in same tab
+         */
+        public function italy_cl_option_block($args) {
+
+            $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : '' ;
+            $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
+
+        ?>
+
+            <input type='checkbox' name='italy_cookie_choices[block]' <?php checked( $block, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[block]">
+                <?php _e( 'Cookie from any embed in your content (Beta)', 'italy-cookie-choices' ); ?>
+            </label>
+            <br>
+            <input type='checkbox' name='italy_cookie_choices[widget_block]' <?php checked( $widget_block, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[widget_block]">
+                <?php _e( 'Cookie from any embed in your widget area (Beta)', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * Sanitize data
          * @param  array $input Data to sanitize
          * @return array        Data sanitized
@@ -819,6 +875,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             if( isset( $input['target'] ) )
                 $new_input['target'] =  $input['target'];
 
+            if( isset( $input['block'] ) )
+                $new_input['block'] =  $input['block'];
+
+            if( isset( $input['widget_block'] ) )
+                $new_input['widget_block'] =  $input['widget_block'];
+
             return $new_input;
 
         }
@@ -882,42 +944,18 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             $this->matches( $this->pattern, $content );
 
-            // preg_match_all( $this->pattern, $content, $matches );
-
-            // var_dump($matches[0]);
-
-            /**
-             * Memorizzo gli embed trovati e li converto in un array JavaScript
-             * @var [type]
-             */
-            // $this->js_array = wp_json_encode( $matches[0] );
-
-            // var_dump($this->js_array);
-
-            // $i = 0;
-            // foreach ( $matches[0] as $value ){
-
-            //     $commento .= '<!--' . $value . '-->';
-
-            // }
-
-            // $nuovo_contenuto = preg_replace( $this->pattern, $this->valore , $content, -1 , $count);
-
-            // var_dump($count);
-
-            // $nuovo_contenuto = $nuovo_contenuto . $commento;
-
-/*                      return preg_replace('#<iframe.*?\/iframe>|<embed.*?>|<script.*?\/script>#is', $valore , $content);
-*/
-            // return $nuovo_contenuto;
-
-
             $content = preg_replace( $this->pattern, $this->valore , $content);
 
             
             return $content;
         }
 
+        /**
+         * Erase third part in widget area
+         * @param [type] $instance [description]
+         * @param [type] $widget   [description]
+         * @param [type] $args     [description]
+         */
         public function WidgetErase($instance, $widget, $args){
             
             $fnFixArray = function($v) use (&$fnFixArray){
@@ -1046,78 +1084,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
 
-            $js = '<script>
-
-                    var jsArr = ' . wp_json_encode( $this->js_array ) . ';
-
-                // function allowCookie() {
-
-                //     var x=document.getElementsByClassName("el");
-
-                //     var i;
-                //     for (i = 0; i < x.length; i++) {
-
-                //         // console.log(jsArr[i]);
-
-                //         x[i].removeChild(x[i].childNodes[0]);
-
-                //         var str = x[i].innerHTML;
-                //         // var res = str.replace(/<!--(.*?)-->/g, "$1");
-                //         // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
-                //         var res = str.replace(/<cookie>/g, jsArr[i]);
-                //         x[i].innerHTML = res;
-
-                //         var cookieName="' . esc_attr( $this->options['cookie_name'] ) . '";var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear()+1);document.cookie=cookieName+"=' . esc_attr( $this->options['cookie_value'] ) . '; expires="+expiryDate.toGMTString()+"; path=/";
-
-                //     }
-                // }
-
-                function allowCookie() {
-                    var x=document.getElementsByClassName("el");
-                    var patt = new RegExp("<script.*?\/script>");
-            //var patt = new RegExp("script");
-            //var resun = patt.test("<script src=\"ciao.js\"><\/script>");
-            //console.log(resun);
-            // console.log(x.length);
-                    var i;
-                    for (i = 0; i < x.length; i++) {
-                        console.log(jsArr[i]);
-                        var res = patt.test(jsArr[i]);
-                        console.log(res);
-                        if (res) {
-                            var regex = /<script.*?src="(.*?)"/;
-                            var src = regex.exec(jsArr[i])[1];
-                            loadJS(src);
-                            console.log(src);
-                        } else {
-                            x[i].removeChild(x[i].childNodes[0]);
-                            var str = x[i].innerHTML;
-                // var res = str.replace(/<!--(.*?)-->/g, "$1");
-                // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
-                            var res = str.replace(/<cookie>/g, jsArr[i]);
-                            x[i].innerHTML = res;
-                        }
-
-                        var cookieName="' . esc_attr( $this->options['cookie_name'] ) . '";var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear()+1);document.cookie=cookieName+"=' . esc_attr( $this->options['cookie_value'] ) . '; expires="+expiryDate.toGMTString()+"; path=/";
-                    }
-                }
-
-                function loadJS(file) {
-                    // DOM: Create the script element
-                    var jsElm = document.createElement("script");
-                    // set the type attribute
-                    jsElm.type = "application/javascript";
-                    // make the script element load file
-                    jsElm.src = file;
-                    // finally insert the element to the body element in order to load the script
-                    document.body.appendChild(jsElm);
-                }
-
-            </script>';
-
             echo '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
             require 'js/cookiechoices.php';
-            echo $banner . '</script>' . $js . $noscript;
+            echo $banner . '</script>' . $noscript;
 
         }
 

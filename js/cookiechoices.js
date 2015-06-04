@@ -14,6 +14,96 @@
  limitations under the License.
  */
 
+function allowCookie() {
+
+  cookieChoices.removeCookieConsent();
+
+    var x=document.getElementsByClassName("el");
+
+    // var patt = new RegExp("<script.*?\/script>");
+    var patt = new RegExp("<script.*?");
+
+    var i;
+    for (i = 0; i < x.length; i++) {
+
+        x[i].removeChild(x[i].childNodes[0]);
+
+        // console.log(jsArr[i]);
+
+        var res = patt.test(jsArr[i]);
+        // console.log(res);
+
+        if (res) {
+            // console.log(jsArr[i]);
+
+
+            var regexURL = /<script.*?src="(.*?)"/;
+
+            var URL = regexURL.test(jsArr[i]);
+
+            if (URL) {
+                URL = regexURL.exec(jsArr[i]);
+                loadJS(URL[1]);
+            }
+
+
+            var regex = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
+
+            var code = regex.exec(jsArr[i]);
+
+            if ( code[1] ) appendJS(code[1]);
+
+
+
+
+        } else {
+
+            var str = x[i].innerHTML;
+            // var res = str.replace(/<!--(.*?)-->/g, "$1");
+            // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
+            res = str.replace(/<cookie>/g, jsArr[i]);
+            x[i].innerHTML = res;
+        }
+
+    // var cookieName=coNA;var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear()+1);document.cookie=cookieName+"=; expires="+expiryDate.toGMTString()+"; path=/";
+
+    // var cookieName=coNA;var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+      // document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
+      // document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString() + ';path=/';
+
+    }
+}
+
+function loadJS(file) {
+    // DOM: Create the script element
+    var jsElm = document.createElement("script");
+    // set the type attribute
+    jsElm.type = "application/javascript";
+    // make the script element load file
+    jsElm.src = file;
+    // finally insert the element to the body element in order to load the script
+    document.body.appendChild(jsElm);
+}
+
+function appendJS(script){
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    var code = script;
+    try {
+        s.appendChild(document.createTextNode(code));
+        document.body.appendChild(s);
+    } catch (e) {
+        s.text = code;
+        document.body.appendChild(s);
+    }
+}
+
+
+
+
+
+
+
 (function(window) {
 
   if (!!window.cookieChoices) {
@@ -159,6 +249,11 @@
       }
     }
 
+    function removeCookieConsent(){
+      // _removeCookieConsent();
+      _dismissLinkClick();
+    }
+
     function _saveUserPreference() {
       // Set the cookie expiry to one year after today.
       var expiryDate = new Date();
@@ -175,54 +270,10 @@
     var exports = {};
     exports.showCookieConsentBar = showCookieConsentBar;
     exports.showCookieConsentDialog = showCookieConsentDialog;
+    exports.removeCookieConsent = removeCookieConsent;
     return exports;
   })();
 
   window.cookieChoices = cookieChoices;
   return cookieChoices;
 })(this);
-
-// function allowCookie() {
-//   var x=document.getElementsByClassName("el");
-//   var patt = new RegExp("<script.*?\/script>");
-//   //var patt = new RegExp("script");
-//   //var resun = patt.test("<script src=\"ciao.js\"><\/script>");
-//   //console.log(resun);
-//   // console.log(x.length);
-//   var i;
-//   for (i = 0; i < x.length; i++) {
-//     // console.log(jsArr[i]);
-//     var res = patt.test(jsArr[i]);
-//     // console.log(res);
-//     if (res) {
-//       var regex = /<script.*?src="(.*?)"/;
-//       var src = regex.exec(jsArr[i])[1];
-//       loadJS(src);
-//       // console.log(src);
-//     } else {
-//       x[i].removeChild(x[i].childNodes[0]);
-//       var str = x[i].innerHTML;
-//       // var res = str.replace(/<!--(.*?)-->/g, "$1");
-//       // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
-//       res = str.replace(/<cookie>/g, jsArr[i]);
-//       x[i].innerHTML = res;
-//     }
-//       var cookieName = coNA;
-//       var expiryDate = new Date();
-//       expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-//       // document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
-//       document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString() + ';path=/';
-
-//   }
-// }
-
-// function loadJS(file) {
-//   // DOM: Create the script element
-//   var jsElm = document.createElement("script");
-//   // set the type attribute
-//   jsElm.type = "application/javascript";
-//   // make the script element load file
-//   jsElm.src = file;
-//   // finally insert the element to the body element in order to load the script
-//   document.body.appendChild(jsElm);
-// }
