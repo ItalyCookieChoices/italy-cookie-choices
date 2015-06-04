@@ -123,43 +123,59 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             add_action( 'admin_menu', array( $this, 'addMenuPage') );
 
             /**
-             * 
+             * Init settings
              */
             add_action( 'admin_init', array( $this, 'italy_cl_settings_init') );
 
             /**
-             * 
+             * Add color picker in admin menù
              */
             add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_color_picker') );
-
-            // add_action( 'admin_init', array( $this, 'print_script_in_admin') );
 
             if ( !is_admin() ) {
 
                 $this->options = get_option( 'italy_cookie_choices' );
 
+                /**
+                 * Shortcode to put a button in policy page
+                 */
                 add_shortcode( 'accept_button', array( $this, 'accept_button' ) );
-
-                $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : null ;
-
-                // var_dump($block);
 
                 if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ){
 
                     /**
-                     * 
+                     * Function for print cookiechoiches inline
                      */
                     add_action( 'wp_footer', array( $this, 'print_script_inline'), '9' );
 
-
+                    /**
+                     * Background color for banner
+                     * @var string
+                     */
                     $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
 
+                    /**
+                     * Text for banner
+                     * @var string
+                     */
                     $text = ( isset( $this->options['text'] ) ) ? $this->options['text']    : '' ;
 
+                    /**
+                     * Text for buttom
+                     * @var [type]
+                     */
                     $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
 
+                    /**
+                     * Checkbox for third part cookie in content
+                     * @var bol
+                     */
                     $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : '' ;
 
+                    /**
+                     * Checkbox for third part cookie in widget
+                     * @var bol
+                     */
                     $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
 
 
@@ -269,7 +285,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 add_option( 'italy_cookie_choices', $this->default_options );
 
             /**
-             * 
+             * Section options page
              */
             add_settings_section(
                 'setting_section', 
@@ -324,7 +340,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * Input for short policy text
              */
             add_settings_field( 
                 'text', 
@@ -335,7 +351,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * Input for url policy page
              */
             add_settings_field( 
                 'url', 
@@ -346,7 +362,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * Input for anchor text
              */
             add_settings_field( 
                 'anchor_text', 
@@ -357,7 +373,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * Input for button text
              */
             add_settings_field( 
                 'button_text', 
@@ -388,6 +404,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'style_setting_section'
             );
 
+            /**
+             * Background color for banner
+             */
             add_settings_field( 
                 'banner_bg', 
                 __( 'Banner Background color', 'italy-cookie-choices' ), 
@@ -408,7 +427,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             );
 
             /**
-             * 
+             * cookie name
              */
             add_settings_field( 
                 'cookie_name', 
@@ -419,7 +438,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * cookie value
              */
             add_settings_field( 
                 'cookie_value', 
@@ -430,7 +449,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * Cookie policy page slug
              */
             add_settings_field( 
                 'slug', 
@@ -441,7 +460,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * Checkbox for activation
+             * Checkbox for open in new page
              */
             add_settings_field( 
                 'target', 
@@ -452,7 +471,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * Checkbox for activation third part cookie eraser
              */
             add_settings_field( 
                 'block', 
@@ -463,7 +482,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
-             * 
+             * Register setting
              */
             register_setting(
                 'italy_cl_options_group',
@@ -914,14 +933,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
         }
 
-        public function print_script_in_admin(){
-
-            // return '<script>jQuery(document).ready(function($){
-            //             $(".color-field").wpColorPicker();
-            //         });</script>';
-
-        }
-
+        /**
+         * Function for matching embed
+         * @param  string $pattern Pattern
+         * @param  string $content Content
+         * @return array          Array with embed found
+         */
         public function matches( $pattern, $content ){
 
             preg_match_all( $this->pattern, $content, $matches );
@@ -930,11 +947,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * Memorizzo gli embed trovati e li appendo all'array $js_array
              * @var [type]
              */
-            if ( !empty( $matches[0] ) ) {
-
+            if ( !empty( $matches[0] ) )
                 $this->js_array = array_merge( $this->js_array, $matches[0] );
-
-            }
 
         }
 
@@ -1048,7 +1062,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             $style = '<style>.icc{margin-top:36px}</style>';
             
             /**
-             * If is set hmll_margin checkbox in admin panel then add margin-top to HTML tag
+             * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
              * @var bol
              */
             $htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
@@ -1092,6 +1106,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
         }
 
+        /**
+         * Shortcode per stampare il bottone nella pagina della policy
+         * @param  array $atts    Array con gli attributi dello shortcode
+         * @param  string $content content of shortcode
+         * @return string          Button per l'accettazione
+         */
         public function accept_button( $atts, $content = null ) {
 
             $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
