@@ -74,6 +74,7 @@ Dev time: 60h
 
 * Merged Third part cookie eraser and Italy Cookie Choices
 * Added new input for banner background color and text color
+* Added input for text and button in embed block content and widget
 * Added shortcode button for policy page [accept_button]
 
 = 1.2.3 =
