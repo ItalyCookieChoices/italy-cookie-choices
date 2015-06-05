@@ -126,19 +126,31 @@ function appendJS(script){
 
       if( htmlM ) html.className += ' icc';
 
-      var butterBarStyles = 'position:' + elPos + ';width:100%;background-color:' + bgB + ';' +
-          'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:center;';
+      var butterBarStyles = 'color:'+ btcB +';position:' + elPos + ';width:100%;background-color:' + bgB + ';' +
+          'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:left;';
+  
+  // Aggiungo contenitore esterno per migliorare il layout
+      var contenitore = document.createElement('div');
+      var contenutoContenitoreStyle =  'max-width:980px;margin-right:auto;margin-left:auto;padding:15px;';
+      contenitore.id = cookieConsentId;
+      contenitore.style.cssText = butterBarStyles;
 
       var cookieConsentElement = document.createElement('div');
-      cookieConsentElement.id = cookieConsentId;
-      cookieConsentElement.style.cssText = butterBarStyles;
+      //cookieConsentElement.id = cookieConsentId;
+      cookieConsentElement.style.cssText = contenutoContenitoreStyle;
       cookieConsentElement.appendChild(_createConsentText(cookieText));
+  cookieConsentElement.appendChild(_createSpace());
 
       if (!!linkText && !!linkHref) {
         cookieConsentElement.appendChild(_createInformationLink(linkText, linkHref));
       }
       cookieConsentElement.appendChild(_createDismissLink(dismissText));
-      return cookieConsentElement;
+      
+      // Inglobo contenuto in contenitore.
+      contenitore.appendChild(cookieConsentElement);
+
+      return contenitore;
+      //return cookieConsentElement;
     }
 
     function _createDialogElement(cookieText, dismissText, linkText, linkHref) {
@@ -185,6 +197,13 @@ function appendJS(script){
       }
     }
 
+    function _createSpace(){
+      var hrStyle='clear:both;border-color:transparent;margin-top:5px;margin-bottom:5px';
+  var hr = document.createElement("hr");
+  hr.style.cssText = hrStyle;
+  return hr;
+    }
+    
     function _createConsentText(cookieText) {
       var consentText = document.createElement('span');
       _setElementText(consentText, cookieText);
@@ -192,22 +211,29 @@ function appendJS(script){
     }
 
     function _createDismissLink(dismissText) {
+      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.125em;' +
+      'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);'
+      
       var dismissLink = document.createElement('a');
       _setElementText(dismissLink, dismissText);
       dismissLink.id = dismissLinkId;
       dismissLink.className = closeClass;
       dismissLink.href = '#';
-      dismissLink.style.marginLeft = '24px';
+      //dismissLink.style.marginLeft = '24px';
+      dismissLink.style.cssText = buttonStyle;
       return dismissLink;
     }
 
     function _createInformationLink(linkText, linkHref) {
+      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin-right: 20px;margin-bottom:2px;letter-spacing: 0.125em;' +
+      'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
+  
       var infoLink = document.createElement('a');
       _setElementText(infoLink, linkText);
       infoLink.className = infoClass;
       infoLink.href = linkHref;
       if (tar) infoLink.target = '_blank';
-      infoLink.style.marginLeft = '8px';
+      infoLink.style.cssText = buttonStyle;
       return infoLink;
     }
 

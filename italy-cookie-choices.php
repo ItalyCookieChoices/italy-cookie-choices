@@ -155,6 +155,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                     $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
 
                     /**
+                     * Color for text
+                     * @var string
+                     */
+                    $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '' ;
+
+                    /**
                      * Text for banner
                      * @var string
                      */
@@ -178,7 +184,18 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                      */
                     $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
 
+                    /**
+                     * Text to put inside locked post and widget contents
+                     * including the button text
+                     * @var string
+                     */
+                    $content_message_text = ( isset( $this->options['content_message_text'] ) ) ? $this->options['content_message_text']    : '' ;
 
+                    /**
+                     * Text for button in locked content and widget
+                     * @var string
+                     */
+                    $content_message_button_text = ( isset( $this->options['content_message_button_text'] ) ) ? $this->options['content_message_button_text'] : '' ;
 
                     /**
                      * Replacement for regex
@@ -186,7 +203,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                      */
                     // $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color: #f2dede;border: 1px solid #eed3d7; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">' . esc_attr( $this->options['text'] ) . '<button onclick="allowCookie()">Try it</button></div><!-- $0 --></div>';
                     // 
-                    $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . esc_attr( $text ) . '<button onclick="allowCookie()">' . esc_attr( $button_text ) . '</button></div><cookie></div>';
+                    $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:'.esc_attr( $banner_text_color ).';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . esc_attr( $content_message_text ) . '&nbsp;&nbsp;<button onclick="allowCookie()" style="color: '.esc_attr( $banner_text_color ).';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . esc_attr( $content_message_button_text ) . '</button></div><cookie></div>';
 
                     if ($block)
                         add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
@@ -263,18 +280,20 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $this->default_options = array(
 
-                'text'          => '',
-                'url'           => '',
-                'anchor_text'   => '',
-                'button_text'   => '',
-                'cookie_name'   => $this->cookieName,
-                'cookie_value'   => $this->cookieVal
+                'text'                          => '',
+                'url'                           => '',
+                'anchor_text'                   => '',
+                'button_text'                   => '',
+                'cookie_name'                   => $this->cookieName,
+                'cookie_value'                  => $this->cookieVal,
+                'content_message_text'          => '',
+                'content_message_button_text'   => ''
 
                 );
 
             /**
-             * [$this->options description]
-             * @var [type]
+             * All options in array
+             * @var array
              */
             $this->options = get_option( 'italy_cookie_choices' );
 
@@ -415,6 +434,16 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'style_setting_section'
             );
 
+            /**
+             * Color for text in banner
+             */
+            add_settings_field( 
+                'banner_text_color', 
+                __( 'Banner text color', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_banner_text_color'), 
+                'italy_cl_options_group', 
+                'style_setting_section'
+            );
 
             /**
              * Settings sections for Advanced options
@@ -482,6 +511,28 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
+             * Function for content message text
+             */
+            add_settings_field( 
+                'content_message_text', 
+                __( 'Text message for locked embedded content', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_content_message_text'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+        
+            /**
+             * Function for button text in message
+             */
+            add_settings_field( 
+                'content_message_button_text', 
+                __( 'Button text to activate locked embedded content', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_content_message_button_text'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+
+            /**
              * Register setting
              */
             register_setting(
@@ -495,8 +546,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
 
         /**
-         * [italy_cl_settings_section_callback description]
-         * @return [type] [description]
+         * Display message in plugin control panel
+         * @return string Return message
          */
         public function italy_cl_settings_section_callback() { 
 
@@ -656,12 +707,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
-         * NUOVA SETTINGS SECTIONS PER LO STIILE
+         * NUOVA SETTINGS SECTIONS PER LO STILE
          */
 
         /**
-         * [italy_cl_settings_section_callback description]
-         * @return [type] [description]
+         * Display message in stile plugin panel
+         * @return string
          */
         public function italy_cl_style_settings_section_callback() { 
 
@@ -710,12 +761,32 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * Snippet for banner text color
+         * @return strimg       Activate banner in front-end Default doesn't display
+         */
+        public function italy_cl_option_banner_text_color($args) {
+
+            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '' ;
+
+        ?>
+
+            <input type="text" id="italy_cookie_choices[banner_text_color]" name="italy_cookie_choices[banner_text_color]" value="<?php echo esc_attr( $banner_text_color ); ?>" placeholder="<?php echo esc_attr( $banner_text_color ); ?>" class="color-field" data-default-color="#000"/>
+
+            <label for="italy_cookie_choices[banner_text_color]">
+                <?php _e( 'Custom text color for banner', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * NUOVA SETTINGS SECTIONS PER LE OPZIONI AVANZATE
          */
 
         /**
-         * [italy_cl_settings_section_callback description]
-         * @return [type] [description]
+         * Display message in plugin advanced setting section
+         * @return string
          */
         public function italy_cl_advanced_settings_section_callback() { 
 
@@ -827,6 +898,40 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * Textarea for content_message_text
+         * @return string
+         */
+        public function italy_cl_option_content_message_text($args) {
+
+        ?>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[content_message_text]" id="italy_cookie_choices[content_message_text]" placeholder="<?php _e( 'Your lock message for embedded contents inside posts, pages and widgets', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['content_message_text'] ); ?></textarea>
+            <br>
+            <label for="italy_cookie_choices[content_message_text]">
+                <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
+         * Input for content_message_button_text
+         * @return string
+         */
+        public function italy_cl_option_content_message_button_text($args) {
+
+        ?>
+            <input type="text" id="italy_cookie_choices[content_message_button_text]" name="italy_cookie_choices[content_message_button_text]" value="<?php echo esc_attr( $this->options['content_message_button_text'] ); ?>" placeholder="<?php _e( 'e.g. Close', 'italy-cookie-choices' ) ?>" />
+
+            <label for="italy_cookie_choices[content_message_button_text]">
+                <?php echo __( 'Insert here name of button (e.g. "Close") ', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * Sanitize data
          * @param  array $input Data to sanitize
          * @return array        Data sanitized
@@ -870,6 +975,11 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             elseif ( isset( $input['banner_bg'] ) )
                 $new_input['banner_bg'] =  sanitize_text_field( $input['banner_bg'] );
 
+            if( empty( $input['banner_text_color'] ) )
+                $new_input['banner_text_color'] =  '#000';
+            elseif ( isset( $input['banner_text_color'] ) )
+                $new_input['banner_text_color'] =  sanitize_text_field( $input['banner_text_color'] );
+
             /**
              * Sezione per le opzioni avanzate
              * Esempio per add_settings_error()
@@ -901,6 +1011,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             if( isset( $input['widget_block'] ) )
                 $new_input['widget_block'] =  $input['widget_block'];
+
+            if( isset( $input['content_message_text'] ) )
+                $new_input['content_message_text'] =  $input['content_message_text'];
+        
+            if( isset( $input['content_message_button_text'] ) )
+                $new_input['content_message_button_text'] =  $input['content_message_button_text'];
 
             return $new_input;
 
@@ -1078,7 +1194,13 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * @var string
              */
             $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '' ;
-            
+
+            /**
+             * Colore del font della dialog/topbar
+             * @var string
+             */
+            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '' ;
+
             /**
              * Declarations of JS variables and set parameters
              * var elPos = Gestisce la Posizione banner nella funzione _createHeaderElement
@@ -1090,9 +1212,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * var rel = Setto il reload per la pagina all'accettazione
              * var tar = Target -blank
              * var bgB = Colore del background della topbar/dialog
+             * var btcB = Colore del font della topbar/dialog
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",jsArr = ' . wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",jsArr = ' . wp_json_encode( $this->js_array ) . ';';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
