@@ -412,6 +412,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'italy_cl_options_group'
             );
 
+ /**
+             * Select box for js_template selection
+             */
+            add_settings_field( 
+                'js_template', 
+                __( 'CookieChoices Template', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_js_template'), 
+                'italy_cl_options_group', 
+                'style_setting_section'
+            );
+	    
             /**
              * Checkbox for activation
              */
@@ -586,7 +597,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             <input name="italy_cookie_choices[banner]" type="radio" value="1" id="radio_1" <?php checked( '1', $banner ); ?> />
 
             <label for="radio_1">
-                <?php _e( 'Top Bar (Default, Display a top bar wth your message)', 'italy-cookie-choices' ); ?>
+                <?php _e( 'Top Bar (Default, Display a top bar with your message)', 'italy-cookie-choices' ); ?>
             </label>
 
             <br>
@@ -596,6 +607,16 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             <label for="radio_2">
                 <?php _e( 'Dialog (Display an overlay with your message)', 'italy-cookie-choices' ); ?>
             </label>
+	    
+	    <br>
+	    
+	<input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
+
+            <label for="radio_3">
+                <?php _e( 'Bottom Bar (Display a bar in the footer with your message)', 'italy-cookie-choices' ); ?>
+            </label>
+
+            
 
         <?php
 
@@ -733,6 +754,29 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             <input type='checkbox' name='italy_cookie_choices[html_margin]' <?php checked( $html_margin, 1 ); ?> value='1'>
             <label for="italy_cookie_choices[html_margin]">
                 <?php _e( 'Add a page top margin for info top bar', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+	
+	/**
+         * Snippet for select
+         * @return strimg       Chose the JS_Template to use.
+         */
+        public function italy_cl_option_js_template($args) {
+
+            $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : '' ;
+
+        ?>
+	<select  name='italy_cookie_choices[js_template]'>
+	  <option value="default" <?php if ($js_template=='default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
+	  <option value="bigbutton" <?php if ($js_template=='bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
+	  <option value="smallbutton" <?php if ($js_template=='smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
+	  <!--<option value="custom" <?php if ($js_template=='default') echo 'selected';?>>Custom CSS</option>-->
+	</select>
+            <label for="italy_cookie_choices[js_template]">
+                <?php _e( 'Select the template to use', 'italy-cookie-choices' ); ?>
             </label>
 
         <?php
@@ -969,7 +1013,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             if( isset( $input['html_margin'] ) )
                 $new_input['html_margin'] =  $input['html_margin'];
-
+		
+            if( isset( $input['js_template'] ) )
+                $new_input['js_template'] =  $input['js_template'];
+		
             if( empty( $input['banner_bg'] ) )
                 $new_input['banner_bg'] =  '#fff';
             elseif ( isset( $input['banner_bg'] ) )
@@ -1128,13 +1175,21 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             /**
              * Select what kind of banner to display
              */
-            if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) )
-                $banner = 'Bar';
-            elseif ( $this->options['banner'] === '2' )
+        if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) ) 
+	{
+                $banner = 'Bar'; 
+		$bPos = 'top:0';
+	} elseif ( $this->options['banner'] === '2' ) 
+	{
                 $banner = 'Dialog';
-            else
+		$bPos = 'top:0';
+	}
+	elseif ( $this->options['banner'] === '3' ) {
+                $banner = 'Bar'; 
+		$bPos = 'bottom:0';
+	} else {
                 $banner = '';
-
+	}
             /**
              * Accept on scroll
              * @var bol
@@ -1177,6 +1232,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $style = '<style>.icc{margin-top:36px}</style>';
             
+	     /**
+             * Js_Template vlue
+             * @var string
+             */
+            $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
+	    
             /**
              * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
              * @var bol
@@ -1215,7 +1276,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * var btcB = Colore del font della topbar/dialog
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",jsArr = ' . wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",jsArr = ' . wp_json_encode( $this->js_array ) . ';';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
@@ -1225,9 +1286,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             echo '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
             if (WP_DEBUG)
-                require 'js/cookiechoices.js';
+                require 'js/'.$js_template.'/cookiechoices.js';
             else
-                require 'js/cookiechoices.php';
+                require 'js/'.$js_template.'/cookiechoices.php';
             echo $banner . '</script>' . $noscript;
 
         }
