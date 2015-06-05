@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-
+// console.log(jsArr);
 function allowCookie() {
 
     var x=document.getElementsByClassName("el");
@@ -26,7 +26,7 @@ function allowCookie() {
 
         x[i].removeChild(x[i].childNodes[0]);
 
-        // console.log(jsArr[i]);
+        console.log(jsArr[i]);
 
         var res = patt.test(jsArr[i]);
         // console.log(res);
