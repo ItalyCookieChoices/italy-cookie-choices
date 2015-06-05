@@ -1189,6 +1189,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 		$bPos = 'bottom:0';
 	} else {
                 $banner = '';
+		$bPos = 'top:0';
 	}
             /**
              * Accept on scroll
