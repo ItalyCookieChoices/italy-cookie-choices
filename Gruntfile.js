@@ -196,10 +196,10 @@ module.exports = function(grunt) {
 
         "github-release": { // https://github.com/dolbyzerr/grunt-github-releaser
             options: {
-                repository: 'overclokk/italy-cookie-choices', // Path to repository
+                repository: 'ItalyCookieChoices/italy-cookie-choices', // Path to repository
                 release: {
                     name: '<%= pkg.name %> <%= pkg.version %>',
-                    body: '## New release of <%= pkg.name %> <%= pkg.version %> \nSee the **[changelog](https://github.com/overclokk/italy-cookie-choices#changelog)**',
+                    body: '## New release of <%= pkg.name %> <%= pkg.version %> \nSee the **[changelog](https://github.com/ItalyCookieChoices/italy-cookie-choices#changelog)**',
                 }
             },
             files: {
