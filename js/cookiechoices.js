@@ -16,7 +16,7 @@
 
 function allowCookie() {
 
-  cookieChoices.removeCookieConsent();
+  // cookieChoices.removeCookieConsent();
 
     var x=document.getElementsByClassName("el");
 
@@ -211,8 +211,7 @@ function appendJS(script){
     }
 
     function _createDismissLink(dismissText) {
-      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.125em;' +
-      'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);'
+      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.125em;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
       
       var dismissLink = document.createElement('a');
       _setElementText(dismissLink, dismissText);
@@ -239,6 +238,7 @@ function appendJS(script){
 
     function _dismissLinkClick() {
      if ( htmlM ) html.classList.remove("icc");
+      allowCookie();
       _saveUserPreference();
       _removeCookieConsent();
       if ( rel ) document.location.reload();
