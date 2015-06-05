@@ -16,8 +16,6 @@
 
 function allowCookie() {
 
-  // cookieChoices.removeCookieConsent();
-
     var x=document.getElementsByClassName("el");
 
     // var patt = new RegExp("<script.*?\/script>");
@@ -36,7 +34,6 @@ function allowCookie() {
         if (res) {
             // console.log(jsArr[i]);
 
-
             var regexURL = /<script.*?src="(.*?)"/;
 
             var URL = regexURL.test(jsArr[i]);
@@ -46,15 +43,11 @@ function allowCookie() {
                 loadJS(URL[1]);
             }
 
-
             var regex = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
 
             var code = regex.exec(jsArr[i]);
 
             if ( code[1] ) appendJS(code[1]);
-
-
-
 
         } else {
 
@@ -247,7 +240,7 @@ function appendJS(script){
 
     function _showCookieConsent(cookieText, dismissText, linkText, linkHref, isDialog) {
       if (_shouldDisplayConsent()) {
-        _removeCookieConsent();
+        // _removeCookieConsent();
         var consentElement = (isDialog) ?
             _createDialogElement(cookieText, dismissText, linkText, linkHref) :
             _createHeaderElement(cookieText, dismissText, linkText, linkHref);
@@ -256,8 +249,9 @@ function appendJS(script){
         document.body.appendChild(fragment.cloneNode(true));
         document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
         // document.onclick = _dismissLinkClick;
-        if (scroll && _shouldDisplayConsent()) document.onscroll = _dismissLinkClick;
+        // if (scroll) document.onscroll = _dismissLinkClick;
       }
+      if (scroll) document.onscroll = _dismissLinkClick;
     }
 
     function showCookieConsentBar(cookieText, dismissText, linkText, linkHref) {
@@ -275,8 +269,11 @@ function appendJS(script){
       }
     }
 
+    /**
+     * Funzione creata per poter essere usata onclick sul bottone
+     * @return {null} Elimina il banner e crea il cookie al click
+     */
     function removeCookieConsent(){
-      // _removeCookieConsent();
       _dismissLinkClick();
     }
 

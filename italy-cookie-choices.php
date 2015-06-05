@@ -1224,7 +1224,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
 
             echo '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
-            require 'js/cookiechoices.php';
+            if (WP_DEBUG)
+                require 'js/cookiechoices.js';
+            else
+                require 'js/cookiechoices.php';
             echo $banner . '</script>' . $noscript;
 
         }
