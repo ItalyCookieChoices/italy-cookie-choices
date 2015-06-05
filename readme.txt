@@ -62,13 +62,13 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 == Changelog ==
 
-= 1.3.0 =
-Release Date: May 31th, 2015
+= 2.0.0 =
+Release Date: June 5th, 2015
 
-Dev time: 40h
+Dev time: 60h
 
 * Merged Third part cookie eraser and Italy Cookie Choices
-* Added new input for banner background color
+* Added new input for banner background color and text color
 * Added shortcode button for policy page [accept_button]
 
 = 1.2.3 =
