@@ -98,12 +98,6 @@ function appendJS(script){
     }
 }
 
-
-
-
-
-
-
 (function(window) {
 
   if (!!window.cookieChoices) {
@@ -169,16 +163,22 @@ function appendJS(script){
 
       var content = document.createElement('div');
       content.style.cssText = contentStyle;
-
+      
+  
+      
+      
       var dialog = document.createElement('div');
       dialog.style.cssText = dialogStyle;
 
       var dismissLink = _createDismissLink(dismissText);
-      dismissLink.style.display = 'block';
-      dismissLink.style.textAlign = 'right';
-      dismissLink.style.marginTop = '8px';
+      //dismissLink.style.display = 'block';
+      //dismissLink.style.textAlign = 'right';
+      //dismissLink.style.marginTop = '8px';
 
       content.appendChild(_createConsentText(cookieText));
+      
+      content.appendChild(_createSpace());
+      
       if (!!linkText && !!linkHref) {
         content.appendChild(_createInformationLink(linkText, linkHref));
       }
