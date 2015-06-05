@@ -17,10 +17,10 @@ Plugin requirement PHP >= 5.3
 The Cookie Law is one of the most stupid law in the world. Maybe made by someone, who doesn't really understand how the web works. 
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website.
-Message, position and the style can be easyly modified through the plugin menu. 
+a notice to the user only the very first time he visits your website.
+Message, position and the style can be easily modified through the plugin menu. 
 
-The plugin will not add any CSS stylesheet or Javascript file but only inline script, what does not make your web site load more slowly.
+The plugin will not add any CSS stylesheet or Javascript file but only inline script, so it doesn't make your website slower.
 
 Notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
@@ -38,7 +38,7 @@ Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](ht
 
 = How does it work? =
 
-When a user visit your site, the plugin will check if this user has been already there, checking for a cookie that the plugin self creates (it is just a session cookie, so it is not against the law). If the user has not this cookie, a message will be shown (you can configure where, how and what will be show). If the users keeps surfing in your web, now or withing the next month, it means that he accepted the use of cookies in your website, so this message
+When a user visit your site, the plugin will check if this user has been already there, checking for a cookie that the plugin self creates (it is just a session cookie, so it is not against the law). If the user has not this cookie, a message will be shown (you can configure where, how and what will be show). If the users keeps surfing in your website, now or withing the next month, it means that he accepted the use of cookies in your website, so this message
 will not be shown again.
 
 = Why am I not seeing the message? =
