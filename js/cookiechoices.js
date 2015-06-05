@@ -256,7 +256,7 @@ function appendJS(script){
         document.body.appendChild(fragment.cloneNode(true));
         document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
         // document.onclick = _dismissLinkClick;
-        if (scroll) document.onscroll = _dismissLinkClick;
+        if (scroll && _shouldDisplayConsent()) document.onscroll = _dismissLinkClick;
       }
     }
 
