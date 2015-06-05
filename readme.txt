@@ -10,15 +10,14 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside posts, pages and widgets until consent.
-Plugin requirement PHP >= 5.3
+Plugin requirement PHP >= 5.3 and WordPress >= 4.1
 
 == Description ==
 
 The Cookie Law is one of the most stupid law in the world. Maybe made by someone, who doesn't really understand how the web works. 
 
-Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time he visits your website.
-Message, position and the style can be easily modified through the plugin menu. 
+Italy Cookie Choices allows you to easily comply with the european cookie law (and Italian too), showing a notice to the user only the very first time he visits your website.
+Message, position and the style can be easily modified through the plugin menu.
 
 The plugin will not add any CSS stylesheet or Javascript file but only inline script, so it doesn't make your website slower.
 
@@ -27,6 +26,10 @@ Notify any issue on github repository https://github.com/ItalyCookieChoices/ital
 = Anonymize Analytics IP =
 
 Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
+
+= Developer =
+(Enea Overclokk)[http://www.overclokk.net/]
+(Andrea Pernici)[https://www.andreapernici.com/]
 
 == Installation ==
 
@@ -56,9 +59,11 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 == Screenshots ==
 
 1. Italy Cookie Choices Options Menu
-2. Italy Cookie Choices top bar in front end
+2. Italy Cookie Choices top bar and embed block in front end
 3. Italy Cookie Choices Options for Dialog box
 4. Italy Cookie Choices Dialog Box in front end
+5. Italy Cookie Choices Widget area
+6. Italy Cookie Choices Content area
 
 == Changelog ==
 
