@@ -154,6 +154,9 @@ Dev time: 50h
 
 == Upgrade Notice ==
 
+= 2.0.0 =
+New: Third part cookie eraser
+
 = 1.0.0 =
 First release.
 
