@@ -240,7 +240,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
                         add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
                     }
-                    if( $custom_script_block !='' ) {
+                    if( $custom_script_block !== '' ) {
                         add_action('wp_init', array( $this, 'bufferHeadStart' ), 2);
                         add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
                         add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
