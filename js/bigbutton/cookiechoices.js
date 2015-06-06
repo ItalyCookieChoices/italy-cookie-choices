@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-// console.log(jsArr);
+
 function allowCookie() {
 
     var x=document.getElementsByClassName("el");
@@ -26,7 +26,7 @@ function allowCookie() {
 
         x[i].removeChild(x[i].childNodes[0]);
 
-        console.log(jsArr[i]);
+        // console.log(jsArr[i]);
 
         var res = patt.test(jsArr[i]);
         // console.log(res);
@@ -114,7 +114,7 @@ function appendJS(script){
       if( htmlM ) html.className += ' icc';
 
       var butterBarStyles = 'color:'+ btcB +';position:' + elPos + ';width:100%;background-color:' + bgB + ';' +
-          'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:left;';
+          'margin:0; left:0;'+bPos+';padding:4px;z-index:9999;text-align:left;';
   
   // Aggiungo contenitore esterno per migliorare il layout
       var contenitore = document.createElement('div');
