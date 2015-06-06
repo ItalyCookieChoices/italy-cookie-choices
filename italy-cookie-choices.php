@@ -1443,10 +1443,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
 
-            // if($output)
+            if($output)
                 echo $output_html;
-            // else
-                // return $output_html;
+            else
+                return $output_html;
 // >>>>>>> origin/Dev-2
 
         }
