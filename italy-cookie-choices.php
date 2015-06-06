@@ -266,8 +266,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 $custom_script_block = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block );
                 $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
                 foreach($custom_script_block_array AS $single_script) {
-                    $this->matches( '/'.trim($single_script).'/is', $buffer );
-                    $buffer = str_replace(trim($single_script), "<!-- removed from Italy Cookie Choices Plugin -->", $buffer);
+                    $count_replace = 0;
+                    $buffer = str_replace(trim($single_script), "<!-- removed from Italy Cookie Choices Plugin -->", $buffer, $count_replace);
+                    if($count_replace>0)
+                        $this->js_array[] = trim($single_script);
                 }
                 return $buffer;
             }
