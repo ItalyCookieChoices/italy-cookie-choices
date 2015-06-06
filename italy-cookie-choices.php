@@ -236,6 +236,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         add_filter( 'widget_display_callback', array( $this, 'WidgetErase' ), 11, 3 );
 
                     if ( $all_block ) {
+                        var_dump('expression');
                         //add_action('wp_footer', array( $this, 'catchBody' ), -1000000);
                         add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
                         add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
@@ -1426,14 +1427,6 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
 
-// <<<<<<< HEAD
-            // echo '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
-            // if (WP_DEBUG)
-            //     require 'js/'.$js_template.'/cookiechoices.js';
-            // else
-            //     require 'js/'.$js_template.'/cookiechoices.php';
-            // echo $banner . '</script>' . $noscript;
-// =======
             /**
              * Select wich file to use in debug mode
              * @var string
@@ -1442,12 +1435,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
-
-            if($output)
-                echo $output_html;
-            else
-                return $output_html;
-// >>>>>>> origin/Dev-2
+            echo $output_html;
 
         }
 
