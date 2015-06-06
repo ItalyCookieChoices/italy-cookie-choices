@@ -191,6 +191,30 @@ module.exports = function(grunt) {
                         filter: 'isFile',
                     },
                 ]
+            },
+            backup: {
+                options: {
+                    archive: '../<%= pkg.name %> <%= pkg.version %>backup.zip' // Create zip file in theme directory
+                },
+                files: [
+                    {
+                        src: [
+                            '**' ,
+                            '!.git/**',
+                            '!.sass-cache/**',
+                            '!bower_components/**',
+                            '!node_modules/**',
+                            '!.gitattributes',
+                            '!.gitignore',
+                            // '!bower.json',
+                            // '!Gruntfile.js',
+                            // '!package.json',
+                            '!*.zip'], // What should be included in the zip
+                        dest: '<%= pkg.name %>/',        // Where the zipfile should go
+                        // dest: 'italystrap/',        // Where the zipfile should go
+                        filter: 'isFile',
+                    },
+                ]
             }
         },
 
