@@ -143,6 +143,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
                 if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ){
 
+                    // W3TC Disable Caching
+                    if ( !defined( 'DONOTCACHEPAGE' ) )
+                        define('DONOTCACHEPAGE', true);
+                    if ( !defined( 'SID' ) )
+                        define('SID', true);
+
                     /**
                      * Function for print cookiechoiches inline
                      */
