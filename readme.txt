@@ -1,5 +1,5 @@
 === Italy Cookie Choices ===
-Contributors: overclokk, Andrea Pernici
+Contributors: overclokk, andreapernici
 Donate link: 
 Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
 Requires at least: 4.1
@@ -153,6 +153,9 @@ Dev time: 50h
 * First release.
 
 == Upgrade Notice ==
+
+= 2.0.0 =
+New: Third part cookie eraser
 
 = 1.0.0 =
 First release.
