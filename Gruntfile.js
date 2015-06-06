@@ -386,7 +386,7 @@ module.exports = function(grunt) {
                                 'gitcommit:version',
                                 'gitpush',
                                 'prompt',
-                                'compress',
+                                'compress:main',
                                 'github-release',
                                 'copy',
                                 'gitcheckout:mastertodev',
