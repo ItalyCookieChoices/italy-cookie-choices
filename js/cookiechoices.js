@@ -14,6 +14,90 @@
  limitations under the License.
  */
 
+function allowCookie() {
+
+  cookieChoices.removeCookieConsent();
+
+    var x=document.getElementsByClassName("el");
+
+    // var patt = new RegExp("<script.*?\/script>");
+    var patt = new RegExp("<script.*?");
+
+    var i;
+    for (i = 0; i < x.length; i++) {
+
+        x[i].removeChild(x[i].childNodes[0]);
+
+        // console.log(jsArr[i]);
+
+        var res = patt.test(jsArr[i]);
+        // console.log(res);
+
+        if (res) {
+            // console.log(jsArr[i]);
+
+
+            var regexURL = /<script.*?src="(.*?)"/;
+
+            var URL = regexURL.test(jsArr[i]);
+
+            if (URL) {
+                URL = regexURL.exec(jsArr[i]);
+                loadJS(URL[1]);
+            }
+
+
+            var regex = /<script\b[^>]*>([\s\S]*?)<\/script>/gm;
+
+            var code = regex.exec(jsArr[i]);
+
+            if ( code[1] ) appendJS(code[1]);
+
+
+
+
+        } else {
+
+            var str = x[i].innerHTML;
+            // var res = str.replace(/<!--(.*?)-->/g, "$1");
+            // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
+            res = str.replace(/<cookie>/g, jsArr[i]);
+            x[i].innerHTML = res;
+        }
+
+    // var cookieName=coNA;var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear()+1);document.cookie=cookieName+"=; expires="+expiryDate.toGMTString()+"; path=/";
+
+    // var cookieName=coNA;var expiryDate=new Date();expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+      // document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
+      // document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString() + ';path=/';
+
+    }
+}
+
+function loadJS(file) {
+    // DOM: Create the script element
+    var jsElm = document.createElement("script");
+    // set the type attribute
+    jsElm.type = "application/javascript";
+    // make the script element load file
+    jsElm.src = file;
+    // finally insert the element to the body element in order to load the script
+    document.body.appendChild(jsElm);
+}
+
+function appendJS(script){
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    var code = script;
+    try {
+        s.appendChild(document.createTextNode(code));
+        document.body.appendChild(s);
+    } catch (e) {
+        s.text = code;
+        document.body.appendChild(s);
+    }
+}
+
 (function(window) {
 
   if (!!window.cookieChoices) {
@@ -36,28 +120,40 @@
 
       if( htmlM ) html.className += ' icc';
 
-      var butterBarStyles = 'position:' + elPos + ';width:100%;background-color:#eee;' +
-          'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:center;';
+      var butterBarStyles = 'color:'+ btcB +';position:' + elPos + ';width:100%;background-color:' + bgB + ';' +
+          'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:left;';
+  
+  // Aggiungo contenitore esterno per migliorare il layout
+      var contenitore = document.createElement('div');
+      var contenutoContenitoreStyle =  'max-width:980px;margin-right:auto;margin-left:auto;padding:15px;';
+      contenitore.id = cookieConsentId;
+      contenitore.style.cssText = butterBarStyles;
 
       var cookieConsentElement = document.createElement('div');
-      cookieConsentElement.id = cookieConsentId;
-      cookieConsentElement.style.cssText = butterBarStyles;
+      //cookieConsentElement.id = cookieConsentId;
+      cookieConsentElement.style.cssText = contenutoContenitoreStyle;
       cookieConsentElement.appendChild(_createConsentText(cookieText));
+  cookieConsentElement.appendChild(_createSpace());
 
       if (!!linkText && !!linkHref) {
         cookieConsentElement.appendChild(_createInformationLink(linkText, linkHref));
       }
       cookieConsentElement.appendChild(_createDismissLink(dismissText));
-      return cookieConsentElement;
+      
+      // Inglobo contenuto in contenitore.
+      contenitore.appendChild(cookieConsentElement);
+
+      return contenitore;
+      //return cookieConsentElement;
     }
 
     function _createDialogElement(cookieText, dismissText, linkText, linkHref) {
       var glassStyle = 'position:fixed;width:100%;height:100%;z-index:999;' +
           'top:0;left:0;opacity:0.5;filter:alpha(opacity=50);' +
           'background-color:#ccc;';
-      var dialogStyle = 'z-index:1000;position:fixed;left:50%;top:50%';
+      var dialogStyle = 'z-index:9999;position:fixed;left:50%;top:50%;bottom:0%;';
       var contentStyle = 'position:relative;left:-50%;margin-top:-25%;' +
-          'background-color:#fff;padding:20px;box-shadow:4px 4px 25px #888;';
+          'background-color:' + bgB + ';padding:20px;box-shadow:4px 4px 25px #888;';
 
       var cookieConsentElement = document.createElement('div');
       cookieConsentElement.id = cookieConsentId;
@@ -67,16 +163,22 @@
 
       var content = document.createElement('div');
       content.style.cssText = contentStyle;
-
+      
+  
+      
+      
       var dialog = document.createElement('div');
       dialog.style.cssText = dialogStyle;
 
       var dismissLink = _createDismissLink(dismissText);
-      dismissLink.style.display = 'block';
-      dismissLink.style.textAlign = 'right';
-      dismissLink.style.marginTop = '8px';
+      //dismissLink.style.display = 'block';
+      //dismissLink.style.textAlign = 'right';
+      //dismissLink.style.marginTop = '8px';
 
       content.appendChild(_createConsentText(cookieText));
+      
+      content.appendChild(_createSpace());
+      
       if (!!linkText && !!linkHref) {
         content.appendChild(_createInformationLink(linkText, linkHref));
       }
@@ -95,6 +197,13 @@
       }
     }
 
+    function _createSpace(){
+      var hrStyle='clear:both;border-color:transparent;margin-top:5px;margin-bottom:5px';
+  var hr = document.createElement("hr");
+  hr.style.cssText = hrStyle;
+  return hr;
+    }
+    
     function _createConsentText(cookieText) {
       var consentText = document.createElement('span');
       _setElementText(consentText, cookieText);
@@ -102,22 +211,29 @@
     }
 
     function _createDismissLink(dismissText) {
+      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.125em;' +
+      'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);'
+      
       var dismissLink = document.createElement('a');
       _setElementText(dismissLink, dismissText);
       dismissLink.id = dismissLinkId;
       dismissLink.className = closeClass;
       dismissLink.href = '#';
-      dismissLink.style.marginLeft = '24px';
+      //dismissLink.style.marginLeft = '24px';
+      dismissLink.style.cssText = buttonStyle;
       return dismissLink;
     }
 
     function _createInformationLink(linkText, linkHref) {
+      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin-right: 20px;margin-bottom:2px;letter-spacing: 0.125em;' +
+      'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
+  
       var infoLink = document.createElement('a');
       _setElementText(infoLink, linkText);
       infoLink.className = infoClass;
       infoLink.href = linkHref;
-      infoLink.target = '_blank';
-      infoLink.style.marginLeft = '8px';
+      if (tar) infoLink.target = '_blank';
+      infoLink.style.cssText = buttonStyle;
       return infoLink;
     }
 
@@ -125,6 +241,7 @@
      if ( htmlM ) html.classList.remove("icc");
       _saveUserPreference();
       _removeCookieConsent();
+      if ( rel ) document.location.reload();
       return false;
     }
 
@@ -158,12 +275,17 @@
       }
     }
 
+    function removeCookieConsent(){
+      // _removeCookieConsent();
+      _dismissLinkClick();
+    }
+
     function _saveUserPreference() {
       // Set the cookie expiry to one year after today.
       var expiryDate = new Date();
       expiryDate.setFullYear(expiryDate.getFullYear() + 1);
       // document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
-      document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString();
+      document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString() + ';path=/';
     }
 
     function _shouldDisplayConsent() {
@@ -174,6 +296,7 @@
     var exports = {};
     exports.showCookieConsentBar = showCookieConsentBar;
     exports.showCookieConsentDialog = showCookieConsentDialog;
+    exports.removeCookieConsent = removeCookieConsent;
     return exports;
   })();
 

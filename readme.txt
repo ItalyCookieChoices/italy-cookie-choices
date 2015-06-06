@@ -1,29 +1,35 @@
 === Italy Cookie Choices ===
-Contributors: overclokk
+Contributors: overclokk, Andrea Pernici
 Donate link: 
-Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent
+Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
 Requires at least: 4.1
 Tested up to: 4.3.0
-Stable tag: 1.2.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website without degrading website performance.
+a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside posts, pages and widgets until consent.
+Plugin requirement PHP >= 5.3 and WordPress >= 4.1
 
 == Description ==
 
-Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website.
-Message, position and the style can be easyly modified through the plugin menu. 
+The Cookie Law is one of the most stupid law in the world. Maybe made by someone, who doesn't really understand how the web works. 
 
-The plugin will not add any CSS stylesheet or Javascript file but only inline script, what does not make your web site load more slowly.
+Italy Cookie Choices allows you to easily comply with the european cookie law (and Italian too), showing a notice to the user only the very first time he visits your website.
+Message, position and the style can be easily modified through the plugin menu.
 
-Notify any issue on github repository https://github.com/overclokk/italy-cookie-choices/issues
+The plugin will not add any CSS stylesheet or Javascript file but only inline script, so it doesn't make your website slower.
+
+Notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
 = Anonymize Analytics IP =
 
 Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
+
+= Developer =
+(Enea Overclokk)[http://www.overclokk.net/]
+(Andrea Pernici)[https://www.andreapernici.com/]
 
 == Installation ==
 
@@ -35,7 +41,7 @@ Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](ht
 
 = How does it work? =
 
-When a user visit your site, the plugin will check if this user has been already there, checking for a cookie that the plugin self creates (it is just a session cookie, so it is not against the law). If the user has not this cookie, a message will be shown (you can configure where, how and what will be show). If the users keeps surfing in your web, now or withing the next month, it means that he accepted the use of cookies in your website, so this message
+When a user visit your site, the plugin will check if this user has been already there, checking for a cookie that the plugin self creates (it is just a session cookie, so it is not against the law). If the user has not this cookie, a message will be shown (you can configure where, how and what will be show). If the users keeps surfing in your website, now or withing the next month, it means that he accepted the use of cookies in your website, so this message
 will not be shown again.
 
 = Why am I not seeing the message? =
@@ -48,16 +54,52 @@ Yes, simply copy the snippet generate by "Italy Cookie Choses for WordPress" and
 
 = I use Async JS and CSS plugin, but the banner doesn't display =
 
-You have to uncheck the "Detect <script> tags in wp_footer" in Async JS and CSS plugin settings page and refresh page.
+You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS plugin settings page and refresh page.
 
 == Screenshots ==
 
 1. Italy Cookie Choices Options Menu
-2. Italy Cookie Choices top bar in front end
+2. Italy Cookie Choices top bar and embed block in front end
 3. Italy Cookie Choices Options for Dialog box
 4. Italy Cookie Choices Dialog Box in front end
+5. Italy Cookie Choices Widget area
+6. Italy Cookie Choices Content area
 
 == Changelog ==
+
+= 2.0.0 =
+Release Date: June 5th, 2015
+
+Dev time: 60h
+
+* Merged Third part cookie eraser and Italy Cookie Choices
+* Added new input for banner background color and text color
+* Added input for text and button in embed block content and widget
+* Added shortcode button for policy page [accept_button]
+
+= 1.2.3 =
+Release Date: May 31th, 2015
+
+Dev time: 3h
+
+* Added slug input for your cookie policy page to display only topbar
+* Added option for target _blank
+
+= 1.2.2 =
+Release Date: May 29th, 2015
+
+Dev time: 1h
+
+* [Fixed cookie setting path to root](https://github.com/overclokk/italy-cookie-choices/issues/20)
+
+= 1.2.1 =
+Release Date: May 28th, 2015
+
+Dev time: 2h
+
+* [Added checkbox for refresh page after button click](https://wordpress.org/support/topic/aggiunta-del-refresh-dopo-lok?replies=3)
+* [Fixed cookie name issue](https://github.com/overclokk/italy-cookie-choices/issues/21)
+
 
 = 1.2.0 =
 Release Date: May 27th, 2015
@@ -130,3 +172,4 @@ a notice to the user only the very first time that visits your website without d
 == Credits ==
 
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
+* [Loghino piccolo](http://www.posizionamento-seo.com/)
