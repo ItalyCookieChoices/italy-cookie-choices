@@ -185,6 +185,18 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                     $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
 
                     /**
+                     * Checkbox for third part cookie in all page (except head and footer)
+                     * @var bol
+                     */
+                    $all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
+
+                    /**
+                     * Checkbox custom scripts block
+                     * @var bol
+                     */
+                    $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
+
+                    /**
                      * Text to put inside locked post and widget contents
                      * including the button text
                      * @var string
@@ -211,6 +223,15 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                     if ( $widget_block )
                         add_filter('widget_display_callback', array( $this, 'WidgetErase' ), 11, 3);
 
+                    if ( $all_block ) {
+                        add_action('wp_loaded', array( $this, 'bufferStart' ), -1000000);
+                        add_action('wp_footer', array( $this, 'bufferEnd' ), -1000000);
+                    }
+                    if( $custom_script_block !='' ) {
+                        add_action('wp_footer', array( $this, 'bufferFooterStart' ), -999999);
+                        add_action('shutdown', array( $this, 'bufferFooterEnd' ), 1000000);
+                    }
+
                     /**
                      * Only for debug
                      */
@@ -219,6 +240,51 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                     
                 }
             }
+        }
+
+        public function removeCustomScript($buffer) {
+            $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
+            if($custom_script_block=='') {
+                return $buffer;
+            } else {
+                $custom_script_block = preg_replace( "/(\r|\n)<---------SEP--------->(\r|\n)/", "<---------SEP--------->", $custom_script_block );
+                $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
+                foreach($custom_script_block_array AS $single_script) {
+                    $buffer = str_replace($single_script, "\n<!-- removed from Italy Cookie Choices Plugin -->", $buffer);
+                }
+                return $buffer;
+            }
+        }
+
+        public function bufferCallback($buffer) {
+            preg_match("/(.*)(<body.*)/s", $buffer, $matches);
+            $head = $this->removeCustomScript($matches[1]);
+            $body = $matches[2];
+            $body = preg_replace( $this->pattern, $this->valore , $body);
+            $body .= $this->print_script_inline(false);
+            $buffer_new = $head.$body;
+            return $buffer_new;
+        }
+
+        public function bufferStart() {
+            ob_start(array( $this, 'bufferCallback' ));
+        }
+
+        public function bufferEnd() {
+            ob_end_flush();
+        }
+
+        public function bufferFooterCallback($buffer) {
+            $buffer_new = $this->removeCustomScript($buffer);
+            return $buffer_new;
+        }
+
+        public function bufferFooterStart() {
+            ob_start(array( $this, 'bufferFooterCallback' ));
+        }
+
+        public function bufferFooterEnd() {
+            ob_end_flush();
         }
 
         /**
@@ -522,6 +588,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
+             * Function for custom script block
+             */
+            add_settings_field( 
+                'custom_script_block', 
+                __( 'Function for custom script block', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_custom_script_block'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+
+            /**
              * Function for content message text
              */
             add_settings_field( 
@@ -531,7 +608,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'italy_cl_options_group', 
                 'advanced_setting_section'
                 );
-        
+
             /**
              * Function for button text in message
              */
@@ -924,6 +1001,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : '' ;
             $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
+            $all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
 
         ?>
 
@@ -936,6 +1014,11 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             <label for="italy_cookie_choices[widget_block]">
                 <?php _e( 'Cookie from any embed in your widget area (Beta)', 'italy-cookie-choices' ); ?>
             </label>
+            <br>
+            <input type='checkbox' name='italy_cookie_choices[all_block]' <?php checked( $all_block, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[all_block]">
+                <?php _e( 'Cookie from any embed in all body, except head and footer (Beta)', 'italy-cookie-choices' ); ?>
+            </label>
 
         <?php
 
@@ -943,6 +1026,23 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
         /**
          * Textarea for content_message_text
+         * @return string
+         */
+        public function italy_cl_option_custom_script_block($args) {
+
+        ?>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block]" id="italy_cookie_choices[custom_script_block]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['custom_script_block'] ); ?></textarea>
+            <br>
+            <label for="italy_cookie_choices[content_message_text]">
+                <?php echo __( 'Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
+         * Function for custom script block
          * @return string
          */
         public function italy_cl_option_content_message_text($args) {
@@ -1059,6 +1159,15 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             if( isset( $input['widget_block'] ) )
                 $new_input['widget_block'] =  $input['widget_block'];
 
+            if( isset( $input['all_block'] ) )
+                $new_input['all_block'] =  $input['all_block'];
+
+            if( isset( $input['custom_script_block'] ) )
+                $new_input['custom_script_block'] =  $input['custom_script_block'];
+
+            if( isset( $input['widget_block'] ) )
+                $new_input['widget_block'] =  $input['widget_block'];
+
             if( isset( $input['content_message_text'] ) )
                 $new_input['content_message_text'] =  $input['content_message_text'];
         
@@ -1162,7 +1271,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          * @return string Print script inline
          * @link https://www.cookiechoices.org/
          */
-        public function print_script_inline(){
+        public function print_script_inline($output=true){
 
             // $this->options = get_option( 'italy_cookie_choices' );
 
@@ -1285,12 +1394,15 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
 
-            echo '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
-            if (WP_DEBUG)
-                require 'js/'.$js_template.'/cookiechoices.js';
+
+            $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
+            $output_html .= file_get_contents(dirname(__FILE__).'/js/cookiechoices.php');
+            $output_html .= $banner . '</script>' . $noscript;
+
+            if($output)
+                echo $output_html;
             else
-                require 'js/'.$js_template.'/cookiechoices.php';
-            echo $banner . '</script>' . $noscript;
+                return $output_html;
 
         }
 
