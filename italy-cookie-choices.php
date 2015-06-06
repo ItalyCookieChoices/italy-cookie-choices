@@ -56,6 +56,12 @@ if ( !defined( 'ITALY_COOKIE_CHOICES_PLUGIN_PATH' ) )
 if ( !defined( 'ITALY_COOKIE_CHOICES_BASENAME' ) )
     define('ITALY_COOKIE_CHOICES_BASENAME', plugin_basename( ITALY_COOKIE_CHOICES_FILE ));
 
+/**
+ * Example = F:\xampp\htdocs\italystrap\wp-content\plugins\italy-cookie-choices
+ */
+if ( !defined( 'ITALY_COOKIE_CHOICES_DIRNAME' ) )
+    define('ITALY_COOKIE_CHOICES_DIRNAME', dirname( ITALY_COOKIE_CHOICES_FILE ));
+
 
 /**
  * 
@@ -152,7 +158,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                     /**
                      * Function for print cookiechoiches inline
                      */
-                    add_action( 'wp_footer', array( $this, 'print_script_inline'), '9' );
+                    add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
 
                     /**
                      * Background color for banner
@@ -230,12 +236,15 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         add_filter( 'widget_display_callback', array( $this, 'WidgetErase' ), 11, 3 );
 
                     if ( $all_block ) {
-                        add_action( 'wp_loaded', array( $this, 'bufferStart' ), -1000000);
-                        add_action( 'wp_footer', array( $this, 'bufferEnd' ), -1000000);
+                        //add_action('wp_footer', array( $this, 'catchBody' ), -1000000);
+                        add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
+                        add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
                     }
-                    if( $custom_script_block !== '' ) {
-                        add_action( 'wp_footer', array( $this, 'bufferFooterStart' ), -999999);
-                        add_action( 'shutdown', array( $this, 'bufferFooterEnd' ), 1000000);
+                    if( $custom_script_block !='' ) {
+                        add_action('wp_init', array( $this, 'bufferHeadStart' ), 2);
+                        add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
+                        add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
+                        add_action('shutdown', array( $this, 'bufferFooterEnd' ), -1000000);
                     }
 
                     /**
@@ -247,50 +256,61 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 }
             }
         }
+        // $this->matches( $this->pattern, $custom_script_block );
 
-        public function removeCustomScript($buffer) {
+         public function removeCustomScript($buffer) {
             $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
             if($custom_script_block=='') {
                 return $buffer;
             } else {
-                $custom_script_block = preg_replace( "/(\r|\n)<---------SEP--------->(\r|\n)/", "<---------SEP--------->", $custom_script_block );
+                $custom_script_block = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block );
                 $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
                 foreach($custom_script_block_array AS $single_script) {
-                    $buffer = str_replace($single_script, "\n<!-- removed from Italy Cookie Choices Plugin -->", $buffer);
+                    $buffer = str_replace(trim($single_script), "<!-- removed from Italy Cookie Choices Plugin -->", $buffer);
                 }
                 return $buffer;
             }
         }
 
-        public function bufferCallback($buffer) {
+        public function bufferBodyStart() {
+            ob_end_flush();
+            ob_start();
+
+        }
+
+        public function bufferBodyEnd() {
+            $buffer = ob_get_contents();
+            ob_end_clean();
             preg_match("/(.*)(<body.*)/s", $buffer, $matches);
-            $head = $this->removeCustomScript($matches[1]);
+            $head = $matches[1];
             $body = $matches[2];
             $body = preg_replace( $this->pattern, $this->valore , $body);
-            $body .= $this->print_script_inline(false);
             $buffer_new = $head.$body;
-            return $buffer_new;
-        }
-
-        public function bufferStart() {
-            ob_start(array( $this, 'bufferCallback' ));
-        }
-
-        public function bufferEnd() {
-            ob_end_flush();
-        }
-
-        public function bufferFooterCallback($buffer) {
-            $buffer_new = $this->removeCustomScript($buffer);
-            return $buffer_new;
+            echo '<!-- ICCStartBody -->'.$buffer_new.'<!-- ICCEndBody -->';
         }
 
         public function bufferFooterStart() {
-            ob_start(array( $this, 'bufferFooterCallback' ));
+            ob_end_flush();
+            ob_start();
         }
 
         public function bufferFooterEnd() {
+            $buffer = ob_get_contents();
+            ob_end_clean();
+            $buffer_new = $this->removeCustomScript($buffer);
+            echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
+        }
+
+        public function bufferHeadStart() {
             ob_end_flush();
+            ob_start();
+        }
+
+        public function bufferHeadEnd() {
+            $buffer = ob_get_contents();
+            ob_end_clean();
+            $buffer_new = $this->removeCustomScript($buffer);
+            echo '<!-- ICCStartHead -->'.$buffer_new.'<!-- ICCEndHead -->';
         }
 
         /**
@@ -1300,8 +1320,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 $banner = 'Dialog';
         		$bPos = 'top:0';
 
-        	}
-        	elseif ( $this->options['banner'] === '3' ) {
+        	} elseif ( $this->options['banner'] === '3' ) {
 
                 $banner = 'Bar'; 
         		$bPos = 'bottom:0';
@@ -1355,7 +1374,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $style = '<style>.icc{margin-top:36px}</style>';
             
-	     /**
+            /**
              * Js_Template vlue
              * @var string
              */
@@ -1415,14 +1434,19 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             //     require 'js/'.$js_template.'/cookiechoices.php';
             // echo $banner . '</script>' . $noscript;
 // =======
-            $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables;
-            $output_html .= file_get_contents(dirname(__FILE__).'/js/cookiechoices.php');
-            $output_html .= $banner . '</script>' . $noscript;
+            /**
+             * Select wich file to use in debug mode
+             * @var string
+             */
+            $fileJS = ( WP_DEBUG ) ? '/js/cookiechoices.js' : '/js/cookiechoices.php' ;
 
-            if($output)
+            $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
+
+
+            // if($output)
                 echo $output_html;
-            else
-                return $output_html;
+            // else
+                // return $output_html;
 // >>>>>>> origin/Dev-2
 
         }
