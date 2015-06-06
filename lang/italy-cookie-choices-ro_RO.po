@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: italy-cookie-choices\n"
 "POT-Creation-Date: 2015-06-05 11:16+0100\n"
-"PO-Revision-Date: 2015-06-06 13:29+0100\n"
+"PO-Revision-Date: 2015-06-06 13:33+0100\n"
 "Last-Translator: Florin Lungu <me@florinlungu.it>\n"
 "Language-Team: info@overclokk.net\n"
 "Language: ro_RO\n"
@@ -79,7 +79,8 @@ msgid "Banner text color"
 msgstr "Culoarea text-ului din banner"
 
 #: italy-cookie-choices.php:453
-msgid "Advanced settngs"
+#, fuzzy
+msgid "Advanced settings"
 msgstr "Setări avansate"
 
 #: italy-cookie-choices.php:463

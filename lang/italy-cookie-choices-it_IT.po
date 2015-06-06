@@ -2,21 +2,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: italy-cookie-choices\n"
 "POT-Creation-Date: 2015-06-05 11:16+0100\n"
-"PO-Revision-Date: 2015-06-05 11:25+0100\n"
-"Last-Translator: Enea Overclokk <info@overclokk.net>\n"
+"PO-Revision-Date: 2015-06-06 13:34+0100\n"
+"Last-Translator: Florin Lungu <me@florinlungu.it>\n"
 "Language-Team: info@overclokk.net\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-Basepath: ..\\\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #: italy-cookie-choices.php:230
 msgid "Italy Cookie Choices Dashboard"
@@ -79,7 +79,8 @@ msgid "Banner text color"
 msgstr "Colore per il testo del banner"
 
 #: italy-cookie-choices.php:453
-msgid "Advanced settngs"
+#, fuzzy
+msgid "Advanced settings"
 msgstr "Opzioni avanzate"
 
 #: italy-cookie-choices.php:463
