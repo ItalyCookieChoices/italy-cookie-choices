@@ -13,7 +13,7 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-// console.log(jsArr);
+
 function allowCookie() {
 
     var x=document.getElementsByClassName("el");
@@ -26,7 +26,7 @@ function allowCookie() {
 
         x[i].removeChild(x[i].childNodes[0]);
 
-        console.log(jsArr[i]);
+        // console.log(jsArr[i]);
 
         var res = patt.test(jsArr[i]);
         // console.log(res);
@@ -114,7 +114,7 @@ function appendJS(script){
       if( htmlM ) html.className += ' icc';
 
       var butterBarStyles = 'color:'+ btcB +';position:' + elPos + ';width:100%;background-color:' + bgB + ';' +
-          'margin:0; left:0; top:0;padding:4px;z-index:9999;text-align:left;';
+          'margin:0; left:0;'+bPos+';padding:2px;z-index:9999;text-align:left;';
   
   // Aggiungo contenitore esterno per migliorare il layout
       var contenitore = document.createElement('div');
@@ -204,7 +204,7 @@ function appendJS(script){
     }
 
     function _createDismissLink(dismissText) {
-      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.125em;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
+      var buttonStyle='color: '+ btcB +';padding: 3px 7px;font-size: 14px;line-height: 14px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.115em;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
       
       var dismissLink = document.createElement('a');
       _setElementText(dismissLink, dismissText);
@@ -217,7 +217,7 @@ function appendJS(script){
     }
 
     function _createInformationLink(linkText, linkHref) {
-      var buttonStyle='color: '+ btcB +';padding: 7px 12px;font-size: 18px;line-height: 18px;text-decoration: none;text-transform: uppercase;margin-right: 20px;margin-bottom:2px;letter-spacing: 0.125em;' +
+      var buttonStyle='color: '+ btcB +';padding: 3px 7px;font-size: 14px;line-height: 14px;text-decoration: none;text-transform: uppercase;margin-right: 20px;margin-bottom:2px;letter-spacing: 0.115em;' +
       'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
   
       var infoLink = document.createElement('a');
