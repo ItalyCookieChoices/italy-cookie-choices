@@ -142,6 +142,28 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
                 $this->options = get_option( 'italy_cookie_choices' );
 
+                /*
+                 * Set cookie if the user agree navigating through the pages of the site
+                 */
+                if(
+                    // if is an HTML request (alternative methods???)
+                    (strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) &&
+                    //if the page isn't privacy page
+                    ($_SERVER['REQUEST_URI']!=$this->options['slug']) && 
+                    //if HTTP_REFERER is set
+                    (isset($_SERVER['HTTP_REFERER'])) && 
+                    //if isn't refresh
+                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH)!=$_SERVER['REQUEST_URI']) &&
+                    //if referrer is not privacy page (to be evaluated)
+                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH)!=$this->options['slug']) && 
+                    //if the cookie is not already set
+                    (!isset( $_COOKIE[ $this->options['cookie_name'] ] )) && 
+                    //if the referer is in the same domain
+                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)==$_SERVER['HTTP_HOST'])
+                ) {
+                    setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
+                }
+
                 /**
                  * Shortcode to put a button in policy page
                  */
@@ -305,12 +327,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             $buffer = ob_get_contents();
             if (ob_get_contents()) 
                 ob_end_clean();
-            $buffer_new = $this->removeCustomScript($buffer);
-            /**
-             * Function for print cookiechoiches inline
-             */
-            $this->print_script_inline();
-            echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
+            // if is an HTML request (alternative methods???)
+            if(strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) {
+                $buffer_new = $this->removeCustomScript($buffer);
+                /**
+                 * Function for print cookiechoiches inline
+                 */
+                $this->print_script_inline();
+                echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
+            } else {
+                echo $buffer;
+            }
         }
 
         public function bufferHeadStart() {
@@ -1278,6 +1305,21 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             return $content;
         }
 
+        private function fnFixArray($v) {
+            if(is_array($v) or is_object($v)){
+                foreach($v as $k1=>$v1){
+                    $v[$k1] = $this->fnFixArray($v1);
+                }
+                return $v;
+            }
+
+            if(!is_string($v) or empty($v)) return $v;
+
+            $this->matches( $this->pattern, $v );
+
+            return preg_replace( $this->pattern, $this->valore , $v);
+        }
+
         /**
          * Erase third part in widget area
          * @param [type] $instance [description]
@@ -1285,25 +1327,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          * @param [type] $args     [description]
          */
         public function WidgetErase($instance, $widget, $args){
-            
-            $fnFixArray = function($v) use (&$fnFixArray){
-                if(is_array($v) or is_object($v)){
-                    foreach($v as $k1=>&$v1){
-                        $v1 = $fnFixArray($v1);
-                    }
-                    return $v;
-                }
-
-                if(!is_string($v) or empty($v)) return $v;
-
-                $this->matches( $this->pattern, $v );
-
-                return preg_replace( $this->pattern, $this->valore , $v);
-
-            };
-
-            return $fnFixArray($instance);
-
+            return $this->fnFixArray($instance);
         }
 
         /**
