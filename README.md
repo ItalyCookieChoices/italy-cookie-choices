@@ -1,5 +1,5 @@
 # Italy Cookie Choices #
-**Contributors:** overclokk, Andrea Pernici  
+**Contributors:** overclokk, Andrea Pernici, Andrea Cardinale  
 Donate link: 
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 4.1  
@@ -30,6 +30,7 @@ Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](ht
 ### Developer ###
 (Enea Overclokk)[http://www.overclokk.net/]
 (Andrea Pernici)[https://www.andreapernici.com/]
+(Andrea Cardinale)[https://www.andrea-cardinale.it/]
 
 ## Installation ##
 
