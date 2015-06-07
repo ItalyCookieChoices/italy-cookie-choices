@@ -241,7 +241,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
                     }
                     if( $custom_script_block !== '' ) {
-                        add_action('wp_init', array( $this, 'bufferHeadStart' ), 2);
+                        add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
                         add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
                         add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
                         add_action('shutdown', array( $this, 'bufferFooterEnd' ), -1000000);
@@ -276,14 +276,16 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         public function bufferBodyStart() {
-            ob_end_flush();
+            if (ob_get_contents()) 
+                ob_end_flush();
             ob_start();
 
         }
 
         public function bufferBodyEnd() {
             $buffer = ob_get_contents();
-            ob_end_clean();
+            if (ob_get_contents()) 
+                ob_end_clean();
             preg_match("/(.*)(<body.*)/s", $buffer, $matches);
             $head = $matches[1];
             $body = $matches[2];
@@ -294,25 +296,29 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         public function bufferFooterStart() {
-            ob_end_flush();
+            if (ob_get_contents()) 
+                ob_end_flush();
             ob_start();
         }
 
         public function bufferFooterEnd() {
             $buffer = ob_get_contents();
-            ob_end_clean();
+            if (ob_get_contents()) 
+                ob_end_clean();
             $buffer_new = $this->removeCustomScript($buffer);
             echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
         }
 
         public function bufferHeadStart() {
-            ob_end_flush();
+            if (ob_get_contents()) 
+                ob_end_flush();
             ob_start();
         }
 
         public function bufferHeadEnd() {
             $buffer = ob_get_contents();
-            ob_end_clean();
+            if (ob_get_contents()) 
+                ob_end_clean();
             $buffer_new = $this->removeCustomScript($buffer);
             echo '<!-- ICCStartHead -->'.$buffer_new.'<!-- ICCEndHead -->';
         }
