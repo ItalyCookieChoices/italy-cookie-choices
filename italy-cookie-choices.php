@@ -1431,7 +1431,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * Select wich file to use in debug mode
              * @var string
              */
-            $fileJS = ( WP_DEBUG ) ? '/js/cookiechoices.js' : '/js/cookiechoices.php' ;
+            //$fileJS = ( WP_DEBUG ) ? '/js/cookiechoices.js' : '/js/cookiechoices.php' ;
+	    $fileJS = ( WP_DEBUG ) ? '/js/'.$js_template.'/cookiechoices.js' : '/js/'.$js_template.'/cookiechoices.php' ;
 
             $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 

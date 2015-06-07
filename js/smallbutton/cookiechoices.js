@@ -230,12 +230,14 @@ function appendJS(script){
     }
 
     function _dismissLinkClick() {
-     if ( htmlM ) html.classList.remove("icc");
-      allowCookie();
-      _saveUserPreference();
-      _removeCookieConsent();
-      if ( rel ) document.location.reload();
-      return false;
+	if (_shouldDisplayConsent()) {
+		if ( htmlM ) html.classList.remove("icc");
+		allowCookie();
+		_saveUserPreference();
+		_removeCookieConsent();
+	}
+	if ( rel ) document.location.reload();
+	return false;
     }
 
     function _showCookieConsent(cookieText, dismissText, linkText, linkHref, isDialog) {
