@@ -156,11 +156,6 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         define('SID', true);
 
                     /**
-                     * Function for print cookiechoiches inline
-                     */
-                    add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
-
-                    /**
                      * Background color for banner
                      * @var string
                      */
@@ -245,6 +240,11 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
                         add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
                         add_action('shutdown', array( $this, 'bufferFooterEnd' ), -1000000);
+                    } else {
+                        /**
+                         * Function for print cookiechoiches inline
+                         */
+                        add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
                     }
 
                     /**
@@ -306,6 +306,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             if (ob_get_contents()) 
                 ob_end_clean();
             $buffer_new = $this->removeCustomScript($buffer);
+            /**
+             * Function for print cookiechoiches inline
+             */
+            print_script_inline();
             echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
         }
 
