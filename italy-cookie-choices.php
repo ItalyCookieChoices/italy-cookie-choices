@@ -309,7 +309,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             /**
              * Function for print cookiechoiches inline
              */
-            print_script_inline();
+            $this->print_script_inline();
             echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
         }
 
