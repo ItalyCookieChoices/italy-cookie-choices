@@ -28,8 +28,9 @@ Notify any issue on github repository https://github.com/ItalyCookieChoices/ital
 Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
 
 ### Developer ###
-[Enea Overclokk](http://www.overclokk.net/)
-[Andrea Pernici](https://www.andreapernici.com/)
+
+[Enea Overclokk](http://www.overclokk.net/), 
+[Andrea Pernici](https://www.andreapernici.com/), 
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
 ## Installation ##
