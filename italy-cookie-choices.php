@@ -295,9 +295,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 }
             }
         }
-        // $this->matches( $this->pattern, $custom_script_block );
 
-         public function removeCustomScript($buffer) {
+
+        public function removeCustomScript($buffer) {
             $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
             if($custom_script_block=='') {
                 return $buffer;
