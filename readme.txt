@@ -21,7 +21,18 @@ Message, position and the style can be easily modified through the plugin menu.
 
 The plugin will not add any CSS stylesheet or Javascript file but only inline script, so it doesn't make your website slower.
 
-Notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
+Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
+
+For your custom script (eg: analytics, custom script in footer, social script, ecc) you can add them in new text area `Function for custom script block`, add them one per line and split each script with `<---------SEP--------->`
+
+Eg:
+```
+<script>console.log('Your custom script');</script>
+<---------SEP--------->
+<script async src="//192.168.1.10/italystrap/js.js"></script>
+```
+
+Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
 = Anonymize Analytics IP =
 
