@@ -142,10 +142,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
                 $this->options = get_option( 'italy_cookie_choices' );
 
+                /**
+                 * Check for second view option
+                 * @var bol
+                 */
+                $secondViewOpt = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
+
                 /*
                  * Set cookie if the user agree navigating through the pages of the site
                  */
                 $secondView = false;
+
                 if(
                     // if is an HTML request (alternative methods???)
                     (strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) &&
@@ -160,7 +167,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                     //if the cookie is not already set
                     (!isset( $_COOKIE[ $this->options['cookie_name'] ] )) && 
                     //if the referer is in the same domain
-                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)==$_SERVER['HTTP_HOST'])
+                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)==$_SERVER['HTTP_HOST']) &&
+                    // If the secondView options is checked
+                    ( $secondViewOpt )
                 ) {
                     setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
                     $secondView = true;
@@ -483,6 +492,17 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 );
 
             /**
+             * Checkbox for open in new page
+             */
+            add_settings_field( 
+                'secondView', 
+                __( 'Accept on second view', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_secondView'), 
+                'italy_cl_options_group', 
+                'setting_section'
+                );
+
+            /**
              * Checkbox for reload page
              */
             add_settings_field( 
@@ -547,7 +567,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'italy_cl_options_group'
             );
 
- /**
+            /**
              * Select box for js_template selection
              */
             add_settings_field( 
@@ -787,6 +807,26 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         }
 
         /**
+         * Snippet for second view checkbox $secondView
+         * @return strimg       Activate for accept on second view 
+         *                      Default do nothing
+         */
+        public function italy_cl_option_secondView($args) {
+
+            $secondView = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
+
+        ?>
+
+            <input type='checkbox' name='italy_cookie_choices[secondView]' <?php checked( $secondView, 1 ); ?> value='1'>
+            <label for="italy_cookie_choices[secondView]">
+                <?php _e( 'Activate accept on second view', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
          * Snippet for reload
          * @return strimg       Reload page after click
          */
@@ -797,7 +837,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             <input type='checkbox' name='italy_cookie_choices[reload]' <?php checked( $reload, 1 ); ?> value='1'>
             <label for="italy_cookie_choices[reload]">
-                <?php _e( 'Refresh page after button click', 'italy-cookie-choices' ); ?>
+                <?php _e( 'Refresh page after button click (DEPRECATED)', 'italy-cookie-choices' ); ?>
             </label>
 
         <?php
@@ -899,7 +939,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             <input type='checkbox' name='italy_cookie_choices[html_margin]' <?php checked( $html_margin, 1 ); ?> value='1'>
             <label for="italy_cookie_choices[html_margin]">
-                <?php _e( 'Add a page top margin for info top bar', 'italy-cookie-choices' ); ?>
+                <?php _e( 'Add a page top margin for info top bar, only for default topbar stile', 'italy-cookie-choices' ); ?>
             </label>
 
         <?php
@@ -915,12 +955,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : '' ;
 
         ?>
-    <select  name='italy_cookie_choices[js_template]'>
-      <option value="default" <?php if ($js_template=='default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
-      <option value="bigbutton" <?php if ($js_template=='bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
-      <option value="smallbutton" <?php if ($js_template=='smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
-      <!--<option value="custom" <?php if ($js_template=='default') echo 'selected';?>>Custom CSS</option>-->
-    </select>
+            <select  name='italy_cookie_choices[js_template]'>
+                <option value="default" <?php if ($js_template=='default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
+                <option value="bigbutton" <?php if ($js_template=='bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
+                <option value="smallbutton" <?php if ($js_template=='smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
+                <!--<option value="custom" <?php if ($js_template=='default') echo 'selected';?>>Custom CSS</option>-->
+            </select>
             <label for="italy_cookie_choices[js_template]">
                 <?php _e( 'Select the template to use', 'italy-cookie-choices' ); ?>
             </label>
@@ -1068,20 +1108,22 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          */
         public function italy_cl_option_block($args) {
 
-            $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : '' ;
-            $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
             $all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
+
+            $block = ( isset( $this->options['block'] ) && $all_block === '' ) ? $this->options['block'] : '' ;
+
+            $widget_block = ( isset( $this->options['widget_block'] ) && $all_block === '' ) ? $this->options['widget_block'] : '' ;
 
         ?>
 
             <input type='checkbox' name='italy_cookie_choices[block]' <?php checked( $block, 1 ); ?> value='1'>
             <label for="italy_cookie_choices[block]">
-                <?php _e( 'Cookie from any embed in your content (Beta)', 'italy-cookie-choices' ); ?>
+                <?php _e( 'Cookie from any embed in your content (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
             </label>
             <br>
             <input type='checkbox' name='italy_cookie_choices[widget_block]' <?php checked( $widget_block, 1 ); ?> value='1'>
             <label for="italy_cookie_choices[widget_block]">
-                <?php _e( 'Cookie from any embed in your widget area (Beta)', 'italy-cookie-choices' ); ?>
+                <?php _e( 'Cookie from any embed in your widget area (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
             </label>
             <br>
             <input type='checkbox' name='italy_cookie_choices[all_block]' <?php checked( $all_block, 1 ); ?> value='1'>
@@ -1099,10 +1141,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          */
         public function italy_cl_option_custom_script_block($args) {
 
+            $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
+
         ?>
-            <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block]" id="italy_cookie_choices[custom_script_block]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['custom_script_block'] ); ?></textarea>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block]" id="italy_cookie_choices[custom_script_block]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block ); ?></textarea>
             <br>
-            <label for="italy_cookie_choices[content_message_text]">
+            <label for="italy_cookie_choices[custom_script_block]">
                 <?php echo __( 'Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>', 'italy-cookie-choices' ); ?>
             </label>
 
@@ -1116,8 +1160,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          */
         public function italy_cl_option_content_message_text($args) {
 
+            $content_message_text = ( isset( $this->options['content_message_text'] ) ) ? $this->options['content_message_text'] : '' ;
+
         ?>
-            <textarea rows="5" cols="70" name="italy_cookie_choices[content_message_text]" id="italy_cookie_choices[content_message_text]" placeholder="<?php _e( 'Your lock message for embedded contents inside posts, pages and widgets', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['content_message_text'] ); ?></textarea>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[content_message_text]" id="italy_cookie_choices[content_message_text]" placeholder="<?php _e( 'Your lock message for embedded contents inside posts, pages and widgets', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $content_message_text ); ?></textarea>
             <br>
             <label for="italy_cookie_choices[content_message_text]">
                 <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
@@ -1133,8 +1179,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          */
         public function italy_cl_option_content_message_button_text($args) {
 
+            $content_message_button_text = ( isset( $this->options['content_message_button_text'] ) ) ? $this->options['content_message_button_text'] : '' ;
+
         ?>
-            <input type="text" id="italy_cookie_choices[content_message_button_text]" name="italy_cookie_choices[content_message_button_text]" value="<?php echo esc_attr( $this->options['content_message_button_text'] ); ?>" placeholder="<?php _e( 'e.g. Close', 'italy-cookie-choices' ) ?>" />
+            <input type="text" id="italy_cookie_choices[content_message_button_text]" name="italy_cookie_choices[content_message_button_text]" value="<?php echo esc_attr( $content_message_button_text ); ?>" placeholder="<?php _e( 'e.g. Close', 'italy-cookie-choices' ) ?>" />
 
             <label for="italy_cookie_choices[content_message_button_text]">
                 <?php echo __( 'Insert here name of button (e.g. "Close") ', 'italy-cookie-choices' ); ?>
@@ -1161,6 +1209,9 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             if( isset( $input['scroll'] ) )
                 $new_input['scroll'] =  $input['scroll'];
+
+            if( isset( $input['secondView'] ) )
+                $new_input['secondView'] =  $input['secondView'];
 
             if( isset( $input['reload'] ) )
                 $new_input['reload'] =  $input['reload'];
@@ -1233,9 +1284,6 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
             if( isset( $input['custom_script_block'] ) )
                 $new_input['custom_script_block'] =  $input['custom_script_block'];
-
-            if( isset( $input['widget_block'] ) )
-                $new_input['widget_block'] =  $input['widget_block'];
 
             if( isset( $input['content_message_text'] ) )
                 $new_input['content_message_text'] =  sanitize_text_field( $input['content_message_text'] );
