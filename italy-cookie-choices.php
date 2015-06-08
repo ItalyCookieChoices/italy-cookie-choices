@@ -555,7 +555,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 'italy_cl_options_group', 
                 'style_setting_section'
             );
-	    
+        
             /**
              * Checkbox for activation
              */
@@ -751,10 +751,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             <label for="radio_2">
                 <?php _e( 'Dialog (Display an overlay with your message)', 'italy-cookie-choices' ); ?>
             </label>
-	    
-	    <br>
-	    
-	<input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
+        
+        <br>
+        
+    <input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
 
             <label for="radio_3">
                 <?php _e( 'Bottom Bar (Display a bar in the footer with your message)', 'italy-cookie-choices' ); ?>
@@ -903,8 +903,8 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         <?php
 
         }
-	
-	/**
+    
+    /**
          * Snippet for select
          * @return strimg       Chose the JS_Template to use.
          */
@@ -913,12 +913,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : '' ;
 
         ?>
-	<select  name='italy_cookie_choices[js_template]'>
-	  <option value="default" <?php if ($js_template=='default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
-	  <option value="bigbutton" <?php if ($js_template=='bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
-	  <option value="smallbutton" <?php if ($js_template=='smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
-	  <!--<option value="custom" <?php if ($js_template=='default') echo 'selected';?>>Custom CSS</option>-->
-	</select>
+    <select  name='italy_cookie_choices[js_template]'>
+      <option value="default" <?php if ($js_template=='default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
+      <option value="bigbutton" <?php if ($js_template=='bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
+      <option value="smallbutton" <?php if ($js_template=='smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
+      <!--<option value="custom" <?php if ($js_template=='default') echo 'selected';?>>Custom CSS</option>-->
+    </select>
             <label for="italy_cookie_choices[js_template]">
                 <?php _e( 'Select the template to use', 'italy-cookie-choices' ); ?>
             </label>
@@ -1180,10 +1180,10 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             if( isset( $input['html_margin'] ) )
                 $new_input['html_margin'] =  $input['html_margin'];
-		
+        
             if( isset( $input['js_template'] ) )
                 $new_input['js_template'] =  $input['js_template'];
-		
+        
             if( empty( $input['banner_bg'] ) )
                 $new_input['banner_bg'] =  '#fff';
             elseif ( isset( $input['banner_bg'] ) )
@@ -1353,22 +1353,22 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 $banner = 'Bar'; 
                 $bPos = 'top:0';
 
-        	} elseif ( $this->options['banner'] === '2' ) {
+            } elseif ( $this->options['banner'] === '2' ) {
 
                 $banner = 'Dialog';
-        		$bPos = 'top:0';
+                $bPos = 'top:0';
 
-        	} elseif ( $this->options['banner'] === '3' ) {
+            } elseif ( $this->options['banner'] === '3' ) {
 
                 $banner = 'Bar'; 
-        		$bPos = 'bottom:0';
+                $bPos = 'bottom:0';
 
-        	} else {
+            } else {
 
                 $banner = '';
-        		$bPos = 'top:0';
+                $bPos = 'top:0';
 
-        	}
+            }
 
             /**
              * Accept on scroll
@@ -1417,7 +1417,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * @var string
              */
             $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
-	    
+        
             /**
              * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
              * @var bol
