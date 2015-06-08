@@ -1,10 +1,10 @@
 # Italy Cookie Choices #
-**Contributors:** overclokk, Andrea Pernici, Andrea Cardinale  
+**Contributors:** overclokk, andreapernici, cardinaleandrea  
 Donate link: 
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 4.1  
 **Tested up to:** 4.3.0  
-**Stable tag:** 2.0.0  
+**Stable tag:** 2.1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -21,7 +21,18 @@ Message, position and the style can be easily modified through the plugin menu.
 
 The plugin will not add any CSS stylesheet or Javascript file but only inline script, so it doesn't make your website slower.
 
-Notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
+Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
+
+**For your custom script (eg:** analytics, custom script in footer, social script, ecc) you can add them in new text area `Function for custom script block`, add them one per line and split each script with `<---------SEP--------->`  
+
+Eg:
+```
+<script>console.log('Your custom script');</script>
+<---------SEP--------->
+<script async src="//192.168.1.10/italystrap/js.js"></script>
+```
+
+Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
 ### Anonymize Analytics IP ###
 
@@ -29,8 +40,10 @@ Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](ht
 
 ### Developer ###
 
-[Enea Overclokk](http://www.overclokk.net/), 
-[Andrea Pernici](https://www.andreapernici.com/), 
+(Enea Overclokk)[http://www.overclokk.net/]
+
+(Andrea Pernici)[https://www.andreapernici.com/]
+
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
 ## Installation ##
@@ -80,6 +93,19 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 
 ## Changelog ##
+
+### 2.1.0 ###
+**Release Date:** June 5th, 2015  
+
+**Dev time:** 100h  
+
+* Added new third part cookie eraser functionality (much more powerful :-))
+* New options for select banner template
+* Added Bottom bar stile
+* Fixed scroll issue
+* New options for accepting on second view
+* Fixed some issue
+* [Now compatibility with PHP 5.3.29](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/42)
 
 ### 2.0.0 ###
 **Release Date:** June 5th, 2015  
@@ -168,6 +194,12 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 ## Upgrade Notice ##
 
+### 2.1.0 ###
+More functionality added, please, see the plugin's admin page
+
+### 2.0.0 ###
+**New:** Third part cookie eraser  
+
 ### 1.0.0 ###
 First release.
 
@@ -175,6 +207,7 @@ First release.
  
 * English: default, always included.
 * Italian: Italiano, sempre incluso.
+* Romanian:
 
 *Note:* This plugins is localized/ translateable by default. This is very important for all users worldwide. So please contribute your language to the plugin to make it even more useful. For translating I recommend the awesome ["Codestyling Localization" plugin](http://wordpress.org/extend/plugins/codestyling-localization/) and for validating the ["Poedit Editor"](http://www.poedit.net/).
  
