@@ -71,6 +71,19 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 == Changelog ==
 
+= 2.1.0 =
+Release Date: June 5th, 2015
+
+Dev time: 100h
+
+* Added new third part cookie eraser functionality (much more powerful :-))
+* New options for select banner template
+* Added Bottom bar stile
+* Fixed scroll issue
+* New options for accepting on second view
+* Fixed some issue
+* [Now compatibility with PHP 5.3.29](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/42)
+
 = 2.0.0 =
 Release Date: June 5th, 2015
 
@@ -158,6 +171,9 @@ Dev time: 50h
 
 == Upgrade Notice ==
 
+= 2.1.0 =
+More functionality added, please, see the plugin's admin page
+
 = 2.0.0 =
 New: Third part cookie eraser
 
@@ -168,6 +184,7 @@ First release.
  
 * English: default, always included.
 * Italian: Italiano, sempre incluso.
+* Romanian:
 
 *Note:* This plugins is localized/ translateable by default. This is very important for all users worldwide. So please contribute your language to the plugin to make it even more useful. For translating I recommend the awesome ["Codestyling Localization" plugin](http://wordpress.org/extend/plugins/codestyling-localization/) and for validating the ["Poedit Editor"](http://www.poedit.net/).
  
