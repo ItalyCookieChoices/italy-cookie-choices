@@ -142,6 +142,28 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
 
                 $this->options = get_option( 'italy_cookie_choices' );
 
+                /*
+                 * Set cookie if the user agree navigating through the pages of the site
+                 */
+                if(
+                    // if is an HTML request (alternative methods???)
+                    (strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) &&
+                    //if the page isn't privacy page
+                    ($_SERVER['REQUEST_URI']!=$this->options['slug']) && 
+                    //if HTTP_REFERER is set
+                    (isset($_SERVER['HTTP_REFERER'])) && 
+                    //if isn't refresh
+                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH)!=$_SERVER['REQUEST_URI']) &&
+                    //if referrer is not privacy page (to be evaluated)
+                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH)!=$this->options['slug']) && 
+                    //if the cookie is not already set
+                    (!isset( $_COOKIE[ $this->options['cookie_name'] ] )) && 
+                    //if the referer is in the same domain
+                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)==$_SERVER['HTTP_HOST'])
+                ) {
+                    setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
+                }
+
                 /**
                  * Shortcode to put a button in policy page
                  */
@@ -154,11 +176,6 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         define('DONOTCACHEPAGE', true);
                     if ( !defined( 'SID' ) )
                         define('SID', true);
-
-                    /**
-                     * Function for print cookiechoiches inline
-                     */
-                    add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
 
                     /**
                      * Background color for banner
@@ -236,16 +253,20 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                         add_filter( 'widget_display_callback', array( $this, 'WidgetErase' ), 11, 3 );
 
                     if ( $all_block ) {
-                        var_dump('expression');
                         //add_action('wp_footer', array( $this, 'catchBody' ), -1000000);
                         add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
                         add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
                     }
                     if( $custom_script_block !== '' ) {
-                        add_action('wp_init', array( $this, 'bufferHeadStart' ), 2);
+                        add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
                         add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
                         add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
                         add_action('shutdown', array( $this, 'bufferFooterEnd' ), -1000000);
+                    } else {
+                        /**
+                         * Function for print cookiechoiches inline
+                         */
+                        add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
                     }
 
                     /**
@@ -267,49 +288,68 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 $custom_script_block = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block );
                 $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
                 foreach($custom_script_block_array AS $single_script) {
-                    $buffer = str_replace(trim($single_script), "<!-- removed from Italy Cookie Choices Plugin -->", $buffer);
+                    $count_replace = 0;
+                    $buffer = str_replace(trim($single_script), "<!-- removed from Italy Cookie Choices Plugin -->", $buffer, $count_replace);
+                    if($count_replace>0)
+                        $this->js_array[] = trim($single_script);
                 }
                 return $buffer;
             }
         }
 
         public function bufferBodyStart() {
-            ob_end_flush();
+            if (ob_get_contents()) 
+                ob_end_flush();
             ob_start();
 
         }
 
         public function bufferBodyEnd() {
             $buffer = ob_get_contents();
-            ob_end_clean();
+            if (ob_get_contents()) 
+                ob_end_clean();
             preg_match("/(.*)(<body.*)/s", $buffer, $matches);
             $head = $matches[1];
             $body = $matches[2];
+            $this->matches( $this->pattern, $body );
             $body = preg_replace( $this->pattern, $this->valore , $body);
             $buffer_new = $head.$body;
             echo '<!-- ICCStartBody -->'.$buffer_new.'<!-- ICCEndBody -->';
         }
 
         public function bufferFooterStart() {
-            ob_end_flush();
+            if (ob_get_contents()) 
+                ob_end_flush();
             ob_start();
         }
 
         public function bufferFooterEnd() {
             $buffer = ob_get_contents();
-            ob_end_clean();
-            $buffer_new = $this->removeCustomScript($buffer);
-            echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
+            if (ob_get_contents()) 
+                ob_end_clean();
+            // if is an HTML request (alternative methods???)
+            if(strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) {
+                $buffer_new = $this->removeCustomScript($buffer);
+                /**
+                 * Function for print cookiechoiches inline
+                 */
+                $this->print_script_inline();
+                echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
+            } else {
+                echo $buffer;
+            }
         }
 
         public function bufferHeadStart() {
-            ob_end_flush();
+            if (ob_get_contents()) 
+                ob_end_flush();
             ob_start();
         }
 
         public function bufferHeadEnd() {
             $buffer = ob_get_contents();
-            ob_end_clean();
+            if (ob_get_contents()) 
+                ob_end_clean();
             $buffer_new = $this->removeCustomScript($buffer);
             echo '<!-- ICCStartHead -->'.$buffer_new.'<!-- ICCEndHead -->';
         }
@@ -1265,6 +1305,21 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             return $content;
         }
 
+        private function fnFixArray($v) {
+            if(is_array($v) or is_object($v)){
+                foreach($v as $k1=>$v1){
+                    $v[$k1] = $this->fnFixArray($v1);
+                }
+                return $v;
+            }
+
+            if(!is_string($v) or empty($v)) return $v;
+
+            $this->matches( $this->pattern, $v );
+
+            return preg_replace( $this->pattern, $this->valore , $v);
+        }
+
         /**
          * Erase third part in widget area
          * @param [type] $instance [description]
@@ -1272,25 +1327,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          * @param [type] $args     [description]
          */
         public function WidgetErase($instance, $widget, $args){
-            
-            $fnFixArray = function($v) use (&$fnFixArray){
-                if(is_array($v) or is_object($v)){
-                    foreach($v as $k1=>&$v1){
-                        $v1 = $fnFixArray($v1);
-                    }
-                    return $v;
-                }
-
-                if(!is_string($v) or empty($v)) return $v;
-
-                $this->matches( $this->pattern, $v );
-
-                return preg_replace( $this->pattern, $this->valore , $v);
-
-            };
-
-            return $fnFixArray($instance);
-
+            return $this->fnFixArray($instance);
         }
 
         /**
@@ -1298,7 +1335,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          * @return string Print script inline
          * @link https://www.cookiechoices.org/
          */
-        public function print_script_inline( $output = true ){
+        public function print_script_inline(){
 
             // $this->options = get_option( 'italy_cookie_choices' );
 
@@ -1431,8 +1468,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              * Select wich file to use in debug mode
              * @var string
              */
-            //$fileJS = ( WP_DEBUG ) ? '/js/cookiechoices.js' : '/js/cookiechoices.php' ;
-	    $fileJS = ( WP_DEBUG ) ? '/js/'.$js_template.'/cookiechoices.js' : '/js/'.$js_template.'/cookiechoices.php' ;
+            $fileJS = ( WP_DEBUG ) ? '/js/'.$js_template.'/cookiechoices.js' : '/js/'.$js_template.'/cookiechoices.php' ;
 
             $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
