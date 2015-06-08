@@ -40,9 +40,9 @@ Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](ht
 
 = Developer =
 
-(Enea Overclokk)[http://www.overclokk.net/]
+[Enea Overclokk](http://www.overclokk.net/)
 
-(Andrea Pernici)[https://www.andreapernici.com/]
+[Andrea Pernici](https://www.andreapernici.com/)
 
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
