@@ -596,7 +596,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             add_settings_section(
                 'advanced_setting_section', 
-                __( 'Advanced settngs', 'italy-cookie-choices' ), 
+                __( 'Advanced settings', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_advanced_settings_section_callback'), 
                 'italy_cl_options_group'
             );
