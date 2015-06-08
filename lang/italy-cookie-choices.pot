@@ -80,7 +80,7 @@ msgid "Banner text color"
 msgstr ""
 
 #: italy-cookie-choices.php:453
-msgid "Advanced settngs"
+msgid "Advanced settings"
 msgstr ""
 
 #: italy-cookie-choices.php:463
