@@ -13,9 +13,18 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'js/cookiechoices.php': [
-                        'js/cookiechoices.js'
-                    ],                  
+                    // 'js/cookiechoices.php': [
+                    //     'js/cookiechoices.js'
+                    // ],
+                    'js/default/cookiechoices.php': [
+                        'js/default/cookiechoices.js'
+                    ],
+                    'js/bigbutton/cookiechoices.php': [
+                        'js/bigbutton/cookiechoices.js'
+                    ],
+                    'js/smallbutton/cookiechoices.php': [
+                        'js/smallbutton/cookiechoices.js'
+                    ],
                 }
             },
             admin: {
