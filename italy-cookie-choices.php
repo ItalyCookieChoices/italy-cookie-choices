@@ -113,6 +113,12 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
         private $valore = '';
 
         /**
+         * Inizialize banner template to default
+         * @var string
+         */
+        private $js_template = 'default';
+
+        /**
          * Array with embed found
          * @var array
          */
@@ -952,14 +958,14 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
          */
         public function italy_cl_option_js_template($args) {
 
-            $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : '' ;
+            $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
 
         ?>
             <select  name='italy_cookie_choices[js_template]'>
-                <option value="default" <?php if ($js_template=='default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
-                <option value="bigbutton" <?php if ($js_template=='bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
-                <option value="smallbutton" <?php if ($js_template=='smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
-                <!--<option value="custom" <?php if ($js_template=='default') echo 'selected';?>>Custom CSS</option>-->
+                <option value="default" <?php if ($js_template === 'default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
+                <option value="bigbutton" <?php if ($js_template === 'bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
+                <option value="smallbutton" <?php if ($js_template === 'smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
+                <!--<option value="custom" <?php if ($js_template === 'default') echo 'selected';?>>Custom CSS</option>-->
             </select>
             <label for="italy_cookie_choices[js_template]">
                 <?php _e( 'Select the template to use', 'italy-cookie-choices' ); ?>
