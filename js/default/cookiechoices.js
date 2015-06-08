@@ -108,10 +108,17 @@ function appendJS(script){
     var cookieName = coNA;
     var cookieConsentId = 'cookieChoiceInfo';
     var dismissLinkId = 'cookieChoiceDismiss';
+    var htmlMarginOld = document.getElementsByTagName("html")[0].style.marginTop;
+
+    function ICC_outerHeight(el) {
+      var height = el.offsetHeight;
+      var style = getComputedStyle(el);
+
+      height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+      return height;
+    }
 
     function _createHeaderElement(cookieText, dismissText, linkText, linkHref) {
-
-      if( htmlM ) html.className += ' icc';
 
       var butterBarStyles = 'color:'+ btcB +';position:' + elPos + ';width:100%;background-color:' + bgB + ';' +
           'margin:0; left:0;'+bPos+';padding:4px;z-index:9999;text-align:center;';
@@ -231,7 +238,7 @@ function appendJS(script){
 
     function _dismissLinkClick() {
 	if (_shouldDisplayConsent()) {
-		if ( htmlM ) html.classList.remove("icc");
+		if ( htmlM ) document.getElementsByTagName("html")[0].style.marginTop = htmlMarginOld;
 		allowCookie();
 		_saveUserPreference();
 		_removeCookieConsent();
@@ -249,6 +256,7 @@ function appendJS(script){
         var fragment = document.createDocumentFragment();
         fragment.appendChild(consentElement);
         document.body.appendChild(fragment.cloneNode(true));
+        if( htmlM ) document.getElementsByTagName("html")[0].style.marginTop = ICC_outerHeight(document.getElementById("cookieChoiceInfo"))+'px';
         document.getElementById(dismissLinkId).onclick = _dismissLinkClick;
         // document.onclick = _dismissLinkClick;
         if (scroll) document.onscroll = _dismissLinkClick;

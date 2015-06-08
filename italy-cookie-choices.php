@@ -1463,17 +1463,11 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
             $cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
 
             /**
-             * Se l'optione è selezionata aggiunge un margine per non nascondere il contenuto dalla top bar
-             * @var string
-             */
-            $style = '<style>.icc{margin-top:36px}</style>';
-            
-            /**
              * Js_Template vlue
              * @var string
              */
             $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
-        
+
             /**
              * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
              * @var bol
@@ -1526,7 +1520,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
              */
             $fileJS = ( WP_DEBUG ) ? '/js/'.$js_template.'/cookiechoices.js' : '/js/'.$js_template.'/cookiechoices.php' ;
 
-            $output_html = '<!-- Italy Cookie Choices -->' . $style . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
+            $output_html = '<!-- Italy Cookie Choices -->' . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
             echo $output_html;
 
