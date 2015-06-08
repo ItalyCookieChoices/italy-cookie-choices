@@ -145,6 +145,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                 /*
                  * Set cookie if the user agree navigating through the pages of the site
                  */
+                $secondView = false;
                 if(
                     // if is an HTML request (alternative methods???)
                     (strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) &&
@@ -162,6 +163,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                     (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)==$_SERVER['HTTP_HOST'])
                 ) {
                     setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
+                    $secondView = true;
                 }
 
                 /**
@@ -169,7 +171,7 @@ if ( !class_exists( 'Italy_Cookie_Choices' ) ){
                  */
                 add_shortcode( 'accept_button', array( $this, 'accept_button' ) );
 
-                if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ){
+                if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) && !$secondView ){
 
                     // W3TC Disable Caching
                     if ( !defined( 'DONOTCACHEPAGE' ) )
