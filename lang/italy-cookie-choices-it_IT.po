@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: italy-cookie-choices\n"
 "POT-Creation-Date: 2015-06-08 14:19+0100\n"
-"PO-Revision-Date: 2015-06-08 14:27+0100\n"
+"PO-Revision-Date: 2015-06-09 16:36+0100\n"
 "Last-Translator: Enea Overclokk <info@overclokk.net>\n"
 "Language-Team: info@overclokk.net\n"
 "Language: it_IT\n"
@@ -150,7 +150,7 @@ msgstr "Accetta l'informativa sull'evento scroll del mouse"
 
 #: italy-cookie-choices.php:828
 msgid "Activate accept on second view"
-msgstr "Attiva l'accettzazione se l'utente continua la navigazione"
+msgstr "Attiva l'accettazione se l'utente continua la navigazione"
 
 #: italy-cookie-choices.php:846
 msgid "Refresh page after button click (DEPRECATED)"
@@ -278,7 +278,7 @@ msgid ""
 "<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></"
 "strong>"
 msgstr ""
-"Script inseriti nella head e nel footer non automaticmente bloccati.<br /"
+"Script inseriti nella head e nel footer non automaticamente bloccati.<br /"
 ">Split each script with <strong><em>&lt;---------SEP---------&gt;</em></"
 "strong>"
 
