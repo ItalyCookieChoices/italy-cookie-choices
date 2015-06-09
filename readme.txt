@@ -38,13 +38,19 @@ Please, notify any issue on github repository https://github.com/ItalyCookieChoi
 
 Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
 
+= Compatibilità W3TC fix =
+
+https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Compatibilit%C3%A0-W3TC-fix
+
 = Developer =
 
 [Enea Overclokk](http://www.overclokk.net/)
-
 [Andrea Pernici](https://www.andreapernici.com/)
-
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
+
+= Translators = 
+
+Romanian: [Florin Lungu](http://www.florinlungu.it/)
 
 == Installation ==
 
@@ -70,6 +76,13 @@ Yes, simply copy the snippet generate by "Italy Cookie Choses for WordPress" and
 = I use Async JS and CSS plugin, but the banner doesn't display =
 
 You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS plugin settings page and refresh page.
+
+= I don't see the banner in my site =
+
+Try this way:
+deactivate all plugin and try
+if it works activate one pluigin at time and try
+if it doesn't work activate standard theme and try
 
 == Screenshots ==
 
@@ -208,3 +221,4 @@ a notice to the user only the very first time that visits your website without d
 
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
 * [Loghino piccolo](http://www.posizionamento-seo.com/)
+* Romanian lang: [Florin Lungu](http://www.florinlungu.it/)
