@@ -95,6 +95,14 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.1.1 =
+Release Date: June 5th, 2015
+
+Dev time: 100h
+
+* New file structure
+* Added uninstall.php file
+
 = 2.1.0 =
 Release Date: June 5th, 2015
 
