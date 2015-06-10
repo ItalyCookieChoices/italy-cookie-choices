@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Italy Cookie Choices
  * Plugin URI: https://plus.google.com/u/0/communities/109254048492234113886
- * Description: Minimal code to make sure your website repect the Italian coockie law
+ * Description: Minimal code to make sure your website respect the Italian cookie law
  * Version: 2.1.0
- * Author: Enea Overclokk
+ * Author: Enea Overclokk, Andrea Pernici, Andrea Cardinale
  * Author URI: https://plus.google.com/u/0/communities/109254048492234113886
  * Text Domain: italy-cookie-choices
  * License: GPLv2 or later
@@ -49,1498 +49,201 @@ if ( !defined( 'ITALY_COOKIE_CHOICES_FILE' ) )
  * Example = F:\xampp\htdocs\italystrap\wp-content\plugins\italystrap-extended/
  */
 if ( !defined( 'ITALY_COOKIE_CHOICES_PLUGIN_PATH' ) )
-    define('ITALY_COOKIE_CHOICES_PLUGIN_PATH', plugin_dir_path( ITALY_COOKIE_CHOICES_FILE ));
+    define('ITALY_COOKIE_CHOICES_PLUGIN_PATH', plugin_dir_path( ITALY_COOKIE_CHOICES_FILE ) );
 /**
  * Example = italystrap-extended/italystrap.php
  */
 if ( !defined( 'ITALY_COOKIE_CHOICES_BASENAME' ) )
-    define('ITALY_COOKIE_CHOICES_BASENAME', plugin_basename( ITALY_COOKIE_CHOICES_FILE ));
+    define('ITALY_COOKIE_CHOICES_BASENAME', plugin_basename( ITALY_COOKIE_CHOICES_FILE ) );
 
 /**
  * Example = F:\xampp\htdocs\italystrap\wp-content\plugins\italy-cookie-choices
  */
 if ( !defined( 'ITALY_COOKIE_CHOICES_DIRNAME' ) )
-    define('ITALY_COOKIE_CHOICES_DIRNAME', dirname( ITALY_COOKIE_CHOICES_FILE ));
-
+    define('ITALY_COOKIE_CHOICES_DIRNAME', dirname( ITALY_COOKIE_CHOICES_FILE ) );
 
 /**
- * 
+ * Require PHP files
  */
-if ( !class_exists( 'Italy_Cookie_Choices' ) ){
+require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/class-italy-cookie-choices-admin.php');
+
+require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-front-end.php');
+
+/**
+ * Initialize plugin
+ */
+
+if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
 
     class Italy_Cookie_Choices{
 
         /**
-         * Definition of variables containing the configuration
-         * to be applied to the various function calls wordpress
-         */
-        protected $capability = 'manage_options';
-
-        /**
-         * Global variables and default values
-         * @var array
-         */
-        protected $default_options = array();
-
-        /**
-         * Option
-         * @var array
-         */
-        private $options = array();
-
-        /**
-         * Default Cookie name
+         * Minimum requirement PHP
          * @var string
          */
-        private $cookieName = 'displayCookieConsent';
+        private $PHP_ver = '5.3';
 
         /**
-         * Default cookie value
+         * Minimum requirement WordPress
          * @var string
          */
-        private $cookieVal = 'y';
-
+        private $WP_ver = '4.1';
+        
         /**
-         * Pattern for searching embed code in content and widget
-         * @var string
-         */
-        private $pattern = '#<iframe.*?\/iframe>|<embed.*?>|<script.*?\/script>#is';
-
-        /**
-         * Snippet for replacements
-         * @var string
-         */
-        private $valore = '';
-
-        /**
-         * Inizialize banner template to default
-         * @var string
-         */
-        private $js_template = 'default';
-
-        /**
-         * Array with embed found
-         * @var array
-         */
-        public $js_array = array();
-
-        /**
-         * [__construct description]
+         * Make some magics
          */
         public function __construct(){
 
             /**
-             * Add Admin menù page
+             * Check if is compatible and then instantiate it
              */
-            add_action( 'admin_menu', array( $this, 'addMenuPage') );
+            if ( $this->is_compatible_version() && is_admin() )
+                new Italy_Cookie_Choices_Admin;
+
+            else if ( $this->is_compatible_version() && !is_admin() )
+                new Italy_Cookie_Choices_Front_End;
+
+            else
+                add_action( 'admin_notices', array( $this, 'load_plugin_admin_notices' ) );
 
             /**
-             * Init settings
+             * Check compatibility on install
              */
-            add_action( 'admin_init', array( $this, 'italy_cl_settings_init') );
+            register_activation_hook(__FILE__,array($this,'check_compatibility_on_install'));
 
             /**
-             * Add color picker in admin menù
+             * adjust priority to make sure this runs
              */
-            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_color_picker') );
-
-            if ( !is_admin() ) {
-
-                $this->options = get_option( 'italy_cookie_choices' );
-
-                /**
-                 * Check for second view option
-                 * @var bol
-                 */
-                $secondViewOpt = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
-
-                /*
-                 * Set cookie if the user agree navigating through the pages of the site
-                 */
-                $secondView = false;
-
-                if(
-                    // if is an HTML request (alternative methods???)
-                    (strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) &&
-                    //if the page isn't privacy page
-                    ($_SERVER['REQUEST_URI']!=$this->options['slug']) && 
-                    //if HTTP_REFERER is set
-                    (isset($_SERVER['HTTP_REFERER'])) && 
-                    //if isn't refresh
-                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH)!=$_SERVER['REQUEST_URI']) &&
-                    //if referrer is not privacy page (to be evaluated)
-                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH)!=$this->options['slug']) && 
-                    //if the cookie is not already set
-                    (!isset( $_COOKIE[ $this->options['cookie_name'] ] )) && 
-                    //if the referer is in the same domain
-                    (parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST)==$_SERVER['HTTP_HOST']) &&
-                    // If the secondView options is checked
-                    ( $secondViewOpt )
-                ) {
-                    setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
-                    $secondView = true;
-                }
-
-                /**
-                 * Shortcode to put a button in policy page
-                 */
-                add_shortcode( 'accept_button', array( $this, 'accept_button' ) );
-
-                if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) && !$secondView ){
-
-                    // W3TC Disable Caching
-                    if ( !defined( 'DONOTCACHEPAGE' ) )
-                        define('DONOTCACHEPAGE', true);
-                    if ( !defined( 'SID' ) )
-                        define('SID', true);
-
-                    /**
-                     * Background color for banner
-                     * @var string
-                     */
-                    $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
-
-                    /**
-                     * Color for text
-                     * @var string
-                     */
-                    $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '' ;
-
-                    /**
-                     * Text for banner
-                     * @var string
-                     */
-                    $text = ( isset( $this->options['text'] ) ) ? $this->options['text']    : '' ;
-
-                    /**
-                     * Text for buttom
-                     * @var [type]
-                     */
-                    $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
-
-                    /**
-                     * Checkbox for third part cookie in content
-                     * @var bol
-                     */
-                    $block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : '' ;
-
-                    /**
-                     * Checkbox for third part cookie in widget
-                     * @var bol
-                     */
-                    $widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
-
-                    /**
-                     * Checkbox for third part cookie in all page (except head and footer)
-                     * @var bol
-                     */
-                    $all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
-
-                    /**
-                     * Checkbox custom scripts block
-                     * @var bol
-                     */
-                    $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
-
-                    /**
-                     * Text to put inside locked post and widget contents
-                     * including the button text
-                     * @var string
-                     */
-                    $content_message_text = ( isset( $this->options['content_message_text'] ) ) ? $this->options['content_message_text']    : '' ;
-
-                    /**
-                     * Text for button in locked content and widget
-                     * @var string
-                     */
-                    $content_message_button_text = ( isset( $this->options['content_message_button_text'] ) ) ? $this->options['content_message_button_text'] : '' ;
-
-                    /**
-                     * Replacement for regex
-                     * @var string
-                     */
-                    // $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color: #f2dede;border: 1px solid #eed3d7; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">' . esc_attr( $this->options['text'] ) . '<button onclick="cookieChoices.removeCookieConsent()">Try it</button></div><!-- $0 --></div>';
-                    // 
-                    $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:'.esc_attr( $banner_text_color ).';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . esc_attr( $content_message_text ) . '&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color: '.esc_attr( $banner_text_color ).';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . esc_attr( $content_message_button_text ) . '</button></div><cookie></div>';
-
-                    if ($block)
-                        add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
-
-                    if ( $widget_block )
-                        add_filter( 'widget_display_callback', array( $this, 'WidgetErase' ), 11, 3 );
-
-                    if ( $all_block ) {
-                        //add_action('wp_footer', array( $this, 'catchBody' ), -1000000);
-                        add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
-                        add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
-                    }
-                    if( $custom_script_block !== '' ) {
-                        add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
-                        add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
-                        add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
-                        add_action('shutdown', array( $this, 'bufferFooterEnd' ), -1000000);
-                    } else {
-                        /**
-                         * Function for print cookiechoiches inline
-                         */
-                        add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
-                    }
-
-                    /**
-                     * Only for debug
-                     */
-                    // var_dump($_COOKIE);
-                    // var_dump(headers_list());
-                    
-                }
-            }
-        }
-
-
-        public function removeCustomScript($buffer) {
-            $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
-            if($custom_script_block=='') {
-                return $buffer;
-            } else {
-                $custom_script_block = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block );
-                $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
-                foreach($custom_script_block_array AS $single_script) {
-                    $count_replace = 0;
-                    $buffer = str_replace(trim($single_script), "<!-- removed from Italy Cookie Choices Plugin -->", $buffer, $count_replace);
-                    if($count_replace>0)
-                        $this->js_array[] = trim($single_script);
-                }
-                return $buffer;
-            }
-        }
-
-        public function bufferBodyStart() {
-            if (ob_get_contents()) 
-                ob_end_flush();
-            ob_start();
-
-        }
-
-        public function bufferBodyEnd() {
-            $buffer = ob_get_contents();
-            if (ob_get_contents()) 
-                ob_end_clean();
-            preg_match("/(.*)(<body.*)/s", $buffer, $matches);
-            $head = $matches[1];
-            $body = $matches[2];
-            $this->matches( $this->pattern, $body );
-            $body = preg_replace( $this->pattern, $this->valore , $body);
-            $buffer_new = $head.$body;
-            echo '<!-- ICCStartBody -->'.$buffer_new.'<!-- ICCEndBody -->';
-        }
-
-        public function bufferFooterStart() {
-            if (ob_get_contents()) 
-                ob_end_flush();
-            ob_start();
-        }
-
-        public function bufferFooterEnd() {
-            $buffer = ob_get_contents();
-            if (ob_get_contents()) 
-                ob_end_clean();
-            // if is an HTML request (alternative methods???)
-            if(strpos($_SERVER["HTTP_ACCEPT"],'html') !== false) {
-                $buffer_new = $this->removeCustomScript($buffer);
-                /**
-                 * Function for print cookiechoiches inline
-                 */
-                $this->print_script_inline();
-                echo '<!-- ICCStartFooter -->'.$buffer_new.'<!-- ICCEndFooter -->';
-            } else {
-                echo $buffer;
-            }
-        }
-
-        public function bufferHeadStart() {
-            if (ob_get_contents()) 
-                ob_end_flush();
-            ob_start();
-        }
-
-        public function bufferHeadEnd() {
-            $buffer = ob_get_contents();
-            if (ob_get_contents()) 
-                ob_end_clean();
-            $buffer_new = $this->removeCustomScript($buffer);
-            echo '<!-- ICCStartHead -->'.$buffer_new.'<!-- ICCEndHead -->';
-        }
-
-        /**
-         * Add page for italy-cookie-choices admin page
-         */
-        public function addMenuPage(){
-
-            add_options_page(
-                __('Italy Cookie Choices Dashboard', 'italy-cookie-choices'),
-                'Italy Cookie Choices',
-                $this->capability,
-                'italy-cookie-choices',
-                array( $this, 'dashboard')
-                );
-        }
-
-        /**
-         *  The dashboard callback
-         */
-        public function dashboard(){
-
-            if ( !current_user_can( $this->capability ) )
-                wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-
-                ?>
-                <div class="wrap">
-
-                        <?php //settings_errors('italy_cookie_id'); ?>
-
-                    <form action='options.php' method='post'>
-                        
-                        <?php
-                        settings_fields( 'italy_cl_options_group' );
-                        do_settings_sections( 'italy_cl_options_group' );
-                        submit_button();
-                        ?>
-                        
-                    </form>
-                </div>
-                <?php
-
-        }
-
-        /**
-         * [italy_cl_settings_init description]
-         * @return [type] [description]
-         */
-        public function italy_cl_settings_init() {
-
-            /**
-            * Load Plugin Textdomain
-            */
-            // load_plugin_textdomain('italy-cookie-choices', false, ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'lang/' );
-            load_plugin_textdomain('italy-cookie-choices', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
-
-            /**
-             * Create default options
-             * @var array
-             */
-            $this->default_options = array(
-
-                'text'                          => '',
-                'url'                           => '',
-                'anchor_text'                   => '',
-                'button_text'                   => '',
-                'cookie_name'                   => $this->cookieName,
-                'cookie_value'                  => $this->cookieVal,
-                'content_message_text'          => '',
-                'content_message_button_text'   => ''
-
-                );
-
-            /**
-             * All options in array
-             * @var array
-             */
-            $this->options = get_option( 'italy_cookie_choices' );
-
-            /**
-             * If the theme options don't exist, create them.
-             */
-            if( false === $this->options )
-                add_option( 'italy_cookie_choices', $this->default_options );
-
-            /**
-             * Section options page
-             */
-            add_settings_section(
-                'setting_section', 
-                __( 'Italy Cookie Choices options page', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_settings_section_callback'), 
-                'italy_cl_options_group'
-            );
-
-            /**
-             * Checkbox for activation
-             */
-            add_settings_field( 
-                'active', 
-                __( 'Activate', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_active'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * How to display banner
-             * Default Bar
-             */
-            add_settings_field( 
-                'banner', 
-                __( 'Where display the banner', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_banner'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Checkbox for scroll event
-             */
-            add_settings_field( 
-                'scroll', 
-                __( 'Mouse scroll event', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_scroll'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Checkbox for open in new page
-             */
-            add_settings_field( 
-                'secondView', 
-                __( 'Accept on second view', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_secondView'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Checkbox for reload page
-             */
-            add_settings_field( 
-                'reload', 
-                __( 'Refresh page', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_reload'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Input for short policy text
-             */
-            add_settings_field( 
-                'text', 
-                __( 'Text to display', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_text'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Input for url policy page
-             */
-            add_settings_field( 
-                'url', 
-                __( 'URL for cookie policy', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_url'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Input for anchor text
-             */
-            add_settings_field( 
-                'anchor_text', 
-                __( 'Anchor text for URL', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_anchor_text'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Input for button text
-             */
-            add_settings_field( 
-                'button_text', 
-                __( 'Button text', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_button_text'), 
-                'italy_cl_options_group', 
-                'setting_section'
-                );
-
-            /**
-             * Settings sections for Style
-             */
-            add_settings_section(
-                'style_setting_section', 
-                __( 'Style settings', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_style_settings_section_callback'), 
-                'italy_cl_options_group'
-            );
-
-            /**
-             * Select box for js_template selection
-             */
-            add_settings_field( 
-                'js_template', 
-                __( 'CookieChoices Template', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_js_template'), 
-                'italy_cl_options_group', 
-                'style_setting_section'
-            );
-        
-            /**
-             * Checkbox for activation
-             */
-            add_settings_field( 
-                'html_margin', 
-                __( 'HTML top margin', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_html_margin'), 
-                'italy_cl_options_group', 
-                'style_setting_section'
-            );
-
-            /**
-             * Background color for banner
-             */
-            add_settings_field( 
-                'banner_bg', 
-                __( 'Banner Background color', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_banner_bg'), 
-                'italy_cl_options_group', 
-                'style_setting_section'
-            );
-
-            /**
-             * Color for text in banner
-             */
-            add_settings_field( 
-                'banner_text_color', 
-                __( 'Banner text color', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_banner_text_color'), 
-                'italy_cl_options_group', 
-                'style_setting_section'
-            );
-
-            /**
-             * Settings sections for Advanced options
-             */
-            add_settings_section(
-                'advanced_setting_section', 
-                __( 'Advanced settings', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_advanced_settings_section_callback'), 
-                'italy_cl_options_group'
-            );
-
-            /**
-             * cookie name
-             */
-            add_settings_field( 
-                'cookie_name', 
-                __( 'Cookie name', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_cookie_name'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * cookie value
-             */
-            add_settings_field( 
-                'cookie_value', 
-                __( 'Cookie value', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_cookie_value'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Cookie policy page slug
-             */
-            add_settings_field( 
-                'slug', 
-                __( 'Cookie policy page slug', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_slug'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Checkbox for open in new page
-             */
-            add_settings_field( 
-                'target', 
-                __( 'Open policy in new page', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_target'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Checkbox for activation third part cookie eraser
-             */
-            add_settings_field( 
-                'block', 
-                __( 'Third part cookie block (beta)', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_block'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Function for custom script block
-             */
-            add_settings_field( 
-                'custom_script_block', 
-                __( 'Function for custom script block', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_custom_script_block'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Function for content message text
-             */
-            add_settings_field( 
-                'content_message_text', 
-                __( 'Text message for locked embedded content', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_content_message_text'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Function for button text in message
-             */
-            add_settings_field( 
-                'content_message_button_text', 
-                __( 'Button text to activate locked embedded content', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_content_message_button_text'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Register setting
-             */
-            register_setting(
-                'italy_cl_options_group',
-                'italy_cookie_choices',
-                array( $this, 'sanitize_callback')
-                );
-
-
-        }
-
-
-        /**
-         * Display message in plugin control panel
-         * @return string Return message
-         */
-        public function italy_cl_settings_section_callback() { 
-
-            _e( 'Customize your banner for cookie law', 'italy-cookie-choices' );
-
-        }
-
-        /**
-         * Snippet for checkbox
-         * @return strimg       Activate banner in front-end Default doesn't display
-         */
-        public function italy_cl_option_active($args) {
-
-            $active = ( isset( $this->options['active'] ) ) ? $this->options['active'] : '' ;
-        ?>
-
-            <input type='checkbox' name='italy_cookie_choices[active]' <?php checked( $active, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[active]">
-                <?php _e( 'Display banner for Cookie Law in front-end', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Choose how to display banner in page
-         * @return string       Display input and labels in plugin options page
-         */
-        public function italy_cl_option_banner($args) {
-
-            $banner = ( isset( $this->options['banner'] ) ) ? $this->options['banner'] : '1' ;
-
-        ?>
-
-            <input name="italy_cookie_choices[banner]" type="radio" value="1" id="radio_1" <?php checked( '1', $banner ); ?> />
-
-            <label for="radio_1">
-                <?php _e( 'Top Bar (Default, Display a top bar with your message)', 'italy-cookie-choices' ); ?>
-            </label>
-
-            <br>
-
-            <input name="italy_cookie_choices[banner]" type="radio" value="2" id="radio_2" <?php checked( '2', $banner ); ?> />
-
-            <label for="radio_2">
-                <?php _e( 'Dialog (Display an overlay with your message)', 'italy-cookie-choices' ); ?>
-            </label>
-        
-        <br>
-        
-    <input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
-
-            <label for="radio_3">
-                <?php _e( 'Bottom Bar (Display a bar in the footer with your message)', 'italy-cookie-choices' ); ?>
-            </label>
+            add_action( 'init', array( $this, 'italystrap_init'), 100 );
 
             
-
-        <?php
-
         }
 
         /**
-         * Snippet for checkbox
-         * @return strimg       Activate banner in front-end Default doesn't display
+         * Check if plugin is compatible, if it is not then it wont activate
+         * @return string Return error message in case plugin is not compatible
          */
-        public function italy_cl_option_scroll($args) {
+        function check_compatibility_on_install(){
 
-            $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
-        ?>
+            if ( !$this->is_compatible_version() ) {
 
-            <input type='checkbox' name='italy_cookie_choices[scroll]' <?php checked( $scroll, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[scroll]">
-                <?php _e( 'Accepts disclosures on mouse scroll event', 'italy-cookie-choices' ); ?>
-            </label>
+                $HTML  = '<div>' . __( 'Activation of Italy Cookie Choices in not possible', 'italy-cookie-choices' ) . ':</div><ul>';
 
-        <?php
+                if ( !$this->is_compatible_PHP() )
+                    $HTML .= '<li>' . $this->get_admin_notices_PHP( false ) . '</li>';
 
+                if ( !$this->is_compatible_WORDPRESS() )
+                    $HTML .= '<li>' . $this->get_admin_notices_WORDPRESS( false ) . '</li>';
+
+                $HTML .= '</ul>';
+
+                wp_die( $HTML, __( 'Activation of Italy Cookie Choices in not possible', 'italy-cookie-choices' ), array( 'back_link' => true ) );
+            };
         }
 
         /**
-         * Snippet for second view checkbox $secondView
-         * @return strimg       Activate for accept on second view 
-         *                      Default do nothing
+         * Init functions
          */
-        public function italy_cl_option_secondView($args) {
-
-            $secondView = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
-
-        ?>
-
-            <input type='checkbox' name='italy_cookie_choices[secondView]' <?php checked( $secondView, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[secondView]">
-                <?php _e( 'Activate accept on second view', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Snippet for reload
-         * @return strimg       Reload page after click
-         */
-        public function italy_cl_option_reload($args) {
-
-            $reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
-        ?>
-
-            <input type='checkbox' name='italy_cookie_choices[reload]' <?php checked( $reload, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[reload]">
-                <?php _e( 'Refresh page after button click (DEPRECATED)', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Textarea for the message to display
-         * @return string
-         */
-        public function italy_cl_option_text($args) {
-
-        ?>
-
-            <textarea rows="5" cols="70" name="italy_cookie_choices[text]" id="italy_cookie_choices[text]" placeholder="<?php _e( 'Your short cookie policy', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['text'] ); ?></textarea>
-            <br>
-            <label for="italy_cookie_choices[text]">
-                <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Input for url policy page
-         * @return string
-         */
-        public function italy_cl_option_url($args) {
-
-        ?>
-            <input type="text" id="italy_cookie_choices[url]" name="italy_cookie_choices[url]" value="<?php echo esc_url( $this->options['url'] ); ?>" placeholder="<?php _e( 'e.g. http://www.aboutcookies.org/', 'italy-cookie-choices' ) ?>" size="70" />
-            <br>
-            <label for="italy_cookie_choices[url]">
-                <?php echo __( 'Insert here the link to your policy page', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Input for anchor_text
-         * @return string
-         */
-        public function italy_cl_option_anchor_text($args) {
-
-        ?>
-            <input type="text" id="italy_cookie_choices[anchor_text]" name="italy_cookie_choices[anchor_text]" value="<?php echo esc_attr( $this->options['anchor_text'] ); ?>" placeholder="<?php _e( 'e.g. More Info', 'italy-cookie-choices' ) ?>" />
-
-            <label for="italy_cookie_choices[anchor_text]">
-                <?php echo __( 'Insert here anchor text for the link', 'italy-cookie-choices'); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Input for anchor_text
-         * @return string
-         */
-        public function italy_cl_option_button_text($args) {
-
-        ?>
-            <input type="text" id="italy_cookie_choices[button_text]" name="italy_cookie_choices[button_text]" value="<?php echo esc_attr( $this->options['button_text'] ); ?>" placeholder="<?php _e( 'e.g. Close', 'italy-cookie-choices' ) ?>" />
-
-            <label for="italy_cookie_choices[button_text]">
-                <?php echo __( 'Insert here name of button (e.g. "Close") ', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * NUOVA SETTINGS SECTIONS PER LO STILE
-         */
-
-        /**
-         * Display message in stile plugin panel
-         * @return string
-         */
-        public function italy_cl_style_settings_section_callback() { 
-
-            _e( 'Customize your style settings', 'italy-cookie-choices' );
-
-        }
-
-        /**
-         * Snippet for checkbox
-         * @return strimg       Activate banner in front-end Default doesn't display
-         */
-        public function italy_cl_option_html_margin($args) {
-
-            $html_margin = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
-
-        ?>
-
-            <input type='checkbox' name='italy_cookie_choices[html_margin]' <?php checked( $html_margin, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[html_margin]">
-                <?php _e( 'Add a page top margin for info top bar, only for default topbar stile', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-    
-    /**
-         * Snippet for select
-         * @return strimg       Chose the JS_Template to use.
-         */
-        public function italy_cl_option_js_template($args) {
-
-            $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
-
-        ?>
-            <select  name='italy_cookie_choices[js_template]'>
-                <option value="default" <?php if ($js_template === 'default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
-                <option value="bigbutton" <?php if ($js_template === 'bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
-                <option value="smallbutton" <?php if ($js_template === 'smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
-                <!--<option value="custom" <?php if ($js_template === 'default') echo 'selected';?>>Custom CSS</option>-->
-            </select>
-            <label for="italy_cookie_choices[js_template]">
-                <?php _e( 'Select the template to use', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Snippet for checkbox
-         * @return strimg       Activate banner in front-end Default doesn't display
-         */
-        public function italy_cl_option_banner_bg($args) {
-
-            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
-
-        ?>
-
-            <input type="text" id="italy_cookie_choices[banner_bg]" name="italy_cookie_choices[banner_bg]" value="<?php echo esc_attr( $banner_bg ); ?>" placeholder="<?php echo esc_attr( $banner_bg ); ?>" class="color-field" data-default-color="#fff"/>
-
-
-            <label for="italy_cookie_choices[banner_bg]">
-                <?php _e( 'Custom Background color for banner', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Snippet for banner text color
-         * @return strimg       Activate banner in front-end Default doesn't display
-         */
-        public function italy_cl_option_banner_text_color($args) {
-
-            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '' ;
-
-        ?>
-
-            <input type="text" id="italy_cookie_choices[banner_text_color]" name="italy_cookie_choices[banner_text_color]" value="<?php echo esc_attr( $banner_text_color ); ?>" placeholder="<?php echo esc_attr( $banner_text_color ); ?>" class="color-field" data-default-color="#000"/>
-
-            <label for="italy_cookie_choices[banner_text_color]">
-                <?php _e( 'Custom text color for banner', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * NUOVA SETTINGS SECTIONS PER LE OPZIONI AVANZATE
-         */
-
-        /**
-         * Display message in plugin advanced setting section
-         * @return string
-         */
-        public function italy_cl_advanced_settings_section_callback() { 
-
-            _e( 'Customize your advanced settings', 'italy-cookie-choices' );
-
-        }
-
-        /**
-         * Snippet for cookie name
-         * @return strimg       Activate banner in front-end Default doesn't display
-         */
-        public function italy_cl_option_cookie_name($args) {
-
-            $cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : $this->cookieName ;
-
-        ?>
-            <input type="text" id="italy_cookie_choices[cookie_name]" name="italy_cookie_choices[cookie_name]" value="<?php echo esc_attr( $cookie_name ); ?>" placeholder="<?php echo esc_attr( $this->cookieName ); ?>" />
-
-            <label for="italy_cookie_choices[cookie_name]">
-                <?php _e( 'Insert your cookie name (Default: displayCookieConsent)', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Snippet for cookie value
-         * @return strimg       Activate banner in front-end Default doesn't display
-         */
-        public function italy_cl_option_cookie_value($args) {
-
-            $cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
-
-        ?>
-            <input type="text" id="italy_cookie_choices[cookie_value]" name="italy_cookie_choices[cookie_value]" value="<?php echo esc_attr( $cookie_value ); ?>" placeholder="<?php echo esc_attr( $this->cookieVal ); ?>" />
-
-            <label for="italy_cookie_choices[cookie_value]">
-                <?php _e( 'Insert your cookie value (Default: y)', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Slug for cookie policy page
-         * @return strimg       Slug for cookie policy page Default null
-         */
-        public function italy_cl_option_slug($args) {
-
-            $slug = ( isset( $this->options['slug'] ) ) ? $this->options['slug'] : '' ;
-
-        ?>
-            <input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. your-policy-url.html', 'italy-cookie-choices' ); ?>" />
-
-            <label for="italy_cookie_choices[slug]">
-                <?php _e( 'Insert your cookie policy page slug (e.g. your-policy-url), it will display only topbar in your cookie policy page', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Snippet for target checkbox
-         * @return strimg       Activate for open policy page in new tab 
-         *                      Default open in same tab
-         */
-        public function italy_cl_option_target($args) {
-
-            $target = ( isset( $this->options['target'] ) ) ? $this->options['target'] : '' ;
-
-        ?>
-
-            <input type='checkbox' name='italy_cookie_choices[target]' <?php checked( $target, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[target]">
-                <?php _e( 'Open your cookie policy page in new one', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Snippet for target checkbox
-         * @return strimg       Activate for open policy page in new tab 
-         *                      Default open in same tab
-         */
-        public function italy_cl_option_block($args) {
-
-            $all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
-
-            $block = ( isset( $this->options['block'] ) && $all_block === '' ) ? $this->options['block'] : '' ;
-
-            $widget_block = ( isset( $this->options['widget_block'] ) && $all_block === '' ) ? $this->options['widget_block'] : '' ;
-
-        ?>
-
-            <input type='checkbox' name='italy_cookie_choices[block]' <?php checked( $block, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[block]">
-                <?php _e( 'Cookie from any embed in your content (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
-            </label>
-            <br>
-            <input type='checkbox' name='italy_cookie_choices[widget_block]' <?php checked( $widget_block, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[widget_block]">
-                <?php _e( 'Cookie from any embed in your widget area (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
-            </label>
-            <br>
-            <input type='checkbox' name='italy_cookie_choices[all_block]' <?php checked( $all_block, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[all_block]">
-                <?php _e( 'Cookie from any embed in all body, except head and footer (Beta)', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Textarea for content_message_text
-         * @return string
-         */
-        public function italy_cl_option_custom_script_block($args) {
-
-            $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
-
-        ?>
-            <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block]" id="italy_cookie_choices[custom_script_block]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block ); ?></textarea>
-            <br>
-            <label for="italy_cookie_choices[custom_script_block]">
-                <?php echo __( 'Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Function for custom script block
-         * @return string
-         */
-        public function italy_cl_option_content_message_text($args) {
-
-            $content_message_text = ( isset( $this->options['content_message_text'] ) ) ? $this->options['content_message_text'] : '' ;
-
-        ?>
-            <textarea rows="5" cols="70" name="italy_cookie_choices[content_message_text]" id="italy_cookie_choices[content_message_text]" placeholder="<?php _e( 'Your lock message for embedded contents inside posts, pages and widgets', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $content_message_text ); ?></textarea>
-            <br>
-            <label for="italy_cookie_choices[content_message_text]">
-                <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Input for content_message_button_text
-         * @return string
-         */
-        public function italy_cl_option_content_message_button_text($args) {
-
-            $content_message_button_text = ( isset( $this->options['content_message_button_text'] ) ) ? $this->options['content_message_button_text'] : '' ;
-
-        ?>
-            <input type="text" id="italy_cookie_choices[content_message_button_text]" name="italy_cookie_choices[content_message_button_text]" value="<?php echo esc_attr( $content_message_button_text ); ?>" placeholder="<?php _e( 'e.g. Close', 'italy-cookie-choices' ) ?>" />
-
-            <label for="italy_cookie_choices[content_message_button_text]">
-                <?php echo __( 'Insert here name of button (e.g. "Close") ', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
-         * Sanitize data
-         * @param  array $input Data to sanitize
-         * @return array        Data sanitized
-         */
-        public function sanitize_callback( $input ){
-
-            $new_input = array();
-
-            if( isset( $input['active'] ) )
-                $new_input['active'] =  $input['active'];
-
-            if( isset( $input['banner'] ) )
-                $new_input['banner'] =  $input['banner'];
-
-            if( isset( $input['scroll'] ) )
-                $new_input['scroll'] =  $input['scroll'];
-
-            if( isset( $input['secondView'] ) )
-                $new_input['secondView'] =  $input['secondView'];
-
-            if( isset( $input['reload'] ) )
-                $new_input['reload'] =  $input['reload'];
-
-            if( isset( $input['text'] ) )
-                $new_input['text'] = sanitize_text_field( $input['text'] );
-
-            if( isset( $input['url'] ) )
-                $new_input['url'] = sanitize_text_field( $input['url'] );
-
-            if( isset( $input['anchor_text'] ) )
-                $new_input['anchor_text'] = sanitize_text_field( $input['anchor_text'] );
-
-            if( isset( $input['button_text'] ) )
-                $new_input['button_text'] = sanitize_text_field( $input['button_text'] );
+        public function italystrap_init() {
 
             /**
-             * Sezione per lo stile
+             * Load Lang file
              */
-            if( isset( $input['html_margin'] ) )
-                $new_input['html_margin'] =  $input['html_margin'];
-        
-            if( isset( $input['js_template'] ) )
-                $new_input['js_template'] =  $input['js_template'];
-        
-            if( empty( $input['banner_bg'] ) )
-                $new_input['banner_bg'] =  '#fff';
-            elseif ( isset( $input['banner_bg'] ) )
-                $new_input['banner_bg'] =  sanitize_text_field( $input['banner_bg'] );
+            load_plugin_textdomain( 'italy-cookie-choices', false, dirname( ITALY_COOKIE_CHOICES_BASENAME ) . '/lang' );
 
-            if( empty( $input['banner_text_color'] ) )
-                $new_input['banner_text_color'] =  '#000';
-            elseif ( isset( $input['banner_text_color'] ) )
-                $new_input['banner_text_color'] =  sanitize_text_field( $input['banner_text_color'] );
+        }
 
-            /**
-             * Sezione per le opzioni avanzate
-             * Esempio per add_settings_error()
-             * @link https://wordpress.org/support/topic/how-to-use-add_settings_error-for-nested-options-array?replies=2
-             * @link http://pastebin.com/K4kJ0DNG
-             */
-            if( empty( $input['cookie_name'] ) ){
-                add_settings_error( 'italy_cookie_id', 'cookie_name_ID', __('Cookie name field it can\'t be empty. Restored default name.', 'italy-cookie-choices' ), 'error');
-                $new_input['cookie_name'] = $this->cookieName;
-            }
+        /**
+         * Checking compatibility with installed versions of the plugin
+         * In case of incompatibility still fully loaded plugin (return)
+         * @return boolean Check if plugin is compatible
+         */
+        function is_compatible_version() {
+
+            if ( $this->is_compatible_PHP() && $this->is_compatible_WORDPRESS() )
+                return true;
             else
-                $new_input['cookie_name'] =  sanitize_text_field( $input['cookie_name'] );
+                return false;
+        }
 
-            if( empty( $input['cookie_value'] ) ){
-                add_settings_error( 'italy_cookie_id', 'cookie_name_ID', __('Cookie value field it can\'t be empty. Restored default value.', 'italy-cookie-choices' ), 'error');
-                $new_input['cookie_value'] =  $this->cookieVal;
-            }
+        /**
+         * Checking the compatibility of the plugin with the version of PHP
+         * In case of incompatibility still fully loaded plugin (return)
+         * @return boolean Check PHP compatibility
+         */
+        function is_compatible_PHP() {
+
+            if ( version_compare( phpversion(), $this->PHP_ver, '<') )
+                return false;
             else
-                $new_input['cookie_value'] = sanitize_text_field( $input['cookie_value'] );
-
-            if( isset( $input['slug'] ) )
-                $new_input['slug'] = sanitize_text_field( $input['slug'] );
-
-            if( isset( $input['target'] ) )
-                $new_input['target'] =  $input['target'];
-
-            if( isset( $input['block'] ) )
-                $new_input['block'] =  $input['block'];
-
-            if( isset( $input['widget_block'] ) )
-                $new_input['widget_block'] =  $input['widget_block'];
-
-            if( isset( $input['all_block'] ) )
-                $new_input['all_block'] =  $input['all_block'];
-
-            if( isset( $input['custom_script_block'] ) )
-                $new_input['custom_script_block'] =  $input['custom_script_block'];
-
-            if( isset( $input['content_message_text'] ) )
-                $new_input['content_message_text'] =  sanitize_text_field( $input['content_message_text'] );
-        
-            if( isset( $input['content_message_button_text'] ) )
-                $new_input['content_message_button_text'] =  sanitize_text_field( $input['content_message_button_text'] );
-
-            return $new_input;
+                return true;
 
         }
 
         /**
-         * Function for color picker in admin
-         * @param  string $hook_suffix Hook for script
-         * @return               Append script
-         * @link https://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
-         * @link http://code.tutsplus.com/articles/how-to-use-wordpress-color-picker-api--wp-33067
+         * Checking the compatibility of the plugin with the version of Wordpress
+         * In case of incompatibility still fully loaded plugin (return)
+         * @return boolean Check WordPress compatibility
          */
-        public function enqueue_color_picker( $hook_suffix ) {
+        function is_compatible_WORDPRESS() {
 
-                // first check that $hook_suffix is appropriate for your admin page
-                wp_enqueue_style( 'wp-color-picker' );
-
-                // wp_enqueue_script( 'jquery' );
-
-                wp_enqueue_script(
-                    'italy-cookie-choices-script',
-                    plugins_url('admin/js/src/script.js', ITALY_COOKIE_CHOICES_FILE ),
-                    array(
-                        // 'jquery',
-                        'wp-color-picker'
-                        ),
-                    null,
-                    true
-                    );
-
+            if ( version_compare( $GLOBALS['wp_version'], $this->WP_ver, '<') )
+                return false;
+            else
+                return true;
         }
 
         /**
-         * Function for matching embed
-         * @param  string $pattern Pattern
-         * @param  string $content Content
-         * @return array          Array with embed found
+         * If the plugin is active, but the minimum requirements are not met
+         * the function is called to add the details on the notice board error
+         * @return string Print error message
          */
-        public function matches( $pattern, $content ){
+        function load_plugin_admin_notices() {
 
-            preg_match_all( $this->pattern, $content, $matches );
+            if ( !$this->is_compatible_PHP() )
+                echo $this->get_admin_notices_PHP( true );
 
-            /**
-             * Memorizzo gli embed trovati e li appendo all'array $js_array
-             * @var [type]
-             */
-            if ( !empty( $matches[0] ) )
-                $this->js_array = array_merge( $this->js_array, $matches[0] );
+            if ( !$this->is_compatible_WORDPRESS() )
+                echo $this->get_admin_notices_WORDPRESS( true );
+        }
 
+        function get_admin_notices_PHP( $wrap ) {
+
+            return $this->get_admin_notices_TEXT( $wrap, 'PHP', phpversion(), $this->PHP_ver );
+        }
+
+        function get_admin_notices_WORDPRESS( $wrap ) {
+
+            return $this->get_admin_notices_TEXT( $wrap, 'WordPress', $GLOBALS['wp_version'], $this->WP_ver);
         }
 
         /**
-         * Erase third part embed
-         * @param string $content Article content
+         * A function that creates a generic error to be displayed during 
+         * the activation function or on the bulletin board of directors.
+         * @param  bolean $wrap [description]
+         * @param  string $s1   PHP or WordPress
+         * @param  string $s2   Current version
+         * @param  string $s3   Required version
+         * @return string       Display errors
          */
-        public function AutoErase( $content ) {
+        function get_admin_notices_TEXT( $wrap, $s1, $s2, $s3 ) {
 
-            $this->matches( $this->pattern, $content );
+            $HTML = __( 'Your server is running %s version %s but this plugin requires at least %s', 'italy-cookie-choices' );
 
-            $content = preg_replace( $this->pattern, $this->valore , $content);
+            if ( $wrap === false )
+                $HTML = '<div>' . $HTML . '</div>';
 
-            
-            return $content;
+            else
+                $HTML = '<div class="error"><p><b>Italy Cookie Choices</b> - ' . $HTML . '</p></div>';
+
+            return sprintf( $HTML, $s1, $s2, $s3 );
         }
 
-        private function fnFixArray($v) {
-            if(is_array($v) or is_object($v)){
-                foreach($v as $k1=>$v1){
-                    $v[$k1] = $this->fnFixArray($v1);
-                }
-                return $v;
-            }
 
-            if(!is_string($v) or empty($v)) return $v;
 
-            $this->matches( $this->pattern, $v );
 
-            return preg_replace( $this->pattern, $this->valore , $v);
-        }
 
-        /**
-         * Erase third part in widget area
-         * @param [type] $instance [description]
-         * @param [type] $widget   [description]
-         * @param [type] $args     [description]
-         */
-        public function WidgetErase($instance, $widget, $args){
-            return $this->fnFixArray($instance);
-        }
+    } // End Italy_Cookie_Choices
 
-        /**
-         * Print script inline before </body>
-         * @return string Print script inline
-         * @link https://www.cookiechoices.org/
-         */
-        public function print_script_inline(){
-
-            // $this->options = get_option( 'italy_cookie_choices' );
-
-            /**
-             * If is not active exit
-             */
-            if ( !isset( $this->options['active'] ) )
-                return;
-
-            /**
-             * Select what kind of banner to display
-             */
-            if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) ){
-
-                $banner = 'Bar'; 
-                $bPos = 'top:0';
-
-            } elseif ( $this->options['banner'] === '2' ) {
-
-                $banner = 'Dialog';
-                $bPos = 'top:0';
-
-            } elseif ( $this->options['banner'] === '3' ) {
-
-                $banner = 'Bar'; 
-                $bPos = 'bottom:0';
-
-            } else {
-
-                $banner = '';
-                $bPos = 'top:0';
-
-            }
-
-            /**
-             * Accept on scroll
-             * @var bol
-             */
-            $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
-
-            /**
-             * Reload on accept
-             * @var bol
-             */
-            $reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
-
-            /**
-             * Snippet for display banner
-             * @uses json_encode Funzione usate per il testo del messaggio.
-             *                   Ricordarsi che aggiunge già
-             *                   le doppie virgolette "" alla stringa
-             * @var string
-             */
-            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
-
-            /**
-             * ADVANCED OPTIONS
-             */
-            /**
-             * Cookie name
-             * @var string
-             */
-            $cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : $this->cookieName ;
-
-            /**
-             * Cookie value
-             * @var string/bolean
-             */
-            $cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
-
-            /**
-             * Js_Template vlue
-             * @var string
-             */
-            $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
-
-            /**
-             * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
-             * @var bol
-             */
-            $htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
-
-            /**
-             * If set open policy page in new browser tab
-             * @var bol
-             */
-            $target = ( isset( $this->options['target'] ) ) ? $this->options['target'] : '' ;
-
-            /**
-             * Colore dello sfondo della dialog/topbar
-             * @var string
-             */
-            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '' ;
-
-            /**
-             * Colore del font della dialog/topbar
-             * @var string
-             */
-            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '' ;
-
-            /**
-             * Declarations of JS variables and set parameters
-             * var elPos = Gestisce la Posizione banner nella funzione _createHeaderElement
-             * var infoClass = aggiunge una classe personalizzata per il link info
-             * var closeClass = aggiunge una classe personalizzata per il link di accettazione
-             * var htmlM = Aggiunge un margine a HTML per la top bar
-             * var coNA = cookie name
-             * var coVA = cookie val
-             * var rel = Setto il reload per la pagina all'accettazione
-             * var tar = Target -blank
-             * var bgB = Colore del background della topbar/dialog
-             * var btcB = Colore del font della topbar/dialog
-             * @var string
-             */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",jsArr = ' . wp_json_encode( $this->js_array ) . ';';
-
-            /**
-             * Noscript snippet in case browser has JavaScript disabled
-             * @var string
-             */
-            $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
-
-            /**
-             * Select wich file to use in debug mode
-             * @var string
-             */
-            $fileJS = ( WP_DEBUG ) ? '/js/'.$js_template.'/cookiechoices.js' : '/js/'.$js_template.'/cookiechoices.php' ;
-
-            $output_html = '<!-- Italy Cookie Choices -->' . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
-
-            echo $output_html;
-
-        }
-
-        /**
-         * Shortcode per stampare il bottone nella pagina della policy
-         * @param  array $atts    Array con gli attributi dello shortcode
-         * @param  string $content content of shortcode
-         * @return string          Button per l'accettazione
-         */
-        public function accept_button( $atts, $content = null ) {
-
-            $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
-
-            return '<span class="el"><button onclick="cookieChoices.removeCookieConsent()">' . esc_attr( $button_text ) . '</button></span>';
-
-        }
-
-    }// class
-}//endif
-
-new Italy_Cookie_Choices;
+    new Italy_Cookie_Choices;
+}
