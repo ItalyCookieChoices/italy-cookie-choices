@@ -248,4 +248,4 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
     } // End Italy_Cookie_Choices
 
     new Italy_Cookie_Choices;
-}echo get_language();
+}
