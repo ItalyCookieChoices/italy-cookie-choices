@@ -2,10 +2,10 @@
 /**
  * Plugin Name: Italy Cookie Choices
  * Plugin URI: https://plus.google.com/u/0/communities/109254048492234113886
- * Description: Minimal code to make sure your website respect the Italian cookie law
+ * Description: Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
  * Version: 2.1.0
  * Author: Enea Overclokk, Andrea Pernici, Andrea Cardinale
- * Author URI: https://plus.google.com/u/0/communities/109254048492234113886
+ * Author URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
  * Text Domain: italy-cookie-choices
  * License: GPLv2 or later
  *

@@ -8,8 +8,10 @@ Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
+
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside posts, pages and widgets until consent.
+a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent.
 Plugin requirement PHP >= 5.3 and WordPress >= 4.1
 
 == Description ==
@@ -47,6 +49,10 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Compatibilit%C3%
 [Enea Overclokk](http://www.overclokk.net/)
 [Andrea Pernici](https://www.andreapernici.com/)
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
+
+= =
+[WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
+[Forum GT]()
 
 = Translators = 
 
