@@ -68,6 +68,7 @@ if ( !defined( 'ITALY_COOKIE_CHOICES_DIRNAME' ) )
 require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/class-italy-cookie-choices-admin.php');
 
 require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-front-end.php');
+require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-lang.php');
 
 /**
  * Initialize plugin
@@ -115,7 +116,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
             /**
              * adjust priority to make sure this runs
              */
-            add_action( 'init', array( $this, 'italystrap_init'), 100 );
+            add_action( 'init', array( $this, 'init'), 100 );
 
             
         }
@@ -145,7 +146,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
         /**
          * Init functions
          */
-        public function italystrap_init() {
+        public function init() {
 
             /**
              * Load Lang file
@@ -247,4 +248,4 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
     } // End Italy_Cookie_Choices
 
     new Italy_Cookie_Choices;
-}
+}echo get_language();

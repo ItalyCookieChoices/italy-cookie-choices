@@ -34,6 +34,8 @@ Eg:
 <script async src="//192.168.1.10/italystrap/js.js"></script>
 ```
 
+[See the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki) for more informations
+
 Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
 = Anonymize Analytics IP =
