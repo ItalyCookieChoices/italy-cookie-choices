@@ -71,6 +71,7 @@ require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-f
 
 /**
  * Initialize plugin
+ * Functions for check version come from sz-google
  */
 
 if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
