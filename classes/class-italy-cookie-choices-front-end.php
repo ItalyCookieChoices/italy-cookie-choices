@@ -49,6 +49,12 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         public $js_array = array();
 
         /**
+         * If exist set a page slug
+         * @var string
+         */
+        private $slug = '';
+
+        /**
          * [__construct description]
          */
         public function __construct(){
@@ -60,6 +66,8 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * @var bol
              */
             $secondViewOpt = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
+
+            $this->slug = ( isset( $this->options['slug'] ) ) ? esc_attr( $this->options['slug'] ) : '' ;
 
             /*
              * Set cookie if the user agree navigating through the pages of the site
@@ -354,12 +362,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             /**
              * Select what kind of banner to display
              */
-            if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) ){
+            // if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) )
+            if ( $this->options['banner'] === '1' ) {
 
                 $banner = 'Bar'; 
                 $bPos = 'top:0';
 
-            } elseif ( $this->options['banner'] === '2' ) {
+            } elseif ( $this->options['banner'] === '2' && !( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) {
 
                 $banner = 'Dialog';
                 $bPos = 'top:0';
@@ -371,7 +380,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
             } else {
 
-                $banner = '';
+                $banner = 'Bar';
                 $bPos = 'top:0';
 
             }
@@ -380,7 +389,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Accept on scroll
              * @var bol
              */
-            $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
+            $scroll = ( isset( $this->options['scroll'] ) && !( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) ? $this->options['scroll'] : '' ;
 
             /**
              * Reload on accept

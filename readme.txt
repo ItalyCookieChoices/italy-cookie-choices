@@ -110,6 +110,7 @@ Dev time: 100h
 
 * New file structure
 * Added uninstall.php file
+* Removed scroll event on cookie policy page
 
 = 2.1.0 =
 Release Date: June 5th, 2015
