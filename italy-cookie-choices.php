@@ -68,7 +68,7 @@ if ( !defined( 'ITALY_COOKIE_CHOICES_DIRNAME' ) )
 require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/class-italy-cookie-choices-admin.php');
 
 require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-front-end.php');
-require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-lang.php');
+// require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-lang.php');
 
 /**
  * Initialize plugin
