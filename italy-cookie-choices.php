@@ -89,7 +89,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
          * Minimum requirement WordPress
          * @var string
          */
-        private $WP_ver = '4.1';
+        private $WP_ver = '3.5';
         
         /**
          * Make some magics

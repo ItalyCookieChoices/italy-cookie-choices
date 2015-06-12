@@ -349,6 +349,43 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         }
 
         /**
+         * Encode a variable into JSON, with some sanity checks.
+         *
+         * @since 4.1.0
+         *
+         * @param mixed $data    Variable (usually an array or object) to encode as JSON.
+         * @param int   $options Optional. Options to be passed to json_encode(). Default 0.
+         * @param int   $depth   Optional. Maximum depth to walk through $data. Must be
+         *                       greater than 0. Default 512.
+         * @return bool|string The JSON encoded string, or false if it cannot be encoded.
+         */
+        public function wp_json_encode( $data, $options = 0, $depth = 512 ) {
+            /*
+             * json_encode() has had extra params added over the years.
+             * $options was added in 5.3, and $depth in 5.5.
+             * We need to make sure we call it with the correct arguments.
+             */
+            if ( version_compare( PHP_VERSION, '5.5', '>=' ) ) {
+                $args = array( $data, $options, $depth );
+            } elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) ) {
+                $args = array( $data, $options );
+            } else {
+                $args = array( $data );
+            }
+         
+            $json = call_user_func_array( 'json_encode', $args );
+         
+            // If json_encode() was successful, no need to do more sanity checking.
+            // ... unless we're in an old version of PHP, and json_encode() returned
+            // a string containing 'null'. Then we need to do more sanity checking.
+            if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || false === strpos( $json, 'null' ) ) )  {
+                return $json;
+            }
+         
+            return call_user_func_array( 'json_encode', $args );
+        }
+
+        /**
          * Print script inline before </body>
          * @return string Print script inline
          * @link https://www.cookiechoices.org/
@@ -408,7 +445,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              *                   le doppie virgolette "" alla stringa
              * @var string
              */
-            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
+            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . $this->wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
 
             /**
              * ADVANCED OPTIONS
@@ -469,13 +506,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * var btcB = Colore del font della topbar/dialog
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",jsArr = ' . wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
              * @var string
              */
-            $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
+            $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . $this->wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
 
             /**
              * Select wich file to use in debug mode

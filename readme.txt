@@ -2,7 +2,7 @@
 Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
 Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
-Requires at least: 4.1
+Requires at least: 3.5
 Tested up to: 4.3.0
 Stable tag: 2.1.0
 License: GPLv2 or later
@@ -12,7 +12,7 @@ Italy Cookie Choices allows you to easily comply with the european cookie law an
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent.
-Plugin requirement PHP >= 5.3 and WordPress >= 4.1
+Plugin requirement PHP >= 5.3 and WordPress >= 3.5
 
 == Description ==
 
@@ -111,6 +111,7 @@ Dev time: 100h
 * New file structure
 * Added uninstall.php file
 * Removed scroll event on cookie policy page
+* Fixed compatibility to pre WP 4.1
 
 = 2.1.0 =
 Release Date: June 5th, 2015
