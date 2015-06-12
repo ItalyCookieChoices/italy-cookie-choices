@@ -374,6 +374,17 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
              * Function for custom script block
              */
             add_settings_field( 
+                'custom_script_block_body_exclude', 
+                __( 'Function for exclude custom script block from body', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_custom_script_block_body_exclude'), 
+                'italy_cl_options_group', 
+                'advanced_setting_section'
+                );
+
+            /**
+             * Function for custom script block
+             */
+            add_settings_field( 
                 'custom_script_block', 
                 __( 'Function for custom script block', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_custom_script_block'), 
@@ -830,6 +841,24 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         }
 
         /**
+         * Textarea for custom_script_block_body_exclude
+         * @return string
+         */
+        public function italy_cl_option_custom_script_block_body_exclude($args) {
+
+            $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
+
+        ?>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block_body_exclude]" id="italy_cookie_choices[custom_script_block_body_exclude]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></textarea>
+            <br>
+            <label for="italy_cookie_choices[custom_script_block_body_exclude]">
+                <?php echo __( 'Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>', 'italy-cookie-choices' ); ?>
+            </label>
+        <?php
+
+        }
+
+        /**
          * Textarea for content_message_text
          * @return string
          */
@@ -979,6 +1008,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             if( isset( $input['all_block'] ) )
                 $new_input['all_block'] =  $input['all_block'];
+
+            if( isset( $input['custom_script_block_body_exclude'] ) )
+                $new_input['custom_script_block_body_exclude'] =  $input['custom_script_block_body_exclude'];
 
             if( isset( $input['custom_script_block'] ) )
                 $new_input['custom_script_block'] =  $input['custom_script_block'];

@@ -156,7 +156,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                 $all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
 
                 /**
-                 * Checkbox custom scripts block
+                 * Checkbox custom scripts block in BODY
+                 * @var bol
+                 */
+                $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
+
+                /**
+                 * Checkbox custom scripts block in HEAD and FOOTER
                  * @var bol
                  */
                 $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
@@ -215,6 +221,14 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
         }//__construct
 
+        private function in_array_match($value, $array) {
+            foreach($array as $k=>$v) {
+                if(preg_match('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(preg_replace( "/([\r|\n]*)/is", "", trim($v)), '/')).'/is', preg_replace( "/([\r|\n]*)/is", "", $value))) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public function removeCustomScript($buffer) {
             $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
@@ -224,10 +238,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                 $custom_script_block = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block );
                 $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
                 foreach($custom_script_block_array AS $single_script) {
-                    $count_replace = 0;
-                    $buffer = str_replace(trim($single_script), "<!-- removed from Italy Cookie Choices Plugin -->", $buffer, $count_replace);
-                    if($count_replace>0)
-                        $this->js_array[] = trim($single_script);
+                    preg_match_all('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(trim($single_script), '/')).'/is', $buffer, $matches);
+                    if(!empty($matches[0])) {
+                        foreach($matches[0] AS $v) {
+                            $buffer = str_replace(trim($v), "<!-- removed head from Italy Cookie Choices PHP Class -->", $buffer);
+                            $this->js_array[] = trim($v);
+                        }
+                    }
                 }
                 return $buffer;
             }
@@ -241,14 +258,25 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         }
 
         public function bufferBodyEnd() {
+            $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
+            $custom_script_block_body_exclude = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block_body_exclude );
+            $custom_script_block_body_exclude_array = explode("<---------SEP--------->", $custom_script_block_body_exclude);
+
             $buffer = ob_get_contents();
             if (ob_get_contents()) 
                 ob_end_clean();
             preg_match("/(.*)(<body.*)/s", $buffer, $matches);
             $head = $matches[1];
             $body = $matches[2];
-            $this->matches( $this->pattern, $body );
-            $body = preg_replace( $this->pattern, $this->valore , $body);
+            preg_match_all( $this->pattern, $body, $body_matches);
+            if ( !empty( $body_matches[0] ) ) {
+                foreach($body_matches[0] AS $k => $v) {
+                    if(!$this->in_array_match(trim($v), $custom_script_block_body_exclude_array)) {
+                        $body = preg_replace('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(trim($v), '/')).'/is', $this->valore, $body);
+                        $this->js_array[] = trim($v);
+                    }
+                }
+            }
             $buffer_new = $head.$body;
             echo '<!-- ICCStartBody -->'.$buffer_new.'<!-- ICCEndBody -->';
         }

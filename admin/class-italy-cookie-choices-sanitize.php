@@ -102,6 +102,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Sanitize' ) ){
             if( isset( $input['all_block'] ) )
                 $new_input['all_block'] =  $input['all_block'];
 
+            if( isset( $input['custom_script_block_body_exclude'] ) )
+                $new_input['custom_script_block_body_exclude'] =  $input['custom_script_block_body_exclude'];
+
             if( isset( $input['custom_script_block'] ) )
                 $new_input['custom_script_block'] =  $input['custom_script_block'];
 
