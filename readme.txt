@@ -25,9 +25,12 @@ The plugin will not add any CSS stylesheet or Javascript file but only inline sc
 
 Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
 
+[For more informations read the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki)
+
 For your custom script (eg: analytics, custom script in footer, social script, ecc) you can add them in new text area `Function for custom script block`, add them one per line and split each script with `<---------SEP--------->`
 
 Eg:
+
 ```
 <script>console.log('Your custom script');</script>
 <---------SEP--------->
@@ -103,15 +106,17 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
-= 2.1.1 =
-Release Date: June 5th, 2015
+= 2.2.0 =
+Release Date: June 18th, 2015
 
-Dev time: 100h
+Dev time: 500h
 
 * New file structure
 * Added uninstall.php file
 * Removed scroll event on cookie policy page
 * Fixed compatibility to pre WP 4.1
+* Added scripts allowed in body
+* [Added dumb regex for custom javascript](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script#come-evitare-che-vengano-bloccati-script-che-non-installano-cookie-slider-ecc) `<script src="/assets/js/<---------SOMETHING--------->.js" ></script>`
 
 = 2.1.0 =
 Release Date: June 5th, 2015

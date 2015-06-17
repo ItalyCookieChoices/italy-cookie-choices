@@ -371,11 +371,11 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 );
 
             /**
-             * Function for custom script block
+             * Function for custom script allow
              */
             add_settings_field( 
                 'custom_script_block_body_exclude', 
-                __( 'Function for exclude custom script block from body', 'italy-cookie-choices' ), 
+                __( 'Scripts allowed in body', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_custom_script_block_body_exclude'), 
                 'italy_cl_options_group', 
                 'advanced_setting_section'
@@ -386,7 +386,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
              */
             add_settings_field( 
                 'custom_script_block', 
-                __( 'Function for custom script block', 'italy-cookie-choices' ), 
+                __( 'Scripts to be blocked', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_custom_script_block'), 
                 'italy_cl_options_group', 
                 'advanced_setting_section'
@@ -842,6 +842,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         /**
          * Textarea for custom_script_block_body_exclude
+         * Scripts allowed in body
          * @return string
          */
         public function italy_cl_option_custom_script_block_body_exclude($args) {

@@ -157,13 +157,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
                 /**
                  * Checkbox custom scripts block in BODY
-                 * @var bol
+                 * @var string
                  */
                 $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
 
                 /**
                  * Checkbox custom scripts block in HEAD and FOOTER
-                 * @var bol
+                 * @var string
                  */
                 $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
 
