@@ -151,9 +151,9 @@ function appendJS(script){
       var glassStyle = 'position:fixed;width:100%;height:100%;z-index:999;' +
           'top:0;left:0;opacity:0.5;filter:alpha(opacity=50);' +
           'background-color:#ccc;';
-      var dialogStyle = 'z-index:9999;position:fixed;left:50%;top:50%;bottom:0%;';
-      var contentStyle = 'position:relative;left:-50%;margin-top:-25%;' +
-          'background-color:' + bgB + ';padding:20px;box-shadow:4px 4px 25px #888;';
+      var dialogStyle = 'z-index:9999;position:fixed;top:25%;';
+      var contentStyle = 'position:relative;' +
+          'background-color:' + bgB + ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;';
 
       var cookieConsentElement = document.createElement('div');
       cookieConsentElement.id = cookieConsentId;
