@@ -262,6 +262,10 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $custom_script_block_body_exclude = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block_body_exclude );
             $custom_script_block_body_exclude_array = explode("<---------SEP--------->", $custom_script_block_body_exclude);
 
+            if(!is_array($custom_script_block_body_exclude_array) || empty($custom_script_block_body_exclude_array)) {
+                $custom_script_block_body_exclude_array = array();
+            }
+
             $buffer = ob_get_contents();
             if (ob_get_contents()) 
                 ob_end_clean();
