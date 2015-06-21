@@ -53,7 +53,7 @@ function allowCookie() {
 
             var str = x[i].innerHTML;
             // var res = str.replace(/<!--(.*?)-->/g, "$1");
-            // Prendo l\'array creato e all\'accettazione ogni valore è messo al suo posto
+            // Prendo l\'array creato e all\'accettazione ogni valore e' messo al suo posto
             res = str.replace(/<cookie>/g, jsArr[i]);
             x[i].innerHTML = res;
         }
@@ -120,20 +120,21 @@ function appendJS(script){
 
     function _createHeaderElement(cookieText, dismissText, linkText, linkHref) {
 
-      var butterBarStyles = 'color:'+ btcB +';position:' + elPos + ';width:100%;background-color:' + bgB + ';' +
-          'margin:0; left:0;'+bPos+';padding:4px;z-index:9999;text-align:left;';
+      // var butterBarStyles = 'color:'+ btcB +';position:' + elPos + ';width:100%;background-color:' + bgB + ';' + 'margin:0; left:0;'+bPos+';padding:4px;z-index:9999;text-align:left;';
   
-  // Aggiungo contenitore esterno per migliorare il layout
+      // Aggiungo contenitore esterno per migliorare il layout
       var contenitore = document.createElement('div');
-      var contenutoContenitoreStyle =  'max-width:980px;margin-right:auto;margin-left:auto;padding:15px;';
+      // var contenutoContenitoreStyle =  'max-width:980px;margin-right:auto;margin-left:auto;padding:15px;';
       contenitore.id = cookieConsentId;
-      contenitore.style.cssText = butterBarStyles;
+      contenitore.className = container;
+      // contenitore.style.cssText = butterBarStyles;
 
       var cookieConsentElement = document.createElement('div');
       //cookieConsentElement.id = cookieConsentId;
-      cookieConsentElement.style.cssText = contenutoContenitoreStyle;
+      cookieConsentElement.className = contenuto;
+      // cookieConsentElement.style.cssText = contenutoContenitoreStyle;
       cookieConsentElement.appendChild(_createConsentText(cookieText));
-  cookieConsentElement.appendChild(_createSpace());
+      cookieConsentElement.appendChild(_createSpace());
 
       if (!!linkText && !!linkHref) {
         cookieConsentElement.appendChild(_createInformationLink(linkText, linkHref));
@@ -199,9 +200,9 @@ function appendJS(script){
 
     function _createSpace(){
       var hrStyle='clear:both;border-color:transparent;margin-top:5px;margin-bottom:5px';
-  var hr = document.createElement("hr");
-  hr.style.cssText = hrStyle;
-  return hr;
+      var hr = document.createElement("hr");
+      hr.style.cssText = hrStyle;
+      return hr;
     }
     
     function _createConsentText(cookieText) {
