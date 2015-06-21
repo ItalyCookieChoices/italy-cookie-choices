@@ -117,13 +117,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                  * Background color for banner
                  * @var string
                  */
-                $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
+                $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '#ffffff' ;
 
                 /**
                  * Color for text
                  * @var string
                  */
-                $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '' ;
+                $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '#000000' ;
 
                 /**
                  * Text for banner
@@ -479,13 +479,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Colore dello sfondo della dialog/topbar
              * @var string
              */
-            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '' ;
+            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '#ffffff' ;
 
             /**
              * Colore del font della dialog/topbar
              * @var string
              */
-            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '' ;
+            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '#000000' ;
 
             /**
              * Stile per il top banner

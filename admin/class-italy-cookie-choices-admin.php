@@ -680,7 +680,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          */
         public function italy_cl_option_banner_bg($args) {
 
-            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '' ;
+            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '#fff' ;
 
         ?>
 
@@ -701,7 +701,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          */
         public function italy_cl_option_banner_text_color($args) {
 
-            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '' ;
+            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '#000' ;
 
         ?>
 
