@@ -262,9 +262,8 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $custom_script_block_body_exclude = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block_body_exclude );
             $custom_script_block_body_exclude_array = explode("<---------SEP--------->", $custom_script_block_body_exclude);
 
-            if(!is_array($custom_script_block_body_exclude_array) || empty($custom_script_block_body_exclude_array[0])) {
+            if(!is_array($custom_script_block_body_exclude_array) || empty($custom_script_block_body_exclude_array[0]))
                 $custom_script_block_body_exclude_array = array();
-            }
 
             $buffer = ob_get_contents();
             if (ob_get_contents()) 
@@ -392,27 +391,26 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
          * @return bool|string The JSON encoded string, or false if it cannot be encoded.
          */
         public function wp_json_encode( $data, $options = 0, $depth = 512 ) {
+
             /*
              * json_encode() has had extra params added over the years.
              * $options was added in 5.3, and $depth in 5.5.
              * We need to make sure we call it with the correct arguments.
              */
-            if ( version_compare( PHP_VERSION, '5.5', '>=' ) ) {
+            if ( version_compare( PHP_VERSION, '5.5', '>=' ) )
                 $args = array( $data, $options, $depth );
-            } elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) ) {
+            elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) )
                 $args = array( $data, $options );
-            } else {
+            else
                 $args = array( $data );
-            }
          
             $json = call_user_func_array( 'json_encode', $args );
          
             // If json_encode() was successful, no need to do more sanity checking.
             // ... unless we're in an old version of PHP, and json_encode() returned
             // a string containing 'null'. Then we need to do more sanity checking.
-            if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || false === strpos( $json, 'null' ) ) )  {
+            if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || false === strpos( $json, 'null' ) ) )
                 return $json;
-            }
          
             return call_user_func_array( 'json_encode', $args );
         }
