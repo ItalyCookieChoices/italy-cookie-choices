@@ -262,6 +262,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $custom_script_block_body_exclude = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block_body_exclude );
             $custom_script_block_body_exclude_array = explode("<---------SEP--------->", $custom_script_block_body_exclude);
 
+            if(!is_array($custom_script_block_body_exclude_array) || empty($custom_script_block_body_exclude_array[0]))
+                $custom_script_block_body_exclude_array = array();
+
             $buffer = ob_get_contents();
             if (ob_get_contents()) 
                 ob_end_clean();
@@ -429,32 +432,6 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                 return;
 
             /**
-             * Select what kind of banner to display
-             */
-            // if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) )
-            if ( $this->options['banner'] === '1' ) {
-
-                $banner = 'Bar'; 
-                $bPos = 'top:0';
-
-            } elseif ( $this->options['banner'] === '2' && !( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) {
-
-                $banner = 'Dialog';
-                $bPos = 'top:0';
-
-            } elseif ( $this->options['banner'] === '3' ) {
-
-                $banner = 'Bar'; 
-                $bPos = 'bottom:0';
-
-            } else {
-
-                $banner = 'Bar';
-                $bPos = 'top:0';
-
-            }
-
-            /**
              * Accept on scroll
              * @var bol
              */
@@ -465,15 +442,6 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * @var bol
              */
             $reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
-
-            /**
-             * Snippet for display banner
-             * @uses json_encode Funzione usate per il testo del messaggio.
-             *                   Ricordarsi che aggiunge già
-             *                   le doppie virgolette "" alla stringa
-             * @var string
-             */
-            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . $this->wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
 
             /**
              * ADVANCED OPTIONS
@@ -500,7 +468,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
              * @var bol
              */
-            $htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
+            $htmlM = '' ;
 
             /**
              * If set open policy page in new browser tab
@@ -521,6 +489,75 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '' ;
 
             /**
+             * Stile per il top banner
+             * @var string
+             */
+            $bar_style_top = '#cookieChoiceInfo{
+    background-color: ' . $banner_bg . ';
+    color: ' . $banner_text_color . ';
+    left: 0;
+    margin: 0;
+    padding: 4px;
+    position: fixed;
+    text-align: left;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}';            
+
+            $bar_style_bottom = '#cookieChoiceInfo{
+    background-color: ' . $banner_bg . ';
+    color: ' . $banner_text_color . ';
+    left: 0;
+    margin: 0;
+    padding: 4px;
+    position: fixed;
+    text-align: left;
+    bottom: 0;
+    width: 100%;
+    z-index: 9999;
+}';
+
+            /**
+             * Stile per il div del contenuto
+             * @var string/null
+             */
+            $contenuto = ( $js_template !== 'default') ?  '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
+
+            $dialog_style = '';
+
+            /**
+             * Select what kind of banner to display
+             */
+            // if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) )
+            if ( $this->options['banner'] === '1' ) {
+
+                $banner = 'Bar';
+                $style = $bar_style_top . $contenuto;
+                $bPos = 'top:0'; // Deprecato
+                $htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
+
+            } elseif ( $this->options['banner'] === '2' && !( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) {
+
+                $banner = 'Dialog';
+                $style = '';
+                $bPos = 'top:0'; // Deprecato
+
+            } elseif ( $this->options['banner'] === '3' ) {
+
+                $banner = 'Bar'; 
+                $style = $bar_style_bottom . $contenuto;
+                $bPos = 'bottom:0'; // Deprecato
+
+            } else {
+
+                $banner = 'Bar';
+                $style = $bar_style_top;
+                $bPos = 'top:0'; // Deprecato
+
+            }
+
+            /**
              * Declarations of JS variables and set parameters
              * var elPos = Gestisce la Posizione banner nella funzione _createHeaderElement
              * var infoClass = aggiunge una classe personalizzata per il link info
@@ -532,9 +569,20 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * var tar = Target -blank
              * var bgB = Colore del background della topbar/dialog
              * var btcB = Colore del font della topbar/dialog
+             * var container = Classe per il contenitore
+             * var contenuto = Classe per il contenitore del contenuto
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",container="container",contenuto="contenuto",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
+
+            /**
+             * Snippet for display banner
+             * @uses json_encode Funzione usate per il testo del messaggio.
+             *                   Ricordarsi che aggiunge già
+             *                   le doppie virgolette "" alla stringa
+             * @var string
+             */
+            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . $this->wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
@@ -548,7 +596,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              */
             $fileJS = ( WP_DEBUG ) ? '/js/'.$js_template.'/cookiechoices.js' : '/js/'.$js_template.'/cookiechoices.php' ;
 
-            $output_html = '<!-- Italy Cookie Choices -->' . '<script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
+            $output_html = '<!-- Italy Cookie Choices -->' . '<style>' . $style . '</style><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
             echo $output_html;
 
@@ -565,6 +613,23 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
 
             return '<span class="el"><button onclick="cookieChoices.removeCookieConsent()">' . esc_attr( $button_text ) . '</button></span>';
+
+        }
+
+        /**
+         * Display cookie, only for internal use
+         * @return string
+         */
+        private function _display_cookie(){
+
+            $cookie_list = '<ul>';
+
+            foreach ( $_COOKIE as $key => $val )
+                $cookie_list .= '<li>Cooke name: ' . $key . ' - val: ' . $val . '</li>';
+
+            $cookie_list .= '</ul>';
+
+            return $cookie_list;
 
         }
 
