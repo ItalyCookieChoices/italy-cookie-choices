@@ -119,6 +119,7 @@ Dev time: 50h
 * [Added dumb regex for custom javascript](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script#come-evitare-che-vengano-bloccati-script-che-non-installano-cookie-slider-ecc) `<script src="/assets/js/<---------SOMETHING--------->.js" ></script>`
 * [Fixed dialog off-screen in mobile devices](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/24)
 * [Fixed typo](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/62)
+* Fixed fallback color for Text & BG in banner
 
 = 2.1.0 =
 Release Date: June 5th, 2015
