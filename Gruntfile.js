@@ -6,7 +6,10 @@ module.exports = function(grunt) {
         jshint: { // https://github.com/gruntjs/grunt-contrib-jshint
             all: [
                 'Gruntfile.js',
-                'js/*.js',
+                'js/default/*.js',
+                'js/bigbutton/*.js',
+                'js/smallbutton/*.js',
+                'admin/js/src/*.js',
             ]
         },
 
