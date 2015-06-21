@@ -109,7 +109,7 @@ if it doesn't work activate standard theme and try
 = 2.2.0 =
 Release Date: June 18th, 2015
 
-Dev time: 500h
+Dev time: 50h
 
 * New file structure
 * Added uninstall.php file
@@ -117,6 +117,8 @@ Dev time: 500h
 * Fixed compatibility to pre WP 4.1
 * Added scripts allowed in body
 * [Added dumb regex for custom javascript](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script#come-evitare-che-vengano-bloccati-script-che-non-installano-cookie-slider-ecc) `<script src="/assets/js/<---------SOMETHING--------->.js" ></script>`
+* [Fixed dialog off-screen in mobile devices](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/24)
+* [Fixed typo](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/62)
 
 = 2.1.0 =
 Release Date: June 5th, 2015
