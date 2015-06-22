@@ -55,9 +55,9 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Compatibilit%C3%
 [Andrea Pernici](https://www.andreapernici.com/)
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
-= =
+= Link =
 [WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
-[Forum GT]()
+[Forum GT](http://www.giorgiotave.it/forum/)
 
 = Translators = 
 
@@ -119,7 +119,9 @@ Dev time: 50h
 * [Added dumb regex for custom javascript](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script#come-evitare-che-vengano-bloccati-script-che-non-installano-cookie-slider-ecc) `<script src="/assets/js/<---------SOMETHING--------->.js" ></script>`
 * [Fixed dialog off-screen in mobile devices](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/24)
 * [Fixed typo](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/62)
-* Fixed fallback color for Text & BG in banner
+* [Fixed fallback color for Text & BG in banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/95)
+* [Added multilingual support only for banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/31)
+* [Added uninstall.php](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/34)
 
 = 2.1.0 =
 Release Date: June 5th, 2015

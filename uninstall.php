@@ -52,3 +52,8 @@ if ( is_multisite() ) {
 	$GLOBALS['wpdb']->query("OPTIMIZE TABLE `" .$GLOBALS['wpdb']->prefix."options`");
 
 }
+
+deregister_string( 'Italy Cookie Choices', 'Banner text');
+// deregister_string( 'Italy Cookie Choices', 'Banner url' );
+deregister_string( 'Italy Cookie Choices', 'Banner anchor text' );
+deregister_string( 'Italy Cookie Choices', 'Banner button text' );

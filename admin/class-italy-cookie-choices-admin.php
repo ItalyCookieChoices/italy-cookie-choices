@@ -947,14 +947,25 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             if( isset( $input['text'] ) )
                 $new_input['text'] = sanitize_text_field( $input['text'] );
 
+            /**
+             * Multilingual
+             */
+            register_string( 'Italy Cookie Choices', 'Banner text', $new_input['text'] );
+
             if( isset( $input['url'] ) )
                 $new_input['url'] = sanitize_text_field( $input['url'] );
+
+            // register_string( 'Italy Cookie Choices', 'Banner url', $new_input['url'] );
 
             if( isset( $input['anchor_text'] ) )
                 $new_input['anchor_text'] = sanitize_text_field( $input['anchor_text'] );
 
+            register_string( 'Italy Cookie Choices', 'Banner anchor text', $new_input['anchor_text'] );
+
             if( isset( $input['button_text'] ) )
                 $new_input['button_text'] = sanitize_text_field( $input['button_text'] );
+
+            register_string( 'Italy Cookie Choices', 'Banner button text', $new_input['button_text'] );
 
             /**
              * Sezione per lo stile

@@ -479,43 +479,29 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Colore dello sfondo della dialog/topbar
              * @var string
              */
-            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '#ffffff' ;
+            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '#fff' ;
 
             /**
              * Colore del font della dialog/topbar
              * @var string
              */
-            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '#000000' ;
+            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '#000' ;
+
+            /*********************************
+             * STILE PER LA TOP & BOTTOM BAR *
+             *********************************/
 
             /**
              * Stile per il top banner
              * @var string
              */
-            $bar_style_top = '#cookieChoiceInfo{
-    background-color: ' . $banner_bg . ';
-    color: ' . $banner_text_color . ';
-    left: 0;
-    margin: 0;
-    padding: 4px;
-    position: fixed;
-    text-align: left;
-    top: 0;
-    width: 100%;
-    z-index: 9999;
-}';            
+            $bar_style_top = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}';
 
-            $bar_style_bottom = '#cookieChoiceInfo{
-    background-color: ' . $banner_bg . ';
-    color: ' . $banner_text_color . ';
-    left: 0;
-    margin: 0;
-    padding: 4px;
-    position: fixed;
-    text-align: left;
-    bottom: 0;
-    width: 100%;
-    z-index: 9999;
-}';
+            /**
+             * Stile per il bottom banner
+             * @var string
+             */
+            $bar_style_bottom = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}';
 
             /**
              * Stile per il div del contenuto
@@ -523,7 +509,15 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              */
             $contenuto = ( $js_template !== 'default') ?  '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
 
-            $dialog_style = '';
+            /***************************
+             * STILE PER LA DIALOG BAR *
+             ***************************/
+
+            $glassStyle = '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}';
+
+            $dialogStyle = '.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}';
+
+            $contentStyle = '.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}';
 
             /**
              * Select what kind of banner to display
@@ -539,7 +533,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             } elseif ( $this->options['banner'] === '2' && !( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) {
 
                 $banner = 'Dialog';
-                $style = '';
+                $style = $glassStyle . $dialogStyle . $contentStyle;
                 $bPos = 'top:0'; // Deprecato
 
             } elseif ( $this->options['banner'] === '3' ) {
@@ -551,7 +545,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             } else {
 
                 $banner = 'Bar';
-                $style = $bar_style_top;
+                $style = $bar_style_top . $contenuto;
                 $bPos = 'top:0'; // Deprecato
 
             }
@@ -575,6 +569,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",container="container",contenuto="contenuto",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
 
             /**
+             * Snippet per il multilingua
+             * function get_string return multilanguage value
+             */
+            $this->options['text'] = get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] );
+            $this->options['anchor_text'] = get_string( 'Italy Cookie Choices', 'Banner anchor text', $this->options['anchor_text'] );
+            $this->options['button_text'] = get_string( 'Italy Cookie Choices', 'Banner button text', $this->options['button_text'] );
+            /**
              * Snippet for display banner
              * @uses json_encode Funzione usate per il testo del messaggio.
              *                   Ricordarsi che aggiunge già
@@ -593,7 +594,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Select wich file to use in debug mode
              * @var string
              */
-            $fileJS = ( WP_DEBUG ) ? '/js/'.$js_template.'/cookiechoices.js' : '/js/'.$js_template.'/cookiechoices.php' ;
+            $fileJS = ( WP_DEBUG ) ? '/js/' . $js_template . '/cookiechoices.js' : '/js/' . $js_template . '/cookiechoices.php' ;
 
             $output_html = '<!-- Italy Cookie Choices -->' . '<style>' . $style . '</style><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
