@@ -149,27 +149,30 @@ function appendJS(script){
     }
 
     function _createDialogElement(cookieText, dismissText, linkText, linkHref) {
-      var glassStyle = 'position:fixed;width:100%;height:100%;z-index:999;' +
-          'top:0;left:0;opacity:0.5;filter:alpha(opacity=50);' +
-          'background-color:#ccc;';
-      var dialogStyle = 'z-index:9999;position:fixed;top:25%;';
-      var contentStyle = 'position:relative;' +
-          'background-color:' + bgB + ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;';
+      // var glassStyle = 'position:fixed;width:100%;height:100%;z-index:999;' +
+          // 'top:0;left:0;opacity:0.5;filter:alpha(opacity=50);' +
+          // 'background-color:#ccc;';
+      // var dialogStyle = 'z-index:9999;position:fixed;top:25%;';
+      // var contentStyle = 'position:relative;' +
+          // 'background-color:' + bgB + ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;';
 
       var cookieConsentElement = document.createElement('div');
       cookieConsentElement.id = cookieConsentId;
 
       var glassPanel = document.createElement('div');
-      glassPanel.style.cssText = glassStyle;
+      // glassPanel.style.cssText = glassStyle;
+      glassPanel.className = 'glassStyle';
 
       var content = document.createElement('div');
-      content.style.cssText = contentStyle;
+      // content.style.cssText = contentStyle;
+      content.className = 'contentStyle';
       
   
       
       
       var dialog = document.createElement('div');
-      dialog.style.cssText = dialogStyle;
+      // dialog.style.cssText = dialogStyle;
+      dialog.className = 'dialogStyle';
 
       var dismissLink = _createDismissLink(dismissText);
       //dismissLink.style.display = 'block';
