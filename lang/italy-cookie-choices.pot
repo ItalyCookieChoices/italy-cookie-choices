@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Italy Cookie Choices\n"
-"POT-Creation-Date: 2015-06-10 11:07+0100\n"
+"POT-Creation-Date: 2015-06-22 12:54+0100\n"
 "PO-Revision-Date: 2015-05-21 20:22+0100\n"
 "Last-Translator: Enea Overclokk <info@overclokk.net>\n"
 "Language-Team: info@overclokk.net\n"
@@ -112,141 +112,146 @@ msgid "Third part cookie block (beta)"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:378
-msgid "Function for custom script block"
+msgid "Scripts allowed in body"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:389
-msgid "Text message for locked embedded content"
+msgid "Scripts to be blocked"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:400
+msgid "Text message for locked embedded content"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin.php:411
 msgid "Button text to activate locked embedded content"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:425
+#: admin/class-italy-cookie-choices-admin.php:436
 msgid "Customize your banner for cookie law"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:440
+#: admin/class-italy-cookie-choices-admin.php:451
 msgid "Display banner for Cookie Law in front-end"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:460
+#: admin/class-italy-cookie-choices-admin.php:471
 msgid "Top Bar (Default, Display a top bar with your message)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:468
+#: admin/class-italy-cookie-choices-admin.php:479
 msgid "Dialog (Display an overlay with your message)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:476
+#: admin/class-italy-cookie-choices-admin.php:487
 msgid "Bottom Bar (Display a bar in the footer with your message)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:496
+#: admin/class-italy-cookie-choices-admin.php:507
 msgid "Accepts disclosures on mouse scroll event"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:516
+#: admin/class-italy-cookie-choices-admin.php:527
 msgid "Activate accept on second view"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:534
+#: admin/class-italy-cookie-choices-admin.php:545
 msgid "Refresh page after button click (DEPRECATED)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:549
+#: admin/class-italy-cookie-choices-admin.php:560
 msgid "Your short cookie policy"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:552
-#: admin/class-italy-cookie-choices-admin.php:863
+#: admin/class-italy-cookie-choices-admin.php:563
+#: admin/class-italy-cookie-choices-admin.php:893
 msgid "People will see this notice only the first time that they enter your site"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:566
+#: admin/class-italy-cookie-choices-admin.php:577
 msgid "e.g. http://www.aboutcookies.org/"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:569
+#: admin/class-italy-cookie-choices-admin.php:580
 msgid "Insert here the link to your policy page"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:583
+#: admin/class-italy-cookie-choices-admin.php:594
 msgid "e.g. More Info"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:586
+#: admin/class-italy-cookie-choices-admin.php:597
 msgid "Insert here anchor text for the link"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:600
-#: admin/class-italy-cookie-choices-admin.php:879
+#: admin/class-italy-cookie-choices-admin.php:611
+#: admin/class-italy-cookie-choices-admin.php:909
 msgid "e.g. Close"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:603
-#: admin/class-italy-cookie-choices-admin.php:882
+#: admin/class-italy-cookie-choices-admin.php:614
+#: admin/class-italy-cookie-choices-admin.php:912
 msgid "Insert here name of button (e.g. \"Close\") "
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:620
+#: admin/class-italy-cookie-choices-admin.php:631
 msgid "Customize your style settings"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:636
+#: admin/class-italy-cookie-choices-admin.php:647
 msgid "Add a page top margin for info top bar, only for default topbar stile"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:659
+#: admin/class-italy-cookie-choices-admin.php:670
 msgid "Select the template to use"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:680
+#: admin/class-italy-cookie-choices-admin.php:691
 msgid "Custom Background color for banner"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:700
+#: admin/class-italy-cookie-choices-admin.php:711
 msgid "Custom text color for banner"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:717
+#: admin/class-italy-cookie-choices-admin.php:728
 msgid "Customize your advanced settings"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:733
+#: admin/class-italy-cookie-choices-admin.php:744
 msgid "Insert your cookie name (Default: displayCookieConsent)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:752
+#: admin/class-italy-cookie-choices-admin.php:763
 msgid "Insert your cookie value (Default: y)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:768
+#: admin/class-italy-cookie-choices-admin.php:779
 msgid "e.g. your-policy-url.html"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:771
+#: admin/class-italy-cookie-choices-admin.php:782
 msgid "Insert your cookie policy page slug (e.g. your-policy-url), it will display only topbar in your cookie policy page"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:791
+#: admin/class-italy-cookie-choices-admin.php:802
 msgid "Open your cookie policy page in new one"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:815
+#: admin/class-italy-cookie-choices-admin.php:826
 msgid "Cookie from any embed in your content (Beta) (DEPRECATED)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:820
+#: admin/class-italy-cookie-choices-admin.php:831
 msgid "Cookie from any embed in your widget area (Beta) (DEPRECATED)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:825
+#: admin/class-italy-cookie-choices-admin.php:836
 msgid "Cookie from any embed in all body, except head and footer (Beta)"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:841
+#: admin/class-italy-cookie-choices-admin.php:853
+#: admin/class-italy-cookie-choices-admin.php:871
 msgid ""
 "&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;\n"
 "&lt;---------SEP---------&gt;\n"
@@ -255,29 +260,33 @@ msgid ""
 "&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:844
+#: admin/class-italy-cookie-choices-admin.php:856
+msgid "Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin.php:874
 msgid "Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:860
+#: admin/class-italy-cookie-choices-admin.php:890
 msgid "Your lock message for embedded contents inside posts, pages and widgets"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:955
+#: admin/class-italy-cookie-choices-admin.php:996
 #: admin/class-italy-cookie-choices-sanitize.php:77
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:962
+#: admin/class-italy-cookie-choices-admin.php:1003
 #: admin/class-italy-cookie-choices-sanitize.php:84
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
-#: italy-cookie-choices.php:131 italy-cookie-choices.php:141
+#: italy-cookie-choices.php:135 italy-cookie-choices.php:145
 msgid "Activation of Italy Cookie Choices in not possible"
 msgstr ""
 
-#: italy-cookie-choices.php:232
+#: italy-cookie-choices.php:236
 #, php-format
 msgid "Your server is running %s version %s but this plugin requires at least %s"
 msgstr ""
