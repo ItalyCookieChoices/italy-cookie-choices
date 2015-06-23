@@ -488,71 +488,50 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              */
             $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '#000' ;
 
-            /*********************************
-             * STILE PER LA TOP & BOTTOM BAR *
-             *********************************/
-
-            /**
-             * Stile per il top banner
-             * @var string
-             */
-            // $bar_style_top = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}';
-
-            /**
-             * Stile per il bottom banner
-             * @var string
-             */
-            // $bar_style_bottom = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}';
-
-            /**
-             * Stile per il div del contenuto
-             * @var string/null
-             */
-            // $contenuto = ( $js_template !== 'default') ?  '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
-            $contenuto = '' ;
-
-            /***************************
-             * STILE PER LA DIALOG BAR *
-             ***************************/
-
-            // $glassStyle = '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}';
-
-            // $dialogStyle = '.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}';
-
-            // $contentStyle = '.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}';
-
             /**
              * Custom CSS
              * @var string
              */
             $customCSS = ( isset( $this->options['customCSS'] ) ) ? esc_attr( $this->options['customCSS'] ) : '' ;
 
-            if ( $js_template === 'default' ) {
+            /**
+             * CSS for content style
+             * @var string
+             */
+            $contentStyle = '';
 
-            }elseif ( $js_template === 'bigbutton' ) {
+            /**
+             * Button style
+             * @var string
+             */
+            $buttonStyle = '.italybtn{margin-left:10px;}';
 
-                $contenuto = '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}';
+            /**
+             * Conditional button style for bigbutton or smallbutton
+             * Default margin
+             */
+            if ( $js_template === 'bigbutton' )
+                $buttonStyle = '.italybtn{color:' . $banner_text_color . ';padding:7px 12px;font-size:18px;line-height:18px;text-decoration:none;text-transform:uppercase;margin-right:20px;margin-bottom:2px;letter-spacing: 0.125em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}';
+            elseif ( $js_template === 'smallbutton' )
+                $buttonStyle = '.italybtn{color:' . $banner_text_color . ';padding:3px 7px;font-size:14px;line-height:14px;text-decoration:none;text-transform:uppercase;margin-right:20px;margin-bottom:2px;letter-spacing: 0.115em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}';
 
-            }elseif ( $js_template === 'smallbutton' ) {
-
-                $contenuto = '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}';
-                
-            }elseif ( $js_template === 'custom' ) {
-                
-                $custom = true;
-            }
-var_dump($js_template);
-var_dump($custom);
             /**
              * Select what kind of banner to display
+             * @var $banner Bar/Dialog
+             * @var $contentStyle Style for content div
+             * @var $style Style for banner
+             * @var $bPos Deprecated
+             * @var $htmlM Bolean for margin top
              */
             if ( $this->options['banner'] === '1' ) {
 
                 $banner = 'Bar';
 
-                $style = ( !isset( $custom ) ) ? '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contenuto : $customCSS ;
+                $contentStyle = ( $js_template === 'bigbutton' || $js_template === 'smallbutton' ) ? '.contentStyle{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
 
-                // $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contenuto;
+                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
+
+                // $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contentStyle;
 
                 $bPos = 'top:0'; // Deprecato
 
@@ -562,9 +541,7 @@ var_dump($custom);
 
                 $banner = 'Dialog';
 
-                $style = ( !isset( $custom ) ) ? '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}' : $customCSS ;
-
-                // $style = '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}';
+                $style = ( $js_template === 'custom' ) ? $customCSS : '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}' . $buttonStyle;
 
                 $bPos = 'top:0'; // Deprecato
 
@@ -572,7 +549,9 @@ var_dump($custom);
 
                 $banner = 'Bar';
 
-                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}' . $contenuto;
+                $contentStyle = ( $js_template === 'bigbutton' || $js_template === 'smallbutton' ) ? '.contentStyle{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
+
+                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
 
                 $bPos = 'bottom:0'; // Deprecato
 
@@ -580,7 +559,7 @@ var_dump($custom);
 
                 $banner = 'Bar';
 
-                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contenuto;
+                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
 
                 $bPos = 'top:0'; // Deprecato
 
@@ -602,7 +581,7 @@ var_dump($custom);
              * var contenuto = Classe per il contenitore del contenuto
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="info",closeClass="close",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",container="container",contenuto="contenuto",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="italybtn",closeClass="italybtn",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",container="container",contentStyle="contentStyle",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
 
             /**
              * Snippet per il multilingua

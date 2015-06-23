@@ -131,7 +131,7 @@ function appendJS(script){
 
       var cookieConsentElement = document.createElement('div');
       //cookieConsentElement.id = cookieConsentId;
-      cookieConsentElement.className = contenuto;
+      cookieConsentElement.className = contentStyle;
       // cookieConsentElement.style.cssText = contenutoContenitoreStyle;
       cookieConsentElement.appendChild(_createConsentText(cookieText));
       // if ( def ) cookieConsentElement.appendChild(_createSpace());
@@ -219,7 +219,7 @@ function appendJS(script){
       dismissLink.id = dismissLinkId;
       dismissLink.className = closeClass;
       dismissLink.href = '#';
-      dismissLink.style.marginLeft = '24px';
+      // dismissLink.style.marginLeft = '24px';
       //dismissLink.style.cssText = buttonStyle;
       return dismissLink;
     }
@@ -232,7 +232,7 @@ function appendJS(script){
       _setElementText(infoLink, linkText);
       infoLink.className = infoClass;
       infoLink.href = linkHref;
-      infoLink.style.marginLeft = '8px';
+      // infoLink.style.marginLeft = '8px';
       if (tar) infoLink.target = '_blank';
       //infoLink.style.cssText = buttonStyle;
       return infoLink;

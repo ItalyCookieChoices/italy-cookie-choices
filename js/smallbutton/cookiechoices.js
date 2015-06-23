@@ -131,7 +131,7 @@ function appendJS(script){
 
       var cookieConsentElement = document.createElement('div');
       //cookieConsentElement.id = cookieConsentId;
-      cookieConsentElement.className = contenuto;
+      cookieConsentElement.className = contentStyle;
       // cookieConsentElement.style.cssText = contenutoContenitoreStyle;
       cookieConsentElement.appendChild(_createConsentText(cookieText));
       cookieConsentElement.appendChild(_createSpace());
@@ -212,7 +212,7 @@ function appendJS(script){
     }
 
     function _createDismissLink(dismissText) {
-      var buttonStyle='color: '+ btcB +';padding: 3px 7px;font-size: 14px;line-height: 14px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.115em;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
+      // var buttonStyle='color: '+ btcB +';padding: 3px 7px;font-size: 14px;line-height: 14px;text-decoration: none;text-transform: uppercase;margin:0;margin-bottom:2px;letter-spacing: 0.115em;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
       
       var dismissLink = document.createElement('a');
       _setElementText(dismissLink, dismissText);
@@ -220,13 +220,13 @@ function appendJS(script){
       dismissLink.className = closeClass;
       dismissLink.href = '#';
       //dismissLink.style.marginLeft = '24px';
-      dismissLink.style.cssText = buttonStyle;
+      // dismissLink.style.cssText = buttonStyle;
       return dismissLink;
     }
 
     function _createInformationLink(linkText, linkHref) {
-      var buttonStyle='color: '+ btcB +';padding: 3px 7px;font-size: 14px;line-height: 14px;text-decoration: none;text-transform: uppercase;margin-right: 20px;margin-bottom:2px;letter-spacing: 0.115em;' +
-      'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
+      // var buttonStyle='color: '+ btcB +';padding: 3px 7px;font-size: 14px;line-height: 14px;text-decoration: none;text-transform: uppercase;margin-right: 20px;margin-bottom:2px;letter-spacing: 0.115em;' +
+      // 'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid '+ btcB +';background: rgba(255, 255, 255, 0.03);';
   
       var infoLink = document.createElement('a');
       _setElementText(infoLink, linkText);
@@ -234,7 +234,7 @@ function appendJS(script){
       infoLink.href = linkHref;
       // infoLink.style.marginLeft = '8px';
       if (tar) infoLink.target = '_blank';
-      infoLink.style.cssText = buttonStyle;
+      // infoLink.style.cssText = buttonStyle;
       return infoLink;
     }
 
