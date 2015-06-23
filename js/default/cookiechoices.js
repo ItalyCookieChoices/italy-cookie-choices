@@ -172,9 +172,9 @@ function appendJS(script){
       dialog.className = 'dialogStyle';
 
       var dismissLink = _createDismissLink(dismissText);
-      dismissLink.style.display = 'block';
-      dismissLink.style.textAlign = 'right';
-      dismissLink.style.marginTop = '8px';
+      // dismissLink.style.display = 'block';
+      // dismissLink.style.textAlign = 'right';
+      // dismissLink.style.marginTop = '8px';
 
       content.appendChild(_createConsentText(cookieText));
       
@@ -207,6 +207,7 @@ function appendJS(script){
     
     function _createConsentText(cookieText) {
       var consentText = document.createElement('span');
+      consentText.className = 'consentText';
       _setElementText(consentText, cookieText);
       return consentText;
     }
