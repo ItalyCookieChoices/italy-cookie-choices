@@ -458,9 +458,10 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
 
             /**
-             * Js_Template vlue
+             * Js_Template value
              * @var string
              */
+            // $js_template = ( isset( $this->options['js_template'] ) && $this->options['js_template'] !== 'custom') ? $this->options['js_template'] : $this->js_template ;
             $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
 
             /**
@@ -495,57 +496,92 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Stile per il top banner
              * @var string
              */
-            $bar_style_top = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}';
+            // $bar_style_top = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}';
 
             /**
              * Stile per il bottom banner
              * @var string
              */
-            $bar_style_bottom = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}';
+            // $bar_style_bottom = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}';
 
             /**
              * Stile per il div del contenuto
              * @var string/null
              */
-            $contenuto = ( $js_template !== 'default') ?  '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
+            // $contenuto = ( $js_template !== 'default') ?  '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
+            $contenuto = '' ;
 
             /***************************
              * STILE PER LA DIALOG BAR *
              ***************************/
 
-            $glassStyle = '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}';
+            // $glassStyle = '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}';
 
-            $dialogStyle = '.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}';
+            // $dialogStyle = '.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}';
 
-            $contentStyle = '.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}';
+            // $contentStyle = '.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}';
 
+            /**
+             * Custom CSS
+             * @var string
+             */
+            $customCSS = ( isset( $this->options['customCSS'] ) ) ? esc_attr( $this->options['customCSS'] ) : '' ;
+
+            if ( $js_template === 'default' ) {
+
+            }elseif ( $js_template === 'bigbutton' ) {
+
+                $contenuto = '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}';
+
+            }elseif ( $js_template === 'smallbutton' ) {
+
+                $contenuto = '.contenuto{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}';
+                
+            }elseif ( $js_template === 'custom' ) {
+                
+                $custom = true;
+            }
+var_dump($js_template);
+var_dump($custom);
             /**
              * Select what kind of banner to display
              */
-            // if ( $this->options['banner'] === '1' || !empty( $this->options['slug'] ) && ( is_page( $this->options['slug'] ) || is_single( $this->options['slug'] ) ) )
             if ( $this->options['banner'] === '1' ) {
 
                 $banner = 'Bar';
-                $style = $bar_style_top . $contenuto;
+
+                $style = ( !isset( $custom ) ) ? '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contenuto : $customCSS ;
+
+                // $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contenuto;
+
                 $bPos = 'top:0'; // Deprecato
+
                 $htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
 
             } elseif ( $this->options['banner'] === '2' && !( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) {
 
                 $banner = 'Dialog';
-                $style = $glassStyle . $dialogStyle . $contentStyle;
+
+                $style = ( !isset( $custom ) ) ? '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}' : $customCSS ;
+
+                // $style = '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}';
+
                 $bPos = 'top:0'; // Deprecato
 
             } elseif ( $this->options['banner'] === '3' ) {
 
-                $banner = 'Bar'; 
-                $style = $bar_style_bottom . $contenuto;
+                $banner = 'Bar';
+
+                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}' . $contenuto;
+
                 $bPos = 'bottom:0'; // Deprecato
 
             } else {
 
                 $banner = 'Bar';
-                $style = $bar_style_top . $contenuto;
+
+                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contenuto;
+
                 $bPos = 'top:0'; // Deprecato
 
             }
@@ -566,7 +602,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * var contenuto = Classe per il contenitore del contenuto
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="",closeClass="",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",container="container",contenuto="contenuto",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="info",closeClass="close",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",container="container",contenuto="contenuto",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
 
             /**
              * Snippet per il multilingua
@@ -575,6 +611,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $this->options['text'] = get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] );
             $this->options['anchor_text'] = get_string( 'Italy Cookie Choices', 'Banner anchor text', $this->options['anchor_text'] );
             $this->options['button_text'] = get_string( 'Italy Cookie Choices', 'Banner button text', $this->options['button_text'] );
+
             /**
              * Snippet for display banner
              * @uses json_encode Funzione usate per il testo del messaggio.

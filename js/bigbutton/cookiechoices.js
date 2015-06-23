@@ -166,18 +166,15 @@ function appendJS(script){
       var content = document.createElement('div');
       // content.style.cssText = contentStyle;
       content.className = 'contentStyle';
-      
-  
-      
-      
+
       var dialog = document.createElement('div');
       // dialog.style.cssText = dialogStyle;
       dialog.className = 'dialogStyle';
 
       var dismissLink = _createDismissLink(dismissText);
-      //dismissLink.style.display = 'block';
-      //dismissLink.style.textAlign = 'right';
-      //dismissLink.style.marginTop = '8px';
+      // dismissLink.style.display = 'block';
+      // dismissLink.style.textAlign = 'right';
+      // dismissLink.style.marginTop = '8px';
 
       content.appendChild(_createConsentText(cookieText));
       
@@ -235,6 +232,7 @@ function appendJS(script){
       _setElementText(infoLink, linkText);
       infoLink.className = infoClass;
       infoLink.href = linkHref;
+      // infoLink.style.marginLeft = '8px';
       if (tar) infoLink.target = '_blank';
       infoLink.style.cssText = buttonStyle;
       return infoLink;

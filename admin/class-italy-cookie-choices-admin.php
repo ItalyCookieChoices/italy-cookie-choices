@@ -306,6 +306,17 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             );
 
             /**
+             * Text area for custom CSS
+             */
+            add_settings_field( 
+                'customCSS', 
+                __( 'Custom CSS', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_customCSS'), 
+                'italy_cl_options_group', 
+                'style_setting_section'
+                );
+
+            /**
              * Settings sections for Advanced options
              */
             add_settings_section(
@@ -661,10 +672,15 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
             <select  name='italy_cookie_choices[js_template]'>
-                <option value="default" <?php if ($js_template === 'default') echo 'selected';?>>Default cookiechoices template (centered with text links)</option>
-                <option value="bigbutton" <?php if ($js_template === 'bigbutton') echo 'selected';?>>Centered container with left aligned text and big buttons</option>
-                <option value="smallbutton" <?php if ($js_template === 'smallbutton') echo 'selected';?>>Centered container with left aligned text and small buttons</option>
-                <!--<option value="custom" <?php if ($js_template === 'default') echo 'selected';?>>Custom CSS</option>-->
+
+                <option value="default" <?php if ( $js_template === 'default' ) echo 'selected';?>><?php _e( 'Default cookiechoices template (centered with text links)', 'italy_cookie_choices' ); ?></option>
+
+                <option value="bigbutton" <?php if ( $js_template === 'bigbutton' ) echo 'selected';?>><?php _e( 'Centered container with left aligned text and big buttons', 'italy_cookie_choices' ); ?></option>
+
+                <option value="smallbutton" <?php if ( $js_template === 'smallbutton' ) echo 'selected';?>><?php _e( 'Centered container with left aligned text and small buttons', 'italy_cookie_choices' ); ?></option>
+
+                <option value="custom" <?php if ( $js_template === 'custom' ) echo 'selected';?>><?php _e( 'My custom CSS', 'italy_cookie_choices' ); ?></option>
+
             </select>
             <label for="italy_cookie_choices[js_template]">
                 <?php _e( 'Select the template to use', 'italy-cookie-choices' ); ?>
@@ -709,6 +725,24 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             <label for="italy_cookie_choices[banner_text_color]">
                 <?php _e( 'Custom text color for banner', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
+         * Textarea for custom CSS
+         * @return string
+         */
+        public function italy_cl_option_customCSS($args) {
+
+        ?>
+
+            <textarea rows="5" cols="70" name="italy_cookie_choices[customCSS]" id="italy_cookie_choices[customCSS]" placeholder="<?php _e( 'Your custom css', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['customCSS'] ); ?></textarea>
+            <br>
+            <label for="italy_cookie_choices[customCSS]">
+                <?php echo __( 'Inset here your custom CSS for banner', 'italy-cookie-choices' ); ?>
             </label>
 
         <?php
@@ -985,6 +1019,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 $new_input['banner_text_color'] =  '#000';
             elseif ( isset( $input['banner_text_color'] ) )
                 $new_input['banner_text_color'] =  sanitize_text_field( $input['banner_text_color'] );
+
+            if( isset( $input['customCSS'] ) )
+                $new_input['customCSS'] = sanitize_text_field( $input['customCSS'] );
 
             /**
              * Sezione per le opzioni avanzate
