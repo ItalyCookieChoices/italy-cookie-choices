@@ -752,7 +752,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
 
-            <textarea rows="5" cols="70" name="italy_cookie_choices[customCSS]" id="italy_cookie_choices[customCSS]" placeholder="<?php _e( 'Your custom css', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['customCSS'] ); ?></textarea>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[customCSS]" id="italy_cookie_choices[customCSS]" placeholder="<?php _e( 'Your custom css', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $customCSS ); ?></textarea>
             <br>
             <label for="italy_cookie_choices[customCSS]">
                 <?php echo __( 'Inset here your custom CSS for banner', 'italy-cookie-choices' ); ?>
