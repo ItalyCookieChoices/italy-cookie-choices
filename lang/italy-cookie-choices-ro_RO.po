@@ -1,22 +1,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: italy-cookie-choices\n"
-"POT-Creation-Date: 2015-06-22 12:54+0100\n"
-"PO-Revision-Date: 2015-06-22 19:36+0100\n"
+"POT-Creation-Date: 2015-06-24 16:53+0100\n"
+"PO-Revision-Date: 2015-06-24 19:40+0100\n"
 "Last-Translator: Florin Lungu <me@florinlungu.it>\n"
 "Language-Team: info@overclokk.net\n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-Basepath: ..\\\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #: admin/class-italy-cookie-choices-admin.php:74
 msgid "Italy Cookie Choices Dashboard"
@@ -87,159 +87,240 @@ msgid "Banner text color"
 msgstr "Culoarea text-ului din banner"
 
 #: admin/class-italy-cookie-choices-admin.php:313
+msgid "Custom CSS"
+msgstr "CSS personal"
+
+#: admin/class-italy-cookie-choices-admin.php:324
+msgid "Custom CSS Class (Optional)"
+msgstr "Clasă CSS personalizată (Opțional)"
+
+#: admin/class-italy-cookie-choices-admin.php:335
 msgid "Advanced settings"
 msgstr "Setări avansate"
 
-#: admin/class-italy-cookie-choices-admin.php:323
+#: admin/class-italy-cookie-choices-admin.php:345
 msgid "Cookie name"
 msgstr "Nume Cookie"
 
-#: admin/class-italy-cookie-choices-admin.php:334
+#: admin/class-italy-cookie-choices-admin.php:356
 msgid "Cookie value"
 msgstr "Valoare Cookie"
 
-#: admin/class-italy-cookie-choices-admin.php:345
+#: admin/class-italy-cookie-choices-admin.php:367
 msgid "Cookie policy page slug"
 msgstr "Slug pentru pagina de Politica Cookie"
 
-#: admin/class-italy-cookie-choices-admin.php:356
+#: admin/class-italy-cookie-choices-admin.php:378
 msgid "Open policy in new page"
 msgstr "Deschide politica de cookie in o pagina nouă"
 
-#: admin/class-italy-cookie-choices-admin.php:367
+#: admin/class-italy-cookie-choices-admin.php:389
 msgid "Third part cookie block (beta)"
 msgstr "Blochează cookie-urile externe"
 
-#: admin/class-italy-cookie-choices-admin.php:378
+#: admin/class-italy-cookie-choices-admin.php:400
 msgid "Scripts allowed in body"
 msgstr "Script permis in body"
 
-#: admin/class-italy-cookie-choices-admin.php:389
+#: admin/class-italy-cookie-choices-admin.php:411
 msgid "Scripts to be blocked"
 msgstr "Script care urmează sa fie blocat"
 
-#: admin/class-italy-cookie-choices-admin.php:400
+#: admin/class-italy-cookie-choices-admin.php:422
 msgid "Text message for locked embedded content"
 msgstr "Mesaj pentru conținuturile încorporate blocate"
 
-#: admin/class-italy-cookie-choices-admin.php:411
+#: admin/class-italy-cookie-choices-admin.php:433
 msgid "Button text to activate locked embedded content"
 msgstr "Textul butonului pentru a activa conținutul încorporat blocat"
 
-#: admin/class-italy-cookie-choices-admin.php:436
+#: admin/class-italy-cookie-choices-admin.php:458
 msgid "Customize your banner for cookie law"
 msgstr "Personalizează banner-ul pentru Cookie Law"
 
-#: admin/class-italy-cookie-choices-admin.php:451
+#: admin/class-italy-cookie-choices-admin.php:473
 msgid "Display banner for Cookie Law in front-end"
 msgstr "Visualizează banner-ul in front-end"
 
-#: admin/class-italy-cookie-choices-admin.php:471
+#: admin/class-italy-cookie-choices-admin.php:493
 msgid "Top Bar (Default, Display a top bar with your message)"
 msgstr ""
 "Bara înaltă (Predefinită, Vizualizează o bara în partea înaltă cu mesajul "
 "tău)"
 
-#: admin/class-italy-cookie-choices-admin.php:479
+#: admin/class-italy-cookie-choices-admin.php:501
 msgid "Dialog (Display an overlay with your message)"
 msgstr "Dialog (Visualizează un pop-up cu text-ul tău)"
 
-#: admin/class-italy-cookie-choices-admin.php:487
+#: admin/class-italy-cookie-choices-admin.php:509
 msgid "Bottom Bar (Display a bar in the footer with your message)"
 msgstr ""
 "Bara în partea de jos a ecranului (Vizualizează o bară in partea de jos a "
 "ecranului cu mesajul tău)"
 
-#: admin/class-italy-cookie-choices-admin.php:507
+#: admin/class-italy-cookie-choices-admin.php:529
 msgid "Accepts disclosures on mouse scroll event"
 msgstr "Acceptă informativa cu scroll de mouse"
 
-#: admin/class-italy-cookie-choices-admin.php:527
+#: admin/class-italy-cookie-choices-admin.php:549
 msgid "Activate accept on second view"
 msgstr "Activează accept într-o fereastră nouă"
 
-#: admin/class-italy-cookie-choices-admin.php:545
+#: admin/class-italy-cookie-choices-admin.php:567
 msgid "Refresh page after button click (DEPRECATED)"
 msgstr "Reîncarcă pagina dupa click pe buton (Deprecat)"
 
-#: admin/class-italy-cookie-choices-admin.php:560
+#: admin/class-italy-cookie-choices-admin.php:582
 msgid "Your short cookie policy"
 msgstr "Informativa ta scurtă despre cookie"
 
-#: admin/class-italy-cookie-choices-admin.php:563
-#: admin/class-italy-cookie-choices-admin.php:893
+#: admin/class-italy-cookie-choices-admin.php:585
+#: admin/class-italy-cookie-choices-admin.php:989
 msgid ""
 "People will see this notice only the first time that they enter your site"
 msgstr "Persoanele v-or vedea mesajul doar prima dată când vizită site-ul tău"
 
-#: admin/class-italy-cookie-choices-admin.php:577
+#: admin/class-italy-cookie-choices-admin.php:599
 msgid "e.g. http://www.aboutcookies.org/"
 msgstr "De exemplu: http://www.aboutcookies.org/"
 
-#: admin/class-italy-cookie-choices-admin.php:580
+#: admin/class-italy-cookie-choices-admin.php:602
 msgid "Insert here the link to your policy page"
 msgstr "Introduce link-ul la pagina ta cu informativa extinsă"
 
-#: admin/class-italy-cookie-choices-admin.php:594
+#: admin/class-italy-cookie-choices-admin.php:616
 msgid "e.g. More Info"
 msgstr "De exemplu: Mai multe informații"
 
-#: admin/class-italy-cookie-choices-admin.php:597
+#: admin/class-italy-cookie-choices-admin.php:619
 msgid "Insert here anchor text for the link"
 msgstr "Introdu aici ancora text pentru link"
 
-#: admin/class-italy-cookie-choices-admin.php:611
-#: admin/class-italy-cookie-choices-admin.php:909
+#: admin/class-italy-cookie-choices-admin.php:633
+#: admin/class-italy-cookie-choices-admin.php:1005
 msgid "e.g. Close"
 msgstr "De exemplu: Închide"
 
-#: admin/class-italy-cookie-choices-admin.php:614
-#: admin/class-italy-cookie-choices-admin.php:912
+#: admin/class-italy-cookie-choices-admin.php:636
+#: admin/class-italy-cookie-choices-admin.php:1008
 msgid "Insert here name of button (e.g. \"Close\") "
 msgstr ""
 "Introduce textul link-ului pentru închiderea pop-upului/banner-ului (ex: "
 "Închide)"
 
-#: admin/class-italy-cookie-choices-admin.php:631
+#: admin/class-italy-cookie-choices-admin.php:653
 msgid "Customize your style settings"
 msgstr "Personalizează setările de stil"
 
-#: admin/class-italy-cookie-choices-admin.php:647
+#: admin/class-italy-cookie-choices-admin.php:669
 msgid "Add a page top margin for info top bar, only for default topbar stile"
 msgstr ""
 "Adaugă o margine în partea înaltă a paginii pentru bara cu informații din "
 "partea înaltă a ecranului, doar pentru stilul predefinit a barei din partea "
 "înaltă a ecranului"
 
-#: admin/class-italy-cookie-choices-admin.php:670
+#: admin/class-italy-cookie-choices-admin.php:687
+msgid "Default cookiechoices template (centered with text links)"
+msgstr "Template predefinit pentru cookiechoices (centrat cu link-uri text)"
+
+#: admin/class-italy-cookie-choices-admin.php:689
+msgid "Centered container with left aligned text and big buttons"
+msgstr "Contenitor centrat, cu text-ul alineat la stânga și butoane mari"
+
+#: admin/class-italy-cookie-choices-admin.php:691
+msgid "Centered container with left aligned text and small buttons"
+msgstr ""
+"Contenitor alineat la stânga, cu text-ul alineat la stânga si butoane mici"
+
+#: admin/class-italy-cookie-choices-admin.php:693
+msgid "My custom CSS"
+msgstr "Personalizări CSS personale"
+
+#: admin/class-italy-cookie-choices-admin.php:697
 msgid "Select the template to use"
 msgstr "Alege un template care să-l folosești"
 
-#: admin/class-italy-cookie-choices-admin.php:691
+#: admin/class-italy-cookie-choices-admin.php:718
 msgid "Custom Background color for banner"
 msgstr "Culoare personalizată pentru background-ul bannerului"
 
-#: admin/class-italy-cookie-choices-admin.php:711
+#: admin/class-italy-cookie-choices-admin.php:738
 msgid "Custom text color for banner"
 msgstr "Culoare personalizată pentru culoarea textului în banner"
 
-#: admin/class-italy-cookie-choices-admin.php:728
+#: admin/class-italy-cookie-choices-admin.php:755
+msgid "Your custom css"
+msgstr "Personalizările tale CSS"
+
+#: admin/class-italy-cookie-choices-admin.php:758
+msgid "Inset here your custom CSS for banner"
+msgstr "Introduce-ți aici stilul CSS pentru banner"
+
+#: admin/class-italy-cookie-choices-admin.php:783
+msgid "Eg: bannerStyle"
+msgstr "Exemplu: bannerStyle"
+
+#: admin/class-italy-cookie-choices-admin.php:785
+msgid "CSS class for div container (Default <code>bannerStyle</code>)"
+msgstr ""
+"Classă CSS pentru contenitorul div (Predefinit <code>bannerStyle</code>)"
+
+#: admin/class-italy-cookie-choices-admin.php:788
+msgid "Eg: contentStyle"
+msgstr "Exemplu: contentStyle"
+
+#: admin/class-italy-cookie-choices-admin.php:790
+msgid "CSS class for div content (Default <code>contentStyle</code>)"
+msgstr ""
+"Clasă CSS pentru contenitorul div (Predefinit <code>contentStyle</code>)"
+
+#: admin/class-italy-cookie-choices-admin.php:793
+msgid "Eg: consentText"
+msgstr "Exemplu: consentText"
+
+#: admin/class-italy-cookie-choices-admin.php:795
+msgid "CSS class for span content (Default <code>consentText</code>)"
+msgstr ""
+"Clasă CSS pentru contenitorul span (Predefinit <code>consentText</code>)"
+
+#: admin/class-italy-cookie-choices-admin.php:798
+msgid "Eg: infoClass"
+msgstr "Exemplu: infoClass"
+
+#: admin/class-italy-cookie-choices-admin.php:800
+msgid "CSS class for Info link (Default <code>itaybtn</code>)"
+msgstr "Clasă CSS pentru link-ul Info (Predefinit <code>itaybtn</code>)"
+
+#: admin/class-italy-cookie-choices-admin.php:803
+msgid "Eg: closeClass"
+msgstr "Exemplu: closeClass"
+
+#: admin/class-italy-cookie-choices-admin.php:805
+msgid "CSS class for close link (Default <code>itaybtn</code>)"
+msgstr ""
+"Clasă CSS pentru link-ul de închidere (Predefinit <code>itaybtn</code>)"
+
+#: admin/class-italy-cookie-choices-admin.php:808
+msgid "Customize with your personal CSS class"
+msgstr "Personalizează cu clasa ta CSS personală"
+
+#: admin/class-italy-cookie-choices-admin.php:824
 msgid "Customize your advanced settings"
 msgstr "Personalizează setările avansate"
 
-#: admin/class-italy-cookie-choices-admin.php:744
+#: admin/class-italy-cookie-choices-admin.php:840
 msgid "Insert your cookie name (Default: displayCookieConsent)"
 msgstr "Introduceți numele Cookie-ului tău (Default: displayCookieConsent)"
 
-#: admin/class-italy-cookie-choices-admin.php:763
+#: admin/class-italy-cookie-choices-admin.php:859
 msgid "Insert your cookie value (Default: y)"
 msgstr "Introduceți valoarea Cookie-ului (Default: y)"
 
-#: admin/class-italy-cookie-choices-admin.php:779
+#: admin/class-italy-cookie-choices-admin.php:875
 msgid "e.g. your-policy-url.html"
 msgstr "ex: link-politica-ta.html"
 
-#: admin/class-italy-cookie-choices-admin.php:782
+#: admin/class-italy-cookie-choices-admin.php:878
 msgid ""
 "Insert your cookie policy page slug (e.g. your-policy-url), it will display "
 "only topbar in your cookie policy page"
@@ -248,27 +329,27 @@ msgstr ""
 "politica-ta), acesta va vizualiza doar bara din sus în pagina despre "
 "politica cookie-urilor"
 
-#: admin/class-italy-cookie-choices-admin.php:802
+#: admin/class-italy-cookie-choices-admin.php:898
 msgid "Open your cookie policy page in new one"
 msgstr "Deschide pagina cookie-urilor în una noua"
 
-#: admin/class-italy-cookie-choices-admin.php:826
+#: admin/class-italy-cookie-choices-admin.php:922
 msgid "Cookie from any embed in your content (Beta) (DEPRECATED)"
 msgstr ""
 "Cookie din orice conținut incorporat in conținutul paginii (Beta) (Deprecat)"
 
-#: admin/class-italy-cookie-choices-admin.php:831
+#: admin/class-italy-cookie-choices-admin.php:927
 msgid "Cookie from any embed in your widget area (Beta) (DEPRECATED)"
 msgstr "Cookie din orice conținut încorporat din area widget-ului (Deprecat)"
 
-#: admin/class-italy-cookie-choices-admin.php:836
+#: admin/class-italy-cookie-choices-admin.php:932
 msgid "Cookie from any embed in all body, except head and footer (Beta)"
 msgstr ""
 "Cookie din orice conținut încorporat în orice conținut a paginii, mai puțin "
 "partea înaltă si cea de jos a paginii"
 
-#: admin/class-italy-cookie-choices-admin.php:853
-#: admin/class-italy-cookie-choices-admin.php:871
+#: admin/class-italy-cookie-choices-admin.php:949
+#: admin/class-italy-cookie-choices-admin.php:967
 msgid ""
 "&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/"
 "script&gt;\n"
@@ -288,7 +369,7 @@ msgstr ""
 "&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/"
 "script&gt;"
 
-#: admin/class-italy-cookie-choices-admin.php:856
+#: admin/class-italy-cookie-choices-admin.php:952
 msgid ""
 "Scripts to be excluded from the automatic block.<br />Split each script with "
 "<strong><em>&lt;---------SEP---------&gt;</em></strong>"
@@ -296,7 +377,7 @@ msgstr ""
 "Script care va fi exclus din blocarea automatică.<br />Împarte fiecare "
 "script cu <strong><em>&lt;---------SEP---------&gt;</em></strong>"
 
-#: admin/class-italy-cookie-choices-admin.php:874
+#: admin/class-italy-cookie-choices-admin.php:970
 msgid ""
 "Scripts shown in the head and in the footer does not automatically blocked."
 "<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></"
@@ -306,18 +387,18 @@ msgstr ""
 "blocate automat.<br />Împarte fiecare script cu <strong><em>&lt;---------"
 "SEP---------&gt;</em></strong>"
 
-#: admin/class-italy-cookie-choices-admin.php:890
+#: admin/class-italy-cookie-choices-admin.php:986
 msgid "Your lock message for embedded contents inside posts, pages and widgets"
 msgstr ""
 "Mesajul tău de blocare pentru conținuturile încorporate în postări, pagini "
 "și widget-uri"
 
-#: admin/class-italy-cookie-choices-admin.php:996
+#: admin/class-italy-cookie-choices-admin.php:1120
 #: admin/class-italy-cookie-choices-sanitize.php:77
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: admin/class-italy-cookie-choices-admin.php:1003
+#: admin/class-italy-cookie-choices-admin.php:1127
 #: admin/class-italy-cookie-choices-sanitize.php:84
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
