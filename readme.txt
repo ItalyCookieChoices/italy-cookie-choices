@@ -11,7 +11,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent.
+a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
+
 Plugin requirement PHP >= 5.3 and WordPress >= 3.5
 
 == Description ==
@@ -45,9 +46,13 @@ Please, notify any issue on github repository https://github.com/ItalyCookieChoi
 
 Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
 
-= Compatibilità W3TC fix =
+= Compatibilità W3TC & WP Super Cache fix =
 
 https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Compatibilit%C3%A0-W3TC-fix
+
+= Style customization =
+
+https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customization
 
 = Developer =
 
@@ -107,12 +112,11 @@ if it doesn't work activate standard theme and try
 == Changelog ==
 
 = 2.2.0 =
-Release Date: June 18th, 2015
+Release Date: June 24th, 2015
 
-Dev time: 50h
+Dev time: 100h
 
 * New file structure
-* Added uninstall.php file
 * Removed scroll event on cookie policy page
 * Fixed compatibility to pre WP 4.1
 * Added scripts allowed in body
@@ -122,6 +126,9 @@ Dev time: 50h
 * [Fixed fallback color for Text & BG in banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/95)
 * [Added multilingual support only for banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/31)
 * [Added uninstall.php](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/34)
+* Added text area for custom CSS
+* Added input for custom CSS class
+* Added filter `icc_output_html` on snippet output for developer
 
 = 2.1.0 =
 Release Date: June 5th, 2015

@@ -126,7 +126,7 @@ function appendJS(script){
       var contenitore = document.createElement('div');
       // var contenutoContenitoreStyle =  'max-width:980px;margin-right:auto;margin-left:auto;padding:15px;';
       contenitore.id = cookieConsentId;
-      contenitore.className = container;
+      contenitore.className = bannerStyle;
       // contenitore.style.cssText = butterBarStyles;
 
       var cookieConsentElement = document.createElement('div');
@@ -165,11 +165,11 @@ function appendJS(script){
 
       var content = document.createElement('div');
       // content.style.cssText = contentStyle;
-      content.className = 'contentStyle';
+      content.className = contentStyle;
 
       var dialog = document.createElement('div');
       // dialog.style.cssText = dialogStyle;
-      dialog.className = 'dialogStyle';
+      dialog.className = bannerStyle;
 
       var dismissLink = _createDismissLink(dismissText);
       // dismissLink.style.display = 'block';
@@ -207,7 +207,7 @@ function appendJS(script){
     
     function _createConsentText(cookieText) {
       var consentText = document.createElement('span');
-      consentText.className = 'consentText';
+      consentText.className = consText;
       _setElementText(consentText, cookieText);
       return consentText;
     }

@@ -186,7 +186,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                  */
                 // $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color: #f2dede;border: 1px solid #eed3d7; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">' . esc_attr( $this->options['text'] ) . '<button onclick="cookieChoices.removeCookieConsent()">Try it</button></div><!-- $0 --></div>';
                 // 
-                $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:'.esc_attr( $banner_text_color ).';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . esc_attr( $content_message_text ) . '&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color: '.esc_attr( $banner_text_color ).';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . esc_attr( $content_message_button_text ) . '</button></div><cookie></div>';
+                $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:' . esc_attr( $banner_text_color ) . ';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . esc_attr( $content_message_text ) . '&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color: '.esc_attr( $banner_text_color ).';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . esc_attr( $content_message_button_text ) . '</button></div><cookie></div>';
 
                 if ($block)
                     add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
@@ -480,19 +480,55 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Colore dello sfondo della dialog/topbar
              * @var string
              */
-            $banner_bg = ( isset( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '#fff' ;
+            $banner_bg = ( isset( $this->options['banner_bg'] ) && !empty( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '#fff' ;
 
             /**
              * Colore del font della dialog/topbar
              * @var string
              */
-            $banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '#000' ;
+            $banner_text_color = ( isset( $this->options['banner_text_color'] ) && !empty( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '#000' ;
 
             /**
              * Custom CSS
              * @var string
              */
             $customCSS = ( isset( $this->options['customCSS'] ) ) ? esc_attr( $this->options['customCSS'] ) : '' ;
+
+            /**
+             * CSS class for div bannerStyle
+             * @var string
+             */
+            $bannerStyle = ( isset( $this->options['bannerStyle'] ) && !empty( $this->options['bannerStyle'] ) ) ? esc_attr( $this->options['bannerStyle'] ) : 'bannerStyle' ;
+
+            /**
+             * CSS class for div content
+             * @var string
+             */
+            $contStyle = ( isset( $this->options['contentStyle'] ) && !empty( $this->options['contentStyle'] ) ) ? esc_attr( $this->options['contentStyle'] ) : 'contentStyle' ;
+
+            /**
+             * CSS class for text in span
+             * @var string
+             */
+            $consentText = ( isset( $this->options['consentText'] ) && !empty( $this->options['consentText'] ) ) ? esc_attr( $this->options['consentText'] ) : 'consentText' ;
+
+            /**
+             * CSS class for info link
+             * @var string
+             */
+            $infoClass = ( isset( $this->options['infoClass'] ) && !empty( $this->options['infoClass'] ) ) ? esc_attr( $this->options['infoClass'] ) : 'italybtn' ;
+
+            /**
+             * CSS class for close link
+             * @var string
+             */
+            $closeClass = ( isset( $this->options['closeClass'] ) && !empty( $this->options['closeClass'] ) ) ? esc_attr( $this->options['closeClass'] ) : 'italybtn' ;
+
+            /**
+             * If $infoClass and $closeClass are exactly alike print only first var
+             * @var [type]
+             */
+            $buttonClass = ( $infoClass === $closeClass ) ? $infoClass : $infoClass . ',.' . $closeClass;
 
             /**
              * CSS for content style
@@ -504,16 +540,16 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Button style
              * @var string
              */
-            $buttonStyle = '.italybtn{margin-left:10px;}';
+            $buttonStyle = '.' . $buttonClass . '{margin-left:10px;}';
 
             /**
              * Conditional button style for bigbutton or smallbutton
              * Default margin
              */
             if ( $js_template === 'bigbutton' )
-                $buttonStyle = '.italybtn{color:' . $banner_text_color . ';padding:7px 12px;font-size:18px;line-height:18px;text-decoration:none;text-transform:uppercase;margin:10px 20px 2px 0;letter-spacing: 0.125em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}.consentText{display:block}';
+                $buttonStyle = '.' . $buttonClass . '{color:' . $banner_text_color . ';padding:7px 12px;font-size:18px;line-height:18px;text-decoration:none;text-transform:uppercase;margin:10px 20px 2px 0;letter-spacing: 0.125em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}.' . $consentText . '{display:block}';
             elseif ( $js_template === 'smallbutton' )
-                $buttonStyle = '.italybtn{color:' . $banner_text_color . ';padding:3px 7px;font-size:14px;line-height:14px;text-decoration:none;text-transform:uppercase;margin:10px 20px 2px 0;letter-spacing: 0.115em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}.consentText{display:block}';
+                $buttonStyle = '.' . $buttonClass . '{color:' . $banner_text_color . ';padding:3px 7px;font-size:14px;line-height:14px;text-decoration:none;text-transform:uppercase;margin:10px 20px 2px 0;letter-spacing: 0.115em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}.' . $consentText . '{display:block}';
 
             /**
              * Select what kind of banner to display
@@ -539,7 +575,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
                 $banner = 'Dialog';
 
-                $style = ( $js_template === 'custom' ) ? $customCSS : '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.dialogStyle{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}' . $buttonStyle;
+                $style = ( $js_template === 'custom' ) ? $customCSS : '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.' . $bannerStyle . '{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}' . $buttonStyle;
 
                 $bPos = 'top:0'; // Deprecato
 
@@ -549,7 +585,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
                 $contentStyle = ( $js_template === 'bigbutton' || $js_template === 'smallbutton' ) ? '.contentStyle{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
 
-                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
+                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
 
                 $bPos = 'bottom:0'; // Deprecato
 
@@ -557,7 +593,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
                 $banner = 'Bar';
 
-                $style = '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
+                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
 
                 $bPos = 'top:0'; // Deprecato
 
@@ -575,19 +611,25 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * var tar = Target -blank
              * var bgB = Colore del background della topbar/dialog
              * var btcB = Colore del font della topbar/dialog
-             * var container = Classe per il contenitore
-             * var contenuto = Classe per il contenitore del contenuto
+             * var bannerStyle = Variabile per le classe del contenitore
+             * var contentStyle = Variabile per le classe del contenitore del contenuto
+             * var consText = Variabile per le classe dello span per il testo
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="italybtn",closeClass="italybtn",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",container="container",contentStyle="contentStyle",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="' . $infoClass . '",closeClass="' . $closeClass . '",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",bannerStyle="' . $bannerStyle . '",contentStyle="' . $contStyle . '",consText="' . $consentText . '",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
 
             /**
              * Snippet per il multilingua
-             * function get_string return multilanguage value
+             * function get_string return multilanguage $value
+             * if isn't installed any language plugin return $value
              */
-            $this->options['text'] = get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] );
-            $this->options['anchor_text'] = get_string( 'Italy Cookie Choices', 'Banner anchor text', $this->options['anchor_text'] );
-            $this->options['button_text'] = get_string( 'Italy Cookie Choices', 'Banner button text', $this->options['button_text'] );
+            $text = $this->wp_json_encode( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) );
+
+            $url = esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) );
+
+            $anchor_text = esc_js( get_string( 'Italy Cookie Choices', 'Banner anchor text', $this->options['anchor_text'] ) );
+
+            $button_text = esc_js( get_string( 'Italy Cookie Choices', 'Banner button text', $this->options['button_text'] ) );
 
             /**
              * Snippet for display banner
@@ -596,13 +638,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              *                   le doppie virgolette "" alla stringa
              * @var string
              */
-            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . $this->wp_json_encode( $this->options['text'] ) . ', "' . esc_js( $this->options['button_text'] ) . '", "' . esc_js( $this->options['anchor_text'] ) . '", "' . esc_url( $this->options['url'] ) . '");});';
+            $banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . $text . ', "' . $button_text . '", "' . $anchor_text . '", "' . $url . '");});';
 
             /**
              * Noscript snippet in case browser has JavaScript disabled
              * @var string
              */
-            $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo" style="position:absolute;width:100%;margin:0px;left:0px;top:0px;padding:4px;z-index:9999;text-align:center;background-color:rgb(238, 238, 238);"><span>' . $this->wp_json_encode( $this->options['text'] ) . '</span><a href="' . esc_url( $this->options['url'] ) . '" target="_blank" style="margin-left:8px;">' . esc_js( $this->options['anchor_text'] ) . '</a><a id="cookieChoiceDismiss" href="#" style="margin-left:24px;display:none;">' . esc_js( $this->options['button_text'] ) . '</a></div></div></noscript>';
+            $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo"><span>' . $text . '</span><a href="' . $url . '" class="' . $infoClass . '" target="_blank">' . $anchor_text . '</a></div></noscript>';
 
             /**
              * Select wich file to use in debug mode
@@ -613,7 +655,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
             $output_html = '<!-- Italy Cookie Choices -->' . '<style>' . $style . '</style><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
-            echo $output_html;
+            echo apply_filters( 'icc_output_html', $output_html );
 
         }
 

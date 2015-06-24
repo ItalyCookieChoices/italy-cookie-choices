@@ -317,6 +317,17 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 );
 
             /**
+             * Text area for custom CSS class
+             */
+            add_settings_field( 
+                'customClass', 
+                __( 'Custom CSS Class (Optional)', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_customClass'), 
+                'italy_cl_options_group', 
+                'style_setting_section'
+                );
+
+            /**
              * Settings sections for Advanced options
              */
             add_settings_section(
@@ -737,6 +748,8 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          */
         public function italy_cl_option_customCSS($args) {
 
+            $customCSS = ( isset( $this->options['customCSS'] ) ) ? $this->options['customCSS'] : '' ;
+
         ?>
 
             <textarea rows="5" cols="70" name="italy_cookie_choices[customCSS]" id="italy_cookie_choices[customCSS]" placeholder="<?php _e( 'Your custom css', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['customCSS'] ); ?></textarea>
@@ -744,6 +757,55 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             <label for="italy_cookie_choices[customCSS]">
                 <?php echo __( 'Inset here your custom CSS for banner', 'italy-cookie-choices' ); ?>
             </label>
+
+        <?php
+
+        }
+
+        /**
+         * Input for custom CSS class
+         * @return string
+         */
+        public function italy_cl_option_customClass($args) {
+
+            $bannerStyle = ( isset( $this->options['bannerStyle'] ) ) ? esc_attr( $this->options['bannerStyle'] ) : 'bannerStyle' ;
+
+            $contentStyle = ( isset( $this->options['contentStyle'] ) ) ? esc_attr( $this->options['contentStyle'] ) : 'contentStyle' ;
+
+            $consentText = ( isset( $this->options['consentText'] ) ) ? esc_attr( $this->options['consentText'] ) : 'consentText' ;
+
+            $infoClass = ( isset( $this->options['infoClass'] ) ) ? esc_attr( $this->options['infoClass'] ) : 'italybtn' ;
+
+            $closeClass = ( isset( $this->options['closeClass'] ) ) ? esc_attr( $this->options['closeClass'] ) : 'italybtn' ;
+
+        ?>
+
+            <input type="text" id="italy_cookie_choices[bannerStyle]" name="italy_cookie_choices[bannerStyle]" value="<?php echo esc_attr( $bannerStyle ); ?>" placeholder="<?php _e( 'Eg: bannerStyle', 'italy-cookie-choices' ); ?>" />
+            <label for="italy_cookie_choices[bannerStyle]">
+                <?php echo __( 'CSS class for div container (Default <code>bannerStyle</code>)', 'italy-cookie-choices' ); ?>
+            </label>
+            <br>
+            <input type="text" id="italy_cookie_choices[contentStyle]" name="italy_cookie_choices[contentStyle]" value="<?php echo esc_attr( $contentStyle ); ?>" placeholder="<?php _e( 'Eg: contentStyle', 'italy-cookie-choices' ); ?>" />
+            <label for="italy_cookie_choices[contentStyle]">
+                <?php echo __( 'CSS class for div content (Default <code>contentStyle</code>)', 'italy-cookie-choices' ); ?>
+            </label>
+            <br>
+            <input type="text" id="italy_cookie_choices[consentText]" name="italy_cookie_choices[consentText]" value="<?php echo esc_attr( $consentText ); ?>" placeholder="<?php _e( 'Eg: consentText', 'italy-cookie-choices' );; ?>" />
+            <label for="italy_cookie_choices[consentText]">
+                <?php echo __( 'CSS class for span content (Default <code>consentText</code>)', 'italy-cookie-choices' ); ?>
+            </label>
+            <br>
+            <input type="text" id="italy_cookie_choices[infoClass]" name="italy_cookie_choices[infoClass]" value="<?php echo esc_attr( $infoClass ); ?>" placeholder="<?php _e( 'Eg: infoClass', 'italy-cookie-choices' ); ?>" />
+            <label for="italy_cookie_choices[infoC]">
+                <?php echo __( 'CSS class for Info link (Default <code>itaybtn</code>)', 'italy-cookie-choices' ); ?>
+            </label>
+            <br>
+            <input type="text" id="italy_cookie_choices[closeClass]" name="italy_cookie_choices[closeClass]" value="<?php echo esc_attr( $closeClass ); ?>" placeholder="<?php _e( 'Eg: closeClass', 'italy-cookie-choices' ); ?>" />
+            <label for="italy_cookie_choices[closeClass]">
+                <?php echo __( 'CSS class for close link (Default <code>itaybtn</code>)', 'italy-cookie-choices' ); ?>
+            </label>
+
+            <p><?php _e( 'Customize with your personal CSS class', 'italy-cookie-choices' ); ?></p>
 
         <?php
 
@@ -978,18 +1040,18 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             if( isset( $input['reload'] ) )
                 $new_input['reload'] =  $input['reload'];
 
+            /**
+             * Multilingual for text, url, anchor_text & button_text
+             */
             if( isset( $input['text'] ) )
                 $new_input['text'] = sanitize_text_field( $input['text'] );
 
-            /**
-             * Multilingual
-             */
             register_string( 'Italy Cookie Choices', 'Banner text', $new_input['text'] );
 
             if( isset( $input['url'] ) )
                 $new_input['url'] = sanitize_text_field( $input['url'] );
 
-            // register_string( 'Italy Cookie Choices', 'Banner url', $new_input['url'] );
+            register_string( 'Italy Cookie Choices', 'Banner url', $new_input['url'] );
 
             if( isset( $input['anchor_text'] ) )
                 $new_input['anchor_text'] = sanitize_text_field( $input['anchor_text'] );
@@ -1022,6 +1084,31 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             if( isset( $input['customCSS'] ) )
                 $new_input['customCSS'] = sanitize_text_field( $input['customCSS'] );
+
+            if( empty( $input['bannerStyle'] ) )
+                $new_input['bannerStyle'] =  'bannerStyle';
+            elseif( isset( $input['bannerStyle'] ) )
+                $new_input['bannerStyle'] = sanitize_text_field( $input['bannerStyle'] );
+
+            if( empty( $input['contentStyle'] ) )
+                $new_input['contentStyle'] =  'contentStyle';
+            elseif( isset( $input['contentStyle'] ) )
+                $new_input['contentStyle'] = sanitize_text_field( $input['contentStyle'] );
+
+            if( empty( $input['consentText'] ) )
+                $new_input['consentText'] =  'consentText';
+            elseif( isset( $input['consentText'] ) )
+                $new_input['consentText'] = sanitize_text_field( $input['consentText'] );
+
+            if( empty( $input['infoClass'] ) )
+                $new_input['infoClass'] =  'italybtn';
+            elseif( isset( $input['infoClass'] ) )
+                $new_input['infoClass'] = sanitize_text_field( $input['infoClass'] );
+
+            if( empty( $input['closeClass'] ) )
+                $new_input['closeClass'] =  'italybtn';
+            elseif( isset( $input['closeClass'] ) )
+                $new_input['closeClass'] = sanitize_text_field( $input['closeClass'] );
 
             /**
              * Sezione per le opzioni avanzate
