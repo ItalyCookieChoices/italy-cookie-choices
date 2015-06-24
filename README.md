@@ -2,15 +2,18 @@
 **Contributors:** overclokk, andreapernici, cardinaleandrea  
 Donate link: 
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
-**Requires at least:** 4.1  
+**Requires at least:** 3.5  
 **Tested up to:** 4.3.0  
-**Stable tag:** 2.1.0  
+**Stable tag:** 2.2.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
+Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
+
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside posts, pages and widgets until consent.
-Plugin requirement PHP >= 5.3 and WordPress >= 4.1
+a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
+
+Plugin requirement PHP >= 5.3 and WordPress >= 3.5
 
 ## Description ##
 
@@ -23,14 +26,19 @@ The plugin will not add any CSS stylesheet or Javascript file but only inline sc
 
 Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
 
+[For more informations read the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki)
+
 **For your custom script (eg:** analytics, custom script in footer, social script, ecc) you can add them in new text area `Function for custom script block`, add them one per line and split each script with `<---------SEP--------->`  
 
 Eg:
+
 ```
 <script>console.log('Your custom script');</script>
 <---------SEP--------->
 <script async src="//192.168.1.10/italystrap/js.js"></script>
 ```
+
+[See the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki) for more informations
 
 Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
@@ -38,13 +46,27 @@ Please, notify any issue on github repository https://github.com/ItalyCookieChoi
 
 Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
 
+### Compatibilità W3TC & WP Super Cache fix ###
+
+https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Compatibilit%C3%A0-W3TC-fix
+
+### Style customization ###
+
+https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customization
+
 ### Developer ###
 
-(Enea Overclokk)[http://www.overclokk.net/]
-
-(Andrea Pernici)[https://www.andreapernici.com/]
-
+[Enea Overclokk](http://www.overclokk.net/)
+[Andrea Pernici](https://www.andreapernici.com/)
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
+
+### Link ###
+[WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
+[Forum GT](http://www.giorgiotave.it/forum/)
+
+### Translators ###
+
+**Romanian:** [Florin Lungu](http://www.florinlungu.it/)  
 
 ## Installation ##
 
@@ -71,6 +93,13 @@ Yes, simply copy the snippet generate by "Italy Cookie Choses for WordPress" and
 
 You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS plugin settings page and refresh page.
 
+### I don't see the banner in my site ###
+
+Try this way:
+deactivate all plugin and try
+if it works activate one pluigin at time and try
+if it doesn't work activate standard theme and try
+
 ## Screenshots ##
 
 ### 1. Italy Cookie Choices Options Menu ###
@@ -93,6 +122,25 @@ You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS 
 
 
 ## Changelog ##
+
+### 2.2.0 ###
+**Release Date:** June 24th, 2015  
+
+**Dev time:** 100h  
+
+* New file structure
+* Removed scroll event on cookie policy page
+* Fixed compatibility to pre WP 4.1
+* Added scripts allowed in body
+* [Added dumb regex for custom javascript](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script#come-evitare-che-vengano-bloccati-script-che-non-installano-cookie-slider-ecc) `<script src="/assets/js/<---------SOMETHING--------->.js" ></script>`
+* [Fixed dialog off-screen in mobile devices](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/24)
+* [Fixed typo](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/62)
+* [Fixed fallback color for Text & BG in banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/95)
+* [Added multilingual support only for banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/31)
+* [Added uninstall.php](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/34)
+* Added text area for custom CSS
+* Added input for custom CSS class
+* Added filter `icc_output_html` on snippet output for developer
 
 ### 2.1.0 ###
 **Release Date:** June 5th, 2015  
@@ -220,3 +268,4 @@ a notice to the user only the very first time that visits your website without d
 
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
 * [Loghino piccolo](http://www.posizionamento-seo.com/)
+* Romanian lang: [Florin Lungu](http://www.florinlungu.it/)
