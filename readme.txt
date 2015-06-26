@@ -120,7 +120,7 @@ Release Date: June 24th, 2015
 
 Dev time: 100h
 
-* Fixed text position in default banner to center
+* Fixed text position for templates
 * [Fixed scroll event in case slug is not set](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/101)
 * [Fixed W3C validator error](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/96)
 
