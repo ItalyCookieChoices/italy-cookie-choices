@@ -117,6 +117,7 @@ Release Date: June 24th, 2015
 Dev time: 100h
 
 * Fixed text position in default banner to center
+* [Fixed scroll event in case slug is not set](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/101)
 
 = 2.2.0 =
 Release Date: June 24th, 2015

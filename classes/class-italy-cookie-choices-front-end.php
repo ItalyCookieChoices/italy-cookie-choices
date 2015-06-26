@@ -68,10 +68,11 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $secondViewOpt = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
 
             /**
-             * Asseggno il valore allo slug nel costruttore
+             * Assegno il valore allo slug nel costruttore
+             * Default ID 1 perché su null non settava correttamente lo scroll se il valore era assente
              * @var bolean
              */
-            $this->slug = ( isset( $this->options['slug'] ) ) ? esc_attr( $this->options['slug'] ) : '' ;
+            $this->slug = ( isset( $this->options['slug'] ) && !empty( $this->options['slug'] ) ) ? esc_attr( $this->options['slug'] ) : 1 ;
 
             /*
              * Set cookie if the user agree navigating through the pages of the site
