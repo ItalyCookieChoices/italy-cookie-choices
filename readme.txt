@@ -57,11 +57,15 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customizat
 = Developer =
 
 [Enea Overclokk](http://www.overclokk.net/)
+
 [Andrea Pernici](https://www.andreapernici.com/)
+
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
 = Link =
+
 [WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
+
 [Forum GT](http://www.giorgiotave.it/forum/)
 
 = Translators = 
@@ -118,6 +122,7 @@ Dev time: 100h
 
 * Fixed text position in default banner to center
 * [Fixed scroll event in case slug is not set](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/101)
+* [Fixed W3C validator error](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/96)
 
 = 2.2.0 =
 Release Date: June 24th, 2015

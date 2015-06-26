@@ -645,7 +645,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Noscript snippet in case browser has JavaScript disabled
              * @var string
              */
-            $noscript = '<noscript><style>html{margin-top:35px}</style><div id="cookieChoiceInfo"><span>' . $text . '</span><a href="' . $url . '" class="' . $infoClass . '" target="_blank">' . $anchor_text . '</a></div></noscript>';
+            $noscript = '<noscript><style scoped>html{margin-top:35px}</style><div id="cookieChoiceInfo"><span>' . $text . '</span><a href="' . $url . '" class="' . $infoClass . '" target="_blank">' . $anchor_text . '</a></div></noscript>';
 
             /**
              * Select wich file to use in debug mode
@@ -654,7 +654,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             // $fileJS = ( WP_DEBUG ) ? '/js/' . $js_template . '/cookiechoices.js' : '/js/' . $js_template . '/cookiechoices.php' ;
             $fileJS = ( WP_DEBUG ) ? '/js/default/cookiechoices.js' : '/js/default/cookiechoices.php' ;
 
-            $output_html = '<!-- Italy Cookie Choices -->' . '<style>' . $style . '</style><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
+            $output_html = '<!-- Italy Cookie Choices -->' . '<div><style scoped>' . $style . '</style><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script></div>' . $noscript;
 
             echo apply_filters( 'icc_output_html', $output_html );
 
