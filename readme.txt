@@ -111,6 +111,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.2.1 =
+Release Date: June 24th, 2015
+
+Dev time: 100h
+
+* Fixed text position in default banner to center
+
 = 2.2.0 =
 Release Date: June 24th, 2015
 
@@ -127,7 +134,7 @@ Dev time: 100h
 * [Added multilingual support only for banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/31)
 * [Added uninstall.php](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/34)
 * Added text area for custom CSS
-* Added input for custom CSS class
+* [Added input for custom CSS class](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/16)
 * Added filter `icc_output_html` on snippet output for developer
 
 = 2.1.0 =
@@ -243,7 +250,7 @@ First release.
  
 * English: default, always included.
 * Italian: Italiano, sempre incluso.
-* Romanian:
+* Romanian: Română, inclus.
 
 *Note:* This plugins is localized/ translateable by default. This is very important for all users worldwide. So please contribute your language to the plugin to make it even more useful. For translating I recommend the awesome ["Codestyling Localization" plugin](http://wordpress.org/extend/plugins/codestyling-localization/) and for validating the ["Poedit Editor"](http://www.poedit.net/).
  
