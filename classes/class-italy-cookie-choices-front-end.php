@@ -565,7 +565,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
                 $contentStyle = ( $js_template === 'bigbutton' || $js_template === 'smallbutton' ) ? '.contentStyle{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
 
-                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
+                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:center;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
 
                 $bPos = 'top:0'; // Deprecato
 
@@ -585,7 +585,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
                 $contentStyle = ( $js_template === 'bigbutton' || $js_template === 'smallbutton' ) ? '.contentStyle{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
 
-                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;bottom:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
+                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:center;bottom:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
 
                 $bPos = 'bottom:0'; // Deprecato
 
@@ -593,7 +593,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
                 $banner = 'Bar';
 
-                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:left;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
+                $style = ( $js_template === 'custom' ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:center;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
 
                 $bPos = 'top:0'; // Deprecato
 
