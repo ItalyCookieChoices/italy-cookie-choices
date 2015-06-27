@@ -22,5 +22,22 @@
 				};
 		        $('.color-field').wpColorPicker(options);
 		    });
+
+		    /**
+		     * Add separator on click in textarea
+		     */
+		    $('.add-sep').click(function(){
+		    	var textarea = $(this).siblings('textarea');
+		    	var curValue = textarea.val();
+		    	var dataValue = $(this).data('value');
+
+		    	if (dataValue === '<---------SEP--------->') {
+		    		var newValue = curValue + '\n' + dataValue + '\n';
+		    	} else{
+		    		var newValue = curValue + dataValue;
+		    	};
+
+		    	textarea.val(newValue);
+		    });
 	    });
 	});

@@ -948,9 +948,16 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         ?>
             <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block_body_exclude]" id="italy_cookie_choices[custom_script_block_body_exclude]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></textarea>
             <br>
+            <a id="SEP" class="button button-secondary add-sep" data-value="<---------SEP--------->">&lt;---------SEP---------&gt;</a>
+            <a id="SOM" class="button button-secondary add-sep" data-value="<---------SOMETHING--------->">&lt;---------SOMETHING---------&gt;</a>
+            <br>
             <label for="italy_cookie_choices[custom_script_block_body_exclude]">
-                <?php echo __( 'Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>', 'italy-cookie-choices' ); ?>
+                <?php echo __( 'Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex', 'italy-cookie-choices' ); ?>
             </label>
+            <p>
+                <a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script" target="_blank"><?php _e( 'For more information see the documentation', 'italy-cookie-choices' ); ?></a>
+            </p>
+
         <?php
 
         }
@@ -966,10 +973,16 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         ?>
             <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block]" id="italy_cookie_choices[custom_script_block]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block ); ?></textarea>
             <br>
+            <a id="SEP" class="button button-secondary add-sep" data-value="<---------SEP--------->">&lt;---------SEP---------&gt;</a>
+            <a id="SOM" class="button button-secondary add-sep" data-value="<---------SOMETHING--------->">&lt;---------SOMETHING---------&gt;</a>
+            <br>
             <label for="italy_cookie_choices[custom_script_block]">
-                <?php echo __( 'Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>', 'italy-cookie-choices' ); ?>
+                <?php echo __( 'Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex', 'italy-cookie-choices' ); ?>
             </label>
-
+            <p>
+                <a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script" target="_blank"><?php _e( 'For more information see the documentation', 'italy-cookie-choices' ); ?></a>
+            </p>
+            
         <?php
 
         }
