@@ -200,7 +200,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                     add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
                     add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
                 }
-                if( $custom_script_block !== '' ) {
+                if( $custom_script_block !== '' && $all_block ) {
                     add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
                     add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
                     add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
