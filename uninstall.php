@@ -32,10 +32,6 @@ if ( is_multisite() ) {
 			// delete_transient( 'TRANSIENT_NAME' );
 			delete_option('italy_cookie_choices');
 
-			//info: remove and optimize tables
-			$GLOBALS['wpdb']->query( "DROP TABLE `" . $GLOBALS['wpdb']->prefix . "italy_cookie_choices`");
-			$GLOBALS['wpdb']->query( "OPTIMIZE TABLE `" . $GLOBALS['wpdb']->prefix . "options`");
-
 			restore_current_blog();
 
 		}
@@ -47,13 +43,13 @@ if ( is_multisite() ) {
 	// delete_transient( 'TRANSIENT_NAME' );
 	delete_option('italy_cookie_choices');
 
-	//info: remove and optimize tables
-	$GLOBALS['wpdb']->query("DROP TABLE `".$GLOBALS['wpdb']->prefix."italy_cookie_choices`");
-	$GLOBALS['wpdb']->query("OPTIMIZE TABLE `" .$GLOBALS['wpdb']->prefix."options`");
-
 }
 
+/**
+ * Require multilingual functions
+ */
+require( plugin_dir_path( __FILE__ ) . 'includes/functions-italy-cookie-choices-lang.php');
 deregister_string( 'Italy Cookie Choices', 'Banner text');
-// deregister_string( 'Italy Cookie Choices', 'Banner url' );
+deregister_string( 'Italy Cookie Choices', 'Banner url' );
 deregister_string( 'Italy Cookie Choices', 'Banner anchor text' );
 deregister_string( 'Italy Cookie Choices', 'Banner button text' );

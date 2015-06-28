@@ -124,6 +124,7 @@ Dev time: 100h
 * [Fixed scroll event in case slug is not set](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/101)
 * [Fixed W3C validator error](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/96)
 * Added new button below the textarea for separator `<---------SOMETHING--------->` & `<---------SEP--------->`
+* Fixed uninstall issue in uninstall.php
 
 = 2.2.0 =
 Release Date: June 24th, 2015
@@ -151,8 +152,8 @@ Dev time: 100h
 
 * Added new third part cookie eraser functionality (much more powerful :-))
 * New options for select banner template
-* Added Bottom bar stile
-* Fixed scroll issue
+* Added Bottom bar style
+* [Fixed scroll issue](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/68)
 * New options for accepting on second view
 * Fixed some issue
 * [Now compatibility with PHP 5.3.29](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/42)
