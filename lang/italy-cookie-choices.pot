@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Italy Cookie Choices\n"
-"POT-Creation-Date: 2015-06-24 16:53+0100\n"
+"POT-Creation-Date: 2015-07-01 01:27+0100\n"
 "PO-Revision-Date: 2015-05-21 20:22+0100\n"
 "Last-Translator: Enea Overclokk <info@overclokk.net>\n"
 "Language-Team: info@overclokk.net\n"
@@ -172,7 +172,7 @@ msgid "Your short cookie policy"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:585
-#: admin/class-italy-cookie-choices-admin.php:989
+#: admin/class-italy-cookie-choices-admin.php:1002
 msgid "People will see this notice only the first time that they enter your site"
 msgstr ""
 
@@ -193,12 +193,12 @@ msgid "Insert here anchor text for the link"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:633
-#: admin/class-italy-cookie-choices-admin.php:1005
+#: admin/class-italy-cookie-choices-admin.php:1018
 msgid "e.g. Close"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:636
-#: admin/class-italy-cookie-choices-admin.php:1008
+#: admin/class-italy-cookie-choices-admin.php:1021
 msgid "Insert here name of button (e.g. \"Close\") "
 msgstr ""
 
@@ -307,7 +307,7 @@ msgid "e.g. your-policy-url.html"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:878
-msgid "Insert your cookie policy page slug (e.g. your-policy-url), it will display only topbar in your cookie policy page"
+msgid "Insert your cookie policy page slug (e.g. your-policy-url), it will display only topbar in your cookie policy page and the scroll and the second view will be deactivated in that page."
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:898
@@ -327,7 +327,7 @@ msgid "Cookie from any embed in all body, except head and footer (Beta)"
 msgstr ""
 
 #: admin/class-italy-cookie-choices-admin.php:949
-#: admin/class-italy-cookie-choices-admin.php:967
+#: admin/class-italy-cookie-choices-admin.php:974
 msgid ""
 "&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;\n"
 "&lt;---------SEP---------&gt;\n"
@@ -336,24 +336,29 @@ msgid ""
 "&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:952
-msgid "Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>"
+#: admin/class-italy-cookie-choices-admin.php:955
+msgid "Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:970
-msgid "Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong>"
+#: admin/class-italy-cookie-choices-admin.php:958
+#: admin/class-italy-cookie-choices-admin.php:983
+msgid "For more information see the documentation"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:986
+#: admin/class-italy-cookie-choices-admin.php:980
+msgid "Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin.php:999
 msgid "Your lock message for embedded contents inside posts, pages and widgets"
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:1120
+#: admin/class-italy-cookie-choices-admin.php:1133
 #: admin/class-italy-cookie-choices-sanitize.php:77
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 
-#: admin/class-italy-cookie-choices-admin.php:1127
+#: admin/class-italy-cookie-choices-admin.php:1140
 #: admin/class-italy-cookie-choices-sanitize.php:84
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""

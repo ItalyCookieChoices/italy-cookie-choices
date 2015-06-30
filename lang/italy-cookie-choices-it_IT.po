@@ -1,16 +1,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: italy-cookie-choices\n"
-"POT-Creation-Date: 2015-06-24 16:53+0100\n"
-"PO-Revision-Date: 2015-06-24 17:04+0100\n"
+"POT-Creation-Date: 2015-07-01 01:30+0200\n"
+"PO-Revision-Date: 2015-07-01 01:36+0200\n"
 "Last-Translator: Enea Overclokk <info@overclokk.net>\n"
 "Language-Team: info@overclokk.net\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
-"X-Poedit-Basepath: ..\\\n"
+"X-Generator: Poedit 1.8.2\n"
+"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e\n"
@@ -173,7 +173,7 @@ msgid "Your short cookie policy"
 msgstr "La tua informativa breve"
 
 #: admin/class-italy-cookie-choices-admin.php:585
-#: admin/class-italy-cookie-choices-admin.php:989
+#: admin/class-italy-cookie-choices-admin.php:1002
 msgid ""
 "People will see this notice only the first time that they enter your site"
 msgstr ""
@@ -197,12 +197,12 @@ msgid "Insert here anchor text for the link"
 msgstr "Inserisci qui l'anchor text per il link"
 
 #: admin/class-italy-cookie-choices-admin.php:633
-#: admin/class-italy-cookie-choices-admin.php:1005
+#: admin/class-italy-cookie-choices-admin.php:1018
 msgid "e.g. Close"
 msgstr "es: Chiudi"
 
 #: admin/class-italy-cookie-choices-admin.php:636
-#: admin/class-italy-cookie-choices-admin.php:1008
+#: admin/class-italy-cookie-choices-admin.php:1021
 msgid "Insert here name of button (e.g. \"Close\") "
 msgstr "Inserisci il testo del link per chiudere il popup/banner (es: Chiudi)"
 
@@ -319,10 +319,12 @@ msgstr "es: la-tua-pagina-per-la-cookie-policy"
 #: admin/class-italy-cookie-choices-admin.php:878
 msgid ""
 "Insert your cookie policy page slug (e.g. your-policy-url), it will display "
-"only topbar in your cookie policy page"
+"only topbar in your cookie policy page and the scroll and the second view "
+"will be deactivated in that page."
 msgstr ""
-"Inserisci lo slug della tua pagina per la Cookie policy, in questa pagina "
-"verrà mostrata soltanto la topbar"
+"Inserisci lo slug della pagina della tua cookie policy (e.s. your-policy-"
+"url), sarà visualizzata solo la topbar, scroll e accettazione durante la "
+"navigazione disattivati in quella pagina."
 
 #: admin/class-italy-cookie-choices-admin.php:898
 msgid "Open your cookie policy page in new one"
@@ -342,7 +344,7 @@ msgstr ""
 "Cookie da tutti gli embed nella tua pagina, eccetto head e footer (Beta)"
 
 #: admin/class-italy-cookie-choices-admin.php:949
-#: admin/class-italy-cookie-choices-admin.php:967
+#: admin/class-italy-cookie-choices-admin.php:974
 msgid ""
 "&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/"
 "script&gt;\n"
@@ -362,38 +364,46 @@ msgstr ""
 "&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/"
 "script&gt;"
 
-#: admin/class-italy-cookie-choices-admin.php:952
+#: admin/class-italy-cookie-choices-admin.php:955
 msgid ""
 "Scripts to be excluded from the automatic block.<br />Split each script with "
-"<strong><em>&lt;---------SEP---------&gt;</em></strong>"
+"<strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use "
+"<strong><---------SOMETHING---------></strong> for custom regex"
 msgstr ""
-"Scripts da non bloccare con il blocco automatico.<br />Dividi ogni script "
-"con <strong><em>&lt;---------SEP---------&gt;</em></strong>"
+"Script che devono essere esclusi dal blocco automatico.<br>Suddividere ogni "
+"script con <strong> <em>&lt;---------SEP---------&gt;</em></strong><br>Usa "
+"<strong><---------SOMETHING---------></strong> per regex personalizzata"
 
-#: admin/class-italy-cookie-choices-admin.php:970
+#: admin/class-italy-cookie-choices-admin.php:958
+#: admin/class-italy-cookie-choices-admin.php:983
+msgid "For more information see the documentation"
+msgstr "Per maggiorni informazioni guarda la documentazione"
+
+#: admin/class-italy-cookie-choices-admin.php:980
 msgid ""
 "Scripts shown in the head and in the footer does not automatically blocked."
 "<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></"
-"strong>"
+"strong><br>Use <strong><---------SOMETHING---------></strong> for custom "
+"regex"
 msgstr ""
-"Script inseriti nella head e nel footer non automaticamente bloccati.<br /"
-">Split each script with <strong><em>&lt;---------SEP---------&gt;</em></"
-"strong>"
+"Script in head e footer non automaticamente bloccati.<br />Dividi ogni "
+"script con <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Usa "
+"<strong><---------SOMETHING---------></strong> per una regex personalizzata."
 
-#: admin/class-italy-cookie-choices-admin.php:986
+#: admin/class-italy-cookie-choices-admin.php:999
 msgid "Your lock message for embedded contents inside posts, pages and widgets"
 msgstr ""
 "Il tuo messaggio da visualizzare nel box per i contenuti bloccati "
 "incorporati all'interno di pagine, articoli e widget"
 
-#: admin/class-italy-cookie-choices-admin.php:1120
+#: admin/class-italy-cookie-choices-admin.php:1133
 #: admin/class-italy-cookie-choices-sanitize.php:77
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di "
 "default."
 
-#: admin/class-italy-cookie-choices-admin.php:1127
+#: admin/class-italy-cookie-choices-admin.php:1140
 #: admin/class-italy-cookie-choices-sanitize.php:84
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
@@ -411,6 +421,29 @@ msgid ""
 msgstr ""
 "Il tuo server sta eseguendo %s con la versione %s ma qesto plugin richiede "
 "almeno la versione %s"
+
+#~ msgid ""
+#~ "Insert your cookie policy page slug (e.g. your-policy-url), it will "
+#~ "display only topbar in your cookie policy page"
+#~ msgstr ""
+#~ "Inserisci lo slug della tua pagina per la Cookie policy, in questa pagina "
+#~ "verrà mostrata soltanto la topbar"
+
+#~ msgid ""
+#~ "Scripts to be excluded from the automatic block.<br />Split each script "
+#~ "with <strong><em>&lt;---------SEP---------&gt;</em></strong>"
+#~ msgstr ""
+#~ "Scripts da non bloccare con il blocco automatico.<br />Dividi ogni script "
+#~ "con <strong><em>&lt;---------SEP---------&gt;</em></strong>"
+
+#~ msgid ""
+#~ "Scripts shown in the head and in the footer does not automatically "
+#~ "blocked.<br />Split each script with <strong><em>&lt;---------SEP---------"
+#~ "&gt;</em></strong>"
+#~ msgstr ""
+#~ "Script inseriti nella head e nel footer non automaticamente bloccati.<br /"
+#~ ">Split each script with <strong><em>&lt;---------SEP---------&gt;</em></"
+#~ "strong>"
 
 #~ msgid "Banner text"
 #~ msgstr "Testo del banner"
