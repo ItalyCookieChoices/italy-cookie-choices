@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
 **Tested up to:** 4.3.0  
-**Stable tag:** 2.2.0  
+**Stable tag:** 2.2.1  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -34,7 +34,9 @@ Eg:
 
 ```
 <script>console.log('Your custom script');</script>
+
 <---------SEP--------->
+
 <script async src="//192.168.1.10/italystrap/js.js"></script>
 ```
 
@@ -57,11 +59,15 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customizat
 ### Developer ###
 
 [Enea Overclokk](http://www.overclokk.net/)
+
 [Andrea Pernici](https://www.andreapernici.com/)
+
 [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
 ### Link ###
+
 [WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
+
 [Forum GT](http://www.giorgiotave.it/forum/)
 
 ### Translators ###
@@ -123,6 +129,18 @@ if it doesn't work activate standard theme and try
 
 ## Changelog ##
 
+### 2.2.1 ###
+**Release Date:** July 1st, 2015  
+
+**Dev time:** 10h  
+
+* Fixed text position for templates
+* [Fixed scroll event in case slug is not set](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/101)
+* [Fixed W3C validator error](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/96)
+* Added new button below the textarea for separator `<---------SOMETHING--------->` & `<---------SEP--------->`
+* Fixed uninstall issue in uninstall.php
+* Improved UX for slug input
+
 ### 2.2.0 ###
 **Release Date:** June 24th, 2015  
 
@@ -139,7 +157,7 @@ if it doesn't work activate standard theme and try
 * [Added multilingual support only for banner](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/31)
 * [Added uninstall.php](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/34)
 * Added text area for custom CSS
-* Added input for custom CSS class
+* [Added input for custom CSS class](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/16)
 * Added filter `icc_output_html` on snippet output for developer
 
 ### 2.1.0 ###
@@ -149,8 +167,8 @@ if it doesn't work activate standard theme and try
 
 * Added new third part cookie eraser functionality (much more powerful :-))
 * New options for select banner template
-* Added Bottom bar stile
-* Fixed scroll issue
+* Added Bottom bar style
+* [Fixed scroll issue](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/68)
 * New options for accepting on second view
 * Fixed some issue
 * [Now compatibility with PHP 5.3.29](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/42)
@@ -242,6 +260,9 @@ if it doesn't work activate standard theme and try
 
 ## Upgrade Notice ##
 
+### 2.2.1 ###
+Fixed some issue, see the changelog for more informations
+
 ### 2.1.0 ###
 More functionality added, please, see the plugin's admin page
 
@@ -255,7 +276,7 @@ First release.
  
 * English: default, always included.
 * Italian: Italiano, sempre incluso.
-* Romanian:
+* Romanian: Română, inclus.
 
 *Note:* This plugins is localized/ translateable by default. This is very important for all users worldwide. So please contribute your language to the plugin to make it even more useful. For translating I recommend the awesome ["Codestyling Localization" plugin](http://wordpress.org/extend/plugins/codestyling-localization/) and for validating the ["Poedit Editor"](http://www.poedit.net/).
  
