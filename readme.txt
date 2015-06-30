@@ -34,7 +34,9 @@ Eg:
 
 ```
 <script>console.log('Your custom script');</script>
+
 <---------SEP--------->
+
 <script async src="//192.168.1.10/italystrap/js.js"></script>
 ```
 
@@ -116,15 +118,16 @@ if it doesn't work activate standard theme and try
 == Changelog ==
 
 = 2.2.1 =
-Release Date: June 24th, 2015
+Release Date: July 1st, 2015
 
-Dev time: 100h
+Dev time: 10h
 
 * Fixed text position for templates
 * [Fixed scroll event in case slug is not set](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/101)
 * [Fixed W3C validator error](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/96)
 * Added new button below the textarea for separator `<---------SOMETHING--------->` & `<---------SEP--------->`
 * Fixed uninstall issue in uninstall.php
+* Improved UX for slug input
 
 = 2.2.0 =
 Release Date: June 24th, 2015
@@ -244,6 +247,9 @@ Dev time: 50h
 * First release.
 
 == Upgrade Notice ==
+
+= 2.2.1 =
+Fixed some issue, see the changelog for more informations
 
 = 2.1.0 =
 More functionality added, please, see the plugin's admin page
