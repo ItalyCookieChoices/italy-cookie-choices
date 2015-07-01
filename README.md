@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
 **Tested up to:** 4.3.0  
-**Stable tag:** 2.2.1  
+**Stable tag:** 2.2.2  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -27,20 +27,6 @@ The plugin will not add any CSS stylesheet or Javascript file but only inline sc
 Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
 
 [For more informations read the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki)
-
-**For your custom script (eg:** analytics, custom script in footer, social script, ecc) you can add them in new text area `Function for custom script block`, add them one per line and split each script with `<---------SEP--------->`  
-
-Eg:
-
-```
-<script>console.log('Your custom script');</script>
-
-<---------SEP--------->
-
-<script async src="//192.168.1.10/italystrap/js.js"></script>
-```
-
-[See the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki) for more informations
 
 Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
 
