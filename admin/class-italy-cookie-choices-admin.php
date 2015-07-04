@@ -651,7 +651,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             <script>
                 var slugs = '<?php echo wp_json_encode( $slugs ); ?>';
             </script>
-            <input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. privacy-e-cookie.html', 'italy-cookie-choices' ); ?>" size="70" class="slug_autocomplete"/>
+            <input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. privacy-e-cookie', 'italy-cookie-choices' ); ?>" size="70" class="slug_autocomplete"/>
             <br>
             <label for="italy_cookie_choices[slug]">
                 <?php _e( 'Insert your cookie policy page slug (e.g. for the page http://www.miodominio.it/privacy-e-cookie/ the slug is <strong>privacy-e-cookie</strong>).<br>In this way it will display only the topbar in your cookie policy page, the scroll and the second view will be deactivated in that page too.', 'italy-cookie-choices' ); ?>
