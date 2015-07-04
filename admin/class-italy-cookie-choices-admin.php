@@ -43,9 +43,21 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         private $js_template = 'default';
 
         /**
+         * Array of all posts and pages object
+         * @var array
+         */
+        private $post_and_page_array = array();
+
+        /**
          * [__construct description]
          */
         public function __construct(){
+
+            /**
+             * Get all posts and pages object and merge for jQuery autocomplete function
+             * @var array
+             */
+            $this->post_and_page_array = array_merge(get_pages('numberposts=-1'), get_posts('numberposts=-1')); 
 
             /**
              * Add Admin menù page
@@ -230,6 +242,17 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 );
 
             /**
+             * Cookie policy page slug
+             */
+            add_settings_field( 
+                'slug', 
+                __( 'Cookie policy page slug', 'italy-cookie-choices' ), 
+                array( $this, 'italy_cl_option_slug'), 
+                'italy_cl_options_group', 
+                'setting_section'
+                );
+
+            /**
              * Input for anchor text
              */
             add_settings_field( 
@@ -355,17 +378,6 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 'cookie_value', 
                 __( 'Cookie value', 'italy-cookie-choices' ), 
                 array( $this, 'italy_cl_option_cookie_value'), 
-                'italy_cl_options_group', 
-                'advanced_setting_section'
-                );
-
-            /**
-             * Cookie policy page slug
-             */
-            add_settings_field( 
-                'slug', 
-                __( 'Cookie policy page slug', 'italy-cookie-choices' ), 
-                array( $this, 'italy_cl_option_slug'), 
                 'italy_cl_options_group', 
                 'advanced_setting_section'
                 );
@@ -595,11 +607,56 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          */
         public function italy_cl_option_url($args) {
 
+            /**
+             * Get the $post_ID for autocomplete function and put it in javascript var
+             * @var array
+             */
+            $urls = array();
+            foreach( $this->post_and_page_array as $post )
+                $urls[] = get_permalink( $post->ID );
+
         ?>
+            <script>
+                var urls = '<?php echo wp_json_encode( $urls ); ?>';
+            </script>
             <input type="text" id="italy_cookie_choices[url]" name="italy_cookie_choices[url]" value="<?php echo esc_url( $this->options['url'] ); ?>" placeholder="<?php _e( 'e.g. http://www.aboutcookies.org/', 'italy-cookie-choices' ) ?>" size="70" />
             <br>
             <label for="italy_cookie_choices[url]">
                 <?php echo __( 'Insert here the link to your policy page', 'italy-cookie-choices' ); ?>
+                <br>
+                <?php echo __( 'Start typing first two letters of the name of the policy page and then select it from the menu below the input', 'italy-cookie-choices' ); ?>
+            </label>
+
+        <?php
+
+        }
+
+        /**
+         * Slug for cookie policy page
+         * @return strimg       Slug for cookie policy page Default null
+         */
+        public function italy_cl_option_slug($args) {
+
+            $slug = ( isset( $this->options['slug'] ) ) ? $this->options['slug'] : '' ;
+
+            /**
+             * Get the $post_name for autocomplete function and put it in javascript var
+             * @var array
+             */
+            $slugs = array();
+            foreach( $this->post_and_page_array as $post )
+                $slugs[] = $post->post_name;
+
+        ?>
+            <script>
+                var slugs = '<?php echo wp_json_encode( $slugs ); ?>';
+            </script>
+            <input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. privacy-e-cookie.html', 'italy-cookie-choices' ); ?>" size="70" class="slug_autocomplete"/>
+            <br>
+            <label for="italy_cookie_choices[slug]">
+                <?php _e( 'Insert your cookie policy page slug (e.g. for the page http://www.miodominio.it/privacy-e-cookie/ the slug is <strong>privacy-e-cookie</strong>).<br>In this way it will display only the topbar in your cookie policy page, the scroll and the second view will be deactivated in that page too.', 'italy-cookie-choices' ); ?>
+                <br>
+                <?php echo __( 'Start typing first two letters of the name of the policy page and then select it from the menu below the input', 'italy-cookie-choices' ); ?>
             </label>
 
         <?php
@@ -864,25 +921,6 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         }
 
         /**
-         * Slug for cookie policy page
-         * @return strimg       Slug for cookie policy page Default null
-         */
-        public function italy_cl_option_slug($args) {
-
-            $slug = ( isset( $this->options['slug'] ) ) ? $this->options['slug'] : '' ;
-
-        ?>
-            <input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. your-policy-url.html', 'italy-cookie-choices' ); ?>" size="70" />
-            <br>
-            <label for="italy_cookie_choices[slug]">
-                <?php _e( 'Insert your cookie policy page slug (e.g. for the page http://www.miodominio.it/privacy-e-cookie/ the slug is <strong>privacy-e-cookie</strong>).<br>In this way it will display only the topbar in your cookie policy page, the scroll and the second view will be deactivated in that page too.', 'italy-cookie-choices' ); ?>
-            </label>
-
-        <?php
-
-        }
-
-        /**
          * Snippet for target checkbox
          * @return strimg       Activate for open policy page in new tab 
          *                      Default open in same tab
@@ -1066,6 +1104,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             register_string( 'Italy Cookie Choices', 'Banner url', $new_input['url'] );
 
+            if( isset( $input['slug'] ) )
+                $new_input['slug'] = sanitize_text_field( $input['slug'] );
+
             if( isset( $input['anchor_text'] ) )
                 $new_input['anchor_text'] = sanitize_text_field( $input['anchor_text'] );
 
@@ -1143,9 +1184,6 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             else
                 $new_input['cookie_value'] = sanitize_text_field( $input['cookie_value'] );
 
-            if( isset( $input['slug'] ) )
-                $new_input['slug'] = sanitize_text_field( $input['slug'] );
-
             if( isset( $input['target'] ) )
                 $new_input['target'] =  $input['target'];
 
@@ -1186,6 +1224,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 // first check that $hook_suffix is appropriate for your admin page
                 wp_enqueue_style( 'wp-color-picker' );
 
+                wp_enqueue_style( 'jquery-ui-autocomplete' );
+                wp_enqueue_script( 'jquery-ui-autocomplete' );
+
                 // wp_enqueue_script( 'jquery' );
 
                 wp_enqueue_script(
@@ -1193,7 +1234,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                     plugins_url('admin/js/src/script.js', ITALY_COOKIE_CHOICES_FILE ),
                     array(
                         // 'jquery',
-                        'wp-color-picker'
+                        'wp-color-picker',
+                        'jquery-ui-widget',
+                        'jquery-ui-autocomplete'
                         ),
                     null,
                     true

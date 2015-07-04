@@ -103,6 +103,20 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.2.3 =
+Release Date: July 4th, 2015
+
+Dev time: 10h
+
+* Added jQuery autocomplete in slug and url input
+
+= 2.2.2 =
+Release Date: July 1st, 2015
+
+Dev time: 3h
+
+* [Fixed browser issue](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/113)
+
 = 2.2.1 =
 Release Date: July 1st, 2015
 

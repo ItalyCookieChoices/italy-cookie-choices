@@ -39,5 +39,28 @@
 
 		    	textarea.val(newValue);
 		    });
+
+		    /**
+		     * Autocomplete function for slug input
+		     */
+		    function autocomplete (source, id) {
+
+				source = JSON.parse(source).sort();
+				$( 'input[id=italy_cookie_choices\\[' + id + '\\]]' ).autocomplete({
+					source: source,
+					// delay: 500,
+					minLength: 2,
+				});
+
+		    }
+		 //    slugs = JSON.parse(slugs).sort();
+			// $( ".slug_autocomplete" ).autocomplete({
+			// 	source: slugs,
+			// 	// delay: 500,
+			// 	minLength: 2,
+			// });	
+			autocomplete(slugs, 'slug');
+			autocomplete(urls, 'url');
+
 	    });
 	});
