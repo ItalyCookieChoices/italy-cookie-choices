@@ -53,12 +53,6 @@
 				});
 
 		    }
-		 //    slugs = JSON.parse(slugs).sort();
-			// $( ".slug_autocomplete" ).autocomplete({
-			// 	source: slugs,
-			// 	// delay: 500,
-			// 	minLength: 2,
-			// });	
 			autocomplete(slugs, 'slug');
 			autocomplete(urls, 'url');
 
