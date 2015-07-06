@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Italy Cookie Choices
+ * Plugin Name: Italy Cookie Choices (for EU Cookie Law)
  * Plugin URI: https://plus.google.com/u/0/communities/109254048492234113886
  * Description: Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
  * Version: 2.2.2

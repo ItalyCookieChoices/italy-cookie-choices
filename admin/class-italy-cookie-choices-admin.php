@@ -70,9 +70,10 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             add_action( 'admin_init', array( $this, 'italy_cl_settings_init') );
 
             /**
-             * Add color picker in admin menù
+             * Load script only if is Italy Cookie Choices admin panel
              */
-            add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_color_picker') );
+            if ( isset($_GET['page']) && ($_GET['page'] === 'italy-cookie-choices' ) )
+                add_action('admin_enqueue_scripts', array( $this, 'add_script_and_style' ));
 
         }
 
@@ -513,9 +514,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 <?php _e( 'Dialog (Display an overlay with your message)', 'italy-cookie-choices' ); ?>
             </label>
         
-        <br>
+            <br>
         
-    <input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
+            <input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
 
             <label for="radio_3">
                 <?php _e( 'Bottom Bar (Display a bar in the footer with your message)', 'italy-cookie-choices' ); ?>
@@ -589,13 +590,35 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          */
         public function italy_cl_option_text($args) {
 
-        ?>
+            /**
+             * Allow HTML tags in text area
+             * changed esc_textarea( $this->options['text'] ); with wp_kses_post( $this->options['text'] );
+             * @todo Add padding to text editor
+             */
 
-            <textarea rows="5" cols="70" name="italy_cookie_choices[text]" id="italy_cookie_choices[text]" placeholder="<?php _e( 'Your short cookie policy', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $this->options['text'] ); ?></textarea>
+            if ( function_exists("wp_editor") ):
+                wp_editor(
+                    wp_kses_post( $this->options['text'] ),
+                    'italy_cookie_choices_text',
+                    array(
+                        'textarea_name' => 'italy_cookie_choices[text]',
+                        'media_buttons' => false,
+                        'textarea_rows' => 5,
+                        'teeny' => true
+                        )
+                    );
+            else:
+            ?>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[text]" id="italy_cookie_choices[text]" placeholder="<?php _e( 'Your short cookie policy', 'italy-cookie-choices' ) ?>" ><?php echo wp_kses_post( $this->options['text'] ); ?></textarea>
+
+            <?php endif; ?>
+
             <br>
+
             <label for="italy_cookie_choices[text]">
                 <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
             </label>
+            <style>#wp-italy_cookie_choices_text-wrap{max-width:520px}</style>
 
         <?php
 
@@ -622,7 +645,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             <input type="text" id="italy_cookie_choices[url]" name="italy_cookie_choices[url]" value="<?php echo esc_url( $this->options['url'] ); ?>" placeholder="<?php _e( 'e.g. http://www.aboutcookies.org/', 'italy-cookie-choices' ) ?>" size="70" />
             <br>
             <label for="italy_cookie_choices[url]">
-                <?php echo __( 'Insert here the link to your policy page', 'italy-cookie-choices' ); ?>
+                <?php echo __( 'Insert here the link to your policy page', 'italy-cookie-choices' ); ?> <a href="post-new.php?post_type=page"><?php _e( 'otherwise create a new one and then add URL to this input', 'italy-cookie-choices' ); ?></a>
                 <br>
                 <?php echo __( 'Start typing first two letters of the name of the policy page and then select it from the menu below the input', 'italy-cookie-choices' ); ?>
             </label>
@@ -1095,7 +1118,8 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
              * Multilingual for text, url, anchor_text & button_text
              */
             if( isset( $input['text'] ) )
-                $new_input['text'] = sanitize_text_field( $input['text'] );
+                $new_input['text'] = wp_kses_post( $input['text'] );
+                // $new_input['text'] = sanitize_text_field( $input['text'] );
 
             register_string( 'Italy Cookie Choices', 'Banner text', $new_input['text'] );
 
@@ -1219,9 +1243,12 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          * @link https://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
          * @link http://code.tutsplus.com/articles/how-to-use-wordpress-color-picker-api--wp-33067
          */
-        public function enqueue_color_picker( $hook_suffix ) {
+        public function add_script_and_style( $hook_suffix ) {
 
                 // first check that $hook_suffix is appropriate for your admin page
+                /**
+                 * Add color picker in admin menù
+                 */
                 wp_enqueue_style( 'wp-color-picker' );
 
                 wp_enqueue_style( 'jquery-ui-autocomplete' );

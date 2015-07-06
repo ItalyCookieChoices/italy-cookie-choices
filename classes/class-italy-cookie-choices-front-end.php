@@ -639,7 +639,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * function get_string return multilanguage $value
              * if isn't installed any language plugin return $value
              */
-            $text = $this->wp_json_encode( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) );
+            $text = $this->wp_json_encode( wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) ) );
 
             $url = esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) );
 

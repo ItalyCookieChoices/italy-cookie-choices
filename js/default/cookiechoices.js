@@ -191,11 +191,13 @@ function appendJS(script){
     }
 
     function _setElementText(element, text) {
-      if (supportsTextContent) {
-        element.textContent = text;
-      } else {
-        element.innerText = text;
-      }
+      // if (supportsTextContent) {
+      //   element.textContent = text;
+      // } else {
+      //   element.innerText = text;
+      // }
+
+      element.innerHTML = text;
     }
 
   /*  function _createSpace(){
