@@ -67,6 +67,8 @@ if ( !defined( 'ITALY_COOKIE_CHOICES_DIRNAME' ) )
  */
 require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/class-italy-cookie-choices-admin.php');
 
+// require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/class-italy-cookie-choices-admin-pointer-init.php');
+
 require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-front-end.php');
 /**
  * Requier multilingual functions
@@ -102,10 +104,12 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
             /**
              * Check if is compatible and then instantiate it
              */
-            if ( $this->is_compatible_version() && is_admin() )
-                new Italy_Cookie_Choices_Admin;
+            if ( $this->is_compatible_version() && is_admin() ){
 
-            else if ( $this->is_compatible_version() && !is_admin() )
+                new Italy_Cookie_Choices_Admin;
+                // new Italy_Cookie_Choices_Pointer_Init;
+
+            }else if ( $this->is_compatible_version() && !is_admin() )
                 new Italy_Cookie_Choices_Front_End;
 
             else

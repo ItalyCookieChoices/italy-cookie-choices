@@ -482,7 +482,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         ?>
 
             <input type='checkbox' name='italy_cookie_choices[active]' <?php checked( $active, 1 ); ?> value='1'>
-            <label for="italy_cookie_choices[active]">
+            <label for="italy_cookie_choices[active]" id="active">
                 <?php _e( 'Display banner for Cookie Law in front-end', 'italy-cookie-choices' ); ?>
             </label>
 
