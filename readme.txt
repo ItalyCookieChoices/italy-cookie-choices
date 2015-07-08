@@ -110,6 +110,7 @@ Dev time: 15h
 
 * Added jQuery autocomplete in slug and url input
 * Added text editor and allowed HTML tags for short policy text area input
+* Fixed the insertion of the SOMETHING button in textarea
 
 = 2.2.2 =
 Release Date: July 1st, 2015

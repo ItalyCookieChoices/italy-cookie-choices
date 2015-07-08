@@ -1,6 +1,28 @@
 // if( typeof jQuery != "undefined" )
 	jQuery.noConflict()(function($){
-	    "use strict";
+		"use strict";
+
+		/**
+		 * [getCursorPosition description]
+		 * @return {[type]} [description]
+		 * @link  http://stackoverflow.com/questions/5203428/inserting-text-after-cursor-position-in-text-are%D0%B0
+		 * @link https://richonrails.com/articles/text-area-manipulation-with-jquery
+		 */
+		$.fn.getCursorPosition = function () {
+			var el = $(this).get(0);
+			var pos = 0;
+			if ('selectionStart' in el) {
+				pos = el.selectionStart;
+			} else if ('selection' in document) {
+				el.focus();
+				var Sel = document.selection.createRange();
+				var SelLength = document.selection.createRange().text.length;
+				Sel.moveStart('character', -el.value.length);
+				pos = Sel.text.length - SelLength;
+			}
+			return pos;
+		}
+
 	    $(document).ready(function() {
 	    	/**
 	    	 * Snippet per il color picker di WordPress
@@ -20,23 +42,25 @@
 					// or, supply an array of colors to customize further
 					// palettes: true
 				};
-		        $('.color-field').wpColorPicker(options);
-		    });
+				$('.color-field').wpColorPicker(options);
+			});
 
-		    /**
-		     * Add separator on click in textarea
-		     */
-		    $('.add-sep').click(function(){
-		    	var textarea = $(this).siblings('textarea');
-		    	var curValue = textarea.val();
-		    	var dataValue = $(this).data('value');
+			/**
+			 * Add separator on click in textarea
+			 */
+			$('.add-sep').click(function(){
+				var thisButton = $(this);
+				var textarea = thisButton.siblings('textarea');
+				var curValue = textarea.val();
+				var dataValue = thisButton.data('value');
 
-		    	if (dataValue === '<---------SEP--------->') {
-		    		var newValue = curValue + '\n' + dataValue + '\n';
-		    	} else{
-		    		var newValue = curValue + dataValue;
+				if (dataValue === '<---------SEP--------->') {
+					var newValue = curValue + '\n' + dataValue + '\n';
+				} else{
+					// var newValue = curValue + dataValue;
+					var position = textarea.getCursorPosition();
+					var newValue = curValue.substr(0, position) + "<---------SOMETHING--------->" + curValue.substr(position);
 		    	};
-
 		    	textarea.val(newValue);
 		    });
 
