@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: italy-cookie-choices\n"
-"POT-Creation-Date: 2015-07-04 17:30+0200\n"
-"PO-Revision-Date: 2015-07-04 17:31+0200\n"
+"POT-Creation-Date: 2015-07-09 19:09+0200\n"
+"PO-Revision-Date: 2015-07-09 19:11+0200\n"
 "Last-Translator: Enea Overclokk <info@overclokk.net>\n"
 "Language-Team: info@overclokk.net\n"
 "Language: it_IT\n"
@@ -18,178 +18,244 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
 
-#: admin/class-italy-cookie-choices-admin.php:86
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:66
+msgid "Radio 1"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:67
+msgid "The plugin is active and ready to start working."
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:70
+msgid "Open Popup"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:79
+msgid "Italy_Cookie_Choices_Pointer for Posts"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:80
+msgid "One more pointer."
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:87
+msgid "Italy_Cookie_Choices_Pointer Pages"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:88
+msgid "A pointer for pages."
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:94
+msgid "Italy_Cookie_Choices_Pointer Users"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:95
+msgid "A pointer for users."
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:101
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:115
+msgid "Italy_Cookie_Choices_Pointer Help"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:102
+msgid "A pointer with action."
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:106
+msgid "Next"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer-init.php:116
+msgid ""
+"A pointer for help tab.<br>Go to Posts, Pages or Users for other pointers."
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer.php:72
+msgid "Italy_Cookie_Choices_Pointer Error: post_type is not an array!"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin-pointer.php:95
+msgid "Italy_Cookie_Choices_Pointer Error: pages is not an array!"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin.php:87
 msgid "Italy Cookie Choices Dashboard"
 msgstr "Pannello di Italy Cookie Choices"
 
-#: admin/class-italy-cookie-choices-admin.php:100
+#: admin/class-italy-cookie-choices-admin.php:101
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Non hai abbastanza permessi per visualizzare questa pagina."
 
-#: admin/class-italy-cookie-choices-admin.php:161
+#: admin/class-italy-cookie-choices-admin.php:160
 msgid "Italy Cookie Choices options page"
 msgstr "Pagina opzioni per Italy Cookie Choices"
 
-#: admin/class-italy-cookie-choices-admin.php:171
+#: admin/class-italy-cookie-choices-admin.php:170
 msgid "Activate"
 msgstr "Attiva"
 
-#: admin/class-italy-cookie-choices-admin.php:183
+#: admin/class-italy-cookie-choices-admin.php:182
 msgid "Where display the banner"
 msgstr "Dove mostrare il banner"
 
-#: admin/class-italy-cookie-choices-admin.php:194
+#: admin/class-italy-cookie-choices-admin.php:193
 msgid "Mouse scroll event"
 msgstr "Evento scroll del mouse"
 
-#: admin/class-italy-cookie-choices-admin.php:205
+#: admin/class-italy-cookie-choices-admin.php:204
 msgid "Accept on second view"
 msgstr "Accettazione continuando la navigazione"
 
-#: admin/class-italy-cookie-choices-admin.php:216
+#: admin/class-italy-cookie-choices-admin.php:215
 msgid "Refresh page"
 msgstr "Aggiorna la pagina"
 
-#: admin/class-italy-cookie-choices-admin.php:227
+#: admin/class-italy-cookie-choices-admin.php:226
 msgid "Text to display"
 msgstr "Testo da mostrare"
 
-#: admin/class-italy-cookie-choices-admin.php:238
+#: admin/class-italy-cookie-choices-admin.php:237
 msgid "URL for cookie policy"
 msgstr "URL per la cookie policy"
 
-#: admin/class-italy-cookie-choices-admin.php:249
+#: admin/class-italy-cookie-choices-admin.php:248
 msgid "Cookie policy page slug"
 msgstr "Slug pagina Cookie policy"
 
-#: admin/class-italy-cookie-choices-admin.php:260
+#: admin/class-italy-cookie-choices-admin.php:259
 msgid "Anchor text for URL"
 msgstr "Anchor text per la URL"
 
-#: admin/class-italy-cookie-choices-admin.php:271
+#: admin/class-italy-cookie-choices-admin.php:270
 msgid "Button text"
 msgstr "Testo per il bottone"
 
-#: admin/class-italy-cookie-choices-admin.php:282
+#: admin/class-italy-cookie-choices-admin.php:281
 msgid "Style settings"
 msgstr "Impostazioni per lo stile"
 
-#: admin/class-italy-cookie-choices-admin.php:292
+#: admin/class-italy-cookie-choices-admin.php:291
 msgid "CookieChoices Template"
 msgstr "CookieChoices Template"
 
-#: admin/class-italy-cookie-choices-admin.php:303
+#: admin/class-italy-cookie-choices-admin.php:302
 msgid "HTML top margin"
 msgstr "Margine alto per HTML"
 
-#: admin/class-italy-cookie-choices-admin.php:314
+#: admin/class-italy-cookie-choices-admin.php:313
 msgid "Banner Background color"
 msgstr "Colore di sfondo per il banner"
 
-#: admin/class-italy-cookie-choices-admin.php:325
+#: admin/class-italy-cookie-choices-admin.php:324
 msgid "Banner text color"
 msgstr "Colore per il testo del banner"
 
-#: admin/class-italy-cookie-choices-admin.php:336
+#: admin/class-italy-cookie-choices-admin.php:335
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: admin/class-italy-cookie-choices-admin.php:347
+#: admin/class-italy-cookie-choices-admin.php:346
 msgid "Custom CSS Class (Optional)"
 msgstr "Classi CSS personalizzate (Opzionali)"
 
-#: admin/class-italy-cookie-choices-admin.php:358
+#: admin/class-italy-cookie-choices-admin.php:357
 msgid "Advanced settings"
 msgstr "Opzioni avanzate"
 
-#: admin/class-italy-cookie-choices-admin.php:368
+#: admin/class-italy-cookie-choices-admin.php:367
 msgid "Cookie name"
 msgstr "Nome del Cookie"
 
-#: admin/class-italy-cookie-choices-admin.php:379
+#: admin/class-italy-cookie-choices-admin.php:378
 msgid "Cookie value"
 msgstr "Valore del Cookie"
 
-#: admin/class-italy-cookie-choices-admin.php:390
+#: admin/class-italy-cookie-choices-admin.php:389
 msgid "Open policy in new page"
 msgstr "Apri in una nuova pagina"
 
-#: admin/class-italy-cookie-choices-admin.php:401
+#: admin/class-italy-cookie-choices-admin.php:400
 msgid "Third part cookie block (beta)"
 msgstr "Blocco dei cookie di terze parti (Beta)"
 
-#: admin/class-italy-cookie-choices-admin.php:412
+#: admin/class-italy-cookie-choices-admin.php:411
 msgid "Scripts allowed in body"
 msgstr "Script da non bloccare"
 
-#: admin/class-italy-cookie-choices-admin.php:423
+#: admin/class-italy-cookie-choices-admin.php:422
 msgid "Scripts to be blocked"
 msgstr "Script da bloccare"
 
-#: admin/class-italy-cookie-choices-admin.php:434
+#: admin/class-italy-cookie-choices-admin.php:433
 msgid "Text message for locked embedded content"
 msgstr "Testo per gli embed bloccati"
 
-#: admin/class-italy-cookie-choices-admin.php:445
+#: admin/class-italy-cookie-choices-admin.php:444
 msgid "Button text to activate locked embedded content"
 msgstr "Testo per il bottone di accettazione degli embed bloccati"
 
-#: admin/class-italy-cookie-choices-admin.php:470
+#: admin/class-italy-cookie-choices-admin.php:469
 msgid "Customize your banner for cookie law"
 msgstr "Personalizza il banner per la Cookie Law"
 
-#: admin/class-italy-cookie-choices-admin.php:485
+#: admin/class-italy-cookie-choices-admin.php:484
 msgid "Display banner for Cookie Law in front-end"
 msgstr ""
 "Visualizza il banner sul tuo sito web, se non attivi non viene mostrato "
 "nulla."
 
-#: admin/class-italy-cookie-choices-admin.php:505
+#: admin/class-italy-cookie-choices-admin.php:504
 msgid "Top Bar (Default, Display a top bar with your message)"
 msgstr "Top Bar (Default, Visualizza una top bar con il tuo messaggio)"
 
-#: admin/class-italy-cookie-choices-admin.php:513
+#: admin/class-italy-cookie-choices-admin.php:512
 msgid "Dialog (Display an overlay with your message)"
 msgstr "Dialog (Visualizza un popup con il tuo messaggio)"
 
-#: admin/class-italy-cookie-choices-admin.php:521
+#: admin/class-italy-cookie-choices-admin.php:520
 msgid "Bottom Bar (Display a bar in the footer with your message)"
 msgstr "Bottom Bar (Visualizza una barra nel footer con il tuo messaggio)"
 
-#: admin/class-italy-cookie-choices-admin.php:541
+#: admin/class-italy-cookie-choices-admin.php:540
 msgid "Accepts disclosures on mouse scroll event"
 msgstr "Accetta l'informativa sull'evento scroll del mouse"
 
-#: admin/class-italy-cookie-choices-admin.php:561
+#: admin/class-italy-cookie-choices-admin.php:560
 msgid "Activate accept on second view"
 msgstr "Attiva l'accettazione se l'utente continua la navigazione"
 
-#: admin/class-italy-cookie-choices-admin.php:579
+#: admin/class-italy-cookie-choices-admin.php:578
 msgid "Refresh page after button click (DEPRECATED)"
 msgstr "Aggiorna la pagina dopo l'accettazione  (DEPRECATA)"
 
-#: admin/class-italy-cookie-choices-admin.php:594
+#: admin/class-italy-cookie-choices-admin.php:611
 msgid "Your short cookie policy"
 msgstr "La tua informativa breve"
 
-#: admin/class-italy-cookie-choices-admin.php:597
-#: admin/class-italy-cookie-choices-admin.php:1040
+#: admin/class-italy-cookie-choices-admin.php:618
+#: admin/class-italy-cookie-choices-admin.php:1086
 msgid ""
 "People will see this notice only the first time that they enter your site"
 msgstr ""
 "Le persone visualizzeranno il messaggio la prima volta che visiteranno il "
 "tuo sito"
 
-#: admin/class-italy-cookie-choices-admin.php:622
+#: admin/class-italy-cookie-choices-admin.php:643
 msgid "e.g. http://www.aboutcookies.org/"
 msgstr "es: http://www.aboutcookies.org/"
 
-#: admin/class-italy-cookie-choices-admin.php:625
+#: admin/class-italy-cookie-choices-admin.php:646
 msgid "Insert here the link to your policy page"
 msgstr "Inserisci il link alla tua pagina con l'informativa estesa"
 
-#: admin/class-italy-cookie-choices-admin.php:627
-#: admin/class-italy-cookie-choices-admin.php:659
+#: admin/class-italy-cookie-choices-admin.php:646
+msgid "otherwise create a new one and then add URL to this input"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin.php:648
+#: admin/class-italy-cookie-choices-admin.php:680
 msgid ""
 "Start typing first two letters of the name of the policy page and then "
 "select it from the menu below the input"
@@ -197,11 +263,11 @@ msgstr ""
 "Comincia digitando le prime due lettere della pagina della tua informativa "
 "estesa e quindi selezionala dal menù a tendina che appare sotto la input"
 
-#: admin/class-italy-cookie-choices-admin.php:654
+#: admin/class-italy-cookie-choices-admin.php:675
 msgid "e.g. privacy-e-cookie"
 msgstr "es: privacy-e-cookie"
 
-#: admin/class-italy-cookie-choices-admin.php:657
+#: admin/class-italy-cookie-choices-admin.php:678
 msgid ""
 "Insert your cookie policy page slug (e.g. for the page http://www.miodominio."
 "it/privacy-e-cookie/ the slug is <strong>privacy-e-cookie</strong>).<br>In "
@@ -215,149 +281,149 @@ msgstr ""
 "l'accettazione continuando la navigazione verranno disattivati in quella "
 "pagina."
 
-#: admin/class-italy-cookie-choices-admin.php:673
+#: admin/class-italy-cookie-choices-admin.php:694
 msgid "e.g. More Info"
 msgstr "es: Maggiori informazioni"
 
-#: admin/class-italy-cookie-choices-admin.php:676
+#: admin/class-italy-cookie-choices-admin.php:697
 msgid "Insert here anchor text for the link"
 msgstr "Inserisci qui l'anchor text per il link"
 
-#: admin/class-italy-cookie-choices-admin.php:690
-#: admin/class-italy-cookie-choices-admin.php:1056
+#: admin/class-italy-cookie-choices-admin.php:711
+#: admin/class-italy-cookie-choices-admin.php:1102
 msgid "e.g. Close"
 msgstr "es: Chiudi"
 
-#: admin/class-italy-cookie-choices-admin.php:693
-#: admin/class-italy-cookie-choices-admin.php:1059
+#: admin/class-italy-cookie-choices-admin.php:714
+#: admin/class-italy-cookie-choices-admin.php:1105
 msgid "Insert here name of button (e.g. \"Close\") "
 msgstr "Inserisci il testo del link per chiudere il popup/banner (es: Chiudi)"
 
-#: admin/class-italy-cookie-choices-admin.php:710
+#: admin/class-italy-cookie-choices-admin.php:731
 msgid "Customize your style settings"
 msgstr "Personalizza le impostazioni per lo stile"
 
-#: admin/class-italy-cookie-choices-admin.php:726
+#: admin/class-italy-cookie-choices-admin.php:747
 msgid "Add a page top margin for info top bar, only for default topbar stile"
 msgstr "Aggiungi un margine in cima alla pagina, solo per la topbar di default"
 
-#: admin/class-italy-cookie-choices-admin.php:744
+#: admin/class-italy-cookie-choices-admin.php:765
 msgid "Default cookiechoices template (centered with text links)"
 msgstr "Template di default, testo centrato con link testuali."
 
-#: admin/class-italy-cookie-choices-admin.php:746
+#: admin/class-italy-cookie-choices-admin.php:767
 msgid "Centered container with left aligned text and big buttons"
 msgstr ""
 "Template con contenitore centrato (980px), testo allineato a sinistra e "
 "bottoni grandi"
 
-#: admin/class-italy-cookie-choices-admin.php:748
+#: admin/class-italy-cookie-choices-admin.php:769
 msgid "Centered container with left aligned text and small buttons"
 msgstr ""
 "Template con contenitore centrato (980px), testo allineato a sinistra e "
 "bottoni piccoli"
 
-#: admin/class-italy-cookie-choices-admin.php:750
+#: admin/class-italy-cookie-choices-admin.php:771
 msgid "My custom CSS"
 msgstr "Il mio css personalizzato"
 
-#: admin/class-italy-cookie-choices-admin.php:754
+#: admin/class-italy-cookie-choices-admin.php:775
 msgid "Select the template to use"
 msgstr "Seleziona il template che vuoi usare"
 
-#: admin/class-italy-cookie-choices-admin.php:775
+#: admin/class-italy-cookie-choices-admin.php:796
 msgid "Custom Background color for banner"
 msgstr "Colore di sfondo per il banner"
 
-#: admin/class-italy-cookie-choices-admin.php:795
+#: admin/class-italy-cookie-choices-admin.php:816
 msgid "Custom text color for banner"
 msgstr "Colore del testo per il banner"
 
-#: admin/class-italy-cookie-choices-admin.php:812
+#: admin/class-italy-cookie-choices-admin.php:833
 msgid "Your custom css"
 msgstr "Il tuo css personalizzato"
 
-#: admin/class-italy-cookie-choices-admin.php:815
+#: admin/class-italy-cookie-choices-admin.php:836
 msgid "Inset here your custom CSS for banner"
 msgstr "Inserisci qui il tuo CSS personalizzato per il banner"
 
-#: admin/class-italy-cookie-choices-admin.php:840
+#: admin/class-italy-cookie-choices-admin.php:861
 msgid "Eg: bannerStyle"
 msgstr "Es: bannerStyle"
 
-#: admin/class-italy-cookie-choices-admin.php:842
+#: admin/class-italy-cookie-choices-admin.php:863
 msgid "CSS class for div container (Default <code>bannerStyle</code>)"
 msgstr ""
 "Classe CSS per il tag div del contenitore  (Default <code>bannerStyle</code>)"
 
-#: admin/class-italy-cookie-choices-admin.php:845
+#: admin/class-italy-cookie-choices-admin.php:866
 msgid "Eg: contentStyle"
 msgstr "Es: contentStyle"
 
-#: admin/class-italy-cookie-choices-admin.php:847
+#: admin/class-italy-cookie-choices-admin.php:868
 msgid "CSS class for div content (Default <code>contentStyle</code>)"
 msgstr ""
 "Classe CSS per il tag div del contenuto (Default <code>contentStyle</code>)"
 
-#: admin/class-italy-cookie-choices-admin.php:850
+#: admin/class-italy-cookie-choices-admin.php:871
 msgid "Eg: consentText"
 msgstr "Es: consentText"
 
-#: admin/class-italy-cookie-choices-admin.php:852
+#: admin/class-italy-cookie-choices-admin.php:873
 msgid "CSS class for span content (Default <code>consentText</code>)"
 msgstr "Classe CSS per il tag span (Default <code>consentText</code>)"
 
-#: admin/class-italy-cookie-choices-admin.php:855
+#: admin/class-italy-cookie-choices-admin.php:876
 msgid "Eg: infoClass"
 msgstr "Es: infoClass"
 
-#: admin/class-italy-cookie-choices-admin.php:857
+#: admin/class-italy-cookie-choices-admin.php:878
 msgid "CSS class for Info link (Default <code>itaybtn</code>)"
 msgstr "Classe CSS per il link info (Default <code>itaybtn</code>)"
 
-#: admin/class-italy-cookie-choices-admin.php:860
+#: admin/class-italy-cookie-choices-admin.php:881
 msgid "Eg: closeClass"
 msgstr "Es: closeClass"
 
-#: admin/class-italy-cookie-choices-admin.php:862
+#: admin/class-italy-cookie-choices-admin.php:883
 msgid "CSS class for close link (Default <code>itaybtn</code>)"
 msgstr "Classe CSS per il link di chiusura  (Default <code>itaybtn</code>)"
 
-#: admin/class-italy-cookie-choices-admin.php:865
+#: admin/class-italy-cookie-choices-admin.php:886
 msgid "Customize with your personal CSS class"
 msgstr "Personalizza con le tue classi CSS"
 
-#: admin/class-italy-cookie-choices-admin.php:881
+#: admin/class-italy-cookie-choices-admin.php:902
 msgid "Customize your advanced settings"
 msgstr "Personalizza le impostazioni avanzate"
 
-#: admin/class-italy-cookie-choices-admin.php:897
+#: admin/class-italy-cookie-choices-admin.php:918
 msgid "Insert your cookie name (Default: displayCookieConsent)"
 msgstr "Inserisci il nome del tuo Cookie (Default: displayCookieConsent)"
 
-#: admin/class-italy-cookie-choices-admin.php:916
+#: admin/class-italy-cookie-choices-admin.php:937
 msgid "Insert your cookie value (Default: y)"
 msgstr "Inserisci il valore del tuo Cookie (Default: y)"
 
-#: admin/class-italy-cookie-choices-admin.php:936
+#: admin/class-italy-cookie-choices-admin.php:957
 msgid "Open your cookie policy page in new one"
 msgstr "Apri la tua pagina per la Cookie policy in una nuova"
 
-#: admin/class-italy-cookie-choices-admin.php:960
+#: admin/class-italy-cookie-choices-admin.php:981
 msgid "Cookie from any embed in your content (Beta) (DEPRECATED)"
 msgstr "Cookie da tutti gli embed nel tuo contenuto (Beta) (DEPRECATA)"
 
-#: admin/class-italy-cookie-choices-admin.php:965
+#: admin/class-italy-cookie-choices-admin.php:986
 msgid "Cookie from any embed in your widget area (Beta) (DEPRECATED)"
 msgstr "Cookie da tutti gli embed nei tuoi widget (Beta) (DEPRECATA)"
 
-#: admin/class-italy-cookie-choices-admin.php:970
+#: admin/class-italy-cookie-choices-admin.php:991
 msgid "Cookie from any embed in all body, except head and footer (Beta)"
 msgstr ""
 "Cookie da tutti gli embed nella tua pagina, eccetto head e footer (Beta)"
 
-#: admin/class-italy-cookie-choices-admin.php:987
-#: admin/class-italy-cookie-choices-admin.php:1012
+#: admin/class-italy-cookie-choices-admin.php:1032
+#: admin/class-italy-cookie-choices-admin.php:1058
 msgid ""
 "&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/"
 "script&gt;\n"
@@ -377,7 +443,11 @@ msgstr ""
 "&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/"
 "script&gt;"
 
-#: admin/class-italy-cookie-choices-admin.php:993
+#: admin/class-italy-cookie-choices-admin.php:1036
+msgid "View example"
+msgstr ""
+
+#: admin/class-italy-cookie-choices-admin.php:1039
 msgid ""
 "Scripts to be excluded from the automatic block.<br />Split each script with "
 "<strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use "
@@ -387,12 +457,12 @@ msgstr ""
 "script con <strong> <em>&lt;---------SEP---------&gt;</em></strong><br>Usa "
 "<strong><---------SOMETHING---------></strong> per regex personalizzata"
 
-#: admin/class-italy-cookie-choices-admin.php:996
-#: admin/class-italy-cookie-choices-admin.php:1021
+#: admin/class-italy-cookie-choices-admin.php:1042
+#: admin/class-italy-cookie-choices-admin.php:1067
 msgid "For more information see the documentation"
 msgstr "Per maggiorni informazioni guarda la documentazione"
 
-#: admin/class-italy-cookie-choices-admin.php:1018
+#: admin/class-italy-cookie-choices-admin.php:1064
 msgid ""
 "Scripts shown in the head and in the footer does not automatically blocked."
 "<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></"
@@ -403,31 +473,35 @@ msgstr ""
 "script con <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Usa "
 "<strong><---------SOMETHING---------></strong> per una regex personalizzata."
 
-#: admin/class-italy-cookie-choices-admin.php:1037
+#: admin/class-italy-cookie-choices-admin.php:1083
 msgid "Your lock message for embedded contents inside posts, pages and widgets"
 msgstr ""
 "Il tuo messaggio da visualizzare nel box per i contenuti bloccati "
 "incorporati all'interno di pagine, articoli e widget"
 
-#: admin/class-italy-cookie-choices-admin.php:1174
+#: admin/class-italy-cookie-choices-admin.php:1221
 #: admin/class-italy-cookie-choices-sanitize.php:77
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di "
 "default."
 
-#: admin/class-italy-cookie-choices-admin.php:1181
+#: admin/class-italy-cookie-choices-admin.php:1228
 #: admin/class-italy-cookie-choices-sanitize.php:84
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore "
 "di default."
 
-#: italy-cookie-choices.php:135 italy-cookie-choices.php:145
+#: admin/template/code-example.php:7
+msgid "Script inline example"
+msgstr ""
+
+#: italy-cookie-choices.php:139 italy-cookie-choices.php:149
 msgid "Activation of Italy Cookie Choices in not possible"
 msgstr "L'attivazione di Italy Cookie Choices non è possibile"
 
-#: italy-cookie-choices.php:236
+#: italy-cookie-choices.php:240
 #, php-format
 msgid ""
 "Your server is running %s version %s but this plugin requires at least %s"
