@@ -45,23 +45,40 @@
 				$('.color-field').wpColorPicker(options);
 			});
 
+
 			/**
 			 * Add separator on click in textarea
 			 */
 			$('.add-sep').click(function(){
+
 				var thisButton = $(this);
 				var textarea = thisButton.siblings('textarea');
+				// var prova = thisButton.parent().children('textarea');
 				var curValue = textarea.val();
+
 				var dataValue = thisButton.data('value');
 
-				if (dataValue === '<---------SEP--------->') {
+				if ( dataValue === '<---------SEP--------->' ) {
+
 					var newValue = curValue + '\n' + dataValue + '\n';
-				} else{
-					// var newValue = curValue + dataValue;
+
+				}else if( dataValue === '<---------SOMETHING--------->' ){
+
+					/**
+					 * Snippet for remove selected text from textarea
+					 * link http://stackoverflow.com/questions/18133776/how-do-i-remove-selected-text-from-an-input-control
+					 * link http://jsfiddle.net/z36Px/2/
+					 */
+					var ele  = textarea.get(0); // or textarea[0]
+				    curValue = curValue.slice(0, ele.selectionStart) + curValue.slice(ele.selectionEnd);
+
 					var position = textarea.getCursorPosition();
 					var newValue = curValue.substr(0, position) + "<---------SOMETHING--------->" + curValue.substr(position);
+		    	}else{
+		    		var newValue = curValue + dataValue;
 		    	};
 		    	textarea.val(newValue);
+
 		    });
 
 		    /**
@@ -82,3 +99,38 @@
 
 	    });
 	});
+
+/**
+ * {@link http://code.tutsplus.com/tutorials/adding-a-custom-css-editor-to-your-theme-using-ace--wp-29451}
+ * {@link http://ace.c9.io/#nav=about}
+ */
+// ( function( global, $ ) {
+
+// 		var scriptArea = $( '#italy_cookie_choices\\[custom_script_block_body_exclude\\]' );
+// 		var editor = ace.edit( 'editor' );
+// 		editor.$blockScrolling = Infinity;
+// 		var
+// 		syncCSS = function() {
+// 			scriptArea.val( editor.getSession().getValue() );
+// 		},
+// 		loadAce = function() {
+// 			// editor = ace.edit( 'editor' );
+// 			global.safecss_editor = editor;
+// 			editor.getSession().setUseWrapMode( true );
+// 			editor.setShowPrintMargin( false );
+// 			editor.getSession().setValue( scriptArea.val() );
+// 			editor.getSession().setMode( "ace/mode/javascript" );
+// 			jQuery.fn.spin&&$( '#editor' ).spin( false );
+// 			$( '#italy-cookie-choices-ID' ).submit( syncCSS );
+// 		};
+// 		if ( $.browser.msie&&parseInt( $.browser.version, 10 ) <= 7 ) {
+// 			$( '#editor' ).hide();
+// 			scriptArea.show();
+// 			return false;
+// 		} else {
+// 			scriptArea.hide();
+// 			$( global ).load( loadAce );
+// 		}
+// 		global.aceSyncCSS = syncCSS;
+
+// } )( this, jQuery );
