@@ -103,9 +103,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 ?>
                 <div class="wrap">
 
-                        <?php //settings_errors('italy_cookie_id'); ?>
-
-                    <form action='options.php' method='post'>
+                    <form action='options.php' method='post' id='italy-cookie-choices-ID'>
                         
                         <?php
                         settings_fields( 'italy_cl_options_group' );
@@ -604,6 +602,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                         'textarea_name' => 'italy_cookie_choices[text]',
                         'media_buttons' => false,
                         'textarea_rows' => 5,
+                        'editor_css'    => '<style>#wp-italy_cookie_choices_text-wrap{max-width:520px}</style>',
                         'teeny' => true
                         )
                     );
@@ -618,7 +617,6 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             <label for="italy_cookie_choices[text]">
                 <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
             </label>
-            <style>#wp-italy_cookie_choices_text-wrap{max-width:520px}</style>
 
         <?php
 
@@ -1006,11 +1004,36 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
 
+            /**
+             * Add thickbox for diplay code example
+             * @link https://codex.wordpress.org/Javascript_Reference/ThickBox
+             */
+            add_thickbox();
+
+            /**
+             * Template with list of code example
+             */
+            require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/code-example.php');
+
         ?>
-            <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block_body_exclude]" id="italy_cookie_choices[custom_script_block_body_exclude]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></textarea>
+        <style type="text/css" media="screen">
+            /*#editor {
+                font-size: 14px;
+                height: 260px;
+                position: relative;
+                width: 520px;
+            }
+            .ace_gutter-cell.ace_error{
+                background-image: none;
+            }*/
+        </style>
+            <!-- <div id="editor"><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></div> -->
+    
+            <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block_body_exclude]" id="italy_cookie_choices[custom_script_block_body_exclude]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" class="textarea"><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></textarea>
             <br>
             <a id="SEP" class="button button-secondary add-sep" data-value="<---------SEP--------->">&lt;---------SEP---------&gt;</a>
             <a id="SOM" class="button button-secondary add-sep" data-value="<---------SOMETHING--------->">&lt;---------SOMETHING---------&gt;</a>
+            <!-- <a href="#TB_inline?width=600&height=550&inlineId=code-example" class="thickbox button button-secondary"><?php _e( 'View example', 'italy-cookie-choices' ); ?></a> -->
             <br>
             <label for="italy_cookie_choices[custom_script_block_body_exclude]">
                 <?php echo __( 'Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex', 'italy-cookie-choices' ); ?>
@@ -1246,15 +1269,26 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         public function add_script_and_style( $hook_suffix ) {
 
                 // first check that $hook_suffix is appropriate for your admin page
+                if ( 'settings_page_italy-cookie-choices' !== $hook_suffix )
+                    continue;
+
                 /**
                  * Add color picker in admin menù
                  */
                 wp_enqueue_style( 'wp-color-picker' );
 
+                /**
+                 * Load jQuery autocomplete for slug and url input
+                 */
                 wp_enqueue_style( 'jquery-ui-autocomplete' );
                 wp_enqueue_script( 'jquery-ui-autocomplete' );
 
-                // wp_enqueue_script( 'jquery' );
+                /**
+                 * Load ACE from CDN
+                 * Functionality for custom script editor and CSS editor
+                 */
+                // wp_register_script('ace', '//cdn.jsdelivr.net/ace/1.1.9/min/ace.js', false, null, true);
+                // wp_enqueue_script('ace');
 
                 wp_enqueue_script(
                     'italy-cookie-choices-script',
@@ -1263,11 +1297,12 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                         // 'jquery',
                         'wp-color-picker',
                         'jquery-ui-widget',
-                        'jquery-ui-autocomplete'
+                        'jquery-ui-autocomplete',
+                        // 'ace'
                         ),
                     null,
                     true
-                    );
+                );
 
         }
 
