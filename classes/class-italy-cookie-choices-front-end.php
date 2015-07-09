@@ -55,6 +55,12 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         private $slug = '';
 
         /**
+         * URL for policy page
+         * @var string
+         */
+        private $url = '';
+
+        /**
          * [__construct description]
          */
         public function __construct(){
@@ -74,29 +80,20 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              */
             $this->slug = ( isset( $this->options['slug'] ) && !empty( $this->options['slug'] ) ) ? esc_attr( $this->options['slug'] ) : 1 ;
 
+            /**
+             * Assegno il valore della URL della policy page
+             * Default ID 1 perché su null non settava correttamente lo scroll se il valore era assente
+             * @var bolean
+             */
+            $this->url = ( isset( $this->options['url'] ) && !empty( $this->options['url'] ) ) ? esc_attr( $this->options['url'] ) : 1 ;
+
             /*
              * Set cookie if the user agree navigating through the pages of the site
              */
             $secondView = false;
 
-            if(
-                // if is an HTML request (alternative methods???)
-                ( strpos( $_SERVER["HTTP_ACCEPT"],'html' ) !== false ) &&
-                //if the page isn't privacy page
-                ( $_SERVER['REQUEST_URI'] != $this->slug ) && 
-                //if HTTP_REFERER is set
-                ( isset( $_SERVER['HTTP_REFERER'] ) ) && 
-                //if isn't refresh
-                ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) != $_SERVER['REQUEST_URI'] ) &&
-                //if referrer is not privacy page (to be evaluated)
-                ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH ) != $this->slug ) && 
-                //if the cookie is not already set
-                ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ) && 
-                //if the referer is in the same domain
-                ( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) == $_SERVER['HTTP_HOST'] ) &&
-                // If the secondView options is checked
-                ( $secondViewOpt )
-            ) {
+            if( $this->is_policy_page( $secondViewOpt ) ) {
+
                 setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
                 $secondView = true;
             }
@@ -221,6 +218,62 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             }
 
         }//__construct
+
+
+        /**
+         * Get the current page url
+         * @link http://www.brosulo.net/content/informatica/ottenere-la-url-completa-da-una-pagina-php-0
+         */
+        private function CurrentPageURL() {
+
+            if ( isset( $_SERVER['HTTPS'] ) )
+                $pageURL = $_SERVER['HTTPS'];
+            else
+                $pageURL = NULL;
+
+            $pageURL = $pageURL === 'on' ? 'https://' : 'http://';
+            $pageURL .= $_SERVER["SERVER_NAME"];
+            $pageURL .= ( $_SERVER['SERVER_PORT'] !== '80' ) ? ':' . $_SERVER["SERVER_PORT"] : '';
+            $pageURL .= $_SERVER["REQUEST_URI"];
+
+            return $pageURL;
+
+        }
+
+        /**
+         * Check if is the policy page
+         * Required url input
+         * @param  boolean $secondViewOpt Check for second view option
+         * @return boolean                Return bolean value
+         */
+        private function is_policy_page( $secondViewOpt = false ){
+
+            if(
+                // if is an HTML request (alternative methods???)
+                ( strpos( $_SERVER["HTTP_ACCEPT"],'html' ) !== false ) &&
+                //if the page isn't privacy page
+                // ( $_SERVER['REQUEST_URI'] != $this->slug ) && 
+                ( $this->CurrentPageURL() !== $this->url ) && 
+                //if HTTP_REFERER is set
+                ( isset( $_SERVER['HTTP_REFERER'] ) ) && 
+                //if isn't refresh
+                ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) !== $_SERVER['REQUEST_URI'] ) &&
+                //if referrer is not privacy page (to be evaluated)
+                // ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH ) != $this->slug ) &&
+                // ( $_SERVER['HTTP_REFERER'] !== $this->url ) &&
+                //if the cookie is not already set
+                ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ) && 
+                //if the referer is in the same domain
+                ( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) === $_SERVER['HTTP_HOST'] )  &&
+                // If the secondView options is checked
+                ( $secondViewOpt )
+            )
+                return true;
+            else
+                return false;
+
+        }
+
 
         private function in_array_match($value, $array) {
             foreach($array as $k=>$v) {
