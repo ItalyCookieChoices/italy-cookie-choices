@@ -104,9 +104,9 @@ if it doesn't work activate standard theme and try
 == Changelog ==
 
 = 2.2.3 =
-Release Date: July 6th, 2015
+Release Date: July 9th, 2015
 
-Dev time: 15h
+Dev time: 30h
 
 * Added jQuery autocomplete in slug and url input
 * Added text editor and allowed HTML tags for short policy text area input
