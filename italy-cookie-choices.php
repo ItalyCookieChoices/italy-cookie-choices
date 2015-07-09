@@ -8,6 +8,9 @@
  * Author URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
  * Text Domain: italy-cookie-choices
  * License: GPLv2 or later
+ * Git URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
+ * GitHub Plugin URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
+ * GitHub Branch: master
  *
  * @package Italy Cookie Choices
  * @since 1.0.0
