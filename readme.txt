@@ -125,6 +125,7 @@ Dev time: 30h
 * Fixed the insertion of the SOMETHING button in textarea
 * Added delete selected text for SOMETHING button in textarea
 * Fixed !match with 'REQUEST_URI' [here](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/111) and [here](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/68)
+* [Fixed #119](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/119)
 
 
 = 2.2.2 =

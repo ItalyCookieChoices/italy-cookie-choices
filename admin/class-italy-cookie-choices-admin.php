@@ -479,7 +479,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             $active = ( isset( $this->options['active'] ) ) ? $this->options['active'] : '' ;
         ?>
 
-            <input type='checkbox' name='italy_cookie_choices[active]' <?php checked( $active, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[active]' <?php checked( $active, 1 ); ?> value='1' id="italy_cookie_choices[active]">
             <label for="italy_cookie_choices[active]" id="active">
                 <?php _e( 'Display banner for Cookie Law in front-end', 'italy-cookie-choices' ); ?>
             </label>
@@ -535,7 +535,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             $scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
         ?>
 
-            <input type='checkbox' name='italy_cookie_choices[scroll]' <?php checked( $scroll, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[scroll]' <?php checked( $scroll, 1 ); ?> value='1' id="italy_cookie_choices[scroll]">
             <label for="italy_cookie_choices[scroll]">
                 <?php _e( 'Accepts disclosures on mouse scroll event', 'italy-cookie-choices' ); ?>
             </label>
@@ -555,7 +555,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
 
-            <input type='checkbox' name='italy_cookie_choices[secondView]' <?php checked( $secondView, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[secondView]' <?php checked( $secondView, 1 ); ?> value='1' id="italy_cookie_choices[secondView]">
             <label for="italy_cookie_choices[secondView]">
                 <?php _e( 'Activate accept on second view', 'italy-cookie-choices' ); ?>
             </label>
@@ -573,7 +573,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             $reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
         ?>
 
-            <input type='checkbox' name='italy_cookie_choices[reload]' <?php checked( $reload, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[reload]' <?php checked( $reload, 1 ); ?> value='1' id="italy_cookie_choices[reload]">
             <label for="italy_cookie_choices[reload]">
                 <?php _e( 'Refresh page after button click (DEPRECATED)', 'italy-cookie-choices' ); ?>
             </label>
@@ -742,7 +742,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
 
-            <input type='checkbox' name='italy_cookie_choices[html_margin]' <?php checked( $html_margin, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[html_margin]' <?php checked( $html_margin, 1 ); ?> value='1' id="italy_cookie_choices[html_margin]">
             <label for="italy_cookie_choices[html_margin]">
                 <?php _e( 'Add a page top margin for info top bar, only for default topbar stile', 'italy-cookie-choices' ); ?>
             </label>
@@ -760,7 +760,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             $js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
 
         ?>
-            <select  name='italy_cookie_choices[js_template]'>
+            <select  name='italy_cookie_choices[js_template]' id="italy_cookie_choices[js_template]">
 
                 <option value="default" <?php if ( $js_template === 'default' ) echo 'selected';?>><?php _e( 'Default cookiechoices template (centered with text links)', 'italy_cookie_choices' ); ?></option>
 
@@ -874,7 +874,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             </label>
             <br>
             <input type="text" id="italy_cookie_choices[infoClass]" name="italy_cookie_choices[infoClass]" value="<?php echo esc_attr( $infoClass ); ?>" placeholder="<?php _e( 'Eg: infoClass', 'italy-cookie-choices' ); ?>" />
-            <label for="italy_cookie_choices[infoC]">
+            <label for="italy_cookie_choices[infoClass]">
                 <?php echo __( 'CSS class for Info link (Default <code>itaybtn</code>)', 'italy-cookie-choices' ); ?>
             </label>
             <br>
@@ -952,7 +952,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
 
-            <input type='checkbox' name='italy_cookie_choices[target]' <?php checked( $target, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[target]' <?php checked( $target, 1 ); ?> value='1' id="italy_cookie_choices[target]">
             <label for="italy_cookie_choices[target]">
                 <?php _e( 'Open your cookie policy page in new one', 'italy-cookie-choices' ); ?>
             </label>
@@ -976,17 +976,17 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
 
-            <input type='checkbox' name='italy_cookie_choices[block]' <?php checked( $block, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[block]' <?php checked( $block, 1 ); ?> value='1' id="italy_cookie_choices[block]">
             <label for="italy_cookie_choices[block]">
                 <?php _e( 'Cookie from any embed in your content (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
             </label>
             <br>
-            <input type='checkbox' name='italy_cookie_choices[widget_block]' <?php checked( $widget_block, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[widget_block]' <?php checked( $widget_block, 1 ); ?> value='1' id="italy_cookie_choices[widget_block]">
             <label for="italy_cookie_choices[widget_block]">
                 <?php _e( 'Cookie from any embed in your widget area (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
             </label>
             <br>
-            <input type='checkbox' name='italy_cookie_choices[all_block]' <?php checked( $all_block, 1 ); ?> value='1'>
+            <input type='checkbox' name='italy_cookie_choices[all_block]' <?php checked( $all_block, 1 ); ?> value='1' id="italy_cookie_choices[all_block]">
             <label for="italy_cookie_choices[all_block]">
                 <?php _e( 'Cookie from any embed in all body, except head and footer (Beta)', 'italy-cookie-choices' ); ?>
             </label>
