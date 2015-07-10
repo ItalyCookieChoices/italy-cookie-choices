@@ -26,6 +26,21 @@ The plugin will not add any CSS stylesheet or Javascript file but only inline sc
 
 Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
 
+= What you can do = 
+
+* Display banner in front-end
+** Three template (standard, big buttons, small buttons)
+** Three position (top, dialog, bottom)
+** Or custom style
+* Content banner customizable with HTML tags
+* URL and buttons text customizable
+* Acceptance on mouse scroll
+* Acceptance on second view
+* Block third party script in page
+* Add custom script to not block (all page)
+* Add custom script to block (wp_header and wp_footer)
+* Multilanguage (WPML, Polylang, Ceceppa)
+
 [For more informations read the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki)
 
 Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
@@ -44,21 +59,18 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customizat
 
 = Developer =
 
-[Enea Overclokk](http://www.overclokk.net/)
-
-[Andrea Pernici](https://www.andreapernici.com/)
-
-[Andrea Cardinale](https://www.andrea-cardinale.it/)
+* [Enea Overclokk](http://www.overclokk.net/)
+* [Andrea Pernici](https://www.andreapernici.com/)
+* [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
 = Link =
 
-[WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
-
-[Forum GT](http://www.giorgiotave.it/forum/)
+* [WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
+* [Forum GT](http://www.giorgiotave.it/forum/)
 
 = Translators = 
 
-Romanian: [Florin Lungu](http://www.florinlungu.it/)
+* Romanian: [Florin Lungu](http://www.florinlungu.it/)
 
 == Installation ==
 
