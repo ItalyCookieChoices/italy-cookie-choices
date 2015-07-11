@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
 **Tested up to:** 4.3.0  
-**Stable tag:** 2.2.2  
+**Stable tag:** 2.3.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -26,6 +26,21 @@ The plugin will not add any CSS stylesheet or Javascript file but only inline sc
 
 Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
 
+### What you can do ###
+
+* Display banner in front-end
+** Three template (standard, big buttons, small buttons)
+** Three position (top, dialog, bottom)
+** Or custom style
+* Content banner customizable with HTML tags
+* URL and buttons text customizable
+* Acceptance on mouse scroll
+* Acceptance on second view
+* Block third party script in page
+* Add custom script to not block (all page)
+* Add custom script to block (wp_header and wp_footer)
+* Multilanguage (WPML, Polylang, Ceceppa)
+
 [For more informations read the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki)
 
 Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
@@ -44,21 +59,18 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customizat
 
 ### Developer ###
 
-[Enea Overclokk](http://www.overclokk.net/)
-
-[Andrea Pernici](https://www.andreapernici.com/)
-
-[Andrea Cardinale](https://www.andrea-cardinale.it/)
+* [Enea Overclokk](http://www.overclokk.net/)
+* [Andrea Pernici](https://www.andreapernici.com/)
+* [Andrea Cardinale](https://www.andrea-cardinale.it/)
 
 ### Link ###
 
-[WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
-
-[Forum GT](http://www.giorgiotave.it/forum/)
+* [WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
+* [Forum GT](http://www.giorgiotave.it/forum/)
 
 ### Translators ###
 
-**Romanian:** [Florin Lungu](http://www.florinlungu.it/)  
+* Romanian: [Florin Lungu](http://www.florinlungu.it/)
 
 ## Installation ##
 
@@ -114,6 +126,29 @@ if it doesn't work activate standard theme and try
 
 
 ## Changelog ##
+
+### 2.3.0 ###
+**Release Date:** July 11th, 2015  
+
+**Dev time:** 50h  
+
+* Added jQuery autocomplete in slug and url input
+* Added text editor and allowed HTML tags for short policy text area input and the blocked embed text
+* Fixed the insertion of the SOMETHING button in textarea
+* Added delete selected text for SOMETHING button in textarea
+* Fixed !match with 'REQUEST_URI' [here](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/111) and [here](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/68)
+* [Fixed #119](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/119)
+* [Added multilanguage also to the blocked embed text and button](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/118)
+* [Added multilang for slug](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/115)
+* Improved sanitization for multilang string
+
+
+### 2.2.2 ###
+**Release Date:** July 1st, 2015  
+
+**Dev time:** 3h  
+
+* [Fixed browser issue](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/113)
 
 ### 2.2.1 ###
 **Release Date:** July 1st, 2015  
