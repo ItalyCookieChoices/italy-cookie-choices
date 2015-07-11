@@ -78,14 +78,14 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Default ID 1 perché su null non settava correttamente lo scroll se il valore era assente
              * @var bolean
              */
-            $this->slug = ( isset( $this->options['slug'] ) && !empty( $this->options['slug'] ) ) ? esc_attr( $this->options['slug'] ) : 1 ;
+            $this->slug = ( isset( $this->options['slug'] ) && !empty( $this->options['slug'] ) ) ? esc_attr( get_string( 'Italy Cookie Choices', 'Banner slug', $this->options['slug'] ) ) : 1 ;
 
             /**
              * Assegno il valore della URL della policy page
              * Default ID 1 perché su null non settava correttamente lo scroll se il valore era assente
              * @var bolean
              */
-            $this->url = ( isset( $this->options['url'] ) && !empty( $this->options['url'] ) ) ? esc_attr( $this->options['url'] ) : 1 ;
+            $this->url = ( isset( $this->options['url'] ) && !empty( $this->options['url'] ) ) ? esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) ) : 1 ;
 
             /*
              * Set cookie if the user agree navigating through the pages of the site
