@@ -115,17 +115,20 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
-= 2.2.3 =
-Release Date: July 9th, 2015
+= 2.3.0 =
+Release Date: July 11th, 2015
 
-Dev time: 30h
+Dev time: 50h
 
 * Added jQuery autocomplete in slug and url input
-* Added text editor and allowed HTML tags for short policy text area input
+* Added text editor and allowed HTML tags for short policy text area input and the blocked embed text
 * Fixed the insertion of the SOMETHING button in textarea
 * Added delete selected text for SOMETHING button in textarea
 * Fixed !match with 'REQUEST_URI' [here](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/111) and [here](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/68)
 * [Fixed #119](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/119)
+* [Added multilanguage also to the blocked embed text and button](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/118)
+* [Added multilang for slug](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/115)
+* Improved sanitization for multilang string
 
 
 = 2.2.2 =
