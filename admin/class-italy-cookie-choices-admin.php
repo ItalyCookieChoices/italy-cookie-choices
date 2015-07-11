@@ -75,6 +75,11 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             if ( isset($_GET['page']) && ($_GET['page'] === 'italy-cookie-choices' ) )
                 add_action('admin_enqueue_scripts', array( $this, 'add_script_and_style' ));
 
+            /**
+             * Add link in plugin activation panel
+             */
+            add_filter( 'plugin_action_links_' . ITALY_COOKIE_CHOICES_BASENAME, array( $this, 'plugin_action_links' ) );
+
         }
 
 
@@ -1331,6 +1336,21 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 );
 
         }
+
+        /**
+         * Add link in plugin activation panel
+         * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
+         * @param  array $links Array of link in wordpress dashboard
+         * @return array        Array with my links
+         */
+        public function plugin_action_links( $links ){
+
+                 array_unshift($links, '<a href="options-general.php?page=italy-cookie-choices">' . __('Settings','italy-cookie-choices') . '</a>');
+
+                array_unshift($links, '<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki" target="_blank">' . __('Documentation','italy-cookie-choices') . '</a>');
+
+            return $links;
+        }// plugin_action_links()
 
     }// class
 }//endif
