@@ -48,8 +48,10 @@ if ( is_multisite() ) {
 /**
  * Require multilingual functions
  */
-require( plugin_dir_path( __FILE__ ) . 'includes/functions-italy-cookie-choices-lang.php');
-deregister_string( 'Italy Cookie Choices', 'Banner text');
+require( plugin_dir_path( __FILE__ ) . 'includes/functions-italy-cookie-choices-lang.php' );
+deregister_string( 'Italy Cookie Choices', 'Banner text' );
 deregister_string( 'Italy Cookie Choices', 'Banner url' );
 deregister_string( 'Italy Cookie Choices', 'Banner anchor text' );
 deregister_string( 'Italy Cookie Choices', 'Banner button text' );
+deregister_string( 'Italy Cookie Choices', 'Content message text' );
+deregister_string( 'Italy Cookie Choices', 'Content message button text' );

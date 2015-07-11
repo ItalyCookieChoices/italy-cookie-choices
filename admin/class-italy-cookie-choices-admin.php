@@ -1079,8 +1079,28 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             $content_message_text = ( isset( $this->options['content_message_text'] ) ) ? $this->options['content_message_text'] : '' ;
 
-        ?>
-            <textarea rows="5" cols="70" name="italy_cookie_choices[content_message_text]" id="italy_cookie_choices[content_message_text]" placeholder="<?php _e( 'Your lock message for embedded contents inside posts, pages and widgets', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $content_message_text ); ?></textarea>
+            /**
+             * Allow HTML tags in message text area
+             * changed esc_textarea( $this->options['text'] ); with wp_kses_post( $this->options['text'] );
+             * @todo Add padding to text editor
+             */
+
+            if ( function_exists("wp_editor") ):
+                wp_editor(
+                    wp_kses_post( $content_message_text ),
+                    'italy_cookie_choices_content_message_text',
+                    array(
+                        'textarea_name' => 'italy_cookie_choices[content_message_text]',
+                        'media_buttons' => false,
+                        'textarea_rows' => 5,
+                        'editor_css'    => '<style>#wp-italy_cookie_choices_content_message_text-wrap{max-width:520px}</style>',
+                        'teeny' => true
+                        )
+                    );
+            else:
+            ?>
+            <textarea rows="5" cols="70" name="italy_cookie_choices[content_message_text]" id="italy_cookie_choices[content_message_text]" placeholder="<?php _e( 'Your lock message for embedded contents inside posts, pages and widgets', 'italy-cookie-choices' ) ?>" ><?php echo wp_kses_post( $content_message_text ); ?></textarea>
+            <?php endif; ?>
             <br>
             <label for="italy_cookie_choices[content_message_text]">
                 <?php echo __( 'People will see this notice only the first time that they enter your site', 'italy-cookie-choices' ); ?>
@@ -1153,6 +1173,8 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             if( isset( $input['slug'] ) )
                 $new_input['slug'] = sanitize_text_field( $input['slug'] );
+
+            // register_string( 'Italy Cookie Choices', 'Banner slug', $new_input['slug'] );
 
             if( isset( $input['anchor_text'] ) )
                 $new_input['anchor_text'] = sanitize_text_field( $input['anchor_text'] );
@@ -1250,10 +1272,14 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 $new_input['custom_script_block'] =  $input['custom_script_block'];
 
             if( isset( $input['content_message_text'] ) )
-                $new_input['content_message_text'] =  sanitize_text_field( $input['content_message_text'] );
+                $new_input['content_message_text'] =  wp_kses_post( $input['content_message_text'] );
+
+            register_string( 'Italy Cookie Choices', 'Content message text', $new_input['content_message_text'] );
         
             if( isset( $input['content_message_button_text'] ) )
                 $new_input['content_message_button_text'] =  sanitize_text_field( $input['content_message_button_text'] );
+
+            register_string( 'Italy Cookie Choices', 'Content message button text', $new_input['content_message_button_text'] );
 
             return $new_input;
 

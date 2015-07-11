@@ -170,21 +170,19 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                  * including the button text
                  * @var string
                  */
-                $content_message_text = ( isset( $this->options['content_message_text'] ) ) ? $this->options['content_message_text']    : '' ;
+                $content_message_text = ( isset( $this->options['content_message_text'] ) ) ? wp_kses_post( get_string( 'Italy Cookie Choices', 'Content message text', $this->options['content_message_text'] ) ) : '' ;
 
                 /**
                  * Text for button in locked content and widget
                  * @var string
                  */
-                $content_message_button_text = ( isset( $this->options['content_message_button_text'] ) ) ? $this->options['content_message_button_text'] : '' ;
+                $content_message_button_text = ( isset( $this->options['content_message_button_text'] ) ) ? esc_attr( get_string( 'Italy Cookie Choices', 'Content message button text', $this->options['content_message_button_text'] ) ) : '' ;
 
                 /**
                  * Replacement for regex
                  * @var string
                  */
-                // $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color: #b94a48;background-color: #f2dede;border: 1px solid #eed3d7; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;">' . esc_attr( $this->options['text'] ) . '<button onclick="cookieChoices.removeCookieConsent()">Try it</button></div><!-- $0 --></div>';
-                // 
-                $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:' . esc_attr( $banner_text_color ) . ';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . esc_attr( $content_message_text ) . '&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color: '.esc_attr( $banner_text_color ).';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . esc_attr( $content_message_button_text ) . '</button></div><cookie></div>';
+                $this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:' . esc_attr( $banner_text_color ) . ';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . $content_message_text . '&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color: ' . esc_attr( $banner_text_color ) . ';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . $content_message_button_text . '</button></div><cookie></div>';
 
                 if ($block)
                     add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
