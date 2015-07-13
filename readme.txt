@@ -115,6 +115,14 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.3.1 =
+Release Date: July 13th, 2015
+
+Dev time: 3h
+
+* Added link to setting page and docs in plugins panel
+* Fixed issue [#118](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/118)
+
 = 2.3.0 =
 Release Date: July 11th, 2015
 
