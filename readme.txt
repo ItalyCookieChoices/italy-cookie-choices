@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.3.2 =
+Release Date: July 17th, 2015
+
+Dev time: 1h
+
+* [Fixed warning array_merge on multisite](https://github.com/ItalyCookieChoices/italy-cookie-choices/commit/f2797a4f63a247a4918ec1c8d0823fc07b50384e)
+
 = 2.3.1 =
 Release Date: July 13th, 2015
 
