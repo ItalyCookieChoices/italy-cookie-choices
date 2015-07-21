@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.3.3 =
+Release Date: July 21th, 2015
+
+Dev time: 2h
+
+* Fixed [#126](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/126) and [#103](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/103) for Sitemap and feed page
+
 = 2.3.2 =
 Release Date: July 17th, 2015
 

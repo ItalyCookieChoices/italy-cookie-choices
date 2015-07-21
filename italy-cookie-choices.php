@@ -112,8 +112,22 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
                 new Italy_Cookie_Choices_Admin;
                 // new Italy_Cookie_Choices_Pointer_Init;
 
-            }else if ( $this->is_compatible_version() && !is_admin() )
-            
+            }
+            else if ( 
+
+                // If is compatible
+                $this->is_compatible_version()
+
+                // Only if is not admin
+                && !is_admin()
+
+                // If is not sitemaps.xml by Yoast
+                && !$this->is_sitemaps_xml()
+
+                // If is not feed page
+                && !$this->is_feed()
+
+                )
                 if ( function_exists('pll__') )// Compatibility with Polylang
                     add_action( 'plugins_loaded', array( $this, 'dependency_init' ), 11 );
                 else
@@ -139,7 +153,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
          * Check if plugin is compatible, if it is not then it wont activate
          * @return string Return error message in case plugin is not compatible
          */
-        function check_compatibility_on_install(){
+        public function check_compatibility_on_install(){
 
             if ( !$this->is_compatible_version() ) {
 
@@ -184,7 +198,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
          * In case of incompatibility still fully loaded plugin (return)
          * @return boolean Check if plugin is compatible
          */
-        function is_compatible_version() {
+        public function is_compatible_version() {
 
             if ( $this->is_compatible_PHP() && $this->is_compatible_WORDPRESS() )
                 return true;
@@ -197,7 +211,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
          * In case of incompatibility still fully loaded plugin (return)
          * @return boolean Check PHP compatibility
          */
-        function is_compatible_PHP() {
+        public function is_compatible_PHP() {
 
             if ( version_compare( phpversion(), $this->PHP_ver, '<') )
                 return false;
@@ -211,7 +225,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
          * In case of incompatibility still fully loaded plugin (return)
          * @return boolean Check WordPress compatibility
          */
-        function is_compatible_WORDPRESS() {
+        public function is_compatible_WORDPRESS() {
 
             if ( version_compare( $GLOBALS['wp_version'], $this->WP_ver, '<') )
                 return false;
@@ -224,7 +238,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
          * the function is called to add the details on the notice board error
          * @return string Print error message
          */
-        function load_plugin_admin_notices() {
+        public function load_plugin_admin_notices() {
 
             if ( !$this->is_compatible_PHP() )
                 echo $this->get_admin_notices_PHP( true );
@@ -233,12 +247,12 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
                 echo $this->get_admin_notices_WORDPRESS( true );
         }
 
-        function get_admin_notices_PHP( $wrap ) {
+        public function get_admin_notices_PHP( $wrap ) {
 
             return $this->get_admin_notices_TEXT( $wrap, 'PHP', phpversion(), $this->PHP_ver );
         }
 
-        function get_admin_notices_WORDPRESS( $wrap ) {
+        public function get_admin_notices_WORDPRESS( $wrap ) {
 
             return $this->get_admin_notices_TEXT( $wrap, 'WordPress', $GLOBALS['wp_version'], $this->WP_ver);
         }
@@ -252,7 +266,7 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
          * @param  string $s3   Required version
          * @return string       Display errors
          */
-        function get_admin_notices_TEXT( $wrap, $s1, $s2, $s3 ) {
+        public function get_admin_notices_TEXT( $wrap, $s1, $s2, $s3 ) {
 
             $HTML = __( 'Your server is running %s version %s but this plugin requires at least %s', 'italy-cookie-choices' );
 
@@ -266,7 +280,38 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
         }
 
 
+        /**
+         * Check the current request URI, if we can determine it's probably an XML sitemap, kill loading the widgets
+         * @return boolean Return true if is in sitemap.xml (fix for WordPress SEO by Yoast)
+         */
+        public function is_sitemaps_xml() {
 
+            if ( ! isset( $_SERVER['REQUEST_URI'] ) )
+                return;
+                
+            $request_uri = $_SERVER['REQUEST_URI'];
+            $extension   = substr( $request_uri, -4 );
+
+            if ( false !== stripos( $request_uri, 'sitemap' ) && ( in_array( $extension, array( '.xml', '.xsl' ) ) ) )
+                return true;
+
+        }
+
+        /**
+         * Check if we are in feed page
+         * @return boolean Return true if it is feed page
+         */
+        public function is_feed(){
+
+            if ( ! isset( $_SERVER['REQUEST_URI'] ) )
+                return;
+
+            $request_uri = $_SERVER['REQUEST_URI'];
+
+            if ( false !== stripos( $request_uri, 'feed' ) )
+                return true;
+
+        }
 
 
     } // End Italy_Cookie_Choices
