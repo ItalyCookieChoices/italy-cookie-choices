@@ -13,19 +13,23 @@
  *
  * @var     string
  */
-function get_language() {
+if ( !function_exists( 'get_language' ) ){
 
-	if ( defined( 'ICL_LANGUAGE_CODE' ) )
-		return ICL_LANGUAGE_CODE;
+	function get_language() {
 
-	elseif ( function_exists( 'cml_get_browser_lang' ) )
-		return cml_get_browser_lang();
+		if ( defined( 'ICL_LANGUAGE_CODE' ) )
+			return ICL_LANGUAGE_CODE;
 
-	elseif ( function_exists( 'pll_current_language' ) )
-		return pll_current_language();
+		elseif ( function_exists( 'cml_get_browser_lang' ) )
+			return cml_get_browser_lang();
 
-	else
-		return get_locale();//return a 4 letters code
+		elseif ( function_exists( 'pll_current_language' ) )
+			return pll_current_language();
+
+		else
+			return get_locale();//return a 4 letters code
+
+	}                  
 
 }
 
@@ -36,26 +40,30 @@ function get_language() {
  *
  * @var     string
  */
-function register_string( $plugin_name_human_format, $string_name, $value ) {
+if ( !function_exists( 'register_string' ) ) {
 
-	if ( function_exists( 'icl_register_string' ) )
-		icl_register_string( $plugin_name_human_format, $string_name, $value );
+	function register_string( $plugin_name_human_format, $string_name, $value ) {
 
-	elseif ( has_filter( 'cml_my_translations' ) ) {
+		if ( function_exists( 'icl_register_string' ) )
+			icl_register_string( $plugin_name_human_format, $string_name, $value );
 
-		add_filter( 'cml_my_translations', create_function( "$groups, $plugin_name_human_format","
-            $plugin_name_human_format_replaced = str_replace( ' ', '-', $plugin_name_human_format );
-            CMLTranslations:add( $string_name, $value, $plugin_name_human_format );
-            $groups[$plugin_name_human_format_replaced] = $plugin_name_human_format;
-            return $groups;"
-        ) );
+		elseif ( has_filter( 'cml_my_translations' ) ) {
 
-	} elseif ( function_exists( 'pll_register_string' ) ) {
+			add_filter( 'cml_my_translations', create_function( "$groups, $plugin_name_human_format","
+	            $plugin_name_human_format_replaced = str_replace( ' ', '-', $plugin_name_human_format );
+	            CMLTranslations:add( $string_name, $value, $plugin_name_human_format );
+	            $groups[$plugin_name_human_format_replaced] = $plugin_name_human_format;
+	            return $groups;"
+	        ) );
 
-		$plugin_name_human_format_replaced = str_replace( ' ', '-', $plugin_name_human_format );
-		pll_register_string( $plugin_name_human_format_replaced, $string_name );
+		} elseif ( function_exists( 'pll_register_string' ) ) {
 
+			$plugin_name_human_format_replaced = str_replace( ' ', '-', $plugin_name_human_format );
+			pll_register_string( $plugin_name_human_format_replaced, $string_name );
+
+		}
 	}
+
 }
 
 /**
@@ -65,17 +73,21 @@ function register_string( $plugin_name_human_format, $string_name, $value ) {
  *
  * @var     string
  */
-function deregister_string( $plugin_name_human_format, $string_name ) {
+if ( !function_exists( 'deregister_string' ) ) {
 
-	if ( function_exists( 'icl_unregister_string' ) )
-		icl_unregister_string( $plugin_name_human_format, $string_name );
+	function deregister_string( $plugin_name_human_format, $string_name ) {
 
-	elseif ( has_filter( 'cml_my_translations' ) ) {
+		if ( function_exists( 'icl_unregister_string' ) )
+			icl_unregister_string( $plugin_name_human_format, $string_name );
 
-		$plugin_name_human_format_replaced = str_replace( ' ', '-', $plugin_name_human_format );
-		CMLTranslations::delete( $plugin_name_human_format_replaced );
+		elseif ( has_filter( 'cml_my_translations' ) ) {
 
+			$plugin_name_human_format_replaced = str_replace( ' ', '-', $plugin_name_human_format );
+			CMLTranslations::delete( $plugin_name_human_format_replaced );
+
+		}
 	}
+
 }
 
 /**
@@ -85,18 +97,22 @@ function deregister_string( $plugin_name_human_format, $string_name ) {
  *
  * @var     string
  */
-function get_string( $plugin_name_human_format, $string_name, $value ) {
+if ( !function_exists( 'get_string' ) ) {
 
-	if ( function_exists( 'icl_t' ) )
-		return icl_t( $plugin_name_human_format, $string_name, $value );
+	function get_string( $plugin_name_human_format, $string_name, $value ) {
 
-	elseif ( has_filter( 'cml_my_translations' ) )
-		return CMLTranslations::get( CMLLanguage::get_current_id(), $string_name, str_replace( ' ', '-', $plugin_name_human_format ) );
+		if ( function_exists( 'icl_t' ) )
+			return icl_t( $plugin_name_human_format, $string_name, $value );
 
-	elseif ( function_exists( 'pll__' ) )
-		return pll__( $string_name );
+		elseif ( has_filter( 'cml_my_translations' ) )
+			return CMLTranslations::get( CMLLanguage::get_current_id(), $string_name, str_replace( ' ', '-', $plugin_name_human_format ) );
 
-	else
-		return $value;
+		elseif ( function_exists( 'pll__' ) )
+			return pll__( $string_name );
+
+		else
+			return $value;
+
+	}
 
 }
