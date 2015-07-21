@@ -337,12 +337,24 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         }
 
         public function bufferFooterStart() {
+            /**
+             * Check if we are in feed page, then do nothing
+             */
+            if ( is_feed() )
+                return;
+
             if (ob_get_contents()) 
                 ob_end_flush();
             ob_start();
         }
 
         public function bufferFooterEnd() {
+            /**
+             * Check if we are in feed page, then do nothing
+             */
+            if ( is_feed() )
+                return;
+
             $buffer = ob_get_contents();
             if (ob_get_contents()) 
                 ob_end_clean();
@@ -479,7 +491,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             /**
              * If is not active exit
              */
-            if ( !isset( $this->options['active'] ) )
+            if ( !isset( $this->options['active'] ) || is_feed() )
                 return;
 
             /**

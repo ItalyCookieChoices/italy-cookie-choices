@@ -124,9 +124,6 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
                 // If is not sitemaps.xml by Yoast
                 && !$this->is_sitemaps_xml()
 
-                // If is not feed page
-                && !$this->is_feed()
-
                 )
                 if ( function_exists('pll__') )// Compatibility with Polylang
                     add_action( 'plugins_loaded', array( $this, 'dependency_init' ), 11 );
@@ -293,22 +290,6 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
             $extension   = substr( $request_uri, -4 );
 
             if ( false !== stripos( $request_uri, 'sitemap' ) && ( in_array( $extension, array( '.xml', '.xsl' ) ) ) )
-                return true;
-
-        }
-
-        /**
-         * Check if we are in feed page
-         * @return boolean Return true if it is feed page
-         */
-        public function is_feed(){
-
-            if ( ! isset( $_SERVER['REQUEST_URI'] ) )
-                return;
-
-            $request_uri = $_SERVER['REQUEST_URI'];
-
-            if ( false !== stripos( $request_uri, 'feed' ) )
                 return true;
 
         }
