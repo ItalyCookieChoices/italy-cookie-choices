@@ -82,6 +82,42 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         }
 
         /**
+         * Encode a variable into JSON, with some sanity checks.
+         *
+         * @since 4.1.0
+         *
+         * @param mixed $data    Variable (usually an array or object) to encode as JSON.
+         * @param int   $options Optional. Options to be passed to json_encode(). Default 0.
+         * @param int   $depth   Optional. Maximum depth to walk through $data. Must be
+         *                       greater than 0. Default 512.
+         * @return bool|string The JSON encoded string, or false if it cannot be encoded.
+         */
+        public function wp_json_encode( $data, $options = 0, $depth = 512 ) {
+
+            /*
+             * json_encode() has had extra params added over the years.
+             * $options was added in 5.3, and $depth in 5.5.
+             * We need to make sure we call it with the correct arguments.
+             */
+            if ( version_compare( PHP_VERSION, '5.5', '>=' ) )
+                $args = array( $data, $options, $depth );
+            elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) )
+                $args = array( $data, $options );
+            else
+                $args = array( $data );
+         
+            $json = call_user_func_array( 'json_encode', $args );
+         
+            // If json_encode() was successful, no need to do more sanity checking.
+            // ... unless we're in an old version of PHP, and json_encode() returned
+            // a string containing 'null'. Then we need to do more sanity checking.
+            if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || false === strpos( $json, 'null' ) ) )
+                return $json;
+         
+            return call_user_func_array( 'json_encode', $args );
+        }
+
+        /**
          * Get all posts and pages object and merge for jQuery autocomplete function
          * @return array Return an array with all posts and pages
          */
@@ -656,7 +692,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
             <script>
-                var urls = '<?php echo wp_json_encode( $urls ); ?>';
+                var urls = '<?php echo $this->wp_json_encode( $urls ); ?>';
             </script>
             <input type="text" id="italy_cookie_choices[url]" name="italy_cookie_choices[url]" value="<?php echo esc_url( $this->options['url'] ); ?>" placeholder="<?php _e( 'e.g. http://www.aboutcookies.org/', 'italy-cookie-choices' ) ?>" size="70" />
             <br>
@@ -688,7 +724,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
         ?>
             <script>
-                var slugs = '<?php echo wp_json_encode( $slugs ); ?>';
+                var slugs = '<?php echo $this->wp_json_encode( $slugs ); ?>';
             </script>
             <input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. privacy-e-cookie', 'italy-cookie-choices' ); ?>" size="70" class="slug_autocomplete"/>
             <br>
