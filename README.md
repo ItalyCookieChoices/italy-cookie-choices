@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
 **Tested up to:** 4.3.0  
-**Stable tag:** 2.3.3  
+**Stable tag:** 2.3.4  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -126,6 +126,13 @@ if it doesn't work activate standard theme and try
 
 
 ## Changelog ##
+
+### 2.3.4 ###
+**Release Date:** July 22th, 2015  
+
+**Dev time:** 10min  
+
+* [Fixed bug in plugin admin panel](https://wordpress.org/support/topic/il-menu-impostazioni-non-si-carica-completamente?replies=3#post-7207319)
 
 ### 2.3.3 ###
 **Release Date:** July 21th, 2015  
