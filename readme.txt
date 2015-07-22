@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.3.4 =
+Release Date: July 22th, 2015
+
+Dev time: 10min
+
+* [Fixed bug in plugin admin panel](https://wordpress.org/support/topic/il-menu-impostazioni-non-si-carica-completamente?replies=3#post-7207319)
+
 = 2.3.3 =
 Release Date: July 21th, 2015
 
