@@ -115,6 +115,14 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.3.5 =
+Release Date: July 22th, 2015
+
+Dev time: 10min
+
+* Add filter for js_array `icc_js_array`
+
+
 = 2.3.4 =
 Release Date: July 22th, 2015
 

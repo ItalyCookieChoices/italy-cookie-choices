@@ -695,7 +695,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * var consText = Variabile per le classe dello span per il testo
              * @var string
              */
-            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="' . $infoClass . '",closeClass="' . $closeClass . '",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",bannerStyle="' . $bannerStyle . '",contentStyle="' . $contStyle . '",consText="' . $consentText . '",jsArr = ' . $this->wp_json_encode( $this->js_array ) . ';';
+            $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="' . $infoClass . '",closeClass="' . $closeClass . '",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",bannerStyle="' . $bannerStyle . '",contentStyle="' . $contStyle . '",consText="' . $consentText . '",jsArr = ' . $this->wp_json_encode( apply_filters( 'icc_js_array', $this->js_array ) ) . ';';
 
             /**
              * Snippet per il multilingua
