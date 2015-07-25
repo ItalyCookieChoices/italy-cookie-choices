@@ -338,4 +338,4 @@ a notice to the user only the very first time that visits your website without d
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
 * [Loghino piccolo](http://www.posizionamento-seo.com/)
 * Romanian lang: [Florin Lungu](http://www.florinlungu.it/)
-* [Some code for WordPress Plugin Boilerplate Powered by Mte90](https://github.com/Mte90/WordPress-Plugin-Boilerplate-Powered)
+* [Some code comes from the WordPress Plugin Boilerplate Powered by Mte90](https://github.com/Mte90/WordPress-Plugin-Boilerplate-Powered)
