@@ -1,10 +1,10 @@
-# Italy Cookie Choices #
+# Italy Cookie Choices (for EU Cookie Law) #
 **Contributors:** overclokk, andreapernici, cardinaleandrea  
 Donate link: 
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
 **Tested up to:** 4.3.0  
-**Stable tag:** 2.3.4  
+**Stable tag:** 2.3.5  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -107,25 +107,35 @@ if it doesn't work activate standard theme and try
 ## Screenshots ##
 
 ### 1. Italy Cookie Choices Options Menu ###
-![Italy Cookie Choices Options Menu](http://s.wordpress.org/extend/plugins/italy-cookie-choices/screenshot-1.png)
+![Italy Cookie Choices Options Menu](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law)/screenshot-1.png)
 
 ### 2. Italy Cookie Choices top bar and embed block in front end ###
-![Italy Cookie Choices top bar and embed block in front end](http://s.wordpress.org/extend/plugins/italy-cookie-choices/screenshot-2.png)
+![Italy Cookie Choices top bar and embed block in front end](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law)/screenshot-2.png)
 
 ### 3. Italy Cookie Choices Options for Dialog box ###
-![Italy Cookie Choices Options for Dialog box](http://s.wordpress.org/extend/plugins/italy-cookie-choices/screenshot-3.png)
+![Italy Cookie Choices Options for Dialog box](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law)/screenshot-3.png)
 
 ### 4. Italy Cookie Choices Dialog Box in front end ###
-![Italy Cookie Choices Dialog Box in front end](http://s.wordpress.org/extend/plugins/italy-cookie-choices/screenshot-4.png)
+![Italy Cookie Choices Dialog Box in front end](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law)/screenshot-4.png)
 
 ### 5. Italy Cookie Choices Widget area ###
-![Italy Cookie Choices Widget area](http://s.wordpress.org/extend/plugins/italy-cookie-choices/screenshot-5.png)
+![Italy Cookie Choices Widget area](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law)/screenshot-5.png)
 
 ### 6. Italy Cookie Choices Content area ###
-![Italy Cookie Choices Content area](http://s.wordpress.org/extend/plugins/italy-cookie-choices/screenshot-6.png)
+![Italy Cookie Choices Content area](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law)/screenshot-6.png)
 
 
 ## Changelog ##
+
+### 2.3.5 ###
+**Release Date:** July 25th, 2015  
+
+**Dev time:** 3h  
+
+* Add filter for js_array `icc_js_array`
+* Fixed performance issue in sites with many posts
+* [Fixed Parse error issue #124](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/124#issuecomment-122952940)
+
 
 ### 2.3.4 ###
 **Release Date:** July 22th, 2015  
@@ -340,3 +350,4 @@ a notice to the user only the very first time that visits your website without d
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
 * [Loghino piccolo](http://www.posizionamento-seo.com/)
 * Romanian lang: [Florin Lungu](http://www.florinlungu.it/)
+* [Some code for WordPress Plugin Boilerplate Powered by Mte90](https://github.com/Mte90/WordPress-Plugin-Boilerplate-Powered)
