@@ -122,6 +122,7 @@ Dev time: 10min
 
 * Add filter for js_array `icc_js_array`
 * Fixed performance issue in sites with many posts
+* [Fixed Parse error issue #124](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/124#issuecomment-122952940)
 
 
 = 2.3.4 =
