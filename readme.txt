@@ -120,7 +120,7 @@ Release Date: July 25th, 2015
 
 Dev time: 3h
 
-* Add filter for js_array `icc_js_array`
+* [Add filter for js_array `icc_js_array`](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Filters-Hook#modificare-larray-con-tutti-gli-embed-trovati-disponibile-dalla-versione-235)
 * Fixed performance issue in sites with many posts
 * [Fixed Parse error issue #124](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/124#issuecomment-122952940)
 
@@ -206,7 +206,7 @@ Dev time: 100h
 * [Added uninstall.php](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/34)
 * Added text area for custom CSS
 * [Added input for custom CSS class](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/16)
-* Added filter `icc_output_html` on snippet output for developer
+* [Added filter `icc_output_html` on snippet output for developer](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Filters-Hook#modificare-loutput)
 
 = 2.1.0 =
 Release Date: June 5th, 2015
