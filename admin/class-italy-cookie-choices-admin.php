@@ -1215,31 +1215,44 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             /**
              * Multilingual for text, url, anchor_text & button_text
              */
-            if( isset( $input['text'] ) )
+            if( isset( $input['text'] ) ){
+
                 $new_input['text'] = wp_kses_post( $input['text'] );
                 // $new_input['text'] = sanitize_text_field( $input['text'] );
+                register_string( 'Italy Cookie Choices', 'Banner text', $new_input['text'] );
+            }
 
-            register_string( 'Italy Cookie Choices', 'Banner text', wp_kses_post( $input['text'] ) );
+            if( isset( $input['url'] ) ){
 
-            if( isset( $input['url'] ) )
                 $new_input['url'] = sanitize_text_field( $input['url'] );
 
-            register_string( 'Italy Cookie Choices', 'Banner url', sanitize_text_field( $input['url'] ) );
+                register_string( 'Italy Cookie Choices', 'Banner url', $new_input['url'] );
 
-            if( isset( $input['slug'] ) )
+            }
+
+            if( isset( $input['slug'] ) ){
+
                 $new_input['slug'] = sanitize_text_field( $input['slug'] );
 
-            register_string( 'Italy Cookie Choices', 'Banner slug', sanitize_text_field( $input['slug'] ) );
+                register_string( 'Italy Cookie Choices', 'Banner slug', $new_input['slug'] );
 
-            if( isset( $input['anchor_text'] ) )
+            }
+
+            if( isset( $input['anchor_text'] ) ){
+
                 $new_input['anchor_text'] = sanitize_text_field( $input['anchor_text'] );
 
-            register_string( 'Italy Cookie Choices', 'Banner anchor text', sanitize_text_field( $input['anchor_text'] ) );
+                register_string( 'Italy Cookie Choices', 'Banner anchor text', $new_input['anchor_text'] );
 
-            if( isset( $input['button_text'] ) )
+            }
+
+            if( isset( $input['button_text'] ) ){
+
                 $new_input['button_text'] = sanitize_text_field( $input['button_text'] );
 
-            register_string( 'Italy Cookie Choices', 'Banner button text', sanitize_text_field( $input['button_text'] ) );
+                register_string( 'Italy Cookie Choices', 'Banner button text', $new_input['button_text'] );
+
+            }
 
             /**
              * Sezione per lo stile
@@ -1326,15 +1339,21 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             if( isset( $input['custom_script_block'] ) )
                 $new_input['custom_script_block'] =  $input['custom_script_block'];
 
-            if( isset( $input['content_message_text'] ) )
+            if( isset( $input['content_message_text'] ) ){
+
                 $new_input['content_message_text'] =  wp_kses_post( $input['content_message_text'] );
 
-            register_string( 'Italy Cookie Choices', 'Content message text', wp_kses_post( $input['content_message_text'] ) );
+                register_string( 'Italy Cookie Choices', 'Content message text', $new_input['content_message_text'] );
+
+            }
         
-            if( isset( $input['content_message_button_text'] ) )
+            if( isset( $input['content_message_button_text'] ) ){
+
                 $new_input['content_message_button_text'] =  sanitize_text_field( $input['content_message_button_text'] );
 
-            register_string( 'Italy Cookie Choices', 'Content message button text', sanitize_text_field( $input['content_message_button_text'] ) );
+                register_string( 'Italy Cookie Choices', 'Content message button text', $new_input['content_message_button_text'] );
+
+            }
 
             return $new_input;
 
