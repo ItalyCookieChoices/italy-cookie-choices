@@ -56,7 +56,8 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             /**
              * Get all posts and pages object and merge for jQuery autocomplete function
              */
-            $this->get_post_and_page_array();
+            // $this->get_post_and_page_array();
+            $this->post_and_page_array = ( is_array( get_pages('numberposts=-1') ) ) ? get_pages('numberposts=-1') : array();
 
             /**
              * Add Admin menù page
@@ -121,15 +122,15 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          * Get all posts and pages object and merge for jQuery autocomplete function
          * @return array Return an array with all posts and pages
          */
-        public function get_post_and_page_array(){
+        // public function get_post_and_page_array(){
 
-            $get_pages = ( is_array( get_pages('numberposts=-1') ) ) ? get_pages('numberposts=-1') : array();
+            // $get_pages = ( is_array( get_pages('numberposts=-1') ) ) ? get_pages('numberposts=-1') : array();
 
-            $get_posts = ( is_array( get_posts('numberposts=-1') ) ) ? get_posts('numberposts=-1') : array();
+            // $get_posts = ( is_array( get_posts('numberposts=-1') ) ) ? get_posts('numberposts=-1') : array();
 
-            $this->post_and_page_array = array_merge($get_pages, $get_posts); 
+            // $this->post_and_page_array = array_merge($get_pages, $get_posts);
 
-        }
+        // }
 
 
         /**

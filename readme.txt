@@ -121,6 +121,7 @@ Release Date: July 22th, 2015
 Dev time: 10min
 
 * Add filter for js_array `icc_js_array`
+* Fixed performance issue in sites with many posts
 
 
 = 2.3.4 =
