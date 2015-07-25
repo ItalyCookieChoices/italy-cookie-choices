@@ -116,9 +116,9 @@ if it doesn't work activate standard theme and try
 == Changelog ==
 
 = 2.3.5 =
-Release Date: July 22th, 2015
+Release Date: July 25th, 2015
 
-Dev time: 10min
+Dev time: 3h
 
 * Add filter for js_array `icc_js_array`
 * Fixed performance issue in sites with many posts
