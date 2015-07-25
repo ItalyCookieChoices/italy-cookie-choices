@@ -1,4 +1,4 @@
-=== Italy Cookie Choices ===
+=== Italy Cookie Choices (for EU Cookie Law) ===
 Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
 Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
@@ -338,3 +338,4 @@ a notice to the user only the very first time that visits your website without d
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
 * [Loghino piccolo](http://www.posizionamento-seo.com/)
 * Romanian lang: [Florin Lungu](http://www.florinlungu.it/)
+* [Some code for WordPress Plugin Boilerplate Powered by Mte90](https://github.com/Mte90/WordPress-Plugin-Boilerplate-Powered)
