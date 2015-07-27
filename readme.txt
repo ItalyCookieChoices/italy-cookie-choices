@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.3.6 =
+Release Date: July 27th, 2015
+
+Dev time: 1h
+
+* Fixed PHP check for lang functions [#128](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/128)
+
 = 2.3.5 =
 Release Date: July 25th, 2015
 

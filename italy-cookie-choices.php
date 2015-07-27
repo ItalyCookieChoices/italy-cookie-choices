@@ -74,9 +74,9 @@ require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/class-italy-cookie-choices-adm
 
 require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'classes/class-italy-cookie-choices-front-end.php');
 /**
- * Requier multilingual functions
+ * Required multilingual functions
  */
-require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'includes/functions-italy-cookie-choices-lang.php');
+// require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'includes/functions-italy-cookie-choices-lang.php');
 
 /**
  * Initialize plugin
@@ -109,6 +109,11 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
              */
             if ( $this->is_compatible_version() && is_admin() ){
 
+                /**
+                 * Required multilingual functions
+                 */
+                require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'includes/functions-italy-cookie-choices-lang.php');
+
                 new Italy_Cookie_Choices_Admin;
                 // new Italy_Cookie_Choices_Pointer_Init;
 
@@ -124,13 +129,19 @@ if ( ! class_exists( 'Italy_Cookie_Choices' ) ) {
                 // If is not sitemaps.xml by Yoast
                 && !$this->is_sitemaps_xml()
 
-                )
+                ){
+
+                /**
+                 * Required multilingual functions
+                 */
+                require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'includes/functions-italy-cookie-choices-lang.php');
+
                 if ( function_exists('pll__') )// Compatibility with Polylang
                     add_action( 'plugins_loaded', array( $this, 'dependency_init' ), 11 );
                 else
                     new Italy_Cookie_Choices_Front_End;
 
-            else
+            }else
                 add_action( 'admin_notices', array( $this, 'load_plugin_admin_notices' ) );
 
             /**
