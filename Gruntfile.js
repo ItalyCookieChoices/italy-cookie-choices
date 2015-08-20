@@ -39,15 +39,15 @@ module.exports = function(grunt) {
             }
         },
 
-        // compass:{ // https://github.com/gruntjs/grunt-contrib-compass
-        //     src:{
-        //         options: {
-        //             sassDir:['css/src/sass'],
-        //             cssDir:['css'],
-        //             outputStyle: 'compressed'
-        //         }
-        //     },
-        // },
+        compass:{ // https://github.com/gruntjs/grunt-contrib-compass
+            src:{
+                options: {
+                    sassDir:['admin/css/src/sass'],
+                    cssDir:['admin/css'],
+                    outputStyle: 'compressed'
+                }
+            },
+        },
 
         // less: { // https://github.com/gruntjs/grunt-contrib-less
         //     development: {
@@ -336,7 +336,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     // grunt.loadNpmTasks('grunt-contrib-csslint');
-    // grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-compass');
     // grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
     // grunt.loadNpmTasks('grunt-sync');
