@@ -102,6 +102,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * Shortcode to put a button in policy page
              */
             add_shortcode( 'accept_button', array( $this, 'accept_button' ) );
+            add_shortcode( 'delete_cookie', array( $this, '_delete_cookie' ) );
 
             if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) && !$secondView ){
 
@@ -248,7 +249,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
             if(
                 // if is an HTML request (alternative methods???)
-                ( strpos( $_SERVER["HTTP_ACCEPT"],'html' ) !== false ) &&
+                ( strpos( $_SERVER['HTTP_ACCEPT'],'html' ) !== false ) &&
                 //if the page isn't privacy page
                 // ( $_SERVER['REQUEST_URI'] != $this->slug ) && 
                 ( $this->CurrentPageURL() !== $this->url ) && 
@@ -749,6 +750,21 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
 
             return '<span class="el"><button onclick="cookieChoices.removeCookieConsent()">' . esc_attr( $button_text ) . '</button></span>';
+
+        }
+
+        /**
+         * Shortcode per stampare il bottone nella pagina della policy
+         * @param  array $atts    Array con gli attributi dello shortcode
+         * @param  string $content content of shortcode
+         * @return string          Button per l'accettazione
+         */
+        public function _delete_cookie( $atts, $content = null ) {
+
+            // $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
+            $button_text = 'Delete cookie';
+
+            return '<span class="ele"><button onclick="deleteCookie()">' . esc_attr( $button_text ) . '</button></span>';
 
         }
 
