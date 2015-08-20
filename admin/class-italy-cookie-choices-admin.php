@@ -80,6 +80,11 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
              */
             add_filter( 'plugin_action_links_' . ITALY_COOKIE_CHOICES_BASENAME, array( $this, 'plugin_action_links' ) );
 
+            //Add the export settings method
+            add_action( 'admin_init', array( $this, 'settings_export' ) );
+            //Add the import settings method
+            add_action( 'admin_init', array( $this, 'settings_import' ) );
+
         }
 
         /**
@@ -155,20 +160,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             if ( !current_user_can( $this->capability ) )
                 wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 
-                ?>
-                <div class="wrap">
-
-                    <form action='options.php' method='post' id='italy-cookie-choices-ID'>
-                        
-                        <?php
-                        settings_fields( 'italy_cl_options_group' );
-                        do_settings_sections( 'italy_cl_options_group' );
-                        submit_button();
-                        ?>
-                        
-                    </form>
-                </div>
-                <?php
+            include_once( 'template/admin.php' );
 
         }
 
@@ -555,7 +547,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             <input name="italy_cookie_choices[banner]" type="radio" value="1" id="radio_1" <?php checked( '1', $banner ); ?> />
 
-            <label for="radio_1">
+            <label for="radio_1" id="label_radio_1">
                 <?php _e( 'Top Bar (Default, Display a top bar with your message)', 'italy-cookie-choices' ); ?>
             </label>
 
@@ -563,7 +555,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             <input name="italy_cookie_choices[banner]" type="radio" value="2" id="radio_2" <?php checked( '2', $banner ); ?> />
 
-            <label for="radio_2">
+            <label for="radio_2" id="label_radio_2">
                 <?php _e( 'Dialog (Display an overlay with your message)', 'italy-cookie-choices' ); ?>
             </label>
         
@@ -571,7 +563,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         
             <input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
 
-            <label for="radio_3">
+            <label for="radio_3" id="label_radio_3">
                 <?php _e( 'Bottom Bar (Display a bar in the footer with your message)', 'italy-cookie-choices' ); ?>
             </label>
 
@@ -1390,6 +1382,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 // wp_register_script('ace', '//cdn.jsdelivr.net/ace/1.1.9/min/ace.js', false, null, true);
                 // wp_enqueue_script('ace');
 
+                // wp_enqueue_style(
+                //     'italy-cookie-choices-css',
+                //     plugins_url('admin/css/admin.css', ITALY_COOKIE_CHOICES_FILE ),
+                //     array( 'dashicons' ),
+                //     null
+                // );
+
                 wp_enqueue_script(
                     'italy-cookie-choices-script',
                     plugins_url('admin/js/src/script.js', ITALY_COOKIE_CHOICES_FILE ),
@@ -1420,6 +1419,93 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 
             return $links;
         }// plugin_action_links()
+
+        /**
+         * Process a settings export from config
+         * @since    1.0.0
+         */
+        function settings_export() {
+
+            if ( empty( $_POST[ 'icc_action' ] ) || 'export_settings' !== $_POST[ 'icc_action' ] )
+                return;
+
+            if ( !wp_verify_nonce( $_POST[ 'icc_export_nonce' ], 'icc_export_nonce' ) )
+                return;
+
+            if ( !current_user_can( $this->capability ) )
+                return;
+
+            $settings[0] = $this->options;
+
+            ignore_user_abort( true );
+
+            nocache_headers();
+
+            // date_default_timezone_set('UTC');
+            header( 'Content-Type: application/json; charset=utf-8' );
+            header( 'Content-Disposition: attachment; filename=italy-cookie-choices-settings-export-' . date( 'm-d-Y' ) . '.json' );
+            header( "Expires: 0" );
+
+            echo $this->wp_json_encode( $settings, JSON_PRETTY_PRINT );
+
+            exit;
+        }
+
+        /**
+         * Process a settings import from a json file
+         * @since    1.0.0
+         */
+        function settings_import() {
+
+            if ( empty( $_POST[ 'icc_action' ] ) || 'import_settings' != $_POST[ 'icc_action' ] )
+                return;
+
+            if ( !wp_verify_nonce( $_POST[ 'icc_import_nonce' ], 'icc_import_nonce' ) )
+                return;
+
+            if ( !current_user_can( $this->capability ) )
+                return;
+
+            /**
+             * Get the extension of import file
+             * @link http://stackoverflow.com/a/19831453 Strict standards: Only variables should be passed by reference
+             * @var string
+             */
+            $file_name = $_FILES[ 'icc_import_file' ][ 'name' ];
+            $exploded = explode( '.', $file_name );
+            $extension = end( $exploded );
+
+            /**
+             * If it is not json than die
+             */
+            if ( $extension !== 'json' )
+                wp_die( __( 'Please upload a valid .json file', 'italy-cookie-choices' ), __( 'No valid json file', 'italy-cookie-choices' ), array( 'back_link' => true ) );
+
+            /**
+             * If the file is empty than die
+             */
+            if ( $_FILES[ 'icc_import_file' ][ 'size' ] === 0 )
+                wp_die( __( 'The json file can\'t be empty', 'italy-cookie-choices' ), __( 'Empty file', 'italy-cookie-choices' ), array( 'back_link' => true ) );
+
+            $import_file = $_FILES[ 'icc_import_file' ][ 'tmp_name' ];
+            
+            /**
+             * If $import_file is empty or null than die
+             */
+            if ( empty( $import_file ) )
+                wp_die( __( 'Please upload a file to import', 'italy-cookie-choices' ), __( 'No file import', 'italy-cookie-choices' ), array( 'back_link' => true ) );
+
+            /**
+             * Retrieve the settings from the file and convert the json object to an array.
+             * @var array
+             */
+            $settings = ( array ) json_decode( file_get_contents( $import_file ) );
+
+            update_option( 'italy_cookie_choices', get_object_vars( $settings[0] ) );
+
+            wp_safe_redirect( admin_url( 'options-general.php?page=' . 'italy-cookie-choices' ) );
+            exit;
+        }
 
     }// class
 }//endif

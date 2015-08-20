@@ -3,7 +3,7 @@ Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
 Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
 Requires at least: 3.5
-Tested up to: 4.3.0
+Tested up to: 4.4.0
 Stable tag: 2.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -114,6 +114,14 @@ if it doesn't work activate standard theme and try
 6. Italy Cookie Choices Content area
 
 == Changelog ==
+
+= 2.4.0 =
+Release Date: August 20th, 2015
+
+Dev time: 10h
+
+* Added import/export functionality
+* Maybe fixed [#133](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/133)
 
 = 2.3.6 =
 Release Date: July 27th, 2015
