@@ -3,8 +3,8 @@
 Donate link: 
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
-**Tested up to:** 4.3.0  
-**Stable tag:** 2.3.5  
+**Tested up to:** 4.4.0  
+**Stable tag:** 2.4.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -127,12 +127,21 @@ if it doesn't work activate standard theme and try
 
 ## Changelog ##
 
+### 2.4.0 ###
+**Release Date:** August 31th, 2015  
+
+**Dev time:** 11h  
+
+* Added import/export functionality
+* Maybe fixed [#133](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/133)
+* Fixed PHP check for lang functions [#128](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/128)
+
 ### 2.3.5 ###
 **Release Date:** July 25th, 2015  
 
 **Dev time:** 3h  
 
-* Add filter for js_array `icc_js_array`
+* [Add filter for js_array `icc_js_array`](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Filters-Hook#modificare-larray-con-tutti-gli-embed-trovati-disponibile-dalla-versione-235)
 * Fixed performance issue in sites with many posts
 * [Fixed Parse error issue #124](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/124#issuecomment-122952940)
 
@@ -218,7 +227,7 @@ if it doesn't work activate standard theme and try
 * [Added uninstall.php](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/34)
 * Added text area for custom CSS
 * [Added input for custom CSS class](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/16)
-* Added filter `icc_output_html` on snippet output for developer
+* [Added filter `icc_output_html` on snippet output for developer](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Filters-Hook#modificare-loutput)
 
 ### 2.1.0 ###
 **Release Date:** June 5th, 2015  
@@ -350,4 +359,4 @@ a notice to the user only the very first time that visits your website without d
 * [www.cookiechoices.org](https://www.cookiechoices.org/)
 * [Loghino piccolo](http://www.posizionamento-seo.com/)
 * Romanian lang: [Florin Lungu](http://www.florinlungu.it/)
-* [Some code for WordPress Plugin Boilerplate Powered by Mte90](https://github.com/Mte90/WordPress-Plugin-Boilerplate-Powered)
+* [Some code comes from the WordPress Plugin Boilerplate Powered by Mte90](https://github.com/Mte90/WordPress-Plugin-Boilerplate-Powered)
