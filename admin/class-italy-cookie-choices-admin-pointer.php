@@ -1,13 +1,11 @@
 <?php
-
 /**
  * Class Italy_Cookie_Choices_Pointer based on QL_Pointer to facilitate creation of WP Pointers
  * @author QueryLoop
  */
 // Exit if accessed directly
-if ( !defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) )
 	exit;
-}
 
 class Italy_Cookie_Choices_Pointer {
 
@@ -15,7 +13,7 @@ class Italy_Cookie_Choices_Pointer {
 	 * Prefix strings like styles, scripts and pointers IDs
 	 * @var string
 	 */
-	protected $prefix = 'pointerplus';
+	protected $prefix = 'italy-cookie-choices';
 	protected $pointers = array();
 
 	function __construct( $args = array() ) {

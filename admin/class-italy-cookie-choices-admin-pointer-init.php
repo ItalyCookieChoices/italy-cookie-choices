@@ -45,7 +45,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Pointer_Init' ) ) {
 		 * @return mixed
 		 */
 		function custom_initial_pointers( $pointers, $prefix ) {
-		    
+
 		     // * Default parameters:
 		      // $defaults = array(
 		      // 'class' => 'pointerplus',
@@ -60,22 +60,51 @@ if ( !class_exists( 'Italy_Cookie_Choices_Pointer_Init' ) ) {
 		      // );
 		     
 
-		    return array_merge( $pointers, array(
-		        $prefix . '_settings' => array(
-		            'selector' => '#active',
-		            'title' => __( 'Radio 1', 'italy-cookie-choices' ),
-		            'text' => __( 'The plugin is active and ready to start working.', 'italy-cookie-choices' ),
-		            'width' => 260,
-		            'icon_class' => 'dashicons-admin-settings',
-		            'jsnext' => "button = jQuery('<a id=\"pointer-close\" class=\"button action thickbox\" href=\"#TB_inline?width=700&height=500&inlineId=menu-popup\">" . __( 'Open Popup' ) . "</a>');
-		                    button.bind('click.pointer', function () {
-		                        t.element.pointer('close');
-		                    });
-		                    return button;",
-		            'phpcode' => $this->custom_phpcode_thickbox()
-		        ),
+			return array_merge( $pointers, array(
+				$prefix . '_settings' => array(
+					'selector' => '#active',
+					'title' => __( 'Radio 1', 'italy-cookie-choices' ),
+					'text' => __( 'The plugin is active and ready to start working.', 'italy-cookie-choices' ),
+					'width' => 260,
+					'icon_class' => 'dashicons-admin-settings',
+					'jsnext' => "button = jQuery('<a id=\"pointer-close\" class=\"button action\">" . __( 'Next' ) . "</a>');
+						button.bind('click.pointer', function () {
+							t.element.pointer('close');
+							jQuery('#label_radio_1').pointer('open');
+						});
+						return button;",
+					// 'phpcode' => $this->custom_phpcode_thickbox( 'https://www.youtube.com/embed/EaWfDuXQfo0' )
+				),
+				$prefix . '_settings1' => array(
+					'selector' => '#label_radio_1',
+					'title' => __( 'Radio 1', 'italy-cookie-choices' ),
+					'text' => __( 'The plugin is active and ready to start working.', 'italy-cookie-choices' ),
+					'width' => 260,
+					'icon_class' => 'dashicons-admin-settings',
+					// 'jsnext' => "button = jQuery('<a id=\"pointer-close\" class=\"button action\">" . __( 'Next' ) . "</a>');
+					// 	button.bind('click.pointer', function () {
+					// 		t.element.pointer('close');
+					// 		jQuery('#contextual-help-link').pointer('open');
+					// 	});
+					// 	return button;",
+					// 'phpcode' => $this->custom_phpcode_thickbox()
+					'show' => 'close'
+				),
+		    	$prefix . '_settings11' => array(
+					'selector' => '#label_radio_111',
+					'title' => __( 'Radio 2', 'italy-cookie-choices' ),
+					'text' => __( 'The plugin is active and ready to start working.', 'italy-cookie-choices' ),
+					'width' => 260,
+					'icon_class' => 'dashicons-admin-settings',
+					'jsnext' => "button = jQuery('<a id=\"pointer-close\" class=\"button action thickbox\" href=\"#TB_inline?width=700&height=500&inlineId=menu-popup\">" . __( 'Open Popup' ) . "</a>');
+						button.bind('click.pointer', function () {
+							t.element.pointer('close');
+		    			});
+						return button;",
+					'phpcode' => $this->custom_phpcode_thickbox( 'https://www.youtube.com/embed/EaWfDuXQfo0' )
+		    	),
 		        $prefix . '_posts' => array(
-		            'selector' => '#menu-posts',
+		            'selector' => '#radio_1',
 		            'title' => __( 'Italy_Cookie_Choices_Pointer for Posts', 'italy-cookie-choices' ),
 		            'text' => __( 'One more pointer.', 'italy-cookie-choices' ),
 		            'post_type' => array( 'post' ),
@@ -96,7 +125,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Pointer_Init' ) ) {
 		            'pages' => array( 'users.php' ),
 		            'icon_class' => 'dashicons-admin-users'
 		        ),
-		        $prefix . '_settings_tab' => array(
+		        $prefix . '_settings_tab1' => array(
 		            'selector' => '#show-settings-link',
 		            'title' => __( 'Italy_Cookie_Choices_Pointer Help', 'italy-cookie-choices' ),
 		            'text' => __( 'A pointer with action.', 'italy-cookie-choices' ),
@@ -110,14 +139,18 @@ if ( !class_exists( 'Italy_Cookie_Choices_Pointer_Init' ) ) {
 		                    });
 		                    return button;"
 		        ),
-		        $prefix . '_contextual_tab' => array(
-		            'selector' => '#contextual-help-link',
+		        /**
+		         * $prefix . '_my_custom_id'
+		         * per ogni pointer deve essere univoco
+		         */
+		        $prefix . '_contextual_tab1' => array(
+		            'selector' => '#contextual-help-link', // Il selettore css dove appendere il pointer, può essere un ID o una classe CSS
 		            'title' => __( 'Italy_Cookie_Choices_Pointer Help', 'italy-cookie-choices' ),
 		            'text' => __( 'A pointer for help tab.<br>Go to Posts, Pages or Users for other pointers.', 'italy-cookie-choices' ),
 		            'edge' => 'top',
 		            'align' => 'right',
 		            'icon_class' => 'dashicons-welcome-learn-more',
-		            'show' => 'close'
+		            'show' => 'close' // Serve per non visualizzare il pointer nella pagina, utile per usarlo insieme al pulsante next
 		        )
 		            ) );
 		}
@@ -130,18 +163,16 @@ if ( !class_exists( 'Italy_Cookie_Choices_Pointer_Init' ) ) {
 		 * @link https://codex.wordpress.org/Javascript_Reference/ThickBox
 		 * @return string Return modal fro thickbox
 		 */
-		function custom_phpcode_thickbox() {
-		    add_thickbox();
-		    echo '<div id="menu-popup" style="display:none;">
-		            <p style="text-align: center;">
-		                 This is my hidden content! It will appear in ThickBox when the link is clicked.
-		                 <iframe width="560" height="315" src="https://www.youtube.com/embed/EaWfDuXQfo0" frameborder="0" allowfullscreen></iframe>
-		            </p>
-		        </div>';
+		function custom_phpcode_thickbox( $url = '' ) {
+			add_thickbox();
+			echo '<div id="menu-popup" style="display:none;">
+			<p style="text-align: center;">
+			This is my hidden content! It will appear in ThickBox when the link is clicked.
+			<iframe width="560" height="315" src="' . $url . '" frameborder="0" allowfullscreen></iframe>
+			</p>
+			</div>';
 		}
 
-
-
-
 	}
+
 }

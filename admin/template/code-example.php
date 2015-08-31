@@ -3,7 +3,7 @@
 <!-- <br> -->
 
 
-<div id="code-example" style="display:none;">
+<div id="code-example">
 	<h1><?php _e( 'Script inline example', 'italy-cookie-choices' ); ?></h1>
 	<p>
 		<pre>

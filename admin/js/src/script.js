@@ -24,6 +24,12 @@
 		}
 
 	    $(document).ready(function() {
+
+	    	/**
+	    	 * Funzione per le tab nel pannello admin
+	    	 */
+	    	// $('#tabs').tabs();
+
 	    	/**
 	    	 * Snippet per il color picker di WordPress
 	    	 */
