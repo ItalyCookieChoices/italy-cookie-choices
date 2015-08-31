@@ -91,6 +91,15 @@ function appendJS(script){
     }
 }
 
+function deleteCookie() {
+  // Set the cookie expiry to 40 year before today.
+  var expiryDate = new Date();
+  expiryDate.setFullYear(expiryDate.getFullYear() - 40);
+  // document.cookie = cookieName + '=y; expires=' + expiryDate.toGMTString();
+  document.cookie = cookieName + '=' + coVA + '; expires=' + expiryDate.toGMTString() + ';path=/';
+  document.location.reload();
+}
+
 (function(window) {
 
   if (!!window.cookieChoices) {
