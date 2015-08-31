@@ -1033,6 +1033,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 <?php _e( 'Cookie from any embed in your widget area (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
             </label>
             <br>
+            <br>
             <input type='checkbox' name='italy_cookie_choices[all_block]' <?php checked( $all_block, 1 ); ?> value='1' id="italy_cookie_choices[all_block]">
             <label for="italy_cookie_choices[all_block]">
                 <?php _e( 'Cookie from any embed in all body, except head and footer (Beta)', 'italy-cookie-choices' ); ?>
@@ -1060,7 +1061,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             /**
              * Template with list of code example
              */
-            require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/code-example.php');
+            // require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/code-example.php');
 
         ?>
         <style type="text/css" media="screen">
@@ -1075,7 +1076,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             }*/
         </style>
             <!-- <div id="editor"><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></div> -->
-    
+
+            <!-- <input type='checkbox' name='italy_cookie_choices[ppp]' <?php checked( $block, 1 ); ?> value='1' id="italy_cookie_choices[ppp]"> -->
+            <!-- <br> -->
             <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block_body_exclude]" id="italy_cookie_choices[custom_script_block_body_exclude]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" class="textarea"><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></textarea>
             <br>
             <a id="SEP" class="button button-secondary add-sep" data-value="<---------SEP--------->">&lt;---------SEP---------&gt;</a>
