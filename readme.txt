@@ -116,18 +116,12 @@ if it doesn't work activate standard theme and try
 == Changelog ==
 
 = 2.4.0 =
-Release Date: August 20th, 2015
+Release Date: August 31th, 2015
 
-Dev time: 10h
+Dev time: 11h
 
 * Added import/export functionality
 * Maybe fixed [#133](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/133)
-
-= 2.3.6 =
-Release Date: July 27th, 2015
-
-Dev time: 1h
-
 * Fixed PHP check for lang functions [#128](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/128)
 
 = 2.3.5 =
