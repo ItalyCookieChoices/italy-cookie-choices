@@ -809,13 +809,13 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         ?>
             <select  name='italy_cookie_choices[js_template]' id="italy_cookie_choices[js_template]">
 
-                <option value="default" <?php if ( $js_template === 'default' ) echo 'selected';?>><?php _e( 'Default cookiechoices template (centered with text links)', 'italy_cookie_choices' ); ?></option>
+                <option value="default" <?php if ( $js_template === 'default' ) echo 'selected';?>><?php _e( 'Default cookiechoices template (centered with text links)', 'italy-cookie-choices' ); ?></option>
 
-                <option value="bigbutton" <?php if ( $js_template === 'bigbutton' ) echo 'selected';?>><?php _e( 'Centered container with left aligned text and big buttons', 'italy_cookie_choices' ); ?></option>
+                <option value="bigbutton" <?php if ( $js_template === 'bigbutton' ) echo 'selected';?>><?php _e( 'Centered container with left aligned text and big buttons', 'italy-cookie-choices' ); ?></option>
 
-                <option value="smallbutton" <?php if ( $js_template === 'smallbutton' ) echo 'selected';?>><?php _e( 'Centered container with left aligned text and small buttons', 'italy_cookie_choices' ); ?></option>
+                <option value="smallbutton" <?php if ( $js_template === 'smallbutton' ) echo 'selected';?>><?php _e( 'Centered container with left aligned text and small buttons', 'italy-cookie-choices' ); ?></option>
 
-                <option value="custom" <?php if ( $js_template === 'custom' ) echo 'selected';?>><?php _e( 'My custom CSS', 'italy_cookie_choices' ); ?></option>
+                <option value="custom" <?php if ( $js_template === 'custom' ) echo 'selected';?>><?php _e( 'My custom CSS', 'italy-cookie-choices' ); ?></option>
 
             </select>
             <label for="italy_cookie_choices[js_template]">

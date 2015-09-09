@@ -27,9 +27,9 @@
 
 	<div id="tabs-3" class="metabox-holder">
 		<div class="postbox">
-			<h3 class="hndle"><span><?php _e( 'Export Settings'); ?></span></h3>
+			<h3 class="hndle"><span><?php _e( 'Export Settings', 'italy-cookie-choices' ); ?></span></h3>
 			<div class="inside">
-				<p><?php _e( 'Export the plugin settings for this site as a .json file. This allows you to easily import the configuration into another site.' ); ?></p>
+				<p><?php _e( 'Export the plugin settings for this site as a .json file. This allows you to easily import the configuration into another site.', 'italy-cookie-choices' ); ?></p>
 				<form method="post">
 					<p>
 						<input type="hidden" name="icc_action" value="export_settings" />
@@ -43,9 +43,9 @@
 		</div>
 
 		<div class="postbox">
-			<h3 class="hndle"><span><?php _e( 'Import Settings' ); ?></span></h3>
+			<h3 class="hndle"><span><?php _e( 'Import Settings', 'italy-cookie-choices' ); ?></span></h3>
 			<div class="inside">
-				<p><?php _e( 'Import the plugin settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.' ); ?></p>
+				<p><?php _e( 'Import the plugin settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.', 'italy-cookie-choices' ); ?></p>
 				<form method="post" enctype="multipart/form-data">
 					<p>
 						<input type="file" name="icc_import_file"/>
