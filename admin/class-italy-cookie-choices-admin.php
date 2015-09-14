@@ -49,9 +49,30 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
         private $post_and_page_array = array();
 
         /**
+         * Array with predefinited vendor iframe
+         * @var array
+         */
+        private $iframe_array = array();
+        /**
+         * Array with predefinited vendor script
+         * @var array
+         */
+        private $script_array = array();
+        /**
+         * Array with predefinited vendor embed
+         * @var array
+         */
+        private $embed_array = array();
+
+        /**
          * [__construct description]
          */
         public function __construct(){
+
+            /**
+             * Init vendors array
+             */
+            $this->create_third_party_array();
 
             /**
              * Get all posts and pages object and merge for jQuery autocomplete function
@@ -1050,40 +1071,31 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          */
         public function italy_cl_option_custom_script_block_body_exclude($args) {
 
+            /**
+             * Template with list of code example
+             */
+            require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/allow-script.php');
+
             $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
 
             /**
              * Add thickbox for diplay code example
              * @link https://codex.wordpress.org/Javascript_Reference/ThickBox
              */
-            add_thickbox();
-
-            /**
-             * Template with list of code example
-             */
-            // require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/code-example.php');
+            // add_thickbox();
 
         ?>
-        <style type="text/css" media="screen">
-            /*#editor {
-                font-size: 14px;
-                height: 260px;
-                position: relative;
-                width: 520px;
-            }
-            .ace_gutter-cell.ace_error{
-                background-image: none;
-            }*/
-        </style>
-            <!-- <div id="editor"><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></div> -->
+            <!-- <div id="editor"><?php // echo esc_textarea( $custom_script_block_body_exclude ); ?></div> -->
 
-            <!-- <input type='checkbox' name='italy_cookie_choices[ppp]' <?php checked( $block, 1 ); ?> value='1' id="italy_cookie_choices[ppp]"> -->
+            <!-- <input type='checkbox' name='italy_cookie_choices[ppp]' <?php // checked( $block, 1 ); ?> value='1' id="italy_cookie_choices[ppp]"> -->
             <!-- <br> -->
             <textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block_body_exclude]" id="italy_cookie_choices[custom_script_block_body_exclude]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" class="textarea"><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></textarea>
             <br>
             <a id="SEP" class="button button-secondary add-sep" data-value="<---------SEP--------->">&lt;---------SEP---------&gt;</a>
             <a id="SOM" class="button button-secondary add-sep" data-value="<---------SOMETHING--------->">&lt;---------SOMETHING---------&gt;</a>
-            <!-- <a href="#TB_inline?width=600&height=550&inlineId=code-example" class="thickbox button button-secondary"><?php _e( 'View example', 'italy-cookie-choices' ); ?></a> -->
+
+           <!--  <a href="#TB_inline?width=600&height=550&inlineId=code-example" class="thickbox button button-secondary"><?php // _e( 'View example', 'italy-cookie-choices' ); ?></a> -->
+
             <br>
             <label for="italy_cookie_choices[custom_script_block_body_exclude]">
                 <?php echo __( 'Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex', 'italy-cookie-choices' ); ?>
@@ -1101,6 +1113,11 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          * @return string
          */
         public function italy_cl_option_custom_script_block($args) {
+
+            /**
+             * Template with block script
+             */
+            require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/block-script.php');
 
             $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
 
@@ -1328,11 +1345,37 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             if( isset( $input['all_block'] ) )
                 $new_input['all_block'] =  $input['all_block'];
 
+            /**
+             * Allow script
+             */
+            if( isset( $input['allow_iframe'] ) )
+                $new_input['allow_iframe'] =  $input['allow_iframe'];
+
+            if( isset( $input['allow_script'] ) )
+                $new_input['allow_script'] =  $input['allow_script'];
+
+            if( isset( $input['allow_embed'] ) )
+                $new_input['allow_embed'] =  $input['allow_embed'];
+
             if( isset( $input['custom_script_block_body_exclude'] ) )
                 $new_input['custom_script_block_body_exclude'] =  $input['custom_script_block_body_exclude'];
+            /**********************************************************************/
+
+            /**
+             * Block script
+             */
+            if( isset( $input['block_iframe'] ) )
+                $new_input['block_iframe'] =  $input['block_iframe'];
+
+            if( isset( $input['block_script'] ) )
+                $new_input['block_script'] =  $input['block_script'];
+
+            if( isset( $input['block_embed'] ) )
+                $new_input['block_embed'] =  $input['block_embed'];
 
             if( isset( $input['custom_script_block'] ) )
                 $new_input['custom_script_block'] =  $input['custom_script_block'];
+            /**********************************************************************/
 
             if( isset( $input['content_message_text'] ) ){
 
@@ -1385,12 +1428,12 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 // wp_register_script('ace', '//cdn.jsdelivr.net/ace/1.1.9/min/ace.js', false, null, true);
                 // wp_enqueue_script('ace');
 
-                // wp_enqueue_style(
-                //     'italy-cookie-choices-css',
-                //     plugins_url('admin/css/admin.css', ITALY_COOKIE_CHOICES_FILE ),
-                //     array( 'dashicons' ),
-                //     null
-                // );
+                wp_enqueue_style(
+                    'italy-cookie-choices-css',
+                    plugins_url('admin/css/admin.css', ITALY_COOKIE_CHOICES_FILE ),
+                    array( 'dashicons' ),
+                    null
+                );
 
                 wp_enqueue_script(
                     'italy-cookie-choices-script',
@@ -1400,6 +1443,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                         'wp-color-picker',
                         'jquery-ui-widget',
                         'jquery-ui-autocomplete',
+                        'jquery-effects-shake',
                         // 'ace'
                         ),
                     null,
@@ -1416,12 +1460,94 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
          */
         public function plugin_action_links( $links ){
 
-                 array_unshift($links, '<a href="options-general.php?page=italy-cookie-choices">' . __('Settings','italy-cookie-choices') . '</a>');
+                array_unshift($links, '<a href="options-general.php?page=italy-cookie-choices">' . __('Settings','italy-cookie-choices') . '</a>');
 
                 array_unshift($links, '<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki" target="_blank">' . __('Documentation','italy-cookie-choices') . '</a>');
 
             return $links;
         }// plugin_action_links()
+
+        /**
+         * Set the three array with predefinited third party script|iframe|embed
+         * @return void
+         */
+        private function create_third_party_array(){
+
+            $this->iframe_array = array(
+                ''              =>  '',
+                'google'        =>  'google',
+                'google_maps'   =>  'maps',
+                'youtube'       =>  'youtube',
+                'disqus'        =>  'disqus',
+                'twitter'       =>  'twitter',
+                'vimeo'         =>  'vimeo',
+                'facebook'      =>  'facebook',
+                );
+
+            $this->script_array = array(
+                ''                  =>  '',
+                'google'            =>  'google',
+                'google_maps'       =>  'maps',
+                'googleapis'        =>  'googleapis',
+                'AdSense'           =>  'googlesyndication',
+                'doubleclick'       =>  'doubleclick',
+                'plusone'           =>  'plusone',
+                'platform'          =>  'platform',
+                'analytics'         =>  'analytics',
+                'facebook'          =>  'facebook',
+                'addthis'           =>  'addthis',
+                'twitter'           =>  'twitter',
+                'linkedin'          =>  'linkedin',
+                'pinterest'         =>  'pinterest',
+                'disqus'            =>  'disqus',
+                'vimeo'             =>  'vimeo',
+                'youtube'           =>  'youtube',
+                'youtube-nocookie'  =>  'youtube-nocookie',
+                '_getTracker'       =>  '_getTracker',
+                'instagram'         =>  'instagram',
+                'cdninstagram'      =>  'cdninstagram',
+                'digg'              =>  'digg',
+                'eventbrite'        =>  'eventbrite',
+                );
+
+            $this->embed_array = array(
+                ''          =>  ''
+                );
+
+        }
+
+        /**
+         * This function add the HTML to display new functionality for UX allow and block script
+         * @param  array  $array    Pass the plugin option array[name]
+         * @param  string $arr_name A string name of the array
+         * @param  array  $arr_key  Array for predefinited script|emebd|iframe
+         *                          This add a select box with script name
+         * @return string           Return the HTML for new input
+         */
+        function foreach_script( $array, $arr_name, $arr_key  ){
+    
+            $select = '<select>';
+
+            foreach ($arr_key as $key => $value)
+                $select .= '<option value="' . $value . '">' . $value . '</option>';
+
+            $select .= '</select>';
+
+            // <button class=" button" disabled> &emsp; </button>
+            $input = '<div class="custom-script">';
+            $i = 0;
+            foreach ( $array as $key => $value ){
+
+                $input .= '<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="' . $arr_name . '" value="' . esc_attr( $value ) .'" name="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']" id="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']"/> ' . $select . ' <span><a class="button add" style="font-size:22px"> + </a> ' . ( $i === 0 ? '' : '<a class=" button remove" style="font-size:22px"> × </a>' ) . '</span></div>';
+
+                $i++;
+
+            }
+            $input .= '</div>';
+
+            echo $input;
+
+        }
 
         /**
          * Process a settings export from config

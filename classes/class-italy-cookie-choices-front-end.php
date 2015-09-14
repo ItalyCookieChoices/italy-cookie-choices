@@ -284,12 +284,35 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         }
 
         public function removeCustomScript($buffer) {
+            /**
+             * Custom script to block
+             * @var string
+             */
             $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
-            if($custom_script_block=='') {
+
+
+            if( $custom_script_block == '' ) {
                 return $buffer;
             } else {
+
+                /**
+                 * Replace space with <---------SEP--------->
+                 * @var string
+                 */
                 $custom_script_block = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block );
+
+                /**
+                 * Convert $custom_script_block to array
+                 * @var array
+                 */
                 $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
+
+                /**
+                 * Merge the script array from new UX functionality
+                 * @var array
+                 */
+                $custom_script_block_array = array_merge( $custom_script_block_array, $this->block_script() );
+
                 foreach($custom_script_block_array AS $single_script) {
                     preg_match_all('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(trim($single_script), '/')).'/is', $buffer, $matches);
                     if(!empty($matches[0])) {
@@ -311,11 +334,34 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         }
 
         public function bufferBodyEnd() {
+
+            /**
+             * Check if $custom_script_block_body_exclude is set
+             * @var string
+             */
             $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
+
+            /**
+             * Replace space with <---------SEP--------->
+             * @var string
+             */
             $custom_script_block_body_exclude = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block_body_exclude );
+
+            /**
+             * Create array
+             * @var array
+             */
             $custom_script_block_body_exclude_array = explode("<---------SEP--------->", $custom_script_block_body_exclude);
 
-            if(!is_array($custom_script_block_body_exclude_array) || empty($custom_script_block_body_exclude_array[0]))
+            /**
+             * Merge the script array from new UX functionality
+             * @var array
+             */
+            $custom_script_block_body_exclude_array = array_merge( $custom_script_block_body_exclude_array, $this->exclude_script() );
+
+            var_dump($custom_script_block_body_exclude_array);
+
+            if( !is_array($custom_script_block_body_exclude_array) || empty( $custom_script_block_body_exclude_array[0] ) )
                 $custom_script_block_body_exclude_array = array();
 
             $buffer = ob_get_contents();
@@ -325,14 +371,19 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             $head = $matches[1];
             $body = $matches[2];
             preg_match_all( $this->pattern, $body, $body_matches);
+
             if ( !empty( $body_matches[0] ) ) {
                 foreach($body_matches[0] AS $k => $v) {
-                    if(!$this->in_array_match(trim($v), $custom_script_block_body_exclude_array)) {
+
+                    if( !$this->in_array_match(trim($v), $custom_script_block_body_exclude_array) ) {
                         $body = preg_replace('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(trim($v), '/')).'/is', $this->valore, $body);
                         $this->js_array[] = trim($v);
                     }
+
                 }
+
             }
+
             $buffer_new = $head.$body;
             echo '<!-- ICCStartBody -->'.$buffer_new.'<!-- ICCEndBody -->';
         }
@@ -384,6 +435,63 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                 ob_end_clean();
             $buffer_new = $this->removeCustomScript($buffer);
             echo '<!-- ICCStartHead -->'.$buffer_new.'<!-- ICCEndHead -->';
+        }
+
+        /**
+         * Script preimpostati da escludere
+         * Preparare un array key valore a parte, unico per entrambi
+         * Questo array sarà utilizzato per generare anche le input dinamicamente
+         * array(
+         *     'facebook' => 'script'
+         * )
+         * @return array Array con gli script preimpostati
+         */
+        private function exclude_script( $val = array() ){
+
+            $allow_iframe = ( isset( $this->options['allow_iframe'] ) ) ? $this->options['allow_iframe'] : array('');
+            $allow_script = ( isset( $this->options['allow_script'] ) ) ? $this->options['allow_script'] : array('');
+            $allow_embed = ( isset( $this->options['allow_embed'] ) ) ? $this->options['allow_embed'] : array('');
+
+            $array = array();
+
+            foreach ( $allow_iframe as $value )
+                if ( !empty( $value ) )
+                    $array[] = '<iframe<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></iframe>';
+
+            foreach ( $allow_script as $value )
+                if ( !empty( $value ) )
+                    $array[] = '<script<---------SOMETHING--------->><---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>';
+
+            foreach ( $allow_embed as $value )
+                if ( !empty($value) )
+                    $array[] = '<embed<---------SOMETHING--------->' . $value . '<---------SOMETHING--------->>';
+
+            return $array;
+
+        }
+
+        private function block_script( $val = array() ){
+
+            $block_iframe = ( isset( $this->options['block_iframe'] ) ) ? $this->options['block_iframe'] : array('');
+            $block_script = ( isset( $this->options['block_script'] ) ) ? $this->options['block_script'] : array('');
+            $block_embed = ( isset( $this->options['block_embed'] ) ) ? $this->options['block_embed'] : array('');
+
+            $array = array();
+
+            foreach ( $block_iframe as $value )
+                if ( !empty( $value ) )
+                    $array[] = '<iframe<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></iframe>';
+
+            foreach ( $block_script as $value )
+                if ( !empty( $value ) )
+                    $array[] = '<script<---------SOMETHING--------->><---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>';
+
+            foreach ( $block_embed as $value )
+                if ( !empty( $value ) )
+                    $array[] = '<embed<---------SOMETHING--------->' . $value . '<---------SOMETHING--------->>';
+
+            return $array;
+
         }
 
         /**

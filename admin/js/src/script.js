@@ -103,6 +103,68 @@
 			autocomplete(slugs, 'slug');
 			autocomplete(urls, 'url');
 
+			function callback( input ) {
+				setTimeout(function() {
+					input.removeAttr( "style" );
+				}, 1000 );
+			};
+
+			/**
+			 * Add element
+			 */
+			$(document).on('click' , '.add', function(){
+
+				var container = $(this).parent().parent();
+
+				var input = container.children('input');
+
+				var arr_name = input.data('type');
+
+				if ( !arr_name ) {
+					var options = {};
+					container.effect( 'shake', options, 500, callback(container) );
+					return;
+				}
+
+				var select = container.children('select').get(0).innerHTML;
+
+				$('<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="" value="" name="italy_cookie_choices[' + arr_name + '][]"/> <select>' + select + '</select> <span><a class="button add" style="font-size:22px"> + </a> <a class=" button remove" style="font-size:22px"> × </a></span></div>').appendTo(container.parent());
+
+			});
+
+			/**
+			 * Remove element
+			 */
+			$(document).on('click', '.remove', function(){
+				$(this).parent().parent().remove();
+			});
+
+			/**
+			 * Update input value on keyup
+			 */
+			$(document).on('keyup', '.regular-text', function(){
+
+				var arr_name = $(this).data('type');
+
+				$(this).attr('name', 'italy_cookie_choices[' + arr_name + '][' + $(this).val() + ']');
+
+			});
+
+			/**
+			 * Change input value on select change
+			 */
+			$(document).on('change', 'select', function(){
+
+				var input = $(this).parent().children('input');
+
+				input.val($(this).val());
+
+				var arr_name = input.data('type');
+
+				input.attr('name', 'italy_cookie_choices[' + arr_name + '][' + $(this).val() + ']');
+
+			});
+
 	    });
 	});
 
