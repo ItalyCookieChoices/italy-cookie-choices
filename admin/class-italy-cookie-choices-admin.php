@@ -1508,6 +1508,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
                 'cdninstagram'      =>  'cdninstagram',
                 'digg'              =>  'digg',
                 'eventbrite'        =>  'eventbrite',
+                'wordpress'         =>  'wp'
                 );
 
             $this->embed_array = array(
@@ -1529,7 +1530,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             $select = '<select>';
 
             foreach ($arr_key as $key => $value)
-                $select .= '<option value="' . $value . '">' . $value . '</option>';
+                $select .= '<option value="' . $value . '">' . $key . '</option>';
 
             $select .= '</select>';
 
@@ -1538,7 +1539,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
             $i = 0;
             foreach ( $array as $key => $value ){
 
-                $input .= '<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="' . $arr_name . '" value="' . esc_attr( $value ) .'" name="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']" id="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']"/> ' . $select . ' <span><a class="button add" style="font-size:22px"> + </a> ' . ( $i === 0 ? '' : '<a class=" button remove" style="font-size:22px"> × </a>' ) . '</span></div>';
+                $input .= '<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="' . $arr_name . '" value="' . esc_attr( $value ) .'" name="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']" id="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']"/> ' . $select . ' <span><a class="button add" style="font-size:22px"> + </a> ' . ( $i === 0 ? '<a class="button cancel" style="font-size:22px"> x </a>' : '<a class=" button remove" style="font-size:22px"> × </a>' ) . '</span></div>';
 
                 $i++;
 

@@ -61,6 +61,18 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         private $url = '';
 
         /**
+         * Array with list of allowed script|iframe|embed
+         * @var array
+         */
+        private $allow_script = array();
+
+        /**
+         * Array with list of blocked script|iframe|embed
+         * @var array
+         */
+        private $block_script = array();
+
+        /**
          * [__construct description]
          */
         public function __construct(){
@@ -160,6 +172,9 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                  */
                 $custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
 
+                $this->get_block_script();
+                $this->get_allow_script();
+
                 /**
                  * Checkbox custom scripts block in HEAD and FOOTER
                  * @var string
@@ -196,7 +211,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                     add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
                     add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
                 }
-                if( $custom_script_block !== '' && $all_block ) {
+                if( ( $custom_script_block || $this->block_script ) && $all_block ) {
                     add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
                     add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
                     add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
@@ -283,17 +298,21 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
             return false;
         }
 
-        public function removeCustomScript($buffer) {
+        /**
+         * Remove custom script in header and footer
+         * @param  string $buffer Source of page
+         * @return string         Return the new HTML
+         */
+        public function removeCustomScript( $buffer ) {
             /**
              * Custom script to block
              * @var string
              */
             $custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
 
-
-            if( $custom_script_block == '' ) {
+            if( !$custom_script_block && !$this->block_script )
                 return $buffer;
-            } else {
+            else {
 
                 /**
                  * Replace space with <---------SEP--------->
@@ -302,7 +321,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                 $custom_script_block = preg_replace( "/([\r|\n]*)<---------SEP--------->([\r|\n]*)/is", "<---------SEP--------->", $custom_script_block );
 
                 /**
-                 * Convert $custom_script_block to array
+                 * Convert $custom_script_block to an array
                  * @var array
                  */
                 $custom_script_block_array = explode("<---------SEP--------->", $custom_script_block);
@@ -311,8 +330,11 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
                  * Merge the script array from new UX functionality
                  * @var array
                  */
-                $custom_script_block_array = array_merge( $custom_script_block_array, $this->block_script() );
+                $custom_script_block_array = array_merge( $custom_script_block_array, $this->block_script );
 
+                /**
+                 * 
+                 */
                 foreach($custom_script_block_array AS $single_script) {
                     preg_match_all('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(trim($single_script), '/')).'/is', $buffer, $matches);
                     if(!empty($matches[0])) {
@@ -353,16 +375,14 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              */
             $custom_script_block_body_exclude_array = explode("<---------SEP--------->", $custom_script_block_body_exclude);
 
+            if( !is_array($custom_script_block_body_exclude_array) || empty( $custom_script_block_body_exclude_array[0] ) )
+                $custom_script_block_body_exclude_array = array();
+
             /**
              * Merge the script array from new UX functionality
              * @var array
              */
-            $custom_script_block_body_exclude_array = array_merge( $custom_script_block_body_exclude_array, $this->exclude_script() );
-
-            var_dump($custom_script_block_body_exclude_array);
-
-            if( !is_array($custom_script_block_body_exclude_array) || empty( $custom_script_block_body_exclude_array[0] ) )
-                $custom_script_block_body_exclude_array = array();
+            $custom_script_block_body_exclude_array = array_merge( $custom_script_block_body_exclude_array, $this->allow_script );
 
             $buffer = ob_get_contents();
             if (ob_get_contents()) 
@@ -438,7 +458,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
         }
 
         /**
-         * Script preimpostati da escludere
+         * Script preimpostati da escludere dal blocco
          * Preparare un array key valore a parte, unico per entrambi
          * Questo array sarà utilizzato per generare anche le input dinamicamente
          * array(
@@ -446,7 +466,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
          * )
          * @return array Array con gli script preimpostati
          */
-        private function exclude_script( $val = array() ){
+        private function get_allow_script(){
 
             $allow_iframe = ( isset( $this->options['allow_iframe'] ) ) ? $this->options['allow_iframe'] : array('');
             $allow_script = ( isset( $this->options['allow_script'] ) ) ? $this->options['allow_script'] : array('');
@@ -454,23 +474,27 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
             $array = array();
 
-            foreach ( $allow_iframe as $value )
+            foreach ( $allow_iframe as $key => $value )
                 if ( !empty( $value ) )
-                    $array[] = '<iframe<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></iframe>';
+                    $this->allow_script[] = '<iframe<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></iframe>';
 
-            foreach ( $allow_script as $value )
+            // foreach ( $allow_script as $key => $value )
+            //     if ( !empty( $value ) )
+            //         $this->allow_script[] = '<script<---------SOMETHING--------->><---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>'; $this->allow_script[] = '<script<---------SOMETHING--------->' . $value . '<---------SOMETHING--------->></script>';
+
+            foreach ( $allow_script as $key => $value )
                 if ( !empty( $value ) )
-                    $array[] = '<script<---------SOMETHING--------->><---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>';
+                    $this->allow_script[] = '<script<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>';
 
-            foreach ( $allow_embed as $value )
+            foreach ( $allow_embed as $key => $value )
                 if ( !empty($value) )
-                    $array[] = '<embed<---------SOMETHING--------->' . $value . '<---------SOMETHING--------->>';
+                    $this->allow_script[] = '<embed<---------SOMETHING--------->' . $value . '<---------SOMETHING--------->>';
 
-            return $array;
+            // return $this->allow_script;
 
         }
 
-        private function block_script( $val = array() ){
+        private function get_block_script( $val = array() ){
 
             $block_iframe = ( isset( $this->options['block_iframe'] ) ) ? $this->options['block_iframe'] : array('');
             $block_script = ( isset( $this->options['block_script'] ) ) ? $this->options['block_script'] : array('');
@@ -480,17 +504,21 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
             foreach ( $block_iframe as $value )
                 if ( !empty( $value ) )
-                    $array[] = '<iframe<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></iframe>';
+                    $this->block_script[] = '<iframe<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></iframe>';
+
+            // foreach ( $block_script as $value )
+            //     if ( !empty( $value ) )
+            //         $this->block_script[] = '<script<---------SOMETHING--------->><---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>';
 
             foreach ( $block_script as $value )
                 if ( !empty( $value ) )
-                    $array[] = '<script<---------SOMETHING--------->><---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>';
+                    $this->block_script[] = '<script<---------SOMETHING--------->' . $value . '<---------SOMETHING---------></script>';
 
             foreach ( $block_embed as $value )
                 if ( !empty( $value ) )
-                    $array[] = '<embed<---------SOMETHING--------->' . $value . '<---------SOMETHING--------->>';
+                    $this->block_script[] = '<embed<---------SOMETHING--------->' . $value . '<---------SOMETHING--------->>';
 
-            return $array;
+            // return $this->block_script;
 
         }
 
@@ -506,7 +534,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
             /**
              * Memorizzo gli embed trovati e li appendo all'array $js_array
-             * @var [type]
+             * @var array
              */
             if ( !empty( $matches[0] ) )
                 $this->js_array = array_merge( $this->js_array, $matches[0] );
@@ -804,6 +832,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
              * var consText = Variabile per le classe dello span per il testo
              * @var string
              */
+
             $jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="' . $infoClass . '",closeClass="' . $closeClass . '",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",bannerStyle="' . $bannerStyle . '",contentStyle="' . $contStyle . '",consText="' . $consentText . '",jsArr = ' . $this->wp_json_encode( apply_filters( 'icc_js_array', $this->js_array ) ) . ';';
 
             /**
