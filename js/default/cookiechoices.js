@@ -100,6 +100,37 @@ function deleteCookie() {
   document.location.reload();
 }
 
+/**
+ * https://snippetlib.com/jquery/remove_cookies
+ */
+//function to delete cookie (change expiry date)
+function delCookie(name)
+{
+  document.cookie = name+'=; expires=Thu, 2 Aug 2001 20:47:11 UTC; path=/'
+}
+function getCookieKeys(){
+
+    // Separate key / value pairs
+    var cookies = document.cookie.split(";"),
+        index, keys = [];
+    for(i = 0; i < cookies.length; i++) {
+        cookieEntry = cookies[i].split("=");
+        // first part of the split string holds the key ...
+        keys.push(cookieEntry[0]);
+    }
+    return keys;
+}
+
+function deleteAllCookie(){
+
+  var cookieKeys = getCookieKeys();
+
+  //delete all cookies
+  for(i = 0; i < cookieKeys.length; i++)
+    delCookie(cookieKeys[i]);
+    
+}
+
 (function(window) {
 
   if (!!window.cookieChoices) {
