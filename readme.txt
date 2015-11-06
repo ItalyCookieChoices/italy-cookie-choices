@@ -120,8 +120,8 @@ Release Date: November 6th, 2015
 
 Dev time: 50h
 
-* Improved UI for select block/allow script
-* Added new check for bot Crawler
+* Improved UI for selecting block/allow script
+* [Added new check for bot Crawler](https://wordpress.org/support/topic/non-trattare-i-bot-come-umani?replies=2)
 
 = 2.4.0 =
 Release Date: August 31th, 2015

@@ -284,22 +284,22 @@ module.exports = function(grunt) {
              * In "dest" insert the destination of new site that I have to develope
              * Comment this code if I'm developing in this directory
              */
-            // todev: {
-            //     expand: true,
-            //     // cwd: 'src',
-            //     src: [
-            //         '**',
-            //         '!node_modules/**',
-            //         '!bower_components/**',
-            //         '!bower.json',
-            //         '!composer.json',
-            //         '!Gruntfile.js',
-            //         '!package.json',
-            //         '!README.md',
-            //         ],
-            //     dest: 'F:/xampp/htdocs/spadari/wp-content/plugins/italystrap/',
-            //     filter: 'isFile',
-            // },
+            test: {
+                expand: true,
+                // cwd: 'src',
+                src: [
+                    '**',
+                    '!node_modules/**',
+                    '!bower_components/**',
+                    '!bower.json',
+                    '!composer.json',
+                    '!Gruntfile.js',
+                    '!package.json',
+                    '!README.md',
+                    ],
+                dest: 'E:/App/wp-plugin-test/<%= pkg.name %> <%= pkg.version %>/',
+                filter: 'isFile',
+            },
         },
 
         // sync: { // https://www.npmjs.com/package/grunt-sync
