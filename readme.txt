@@ -3,7 +3,7 @@ Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
 Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
 Requires at least: 3.5
-Tested up to: 4.4.0
+Tested up to: 4.5.0
 Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -114,6 +114,14 @@ if it doesn't work activate standard theme and try
 6. Italy Cookie Choices Content area
 
 == Changelog ==
+
+= 2.4.1 =
+Release Date: November 6th, 2015
+
+Dev time: 50h
+
+* Improved UI for select block/allow script
+* Added new check for bot Crawler
 
 = 2.4.0 =
 Release Date: August 31th, 2015
