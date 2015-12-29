@@ -115,6 +115,14 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.4.2 =
+Release Date: December 29th, 2015
+
+Dev time: 1h
+
+* Fixed PHP7 Fatal error [#149](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/149)
+* Walking to WPCS
+
 = 2.4.1 =
 Release Date: November 6th, 2015
 
