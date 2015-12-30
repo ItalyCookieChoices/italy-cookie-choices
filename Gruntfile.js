@@ -382,7 +382,7 @@ module.exports = function(grunt) {
      *
      * Change version only in package.json
      *
-     * 
+     * Open Git Bash and type:
      * $ grunt deploy
      * 
      * Poi nella cartella svn-wordpress
@@ -396,7 +396,7 @@ module.exports = function(grunt) {
                                 'version',
                                 'wp_readme_to_markdown',
                                 'gitcommit:version',
-                                'gitpush',
+                                'gitpush', //
                                 'prompt',
                                 'compress:main',
                                 'github-release',
@@ -408,7 +408,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('release', [
                                 'prompt',
-                                'compress',
+                                'compress:main',
                                 'github-release',
                                 ]);
 
