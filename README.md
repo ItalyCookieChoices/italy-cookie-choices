@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
 **Tested up to:** 4.5.0  
-**Stable tag:** 2.4.2  
+**Stable tag:** 2.4.3  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -126,6 +126,13 @@ if it doesn't work activate standard theme and try
 
 
 ## Changelog ##
+
+### 2.4.3 ###
+**Release Date:** January 5th, 2016  
+
+**Dev time:** 10h  
+
+* Fixed Ceceppa Multilingua string translations bug [#152](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/152) [and](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/124#issuecomment-122952940)
 
 ### 2.4.2 ###
 **Release Date:** December 29th, 2015  
