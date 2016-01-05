@@ -6,12 +6,12 @@
  * @author    Enea Overclokk, Andrea Pernici, Andrea Cardinale
  * @license   GPLv2 or later
  * @link      https://github.com/ItalyCookieChoices/italy-cookie-choices
- * 
  */
+
 /**
  * If uninstall not called from WordPress, then exit
  */
-if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
