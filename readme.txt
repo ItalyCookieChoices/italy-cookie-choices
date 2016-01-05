@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.4.3 =
+Release Date: January 5th, 2016
+
+Dev time: 10h
+
+* Fixed Ceceppa Multilingua string translations bug [#152](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/152) [and](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/124#issuecomment-122952940)
+
 = 2.4.2 =
 Release Date: December 29th, 2015
 
