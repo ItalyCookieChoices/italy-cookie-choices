@@ -47,8 +47,6 @@ if ( ! function_exists( 'register_string' ) ) {
 	 */
 	function register_string( $plugin_name_human_format, $string_name, $value ) {
 
-		CMLTranslations::add( $string_name, $value, str_replace( ' ', '-', $plugin_name_human_format ) );
-
 		if ( function_exists( 'icl_register_string' ) )
 			icl_register_string( $plugin_name_human_format, $string_name, $value );
 
