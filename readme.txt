@@ -118,7 +118,7 @@ if it doesn't work activate standard theme and try
 = 2.4.4 =
 Release Date: January 6th, 2016
 
-Dev time: 10h
+Dev time: 10m
 
 * [Fixed Fatal error: Class 'CMLTranslations' not found](https://wordpress.org/support/topic/non-memorizza-la-configurazione?replies=1#post-7851297)
 
