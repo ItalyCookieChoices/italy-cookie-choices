@@ -228,7 +228,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 				 */
 				// var_dump($_COOKIE);
 				// var_dump(headers_list());
-				
+
 			}
 
 		}//__construct
@@ -263,20 +263,22 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 		private function is_policy_page( $secondViewOpt = false ){
 
 			if(
+				// if HTTP_ACCEPT is set
+				( isset( $_SERVER['HTTP_ACCEPT'] ) &&
 				// if is an HTML request (alternative methods???)
-				( strpos( $_SERVER['HTTP_ACCEPT'],'html' ) !== false ) &&
+				strpos( $_SERVER['HTTP_ACCEPT'], 'html' ) !== false ) &&
 				//if the page isn't privacy page
-				// ( $_SERVER['REQUEST_URI'] != $this->slug ) && 
-				( $this->CurrentPageURL() !== $this->url ) && 
+				// ( $_SERVER['REQUEST_URI'] != $this->slug ) &&
+				( $this->CurrentPageURL() !== $this->url ) &&
 				//if HTTP_REFERER is set
-				( isset( $_SERVER['HTTP_REFERER'] ) ) && 
+				( isset( $_SERVER['HTTP_REFERER'] ) ) &&
 				//if isn't refresh
 				( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) !== $_SERVER['REQUEST_URI'] ) &&
 				//if referrer is not privacy page (to be evaluated)
 				// ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH ) != $this->slug ) &&
 				// ( $_SERVER['HTTP_REFERER'] !== $this->url ) &&
 				//if the cookie is not already set
-				( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ) && 
+				( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ) &&
 				//if the referer is in the same domain
 				( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) === $_SERVER['HTTP_HOST'] )  &&
 				// If the secondView options is checked
@@ -346,7 +348,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 		}
 
 		public function bufferBodyStart() {
-			if ( ob_get_contents() ) 
+			if ( ob_get_contents() )
 				ob_end_flush();
 			ob_start();
 
@@ -410,7 +412,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 			if ( is_feed() )
 				return;
 
-			if ( ob_get_contents() ) 
+			if ( ob_get_contents() )
 				ob_end_flush();
 			ob_start();
 		}
