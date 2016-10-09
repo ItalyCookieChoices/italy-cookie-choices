@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.4.5 =
+Release Date: October 9th, 2016
+
+Dev time: 1h
+
+* [Merge the fix #155](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/155)
+
 = 2.4.4 =
 Release Date: January 6th, 2016
 
