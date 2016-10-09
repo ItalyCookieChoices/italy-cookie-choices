@@ -262,10 +262,6 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 		 */
 		private function is_policy_page( $secondViewOpt = false ){
 
-			// if ( ! isset( $_SERVER['HTTP_ACCEPT'] ) ) {
-			// 	return false;
-			// }
-
 			if(
 				// if HTTP_ACCEPT is set
 				( isset( $_SERVER['HTTP_ACCEPT'] ) &&
