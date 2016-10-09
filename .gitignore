@@ -26,3 +26,4 @@ vendor/composer/installed.json
 
 #custom files
 debug
+/vendor/

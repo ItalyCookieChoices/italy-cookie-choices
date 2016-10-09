@@ -1,0 +1,13 @@
+{
+    "name": "overclokk/italy-cookie-choices",
+    "description": "The cookie choices plugin for cookie law",
+    "type": "wordpress-plugin",
+    "license": "GPL 2.0",
+    "authors": [
+        {
+            "name": "overclokk",
+            "email": "info@overclokk.net"
+        }
+    ],
+    "require": {}
+}
