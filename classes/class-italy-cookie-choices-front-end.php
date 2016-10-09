@@ -262,6 +262,10 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 		 */
 		private function is_policy_page( $secondViewOpt = false ){
 
+			// if ( ! isset( $_SERVER['HTTP_ACCEPT'] ) ) {
+			// 	return false;
+			// }
+
 			if(
 				// if HTTP_ACCEPT is set
 				( isset( $_SERVER['HTTP_ACCEPT'] ) &&
@@ -430,7 +434,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 			if ( ob_get_contents() )
 				ob_end_clean();
 			// If is an HTML request (alternative methods???).
-			if( strpos( $_SERVER["HTTP_ACCEPT"], 'html' ) !== false ) {
+			if( isset( $_SERVER['HTTP_ACCEPT'] ) && strpos( $_SERVER["HTTP_ACCEPT"], 'html' ) !== false ) {
 				$buffer_new = $this->removeCustomScript( $buffer );
 				/**
 				 * Function for print cookiechoiches inline
