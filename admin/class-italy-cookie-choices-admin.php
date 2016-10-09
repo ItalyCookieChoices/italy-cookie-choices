@@ -645,6 +645,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Admin' ) ){
 			 * Allow HTML tags in text area
 			 * changed esc_textarea( $this->options['text'] ); with wp_kses_post( $this->options['text'] );
 			 * @todo Add padding to text editor
+			 * @todo  Add word counter for UX for the displayed banner on mobile
 			 */
 
 			if ( function_exists("wp_editor") ):
