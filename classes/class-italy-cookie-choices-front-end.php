@@ -264,7 +264,7 @@ if ( !class_exists( 'Italy_Cookie_Choices_Front_End' ) ){
 
 			if(
 				// if is an HTML request (alternative methods???)
-				( strpos( $_SERVER['HTTP_ACCEPT'],'html' ) !== false ) &&
+				( isset( $_SERVER['HTTP_ACCEPT'] ) && strpos( $_SERVER['HTTP_ACCEPT'],'html' ) !== false ) &&
 				//if the page isn't privacy page
 				// ( $_SERVER['REQUEST_URI'] != $this->slug ) && 
 				( $this->CurrentPageURL() !== $this->url ) && 
