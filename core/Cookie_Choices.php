@@ -173,8 +173,8 @@ class Cookie_Choices{
 			 */
 			$custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
 
-			$this->get_block_script();
-			$this->get_allow_script();
+			$this->get_blocked_script();
+			$this->get_allowed_script();
 
 			/**
 			 * Checkbox custom scripts block in HEAD and FOOTER
@@ -251,7 +251,7 @@ class Cookie_Choices{
 		$pageURL .= ( $_SERVER['SERVER_PORT'] !== '80' ) ? ':' . $_SERVER["SERVER_PORT"] : '';
 		$pageURL .= $_SERVER["REQUEST_URI"];
 
-		return $pageURL;
+		return esc_url( $pageURL );
 
 	}
 
@@ -466,7 +466,7 @@ class Cookie_Choices{
 	 * )
 	 * Return the Array con gli script preimpostati.
 	 */
-	private function get_allow_script() {
+	private function get_allowed_script() {
 
 		$allow_iframe = ( isset( $this->options['allow_iframe'] ) ) ? $this->options['allow_iframe'] : array( '' );
 		$allow_script = ( isset( $this->options['allow_script'] ) ) ? $this->options['allow_script'] : array( '' );
@@ -488,7 +488,7 @@ class Cookie_Choices{
 
 	}
 
-	private function get_block_script( $val = array() ) {
+	private function get_blocked_script( $val = array() ) {
 
 		$block_iframe = ( isset( $this->options['block_iframe'] ) ) ? $this->options['block_iframe'] : array( '' );
 		$block_script = ( isset( $this->options['block_script'] ) ) ? $this->options['block_script'] : array( '' );

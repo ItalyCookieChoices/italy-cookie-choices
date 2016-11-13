@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.5.0 =
+Release Date: November 13th, 2016
+
+Dev time: 4h
+
+* Code refactoring for psr-4
+
 = 2.4.5 =
 Release Date: October 9th, 2016
 
