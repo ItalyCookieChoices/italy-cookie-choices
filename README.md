@@ -4,7 +4,7 @@ Donate link:
 **Tags:** compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie  
 **Requires at least:** 3.5  
 **Tested up to:** 4.7  
-**Stable tag:** 2.4.5  
+**Stable tag:** 2.5.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -126,6 +126,13 @@ if it doesn't work activate standard theme and try
 
 
 ## Changelog ##
+
+### 2.5.0 ###
+**Release Date:** November 13th, 2016  
+
+**Dev time:** 4h  
+
+* Code refactoring for psr-4
 
 ### 2.4.5 ###
 **Release Date:** October 9th, 2016  
