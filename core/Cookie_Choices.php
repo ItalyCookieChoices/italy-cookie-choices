@@ -117,13 +117,13 @@ class Cookie_Choices{
 		add_shortcode( 'accept_button', array( $this, 'accept_button' ) );
 		add_shortcode( 'delete_cookie', array( $this, '_delete_cookie' ) );
 
-		if ( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) && !$secondView ){
+		if ( ! isset( $_COOKIE[ $this->options['cookie_name'] ] ) && ! $secondView ){
 
-			// W3TC Disable Caching
-			if ( !defined( 'DONOTCACHEPAGE' ) )
-				define('DONOTCACHEPAGE', true);
-			if ( !defined( 'SID' ) )
-				define('SID', true);
+			/**
+			 * This fix server error 500 on php7.
+			 * This has to be loaded before W3TC.
+			 */
+			add_action( 'muplugins_loaded', array( $this, 'disable_w3tc_page_cache' ), 10 );
 
 			/**
 			 * Background color for banner
@@ -201,7 +201,7 @@ class Cookie_Choices{
 			 */
 			$this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:' . esc_attr( $banner_text_color ) . ';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . $content_message_text . '&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color: ' . esc_attr( $banner_text_color ) . ';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . $content_message_button_text . '</button></div><cookie></div>';
 
-			if ($block)
+			if ( $block )
 				add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
 
 			if ( $widget_block )
@@ -233,6 +233,21 @@ class Cookie_Choices{
 		}
 
 	}//__construct
+
+	/**
+	 * Disable W3TC Page Cache.
+	 */
+	private function disable_w3tc_page_cache() {
+
+		// W3TC Disable Caching
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}
+		if ( ! defined( 'SID' ) ){
+			define('SID', true);
+		}
+
+	}
 
 
 	/**
