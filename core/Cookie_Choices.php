@@ -199,13 +199,21 @@ class Cookie_Choices{
 			 * Replacement for regex
 			 * @var string
 			 */
-			$this->valore = '<div class="el"><div style="padding:10px;margin-bottom: 18px;color:' . esc_attr( $banner_text_color ) . ';background-color:' . esc_attr( $banner_bg ) . ';text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">' . $content_message_text . '&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color: ' . esc_attr( $banner_text_color ) . ';padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid ' . esc_attr( $banner_text_color ) . ';background: rgba(255, 255, 255, 0.03);">' . $content_message_button_text . '</button></div><cookie></div>';
+			$this->valore = sprintf(
+				'<div class="el"><div style="padding:10px;margin-bottom: 18px;color:%1$s;background-color:%2$s;text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);">%3$s&nbsp;&nbsp;<button onclick="cookieChoices.removeCookieConsent()" style="color:%1$s;padding: 3px;font-size: 12px;line-height: 12px;text-decoration: none;text-transform: uppercase;margin:0;display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;  border: 1px solid %1$s;background: rgba(255, 255, 255, 0.03);">%4$s</button></div><cookie></div>',
+				esc_attr( $banner_text_color ),
+				esc_attr( $banner_bg ),
+				$content_message_text,
+				$content_message_button_text
+			);
 
-			if ( $block )
-				add_filter( 'the_content', array( $this, 'AutoErase' ), 11);
+			if ( $block ) {
+				add_filter( 'the_content', array( $this, 'AutoErase' ), 11 );
+			}
 
-			if ( $widget_block )
+			if ( $widget_block ) {
 				add_filter( 'widget_display_callback', array( $this, 'WidgetErase' ), 11, 3 );
+			}
 
 			if ( $all_block ) {
 				//add_action('wp_footer', array( $this, 'catchBody' ), -1000000);
@@ -236,6 +244,8 @@ class Cookie_Choices{
 
 	/**
 	 * Disable W3TC Page Cache.
+	 *
+	 * @hocked 'muplugins_loaded' 10
 	 */
 	private function disable_w3tc_page_cache() {
 
