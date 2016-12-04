@@ -119,11 +119,7 @@ class Cookie_Choices{
 
 		if ( ! isset( $_COOKIE[ $this->options['cookie_name'] ] ) && ! $secondView ){
 
-			/**
-			 * This fix server error 500 on php7.
-			 * This has to be loaded before W3TC.
-			 */
-			add_action( 'muplugins_loaded', array( $this, 'disable_w3tc_page_cache' ), 10 );
+			$this->disable_w3tc_page_cache();
 
 			/**
 			 * Background color for banner
@@ -244,10 +240,16 @@ class Cookie_Choices{
 
 	/**
 	 * Disable W3TC Page Cache.
-	 *
-	 * @hocked 'muplugins_loaded' 10
 	 */
-	private function disable_w3tc_page_cache() {
+	public function disable_w3tc_page_cache() {
+
+		/**
+		 * This fix server error 500 on php7.
+		 * You do not need to difine those constant if advanced-cache doesn't exist.
+		 */
+		if ( ! file_exists( WP_CONTENT_DIR . '/advanced-cache.php' ) ) {
+			return false;
+		}
 
 		// W3TC Disable Caching
 		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
