@@ -244,6 +244,15 @@ module.exports = function(grunt) {
 
         },
 
+        clean: { // https://github.com/gruntjs/grunt-contrib-clean
+            options: {
+                force: true,
+                // 'no-write': true
+            },
+            trunk: ['E:/Dropbox/svn-wordpress/italy-cookie-choices/trunk/*']
+
+        },
+
         copy: { // https://github.com/gruntjs/grunt-contrib-copy
             tosvn: {
                 expand: true,
@@ -342,6 +351,7 @@ module.exports = function(grunt) {
     // grunt.loadNpmTasks('grunt-sync');
 
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.loadNpmTasks('grunt-version');
     grunt.loadNpmTasks('grunt-wp-readme-to-markdown');
@@ -400,6 +410,7 @@ module.exports = function(grunt) {
                                 'prompt',
                                 'compress:main',
                                 'github-release',
+                                'clean',
                                 'copy',
                                 'gitcheckout:mastertodev',
                                 'gitmerge:frommaster',
