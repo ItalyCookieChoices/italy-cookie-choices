@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 
 == Changelog ==
 
+= 2.5.1 =
+Release Date: Dicember 4th, 2016
+
+Dev time: 4h
+
+* Fixed server error 500 on php7 if advanced-cache.php doesn't exist.
+
 = 2.5.0 =
 Release Date: November 13th, 2016
 
