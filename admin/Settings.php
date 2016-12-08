@@ -1514,7 +1514,7 @@ class Settings {
 
 		$select = '<select>';
 
-		foreach ($arr_key as $key => $value)
+		foreach ( $arr_key as $key => $value )
 			$select .= '<option value="' . $value . '">' . $key . '</option>';
 
 		$select .= '</select>';
@@ -1524,7 +1524,13 @@ class Settings {
 		$i = 0;
 		foreach ( $array as $key => $value ){
 
-			$input .= '<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="' . $arr_name . '" value="' . esc_attr( $value ) .'" name="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']" id="italy_cookie_choices[' . $arr_name . '][' . esc_attr( $value ) .']"/> ' . $select . ' <span><a class="button add" style="font-size:22px"> + </a> ' . ( $i === 0 ? '<a class="button cancel" style="font-size:22px"> x </a>' : '<a class=" button remove" style="font-size:22px"> × </a>' ) . '</span></div>';
+			$input .= sprintf(
+				'<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="%1$s" value="%2$s" name="italy_cookie_choices[%1$s][%2$s]" id="italy_cookie_choices[%1$s][%2$s]"/>%3$s<span><a class="button add" style="font-size:22px"> + </a>%4$s</span></div>',
+				$arr_name,
+				esc_attr( $value ),
+				$select,
+				0 === $i ? '<a class="button cancel" style="font-size:22px"> × </a>' : '<a class=" button remove" style="font-size:22px"> × </a>'
+			);
 
 			$i++;
 

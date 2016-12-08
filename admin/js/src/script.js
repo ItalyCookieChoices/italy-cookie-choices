@@ -128,7 +128,7 @@
 
 				var select = container.children('select').get(0).innerHTML;
 
-				$('<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="' + arr_name + '" value="" name="italy_cookie_choices[' + arr_name + '][]"/> <select>' + select + '</select> <span><a class="button add" style="font-size:22px"> + </a> <a class=" button remove" style="font-size:22px"> × </a></span></div>').appendTo(container.parent());
+				$('<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="' + arr_name + '" value="" name="italy_cookie_choices[' + arr_name + '][]"/><select>' + select + '</select><span><a class="button add" style="font-size:22px"> + </a><a class=" button remove" style="font-size:22px"> × </a></span></div>').appendTo( container.parent() );
 
 			});
 
