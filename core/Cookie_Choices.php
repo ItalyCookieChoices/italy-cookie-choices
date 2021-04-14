@@ -5,7 +5,9 @@
 
 namespace Italy_Cookie_Choices\Core;
 
-class Cookie_Choices{
+use \Overclokk\Cookie\Cookie_Interface;
+
+class Cookie_Choices {
 
 	/**
 	 * Option
@@ -74,11 +76,30 @@ class Cookie_Choices{
 	private $block_script = array();
 
 	/**
+	 * Cookie_Interface
+	 *
+	 * @var Cookie_Interface
+	 */
+	private $cookie = null;
+
+	/**
 	 * [__construct description]
 	 */
-	public function __construct(){
+	public function __construct( array $options = array(), Cookie_Interface $cookie ){
 
-		$this->options = get_option( 'italy_cookie_choices' );
+		$this->options = $options;
+
+		$this->cookie = $cookie;
+
+	}
+
+	/**
+	 * Execute the Class
+	 *
+	 * @param  string $value [description]
+	 * @return string        [description]
+	 */
+	public function run() {
 
 		/**
 		 * Check for second view option
@@ -107,7 +128,20 @@ class Cookie_Choices{
 
 		if( $this->is_policy_page( $secondViewOpt ) ) {
 
-			setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
+			$this->cookie->set(
+				esc_attr( $this->options['cookie_name'] ),
+				esc_attr( $this->options['cookie_value'] ),
+				3600 * 24 * 365,
+				'/'
+			);
+
+			// setcookie(
+			// 	esc_attr( $this->options['cookie_name'] ),
+			// 	esc_attr( $this->options['cookie_value'] ),
+			// 	time() + ( 3600 * 24 * 365 ),
+			// 	'/'
+			// );
+
 			$secondView = true;
 		}
 
@@ -212,13 +246,13 @@ class Cookie_Choices{
 			}
 
 			if ( $all_block ) {
-				//add_action('wp_footer', array( $this, 'catchBody' ), -1000000);
 				add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
 				add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
 			}
 			if( ( $custom_script_block || $this->block_script ) && $all_block ) {
 				add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
 				add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
+
 				add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
 				add_action('shutdown', array( $this, 'bufferFooterEnd' ), -1000000);
 			} else {
@@ -235,8 +269,7 @@ class Cookie_Choices{
 			// var_dump(headers_list());
 
 		}
-
-	}//__construct
+	}
 
 	/**
 	 * Disable W3TC Page Cache.
@@ -245,7 +278,7 @@ class Cookie_Choices{
 
 		/**
 		 * This fix server error 500 on php7.
-		 * You do not need to difine those constant if advanced-cache doesn't exist.
+		 * You do not need to define those constants if advanced-cache doesn't exist.
 		 */
 		if ( ! file_exists( WP_CONTENT_DIR . '/advanced-cache.php' ) ) {
 			return false;
@@ -261,24 +294,26 @@ class Cookie_Choices{
 
 	}
 
-
 	/**
 	 * Get the current page url
 	 * @link http://www.brosulo.net/content/informatica/ottenere-la-url-completa-da-una-pagina-php-0
+	 *
+	 * @return string The current page url
 	 */
-	private function CurrentPageURL() {
+	private function get_current_page_url() {
 
-		if ( isset( $_SERVER['HTTPS'] ) )
-			$pageURL = $_SERVER['HTTPS'];
-		else
-			$pageURL = NULL;
+		$page_url = null;
 
-		$pageURL = $pageURL === 'on' ? 'https://' : 'http://';
-		$pageURL .= $_SERVER["SERVER_NAME"];
-		$pageURL .= ( $_SERVER['SERVER_PORT'] !== '80' ) ? ':' . $_SERVER["SERVER_PORT"] : '';
-		$pageURL .= $_SERVER["REQUEST_URI"];
+		if ( isset( $_SERVER['HTTPS'] ) ) {
+			$page_url = $_SERVER['HTTPS'];
+		}
 
-		return esc_url( $pageURL );
+		$page_url = 'on' === $page_url ? 'https://' : 'http://';
+		$page_url .= $_SERVER["SERVER_NAME"];
+		$page_url .= '80' !== $_SERVER['SERVER_PORT'] ? ':' . $_SERVER["SERVER_PORT"] : '';
+		$page_url .= $_SERVER["REQUEST_URI"];
+
+		return esc_url( $page_url );
 
 	}
 
@@ -290,7 +325,7 @@ class Cookie_Choices{
 	 */
 	private function is_policy_page( $secondViewOpt = false ){
 
-		if(
+		if (
 			// if HTTP_ACCEPT is set
 			( isset( $_SERVER['HTTP_ACCEPT'] ) &&
 
@@ -299,7 +334,7 @@ class Cookie_Choices{
 
 			//if the page isn't privacy page
 			// ( $_SERVER['REQUEST_URI'] != $this->slug ) &&
-			( $this->CurrentPageURL() !== $this->url ) &&
+			( $this->get_current_page_url() !== $this->url ) &&
 			//if HTTP_REFERER is set
 			( isset( $_SERVER['HTTP_REFERER'] ) ) &&
 			//if isn't refresh
@@ -320,10 +355,10 @@ class Cookie_Choices{
 
 	}
 
+	private function in_array_match( $value, $array ) {
 
-	private function in_array_match($value, $array) {
-		foreach($array as $k=>$v) {
-			if(preg_match('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(preg_replace( "/([\r|\n]*)/is", "", trim($v)), '/')).'/is', preg_replace( "/([\r|\n]*)/is", "", $value))) {
+		foreach( $array as $k => $v ) {
+			if( preg_match( '/' . str_replace( preg_quote("<---------SOMETHING--------->"), ".*", preg_quote( preg_replace( "/([\r|\n]*)/is", "", trim( $v ) ), '/' ) ) . '/is', preg_replace( "/([\r|\n]*)/is", "", $value ) ) ) {
 				return true;
 			}
 		}
@@ -377,13 +412,60 @@ class Cookie_Choices{
 		}
 	}
 
-	public function bufferBodyStart() {
-		if ( ob_get_contents() )
-			ob_end_flush();
-		ob_start();
+	/**
+	 * Start head buffer
+	 *
+	 * @hooked 'template_redirect' - 2
+	 */
+	public function bufferHeadStart() {
 
+		if ( ob_get_contents() ) {
+			ob_end_flush();
+		}
+
+		ob_start();
 	}
 
+	/**
+	 * End head buffer
+	 *
+	 * @hooked 'wp_head' - 99999
+	 */
+	public function bufferHeadEnd() {
+
+		$buffer = ob_get_contents();
+
+		if ( ob_get_contents() ) {
+			ob_end_clean();
+		}
+
+		$buffer_new = $this->removeCustomScript( $buffer );
+
+		printf(
+			is_debug() ? '<!-- ICCStartHead -->%s<!-- ICCEndHead -->' : '%s',
+			$buffer_new
+		);
+	}
+
+	/**
+	 * Start body buffer
+	 *
+	 * @hooked 'wp_head' - 1000000
+	 */
+	public function bufferBodyStart() {
+
+		if ( ob_get_contents() ) {
+			ob_end_flush();
+		}
+
+		ob_start();
+	}
+
+	/**
+	 * End body buffer
+	 *
+	 * @hooked 'wp_footer' - -1000000
+	 */
 	public function bufferBodyEnd() {
 
 		/**
@@ -414,11 +496,16 @@ class Cookie_Choices{
 		$custom_script_block_body_exclude_array = array_merge( $custom_script_block_body_exclude_array, $this->allow_script );
 
 		$buffer = ob_get_contents();
-		if ( ob_get_contents() )
+
+		if ( ob_get_contents() ) {
 			ob_end_clean();
+		}
+
 		preg_match( "/(.*)(<body.*)/s", $buffer, $matches );
-		$head = ( isset( $matches[1] ) ) ? $matches[1] : '';
-		$body = ( isset( $matches[2] ) ) ? $matches[2] : '';
+
+		$head = isset( $matches[1] ) ? $matches[1] : '';
+		$body = isset( $matches[2] ) ? $matches[2] : '';
+
 		preg_match_all( $this->pattern, $body, $body_matches );
 
 		if ( ! empty( $body_matches[0] ) ) {
@@ -431,57 +518,69 @@ class Cookie_Choices{
 			}
 		}
 
-		$buffer_new = $head.$body;
-		echo '<!-- ICCStartBody -->' . $buffer_new . '<!-- ICCEndBody -->';
+		$buffer_new = $head . $body;
+
+		printf(
+			is_debug() ? '<!-- ICCStartBody -->%s<!-- ICCEndBody -->' : '%s',
+			$buffer_new
+		);
 	}
 
+	/**
+	 * Start footer buffer
+	 *
+	 * @hooked 'wp_footer' - -99998
+	 */
 	public function bufferFooterStart() {
 		/**
 		 * Check if we are in feed page, then do nothing
 		 */
-		if ( is_feed() )
+		if ( is_feed() ) {
 			return;
+		}
 
-		if ( ob_get_contents() )
+		if ( ob_get_contents() ) {
 			ob_end_flush();
+		}
+
 		ob_start();
 	}
 
+	/**
+	 * Start footer buffer
+	 *
+	 * @hooked 'shutdown' - -1000000
+	 */
 	public function bufferFooterEnd() {
 		/**
 		 * Check if we are in feed page, then do nothing
 		 */
-		if ( is_feed() )
+		if ( is_feed() ) {
 			return;
+		}
 
 		$buffer = ob_get_contents();
-		if ( ob_get_contents() )
+
+		if ( ob_get_contents() ) {
 			ob_end_clean();
+		}
+
 		// If is an HTML request (alternative methods???).
 		if( isset( $_SERVER['HTTP_ACCEPT'] ) && strpos( $_SERVER["HTTP_ACCEPT"], 'html' ) !== false ) {
 			$buffer_new = $this->removeCustomScript( $buffer );
+
 			/**
-			 * Function for print cookiechoiches inline
+			 * Function for printing cookiechoiches inline
 			 */
 			$this->print_script_inline();
-			echo '<!-- ICCStartFooter -->' . $buffer_new . '<!-- ICCEndFooter -->';
+			printf(
+				is_debug() ? '<!-- ICCStartFooter -->%s<!-- ICCEndFooter -->' : '%s',
+				$buffer_new
+			);
+
 		} else {
 			echo $buffer;
 		}
-	}
-
-	public function bufferHeadStart() {
-		if ( ob_get_contents() )
-			ob_end_flush();
-		ob_start();
-	}
-
-	public function bufferHeadEnd() {
-		$buffer = ob_get_contents();
-		if ( ob_get_contents() )
-			ob_end_clean();
-		$buffer_new = $this->removeCustomScript( $buffer );
-		echo '<!-- ICCStartHead -->' . $buffer_new . '<!-- ICCEndHead -->';
 	}
 
 	/**
@@ -539,31 +638,35 @@ class Cookie_Choices{
 
 	/**
 	 * Function for matching embed, return the Array with embed found
+	 *
 	 * @param  string $pattern Pattern.
 	 * @param  string $content Content.
 	 */
 	public function matches( $pattern, $content ) {
 
-		preg_match_all( $this->pattern, $content, $matches );
+		preg_match_all( $pattern, $content, $matches );
 
 		/**
 		 * Memorizzo gli embed trovati e li appendo all'array $js_array
+		 *
 		 * @var array
 		 */
-		if ( ! empty( $matches[0] ) )
+		if ( ! empty( $matches[0] ) ) {
 			$this->js_array = array_merge( $this->js_array, $matches[0] );
+		}
 
 	}
 
 	/**
 	 * Erase third part embed
+	 *
 	 * @param string $content Article content.
 	 */
 	public function AutoErase( $content ) {
 
 		$this->matches( $this->pattern, $content );
 
-		$content = preg_replace( $this->pattern, $this->valore , $content );
+		$content = preg_replace( $this->pattern, $this->valore, $content );
 
 		return $content;
 	}
@@ -575,11 +678,9 @@ class Cookie_Choices{
 			foreach ( $v as $k1 => $v1 ) {
 
 				$v[ $k1 ] = $this->fnFixArray( $v1 );
-
 			}
 
 			return $v;
-
 		}
 
 		if ( ! is_string( $v ) or empty( $v ) ) return $v;
@@ -587,48 +688,11 @@ class Cookie_Choices{
 		$this->matches( $this->pattern, $v );
 
 		return preg_replace( $this->pattern, $this->valore , $v );
-
 	}
 
 	public function WidgetErase( $instance, $widget, $args ) {
 
 		return $this->fnFixArray( $instance );
-
-	}
-
-	/**
-	 * Encode a variable into JSON, with some sanity checks.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param mixed $data    Variable (usually an array or object) to encode as JSON.
-	 * @param int   $options Optional. Options to be passed to json_encode(). Default 0.
-	 * @param int   $depth   Optional. Maximum depth to walk through $data. Must be
-	 *                       greater than 0. Default 512.
-	 * @return bool|string The JSON encoded string, or false if it cannot be encoded.
-	 */
-	public function wp_json_encode( $data, $options = 0, $depth = 512 ) {
-
-		/**
-		 * json_encode() has had extra params added over the years.
-		 * $options was added in 5.3, and $depth in 5.5.
-		 * We need to make sure we call it with the correct arguments.
-		 */
-		if ( version_compare( PHP_VERSION, '5.5', '>=' ) )
-			$args = array( $data, $options, $depth );
-		elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) )
-			$args = array( $data, $options );
-		else $args = array( $data );
-
-		$json = call_user_func_array( 'json_encode', $args );
-
-		// If json_encode() was successful, no need to do more sanity checking.
-		// ... unless we're in an old version of PHP, and json_encode() returned
-		// a string containing 'null'. Then we need to do more sanity checking.
-		if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || false === strpos( $json, 'null' ) ) )
-			return $json;
-
-		return call_user_func_array( 'json_encode', $args );
 	}
 
 	/**
@@ -846,14 +910,14 @@ class Cookie_Choices{
 		 * @var string
 		 */
 
-		$jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="' . $infoClass . '",closeClass="' . $closeClass . '",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",bannerStyle="' . $bannerStyle . '",contentStyle="' . $contStyle . '",consText="' . $consentText . '",jsArr = ' . $this->wp_json_encode( apply_filters( 'icc_js_array', $this->js_array ) ) . ';';
+		$jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="' . $infoClass . '",closeClass="' . $closeClass . '",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",bannerStyle="' . $bannerStyle . '",contentStyle="' . $contStyle . '",consText="' . $consentText . '",jsArr = ' . wp_json_encode( apply_filters( 'icc_js_array', $this->js_array ) ) . ';';
 
 		/**
 		 * Snippet per il multilingua
 		 * function get_string return multilanguage $value
 		 * if isn't installed any language plugin return $value
 		 */
-		$text = $this->wp_json_encode( wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) ) );
+		$text = wp_json_encode( wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) ) );
 
 		$url = esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) );
 
