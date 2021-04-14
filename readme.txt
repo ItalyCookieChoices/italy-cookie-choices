@@ -1,14 +1,15 @@
-=== Italy Cookie Choices (for EU Cookie Law) ===
+=== Italy Cookie Choices (for EU Cookie Law & Cookie Notice) ===
 Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
-Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
+Tags: cookie notice, cookie law, cookie choices, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie, compliance
 Requires at least: 3.5
-Tested up to: 4.7
-Stable tag: 2.5.1
+Requires PHP: 5.3
+Tested up to: 6.0
+Stable tag: 2.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
+The most complete cookie consent to easily comply with the european cookie law, display cookie notice and block third party cookie without degrading website performance.
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
@@ -114,6 +115,14 @@ if it doesn't work activate standard theme and try
 6. Italy Cookie Choices Content area
 
 == Changelog ==
+
+= 2.5.2 =
+Release Date: November 13rd, 2018
+
+Dev time: 30m
+
+* This is only an update for the upcoming WordPress 5.0
+  No changes are made.
 
 = 2.5.1 =
 Release Date: Dicember 4th, 2016
