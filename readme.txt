@@ -3,8 +3,9 @@ Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
 Tags: compliance, cookie law, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie
 Requires at least: 3.5
-Tested up to: 4.7
-Stable tag: 2.5.1
+Requires PHP: 5.3
+Tested up to: 6.0
+Stable tag: 2.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,6 +115,14 @@ if it doesn't work activate standard theme and try
 6. Italy Cookie Choices Content area
 
 == Changelog ==
+
+= 2.5.2 =
+Release Date: November 13rd, 2018
+
+Dev time: 30m
+
+* This is only an update for the upcoming WordPress 5.0
+  No changes are made.
 
 = 2.5.1 =
 Release Date: Dicember 4th, 2016
