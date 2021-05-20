@@ -32,3 +32,6 @@ _other/
 
 *.bat
 *.yml
+
+c3.php
+package-lock.json
