@@ -1,0 +1,172 @@
+<?php
+declare(strict_types=1);
+
+namespace ItalyCookieChoices\Tests;
+
+use Codeception\TestCase\WPTestCase;
+use Italy_Cookie_Choices\Core\Cookie_Choices;
+use Overclokk\Cookie\Cookie;
+
+class BannerTest extends WPTestCase
+{
+    /**
+     * @var \WpunitTester
+     */
+    protected $tester;
+
+	/**
+	 * @var Cookie
+	 */
+	private $cookie;
+
+	/**
+	 * @return \Overclokk\Cookie\Cookie
+	 */
+	public function getCookie(): Cookie {
+		return $this->cookie->reveal();
+	}
+
+	/**
+	 * @var \DOMDocument
+	 */
+	private $dom;
+
+	/**
+	 * @var \Prophecy\Prophet
+	 */
+	private $prophet;
+
+	/**
+	 * @var array
+	 */
+	private $options;
+
+	public function setUp(): void
+    {
+		// before
+		parent::setUp();
+
+		// your set up methods here
+
+		$this->prophet = new \Prophecy\Prophet;
+
+		$options['cookie_name'] = 'cookie';
+		$options['active'] = true;
+		$options['banner'] = 1;
+		$options['url'] = "1";
+		$options['anchor_text'] = "1";
+		$options['button_text'] = "1";
+
+		$options['text'] =
+			<<<HTML
+INFORMATIVA;
+INFORMATIVA AI SENSI DEL D.LGS. n°196/03 E SS. MOD. E del REGOLAMENTO UE N°679/2016 (GDPR)
+Benvenuto! Questo sito web utilizza cookies per le funzioni del negozio e assicurarti la migliore esperienza di navigazione.
+Per maggiori informazioni consulta la pagina <a href="http://www.sitotest.com/shop/termini-e-condizioni/">Termini e Privacy</a>
+<a href='http://www.sitotest.com/shop/termini-e-condizioni/'>Termini e Privacy</a>.
+
+Proseguendo la navigazione sul sito, acconsenti all’uso dei cookies.
+HTML;
+
+		$options['text'] = $options['text']
+			. "<script type='text/javascript'>alert('xss');</script>"
+			. '<script type="text/javascript">alert("xss");</script>';
+
+		$this->options = $options;
+		$this->cookie = $this->prophet->prophesize( Cookie::class );
+		$this->dom = new \DOMDocument();
+    }
+
+    public function tearDown(): void
+    {
+        // Your tear down methods here.
+
+        // Then...
+        parent::tearDown();
+
+		$this->prophet->checkPredictions();
+    }
+
+	protected function getInstance(): Cookie_Choices {
+		$sut = new Cookie_Choices( $this->options, $this->getCookie() );
+		$this->assertInstanceOf( Cookie_Choices::class, $sut, '' );
+		return $sut;
+	}
+
+    // Tests
+//    public function test_it_works()
+//    {
+//        $post = static::factory()->post->create_and_get();
+//
+//        $this->assertInstanceOf(\WP_Post::class, $post);
+//    }
+
+	/**
+	 * @test
+	 * it should be instantiatable
+	 */
+	public function itShouldBeInstantiatable() {
+		$sut = $this->getInstance();
+	}
+
+	/**
+	 * @test
+	 * it should be REQUEST_URI_set
+	 */
+	public function itShouldBeREQUESTURISet() {
+		$this->assertTrue( isset( $_SERVER["REQUEST_URI"] ) );
+	}
+
+	/**
+	 * @test
+	 * it should be method_exists
+	 */
+	public function itShouldBeMethodExists() {
+		$this->assertTrue( method_exists( $this->getInstance(), 'get_current_page_url' ) );
+	}
+
+	/**
+	 * @test
+	 * it should be method_exists
+	 */
+	public function itShouldBeMethodExistsfdhadh() {
+		$this->getInstance()->run();
+	}
+
+	/**
+	 * @test
+	 * it should be method_exists
+	 */
+	public function itShouldBeMethodExistsghjdyghj() {
+		\ob_start();
+		$this->getInstance()->print_script_inline();
+		$output = \ob_get_clean();
+
+//		$this->assertTrue( ! empty( $output ) );
+
+		$this->assertNotEmpty( $output );
+		$this->assertStringNotContainsString( $output, "</script>" );
+		$this->assertStringNotContainsString( $output, '<a href=\"http://www.sitotest.com/shop/termini-e-condizioni/\">' );
+
+		codecept_debug( $output );
+
+//		$this->
+	}
+
+	/**
+	 * @test
+	 * it should be content_erased
+	 */
+//    public function it_should_be_content_erased() {
+//
+//        $content = $this->banner->AutoErase( '<body><script></script></body>' );
+//
+//        $this->assertTrue( strpos( $content, 'cookieChoices.removeCookieConsent()') !== false, 'No banner found ' . $content );
+//
+//        $this->assertTrue( ! empty( $this->banner->js_array ), 'Array empty');
+//        $this->assertTrue( isset( $this->banner->js_array[0] ), 'Array empty');
+//
+//        $this->dom->loadHTML( $this->banner->js_array[0] );
+//        $this->assertNotEmpty( $this->dom->getElementsByTagName('script') );
+//    }
+}
