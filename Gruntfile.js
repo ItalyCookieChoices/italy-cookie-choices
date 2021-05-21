@@ -397,7 +397,7 @@ module.exports = function(grunt) {
      * 
      * Poi nella cartella svn-wordpress
      * dx mouse e +add
-     * dx mouse e committ
+     * dx mouse e commit
      */
     grunt.registerTask('deploy', [
                                 'gitcommit:first',

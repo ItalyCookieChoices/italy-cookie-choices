@@ -4,7 +4,7 @@
   "description": "Italy Cookie Choices allows you to easily comply with the european cookie law",
   "repository": {
     "type": "git",
-    "url": "https://github.com/overclokk/italy-cookie-choices.git"
+    "url": "https://github.com/ItalyCookieChoices/italy-cookie-choices.git"
   },
   "keywords": [
     "cookies",
@@ -12,11 +12,11 @@
     "law"
   ],
   "author": "Enea Overclokk",
-  "license": "GPLv2",
+  "license": "GPL-2.0-or-later",
   "bugs": {
-    "url": "https://github.com/overclokk/italy-cookie-choices/issues"
+    "url": "https://github.com/ItalyCookieChoices/italy-cookie-choices/issues"
   },
-  "homepage": "https://github.com/overclokk/italy-cookie-choices",
+  "homepage": "https://github.com/ItalyCookieChoices/italy-cookie-choices",
   "devDependencies": {
     "grunt": ">=1.3.0",
     "grunt-contrib-jshint": "^0.11.2",
