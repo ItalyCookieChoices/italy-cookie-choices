@@ -1,39 +1,21 @@
-#Git files
-.gitattributes
+# Directories
 .git
-
-#Grunt developer
 node_modules
-
-#Sass directory
 css/src/sass/.sass-cache
 .sass-cache
-
-#Bower update
 bower_components
-
-#SVN files
-.svn
-
-#Composer
-composer.lock
-vendor/mobiledetect/mobiledetectlib
-vendor/composer/installed.json
-
-#File bak
-*.bak
-*.bak2
-
-#custom files
 debug
 /vendor/
 tests
 _other/
 
-*.bat
-*.yml
-
+# Files
 c3.php
 package-lock.json
-
+.svn
+*.lock
+*.bak
+*.bak2
+*.bat
+*.yml
 *.local
