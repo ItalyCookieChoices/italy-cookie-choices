@@ -20,7 +20,7 @@ class BannerTest extends WPTestCase
 	private $cookie;
 
 	/**
-	 * @return \Overclokk\Cookie\Cookie
+	 * @return Cookie
 	 */
 	public function getCookie(): Cookie {
 		return $this->cookie->reveal();
