@@ -83,21 +83,17 @@ class Cookie_Choices {
 	private $cookie = null;
 
 	/**
-	 * [__construct description]
+	 * Cookie_Choices constructor.
+	 * @param array $options
+	 * @param Cookie_Interface $cookie
 	 */
-	public function __construct( array $options = array(), Cookie_Interface $cookie ){
-
+	public function __construct( array $options, Cookie_Interface $cookie ){
 		$this->options = $options;
-
 		$this->cookie = $cookie;
-
 	}
 
 	/**
 	 * Execute the Class
-	 *
-	 * @param  string $value [description]
-	 * @return string        [description]
 	 */
 	public function run() {
 
@@ -700,7 +696,7 @@ class Cookie_Choices {
 	 * @return string Print script inline
 	 * @link https://www.cookiechoices.org/
 	 */
-	public function print_script_inline() {
+	private function build_script_inline() {
 
 		/**
 		 * If is not active exit
@@ -917,7 +913,7 @@ class Cookie_Choices {
 		 * function get_string return multilanguage $value
 		 * if isn't installed any language plugin return $value
 		 */
-		$text = wp_json_encode( wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) ) );
+		$text = wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) );
 
 		$url = esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) );
 
@@ -949,8 +945,11 @@ class Cookie_Choices {
 
 		$output_html = '<!-- Italy Cookie Choices -->' . '<style type="text/css">' . $style . '</style><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
 
-		echo apply_filters( 'icc_output_html', $output_html );
+		return apply_filters( 'icc_output_html', $output_html );
+	}
 
+	public function print_script_inline() {
+		echo $this->build_script_inline();
 	}
 
 	/**
