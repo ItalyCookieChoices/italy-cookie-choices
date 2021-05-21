@@ -35,3 +35,5 @@ _other/
 
 c3.php
 package-lock.json
+
+*.local
