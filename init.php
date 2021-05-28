@@ -25,7 +25,7 @@ if ( is_sitemaps_xml() ) {
 	return;
 }
 
-$options = (array) get_option( 'italy_cookie_choices' );
+$options = (array) \get_option( 'italy_cookie_choices' );
 
 if ( empty( $options['active'] ) ) {
 	return;
@@ -49,4 +49,5 @@ $cookie = new Cookie();
  */
 
 $icc_cookie_choices = new Cookie_Choices( $options, $cookie );
+//$icc_cookie_choices = new Cookie_Choices();
 $icc_cookie_choices->run();

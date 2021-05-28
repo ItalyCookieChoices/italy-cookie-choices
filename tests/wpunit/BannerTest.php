@@ -121,15 +121,7 @@ HTML;
 	 * @test
 	 * it should be method_exists
 	 */
-	public function itShouldBeMethodExists() {
-		$this->assertTrue( method_exists( $this->getInstance(), 'get_current_page_url' ) );
-	}
-
-	/**
-	 * @test
-	 * it should be method_exists
-	 */
-	public function itShouldBeMethodExistsfdhadh() {
+	public function itShouldExecute() {
 		$this->getInstance()->run();
 	}
 
@@ -137,20 +129,19 @@ HTML;
 	 * @test
 	 * it should be method_exists
 	 */
-	public function itShouldBeMethodExistsghjdyghj() {
+	public function itShouldOutputBeCleaned() {
 		\ob_start();
 		$this->getInstance()->print_script_inline();
 		$output = \ob_get_clean();
 
-//		$this->assertTrue( ! empty( $output ) );
-
 		$this->assertNotEmpty( $output );
-		$this->assertStringNotContainsString( $output, "</script>" );
-		$this->assertStringNotContainsString( $output, '<a href=\"http://www.sitotest.com/shop/termini-e-condizioni/\">' );
+		$this->assertStringNotContainsString( "<script type='text/javascript'>alert('xss');</script>", $output );
+		$this->assertStringContainsString( "alert('xss');alert(\"xss\");", $output );
 
-		codecept_debug( $output );
 
-//		$this->
+
+		$this->assertStringNotContainsString( '<a href=\"http://www.sitotest.com/shop/termini-e-condizioni/\">', $output );
+		$this->assertStringNotContainsString( '<a href=\"', $output );
 	}
 
 	/**
