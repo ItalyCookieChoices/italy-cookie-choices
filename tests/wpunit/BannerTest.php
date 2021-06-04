@@ -148,16 +148,20 @@ HTML;
 	 * @test
 	 * it should be content_erased
 	 */
-//    public function it_should_be_content_erased() {
-//
-//        $content = $this->banner->AutoErase( '<body><script></script></body>' );
-//
+    public function it_should_be_content_erased() {
+
+        $content = $this->getInstance()->AutoErase( '<body><script></script></body>' );
+
+        $this->assertStringContainsString( "<body></body>", $content );
+
+        codecept_debug($content);
+
 //        $this->assertTrue( strpos( $content, 'cookieChoices.removeCookieConsent()') !== false, 'No banner found ' . $content );
 //
-//        $this->assertTrue( ! empty( $this->banner->js_array ), 'Array empty');
-//        $this->assertTrue( isset( $this->banner->js_array[0] ), 'Array empty');
-//
+//        $this->assertTrue( ! empty( $this->getInstance()->js_array ), 'Array empty');
+//        $this->assertTrue( isset( $this->getInstance()->js_array[0] ), 'Array empty');
+
 //        $this->dom->loadHTML( $this->banner->js_array[0] );
 //        $this->assertNotEmpty( $this->dom->getElementsByTagName('script') );
-//    }
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Class for Italy Cookie Choices Admin
+ * Class for Italy Cookie Choices
  */
 
 namespace Italy_Cookie_Choices\Core;
@@ -633,8 +633,6 @@ class Cookie_Choices{
 
 	/**
 	 * Print script inline before </body>
-	 * @return string Print script inline
-	 * @link https://www.cookiechoices.org/
 	 */
 	public function print_script_inline() {
 
