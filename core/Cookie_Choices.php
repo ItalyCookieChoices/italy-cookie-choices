@@ -11,7 +11,7 @@ class Cookie_Choices{
 	 * Option
 	 * @var array
 	 */
-	private $options = array();
+	private $options;
 
 	/**
 	 * Default Cookie name

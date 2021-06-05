@@ -30,7 +30,8 @@
     "require": {
         "php": ">=5.3",
         "overclokk/minimum-requirements": "dev-master",
-        "overclokk/cookie": "^1.0"
+        "overclokk/cookie": "^1.0",
+        "italystrap/config": "^2.4"
     },
     "require-dev": {
         "lucatume/wp-browser": "^2.4",
