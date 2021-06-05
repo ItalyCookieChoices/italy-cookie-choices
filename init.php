@@ -48,6 +48,6 @@ $cookie = new Cookie();
  * @todo https://wordpress.org/support/topic/disattivazione-testo-embed-bloccati/
  */
 
-$icc_cookie_choices = new Cookie_Choices( $options, $cookie );
-//$icc_cookie_choices = new Cookie_Choices();
-$icc_cookie_choices->run();
+//$icc_cookie_choices = new Cookie_Choices( $options, $cookie );
+$icc_cookie_choices = new Cookie_Choices();
+//$icc_cookie_choices->run();

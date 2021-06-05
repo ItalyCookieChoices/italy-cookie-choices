@@ -1,11 +1,9 @@
 <?php
 /**
- * Class for Italy Cookie Choices
+ * Class for Italy Cookie Choices Admin
  */
 
 namespace Italy_Cookie_Choices\Core;
-
-use Overclokk\Cookie\Cookie;
 
 class Cookie_Choices{
 
@@ -76,17 +74,11 @@ class Cookie_Choices{
 	private $block_script = array();
 
 	/**
-	 * @var Cookie
+	 * [__construct description]
 	 */
-	private $cookie;
+	public function __construct(){
 
-
-	public function __construct( array $options, Cookie $cookie ) {
-		$this->options = $options;
-		$this->cookie = $cookie;
-	}
-
-	public function run(){
+		$this->options = get_option( 'italy_cookie_choices' );
 
 		/**
 		 * Check for second view option
@@ -235,9 +227,16 @@ class Cookie_Choices{
 				 */
 				add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
 			}
-		}
-	}
 
+			/**
+			 * Only for debug
+			 */
+			// var_dump($_COOKIE);
+			// var_dump(headers_list());
+
+		}
+
+	}//__construct
 
 	/**
 	 * Disable W3TC Page Cache.
@@ -262,6 +261,7 @@ class Cookie_Choices{
 
 	}
 
+
 	/**
 	 * Get the current page url
 	 * @link http://www.brosulo.net/content/informatica/ottenere-la-url-completa-da-una-pagina-php-0
@@ -282,7 +282,6 @@ class Cookie_Choices{
 
 	}
 
-
 	/**
 	 * Check if is the policy page
 	 * Required url input
@@ -295,8 +294,8 @@ class Cookie_Choices{
 			// if HTTP_ACCEPT is set
 			( isset( $_SERVER['HTTP_ACCEPT'] ) &&
 
-				// if is an HTML request (alternative methods???)
-				strpos( $_SERVER['HTTP_ACCEPT'], 'html' ) !== false ) &&
+			// if is an HTML request (alternative methods???)
+			strpos( $_SERVER['HTTP_ACCEPT'], 'html' ) !== false ) &&
 
 			//if the page isn't privacy page
 			// ( $_SERVER['REQUEST_URI'] != $this->slug ) &&
@@ -320,6 +319,7 @@ class Cookie_Choices{
 			return false;
 
 	}
+
 
 	private function in_array_match($value, $array) {
 		foreach($array as $k=>$v) {
@@ -633,6 +633,8 @@ class Cookie_Choices{
 
 	/**
 	 * Print script inline before </body>
+	 * @return string Print script inline
+	 * @link https://www.cookiechoices.org/
 	 */
 	public function print_script_inline() {
 
@@ -851,7 +853,7 @@ class Cookie_Choices{
 		 * function get_string return multilanguage $value
 		 * if isn't installed any language plugin return $value
 		 */
-		$text = wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) );
+		$text = $this->wp_json_encode( wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) ) );
 
 		$url = esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) );
 
