@@ -5,6 +5,8 @@
 
 namespace Italy_Cookie_Choices\Core;
 
+use Overclokk\Cookie\Cookie;
+
 class Cookie_Choices{
 
 	/**
@@ -74,11 +76,18 @@ class Cookie_Choices{
 	private $block_script = array();
 
 	/**
-	 * [__construct description]
+	 * @var Cookie
 	 */
-	public function __construct(){
+	private $cookie;
 
-		$this->options = get_option( 'italy_cookie_choices' );
+
+	public function __construct( array $options, Cookie $cookie ) {
+		$this->cookie = $cookie;
+		$this->options = $options;
+	}
+
+
+	public function run(){
 
 		/**
 		 * Check for second view option
@@ -227,16 +236,8 @@ class Cookie_Choices{
 				 */
 				add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
 			}
-
-			/**
-			 * Only for debug
-			 */
-			// var_dump($_COOKIE);
-			// var_dump(headers_list());
-
 		}
-
-	}//__construct
+	}
 
 	/**
 	 * Disable W3TC Page Cache.

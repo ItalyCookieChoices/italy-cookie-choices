@@ -5,6 +5,7 @@ namespace ItalyCookieChoices\Tests;
 
 use Codeception\TestCase\WPTestCase;
 use Italy_Cookie_Choices\Core\Cookie_Choices;
+use ItalyStrap\Config\Config;
 use Overclokk\Cookie\Cookie;
 
 class BannerTest extends WPTestCase
@@ -24,6 +25,18 @@ class BannerTest extends WPTestCase
 	 */
 	public function getCookie(): Cookie {
 		return $this->cookie->reveal();
+	}
+
+	/**
+	 * @var Config
+	 */
+	private $config;
+
+	/**
+	 * @return Config
+	 */
+	public function getConfig(): Config {
+		return $this->config->reveal();
 	}
 
 	/**
@@ -49,6 +62,9 @@ class BannerTest extends WPTestCase
 		// your set up methods here
 
 		$this->prophet = new \Prophecy\Prophet;
+		$this->cookie = $this->prophet->prophesize( Cookie::class );
+		$this->config = $this->prophet->prophesize( Config::class );
+		$this->dom = new \DOMDocument();
 
 		$options['cookie_name'] = 'cookie';
 		$options['active'] = true;
@@ -73,8 +89,6 @@ HTML;
 			. '<script type="text/javascript">alert("xss");</script>';
 
 		$this->options = $options;
-		$this->cookie = $this->prophet->prophesize( Cookie::class );
-		$this->dom = new \DOMDocument();
     }
 
     public function tearDown(): void
@@ -88,6 +102,7 @@ HTML;
     }
 
 	protected function getInstance(): Cookie_Choices {
+//		$sut = new Cookie_Choices( $this->getConfig(), $this->getCookie() );
 		$sut = new Cookie_Choices( $this->options, $this->getCookie() );
 		$this->assertInstanceOf( Cookie_Choices::class, $sut, '' );
 		return $sut;

@@ -40,14 +40,10 @@ if ( 'wp-login.php' === $GLOBALS['pagenow'] ) {
 
 $cookie = new Cookie();
 
-// var_dump( $cookie->set( $options['cookie_name'], 'y' ) );
-// var_dump( $cookie->get( $options['cookie_name'] ) );
-// $cookie->del( $options['cookie_name'] );
-
 /**
  * @todo https://wordpress.org/support/topic/disattivazione-testo-embed-bloccati/
  */
 
-//$icc_cookie_choices = new Cookie_Choices( $options, $cookie );
-$icc_cookie_choices = new Cookie_Choices();
-//$icc_cookie_choices->run();
+$icc_cookie_choices = new Cookie_Choices( $options, $cookie );
+//$icc_cookie_choices = new Cookie_Choices();
+$icc_cookie_choices->run();
