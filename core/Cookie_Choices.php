@@ -634,7 +634,6 @@ class Cookie_Choices{
 
 	/**
 	 * Print script inline before </body>
-	 * @return string Print script inline
 	 * @link https://www.cookiechoices.org/
 	 */
 	public function print_script_inline() {
@@ -854,7 +853,13 @@ class Cookie_Choices{
 		 * function get_string return multilanguage $value
 		 * if isn't installed any language plugin return $value
 		 */
-		$text = $this->wp_json_encode( wp_kses_post( get_string( 'Italy Cookie Choices', 'Banner text', $this->options['text'] ) ) );
+		$text = \wp_kses_post(
+			\get_string(
+				'Italy Cookie Choices',
+				'Banner text',
+				$this->options['text']
+			)
+		);
 
 		$url = esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) );
 
@@ -864,12 +869,19 @@ class Cookie_Choices{
 
 		/**
 		 * Snippet for display banner
-		 * @uses json_encode Funzione usate per il testo del messaggio.
-		 *                   Ricordarsi che aggiunge già
-		 *                   le doppie virgolette "" alla stringa
+		 * Il testo se contiene il singolo apice '
+		 * viene filtrato aggiungendo \' solo nel testo
+		 * essendo i singoli apici usati per wrappare il testo stesso
 		 * @var string
 		 */
-		$banner = 'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent' . $banner . '(' . $text . ', "' . $button_text . '", "' . $anchor_text . '", "' . $url . '");});';
+		$banner = \sprintf(
+			'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent%s(\'%s\', "%s", "%s", "%s");});',
+			$banner,
+			addcslashes( $text, '\'' ),
+			$button_text,
+			$anchor_text,
+			$url
+		);
 
 		/**
 		 * Noscript snippet in case browser has JavaScript disabled
@@ -935,4 +947,4 @@ class Cookie_Choices{
 		return $cookie_list;
 
 	}
-} // class
+}
