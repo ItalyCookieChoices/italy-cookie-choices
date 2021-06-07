@@ -5,7 +5,7 @@ Donate link:
 **Requires at least:** 3.5  
 **Requires PHP:** 5.3  
 **Tested up to:** 6.0  
-**Stable tag:** 2.6.0  
+**Stable tag:** 2.5.3  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -128,10 +128,10 @@ if it doesn't work activate standard theme and try
 
 ## Changelog ##
 
-### 2.6.0 ###
-**Release Date:** May 21st, 2021  
+### 2.5.3 ###
+**Release Date:** Jun 7th, 2021  
 
-Dev time:
+**Dev time:** 2h  
 
 * [This fixes issue #212](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/212)
 * And it's time to start a refactoring for this plugin, too much legacy code and too much shitty code
