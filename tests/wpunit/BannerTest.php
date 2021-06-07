@@ -144,10 +144,19 @@ HTML;
 	 * @test
 	 * it should be method_exists
 	 */
-	public function itShouldOutputBeCleaned() {
-		\ob_start();
+	public function itShouldOutput() {
 		$this->getInstance()->print_script_inline();
-		$output = \ob_get_clean();
+		$output = $this->getActualOutput();
+		codecept_debug($output);
+	}
+
+	/**
+	 * @test
+	 * it should be method_exists
+	 */
+	public function itShouldOutputBeCleaned() {
+		$this->getInstance()->print_script_inline();
+		$output = $this->getActualOutput();
 
 		$this->assertNotEmpty( $output );
 		$this->assertStringNotContainsString( "<script type='text/javascript'>alert('xss');</script>", $output );
@@ -157,6 +166,33 @@ HTML;
 
 		$this->assertStringNotContainsString( '<a href=\"http://www.sitotest.com/shop/termini-e-condizioni/\">', $output );
 		$this->assertStringNotContainsString( '<a href=\"', $output );
+	}
+
+	/**
+	 * @test
+	 * it should be method_exists
+	 */
+	public function itShouldOutputBeCleanederthert() {
+		$this->options['text'] = '<a href="http://www.sitotest.com/shop/termini-e-condizioni/">';
+
+		$this->getInstance()->print_script_inline();
+		$output = $this->getActualOutput();
+
+		$this->assertStringContainsString( '<a href="http://www.sitotest.com/shop/termini-e-condizioni/">', $output );
+	}
+
+	/**
+	 * @test
+	 * it should be method_exists
+	 */
+	public function itShouldOutputBeCleanederthertrwe() {
+		$this->options['text'] = "<a href='http://www.sitotest.com/shop/termini-e-condizioni/'>";
+
+		$this->getInstance()->print_script_inline();
+		$output = $this->getActualOutput();
+
+		$this->assertStringContainsString( "<a href='http://www.sitotest.com/shop/termini-e-condizioni/'>", $output );
+		$this->assertStringContainsString( '<a href=\'http://www.sitotest.com/shop/termini-e-condizioni/\'>', $output );
 	}
 
 	/**
