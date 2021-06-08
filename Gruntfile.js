@@ -190,14 +190,23 @@ module.exports = function(grunt) {
                             '**' ,
                             '!.git/**',
                             '!.sass-cache/**',
+                            '!_o*/**',
                             '!bower_components/**',
                             '!node_modules/**',
+                            '!**/tests/**',
                             '!.gitattributes',
                             '!.gitignore',
-                            // '!bower.json',
-                            // '!Gruntfile.js',
-                            // '!package.json',
-                            '!*.zip'], // What should be included in the zip
+                            '!Gruntfile.js',
+                            '!**/*.bat',
+                            '!**/*.yml',
+                            '!**/*.json',
+                            '!**/*.lock',
+                            '!**/c3.php',
+                            '!**/*.xml',
+                            '!**/*.neon*',
+                            '!*.md',
+                            '!*.zip'
+                        ], // What should be included in the zip
                         dest: '<%= pkg.name %>/',        // Where the zipfile should go
                         // dest: 'italystrap/',        // Where the zipfile should go
                         filter: 'isFile',
@@ -399,29 +408,31 @@ module.exports = function(grunt) {
      * dx mouse e +add
      * dx mouse e commit
      */
-    grunt.registerTask('deploy', [
-                                'gitcommit:first',
-                                'gitcheckout:devtomaster',
-                                'gitmerge:fromdev',
-                                'version',
-                                'wp_readme_to_markdown',
-                                'gitcommit:version',
-                                'gitpush', //
-                                'prompt',
-                                'compress:main',
-                                'github-release',
-                                'clean',
-                                'copy',
-                                'gitcheckout:mastertodev',
-                                'gitmerge:frommaster',
-                                'gitpush',
-                                ]);
+    grunt.registerTask(
+        'deploy', [
+            'gitcommit:first',
+            'gitcheckout:devtomaster',
+            'gitmerge:fromdev',
+            'version',
+            'wp_readme_to_markdown',
+            'gitcommit:version',
+            'gitpush', //
+            'prompt',
+            'compress:main',
+            'github-release',
+            'clean',
+            'copy',
+            'gitcheckout:mastertodev',
+            'gitmerge:frommaster',
+            'gitpush',
+        ]);
 
-    grunt.registerTask('release', [
-                                'prompt',
-                                'compress:main',
-                                'github-release',
-                                ]);
+    grunt.registerTask(
+        'release', [
+            'prompt',
+            'compress:main',
+            'github-release',
+    ]);
 
     grunt.registerTask('testcssbuild', ['less', 'compass', 'csslint']);
     grunt.registerTask('testjsbuild', ['jshint', 'uglify']);
