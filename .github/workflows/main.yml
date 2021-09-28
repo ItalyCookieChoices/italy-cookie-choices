@@ -19,22 +19,30 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.php_versions == '8.1' }}
+
+    strategy:
+      matrix:
+        php_versions: [ '5.3' ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
       - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
 
       # Runs a single command using the runners shell
       - name: Validate composer.json
         run: composer validate --strict
 
       # Runs a single command using the runners shell
-      - name: Run composer install
-        run: composer update --no-dev -o
+#      - name: Run composer install
+#        run: composer update --no-dev -o
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+#      - name: Run a multi-line script
+#        run: |
+#          echo Add other actions to build,
+#          echo test, and deploy your project.

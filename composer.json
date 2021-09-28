@@ -1,97 +1,74 @@
 {
-    "name": "italycookiechoices/italy-cookie-choices",
-    "description": "The cookie choices plugin for cookie law",
-    "keywords": ["WordPress", "cookie choices", "cookie law"],
-    "type": "wordpress-plugin",
-    "license": "GPL-2.0-or-later",
-    "authors": [
-        {
-            "name": "overclokk",
-            "email": "info@overclokk.net",
-            "homepage": "https://www.italystrap.com",
-            "role": "Developer"
-        },
-        {
-            "name": "andreapernici",
-            "email": "info@andreapernici.com",
-            "role": "Developer"
-        },
-        {
-            "name": "acardinale",
-            "email": "info@andrea-cardinale.it",
-            "role": "Developer"
-        },
-        {
-            "name"    : "Contributors",
-            "homepage": "https://github.com/ItalyCookieChoices/italy-cookie-choices/graphs/contributors"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {
-        "php": ">=7.4",
-        "overclokk/minimum-requirements": "dev-master",
-        "overclokk/cookie": "^1.0",
-        "italystrap/config": "^2.4"
+  "name": "italycookiechoices/italy-cookie-choices",
+  "description": "The cookie choices plugin for cookie law",
+  "keywords": ["WordPress", "cookie choices", "cookie law"],
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "overclokk",
+      "email": "info@overclokk.net",
+      "homepage": "https://www.italystrap.com",
+      "role": "Developer"
     },
-    "require-dev": {
-        "lucatume/wp-browser": "^2.6.0",
-        "lucatume/function-mocker-le": "^1.0",
-        "lucatume/function-mocker": "^1.3",
-        "codeception/c3": "2.*",
-        "codeception/module-asserts": "^1.0",
-        "codeception/module-phpbrowser": "^1.0",
-        "codeception/module-webdriver": "^1.0",
-        "codeception/module-db": "^1.0",
-        "codeception/module-filesystem": "^1.0",
-        "codeception/module-cli": "^1.0",
-        "codeception/util-universalframework": "^1.0",
-        "brianium/paratest": "^4.0",
-        "italystrap/debug": "^2.0",
-        "squizlabs/php_codesniffer": "*",
-        "phpcompatibility/php-compatibility": "*",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
-        "phpstan/phpstan": "^0.12",
-        "szepeviktor/phpstan-wordpress": "^0.5",
-        "vimeo/psalm": "^3.9",
-        "phpbench/phpbench": "@dev",
-        "infection/infection": "^0.15.3",
-        "phpmetrics/phpmetrics": "^2.5",
-        "phpspec/prophecy-phpunit": "^1.1"
+    {
+      "name": "andreapernici",
+      "email": "info@andreapernici.com",
+      "role": "Developer"
     },
-    "autoload": {
-        "psr-4": {
-            "Italy_Cookie_Choices\\Admin\\": "admin/",
-            "Italy_Cookie_Choices\\Core\\": "core/"
-        }
+    {
+      "name": "acardinale",
+      "email": "info@andrea-cardinale.it",
+      "role": "Developer"
     },
-    "scripts": {
-        "test": [
-            "test"
-        ],
-        "cs": [
-            "vendor\\bin\\phpcbf -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/ && vendor\\bin\\phpcs -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/"
-        ],
-        "analyze": [
-            "vendor\\bin\\phpstan analyze --level=max && vendor\\bin\\psalm"
-        ],
-        "unit": [
-            "vendor\\bin\\codecept run unit && vendor\\bin\\codecept run wpunit && vendor\\bin\\infection --threads=8"
-        ],
-        "bench": [
-            "vendor\\bin\\phpbench run --report=performance"
-        ],
-        "metrics": [
-            "vendor\\bin\\phpmetrics --report-html='./tests/_output/report' ./src"
-        ],
-        "insights": [
-            "vendor\\bin\\phpinsights"
-        ],
-        "clean": [
-            "vendor\\bin\\codecept clean"
-        ]
-    },
-    "support"    : {
-        "issues": "https://github.com/ItalyCookieChoices/italy-cookie-choices/issues",
-        "source": "https://github.com/ItalyCookieChoices/italy-cookie-choices"
+    {
+      "name"    : "Contributors",
+      "homepage": "https://github.com/ItalyCookieChoices/italy-cookie-choices/graphs/contributors"
     }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.3",
+    "overclokk/minimum-requirements": "dev-master",
+    "overclokk/cookie": "^1.0",
+    "italystrap/config": "^2.4"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Italy_Cookie_Choices\\Admin\\": "admin/",
+      "Italy_Cookie_Choices\\Core\\": "core/"
+    }
+  },
+  "scripts": {
+    "test": [
+      "test"
+    ],
+    "cs": [
+      "vendor\\bin\\phpcbf -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/ && vendor\\bin\\phpcs -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/"
+    ],
+    "analyze": [
+      "vendor\\bin\\phpstan analyze --level=max && vendor\\bin\\psalm"
+    ],
+    "unit": [
+      "vendor\\bin\\codecept run unit && vendor\\bin\\codecept run wpunit && vendor\\bin\\infection --threads=8"
+    ],
+    "bench": [
+      "vendor\\bin\\phpbench run --report=performance"
+    ],
+    "metrics": [
+      "vendor\\bin\\phpmetrics --report-html='./tests/_output/report' ./src"
+    ],
+    "insights": [
+      "vendor\\bin\\phpinsights"
+    ],
+    "clean": [
+      "vendor\\bin\\codecept clean"
+    ]
+  },
+  "support"    : {
+    "issues": "https://github.com/ItalyCookieChoices/italy-cookie-choices/issues",
+    "source": "https://github.com/ItalyCookieChoices/italy-cookie-choices"
+  }
 }
