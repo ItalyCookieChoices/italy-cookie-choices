@@ -1,3 +1,25 @@
+const PRODUCTION_FILES_LIST = [
+    '**' ,
+    '!.git/**',
+    '!.sass-cache/**',
+    '!_o*/**',
+    '!bower_components/**',
+    '!node_modules/**',
+    '!**/tests/**',
+    '!.gitattributes',
+    '!.gitignore',
+    '!Gruntfile.js',
+    '!**/*.bat',
+    '!**/*.yml',
+    '!**/*.json',
+    '!**/*.lock',
+    '!**/c3.php',
+    '!**/*.xml',
+    '!**/*.neon*',
+    '!*.md',
+    '!*.zip'
+];
+
 module.exports = function(grunt) {
     'use strict';
     grunt.initConfig({
@@ -49,21 +71,6 @@ module.exports = function(grunt) {
             },
         },
 
-        // less: { // https://github.com/gruntjs/grunt-contrib-less
-        //     development: {
-        //         options: {
-        //             compress: true,
-        //             yuicompress: true,
-        //             optimization: 2
-        //         },
-        //         files: {
-        //             'admin/css/bootstrap.min.css': [
-        //                 'admin/css/src/less/bootstrap.less'
-        //                 ],
-        //           }
-        //     }
-        // },
-
         // csslint: { // http://astainforth.com/blogs/grunt-part-2
         //     files: ['css/*.css', '!css/bootstrap.min.css',],
         //     options: {
@@ -73,12 +80,12 @@ module.exports = function(grunt) {
         // },
 
         gitcheckout: {
-            devtomaster: { // Mi sposto da Dev a master
+            master: {
                 options: {
                     branch: 'master'
                 }
             },
-            mastertodev: { // Mi sposto da master a Dev
+            dev: {
                 options: {
                     branch: 'Dev'
                 }
@@ -86,12 +93,12 @@ module.exports = function(grunt) {
         },
 
         gitmerge: {
-            fromdev: { // Prima devo essewre in master e poi fare il merge da Dev
+            fromdev: {
                 options: {
                     branch: 'Dev'
                 }
             },
-            frommaster: { // Prima devo essere in dev e poi fare il merge sa master
+            frommaster: {
                 options: {
                     branch: 'master'
                 }
@@ -100,9 +107,6 @@ module.exports = function(grunt) {
 
         version: {  // https://www.npmjs.com/package/grunt-version
                     // http://jayj.dk/using-grunt-automate-theme-releases/
-            // bower: {
-            //     src: [ 'bower.json' ],
-            // },
             php: {
                 options: {
                     prefix: 'Version\\:\\s+'
@@ -133,7 +137,6 @@ module.exports = function(grunt) {
                 files: {
                     // Specify the files you want to commit
                     src: [
-                        // 'bower.json', //For now bower it is not uploaded
                         'readme.txt',
                         'README.md',
                         'package.json',
@@ -186,27 +189,7 @@ module.exports = function(grunt) {
                 },
                 files: [
                     {
-                        src: [
-                            '**' ,
-                            '!.git/**',
-                            '!.sass-cache/**',
-                            '!_o*/**',
-                            '!bower_components/**',
-                            '!node_modules/**',
-                            '!**/tests/**',
-                            '!.gitattributes',
-                            '!.gitignore',
-                            '!Gruntfile.js',
-                            '!**/*.bat',
-                            '!**/*.yml',
-                            '!**/*.json',
-                            '!**/*.lock',
-                            '!**/c3.php',
-                            '!**/*.xml',
-                            '!**/*.neon*',
-                            '!*.md',
-                            '!*.zip'
-                        ], // What should be included in the zip
+                        src: PRODUCTION_FILES_LIST, // What should be included in the zip
                         dest: '<%= pkg.name %>/',        // Where the zipfile should go
                         // dest: 'italystrap/',        // Where the zipfile should go
                         filter: 'isFile',
@@ -219,18 +202,7 @@ module.exports = function(grunt) {
                 },
                 files: [
                     {
-                        src: [
-                            '**' ,
-                            '!.git/**',
-                            '!.sass-cache/**',
-                            '!bower_components/**',
-                            '!node_modules/**',
-                            '!.gitattributes',
-                            '!.gitignore',
-                            // '!bower.json',
-                            // '!Gruntfile.js',
-                            // '!package.json',
-                            '!*.zip'], // What should be included in the zip
+                        src: PRODUCTION_FILES_LIST, // What should be included in the zip
                         dest: '<%= pkg.name %>/',        // Where the zipfile should go
                         // dest: 'italystrap/',        // Where the zipfile should go
                         filter: 'isFile',
@@ -265,35 +237,13 @@ module.exports = function(grunt) {
         copy: { // https://github.com/gruntjs/grunt-contrib-copy
             tosvn: {
                 expand: true,
-                src: [
-                    '**',
-                    '!node_modules/**',
-                    '!bower_components/**',
-                    '!bower.json',
-                    '!composer.json',
-                    '!Gruntfile.js',
-                    '!package.json',
-                    '!README.md',
-                    '!composer.lock',
-                    '!vendor/mobiledetect/**'
-                    ],
+                src: PRODUCTION_FILES_LIST,
                 dest: 'E:/Dropbox/svn-wordpress/italy-cookie-choices/trunk/',
                 filter: 'isFile',
             },
             totag: {
                 expand: true,
-                src: [
-                    '**',
-                    '!node_modules/**',
-                    '!bower_components/**',
-                    '!bower.json',
-                    '!composer.json',
-                    '!Gruntfile.js',
-                    '!package.json',
-                    '!README.md',
-                    '!composer.lock',
-                    '!vendor/mobiledetect/**'
-                    ],
+                src: PRODUCTION_FILES_LIST,
                 dest: 'E:/Dropbox/svn-wordpress/italy-cookie-choices/tags/<%= pkg.version %>/',
                 filter: 'isFile',
             },
@@ -305,16 +255,7 @@ module.exports = function(grunt) {
             test: {
                 expand: true,
                 // cwd: 'src',
-                src: [
-                    '**',
-                    '!node_modules/**',
-                    '!bower_components/**',
-                    '!bower.json',
-                    '!composer.json',
-                    '!Gruntfile.js',
-                    '!package.json',
-                    '!README.md',
-                    ],
+                src: PRODUCTION_FILES_LIST,
                 dest: 'E:/App/wp-plugin-test/<%= pkg.name %> <%= pkg.version %>/',
                 filter: 'isFile',
             },
@@ -338,11 +279,11 @@ module.exports = function(grunt) {
         watch: { // https://github.com/gruntjs/grunt-contrib-watch
             css: {
                 files: ['**/*.{scss,sass}'],
-                tasks: ['testcssbuild'],
+                tasks: ['css'],
             },
             js: {
                 files: ['src/js/*.js'],
-                tasks: ['testjsbuild'],
+                tasks: ['script'],
             },
             options: {
                 livereload: 9000,
@@ -411,7 +352,7 @@ module.exports = function(grunt) {
     grunt.registerTask(
         'deploy', [
             'gitcommit:first',
-            'gitcheckout:devtomaster',
+            'gitcheckout:master',
             'gitmerge:fromdev',
             'version',
             'wp_readme_to_markdown',
@@ -422,7 +363,7 @@ module.exports = function(grunt) {
             'github-release',
             'clean',
             'copy',
-            'gitcheckout:mastertodev',
+            'gitcheckout:dev',
             'gitmerge:frommaster',
             'gitpush',
         ]);
@@ -434,15 +375,13 @@ module.exports = function(grunt) {
             'github-release',
     ]);
 
-    grunt.registerTask('testcssbuild', ['less', 'compass', 'csslint']);
-    grunt.registerTask('testjsbuild', ['jshint', 'uglify']);
+    grunt.registerTask('readme', ['wp_readme_to_markdown']);
 
-    // After botstrap update execute "grunt bootstrap"
-    grunt.registerTask('bootstrap', ['uglify:bootstrapJS', 'less']);
-
+    grunt.registerTask('css', ['csslint', 'compass']);
+    grunt.registerTask('script', ['jshint', 'uglify']);
 
     grunt.registerTask('test', ['jshint', 'csslint']);
-    grunt.registerTask('build', ['uglify', 'less', 'compass']);
+    grunt.registerTask('build', ['uglify', 'compass']);
 
     grunt.event.on('watch', function(action, filepath) {
       grunt.log.writeln(filepath + ' has ' + action);

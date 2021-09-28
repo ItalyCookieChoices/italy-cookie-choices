@@ -1,5 +1,5 @@
 # Italy Cookie Choices (for EU Cookie Law & Cookie Notice) #
-**Contributors:** overclokk, andreapernici, cardinaleandrea  
+**Contributors:** [overclokk](https://profiles.wordpress.org/overclokk), [andreapernici](https://profiles.wordpress.org/andreapernici), [cardinaleandrea](https://profiles.wordpress.org/cardinaleandrea)  
 Donate link: 
 **Tags:** cookie notice, cookie law, cookie choices, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie, compliance  
 **Requires at least:** 3.5  
@@ -107,107 +107,95 @@ if it doesn't work activate standard theme and try
 
 ## Screenshots ##
 
-### 1. Italy Cookie Choices Options Menu ###
-![Italy Cookie Choices Options Menu](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law-&-cookie-notice)/screenshot-1.png)
-
-### 2. Italy Cookie Choices top bar and embed block in front end ###
-![Italy Cookie Choices top bar and embed block in front end](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law-&-cookie-notice)/screenshot-2.png)
-
-### 3. Italy Cookie Choices Options for Dialog box ###
-![Italy Cookie Choices Options for Dialog box](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law-&-cookie-notice)/screenshot-3.png)
-
-### 4. Italy Cookie Choices Dialog Box in front end ###
-![Italy Cookie Choices Dialog Box in front end](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law-&-cookie-notice)/screenshot-4.png)
-
-### 5. Italy Cookie Choices Widget area ###
-![Italy Cookie Choices Widget area](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law-&-cookie-notice)/screenshot-5.png)
-
-### 6. Italy Cookie Choices Content area ###
-![Italy Cookie Choices Content area](http://s.wordpress.org/extend/plugins/italy-cookie-choices-(for-eu-cookie-law-&-cookie-notice)/screenshot-6.png)
-
+1. Italy Cookie Choices Options Menu
+2. Italy Cookie Choices top bar and embed block in front end
+3. Italy Cookie Choices Options for Dialog box
+4. Italy Cookie Choices Dialog Box in front end
+5. Italy Cookie Choices Widget area
+6. Italy Cookie Choices Content area
 
 ## Changelog ##
 
 ### 2.5.3 ###
-**Release Date:** Jun 7th, 2021  
+Release Date: Jun 7th, 2021
 
-**Dev time:** 2h  
+Dev time: 2h
 
 * [This fixes issue #212](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/212)
 * And it's time to start a refactoring for this plugin, too much legacy code and too much shitty code
 
 ### 2.5.2 ###
-**Release Date:** November 13rd, 2018  
+Release Date: November 13rd, 2018
 
-**Dev time:** 30m  
+Dev time: 30m
 
 * This is only an update for the upcoming WordPress 5.0
   No changes are made.
 
 ### 2.5.1 ###
-**Release Date:** Dicember 4th, 2016  
+Release Date: Dicember 4th, 2016
 
-**Dev time:** 4h  
+Dev time: 4h
 
 * Fixed server error 500 on php7 if advanced-cache.php doesn't exist.
 
 ### 2.5.0 ###
-**Release Date:** November 13th, 2016  
+Release Date: November 13th, 2016
 
-**Dev time:** 4h  
+Dev time: 4h
 
 * Code refactoring for psr-4
 
 ### 2.4.5 ###
-**Release Date:** October 9th, 2016  
+Release Date: October 9th, 2016
 
-**Dev time:** 1h  
+Dev time: 1h
 
 * [Merge the fix #155](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/155)
 
 ### 2.4.4 ###
-**Release Date:** January 6th, 2016  
+Release Date: January 6th, 2016
 
-**Dev time:** 10m  
+Dev time: 10m
 
 * [Fixed Fatal error: Class 'CMLTranslations' not found](https://wordpress.org/support/topic/non-memorizza-la-configurazione?replies=1#post-7851297)
 
 ### 2.4.3 ###
-**Release Date:** January 5th, 2016  
+Release Date: January 5th, 2016
 
-**Dev time:** 10h  
+Dev time: 10h
 
 * Fixed Ceceppa Multilingua string translations bug [#152](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/152) [and](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/124#issuecomment-122952940)
 
 ### 2.4.2 ###
-**Release Date:** December 29th, 2015  
+Release Date: December 29th, 2015
 
-**Dev time:** 1h  
+Dev time: 1h
 
 * Fixed PHP7 Fatal error [#149](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/149)
 * Walking to WPCS
 
 ### 2.4.1 ###
-**Release Date:** November 6th, 2015  
+Release Date: November 6th, 2015
 
-**Dev time:** 50h  
+Dev time: 50h
 
 * Improved UI for selecting block/allow script
 * [Added new check for bot Crawler](https://wordpress.org/support/topic/non-trattare-i-bot-come-umani?replies=2)
 
 ### 2.4.0 ###
-**Release Date:** August 31th, 2015  
+Release Date: August 31th, 2015
 
-**Dev time:** 11h  
+Dev time: 11h
 
 * Added import/export functionality
 * Maybe fixed [#133](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/133)
 * Fixed PHP check for lang functions [#128](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/128)
 
 ### 2.3.5 ###
-**Release Date:** July 25th, 2015  
+Release Date: July 25th, 2015
 
-**Dev time:** 3h  
+Dev time: 3h
 
 * [Add filter for js_array `icc_js_array`](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Filters-Hook#modificare-larray-con-tutti-gli-embed-trovati-disponibile-dalla-versione-235)
 * Fixed performance issue in sites with many posts
@@ -215,38 +203,38 @@ if it doesn't work activate standard theme and try
 
 
 ### 2.3.4 ###
-**Release Date:** July 22th, 2015  
+Release Date: July 22th, 2015
 
-**Dev time:** 10min  
+Dev time: 10min
 
 * [Fixed bug in plugin admin panel](https://wordpress.org/support/topic/il-menu-impostazioni-non-si-carica-completamente?replies=3#post-7207319)
 
 ### 2.3.3 ###
-**Release Date:** July 21th, 2015  
+Release Date: July 21th, 2015
 
-**Dev time:** 2h  
+Dev time: 2h
 
 * Fixed [#126](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/126) and [#103](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/103) for Sitemap and feed page
 
 ### 2.3.2 ###
-**Release Date:** July 17th, 2015  
+Release Date: July 17th, 2015
 
-**Dev time:** 1h  
+Dev time: 1h
 
 * [Fixed warning array_merge on multisite](https://github.com/ItalyCookieChoices/italy-cookie-choices/commit/f2797a4f63a247a4918ec1c8d0823fc07b50384e)
 
 ### 2.3.1 ###
-**Release Date:** July 13th, 2015  
+Release Date: July 13th, 2015
 
-**Dev time:** 3h  
+Dev time: 3h
 
 * Added link to setting page and docs in plugins panel
 * Fixed issue [#118](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/118)
 
 ### 2.3.0 ###
-**Release Date:** July 11th, 2015  
+Release Date: July 11th, 2015
 
-**Dev time:** 50h  
+Dev time: 50h
 
 * Added jQuery autocomplete in slug and url input
 * Added text editor and allowed HTML tags for short policy text area input and the blocked embed text
@@ -260,16 +248,16 @@ if it doesn't work activate standard theme and try
 
 
 ### 2.2.2 ###
-**Release Date:** July 1st, 2015  
+Release Date: July 1st, 2015
 
-**Dev time:** 3h  
+Dev time: 3h
 
 * [Fixed browser issue](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/113)
 
 ### 2.2.1 ###
-**Release Date:** July 1st, 2015  
+Release Date: July 1st, 2015
 
-**Dev time:** 10h  
+Dev time: 10h
 
 * Fixed text position for templates
 * [Fixed scroll event in case slug is not set](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/101)
@@ -279,9 +267,9 @@ if it doesn't work activate standard theme and try
 * Improved UX for slug input
 
 ### 2.2.0 ###
-**Release Date:** June 24th, 2015  
+Release Date: June 24th, 2015
 
-**Dev time:** 100h  
+Dev time: 100h
 
 * New file structure
 * Removed scroll event on cookie policy page
@@ -298,9 +286,9 @@ if it doesn't work activate standard theme and try
 * [Added filter `icc_output_html` on snippet output for developer](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Filters-Hook#modificare-loutput)
 
 ### 2.1.0 ###
-**Release Date:** June 5th, 2015  
+Release Date: June 5th, 2015
 
-**Dev time:** 100h  
+Dev time: 100h
 
 * Added new third part cookie eraser functionality (much more powerful :-))
 * New options for select banner template
@@ -311,9 +299,9 @@ if it doesn't work activate standard theme and try
 * [Now compatibility with PHP 5.3.29](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/42)
 
 ### 2.0.0 ###
-**Release Date:** June 5th, 2015  
+Release Date: June 5th, 2015
 
-**Dev time:** 60h  
+Dev time: 60h
 
 * Merged Third part cookie eraser and Italy Cookie Choices
 * Added new input for banner background color and text color
@@ -321,33 +309,33 @@ if it doesn't work activate standard theme and try
 * Added shortcode button for policy page [accept_button]
 
 ### 1.2.3 ###
-**Release Date:** May 31th, 2015  
+Release Date: May 31th, 2015
 
-**Dev time:** 3h  
+Dev time: 3h
 
 * Added slug input for your cookie policy page to display only topbar
 * Added option for target _blank
 
 ### 1.2.2 ###
-**Release Date:** May 29th, 2015  
+Release Date: May 29th, 2015
 
-**Dev time:** 1h  
+Dev time: 1h
 
 * [Fixed cookie setting path to root](https://github.com/overclokk/italy-cookie-choices/issues/20)
 
 ### 1.2.1 ###
-**Release Date:** May 28th, 2015  
+Release Date: May 28th, 2015
 
-**Dev time:** 2h  
+Dev time: 2h
 
 * [Added checkbox for refresh page after button click](https://wordpress.org/support/topic/aggiunta-del-refresh-dopo-lok?replies=3)
 * [Fixed cookie name issue](https://github.com/overclokk/italy-cookie-choices/issues/21)
 
 
 ### 1.2.0 ###
-**Release Date:** May 27th, 2015  
+Release Date: May 27th, 2015
 
-**Dev time:** 20h  
+Dev time: 20h
 
 * [Fixed duble alert box in admin when options are saved](https://github.com/overclokk/italy-cookie-choices/issues/13)
 * [Add options for mouse scroll event](https://github.com/overclokk/italy-cookie-choices/issues/19)
@@ -355,9 +343,9 @@ if it doesn't work activate standard theme and try
 * Added advanced options for set Cookie name and Cookie value for an eventual migration to this plugin
 
 ### 1.1.3 ###
-**Release Date:** May 26th, 2015  
+Release Date: May 26th, 2015
 
-**Dev time:** 5h  
+Dev time: 5h
 
 * Fixed admin UX https://github.com/overclokk/italy-cookie-choices/issues/14
 * Fixed Typo in lang
@@ -366,32 +354,32 @@ if it doesn't work activate standard theme and try
 * Fixed click event https://github.com/overclokk/italy-cookie-choices/issues/15
 
 ### 1.1.2 ###
-**Release Date:** May 22st, 2015  
+Release Date: May 22st, 2015
 
-**Dev time:** 10min  
+Dev time: 10min
 
 * Fix z-index issue
 
 ### 1.1.1 ###
-**Release Date:** May 22st, 2015  
+Release Date: May 22st, 2015
 
-**Dev time:** 1h  
+Dev time: 1h
 
 * Add scroll event
 
 ### 1.1.0 ###
-**Release Date:** May 22st, 2015  
+Release Date: May 22st, 2015
 
-**Dev time:** 10h  
+Dev time: 10h
 
 * Fix special char visualization
 * Add italian translations
 * Removed default text
 
 ### 1.0.0 ###
-**Release Date:** May 21st, 2015  
+Release Date: May 21st, 2015
 
-**Dev time:** 50h  
+Dev time: 50h
 
 * First release.
 
@@ -404,7 +392,7 @@ Fixed some issue, see the changelog for more informations
 More functionality added, please, see the plugin's admin page
 
 ### 2.0.0 ###
-**New:** Third part cookie eraser  
+New: Third part cookie eraser
 
 ### 1.0.0 ###
 First release.
