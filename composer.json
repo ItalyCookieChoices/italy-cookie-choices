@@ -28,7 +28,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.3",
+        "php": ">=7.4",
         "overclokk/minimum-requirements": "dev-master",
         "overclokk/cookie": "^1.0",
         "italystrap/config": "^2.4"
