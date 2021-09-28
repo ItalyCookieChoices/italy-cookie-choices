@@ -31,7 +31,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run composer install
-        run: composer update --no-dev
+        run: composer update --no-dev -o
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script

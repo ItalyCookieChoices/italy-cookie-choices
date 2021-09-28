@@ -34,8 +34,9 @@
         "italystrap/config": "^2.4"
     },
     "require-dev": {
-        "lucatume/wp-browser": "^2.4",
+        "lucatume/wp-browser": "^2.6.0",
         "lucatume/function-mocker-le": "^1.0",
+        "lucatume/function-mocker": "^1.3",
         "codeception/c3": "2.*",
         "codeception/module-asserts": "^1.0",
         "codeception/module-phpbrowser": "^1.0",
@@ -46,20 +47,15 @@
         "codeception/util-universalframework": "^1.0",
         "brianium/paratest": "^4.0",
         "italystrap/debug": "^2.0",
-        "victorjonsson/markdowndocs": "^1.3",
-        "wptrt/wpthemereview": "*",
         "squizlabs/php_codesniffer": "*",
         "phpcompatibility/php-compatibility": "*",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
-        "phpstan/phpstan": "^0.11.16",
-        "szepeviktor/phpstan-wordpress": "^0.3.0",
+        "phpstan/phpstan": "^0.12",
+        "szepeviktor/phpstan-wordpress": "^0.5",
         "vimeo/psalm": "^3.9",
         "phpbench/phpbench": "@dev",
         "infection/infection": "^0.15.3",
         "phpmetrics/phpmetrics": "^2.5",
-        "symfony/asset": "^5.0",
-        "inpsyde/assets": "^2.1",
-        "lucatume/function-mocker": "^1.3",
         "phpspec/prophecy-phpunit": "^1.1"
     },
     "autoload": {
