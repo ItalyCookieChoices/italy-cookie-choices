@@ -18,3 +18,5 @@ package-lock.json
 *.bat
 *.yml
 *.local
+
+!.github/**
