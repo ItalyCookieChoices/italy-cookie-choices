@@ -34,6 +34,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php_versions }}
+          coverage: xdebug2
+          # extensions: gd, zip
+          tools: composer:v1
 
       # Runs a single command using the runners shell
       - name: Validate composer.json
