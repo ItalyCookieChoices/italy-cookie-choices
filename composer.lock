@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee3aab01557b8ea021fd28ff241395d0",
+    "content-hash": "0be85033e49e1c7a97bbf3347458ab79",
     "packages": [
         {
             "name": "italystrap/config",
@@ -11821,7 +11821,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.3"
+        "php": ">=7.4"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
