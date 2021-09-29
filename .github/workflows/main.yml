@@ -38,13 +38,17 @@ jobs:
           # extensions: gd, zip
           tools: composer:v1
 
+      - uses: ramsey/composer-install@v1
+        with:
+          composer-options: "--prefer-dist --no-dev -o"
+
       # Runs a single command using the runners shell
       - name: Validate composer.json
         run: composer validate --strict --no-check-all
 
       # Runs a single command using the runners shell
-      - name: Run composer install
-        run: composer update --no-dev -o
+#      - name: Run composer update
+#        run: composer update --no-dev -o
 
       # Runs a set of commands using the runners shell
 #      - name: Run a multi-line script
