@@ -1,0 +1,25 @@
+# Directories
+/.wordpress-org
+/.git
+/.github
+/node_modules
+css/src/sass/.sass-cache
+.sass-cache
+bower_components
+debug
+/vendor/
+_other/
+
+# Files
+.distignore
+.gitignore
+c3.php
+package-lock.json
+.svn
+*.lock
+!composer.lock
+*.bak
+*.bak2
+*.bat
+*.yml
+*.local
