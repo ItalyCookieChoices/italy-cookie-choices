@@ -1,19 +1,20 @@
 # Directories
-/.wordpress-org
-/.git
-/.github
-/node_modules
+.wordpress-org
+.git
+.github
+node_modules
 css/src/sass/.sass-cache
 */.sass-cache
-/bower_components
-/debug
+bower_components
+debug
 # /vendor
-/_other
+_other
 */tests
 
 # Files
 .distignore
 .gitignore
+.env
 c3.php
 package-lock.json
 .svn
