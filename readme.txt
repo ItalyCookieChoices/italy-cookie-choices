@@ -117,9 +117,11 @@ if it doesn't work activate standard theme and try
 == Changelog ==
 
 = 2.5.3 =
-Release Date: Jun 7th, 2021
+Release Date: Sep 29th, 2021
 
 Dev time: 2h
+
+LATEST VERSION FOR PHP 5.3
 
 * [This fixes issue #212](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues/212)
 * And it's time to start a refactoring for this plugin, too much legacy code and too much shitty code
