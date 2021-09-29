@@ -28,12 +28,35 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=5.3",
+    "php": ">=7.4",
     "overclokk/minimum-requirements": "dev-master",
-    "overclokk/cookie": "^1.0"
+    "overclokk/cookie": "^1.0",
+    "italystrap/config": "^2.4"
   },
   "require-dev": {
-    "italystrap/debug": "^2.0"
+    "lucatume/wp-browser": "^3.0.0",
+    "lucatume/function-mocker-le": "^1.0",
+    "lucatume/function-mocker": "^1.3",
+    "codeception/c3": "2.*",
+    "codeception/module-asserts": "^1.0",
+    "codeception/module-phpbrowser": "^1.0",
+    "codeception/module-webdriver": "^1.0",
+    "codeception/module-db": "^1.0",
+    "codeception/module-filesystem": "^1.0",
+    "codeception/module-cli": "^1.0",
+    "codeception/util-universalframework": "^1.0",
+    "brianium/paratest": "^4.0",
+    "italystrap/debug": "^2.0",
+    "squizlabs/php_codesniffer": "*",
+    "phpcompatibility/php-compatibility": "*",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+    "phpstan/phpstan": "^0.12",
+    "szepeviktor/phpstan-wordpress": "^0.5",
+    "vimeo/psalm": "^3.9",
+    "phpbench/phpbench": "@dev",
+    "infection/infection": "^0.15.3",
+    "phpmetrics/phpmetrics": "^2.5",
+    "phpspec/prophecy-phpunit": "^1.1"
   },
   "autoload": {
     "psr-4": {
@@ -41,18 +64,40 @@
       "Italy_Cookie_Choices\\Core\\": "core/"
     }
   },
-  "scripts": {
-    "test": [
-      "test"
+  "autoload-dev": {
+    "classmap": [
+      "tests/"
     ],
+    "psr-4": {
+      "ItalyCookieChoices\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
     "cs": [
       "vendor\\bin\\phpcbf -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/ && vendor\\bin\\phpcs -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/"
     ],
     "analyze": [
       "vendor\\bin\\phpstan analyze --level=max && vendor\\bin\\psalm"
     ],
+    "unit:all": [
+      "vendor\\bin\\codecept run unit && vendor\\bin\\codecept run wpunit && vendor\\bin\\infection --threads=8",
+      "@clean"
+    ],
     "unit": [
-      "vendor\\bin\\codecept run unit && vendor\\bin\\codecept run wpunit && vendor\\bin\\infection --threads=8"
+      "vendor\\bin\\codecept run unit",
+      "@clean"
+    ],
+    "unit:debug": [
+      "vendor\\bin\\codecept run unit --debug",
+      "@clean"
+    ],
+    "wpunit": [
+      "vendor\\bin\\codecept run wpunit",
+      "@clean"
+    ],
+    "wpunit:debug": [
+      "vendor\\bin\\codecept run wpunit --debug",
+      "@clean"
     ],
     "bench": [
       "vendor\\bin\\phpbench run --report=performance"

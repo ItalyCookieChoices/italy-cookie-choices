@@ -1,14 +1,10 @@
 <?php
-declare(strict_types=1);
 
-namespace ItalyCookieChoices\Tests;
-
-use Codeception\TestCase\WPTestCase;
 use Italy_Cookie_Choices\Core\Cookie_Choices;
 use ItalyStrap\Config\Config;
 use Overclokk\Cookie\Cookie;
 
-class BannerTest extends WPTestCase
+class IntegrationTest extends \Codeception\TestCase\WPTestCase
 {
     /**
      * @var \WpunitTester
@@ -53,13 +49,13 @@ class BannerTest extends WPTestCase
 	 * @var array
 	 */
 	private $options;
-
-	public function setUp(): void
+    
+    public function setUp(): void
     {
-		// before
-		parent::setUp();
+        // Before...
+        parent::setUp();
 
-		// your set up methods here
+        // Your set up methods here.
 
 		$this->prophet = new \Prophecy\Prophet;
 		$this->cookie = $this->prophet->prophesize( Cookie::class );
@@ -108,7 +104,7 @@ HTML;
 		return $sut;
 	}
 
-    // Tests
+	// Tests
 //    public function test_it_works()
 //    {
 //        $post = static::factory()->post->create_and_get();
@@ -199,13 +195,13 @@ HTML;
 	 * @test
 	 * it should be content_erased
 	 */
-    public function it_should_be_content_erased() {
+	public function it_should_be_content_erased() {
 
-        $content = $this->getInstance()->AutoErase( '<body><script></script></body>' );
+		$content = $this->getInstance()->AutoErase( '<body><script></script></body>' );
 
-        $this->assertStringContainsString( "<body></body>", $content );
+		$this->assertStringContainsString( "<body></body>", $content );
 
-        codecept_debug($content);
+		codecept_debug($content);
 
 //        $this->assertTrue( strpos( $content, 'cookieChoices.removeCookieConsent()') !== false, 'No banner found ' . $content );
 //
@@ -214,5 +210,5 @@ HTML;
 
 //        $this->dom->loadHTML( $this->banner->js_array[0] );
 //        $this->assertNotEmpty( $this->dom->getElementsByTagName('script') );
-    }
+	}
 }
