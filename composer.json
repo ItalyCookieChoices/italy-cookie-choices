@@ -33,6 +33,7 @@
     "overclokk/cookie": "^1.0"
   },
   "require-dev": {
+    "italystrap/debug": "^2.0"
   },
   "autoload": {
     "psr-4": {
