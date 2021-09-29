@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Deploy to WordPress
 
 # Controls when the workflow will run
 on:
@@ -47,8 +47,8 @@ jobs:
         run: composer validate --strict --no-check-all
 
       # Runs a single command using the runners shell
-#      - name: Run composer update
-#        run: composer update --no-dev -o
+      #      - name: Run composer update
+      #        run: composer update --no-dev -o
 
       # Runs a set of commands using the runners shell
 #      - name: Run a multi-line script
