@@ -3,13 +3,13 @@
 .git
 .github
 node_modules
-css/src/sass/.sass-cache
+css/src/sass
 */.sass-cache
 bower_components
 debug
 # /vendor
 _other
-*/tests
+**/tests
 
 # Files
 .distignore
