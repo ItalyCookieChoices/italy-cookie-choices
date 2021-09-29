@@ -4,11 +4,12 @@
 /.github
 /node_modules
 css/src/sass/.sass-cache
-.sass-cache
-bower_components
-debug
-/vendor/
-_other/
+*/.sass-cache
+/bower_components
+/debug
+# /vendor
+/_other
+*/tests
 
 # Files
 .distignore
