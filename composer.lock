@@ -4,85 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cd70f454311074082ac66cd1cbb5947",
+    "content-hash": "56d1f7e898739264e75a1a36aef56d62",
     "packages": [
-        {
-            "name": "italystrap/config",
-            "version": "2.4.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ItalyStrap/config.git",
-                "reference": "8f290e515bd4f3ca25a4cb402cc4eb2342002529"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ItalyStrap/config/zipball/8f290e515bd4f3ca25a4cb402cc4eb2342002529",
-                "reference": "8f290e515bd4f3ca25a4cb402cc4eb2342002529",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "brianium/paratest": "^4.0",
-                "brightnucleus/config": "0.4.*",
-                "codeception/c3": "2.*",
-                "codeception/module-asserts": "^1.0",
-                "codeception/module-cli": "^1.0",
-                "codeception/module-db": "^1.0",
-                "codeception/module-filesystem": "^1.0",
-                "codeception/module-phpbrowser": "^1.0",
-                "codeception/module-webdriver": "^1.0",
-                "codeception/util-universalframework": "^1.0",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-                "infection/infection": "^0.15.3",
-                "italystrap/debug": "^2.0",
-                "italystrap/event": "dev-master",
-                "lucatume/function-mocker-le": "^1.0",
-                "lucatume/wp-browser": "~2.0",
-                "nunomaduro/phpinsights": "^1.14.0",
-                "phpbench/phpbench": "@dev",
-                "phpcompatibility/php-compatibility": "*",
-                "phpmetrics/phpmetrics": "^2.5",
-                "phpstan/phpstan": "^0.11.16",
-                "phpunit/php-code-coverage": "^7.0",
-                "squizlabs/php_codesniffer": "*",
-                "szepeviktor/phpstan-wordpress": "^0.3.0",
-                "vimeo/psalm": "^3.9",
-                "wpfulcrum/config": "3.0.*"
-            },
-            "suggest": {
-                "italystrap/event": "EventDispatcher for WordPress"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ItalyStrap\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Enea Overclokk",
-                    "email": "info@overclokk.net",
-                    "homepage": "https://www.italystrap.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "ItalyStrap Config Module - a simple and useful configuration package the OOP way",
-            "keywords": [
-                "Configuration Object",
-                "config"
-            ],
-            "support": {
-                "issues": "https://github.com/ItalyStrap/config/issues",
-                "source": "https://github.com/ItalyStrap/config"
-            },
-            "time": "2021-03-10T13:40:09+00:00"
-        },
         {
             "name": "overclokk/cookie",
             "version": "v1.0.2",

@@ -30,8 +30,7 @@
   "require": {
     "php": ">=5.3",
     "overclokk/minimum-requirements": "dev-master",
-    "overclokk/cookie": "^1.0",
-    "italystrap/config": "^2.4"
+    "overclokk/cookie": "^1.0"
   },
   "require-dev": {
   },
