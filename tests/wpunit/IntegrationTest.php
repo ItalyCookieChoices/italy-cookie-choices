@@ -197,7 +197,7 @@ HTML;
 	 */
 	public function it_should_be_content_erased() {
 
-		$content = $this->getInstance()->AutoErase( '<body><script></script></body>' );
+		$content = $this->getInstance()->autoErase( '<body><script></script></body>' );
 
 		$this->assertStringContainsString( "<body></body>", $content );
 

@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        php_versions: [ '5.3' ]
+        php_versions: [ '7.4', '8.0', '8.1' ]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -36,9 +36,9 @@ jobs:
           php-version: ${{ matrix.php_versions }}
           coverage: xdebug2
           # extensions: gd, zip
-          tools: composer:v1
+          tools: composer:v2
 
-      - uses: ramsey/composer-install@v1
+      - uses: ramsey/composer-install@v2
         with:
           composer-options: "--prefer-dist --no-dev -o"
 

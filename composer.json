@@ -61,7 +61,8 @@
   "autoload": {
     "psr-4": {
       "Italy_Cookie_Choices\\Admin\\": "admin/",
-      "Italy_Cookie_Choices\\Core\\": "core/"
+      "Italy_Cookie_Choices\\Core\\": "core/",
+      "Italy_Cookie_Choices\\": "src/"
     }
   },
   "autoload-dev": {
@@ -115,5 +116,12 @@
   "support"    : {
     "issues": "https://github.com/ItalyCookieChoices/italy-cookie-choices/issues",
     "source": "https://github.com/ItalyCookieChoices/italy-cookie-choices"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "composer/package-versions-deprecated": true,
+      "codeception/c3": true
+    }
   }
 }

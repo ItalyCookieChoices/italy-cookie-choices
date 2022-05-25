@@ -1,13 +1,13 @@
 <?php
-/**
- * Class for Italy Cookie Choices Admin
- */
 
 namespace Italy_Cookie_Choices\Core;
 
+use ItalyStrap\Config\ConfigInterface;
 use Overclokk\Cookie\Cookie;
 
-class Cookie_Choices{
+class Cookie_Choices {
+
+	const SEPARATOR = '<---------SOMETHING--------->';
 
 	/**
 	 * Option
@@ -81,7 +81,7 @@ class Cookie_Choices{
 	private $cookie;
 
 
-	public function __construct( array $options, Cookie $cookie ) {
+	public function __construct( ConfigInterface $options, Cookie $cookie ) {
 		$this->cookie = $cookie;
 		$this->options = $options;
 	}
@@ -93,7 +93,7 @@ class Cookie_Choices{
 		 * Check for second view option
 		 * @var bol
 		 */
-		$secondViewOpt = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
+		$accept_on_second_page_view_option = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
 
 		/**
 		 * Assegno il valore allo slug nel costruttore
@@ -109,24 +109,10 @@ class Cookie_Choices{
 		 */
 		$this->url = ( isset( $this->options['url'] ) && !empty( $this->options['url'] ) ) ? esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) ) : 1 ;
 
-		/*
-		 * Set cookie if the user agree navigating through the pages of the site
-		 */
-		$secondView = false;
+//		d( $this->cookie->get( $this->options->get('cookie_name') ) );
+//		$this->cookie->delete( $this->options->get('cookie_name') );
 
-		if( $this->is_policy_page( $secondViewOpt ) ) {
-
-			setcookie($this->options['cookie_name'], $this->options['cookie_value'], time()+(3600*24*365), '/');
-			$secondView = true;
-		}
-
-		/**
-		 * Shortcode to put a button in policy page
-		 */
-		add_shortcode( 'accept_button', array( $this, 'accept_button' ) );
-		add_shortcode( 'delete_cookie', array( $this, '_delete_cookie' ) );
-
-		if ( ! isset( $_COOKIE[ $this->options['cookie_name'] ] ) && ! $secondView ){
+		if ( ! isset( $_COOKIE[ $this->options['cookie_name'] ] ) && ! $this->isSecondView( $accept_on_second_page_view_option ) ){
 
 			$this->disable_w3tc_page_cache();
 
@@ -213,11 +199,11 @@ class Cookie_Choices{
 			);
 
 			if ( $block ) {
-				add_filter( 'the_content', array( $this, 'AutoErase' ), 11 );
+				add_filter( 'the_content', array( $this, 'autoErase'), 11 );
 			}
 
 			if ( $widget_block ) {
-				add_filter( 'widget_display_callback', array( $this, 'WidgetErase' ), 11, 3 );
+				add_filter( 'widget_display_callback', array( $this, 'widgetErase'), 11, 3 );
 			}
 
 			if ( $all_block ) {
@@ -225,6 +211,7 @@ class Cookie_Choices{
 				add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
 				add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
 			}
+
 			if( ( $custom_script_block || $this->block_script ) && $all_block ) {
 				add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
 				add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
@@ -560,7 +547,7 @@ class Cookie_Choices{
 	 * Erase third part embed
 	 * @param string $content Article content.
 	 */
-	public function AutoErase( $content ) {
+	public function autoErase( $content ) {
 
 		$this->matches( $this->pattern, $content );
 
@@ -591,7 +578,7 @@ class Cookie_Choices{
 
 	}
 
-	public function WidgetErase( $instance, $widget, $args ) {
+	public function widgetErase( $instance, $widget, $args ) {
 
 		return $this->fnFixArray( $instance );
 
@@ -846,7 +833,22 @@ class Cookie_Choices{
 		 * @var string
 		 */
 
-		$jsVariables = 'var coNA="' . $cookie_name . '",coVA="' . $cookie_value . '";scroll="' . $scroll . '",elPos="fixed",infoClass="' . $infoClass . '",closeClass="' . $closeClass . '",htmlM="' . $htmlM . '",rel="' . $reload . '",tar="' . $target . '",bgB="' . $banner_bg . '",btcB="' . $banner_text_color . '",bPos="' . $bPos . '",bannerStyle="' . $bannerStyle . '",contentStyle="' . $contStyle . '",consText="' . $consentText . '",jsArr = ' . $this->wp_json_encode( apply_filters( 'icc_js_array', $this->js_array ) ) . ';';
+		$jsVariables = 'var coNA="'
+			. $cookie_name . '",coVA="'
+			. $cookie_value . '";scroll="'
+			. $scroll . '",elPos="fixed",infoClass="'
+			. $infoClass . '",closeClass="'
+			. $closeClass . '",htmlM="'
+			. $htmlM . '",rel="'
+			. $reload . '",tar="'
+			. $target . '",bgB="'
+			. $banner_bg . '",btcB="'
+			. $banner_text_color . '",bPos="'
+			. $bPos . '",bannerStyle="'
+			. $bannerStyle . '",contentStyle="'
+			. $contStyle . '",consText="'
+			. $consentText . '",jsArr = '
+			. $this->wp_json_encode( apply_filters( 'icc_js_array', $this->js_array ) ) . ';';
 
 		/**
 		 * Snippet per il multilingua
@@ -903,48 +905,21 @@ class Cookie_Choices{
 	}
 
 	/**
-	 * Shortcode per stampare il bottone nella pagina della policy
-	 * @param  array  $atts    Array con gli attributi dello shortcode.
-	 * @param  string $content Content of shortcode.
-	 * @return string          Button per l'accettazione
+	 * @param $secondViewOpt
+	 * @return bool
 	 */
-	public function accept_button( $atts, $content = null ) {
+	private function isSecondView( $secondViewOpt ): bool {
+		/*
+		 * Set cookie if the user agree navigating through the pages of the site
+		 */
+		$secondView = false;
 
-		$button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
+		if ( $this->is_policy_page( $secondViewOpt ) ) {
 
-		return '<span class="el"><button onclick="cookieChoices.removeCookieConsent()">' . esc_attr( $button_text ) . '</button></span>';
+			setcookie( $this->options[ 'cookie_name' ], $this->options[ 'cookie_value' ], time() + (3600 * 24 * 365), '/' );
+			$secondView = true;
+		}
 
-	}
-
-	/**
-	 * Shortcode per stampare il bottone nella pagina della policy
-	 * @param  array  $atts    Array con gli attributi dello shortcode.
-	 * @param  string $content Content of shortcode.
-	 * @return string          Button per l'accettazione
-	 */
-	public function _delete_cookie( $atts, $content = null ) {
-
-		// $button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
-		$button_text = 'Delete cookie';
-
-		return '<span class="ele"><button onclick="deleteCookie()">' . esc_attr( $button_text ) . '</button></span>';
-
-	}
-
-	/**
-	 * Display cookie, only for internal use
-	 * @return string
-	 */
-	private function _display_cookie() {
-
-		$cookie_list = '<ul>';
-
-		foreach ( $_COOKIE as $key => $val )
-			$cookie_list .= '<li>Cooke name: ' . esc_attr( $key ) . ' - val: ' . esc_attr( $val ) . '</li>';
-
-		$cookie_list .= '</ul>';
-
-		return $cookie_list;
-
+		return $secondView;
 	}
 }
