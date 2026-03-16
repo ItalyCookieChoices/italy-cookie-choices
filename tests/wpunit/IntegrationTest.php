@@ -7,7 +7,7 @@ use Overclokk\Cookie\Cookie;
 class IntegrationTest extends \Codeception\TestCase\WPTestCase
 {
     /**
-     * @var \WpunitTester
+     * @var \IntegrationTester
      */
     protected $tester;
 
