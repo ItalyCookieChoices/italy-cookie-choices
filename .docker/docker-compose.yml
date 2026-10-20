@@ -5,6 +5,7 @@ services:
       args:
         PHP_VERSION: ${PHP_VERSION}
         WP_VERSION: ${WP_VERSION}
+        WP_CORE_VERSION: ${WP_CORE_VERSION:-}
         HOST_UID: ${HOST_UID:-1000}
         HOST_GID: ${HOST_GID:-1000}
     container_name: ${PROJECT_NAME:-wordpress}_test

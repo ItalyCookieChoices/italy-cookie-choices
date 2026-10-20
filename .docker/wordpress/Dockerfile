@@ -58,3 +58,15 @@ RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php && \
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
+
+# The official images stop at WordPress 6.1 for PHP 7.4, replace the core with the requested version,
+# the entrypoint copies /usr/src/wordpress into the web root
+ARG WP_CORE_VERSION
+RUN set -eux; \
+    if [ -n "${WP_CORE_VERSION}" ]; then \
+        wp core download --version="${WP_CORE_VERSION}" --path=/tmp/wordpress --skip-content --allow-root; \
+        rm -rf /usr/src/wordpress/wp-admin /usr/src/wordpress/wp-includes; \
+        cp -a /tmp/wordpress/. /usr/src/wordpress/; \
+        rm -rf /tmp/wordpress; \
+        chown -R www-data:www-data /usr/src/wordpress; \
+    fi
