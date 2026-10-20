@@ -61,7 +61,8 @@
 
     "phpmetrics/phpmetrics": "^2.11",
     "phpspec/prophecy-phpunit": "^2.5",
-    "rector/rector": "^2.7"
+    "rector/rector": "^2.7",
+    "infection/codeception-adapter": "^0.4.1"
   },
   "autoload": {
     "psr-4": {
