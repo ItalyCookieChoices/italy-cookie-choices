@@ -113,6 +113,27 @@ final class BufferTest extends WPTestCase
     }
 
     /**
+     * @dataProvider blockedVendors
+     */
+    public function testRemoveCustomScriptKeepsOtherVendors(array $options): void
+    {
+        $sut = $this->makeCookieChoices($options);
+        $sut->run();
+        $buffer = '<iframe src="https://vimeo.com/x"></iframe><script src="https://example.com/a.js"></script>'
+            . '<embed src="https://example.com/b.swf">';
+
+        $this->assertSame($buffer, $sut->removeCustomScript($buffer));
+    }
+
+    public function testRemoveCustomScriptTrimsTheCustomScripts(): void
+    {
+        $script = '<script>track();</script>';
+        $sut = $this->makeCookieChoices(['custom_script_block' => '  ' . $script . '  ']);
+
+        $this->assertSame('<p>a</p>' . self::REMOVED, $sut->removeCustomScript('<p>a</p>' . $script));
+    }
+
+    /**
      * Current behaviour: the vendor pattern is greedy, it swallows everything
      * up to the last closing tag of the same kind (up to the last ">" for embeds).
      */
@@ -169,7 +190,9 @@ final class BufferTest extends WPTestCase
         $iframe = '<iframe src="https://www.youtube.com/embed/x"></iframe>';
         $script = '<script src="https://platform.twitter.com/widgets.js"></script>';
         $embed = '<embed src="https://example.com/movie.swf">';
-        $blocked = '<iframe src="https://vimeo.com/x"></iframe>';
+        $blockedIframe = '<iframe src="https://vimeo.com/x"></iframe>';
+        $blockedScript = '<script src="https://example.com/tracker.js"></script>';
+        $blockedEmbed = '<embed src="https://example.com/flash.swf">';
         $sut = $this->makeCookieChoices([
             'allow_iframe' => ['youtube', ''],
             'allow_script' => ['twitter'],
@@ -177,14 +200,47 @@ final class BufferTest extends WPTestCase
         ]);
         $sut->run();
 
-        $output = $this->captureBody($sut, '<body>' . $iframe . $script . $embed . $blocked . '</body>');
+        $output = $this->captureBody(
+            $sut,
+            '<body>' . $iframe . $script . $embed . $blockedIframe . $blockedScript . $blockedEmbed . '</body>'
+        );
 
         $this->assertSame(
-            '<!-- ICCStartBody --><body>' . $iframe . $script . $embed . self::PLACEHOLDER
-            . '</body><!-- ICCEndBody -->',
+            '<!-- ICCStartBody --><body>' . $iframe . $script . $embed
+            . self::PLACEHOLDER . self::PLACEHOLDER . self::PLACEHOLDER . '</body><!-- ICCEndBody -->',
             $output
         );
-        $this->assertSame([$blocked], $sut->js_array);
+        $this->assertSame([$blockedIframe, $blockedScript, $blockedEmbed], $sut->js_array);
+    }
+
+    public function testBufferBodyEndKeepsASingleCustomExclusion(): void
+    {
+        $allowed = '<script src="https://example.com/allowed.js"></script>';
+        $sut = $this->makeCookieChoices(['custom_script_block_body_exclude' => '  ' . $allowed . "  \n"]);
+        $sut->run();
+
+        $output = $this->captureBody($sut, '<body>' . $allowed . '</body>');
+
+        $this->assertSame('<!-- ICCStartBody --><body>' . $allowed . '</body><!-- ICCEndBody -->', $output);
+        $this->assertSame([], $sut->js_array);
+    }
+
+    public function testBufferBodyEndHandlesMultilineDocuments(): void
+    {
+        $sut = $this->makeCookieChoices([]);
+        $sut->run();
+        $head = "<html>\n<head>\n<title>Page</title>\n</head>\n";
+
+        $output = $this->captureBody(
+            $sut,
+            $head . "<body class=\"home\">\n<p>Hi</p>\n<iframe\nsrc=\"https://example.com\"></iframe>\n</body>\n</html>"
+        );
+
+        $this->assertSame(
+            '<!-- ICCStartBody -->' . $head . "<body class=\"home\">\n<p>Hi</p>\n" . self::PLACEHOLDER
+            . "\n</body>\n</html><!-- ICCEndBody -->",
+            $output
+        );
     }
 
     public function testBufferBodyEndWithoutBodyTagOutputsOnlyTheMarkers(): void
@@ -195,20 +251,54 @@ final class BufferTest extends WPTestCase
         $this->assertSame('<!-- ICCStartBody --><!-- ICCEndBody -->', $this->captureBody($sut, '<p>no body</p>'));
     }
 
-    public function testBufferBodyStartFlushesThePreviousBuffer(): void
+    public function bufferStarts(): iterable
+    {
+        yield 'body' => ['bufferBodyStart'];
+        yield 'head' => ['bufferHeadStart'];
+        yield 'footer' => ['bufferFooterStart'];
+    }
+
+    /**
+     * @dataProvider bufferStarts
+     */
+    public function testBufferStartFlushesThePreviousBufferAndOpensANewOne(string $method): void
     {
         $sut = $this->makeCookieChoices([]);
+        $level = \ob_get_level();
 
         \ob_start();
         \ob_start();
         echo 'previous';
-        $sut->bufferBodyStart();
-        echo 'body';
-        $body = \ob_get_clean();
+        $sut->{$method}();
+        echo 'buffered';
+        $buffered = \ob_get_clean();
         $previous = \ob_get_clean();
+        $finalLevel = \ob_get_level();
+        while (\ob_get_level() > $level) {
+            \ob_end_clean();
+        }
 
-        $this->assertSame('body', $body);
+        $this->assertSame('buffered', $buffered);
         $this->assertSame('previous', $previous);
+        $this->assertSame($level, $finalLevel);
+    }
+
+    /**
+     * @dataProvider bufferStarts
+     */
+    public function testBufferStartOpensANewBufferWhenThePreviousIsEmpty(string $method): void
+    {
+        $sut = $this->makeCookieChoices([]);
+        $level = \ob_get_level();
+
+        \ob_start();
+        $sut->{$method}();
+        $openedLevel = \ob_get_level();
+        while (\ob_get_level() > $level) {
+            \ob_end_clean();
+        }
+
+        $this->assertSame($level + 2, $openedLevel);
     }
 
     public function testBufferHeadEndRemovesCustomScripts(): void

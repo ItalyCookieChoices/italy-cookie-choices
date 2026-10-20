@@ -177,6 +177,35 @@ final class SanitizeCallbackTest extends WPTestCase
         }
     }
 
+    public function testTranslatableStringsAreRegistered(): void
+    {
+        require_once \codecept_root_dir('tests/_support/multilingual-stub.php');
+        $GLOBALS['icc_registered_strings'] = [];
+
+        (new Settings())->sanitize_callback([
+            'text' => 'Text',
+            'url' => 'https://example.com',
+            'slug' => 'policy',
+            'anchor_text' => 'Anchor',
+            'button_text' => 'Button',
+            'content_message_text' => 'Message',
+            'content_message_button_text' => 'Message button',
+        ]);
+
+        $this->assertSame(
+            [
+                ['Italy Cookie Choices', 'Banner text', 'Text'],
+                ['Italy Cookie Choices', 'Banner url', 'https://example.com'],
+                ['Italy Cookie Choices', 'Banner slug', 'policy'],
+                ['Italy Cookie Choices', 'Banner anchor text', 'Anchor'],
+                ['Italy Cookie Choices', 'Banner button text', 'Button'],
+                ['Italy Cookie Choices', 'Content message text', 'Message'],
+                ['Italy Cookie Choices', 'Content message button text', 'Message button'],
+            ],
+            $GLOBALS['icc_registered_strings']
+        );
+    }
+
     public function testSavingTheOptionRunsTheSanitizeCallback(): void
     {
         (new Settings())->italy_cl_settings_init();

@@ -61,4 +61,26 @@ final class SanitizeTest extends WPTestCase
             $notices
         );
     }
+
+    public function testEmptyCookieNameAndValueRaiseSettingsErrors(): void
+    {
+        $GLOBALS['wp_settings_errors'] = [];
+        \set_error_handler(static function (): bool {
+            return true;
+        }, E_NOTICE | E_WARNING);
+
+        try {
+            new Sanitize([]);
+        } finally {
+            \restore_error_handler();
+        }
+
+        $this->assertSame(
+            [
+                'Cookie name field it can\'t be empty. Restored default name.',
+                'Cookie value field it can\'t be empty. Restored default value.',
+            ],
+            \array_column(\get_settings_errors('italy_cookie_id'), 'message')
+        );
+    }
 }

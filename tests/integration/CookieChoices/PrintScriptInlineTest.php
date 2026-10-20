@@ -328,6 +328,51 @@ final class PrintScriptInlineTest extends WPTestCase
         $this->assertStringContainsString('scroll="1"', $this->capture($sut));
     }
 
+    /**
+     * Current behaviour: without a slug the policy page defaults to the post with ID 1.
+     */
+    public function testTheDefaultPolicyPageIsThePostWithIdOne(): void
+    {
+        $this->assertSame(1, self::factory()->post->create(['import_id' => 1]));
+        $this->go_to(\get_permalink(1));
+        $_COOKIE['displayCookieConsent'] = 'y';
+        $sut = $this->makeCookieChoices(['scroll' => '1'] + $this->options());
+        $sut->run();
+
+        $this->assertStringContainsString('scroll="",elPos="fixed"', $this->capture($sut));
+    }
+
+    public function missingSlugs(): iterable
+    {
+        yield 'no slug' => [[]];
+        yield 'empty slug' => [['slug' => '']];
+    }
+
+    /**
+     * @dataProvider missingSlugs
+     */
+    public function testScrollIsKeptOnOtherPagesWithoutSlug(array $slug): void
+    {
+        $this->go_to(\get_permalink(self::factory()->post->create(['post_type' => 'page'])));
+        $_COOKIE['displayCookieConsent'] = 'y';
+        $sut = $this->makeCookieChoices(['scroll' => '1'] + $slug + $this->options());
+        $sut->run();
+
+        $this->assertStringContainsString('scroll="1",elPos="fixed"', $this->capture($sut));
+    }
+
+    public function testWpJsonEncodeDefaultDepthIs512(): void
+    {
+        $data = 1;
+        for ($level = 0; $level < 512; $level++) {
+            $data = [$data];
+        }
+        $sut = $this->makeCookieChoices([]);
+
+        $this->assertIsString($sut->wp_json_encode($data));
+        $this->assertFalse($sut->wp_json_encode([$data]));
+    }
+
     public function testTextsAreSanitized(): void
     {
         $output = $this->render([

@@ -203,7 +203,7 @@ final class SettingsTest extends WPTestCase
         (new Settings())->add_script_and_style('settings_page_italy-cookie-choices');
 
         $this->assertTrue(\wp_style_is('wp-color-picker'));
-        $this->assertTrue(\wp_script_is('jquery-ui-autocomplete'));
+        $this->assertContains('jquery-ui-autocomplete', \wp_scripts()->queue);
         $this->assertTrue(\wp_style_is('italy-cookie-choices-css'));
         $this->assertTrue(\wp_script_is('italy-cookie-choices-script'));
         $this->assertSame(
@@ -309,9 +309,20 @@ final class SettingsTest extends WPTestCase
     {
         $sut = new Settings();
 
-        $this->assertSame('["a\/b"]', $sut->wp_json_encode(['a/b']));
+        $this->assertSame('["a\/b","<"]', $sut->wp_json_encode(['a/b', '<']));
         $this->assertSame("[\n    1\n]", $sut->wp_json_encode([1], JSON_PRETTY_PRINT));
         $this->assertFalse($sut->wp_json_encode([[1]], 0, 1));
+    }
+
+    public function testWpJsonEncodeDefaultDepthIs512(): void
+    {
+        $data = 1;
+        for ($level = 0; $level < 512; $level++) {
+            $data = [$data];
+        }
+
+        $this->assertIsString((new Settings())->wp_json_encode($data));
+        $this->assertFalse((new Settings())->wp_json_encode([$data]));
     }
 
     private function resetAssets(): void

@@ -75,6 +75,21 @@ final class RunTest extends WPTestCase
         $this->assertSame(11, \has_filter('widget_display_callback', [$sut, 'widgetErase']));
     }
 
+    public function testTheWidgetFilterReceivesTheWidgetArguments(): void
+    {
+        $sut = $this->makeCookieChoices(['widget_block' => '1']);
+        $sut->run();
+
+        $instance = \apply_filters(
+            'widget_display_callback',
+            ['text' => '<iframe src="https://example.com"></iframe>'],
+            new \WP_Widget('test', 'Test'),
+            []
+        );
+
+        $this->assertStringStartsWith('<div class="el">', $instance['text']);
+    }
+
     public function testItBuffersTheBodyWhenAllBlockIsActive(): void
     {
         $sut = $this->makeCookieChoices(['all_block' => '1']);

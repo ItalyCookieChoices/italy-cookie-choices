@@ -95,32 +95,35 @@ final class ImportExportTest extends WPTestCase
     public function testImportRejectsFilesThatAreNotJson(): void
     {
         $this->prepareImport('settings.txt', '[{"active":"0"}]');
+        $this->captureDie();
 
-        $this->expectException(\WPDieException::class);
-        $this->expectExceptionMessage('Please upload a valid .json file');
-
-        (new Settings())->settings_import();
+        $this->assertSame(
+            ['Please upload a valid .json file', 'No valid json file', ['back_link' => true]],
+            $this->die()
+        );
     }
 
     public function testImportRejectsEmptyFiles(): void
     {
         $this->prepareImport('settings.json', '');
+        $this->captureDie();
 
-        $this->expectException(\WPDieException::class);
-        $this->expectExceptionMessage('The json file can\'t be empty');
-
-        (new Settings())->settings_import();
+        $this->assertSame(
+            ["The json file can't be empty", 'Empty file', ['back_link' => true]],
+            $this->die()
+        );
     }
 
     public function testImportRejectsMissingUploads(): void
     {
         $this->prepareImport('settings.json', '[{"active":"0"}]');
         $_FILES['icc_import_file']['tmp_name'] = '';
+        $this->captureDie();
 
-        $this->expectException(\WPDieException::class);
-        $this->expectExceptionMessage('Please upload a file to import');
-
-        (new Settings())->settings_import();
+        $this->assertSame(
+            ['Please upload a file to import', 'No file import', ['back_link' => true]],
+            $this->die()
+        );
     }
 
     public function testImportSavesTheSettingsAndRedirectsToTheSettingsPage(): void
@@ -141,6 +144,26 @@ final class ImportExportTest extends WPTestCase
             ['active' => '1', 'text' => 'Imported', 'block_script' => ['analytics']],
             \get_option(self::OPTION_NAME)
         );
+    }
+
+    private function captureDie(): void
+    {
+        \add_filter('wp_die_handler', static function (): callable {
+            return static function ($message, $title, $args): void {
+                throw new \RuntimeException((string) \wp_json_encode([$message, $title, $args]));
+            };
+        }, PHP_INT_MAX);
+    }
+
+    private function die(): array
+    {
+        try {
+            (new Settings())->settings_import();
+        } catch (\RuntimeException $die) {
+            return \json_decode($die->getMessage(), true);
+        }
+
+        $this->fail('The import did not die');
     }
 
     private function prepareImport(string $name, string $content): void
