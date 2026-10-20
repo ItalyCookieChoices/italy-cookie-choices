@@ -4,7 +4,7 @@ Donate link:
 Tags: cookie notice, cookie law, cookie choices, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie, compliance
 Requires at least: 5.0
 Requires PHP: 7.4
-Tested up to: 6.0
+Tested up to: 7.1
 Stable tag: 2.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
