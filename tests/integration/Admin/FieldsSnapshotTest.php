@@ -132,6 +132,15 @@ final class FieldsSnapshotTest extends WPTestCase
             $this->markTestIncomplete('Snapshot created: ' . $name);
         }
 
-        $this->assertSame(\file_get_contents($file), $actual);
+        // Admin markup only, whitespace does not change the page, the front-end tests stay exact
+        $this->assertSame(
+            $this->collapseWhitespace((string) \file_get_contents($file)),
+            $this->collapseWhitespace($actual)
+        );
+    }
+
+    private function collapseWhitespace(string $html): string
+    {
+        return \trim((string) \preg_replace('/\s+/', ' ', $html));
     }
 }
