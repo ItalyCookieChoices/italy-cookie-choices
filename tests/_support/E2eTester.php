@@ -37,9 +37,7 @@ class E2eTester extends \Codeception\Actor
             self::OPTION_NAME,
             \array_filter(
                 \array_merge($this->defaultOptions(), $options),
-                static function ($value): bool {
-                    return $value !== null;
-                }
+                static fn($value): bool => $value !== null
             )
         );
     }

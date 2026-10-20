@@ -52,7 +52,7 @@ $cookie = new Cookie();
  */
 add_shortcode( 'accept_button', function ( $atts, $content = null ) use ( $config ) {
 
-	$button_text = ( isset( $config['button_text'] ) ) ? $config['button_text'] : '' ;
+	$button_text = $config['button_text'] ?? '' ;
 
 	return '<span class="el"><button onclick="cookieChoices.removeCookieConsent()">' . esc_attr( $button_text ) . '</button></span>';
 

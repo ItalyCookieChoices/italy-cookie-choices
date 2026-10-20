@@ -419,9 +419,7 @@ final class PrintScriptInlineTest extends WPTestCase
 
     public function testTheOutputCanBeFiltered(): void
     {
-        \add_filter('icc_output_html', static function (string $html): string {
-            return 'filtered:' . \strlen($html);
-        });
+        \add_filter('icc_output_html', static fn(string $html): string => 'filtered:' . \strlen($html));
 
         $this->assertStringStartsWith('filtered:', $this->render($this->options()));
     }

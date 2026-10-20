@@ -126,9 +126,7 @@ final class GeneralFunctionsTest extends WPTestCase
     public function testIsBotListFilterCanRemoveBots(): void
     {
         $_SERVER['HTTP_USER_AGENT'] = 'Googlebot/2.1';
-        \add_filter('icc_bots', static function (): array {
-            return ['nothing-matches-this'];
-        });
+        \add_filter('icc_bots', static fn(): array => ['nothing-matches-this']);
 
         $this->assertFalse(is_bot());
     }

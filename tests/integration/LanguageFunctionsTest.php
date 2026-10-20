@@ -13,9 +13,7 @@ final class LanguageFunctionsTest extends WPTestCase
 {
     public function testGetLanguageReturnsTheLocale(): void
     {
-        \add_filter('locale', static function (): string {
-            return 'it_IT';
-        });
+        \add_filter('locale', static fn(): string => 'it_IT');
 
         $this->assertSame('it_IT', \get_language());
     }

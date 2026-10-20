@@ -25,7 +25,7 @@ function is_sitemaps_xml() {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$extension   = substr( $request_uri, -4 );
 
-	if ( false !== stripos( $request_uri, 'sitemap' ) && ( in_array( $extension, array( '.xml', '.xsl' ) ) ) ) {
+	if ( false !== stripos( $request_uri, 'sitemap' ) && ( in_array( $extension, [ '.xml', '.xsl' ] ) ) ) {
 		return true;
 	}
 
@@ -49,7 +49,7 @@ function is_bot() {
 
 	$http_user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] );
 
-	$bots  = array(
+	$bots  = [
 		'googlebot',
 		'facebookexternalhit',
 		'adsbot-google',
@@ -87,7 +87,7 @@ function is_bot() {
 		'googlebot-mobile',
 		'adsbot-google-mobile',
 		'yahooseeker',
-	);
+	];
 
 	$bots = apply_filters( 'icc_bots', $bots );
 
@@ -133,10 +133,10 @@ if ( ! function_exists( 'wp_json_encode' ) ) {
 		 * We need to make sure we call it with the correct arguments.
 		 */
 		if ( version_compare( PHP_VERSION, '5.5', '>=' ) )
-			$args = array( $data, $options, $depth );
+			$args = [ $data, $options, $depth ];
 		elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) )
-			$args = array( $data, $options );
-		else $args = array( $data );
+			$args = [ $data, $options ];
+		else $args = [ $data ];
 
 		$json = call_user_func_array( 'json_encode', $args );
 

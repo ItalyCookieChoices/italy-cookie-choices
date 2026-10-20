@@ -148,10 +148,8 @@ final class ImportExportTest extends WPTestCase
 
     private function captureDie(): void
     {
-        \add_filter('wp_die_handler', static function (): callable {
-            return static function ($message, $title, $args): void {
-                throw new \RuntimeException((string) \wp_json_encode([$message, $title, $args]));
-            };
+        \add_filter('wp_die_handler', static fn(): callable => static function ($message, $title, $args): void {
+            throw new \RuntimeException((string) \wp_json_encode([$message, $title, $args]));
         }, PHP_INT_MAX);
     }
 

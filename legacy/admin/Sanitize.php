@@ -20,7 +20,7 @@ class Sanitize{
 	 */
 	public function sanitize_callback( $input ){
 
-		$new_input = array();
+		$new_input = [];
 
 		if( isset( $input['active'] ) )
 			$new_input['active'] =  $input['active'];

@@ -65,9 +65,7 @@ final class SanitizeTest extends WPTestCase
     public function testEmptyCookieNameAndValueRaiseSettingsErrors(): void
     {
         $GLOBALS['wp_settings_errors'] = [];
-        \set_error_handler(static function (): bool {
-            return true;
-        }, E_NOTICE | E_WARNING);
+        \set_error_handler(static fn(): bool => true, E_NOTICE | E_WARNING);
 
         try {
             new Sanitize([]);

@@ -1,9 +1,9 @@
 <div id="custom-script" class="custom-script">
 	<?php
 
-    $allow_iframe = ( isset( $this->options['allow_iframe'] ) ) ? $this->options['allow_iframe'] : array('');
-    $allow_script = ( isset( $this->options['allow_script'] ) ) ? $this->options['allow_script'] : array('');
-    $allow_embed = ( isset( $this->options['allow_embed'] ) ) ? $this->options['allow_embed'] : array('');
+    $allow_iframe = $this->options['allow_iframe'] ?? [''];
+    $allow_script = $this->options['allow_script'] ?? [''];
+    $allow_embed = $this->options['allow_embed'] ?? [''];
 
 	echo '<div class="custom-script-title">' . __( 'iframe', 'italy-cookie-choices' ) . '</div>';
 

@@ -49,7 +49,7 @@ class Cookie_Choices {
 	 * Array with embed found
 	 * @var array
 	 */
-	public $js_array = array();
+	public $js_array = [];
 
 	/**
 	 * If exist set a page slug
@@ -67,13 +67,13 @@ class Cookie_Choices {
 	 * Array with list of allowed script|iframe|embed
 	 * @var array
 	 */
-	private $allow_script = array();
+	private $allow_script = [];
 
 	/**
 	 * Array with list of blocked script|iframe|embed
 	 * @var array
 	 */
-	private $block_script = array();
+	private $block_script = [];
 
 	/**
 	 * @var Cookie
@@ -93,7 +93,7 @@ class Cookie_Choices {
 		 * Check for second view option
 		 * @var bol
 		 */
-		$accept_on_second_page_view_option = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
+		$accept_on_second_page_view_option = $this->options['secondView'] ?? '' ;
 
 		/**
 		 * Assegno il valore allo slug nel costruttore
@@ -120,49 +120,49 @@ class Cookie_Choices {
 			 * Background color for banner
 			 * @var string
 			 */
-			$banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '#ffffff' ;
+			$banner_bg = $this->options['banner_bg'] ?? '#ffffff' ;
 
 			/**
 			 * Color for text
 			 * @var string
 			 */
-			$banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '#000000' ;
+			$banner_text_color = $this->options['banner_text_color'] ?? '#000000' ;
 
 			/**
 			 * Text for banner
 			 * @var string
 			 */
-			$text = ( isset( $this->options['text'] ) ) ? $this->options['text']    : '' ;
+			$text = $this->options['text'] ?? '' ;
 
 			/**
 			 * Text for buttom
 			 * @var [type]
 			 */
-			$button_text = ( isset( $this->options['button_text'] ) ) ? $this->options['button_text'] : '' ;
+			$button_text = $this->options['button_text'] ?? '' ;
 
 			/**
 			 * Checkbox for third part cookie in content
 			 * @var bol
 			 */
-			$block = ( isset( $this->options['block'] ) ) ? $this->options['block'] : '' ;
+			$block = $this->options['block'] ?? '' ;
 
 			/**
 			 * Checkbox for third part cookie in widget
 			 * @var bol
 			 */
-			$widget_block = ( isset( $this->options['widget_block'] ) ) ? $this->options['widget_block'] : '' ;
+			$widget_block = $this->options['widget_block'] ?? '' ;
 
 			/**
 			 * Checkbox for third part cookie in all page (except head and footer)
 			 * @var bol
 			 */
-			$all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
+			$all_block = $this->options['all_block'] ?? '' ;
 
 			/**
 			 * Checkbox custom scripts block in BODY
 			 * @var string
 			 */
-			$custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
+			$custom_script_block_body_exclude = $this->options['custom_script_block_body_exclude'] ?? '' ;
 
 			$this->get_blocked_script();
 			$this->get_allowed_script();
@@ -171,7 +171,7 @@ class Cookie_Choices {
 			 * Checkbox custom scripts block in HEAD and FOOTER
 			 * @var string
 			 */
-			$custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
+			$custom_script_block = $this->options['custom_script_block'] ?? '' ;
 
 			/**
 			 * Text to put inside locked post and widget contents
@@ -199,29 +199,29 @@ class Cookie_Choices {
 			);
 
 			if ( $block ) {
-				add_filter( 'the_content', array( $this, 'autoErase'), 11 );
+				add_filter( 'the_content', [ $this, 'autoErase'], 11 );
 			}
 
 			if ( $widget_block ) {
-				add_filter( 'widget_display_callback', array( $this, 'widgetErase'), 11, 3 );
+				add_filter( 'widget_display_callback', [ $this, 'widgetErase'], 11, 3 );
 			}
 
 			if ( $all_block ) {
 				//add_action('wp_footer', array( $this, 'catchBody' ), -1000000);
-				add_action('wp_head', array( $this, 'bufferBodyStart' ), 1000000);
-				add_action('wp_footer', array( $this, 'bufferBodyEnd' ), -1000000);
+				add_action('wp_head', [ $this, 'bufferBodyStart' ], 1000000);
+				add_action('wp_footer', [ $this, 'bufferBodyEnd' ], -1000000);
 			}
 
 			if( ( $custom_script_block || $this->block_script ) && $all_block ) {
-				add_action('template_redirect', array( $this, 'bufferHeadStart' ), 2);
-				add_action('wp_head', array( $this, 'bufferHeadEnd' ), 99999);
-				add_action('wp_footer', array( $this, 'bufferFooterStart' ), -99998);
-				add_action('shutdown', array( $this, 'bufferFooterEnd' ), -1000000);
+				add_action('template_redirect', [ $this, 'bufferHeadStart' ], 2);
+				add_action('wp_head', [ $this, 'bufferHeadEnd' ], 99999);
+				add_action('wp_footer', [ $this, 'bufferFooterStart' ], -99998);
+				add_action('shutdown', [ $this, 'bufferFooterEnd' ], -1000000);
 			} else {
 				/**
 				 * Function for print cookiechoiches inline
 				 */
-				add_action( 'wp_footer', array( $this, 'print_script_inline'), -99999 );
+				add_action( 'wp_footer', [ $this, 'print_script_inline'], -99999 );
 			}
 		}
 	}
@@ -328,7 +328,7 @@ class Cookie_Choices {
 		 * Custom script to block
 		 * @var string
 		 */
-		$custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
+		$custom_script_block = $this->options['custom_script_block'] ?? '' ;
 
 		if( ! $custom_script_block && ! $this->block_script )
 			return $buffer;
@@ -378,7 +378,7 @@ class Cookie_Choices {
 		 * Check if $custom_script_block_body_exclude is set
 		 * @var string
 		 */
-		$custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
+		$custom_script_block_body_exclude = $this->options['custom_script_block_body_exclude'] ?? '' ;
 
 		/**
 		 * Replace space with <---------SEP--------->
@@ -393,7 +393,7 @@ class Cookie_Choices {
 		$custom_script_block_body_exclude_array = explode( "<---------SEP--------->", $custom_script_block_body_exclude );
 
 		if( ! is_array( $custom_script_block_body_exclude_array ) || empty( $custom_script_block_body_exclude_array[0] ) )
-			$custom_script_block_body_exclude_array = array();
+			$custom_script_block_body_exclude_array = [];
 
 		/**
 		 * Merge the script array from new UX functionality
@@ -405,8 +405,8 @@ class Cookie_Choices {
 		if ( ob_get_contents() )
 			ob_end_clean();
 		preg_match( "/(.*)(<body.*)/s", $buffer, $matches );
-		$head = ( isset( $matches[1] ) ) ? $matches[1] : '';
-		$body = ( isset( $matches[2] ) ) ? $matches[2] : '';
+		$head = $matches[1] ?? '';
+		$body = $matches[2] ?? '';
 		preg_match_all( $this->pattern, $body, $body_matches );
 
 		if ( ! empty( $body_matches[0] ) ) {
@@ -483,11 +483,11 @@ class Cookie_Choices {
 	 */
 	private function get_allowed_script() {
 
-		$allow_iframe = ( isset( $this->options['allow_iframe'] ) ) ? $this->options['allow_iframe'] : array( '' );
-		$allow_script = ( isset( $this->options['allow_script'] ) ) ? $this->options['allow_script'] : array( '' );
-		$allow_embed = ( isset( $this->options['allow_embed'] ) ) ? $this->options['allow_embed'] : array( '' );
+		$allow_iframe = $this->options['allow_iframe'] ?? [ '' ];
+		$allow_script = $this->options['allow_script'] ?? [ '' ];
+		$allow_embed = $this->options['allow_embed'] ?? [ '' ];
 
-		$array = array();
+		$array = [];
 
 		foreach ( $allow_iframe as $key => $value )
 			if ( ! empty( $value ) )
@@ -503,13 +503,13 @@ class Cookie_Choices {
 
 	}
 
-	private function get_blocked_script( $val = array() ) {
+	private function get_blocked_script( $val = [] ) {
 
-		$block_iframe = ( isset( $this->options['block_iframe'] ) ) ? $this->options['block_iframe'] : array( '' );
-		$block_script = ( isset( $this->options['block_script'] ) ) ? $this->options['block_script'] : array( '' );
-		$block_embed = ( isset( $this->options['block_embed'] ) ) ? $this->options['block_embed'] : array( '' );
+		$block_iframe = $this->options['block_iframe'] ?? [ '' ];
+		$block_script = $this->options['block_script'] ?? [ '' ];
+		$block_embed = $this->options['block_embed'] ?? [ '' ];
 
-		$array = array();
+		$array = [];
 
 		foreach ( $block_iframe as $value )
 			if ( ! empty( $value ) )
@@ -603,10 +603,10 @@ class Cookie_Choices {
 		 * We need to make sure we call it with the correct arguments.
 		 */
 		if ( version_compare( PHP_VERSION, '5.5', '>=' ) )
-			$args = array( $data, $options, $depth );
+			$args = [ $data, $options, $depth ];
 		elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) )
-			$args = array( $data, $options );
-		else $args = array( $data );
+			$args = [ $data, $options ];
+		else $args = [ $data ];
 
 		$json = call_user_func_array( 'json_encode', $args );
 
@@ -641,7 +641,7 @@ class Cookie_Choices {
 		 * Reload on accept
 		 * @var bol
 		 */
-		$reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
+		$reload = $this->options['reload'] ?? '' ;
 
 		/**
 		 * ADVANCED OPTIONS
@@ -650,20 +650,20 @@ class Cookie_Choices {
 		 * Cookie name
 		 * @var string
 		 */
-		$cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : $this->cookieName ;
+		$cookie_name = $this->options['cookie_name'] ?? $this->cookieName ;
 
 		/**
 		 * Cookie value
 		 * @var string/bolean
 		 */
-		$cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
+		$cookie_value = $this->options['cookie_value'] ?? $this->cookieVal ;
 
 		/**
 		 * Js_Template value
 		 * @var string
 		 */
 		// $js_template = ( isset( $this->options['js_template'] ) && $this->options['js_template'] !== 'custom') ? $this->options['js_template'] : $this->js_template ;
-		$js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
+		$js_template = $this->options['js_template'] ?? $this->js_template ;
 
 		/**
 		 * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
@@ -675,7 +675,7 @@ class Cookie_Choices {
 		 * If set open policy page in new browser tab
 		 * @var bol
 		 */
-		$target = ( isset( $this->options['target'] ) ) ? $this->options['target'] : '' ;
+		$target = $this->options['target'] ?? '' ;
 
 		/**
 		 * Colore dello sfondo della dialog/topbar
@@ -785,7 +785,7 @@ class Cookie_Choices {
 
 			$bPos = 'top:0'; // Deprecato.
 
-			$htmlM = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
+			$htmlM = $this->options['html_margin'] ?? '' ;
 
 		} elseif ( $this->options['banner'] === '2' && ! ( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) {
 
@@ -916,7 +916,7 @@ class Cookie_Choices {
 
 		if ( $this->is_policy_page( $secondViewOpt ) ) {
 
-			setcookie( $this->options[ 'cookie_name' ], $this->options[ 'cookie_value' ], time() + (3600 * 24 * 365), '/' );
+			setcookie( $this->options[ 'cookie_name' ], $this->options[ 'cookie_value' ], ['expires' => time() + (3600 * 24 * 365), 'path' => '/'] );
 			$secondView = true;
 		}
 

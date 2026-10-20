@@ -17,13 +17,13 @@ class Settings {
 	 * Global variables and default values
 	 * @var array
 	 */
-	protected $default_options = array();
+	protected $default_options = [];
 
 	/**
 	 * Option
 	 * @var array
 	 */
-	private $options = array();
+	private $options = [];
 
 	/**
 	 * Default Cookie name
@@ -47,23 +47,23 @@ class Settings {
 	 * Array of all posts and pages object
 	 * @var array
 	 */
-	private $post_and_page_array = array();
+	private $post_and_page_array = [];
 
 	/**
 	 * Array with predefinited vendor iframe
 	 * @var array
 	 */
-	private $iframe_array = array();
+	private $iframe_array = [];
 	/**
 	 * Array with predefinited vendor script
 	 * @var array
 	 */
-	private $script_array = array();
+	private $script_array = [];
 	/**
 	 * Array with predefinited vendor embed
 	 * @var array
 	 */
-	private $embed_array = array();
+	private $embed_array = [];
 
 	/**
 	 * [__construct description]
@@ -79,33 +79,33 @@ class Settings {
 		 * Get all posts and pages object and merge for jQuery autocomplete function
 		 */
 		// $this->get_post_and_page_array();
-		$this->post_and_page_array = ( is_array( get_pages('numberposts=-1') ) ) ? get_pages('numberposts=-1') : array();
+		$this->post_and_page_array = ( is_array( get_pages('numberposts=-1') ) ) ? get_pages('numberposts=-1') : [];
 
 		/**
 		 * Add Admin menù page
 		 */
-		add_action( 'admin_menu', array( $this, 'addMenuPage') );
+		add_action( 'admin_menu', [ $this, 'addMenuPage'] );
 
 		/**
 		 * Init settings
 		 */
-		add_action( 'admin_init', array( $this, 'italy_cl_settings_init') );
+		add_action( 'admin_init', [ $this, 'italy_cl_settings_init'] );
 
 		/**
 		 * Load script only if is Italy Cookie Choices admin panel
 		 */
 		if ( isset($_GET['page']) && ($_GET['page'] === 'italy-cookie-choices' ) )
-			add_action('admin_enqueue_scripts', array( $this, 'add_script_and_style' ));
+			add_action('admin_enqueue_scripts', [ $this, 'add_script_and_style' ]);
 
 		/**
 		 * Add link in plugin activation panel
 		 */
-		add_filter( 'plugin_action_links_' . ITALY_COOKIE_CHOICES_BASENAME, array( $this, 'plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . ITALY_COOKIE_CHOICES_BASENAME, [ $this, 'plugin_action_links' ] );
 
 		//Add the export settings method
-		add_action( 'admin_init', array( $this, 'settings_export' ) );
+		add_action( 'admin_init', [ $this, 'settings_export' ] );
 		//Add the import settings method
-		add_action( 'admin_init', array( $this, 'settings_import' ) );
+		add_action( 'admin_init', [ $this, 'settings_import' ] );
 
 	}
 
@@ -128,20 +128,20 @@ class Settings {
 		 * We need to make sure we call it with the correct arguments.
 		 */
 		if ( version_compare( PHP_VERSION, '5.5', '>=' ) )
-			$args = array( $data, $options, $depth );
+			$args = [ $data, $options, $depth ];
 		elseif ( version_compare( PHP_VERSION, '5.3', '>=' ) )
-			$args = array( $data, $options );
+			$args = [ $data, $options ];
 		else
-			$args = array( $data );
-	 
+			$args = [ $data ];
+
 		$json = call_user_func_array( 'json_encode', $args );
-	 
+
 		// If json_encode() was successful, no need to do more sanity checking.
 		// ... unless we're in an old version of PHP, and json_encode() returned
 		// a string containing 'null'. Then we need to do more sanity checking.
 		if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || false === strpos( $json, 'null' ) ) )
 			return $json;
-	 
+
 		return call_user_func_array( 'json_encode', $args );
 	}
 
@@ -155,7 +155,7 @@ class Settings {
 			'Italy Cookie Choices',
 			$this->capability,
 			'italy-cookie-choices',
-			array( $this, 'dashboard')
+			[ $this, 'dashboard']
 			);
 	}
 
@@ -181,7 +181,7 @@ class Settings {
 		 * Create default options
 		 * @var array
 		 */
-		$this->default_options = array(
+		$this->default_options = [
 
 			'text'                          => '',
 			'url'                           => '',
@@ -192,7 +192,7 @@ class Settings {
 			'content_message_text'          => '',
 			'content_message_button_text'   => ''
 
-			);
+			];
 
 		/**
 		 * All options in array
@@ -212,7 +212,7 @@ class Settings {
 		add_settings_section(
 			'setting_section', 
 			__( 'Italy Cookie Choices options page', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_settings_section_callback'), 
+			[ $this, 'italy_cl_settings_section_callback'], 
 			'italy_cl_options_group'
 		);
 
@@ -222,7 +222,7 @@ class Settings {
 		add_settings_field( 
 			'active', 
 			__( 'Activate', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_active'), 
+			[ $this, 'italy_cl_option_active'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -234,7 +234,7 @@ class Settings {
 		add_settings_field( 
 			'banner', 
 			__( 'Where display the banner', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_banner'), 
+			[ $this, 'italy_cl_option_banner'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -245,7 +245,7 @@ class Settings {
 		add_settings_field( 
 			'scroll', 
 			__( 'Mouse scroll event', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_scroll'), 
+			[ $this, 'italy_cl_option_scroll'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -256,7 +256,7 @@ class Settings {
 		add_settings_field( 
 			'secondView', 
 			__( 'Accept on second view', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_secondView'), 
+			[ $this, 'italy_cl_option_secondView'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -267,7 +267,7 @@ class Settings {
 		add_settings_field( 
 			'reload', 
 			__( 'Refresh page', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_reload'), 
+			[ $this, 'italy_cl_option_reload'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -278,7 +278,7 @@ class Settings {
 		add_settings_field( 
 			'text', 
 			__( 'Text to display', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_text'), 
+			[ $this, 'italy_cl_option_text'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -289,7 +289,7 @@ class Settings {
 		add_settings_field( 
 			'url', 
 			__( 'URL for cookie policy', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_url'), 
+			[ $this, 'italy_cl_option_url'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -300,7 +300,7 @@ class Settings {
 		add_settings_field( 
 			'slug', 
 			__( 'Cookie policy page slug', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_slug'), 
+			[ $this, 'italy_cl_option_slug'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -311,7 +311,7 @@ class Settings {
 		add_settings_field( 
 			'anchor_text', 
 			__( 'Anchor text for URL', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_anchor_text'), 
+			[ $this, 'italy_cl_option_anchor_text'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -322,7 +322,7 @@ class Settings {
 		add_settings_field( 
 			'button_text', 
 			__( 'Button text', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_button_text'), 
+			[ $this, 'italy_cl_option_button_text'], 
 			'italy_cl_options_group', 
 			'setting_section'
 			);
@@ -333,7 +333,7 @@ class Settings {
 		add_settings_section(
 			'style_setting_section', 
 			__( 'Style settings', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_style_settings_section_callback'), 
+			[ $this, 'italy_cl_style_settings_section_callback'], 
 			'italy_cl_options_group'
 		);
 
@@ -343,18 +343,18 @@ class Settings {
 		add_settings_field( 
 			'js_template', 
 			__( 'CookieChoices Template', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_js_template'), 
+			[ $this, 'italy_cl_option_js_template'], 
 			'italy_cl_options_group', 
 			'style_setting_section'
 		);
-	
+
 		/**
 		 * Checkbox for activation
 		 */
 		add_settings_field( 
 			'html_margin', 
 			__( 'HTML top margin', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_html_margin'), 
+			[ $this, 'italy_cl_option_html_margin'], 
 			'italy_cl_options_group', 
 			'style_setting_section'
 		);
@@ -365,7 +365,7 @@ class Settings {
 		add_settings_field( 
 			'banner_bg', 
 			__( 'Banner Background color', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_banner_bg'), 
+			[ $this, 'italy_cl_option_banner_bg'], 
 			'italy_cl_options_group', 
 			'style_setting_section'
 		);
@@ -376,7 +376,7 @@ class Settings {
 		add_settings_field( 
 			'banner_text_color', 
 			__( 'Banner text color', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_banner_text_color'), 
+			[ $this, 'italy_cl_option_banner_text_color'], 
 			'italy_cl_options_group', 
 			'style_setting_section'
 		);
@@ -387,7 +387,7 @@ class Settings {
 		add_settings_field( 
 			'customCSS', 
 			__( 'Custom CSS', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_customCSS'), 
+			[ $this, 'italy_cl_option_customCSS'], 
 			'italy_cl_options_group', 
 			'style_setting_section'
 			);
@@ -398,7 +398,7 @@ class Settings {
 		add_settings_field( 
 			'customClass', 
 			__( 'Custom CSS Class (Optional)', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_customClass'), 
+			[ $this, 'italy_cl_option_customClass'], 
 			'italy_cl_options_group', 
 			'style_setting_section'
 			);
@@ -409,7 +409,7 @@ class Settings {
 		add_settings_section(
 			'advanced_setting_section', 
 			__( 'Advanced settings', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_advanced_settings_section_callback'), 
+			[ $this, 'italy_cl_advanced_settings_section_callback'], 
 			'italy_cl_options_group'
 		);
 
@@ -419,7 +419,7 @@ class Settings {
 		add_settings_field( 
 			'cookie_name', 
 			__( 'Cookie name', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_cookie_name'), 
+			[ $this, 'italy_cl_option_cookie_name'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -430,7 +430,7 @@ class Settings {
 		add_settings_field( 
 			'cookie_value', 
 			__( 'Cookie value', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_cookie_value'), 
+			[ $this, 'italy_cl_option_cookie_value'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -441,7 +441,7 @@ class Settings {
 		add_settings_field( 
 			'target', 
 			__( 'Open policy in new page', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_target'), 
+			[ $this, 'italy_cl_option_target'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -452,7 +452,7 @@ class Settings {
 		add_settings_field( 
 			'block', 
 			__( 'Third part cookie block (beta)', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_block'), 
+			[ $this, 'italy_cl_option_block'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -463,7 +463,7 @@ class Settings {
 		add_settings_field( 
 			'custom_script_block_body_exclude', 
 			__( 'Scripts allowed in body', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_custom_script_block_body_exclude'), 
+			[ $this, 'italy_cl_option_custom_script_block_body_exclude'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -474,7 +474,7 @@ class Settings {
 		add_settings_field( 
 			'custom_script_block', 
 			__( 'Scripts to be blocked', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_custom_script_block'), 
+			[ $this, 'italy_cl_option_custom_script_block'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -485,7 +485,7 @@ class Settings {
 		add_settings_field( 
 			'content_message_text', 
 			__( 'Text message for locked embedded content', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_content_message_text'), 
+			[ $this, 'italy_cl_option_content_message_text'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -496,7 +496,7 @@ class Settings {
 		add_settings_field( 
 			'content_message_button_text', 
 			__( 'Button text to activate locked embedded content', 'italy-cookie-choices' ), 
-			array( $this, 'italy_cl_option_content_message_button_text'), 
+			[ $this, 'italy_cl_option_content_message_button_text'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
@@ -507,7 +507,7 @@ class Settings {
 		register_setting(
 			'italy_cl_options_group',
 			'italy_cookie_choices',
-			array( $this, 'sanitize_callback')
+			[ $this, 'sanitize_callback']
 			);
 
 
@@ -530,7 +530,7 @@ class Settings {
 	 */
 	public function italy_cl_option_active($args) {
 
-		$active = ( isset( $this->options['active'] ) ) ? $this->options['active'] : '' ;
+		$active = $this->options['active'] ?? '' ;
 	?>
 
 		<input type='checkbox' name='italy_cookie_choices[active]' <?php checked( $active, 1 ); ?> value='1' id="italy_cookie_choices[active]">
@@ -548,7 +548,7 @@ class Settings {
 	 */
 	public function italy_cl_option_banner($args) {
 
-		$banner = ( isset( $this->options['banner'] ) ) ? $this->options['banner'] : '1' ;
+		$banner = $this->options['banner'] ?? '1' ;
 
 	?>
 
@@ -565,16 +565,16 @@ class Settings {
 		<label for="radio_2" id="label_radio_2">
 			<?php _e( 'Dialog (Display an overlay with your message)', 'italy-cookie-choices' ); ?>
 		</label>
-	
+
 		<br>
-	
+
 		<input name="italy_cookie_choices[banner]" type="radio" value="3" id="radio_3" <?php checked( '3', $banner ); ?> />
 
 		<label for="radio_3" id="label_radio_3">
 			<?php _e( 'Bottom Bar (Display a bar in the footer with your message)', 'italy-cookie-choices' ); ?>
 		</label>
 
-		
+
 
 	<?php
 
@@ -586,7 +586,7 @@ class Settings {
 	 */
 	public function italy_cl_option_scroll($args) {
 
-		$scroll = ( isset( $this->options['scroll'] ) ) ? $this->options['scroll'] : '' ;
+		$scroll = $this->options['scroll'] ?? '' ;
 	?>
 
 		<input type='checkbox' name='italy_cookie_choices[scroll]' <?php checked( $scroll, 1 ); ?> value='1' id="italy_cookie_choices[scroll]">
@@ -605,7 +605,7 @@ class Settings {
 	 */
 	public function italy_cl_option_secondView($args) {
 
-		$secondView = ( isset( $this->options['secondView'] ) ) ? $this->options['secondView'] : '' ;
+		$secondView = $this->options['secondView'] ?? '' ;
 
 	?>
 
@@ -624,7 +624,7 @@ class Settings {
 	 */
 	public function italy_cl_option_reload($args) {
 
-		$reload = ( isset( $this->options['reload'] ) ) ? $this->options['reload'] : '' ;
+		$reload = $this->options['reload'] ?? '' ;
 	?>
 
 		<input type='checkbox' name='italy_cookie_choices[reload]' <?php checked( $reload, 1 ); ?> value='1' id="italy_cookie_choices[reload]">
@@ -653,13 +653,13 @@ class Settings {
 			wp_editor(
 				wp_kses_post( $this->options['text'] ),
 				'italy_cookie_choices_text',
-				array(
+				[
 					'textarea_name' => 'italy_cookie_choices[text]',
 					'media_buttons' => false,
 					'textarea_rows' => 5,
 					'editor_css'    => '<style>#wp-italy_cookie_choices_text-wrap{max-width:520px}</style>',
 					'teeny' => true
-					)
+					]
 				);
 		else:
 		?>
@@ -687,7 +687,7 @@ class Settings {
 		 * Get the $post_ID for autocomplete function and put it in javascript var
 		 * @var array
 		 */
-		$urls = array();
+		$urls = [];
 		foreach( $this->post_and_page_array as $post )
 			$urls[] = get_permalink( $post->ID );
 
@@ -713,13 +713,13 @@ class Settings {
 	 */
 	public function italy_cl_option_slug($args) {
 
-		$slug = ( isset( $this->options['slug'] ) ) ? $this->options['slug'] : '' ;
+		$slug = $this->options['slug'] ?? '' ;
 
 		/**
 		 * Get the $post_name for autocomplete function and put it in javascript var
 		 * @var array
 		 */
-		$slugs = array();
+		$slugs = [];
 		foreach( $this->post_and_page_array as $post )
 			$slugs[] = $post->post_name;
 
@@ -793,7 +793,7 @@ class Settings {
 	 */
 	public function italy_cl_option_html_margin($args) {
 
-		$html_margin = ( isset( $this->options['html_margin'] ) ) ? $this->options['html_margin'] : '' ;
+		$html_margin = $this->options['html_margin'] ?? '' ;
 
 	?>
 
@@ -812,7 +812,7 @@ class Settings {
 	 */
 	public function italy_cl_option_js_template($args) {
 
-		$js_template = ( isset( $this->options['js_template'] ) ) ? $this->options['js_template'] : $this->js_template ;
+		$js_template = $this->options['js_template'] ?? $this->js_template ;
 
 	?>
 		<select  name='italy_cookie_choices[js_template]' id="italy_cookie_choices[js_template]">
@@ -840,7 +840,7 @@ class Settings {
 	 */
 	public function italy_cl_option_banner_bg($args) {
 
-		$banner_bg = ( isset( $this->options['banner_bg'] ) ) ? $this->options['banner_bg'] : '#fff' ;
+		$banner_bg = $this->options['banner_bg'] ?? '#fff' ;
 
 	?>
 
@@ -861,7 +861,7 @@ class Settings {
 	 */
 	public function italy_cl_option_banner_text_color($args) {
 
-		$banner_text_color = ( isset( $this->options['banner_text_color'] ) ) ? $this->options['banner_text_color'] : '#000' ;
+		$banner_text_color = $this->options['banner_text_color'] ?? '#000' ;
 
 	?>
 
@@ -881,7 +881,7 @@ class Settings {
 	 */
 	public function italy_cl_option_customCSS($args) {
 
-		$customCSS = ( isset( $this->options['customCSS'] ) ) ? $this->options['customCSS'] : '' ;
+		$customCSS = $this->options['customCSS'] ?? '' ;
 
 	?>
 
@@ -964,7 +964,7 @@ class Settings {
 	 */
 	public function italy_cl_option_cookie_name($args) {
 
-		$cookie_name = ( isset( $this->options['cookie_name'] ) ) ? $this->options['cookie_name'] : $this->cookieName ;
+		$cookie_name = $this->options['cookie_name'] ?? $this->cookieName ;
 
 	?>
 		<input type="text" id="italy_cookie_choices[cookie_name]" name="italy_cookie_choices[cookie_name]" value="<?php echo esc_attr( $cookie_name ); ?>" placeholder="<?php echo esc_attr( $this->cookieName ); ?>" />
@@ -983,7 +983,7 @@ class Settings {
 	 */
 	public function italy_cl_option_cookie_value($args) {
 
-		$cookie_value = ( isset( $this->options['cookie_value'] ) ) ? $this->options['cookie_value'] : $this->cookieVal ;
+		$cookie_value = $this->options['cookie_value'] ?? $this->cookieVal ;
 
 	?>
 		<input type="text" id="italy_cookie_choices[cookie_value]" name="italy_cookie_choices[cookie_value]" value="<?php echo esc_attr( $cookie_value ); ?>" placeholder="<?php echo esc_attr( $this->cookieVal ); ?>" />
@@ -1003,7 +1003,7 @@ class Settings {
 	 */
 	public function italy_cl_option_target($args) {
 
-		$target = ( isset( $this->options['target'] ) ) ? $this->options['target'] : '' ;
+		$target = $this->options['target'] ?? '' ;
 
 	?>
 
@@ -1023,7 +1023,7 @@ class Settings {
 	 */
 	public function italy_cl_option_block($args) {
 
-		$all_block = ( isset( $this->options['all_block'] ) ) ? $this->options['all_block'] : '' ;
+		$all_block = $this->options['all_block'] ?? '' ;
 
 		$block = ( isset( $this->options['block'] ) && $all_block === '' ) ? $this->options['block'] : '' ;
 
@@ -1063,7 +1063,7 @@ class Settings {
 		 */
 		require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/allow-script.php');
 
-		$custom_script_block_body_exclude = ( isset( $this->options['custom_script_block_body_exclude'] ) ) ? $this->options['custom_script_block_body_exclude'] : '' ;
+		$custom_script_block_body_exclude = $this->options['custom_script_block_body_exclude'] ?? '' ;
 
 	?>
 		<!-- <div id="editor"><?php // echo esc_textarea( $custom_script_block_body_exclude ); ?></div> -->
@@ -1100,7 +1100,7 @@ class Settings {
 		 */
 		require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/block-script.php');
 
-		$custom_script_block = ( isset( $this->options['custom_script_block'] ) ) ? $this->options['custom_script_block'] : '' ;
+		$custom_script_block = $this->options['custom_script_block'] ?? '' ;
 
 	?>
 		<textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block]" id="italy_cookie_choices[custom_script_block]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block ); ?></textarea>
@@ -1114,7 +1114,7 @@ class Settings {
 		<p>
 			<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script" target="_blank"><?php _e( 'For more information see the documentation', 'italy-cookie-choices' ); ?></a>
 		</p>
-		
+
 	<?php
 
 	}
@@ -1125,7 +1125,7 @@ class Settings {
 	 */
 	public function italy_cl_option_content_message_text($args) {
 
-		$content_message_text = ( isset( $this->options['content_message_text'] ) ) ? $this->options['content_message_text'] : '' ;
+		$content_message_text = $this->options['content_message_text'] ?? '' ;
 
 		/**
 		 * Allow HTML tags in message text area
@@ -1137,13 +1137,13 @@ class Settings {
 			wp_editor(
 				wp_kses_post( $content_message_text ),
 				'italy_cookie_choices_content_message_text',
-				array(
+				[
 					'textarea_name' => 'italy_cookie_choices[content_message_text]',
 					'media_buttons' => false,
 					'textarea_rows' => 5,
 					'editor_css'    => '<style>#wp-italy_cookie_choices_content_message_text-wrap{max-width:520px}</style>',
 					'teeny' => true
-					)
+					]
 				);
 		else:
 		?>
@@ -1164,7 +1164,7 @@ class Settings {
 	 */
 	public function italy_cl_option_content_message_button_text($args) {
 
-		$content_message_button_text = ( isset( $this->options['content_message_button_text'] ) ) ? $this->options['content_message_button_text'] : '' ;
+		$content_message_button_text = $this->options['content_message_button_text'] ?? '' ;
 
 	?>
 		<input type="text" id="italy_cookie_choices[content_message_button_text]" name="italy_cookie_choices[content_message_button_text]" value="<?php echo esc_attr( $content_message_button_text ); ?>" placeholder="<?php _e( 'e.g. Close', 'italy-cookie-choices' ) ?>" />
@@ -1184,7 +1184,7 @@ class Settings {
 	 */
 	public function sanitize_callback( $input ){
 
-		$new_input = array();
+		$new_input = [];
 
 		if( isset( $input['active'] ) )
 			$new_input['active'] =  $input['active'];
@@ -1248,10 +1248,10 @@ class Settings {
 		 */
 		if( isset( $input['html_margin'] ) )
 			$new_input['html_margin'] =  $input['html_margin'];
-	
+
 		if( isset( $input['js_template'] ) )
 			$new_input['js_template'] =  $input['js_template'];
-	
+
 		if( empty( $input['banner_bg'] ) )
 			$new_input['banner_bg'] =  '#fff';
 		elseif ( isset( $input['banner_bg'] ) )
@@ -1361,7 +1361,7 @@ class Settings {
 			register_string( 'Italy Cookie Choices', 'Content message text', $new_input['content_message_text'] );
 
 		}
-	
+
 		if( isset( $input['content_message_button_text'] ) ){
 
 			$new_input['content_message_button_text'] =  sanitize_text_field( $input['content_message_button_text'] );
@@ -1414,21 +1414,21 @@ class Settings {
 			wp_enqueue_style(
 				'italy-cookie-choices-css',
 				plugins_url('admin/css/admin.css', ITALY_COOKIE_CHOICES_FILE ),
-				array( 'dashicons' ),
+				[ 'dashicons' ],
 				null
 			);
 
 			wp_enqueue_script(
 				'italy-cookie-choices-script',
 				plugins_url('admin/js/src/script.js', ITALY_COOKIE_CHOICES_FILE ),
-				array(
+				[
 					// 'jquery',
 					'wp-color-picker',
 					'jquery-ui-widget',
 					'jquery-ui-autocomplete',
 					'jquery-effects-shake',
 					// 'ace'
-					),
+					],
 				null,
 				true
 			);
@@ -1458,7 +1458,7 @@ class Settings {
 	 */
 	private function create_third_party_array(){
 
-		$this->iframe_array = array(
+		$this->iframe_array = [
 			''              =>  '',
 			'google'        =>  'google',
 			'google_maps'   =>  'maps',
@@ -1467,9 +1467,9 @@ class Settings {
 			'twitter'       =>  'twitter',
 			'vimeo'         =>  'vimeo',
 			'facebook'      =>  'facebook',
-			);
+			];
 
-		$this->script_array = array(
+		$this->script_array = [
 			''                  =>  '',
 			'google'            =>  'google',
 			'google_maps'       =>  'maps',
@@ -1494,11 +1494,11 @@ class Settings {
 			'digg'              =>  'digg',
 			'eventbrite'        =>  'eventbrite',
 			'wordpress'         =>  'wp'
-			);
+			];
 
-		$this->embed_array = array(
+		$this->embed_array = [
 			''          =>  ''
-			);
+			];
 
 	}
 
@@ -1510,7 +1510,7 @@ class Settings {
 	 *                          This add a select box with script name
 	 * @return string           Return the HTML for new input
 	 */
-	function foreach_script( $array, $arr_name, $arr_key  ){
+	public function foreach_script( $array, $arr_name, $arr_key  ){
 
 		$select = '<select>';
 
@@ -1545,7 +1545,7 @@ class Settings {
 	 * Process a settings export from config
 	 * @since    1.0.0
 	 */
-	function settings_export() {
+	public function settings_export() {
 
 		if ( empty( $_POST[ 'icc_action' ] ) || 'export_settings' !== $_POST[ 'icc_action' ] )
 			return;
@@ -1576,7 +1576,7 @@ class Settings {
 	 * Process a settings import from a json file
 	 * @since    1.0.0
 	 */
-	function settings_import() {
+	public function settings_import() {
 
 		if ( empty( $_POST[ 'icc_action' ] ) || 'import_settings' != $_POST[ 'icc_action' ] )
 			return;
@@ -1600,21 +1600,21 @@ class Settings {
 		 * If it is not json than die
 		 */
 		if ( $extension !== 'json' )
-			wp_die( __( 'Please upload a valid .json file', 'italy-cookie-choices' ), __( 'No valid json file', 'italy-cookie-choices' ), array( 'back_link' => true ) );
+			wp_die( __( 'Please upload a valid .json file', 'italy-cookie-choices' ), __( 'No valid json file', 'italy-cookie-choices' ), [ 'back_link' => true ] );
 
 		/**
 		 * If the file is empty than die
 		 */
 		if ( $_FILES[ 'icc_import_file' ][ 'size' ] === 0 )
-			wp_die( __( 'The json file can\'t be empty', 'italy-cookie-choices' ), __( 'Empty file', 'italy-cookie-choices' ), array( 'back_link' => true ) );
+			wp_die( __( 'The json file can\'t be empty', 'italy-cookie-choices' ), __( 'Empty file', 'italy-cookie-choices' ), [ 'back_link' => true ] );
 
 		$import_file = $_FILES[ 'icc_import_file' ][ 'tmp_name' ];
-		
+
 		/**
 		 * If $import_file is empty or null than die
 		 */
 		if ( empty( $import_file ) )
-			wp_die( __( 'Please upload a file to import', 'italy-cookie-choices' ), __( 'No file import', 'italy-cookie-choices' ), array( 'back_link' => true ) );
+			wp_die( __( 'Please upload a file to import', 'italy-cookie-choices' ), __( 'No file import', 'italy-cookie-choices' ), [ 'back_link' => true ] );
 
 		/**
 		 * Retrieve the settings from the file and convert the json object to an array.

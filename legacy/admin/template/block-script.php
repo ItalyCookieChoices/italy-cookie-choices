@@ -1,9 +1,9 @@
 <div id="custom-script" class="custom-script">
 	<?php
 
-	$block_iframe = ( isset( $this->options['block_iframe'] ) ) ? $this->options['block_iframe'] : array('');
-	$block_script = ( isset( $this->options['block_script'] ) ) ? $this->options['block_script'] : array('');
-	$block_embed = ( isset( $this->options['block_embed'] ) ) ? $this->options['block_embed'] : array('');
+	$block_iframe = $this->options['block_iframe'] ?? [''];
+	$block_script = $this->options['block_script'] ?? [''];
+	$block_embed = $this->options['block_embed'] ?? [''];
 
 	echo '<div class="custom-script-title">' . __( 'iframe', 'italy-cookie-choices' ) . '</div>';
 
