@@ -1,0 +1,12 @@
+[
+    {
+        "active": "1",
+        "banner": "3",
+        "text": "Imported text",
+        "url": "http://wordpress/imported-policy/",
+        "anchor_text": "Imported anchor",
+        "button_text": "Imported button",
+        "cookie_name": "importedConsent",
+        "cookie_value": "yes"
+    }
+]

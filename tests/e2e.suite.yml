@@ -3,6 +3,7 @@ modules:
     enabled:
         - lucatume\WPBrowser\Module\WPDb
         - lucatume\WPBrowser\Module\WPWebDriver
+        - Asserts
         - \Helper\E2e
     config:
         lucatume\WPBrowser\Module\WPDb:

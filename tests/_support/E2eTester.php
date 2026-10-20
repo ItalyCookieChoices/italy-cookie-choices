@@ -29,12 +29,18 @@ class E2eTester extends \Codeception\Actor
 
     /**
      * Store the plugin options, merged over a minimal active configuration.
+     * A null value removes the option key.
      */
     public function haveCookieChoicesOptions(array $options): void
     {
         $this->haveOptionInDatabase(
             self::OPTION_NAME,
-            \array_merge($this->defaultOptions(), $options)
+            \array_filter(
+                \array_merge($this->defaultOptions(), $options),
+                static function ($value): bool {
+                    return $value !== null;
+                }
+            )
         );
     }
 

@@ -16,6 +16,8 @@ wp core install \
     --admin_email="${ADMIN_EMAIL}" \
     --skip-email
 wp rewrite structure '/%postname%/'
+# Classic theme, the plugin filters the_content and the legacy widgets
+wp theme activate twentytwentyone
 wp plugin activate italy-cookie-choices
 
 wp db export "${PLUGIN_DIR}/tests/_data/dump.sql" \
