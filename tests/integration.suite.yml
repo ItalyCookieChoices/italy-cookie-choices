@@ -1,0 +1,15 @@
+actor: IntegrationTester
+modules:
+    enabled:
+        - lucatume\WPBrowser\Module\WPLoader
+        - \Helper\Integration
+    config:
+        lucatume\WPBrowser\Module\WPLoader:
+            wpRootFolder: "%WP_ROOT_FOLDER%"
+            dbUrl: "mysql://%DB_USER%:%DB_PASSWORD%@%DB_HOST%/%DB_NAME%"
+            tablePrefix: "%INTEGRATION_TABLE_PREFIX%"
+            domain: "%WP_DOMAIN%"
+            adminEmail: "%ADMIN_EMAIL%"
+            title: "Test"
+            plugins:
+                - italy-cookie-choices/italy-cookie-choices.php

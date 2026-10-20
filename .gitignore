@@ -23,3 +23,5 @@ package-lock.json
 
 !.github/**
 !.docker/**
+!codeception.dist.yml
+!tests/*.suite.yml

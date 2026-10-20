@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+# Run inside the wordpress container: install a clean site with the plugin active
+# and export it as the dump the e2e suite loads before every test.
+set -eu
+
+PLUGIN_DIR=/var/www/html/wp-content/plugins/italy-cookie-choices
+
+. "${PLUGIN_DIR}/.docker/test.env"
+
+wp db reset --yes
+wp core install \
+    --url="${WP_URL}" \
+    --title="Italy Cookie Choices" \
+    --admin_user="${ADMIN_USERNAME}" \
+    --admin_password="${ADMIN_PASSWORD}" \
+    --admin_email="${ADMIN_EMAIL}" \
+    --skip-email
+wp rewrite structure '/%postname%/'
+wp plugin activate italy-cookie-choices
+
+wp db export "${PLUGIN_DIR}/tests/_data/dump.sql" \
+    --tables="$(wp db tables --all-tables-with-prefix --format=csv)"

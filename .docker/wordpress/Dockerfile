@@ -39,6 +39,7 @@ RUN  set -eux; \
      less \
      unzip \
      zip \
+     default-mysql-client \
      ; \
      rm -rf /var/lib/apt/lists/*
 
