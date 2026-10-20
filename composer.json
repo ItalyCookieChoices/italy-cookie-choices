@@ -80,42 +80,47 @@
   },
   "scripts": {
     "cs": [
-      "vendor\\bin\\phpcbf -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/ && vendor\\bin\\phpcs -p --ignore=./tests/_support/* ./config/ ./functions/ ./src/ ./templates/ ./tests/"
+      "@php vendor/bin/phpcs -p --ignore=./tests/_support/* ./admin/ ./core/ ./functions/ ./includes/ ./tests/"
+    ],
+    "cs:fix": [
+      "@php vendor/bin/phpcbf -p --ignore=./tests/_support/* ./admin/ ./core/ ./functions/ ./includes/ ./tests/"
     ],
     "analyze": [
-      "vendor\\bin\\phpstan analyze --level=max && vendor\\bin\\psalm"
+      "@php vendor/bin/phpstan analyze --level=max ./admin/ ./core/ ./functions/ ./includes/",
+      "@php vendor/bin/psalm"
     ],
-    "unit:all": [
-      "vendor\\bin\\codecept run unit && vendor\\bin\\codecept run wpunit && vendor\\bin\\infection --threads=8",
+    "integration": [
+      "@php vendor/bin/codecept run integration",
       "@clean"
     ],
-    "unit": [
-      "vendor\\bin\\codecept run unit",
+    "integration:debug": [
+      "@php vendor/bin/codecept run integration --debug",
       "@clean"
     ],
-    "unit:debug": [
-      "vendor\\bin\\codecept run unit --debug",
+    "e2e": [
+      "@php vendor/bin/codecept run e2e",
       "@clean"
     ],
-    "wpunit": [
-      "vendor\\bin\\codecept run wpunit",
+    "e2e:debug": [
+      "@php vendor/bin/codecept run e2e --debug",
       "@clean"
     ],
-    "wpunit:debug": [
-      "vendor\\bin\\codecept run wpunit --debug",
+    "tests": [
+      "@php vendor/bin/codecept run integration",
+      "@php vendor/bin/codecept run e2e",
       "@clean"
+    ],
+    "infection": [
+      "@php vendor/bin/infection --threads=4"
     ],
     "bench": [
-      "vendor\\bin\\phpbench run --report=performance"
+      "@php vendor/bin/phpbench run --report=performance"
     ],
     "metrics": [
-      "vendor\\bin\\phpmetrics --report-html='./tests/_output/report' ./src"
-    ],
-    "insights": [
-      "vendor\\bin\\phpinsights"
+      "@php vendor/bin/phpmetrics --report-html=./tests/_output/report ./admin/ ./core/ ./functions/ ./includes/"
     ],
     "clean": [
-      "vendor\\bin\\codecept clean"
+      "@php vendor/bin/codecept clean"
     ]
   },
   "support"    : {
