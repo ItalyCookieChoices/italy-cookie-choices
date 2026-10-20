@@ -8,12 +8,7 @@ use Rector\Set\ValueObject\LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-        __DIR__ . '/admin',
-        __DIR__ . '/core',
-        __DIR__ . '/functions',
-        __DIR__ . '/includes',
-        __DIR__ . '/js',
-        __DIR__ . '/lang',
+        __DIR__ . '/legacy',
         __DIR__ . '/tests',
     ]);
 

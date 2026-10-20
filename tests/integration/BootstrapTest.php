@@ -8,14 +8,14 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BootstrapTest extends WPTestCase
 {
-    private const PLUGIN_DIR = WP_PLUGIN_DIR . '/italy-cookie-choices';
+    private const PLUGIN_DIR = WP_PLUGIN_DIR . '/italy-cookie-choices/legacy';
 
     public function testConstantsAreDefined(): void
     {
         $this->assertTrue(ITALY_COOKIE_CHOICES_PLUGIN);
         $this->assertSame(self::PLUGIN_DIR . '/define-constants.php', ITALY_COOKIE_CHOICES_FILE);
         $this->assertSame(self::PLUGIN_DIR . '/', ITALY_COOKIE_CHOICES_PLUGIN_PATH);
-        $this->assertSame('italy-cookie-choices/define-constants.php', ITALY_COOKIE_CHOICES_BASENAME);
+        $this->assertSame('italy-cookie-choices/legacy/define-constants.php', ITALY_COOKIE_CHOICES_BASENAME);
         $this->assertSame(self::PLUGIN_DIR, ITALY_COOKIE_CHOICES_DIRNAME);
     }
 

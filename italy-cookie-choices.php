@@ -36,11 +36,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require( __DIR__ . '/define-constants.php' );
+require( __DIR__ . '/legacy/define-constants.php' );
 
 icc_set_plugin_default_constant();
 
-require( __DIR__ . '/bootstrap.php' );
+require( __DIR__ . '/legacy/bootstrap.php' );
 
 /**
  * Fires once Italy_Cookie_Choices plugin has been loaded.

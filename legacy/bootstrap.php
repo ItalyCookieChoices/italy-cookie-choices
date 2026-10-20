@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * Require PHP autoload
  */
-require( __DIR__ . '/vendor/autoload.php' );
+require( dirname( __DIR__ ) . '/vendor/autoload.php' );
 
 /**
  * Load general function before init

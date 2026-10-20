@@ -32,10 +32,10 @@ module.exports = function(grunt) {
         jshint: { // https://github.com/gruntjs/grunt-contrib-jshint
             all: [
                 'Gruntfile.js',
-                'js/default/*.js',
-                'js/bigbutton/*.js',
-                'js/smallbutton/*.js',
-                'admin/js/src/*.js',
+                'legacy/js/default/*.js',
+                'legacy/js/bigbutton/*.js',
+                'legacy/js/smallbutton/*.js',
+                'legacy/admin/js/src/*.js',
             ]
         },
 
@@ -45,21 +45,21 @@ module.exports = function(grunt) {
                     // 'js/cookiechoices.php': [
                     //     'js/cookiechoices.js'
                     // ],
-                    'js/default/cookiechoices.php': [
-                        'js/default/cookiechoices.js'
+                    'legacy/js/default/cookiechoices.php': [
+                        'legacy/js/default/cookiechoices.js'
                     ],
-                    'js/bigbutton/cookiechoices.php': [
-                        'js/bigbutton/cookiechoices.js'
+                    'legacy/js/bigbutton/cookiechoices.php': [
+                        'legacy/js/bigbutton/cookiechoices.js'
                     ],
-                    'js/smallbutton/cookiechoices.php': [
-                        'js/smallbutton/cookiechoices.js'
+                    'legacy/js/smallbutton/cookiechoices.php': [
+                        'legacy/js/smallbutton/cookiechoices.js'
                     ],
                 }
             },
             admin: {
                 files: {
-                    'admin/js/script.min.js': [
-                        'admin/js/src/script.js'
+                    'legacy/admin/js/script.min.js': [
+                        'legacy/admin/js/src/script.js'
                     ]
                 }
             }
@@ -68,8 +68,8 @@ module.exports = function(grunt) {
         compass:{ // https://github.com/gruntjs/grunt-contrib-compass
             src:{
                 options: {
-                    sassDir:['admin/css/src/sass'],
-                    cssDir:['admin/css'],
+                    sassDir:['legacy/admin/css/src/sass'],
+                    cssDir:['legacy/admin/css'],
                     outputStyle: 'compressed'
                 }
             },

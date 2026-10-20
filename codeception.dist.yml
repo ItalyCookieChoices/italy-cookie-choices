@@ -19,9 +19,10 @@ extensions:
 coverage:
     enabled: true
     include:
-        - admin/*.php
-        - core/*.php
-        - functions/*.php
-        - includes/*.php
+        - legacy/*.php
+        - legacy/admin/*.php
+        - legacy/core/*.php
+        - legacy/functions/*.php
+        - legacy/includes/*.php
 params:
     - .docker/test.env

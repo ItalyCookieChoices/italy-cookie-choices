@@ -2,13 +2,12 @@
     "$schema": "vendor/infection/infection/resources/schema.json",
     "source": {
         "directories": [
-            "admin",
-            "core",
-            "functions",
-            "includes"
+            "legacy"
         ],
         "excludes": [
-            "template"
+            "admin/template",
+            "js",
+            "lang"
         ]
     },
     "testFramework": "codeception",

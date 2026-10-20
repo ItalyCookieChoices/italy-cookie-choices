@@ -15,7 +15,7 @@ final class UninstallTest extends WPTestCase
             \define('WP_UNINSTALL_PLUGIN', 'italy-cookie-choices/italy-cookie-choices.php');
         }
 
-        require ITALY_COOKIE_CHOICES_DIRNAME . '/uninstall.php';
+        require \dirname(ITALY_COOKIE_CHOICES_DIRNAME) . '/uninstall.php';
 
         $this->assertFalse(\get_option('italy_cookie_choices'));
     }
