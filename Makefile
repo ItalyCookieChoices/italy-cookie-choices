@@ -62,8 +62,8 @@ e2e-dump: ## Rebuild tests/_data/dump.sql from a clean install
 	$(EXEC) sh .docker/e2e-dump
 
 .PHONY: infection
-infection: ## Run the mutation tests on the integration suite
-	$(EXEC) vendor/bin/infection --threads=4 $(ARGS)
+infection: integration ## Run the mutation tests on the integration suite
+	$(EXEC) vendor/bin/infection --threads=1 $(ARGS)
 
 .PHONY: clean
 clean: ## Remove the Codeception output

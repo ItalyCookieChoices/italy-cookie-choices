@@ -11,5 +11,6 @@ modules:
             domain: "%WP_DOMAIN%"
             adminEmail: "%ADMIN_EMAIL%"
             title: "Test"
+            configFile: "tests/_support/wploader-config.php"
             plugins:
                 - italy-cookie-choices/italy-cookie-choices.php

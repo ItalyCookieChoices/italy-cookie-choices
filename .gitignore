@@ -25,3 +25,4 @@ package-lock.json
 !.docker/**
 !codeception.dist.yml
 !tests/*.suite.yml
+!tests/_envs/*.yml

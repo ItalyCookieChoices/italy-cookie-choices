@@ -1,0 +1,6 @@
+# Used by Infection: reuse the installation made by a normal run of the integration suite,
+# the install process writes a deprecation notice to STDERR and Infection stops on it.
+modules:
+    config:
+        lucatume\WPBrowser\Module\WPLoader:
+            skipInstall: true

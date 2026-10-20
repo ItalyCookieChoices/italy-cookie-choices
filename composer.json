@@ -112,7 +112,8 @@
       "@clean"
     ],
     "infection": [
-      "@php vendor/bin/infection --threads=4"
+      "@php vendor/bin/codecept run integration",
+      "@php vendor/bin/infection --threads=1"
     ],
     "bench": [
       "@php vendor/bin/phpbench run --report=performance"
