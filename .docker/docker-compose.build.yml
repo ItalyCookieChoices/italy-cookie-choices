@@ -1,0 +1,8 @@
+# Override used by `make e2e-build`: WordPress loads the release package from build/,
+# the project is mounted apart to run Codeception with the dev dependencies.
+services:
+  wordpress:
+    volumes: !override
+      - ../build/${PROJECT_NAME:-wordpress}:/var/www/html/wp-content/plugins/${PROJECT_NAME:-wordpress}
+      - ../:/var/www/project
+      - ./mu-plugins/:/var/www/html/wp-content/mu-plugins/

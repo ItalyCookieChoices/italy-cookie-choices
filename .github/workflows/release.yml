@@ -13,6 +13,9 @@ on:
       - 'uninstall.php'
       - 'scoper.inc.php'
       - '.distignore'
+      - '.docker/**'
+      - 'tests/e2e/**'
+      - 'Makefile'
       - 'composer.json'
       - 'composer.lock'
   workflow_dispatch:
@@ -126,9 +129,50 @@ jobs:
           grep -q "showCookieConsentBar('Smoke test banner'" /tmp/home.html
           if grep -E 'Fatal error|Warning:|Parse error' /tmp/home.html /tmp/server.log; then exit 1; fi
 
+  e2e:
+    name: e2e tests on the package
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the package
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SLUG }}
+          path: build/${{ env.SLUG }}
+
+      # Same environment of the Test workflow, then WordPress loads the package instead of the sources
+      - name: Start the containers
+        run: make up
+
+      - name: Wait for WordPress
+        run: |
+          timeout 180 sh -c 'until docker exec italy-cookie-choices_test test -f /var/www/html/wp-config.php; do sleep 2; done'
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Wait for Selenium
+        run: |
+          timeout 180 sh -c 'until curl -sf http://localhost:4444/status | grep -q "\"ready\": *true"; do sleep 2; done'
+
+      - name: Run e2e tests on the package
+        run: make e2e-build
+
+      - name: Upload the test output
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-build-output
+          path: tests/_output
+          if-no-files-found: ignore
+
   deploy:
     name: Deploy to WordPress.org
-    needs: smoke-test
+    needs: [smoke-test, e2e]
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
