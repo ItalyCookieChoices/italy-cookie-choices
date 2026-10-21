@@ -28,17 +28,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
+      # The main file and the requirements check run before the PHP version is known,
+      # they must parse on old PHP versions to show the notice instead of a fatal error
+      - name: Setup PHP 7.4
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
+          coverage: none
+
+      - name: Validate the entry files on PHP 7.4
+        run: php -l italy-cookie-choices.php && php -l requirements.php
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
           coverage: none
 
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
       - name: Validate php files
-        run: find ./italy-cookie-choices.php ./uninstall.php ./legacy/ ./tests/ -type f -name '*.php' -not -path './tests/_output/*' -print0 | xargs -0 -L 1 -P 4 -- php -l
+        run: find ./italy-cookie-choices.php ./requirements.php ./bootstrap.php ./uninstall.php ./src/ ./legacy/ ./tests/ -type f -name '*.php' -not -path './tests/_output/*' -print0 | xargs -0 -L 1 -P 4 -- php -l
 
       - uses: ramsey/composer-install@v3
 
