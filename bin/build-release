@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Build the plugin package in build/italy-cookie-choices and build/italy-cookie-choices.zip:
+# production dependencies only, prefixed with PHP-Scoper, without the development files.
+#
+# Requires PHP 8.2+, composer, php-scoper, rsync and zip.
+# The dev dependencies must be installed in the project, the WordPress excludes come from them.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SLUG="italy-cookie-choices"
+PREFIX='ItalyCookieChoices\\Vendor'
+BUILD="$ROOT/build"
+WORK="$BUILD/work"
+OUT="$BUILD/$SLUG"
+SCOPER="${PHP_SCOPER:-php-scoper}"
+
+rm -rf "$BUILD"
+mkdir -p "$WORK" "$BUILD/wp-excludes"
+
+echo "Copy the WordPress symbols to exclude from the prefix"
+cp "$ROOT"/vendor/sniccowp/php-scoper-wordpress-excludes/generated/*.json "$BUILD/wp-excludes/"
+
+echo "Copy the plugin and install the production dependencies"
+rsync -a \
+    --exclude='.git' --exclude='build' --exclude='vendor' --exclude='node_modules' --exclude='tests/_output' \
+    "$ROOT/" "$WORK/"
+composer install --working-dir="$WORK" --no-dev --prefer-dist --no-interaction --no-progress --no-scripts
+
+echo "Prefix the dependencies"
+# The finder works in vendor, the output paths are relative to it
+WP_EXCLUDES_DIR="$BUILD/wp-excludes" "$SCOPER" add-prefix \
+    --config="$ROOT/scoper.inc.php" \
+    --working-dir="$WORK" \
+    --output-dir="$BUILD/vendor-scoped" \
+    --force \
+    --no-interaction
+
+echo "Copy the plugin files, without the development ones listed in .distignore"
+grep -vE '^\s*(#|!|$)' "$ROOT/.distignore" > "$BUILD/distignore"
+rsync -a --exclude='vendor' --exclude-from="$BUILD/distignore" "$WORK/" "$OUT/"
+mv "$BUILD/vendor-scoped" "$OUT/vendor"
+
+echo "Point the legacy code to the prefixed dependencies"
+grep -rlE '^use (ItalyStrap|Overclokk)\\' "$OUT/legacy" | while read -r file; do
+    sed -i -E "s/^use (ItalyStrap|Overclokk)\\\\/use ${PREFIX}\\\\\\1\\\\/" "$file"
+done
+if grep -rnE '(ItalyStrap|Overclokk)\\' "$OUT/legacy" "$OUT"/*.php | grep -v "$PREFIX"; then
+    echo "Unprefixed dependencies left in the plugin code" >&2
+    exit 1
+fi
+
+echo "Generate the autoloader for the prefixed classes"
+composer dump-autoload --working-dir="$OUT" --classmap-authoritative --no-dev --no-interaction
+rm -f "$OUT/composer.json" "$OUT/composer.lock"
+
+echo "Create the zip"
+(cd "$BUILD" && rm -rf work wp-excludes distignore && zip -rq "$SLUG.zip" "$SLUG")
+
+echo "Done: $OUT"
