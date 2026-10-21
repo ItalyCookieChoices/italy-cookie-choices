@@ -38,7 +38,10 @@ final class SettingsTest extends WPTestCase
         $this->assertSame(10, \has_action('admin_init', [$sut, 'italy_cl_settings_init']));
         $this->assertSame(10, \has_action('admin_init', [$sut, 'settings_export']));
         $this->assertSame(10, \has_action('admin_init', [$sut, 'settings_import']));
-        $this->assertSame(10, \has_filter('plugin_action_links_' . ITALY_COOKIE_CHOICES_BASENAME, [$sut, 'plugin_action_links']));
+        $this->assertSame(
+            10,
+            \has_filter('plugin_action_links_' . ITALY_COOKIE_CHOICES_BASENAME, [$sut, 'plugin_action_links'])
+        );
         $this->assertFalse(\has_action('admin_enqueue_scripts', [$sut, 'add_script_and_style']));
     }
 
@@ -66,7 +69,8 @@ final class SettingsTest extends WPTestCase
 
         $this->assertSame(
             [
-                '<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki" target="_blank">Documentation</a>',
+                '<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki" target="_blank">'
+                . 'Documentation</a>',
                 '<a href="options-general.php?page=italy-cookie-choices">Settings</a>',
                 'deactivate' => '<a href="#">Deactivate</a>',
             ],
@@ -241,7 +245,10 @@ final class SettingsTest extends WPTestCase
         $sut->dashboard();
         $output = (string) \ob_get_clean();
 
-        $this->assertStringContainsString("<form action='options.php' method='post' id='italy-cookie-choices-ID'>", $output);
+        $this->assertStringContainsString(
+            "<form action='options.php' method='post' id='italy-cookie-choices-ID'>",
+            $output
+        );
         $this->assertStringContainsString("name='option_page' value='" . self::GROUP . "'", $output);
         $this->assertStringContainsString('<input type="hidden" name="icc_action" value="export_settings" />', $output);
         $this->assertStringContainsString('<input type="hidden" name="icc_action" value="import_settings" />', $output);

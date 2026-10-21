@@ -100,7 +100,9 @@ final class SanitizeCallbackTest extends WPTestCase
 
     public function arrayFields(): iterable
     {
-        foreach (['allow_iframe', 'allow_script', 'allow_embed', 'block_iframe', 'block_script', 'block_embed'] as $field) {
+        $fields = ['allow_iframe', 'allow_script', 'allow_embed', 'block_iframe', 'block_script', 'block_embed'];
+
+        foreach ($fields as $field) {
             yield $field => [$field];
         }
     }
@@ -172,7 +174,9 @@ final class SanitizeCallbackTest extends WPTestCase
     {
         $result = (new Settings())->sanitize_callback([]);
 
-        foreach (['active', 'text', 'url', 'slug', 'customCSS', 'block', 'allow_iframe', 'content_message_text'] as $field) {
+        $fields = ['active', 'text', 'url', 'slug', 'customCSS', 'block', 'allow_iframe', 'content_message_text'];
+
+        foreach ($fields as $field) {
             $this->assertArrayNotHasKey($field, $result);
         }
     }

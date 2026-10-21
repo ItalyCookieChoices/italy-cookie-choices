@@ -198,6 +198,8 @@ final class AdminCest
 
         $I->seePluginActivated('italy-cookie-choices');
         $I->dontSeeLink('Documentation');
-        $I->dontSeeElement('tr[data-slug="italy-cookie-choices"] a[href="options-general.php?page=italy-cookie-choices"]');
+        $I->dontSeeElement(
+            'tr[data-slug="italy-cookie-choices"] a[href="options-general.php?page=italy-cookie-choices"]'
+        );
     }
 }

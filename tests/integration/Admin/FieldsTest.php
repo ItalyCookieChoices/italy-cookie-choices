@@ -26,7 +26,8 @@ final class FieldsTest extends WPTestCase
     public function testCheckboxesAreUncheckedByDefault(string $field): void
     {
         $this->assertStringContainsString(
-            "<input type='checkbox' name='italy_cookie_choices[$field]'  value='1' id=\"italy_cookie_choices[$field]\">",
+            "<input type='checkbox' name='italy_cookie_choices[$field]'  value='1' "
+            . "id=\"italy_cookie_choices[$field]\">",
             $this->renderField($field, [])
         );
     }
@@ -265,11 +266,14 @@ final class FieldsTest extends WPTestCase
         $select = '<select><option value=""></option><option value="google">Google</option></select>';
         $this->assertSame(
             '<div class="custom-script">'
-            . '<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="allow_script" '
-            . 'value="first" name="italy_cookie_choices[allow_script][first]" id="italy_cookie_choices[allow_script][first]"/>'
+            . '<div class="italy-cookie-choices-clone-div">'
+            . '<input type="text" class="regular-text" data-type="allow_script" '
+            . 'value="first" name="italy_cookie_choices[allow_script][first]" '
+            . 'id="italy_cookie_choices[allow_script][first]"/>'
             . $select . '<span><a class="button add" style="font-size:22px"> + </a>'
             . '<a class="button cancel" style="font-size:22px"> × </a></span></div>'
-            . '<div class="italy-cookie-choices-clone-div"><input type="text" class="regular-text" data-type="allow_script" '
+            . '<div class="italy-cookie-choices-clone-div">'
+            . '<input type="text" class="regular-text" data-type="allow_script" '
             . 'value="sec&quot;ond" name="italy_cookie_choices[allow_script][sec&quot;ond]" '
             . 'id="italy_cookie_choices[allow_script][sec&quot;ond]"/>'
             . $select . '<span><a class="button add" style="font-size:22px"> + </a>'

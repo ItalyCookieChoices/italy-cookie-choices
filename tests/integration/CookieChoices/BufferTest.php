@@ -65,7 +65,9 @@ final class BufferTest extends WPTestCase
             'custom_script_block' => '<script' . self::SOMETHING . 'tracker.js' . self::SOMETHING . '</script>',
         ]);
 
-        $result = $sut->removeCustomScript('<script async src="https://cdn.example.com/tracker.js?v=2"></script><p>ok</p>');
+        $result = $sut->removeCustomScript(
+            '<script async src="https://cdn.example.com/tracker.js?v=2"></script><p>ok</p>'
+        );
 
         $this->assertSame(self::REMOVED . '<p>ok</p>', $result);
         $this->assertSame(['<script async src="https://cdn.example.com/tracker.js?v=2"></script>'], $sut->js_array);
@@ -143,7 +145,8 @@ final class BufferTest extends WPTestCase
         $sut->run();
 
         $result = $sut->removeCustomScript(
-            '<iframe src="https://www.youtube.com/embed/x"></iframe><p>kept?</p><iframe src="https://vimeo.com/x"></iframe>'
+            '<iframe src="https://www.youtube.com/embed/x"></iframe><p>kept?</p>'
+            . '<iframe src="https://vimeo.com/x"></iframe>'
         );
 
         $this->assertSame(self::REMOVED, $result);
@@ -328,7 +331,10 @@ final class BufferTest extends WPTestCase
         $output = \ob_get_clean();
 
         $this->assertStringStartsWith('<!-- Italy Cookie Choices -->', $output);
-        $this->assertStringContainsString('jsArr = ["<script src=\"https:\/\/example.com\/tracker.js\"><\/script>"];', $output);
+        $this->assertStringContainsString(
+            'jsArr = ["<script src=\"https:\/\/example.com\/tracker.js\"><\/script>"];',
+            $output
+        );
         $this->assertStringEndsWith(
             '<!-- ICCStartFooter --><footer>' . self::REMOVED . '</footer><!-- ICCEndFooter -->',
             $output
