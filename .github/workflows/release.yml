@@ -63,6 +63,16 @@ jobs:
       - name: Build
         run: bin/build-release
 
+      # WordPress.org refuses the commit when a file does not lint on its recent PHP
+      - name: Setup the latest PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Lint the package on the latest PHP
+        run: find "build/$SLUG" -type f -name '*.php' -not -path '*/legacy/js/*' -print0 | xargs -0 -L 1 -P 4 -- php -l
+
       - name: Upload the package
         uses: actions/upload-artifact@v4
         with:
@@ -71,13 +81,20 @@ jobs:
           if-no-files-found: error
 
   smoke-test:
-    name: Smoke test on PHP 7.4 & WordPress ${{ matrix.wp_versions }}
+    name: Smoke test on PHP ${{ matrix.php_versions }} & WordPress ${{ matrix.wp_versions }}
     needs: build
     runs-on: ubuntu-latest
 
+    # The minimum supported versions and the newest ones, WordPress 6.1 does not run on PHP 8.5
     strategy:
       matrix:
-        wp_versions: ['6.1', '7.1']
+        include:
+          - php_versions: '7.4'
+            wp_versions: '6.1'
+          - php_versions: '7.4'
+            wp_versions: '7.1'
+          - php_versions: '8.5'
+            wp_versions: '7.1'
 
     env:
       WP_DIR: /tmp/wordpress
@@ -89,7 +106,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: ${{ matrix.php_versions }}
           coverage: none
           extensions: mysqli
           tools: wp-cli
@@ -100,7 +117,7 @@ jobs:
           name: ${{ env.SLUG }}
           path: package/${{ env.SLUG }}
 
-      - name: Lint the package on PHP 7.4
+      - name: Lint the package on PHP ${{ matrix.php_versions }}
         run: find package -type f -name '*.php' -not -path '*/legacy/js/*' -print0 | xargs -0 -L 1 -P 4 -- php -l
 
       - name: Install WordPress
