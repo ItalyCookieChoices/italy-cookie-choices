@@ -29,16 +29,6 @@ return [
             ->exclude(['doc', 'docs', 'test', 'tests', 'Tests', 'vendor-bin'])
             ->in('vendor'),
     ],
-    'patchers' => [
-        // PHP 8.4 does not allow #[\Deprecated] on a class, WordPress.org lints with a recent PHP and refuses it
-        static function (string $filePath, string $prefix, string $contents): string {
-            if (!\str_ends_with($filePath, 'italystrap/config/legacy/ConfigThemeMods.php')) {
-                return $contents;
-            }
-
-            return (string) \preg_replace('/^#\[\\\\Deprecated\]\R(?=(final |abstract )?class )/m', '', $contents);
-        },
-    ],
     'exclude-classes' => \array_merge(
         $wordpressSymbols('classes'),
         $wordpressSymbols('interfaces'),
