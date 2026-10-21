@@ -106,45 +106,24 @@ final class SettingsTest extends WPTestCase
         $this->assertFalse(\has_action('admin_page_italy-cookie-choices'));
     }
 
-    public function testSettingsInitCreatesTheDefaultOptions(): void
+    /**
+     * Changed in #233: the migration creates the option, the settings page reads the registered defaults.
+     */
+    public function testSettingsInitDoesNotStoreTheOption(): void
     {
         (new Settings())->italy_cl_settings_init();
 
-        $this->assertSame(
-            [
-                'text' => '',
-                'url' => '',
-                'anchor_text' => '',
-                'button_text' => '',
-                'cookie_name' => 'displayCookieConsent',
-                'cookie_value' => 'y',
-                'content_message_text' => '',
-                'content_message_button_text' => '',
-            ],
-            \get_option(self::OPTION_NAME)
-        );
+        $this->assertNull(\get_option(self::OPTION_NAME, null));
     }
 
     public function testSettingsInitKeepsTheExistingOptions(): void
     {
         \update_option(self::OPTION_NAME, ['active' => '1']);
+        $saved = \get_option(self::OPTION_NAME);
 
         (new Settings())->italy_cl_settings_init();
 
-        $this->assertSame(['active' => '1'], \get_option(self::OPTION_NAME));
-    }
-
-    public function testSettingsInitRegistersTheSetting(): void
-    {
-        $sut = new Settings();
-
-        $sut->italy_cl_settings_init();
-
-        $this->assertArrayHasKey(self::OPTION_NAME, \get_registered_settings());
-        /** @var array<string, mixed> $setting */
-        $setting = \get_registered_settings()[self::OPTION_NAME];
-        $this->assertSame(self::GROUP, $setting['group']);
-        $this->assertSame(10, \has_filter('sanitize_option_' . self::OPTION_NAME, [$sut, 'sanitize_callback']));
+        $this->assertSame($saved, \get_option(self::OPTION_NAME));
     }
 
     public function testSettingsInitRegistersTheSections(): void
@@ -298,10 +277,9 @@ final class SettingsTest extends WPTestCase
     }
 
     /**
-     * Current behaviour: on the very first load the option does not exist yet,
-     * the fields read it from memory and raise a warning, fixed in #233.
+     * Fixed in #233: before the option exists the fields read the registered defaults, without warnings.
      */
-    public function testTheFirstRenderBeforeTheOptionExistsRaisesAWarning(): void
+    public function testTheFirstRenderBeforeTheOptionExistsRaisesNoWarnings(): void
     {
         $sut = new Settings();
         $sut->italy_cl_settings_init();
@@ -320,7 +298,7 @@ final class SettingsTest extends WPTestCase
             \restore_error_handler();
         }
 
-        $this->assertSame(['Trying to access array offset on value of type bool'], $warnings);
+        $this->assertSame([], $warnings);
     }
 
     public function testWpJsonEncodeEncodesData(): void

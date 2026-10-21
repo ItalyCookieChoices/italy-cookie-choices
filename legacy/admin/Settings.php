@@ -14,12 +14,6 @@ class Settings {
 	protected $capability = 'manage_options';
 
 	/**
-	 * Global variables and default values
-	 * @var array
-	 */
-	protected $default_options = [];
-
-	/**
 	 * Option
 	 * @var array
 	 */
@@ -178,33 +172,11 @@ class Settings {
 	public function italy_cl_settings_init() {
 
 		/**
-		 * Create default options
-		 * @var array
-		 */
-		$this->default_options = [
-
-			'text'                          => '',
-			'url'                           => '',
-			'anchor_text'                   => '',
-			'button_text'                   => '',
-			'cookie_name'                   => $this->cookieName,
-			'cookie_value'                  => $this->cookieVal,
-			'content_message_text'          => '',
-			'content_message_button_text'   => ''
-
-			];
-
-		/**
-		 * All options in array
+		 * All options in array, the defaults until the option is saved
+		 * The option is registered and created in ItalyCookieChoices\Settings
 		 * @var array
 		 */
 		$this->options = get_option( 'italy_cookie_choices' );
-
-		/**
-		 * If the theme options don't exist, create them.
-		 */
-		if( false === $this->options )
-			add_option( 'italy_cookie_choices', $this->default_options );
 
 		/**
 		 * Section options page
@@ -500,16 +472,6 @@ class Settings {
 			'italy_cl_options_group', 
 			'advanced_setting_section'
 			);
-
-		/**
-		 * Register setting
-		 */
-		register_setting(
-			'italy_cl_options_group',
-			'italy_cookie_choices',
-			[ $this, 'sanitize_callback']
-			);
-
 
 	}
 
@@ -1174,203 +1136,6 @@ class Settings {
 		</label>
 
 	<?php
-
-	}
-
-	/**
-	 * Sanitize data
-	 * @param  array $input Data to sanitize
-	 * @return array        Data sanitized
-	 */
-	public function sanitize_callback( $input ){
-
-		$new_input = [];
-
-		if( isset( $input['active'] ) )
-			$new_input['active'] =  $input['active'];
-
-		if( isset( $input['banner'] ) )
-			$new_input['banner'] =  $input['banner'];
-
-		if( isset( $input['scroll'] ) )
-			$new_input['scroll'] =  $input['scroll'];
-
-		if( isset( $input['secondView'] ) )
-			$new_input['secondView'] =  $input['secondView'];
-
-		if( isset( $input['reload'] ) )
-			$new_input['reload'] =  $input['reload'];
-
-		/**
-		 * Multilingual for text, url, anchor_text & button_text
-		 */
-		if( isset( $input['text'] ) ){
-
-			$new_input['text'] = wp_kses_post( $input['text'] );
-			// $new_input['text'] = sanitize_text_field( $input['text'] );
-			register_string( 'Italy Cookie Choices', 'Banner text', $new_input['text'] );
-		}
-
-		if( isset( $input['url'] ) ){
-
-			$new_input['url'] = sanitize_text_field( $input['url'] );
-
-			register_string( 'Italy Cookie Choices', 'Banner url', $new_input['url'] );
-
-		}
-
-		if( isset( $input['slug'] ) ){
-
-			$new_input['slug'] = sanitize_text_field( $input['slug'] );
-
-			register_string( 'Italy Cookie Choices', 'Banner slug', $new_input['slug'] );
-
-		}
-
-		if( isset( $input['anchor_text'] ) ){
-
-			$new_input['anchor_text'] = sanitize_text_field( $input['anchor_text'] );
-
-			register_string( 'Italy Cookie Choices', 'Banner anchor text', $new_input['anchor_text'] );
-
-		}
-
-		if( isset( $input['button_text'] ) ){
-
-			$new_input['button_text'] = sanitize_text_field( $input['button_text'] );
-
-			register_string( 'Italy Cookie Choices', 'Banner button text', $new_input['button_text'] );
-
-		}
-
-		/**
-		 * Sezione per lo stile
-		 */
-		if( isset( $input['html_margin'] ) )
-			$new_input['html_margin'] =  $input['html_margin'];
-
-		if( isset( $input['js_template'] ) )
-			$new_input['js_template'] =  $input['js_template'];
-
-		if( empty( $input['banner_bg'] ) )
-			$new_input['banner_bg'] =  '#fff';
-		elseif ( isset( $input['banner_bg'] ) )
-			$new_input['banner_bg'] =  sanitize_text_field( $input['banner_bg'] );
-
-		if( empty( $input['banner_text_color'] ) )
-			$new_input['banner_text_color'] =  '#000';
-		elseif ( isset( $input['banner_text_color'] ) )
-			$new_input['banner_text_color'] =  sanitize_text_field( $input['banner_text_color'] );
-
-		if( isset( $input['customCSS'] ) )
-			$new_input['customCSS'] = sanitize_text_field( $input['customCSS'] );
-
-		if( empty( $input['bannerStyle'] ) )
-			$new_input['bannerStyle'] =  'bannerStyle';
-		elseif( isset( $input['bannerStyle'] ) )
-			$new_input['bannerStyle'] = sanitize_text_field( $input['bannerStyle'] );
-
-		if( empty( $input['contentStyle'] ) )
-			$new_input['contentStyle'] =  'contentStyle';
-		elseif( isset( $input['contentStyle'] ) )
-			$new_input['contentStyle'] = sanitize_text_field( $input['contentStyle'] );
-
-		if( empty( $input['consentText'] ) )
-			$new_input['consentText'] =  'consentText';
-		elseif( isset( $input['consentText'] ) )
-			$new_input['consentText'] = sanitize_text_field( $input['consentText'] );
-
-		if( empty( $input['infoClass'] ) )
-			$new_input['infoClass'] =  'italybtn';
-		elseif( isset( $input['infoClass'] ) )
-			$new_input['infoClass'] = sanitize_text_field( $input['infoClass'] );
-
-		if( empty( $input['closeClass'] ) )
-			$new_input['closeClass'] =  'italybtn';
-		elseif( isset( $input['closeClass'] ) )
-			$new_input['closeClass'] = sanitize_text_field( $input['closeClass'] );
-
-		/**
-		 * Sezione per le opzioni avanzate
-		 * Esempio per add_settings_error()
-		 * @link https://wordpress.org/support/topic/how-to-use-add_settings_error-for-nested-options-array?replies=2
-		 * @link http://pastebin.com/K4kJ0DNG
-		 */
-		if( empty( $input['cookie_name'] ) ){
-			add_settings_error( 'italy_cookie_id', 'cookie_name_ID', __('Cookie name field it can\'t be empty. Restored default name.', 'italy-cookie-choices' ), 'error');
-			$new_input['cookie_name'] = $this->cookieName;
-		}
-		else
-			$new_input['cookie_name'] =  sanitize_text_field( $input['cookie_name'] );
-
-		if( empty( $input['cookie_value'] ) ){
-			add_settings_error( 'italy_cookie_id', 'cookie_name_ID', __('Cookie value field it can\'t be empty. Restored default value.', 'italy-cookie-choices' ), 'error');
-			$new_input['cookie_value'] =  $this->cookieVal;
-		}
-		else
-			$new_input['cookie_value'] = sanitize_text_field( $input['cookie_value'] );
-
-		if( isset( $input['target'] ) )
-			$new_input['target'] =  $input['target'];
-
-		if( isset( $input['block'] ) )
-			$new_input['block'] =  $input['block'];
-
-		if( isset( $input['widget_block'] ) )
-			$new_input['widget_block'] =  $input['widget_block'];
-
-		if( isset( $input['all_block'] ) )
-			$new_input['all_block'] =  $input['all_block'];
-
-		/**
-		 * Allow script
-		 */
-		if( isset( $input['allow_iframe'] ) )
-			$new_input['allow_iframe'] =  $input['allow_iframe'];
-
-		if( isset( $input['allow_script'] ) )
-			$new_input['allow_script'] =  $input['allow_script'];
-
-		if( isset( $input['allow_embed'] ) )
-			$new_input['allow_embed'] =  $input['allow_embed'];
-
-		if( isset( $input['custom_script_block_body_exclude'] ) )
-			$new_input['custom_script_block_body_exclude'] =  $input['custom_script_block_body_exclude'];
-		/**********************************************************************/
-
-		/**
-		 * Block script
-		 */
-		if( isset( $input['block_iframe'] ) )
-			$new_input['block_iframe'] =  $input['block_iframe'];
-
-		if( isset( $input['block_script'] ) )
-			$new_input['block_script'] =  $input['block_script'];
-
-		if( isset( $input['block_embed'] ) )
-			$new_input['block_embed'] =  $input['block_embed'];
-
-		if( isset( $input['custom_script_block'] ) )
-			$new_input['custom_script_block'] =  $input['custom_script_block'];
-		/**********************************************************************/
-
-		if( isset( $input['content_message_text'] ) ){
-
-			$new_input['content_message_text'] =  wp_kses_post( $input['content_message_text'] );
-
-			register_string( 'Italy Cookie Choices', 'Content message text', $new_input['content_message_text'] );
-
-		}
-
-		if( isset( $input['content_message_button_text'] ) ){
-
-			$new_input['content_message_button_text'] =  sanitize_text_field( $input['content_message_button_text'] );
-
-			register_string( 'Italy Cookie Choices', 'Content message button text', $new_input['content_message_button_text'] );
-
-		}
-
-		return $new_input;
 
 	}
 

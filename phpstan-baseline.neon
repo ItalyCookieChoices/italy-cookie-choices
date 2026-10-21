@@ -1,60 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Access to an undefined property Italy_Cookie_Choices\\Admin\\Sanitize\:\:\$cookieName\.$#'
-			identifier: property.notFound
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Access to an undefined property Italy_Cookie_Choices\\Admin\\Sanitize\:\:\$cookieVal\.$#'
-			identifier: property.notFound
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Sanitize\:\:__construct\(\) has parameter \$input with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Sanitize\:\:sanitize_callback\(\) has parameter \$input with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Sanitize\:\:sanitize_callback\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Offset ''banner_bg'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Offset ''banner_text_color'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Parameter \#1 \$input of method Italy_Cookie_Choices\\Admin\\Sanitize\:\:sanitize_callback\(\) expects array, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: legacy/admin/Sanitize.php
-
-		-
-			message: '#^Parameter \#1 \$str of function sanitize_text_field expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 11
-			path: legacy/admin/Sanitize.php
-
-		-
 			message: '#^Action callback returns Italy_Cookie_Choices\\Admin\\Append but should not return anything\.$#'
 			identifier: return.void
 			count: 1
@@ -565,18 +511,6 @@ parameters:
 			path: legacy/admin/Settings.php
 
 		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:sanitize_callback\(\) has parameter \$input with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:sanitize_callback\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
 			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:settings_export\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -595,48 +529,6 @@ parameters:
 			path: legacy/admin/Settings.php
 
 		-
-			message: '#^Offset ''bannerStyle'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Offset ''banner_bg'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Offset ''banner_text_color'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Offset ''closeClass'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Offset ''consentText'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Offset ''contentStyle'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Offset ''infoClass'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
 			message: '#^PHPDoc tag @return has invalid value \(\[type\] \[description\]\)\: Unexpected token "\[", expected type at offset 38 on line 3$#'
 			identifier: phpDoc.parseError
 			count: 1
@@ -645,13 +537,13 @@ parameters:
 		-
 			message: '#^PHPDoc tag @var above assignment does not specify variable name\.$#'
 			identifier: varTag.noVariable
-			count: 2
+			count: 1
 			path: legacy/admin/Settings.php
 
 		-
 			message: '#^PHPDoc tag @var has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 5
+			count: 4
 			path: legacy/admin/Settings.php
 
 		-
@@ -669,7 +561,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$data of function wp_kses_post expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 6
+			count: 4
 			path: legacy/admin/Settings.php
 
 		-
@@ -709,12 +601,6 @@ parameters:
 			path: legacy/admin/Settings.php
 
 		-
-			message: '#^Parameter \#1 \$str of function sanitize_text_field expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 15
-			path: legacy/admin/Settings.php
-
-		-
 			message: '#^Parameter \#1 \$text of function esc_attr expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 16
@@ -741,12 +627,6 @@ parameters:
 		-
 			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$capability has no type specified\.$#'
 			identifier: missingType.property
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$default_options type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: legacy/admin/Settings.php
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ItalyCookieChoices\Tests\Integration\Admin;
+namespace ItalyCookieChoices\Tests\Integration\Settings;
 
-use Italy_Cookie_Choices\Admin\Settings;
+use ItalyCookieChoices\Settings\Sanitizer;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
-final class SanitizeCallbackTest extends WPTestCase
+final class SanitizerTest extends WPTestCase
 {
     public function setUp(): void
     {
@@ -29,13 +29,13 @@ final class SanitizeCallbackTest extends WPTestCase
                 'cookie_name' => 'displayCookieConsent',
                 'cookie_value' => 'y',
             ],
-            (new Settings())->sanitize_callback([])
+            (new Sanitizer())([])
         );
     }
 
     public function testEmptyCookieNameAndValueRaiseSettingsErrors(): void
     {
-        (new Settings())->sanitize_callback(['cookie_name' => '', 'cookie_value' => '']);
+        (new Sanitizer())(['cookie_name' => '', 'cookie_value' => '']);
 
         $this->assertSame(
             [
@@ -58,7 +58,7 @@ final class SanitizeCallbackTest extends WPTestCase
 
     public function testValidCookieNameAndValueRaiseNoErrors(): void
     {
-        (new Settings())->sanitize_callback(['cookie_name' => 'name', 'cookie_value' => 'value']);
+        (new Sanitizer())(['cookie_name' => 'name', 'cookie_value' => 'value']);
 
         $this->assertSame([], \get_settings_errors('italy_cookie_id'));
     }
@@ -96,7 +96,7 @@ final class SanitizeCallbackTest extends WPTestCase
     {
         $value = "<script>raw</script>\n";
 
-        $result = (new Settings())->sanitize_callback([$field => $value]);
+        $result = (new Sanitizer())([$field => $value]);
 
         $this->assertSame($value, $result[$field]);
     }
@@ -118,7 +118,7 @@ final class SanitizeCallbackTest extends WPTestCase
      */
     public function testScriptListsArePassedThroughUntouched(string $field): void
     {
-        $result = (new Settings())->sanitize_callback([$field => ['youtube', '<b>x</b>']]);
+        $result = (new Sanitizer())([$field => ['youtube', '<b>x</b>']]);
 
         $this->assertSame(['youtube', '<b>x</b>'], $result[$field]);
     }
@@ -156,7 +156,7 @@ final class SanitizeCallbackTest extends WPTestCase
      */
     public function testTextFieldsAreSanitized(string $field): void
     {
-        $result = (new Settings())->sanitize_callback([$field => "  <b>bold</b>\n  text  "]);
+        $result = (new Sanitizer())([$field => "  <b>bold</b>\n  text  "]);
 
         $this->assertSame('bold text', $result[$field]);
     }
@@ -175,7 +175,7 @@ final class SanitizeCallbackTest extends WPTestCase
      */
     public function testHtmlFieldsKeepThePostHtml(string $field): void
     {
-        $result = (new Settings())->sanitize_callback([
+        $result = (new Sanitizer())([
             $field => '<a href="https://example.com">policy</a><script>alert(1)</script>',
         ]);
 
@@ -184,7 +184,7 @@ final class SanitizeCallbackTest extends WPTestCase
 
     public function testMissingOptionalFieldsAreNotAdded(): void
     {
-        $result = (new Settings())->sanitize_callback([]);
+        $result = (new Sanitizer())([]);
 
         $fields = ['active', 'text', 'url', 'slug', 'customCSS', 'block', 'allow_iframe', 'content_message_text'];
 
@@ -198,7 +198,7 @@ final class SanitizeCallbackTest extends WPTestCase
         require_once \codecept_root_dir('tests/_support/multilingual-stub.php');
         $GLOBALS['icc_registered_strings'] = [];
 
-        (new Settings())->sanitize_callback([
+        (new Sanitizer())([
             'text' => 'Text',
             'url' => 'https://example.com',
             'slug' => 'policy',
@@ -222,10 +222,8 @@ final class SanitizeCallbackTest extends WPTestCase
         );
     }
 
-    public function testSavingTheOptionRunsTheSanitizeCallback(): void
+    public function testSavingTheOptionRunsTheSanitizer(): void
     {
-        (new Settings())->italy_cl_settings_init();
-
         \update_option('italy_cookie_choices', ['active' => '1', 'anchor_text' => '<b>More</b>']);
 
         $saved = \get_option('italy_cookie_choices');
