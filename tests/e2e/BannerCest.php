@@ -228,7 +228,7 @@ final class BannerCest
 
         $I->click('Second page');
 
-        $I->seeInCurrentUrl('/second-page/');
+        $I->waitForJS('return location.pathname === "/second-page/" && document.readyState === "complete";', 15);
         $I->dontSeeElementInDOM(self::BANNER);
         $I->assertSame(E2eTester::COOKIE_VALUE, $I->grabCookie(E2eTester::COOKIE_NAME));
     }
@@ -242,7 +242,7 @@ final class BannerCest
 
         $I->click('Second page');
 
-        $I->seeInCurrentUrl('/second-page/');
+        $I->waitForJS('return location.pathname === "/second-page/" && document.readyState === "complete";', 15);
         $I->waitForElementVisible(self::BANNER);
         $I->dontSeeCookie(E2eTester::COOKIE_NAME);
     }

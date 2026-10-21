@@ -42,6 +42,18 @@ class E2eTester extends \Codeception\Actor
         );
     }
 
+    /**
+     * Click a submit button and wait for the new page, a plain click can return before the navigation.
+     *
+     * @param string|array<string, string> $button
+     */
+    public function submitAndWaitForReload($button): void
+    {
+        $this->executeJS('window.iccBeforeSubmit = true;');
+        $this->click($button);
+        $this->waitForJS('return window.iccBeforeSubmit === undefined && document.readyState === "complete";', 15);
+    }
+
     private function defaultOptions(): array
     {
         return [

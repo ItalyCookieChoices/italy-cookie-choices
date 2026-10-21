@@ -68,7 +68,7 @@ final class AdminCest
         $I->fillField(['name' => 'italy_cookie_choices[button_text]'], 'Got it');
         $I->selectOption(['name' => 'italy_cookie_choices[js_template]'], 'bigbutton');
         $I->fillField(['name' => 'italy_cookie_choices[cookie_name]'], 'savedConsent');
-        $I->click('Save Changes');
+        $I->submitAndWaitForReload('Save Changes');
 
         $I->see('Settings saved.');
         $options = $I->grabOptionFromDatabase(E2eTester::OPTION_NAME);
@@ -88,7 +88,7 @@ final class AdminCest
         $I->loginAsAdmin();
         $I->amOnAdminPage(self::SETTINGS_PAGE);
         $I->fillField(['name' => 'italy_cookie_choices[button_text]'], 'Got it');
-        $I->click('Save Changes');
+        $I->submitAndWaitForReload('Save Changes');
         $I->see('Settings saved.');
 
         $I->logOut();
@@ -106,7 +106,7 @@ final class AdminCest
 
         $I->fillField(['name' => 'italy_cookie_choices[cookie_name]'], '');
         $I->fillField(['name' => 'italy_cookie_choices[cookie_value]'], '');
-        $I->click('Save Changes');
+        $I->submitAndWaitForReload('Save Changes');
 
         $I->see('Cookie name field it can\'t be empty. Restored default name.');
         $I->see('Cookie value field it can\'t be empty. Restored default value.');
@@ -138,7 +138,7 @@ final class AdminCest
         $I->amOnAdminPage(self::SETTINGS_PAGE);
 
         $I->attachFile('input[name=icc_import_file]', 'settings-import.json');
-        $I->click(['css' => 'form[enctype="multipart/form-data"] input[type=submit]']);
+        $I->submitAndWaitForReload(['css' => 'form[enctype="multipart/form-data"] input[type=submit]']);
 
         $I->seeInCurrentUrl('options-general.php?page=italy-cookie-choices');
         // The import goes through the registered sanitize callback, that adds the style defaults
@@ -171,7 +171,7 @@ final class AdminCest
         $I->amOnAdminPage(self::SETTINGS_PAGE);
 
         $I->attachFile('input[name=icc_import_file]', 'settings-import.txt');
-        $I->click(['css' => 'form[enctype="multipart/form-data"] input[type=submit]']);
+        $I->submitAndWaitForReload(['css' => 'form[enctype="multipart/form-data"] input[type=submit]']);
 
         $I->see('Please upload a valid .json file');
     }
