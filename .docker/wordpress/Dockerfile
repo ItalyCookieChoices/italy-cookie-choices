@@ -36,12 +36,7 @@ RUN set -eux; \
 # Set XDEBUG_MODE=coverage or xdebug.mode=coverage
 #ENV XDEBUG_MODE=coverage
 
-# Debian bullseye (base of the PHP 7.4 images) is EOL, its packages now live on archive.debian.org
 RUN  set -eux; \
-     sed -i \
-     -e 's|deb.debian.org/debian-security|archive.debian.org/debian-security|' \
-     -e 's|deb.debian.org/debian|archive.debian.org/debian|' \
-     /etc/apt/sources.list; \
      apt-get update && apt-get install -y \
      git \
      nano \
@@ -51,6 +46,9 @@ RUN  set -eux; \
      default-mysql-client \
      ; \
      rm -rf /var/lib/apt/lists/*
+
+# The MariaDB client verifies the server certificate by default, the MySQL test server has a self-signed one
+RUN printf '[client]\nssl-verify-server-cert=off\n' > /etc/mysql/conf.d/test-ssl.cnf
 
 # Git add safe directory for the working directory
 
@@ -68,7 +66,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
-# The official images stop at WordPress 6.1 for PHP 7.4, replace the core with the requested version,
+# Optional, replace the image core with another WordPress version,
 # the entrypoint copies /usr/src/wordpress into the web root
 ARG WP_CORE_VERSION
 RUN set -eux; \
@@ -79,3 +77,11 @@ RUN set -eux; \
         rm -rf /tmp/wordpress; \
         chown -R www-data:www-data /usr/src/wordpress; \
     fi
+
+# Classic theme used by the e2e dump, the plugin filters the_content and the legacy widgets
+ARG CLASSIC_THEME=twentytwentyone
+RUN set -eux; \
+    curl -fsSL "https://downloads.wordpress.org/theme/${CLASSIC_THEME}.zip" -o /tmp/theme.zip; \
+    unzip -q /tmp/theme.zip -d /usr/src/wordpress/wp-content/themes; \
+    rm /tmp/theme.zip; \
+    chown -R www-data:www-data /usr/src/wordpress/wp-content/themes
