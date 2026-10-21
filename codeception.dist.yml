@@ -19,6 +19,8 @@ extensions:
 coverage:
     enabled: true
     include:
+        - src/*
+        - bootstrap.php
         - legacy/*.php
         - legacy/admin/*.php
         - legacy/core/*.php

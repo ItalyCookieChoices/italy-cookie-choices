@@ -12,6 +12,7 @@ use function Italy_Cookie_Choices\Core\is_sitemaps_xml;
 
 final class GeneralFunctionsTest extends WPTestCase
 {
+    /** @var array<mixed> */
     private array $server = [];
 
     public function setUp(): void
@@ -30,9 +31,12 @@ final class GeneralFunctionsTest extends WPTestCase
     {
         unset($_SERVER['REQUEST_URI']);
 
-        $this->assertNull(is_sitemaps_xml());
+        $this->assertSame(null, is_sitemaps_xml());
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function sitemapUris(): iterable
     {
         yield 'xml sitemap' => ['/sitemap.xml'];
@@ -52,6 +56,9 @@ final class GeneralFunctionsTest extends WPTestCase
         $this->assertTrue(is_sitemaps_xml());
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function notSitemapUris(): iterable
     {
         yield 'home' => ['/'];
@@ -68,7 +75,7 @@ final class GeneralFunctionsTest extends WPTestCase
     {
         $_SERVER['REQUEST_URI'] = $uri;
 
-        $this->assertNull(is_sitemaps_xml());
+        $this->assertSame(null, is_sitemaps_xml());
     }
 
     public function testIsBotReturnsFalseWithoutUserAgent(): void
@@ -85,6 +92,9 @@ final class GeneralFunctionsTest extends WPTestCase
         $this->assertFalse(is_bot());
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function botUserAgents(): iterable
     {
         yield 'googlebot' => ['Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'];

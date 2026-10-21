@@ -11,8 +11,10 @@ final class ImportExportTest extends WPTestCase
 {
     private const OPTION_NAME = 'italy_cookie_choices';
 
+    /** @var array<mixed> */
     private array $post = [];
 
+    /** @var array<mixed> */
     private array $files = [];
 
     private string $importFile = '';
@@ -23,7 +25,7 @@ final class ImportExportTest extends WPTestCase
         $this->post = $_POST;
         $this->files = $_FILES;
         $this->importFile = (string) \tempnam(\sys_get_temp_dir(), 'icc');
-        \wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+        $this->setCurrentUser('administrator');
     }
 
     public function tearDown(): void
@@ -57,7 +59,7 @@ final class ImportExportTest extends WPTestCase
 
     public function testExportDoesNothingWithoutCapability(): void
     {
-        \wp_set_current_user(self::factory()->user->create(['role' => 'editor']));
+        $this->setCurrentUser('editor');
         $_POST = ['icc_action' => 'export_settings', 'icc_export_nonce' => \wp_create_nonce('icc_export_nonce')];
 
         $this->assertNull($this->export());
@@ -84,7 +86,7 @@ final class ImportExportTest extends WPTestCase
 
     public function testImportDoesNothingWithoutCapability(): void
     {
-        \wp_set_current_user(self::factory()->user->create(['role' => 'editor']));
+        $this->setCurrentUser('editor');
         $this->prepareImport('settings.json', '[{"active":"0"}]');
         \update_option(self::OPTION_NAME, ['active' => '1']);
 
@@ -117,7 +119,10 @@ final class ImportExportTest extends WPTestCase
     public function testImportRejectsMissingUploads(): void
     {
         $this->prepareImport('settings.json', '[{"active":"0"}]');
-        $_FILES['icc_import_file']['tmp_name'] = '';
+        $file = $_FILES['icc_import_file'];
+        $this->assertIsArray($file);
+        $file['tmp_name'] = '';
+        $_FILES['icc_import_file'] = $file;
         $this->captureDie();
 
         $this->assertSame(
@@ -129,9 +134,7 @@ final class ImportExportTest extends WPTestCase
     public function testImportSavesTheSettingsAndRedirectsToTheSettingsPage(): void
     {
         $this->prepareImport('export.settings.json', '[{"active":"1","text":"Imported","block_script":["analytics"]}]');
-        \add_filter('wp_redirect', static function (string $location): void {
-            throw new \RuntimeException($location);
-        });
+        \add_filter('wp_redirect', $this->throwTheRedirect(...));
 
         try {
             (new Settings())->settings_import();
@@ -146,6 +149,14 @@ final class ImportExportTest extends WPTestCase
         );
     }
 
+    /**
+     * Stops the import before the exit that follows the redirect.
+     */
+    private function throwTheRedirect(string $location): string
+    {
+        throw new \RuntimeException($location);
+    }
+
     private function captureDie(): void
     {
         \add_filter('wp_die_handler', static fn(): callable => static function ($message, $title, $args): void {
@@ -153,12 +164,18 @@ final class ImportExportTest extends WPTestCase
         }, PHP_INT_MAX);
     }
 
+    /**
+     * @return array<mixed>
+     */
     private function die(): array
     {
         try {
             (new Settings())->settings_import();
         } catch (\RuntimeException $die) {
-            return \json_decode($die->getMessage(), true);
+            $decoded = \json_decode($die->getMessage(), true);
+            $this->assertIsArray($decoded);
+
+            return $decoded;
         }
 
         $this->fail('The import did not die');
@@ -187,6 +204,19 @@ final class ImportExportTest extends WPTestCase
         $output = (string) \ob_get_clean();
         $this->assertSame('', $output);
 
+        if ($result === null) {
+            return null;
+        }
+
+        $this->assertIsString($result);
+
         return $result;
+    }
+
+    private function setCurrentUser(string $role): void
+    {
+        $userId = self::factory()->user->create(['role' => $role]);
+        $this->assertIsInt($userId);
+        \wp_set_current_user($userId);
     }
 }

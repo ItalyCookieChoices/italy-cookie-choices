@@ -3,7 +3,7 @@ Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
 Tags: cookie notice, cookie law, cookie choices, cookies, eu cookie law
 Requires at least: 6.1
-Requires PHP: 7.4
+Requires PHP: 8.2
 Tested up to: 7.1
 Stable tag: 2.6.0
 License: GPLv2 or later
@@ -16,7 +16,7 @@ Comply with the EU cookie law: show a cookie notice and block third party cookie
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
 
-Plugin requirement PHP >= 7.4 and WordPress >= 6.1
+Plugin requirement PHP >= 8.2 and WordPress >= 6.1
 
 The Cookie Law is one of the most stupid law in the world. Maybe made by someone, who doesn't really understand how the web works. 
 
@@ -27,7 +27,7 @@ The plugin will not add any CSS stylesheet or Javascript file but only inline sc
 
 Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
 
-= What you can do = 
+= What you can do =
 
 * Display banner in front-end
 ** Three template (standard, big buttons, small buttons)
@@ -69,7 +69,7 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customizat
 * [WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
 * [Forum GT](http://www.giorgiotave.it/forum/)
 
-= Translators = 
+= Translators =
 
 * Romanian: [Florin Lungu](http://www.florinlungu.it/)
 

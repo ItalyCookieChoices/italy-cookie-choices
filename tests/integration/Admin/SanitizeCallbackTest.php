@@ -63,6 +63,9 @@ final class SanitizeCallbackTest extends WPTestCase
         $this->assertSame([], \get_settings_errors('italy_cookie_id'));
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function passThroughFields(): iterable
     {
         $fields = [
@@ -98,6 +101,9 @@ final class SanitizeCallbackTest extends WPTestCase
         $this->assertSame($value, $result[$field]);
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function arrayFields(): iterable
     {
         $fields = ['allow_iframe', 'allow_script', 'allow_embed', 'block_iframe', 'block_script', 'block_embed'];
@@ -117,6 +123,9 @@ final class SanitizeCallbackTest extends WPTestCase
         $this->assertSame(['youtube', '<b>x</b>'], $result[$field]);
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function textFields(): iterable
     {
         $fields = [
@@ -152,6 +161,9 @@ final class SanitizeCallbackTest extends WPTestCase
         $this->assertSame('bold text', $result[$field]);
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function htmlFields(): iterable
     {
         yield 'text' => ['text'];
@@ -217,6 +229,7 @@ final class SanitizeCallbackTest extends WPTestCase
         \update_option('italy_cookie_choices', ['active' => '1', 'anchor_text' => '<b>More</b>']);
 
         $saved = \get_option('italy_cookie_choices');
+        $this->assertIsArray($saved);
         $this->assertSame('1', $saved['active']);
         $this->assertSame('More', $saved['anchor_text']);
         $this->assertSame('displayCookieConsent', $saved['cookie_name']);

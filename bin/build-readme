@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Build readme.txt, the WordPress.org readme, from README.md, the source of truth.
+#
+# Usage: bin/build-readme [--check]
+#   --check  fail when readme.txt is not in sync with README.md, without writing it
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+convert() {
+    sed -E \
+        -e 's/^# (.*) #[[:space:]]*$/=== \1 ===/' \
+        -e 's/^## (.*) ##[[:space:]]*$/== \1 ==/' \
+        -e 's/^### (.*) ###[[:space:]]*$/= \1 =/' \
+        -e '1,/^$/s/^\*\*([^*]+):\*\* (.*[^[:space:]])[[:space:]]*$/\1: \2/' \
+        -e '/^Contributors: /s/\[([^]]+)\]\([^)]+\)/\1/g' \
+        "$ROOT/README.md"
+}
+
+if [ "${1:-}" = "--check" ]; then
+    if ! diff -u "$ROOT/readme.txt" <(convert); then
+        echo "readme.txt is not in sync with README.md, run bin/build-readme" >&2
+        exit 1
+    fi
+    exit 0
+fi
+
+convert > "$ROOT/readme.txt"

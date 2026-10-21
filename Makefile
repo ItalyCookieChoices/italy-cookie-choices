@@ -87,6 +87,10 @@ stan: ## Run PHPStan
 	$(EXEC) vendor/bin/codecept build
 	$(EXEC) composer stan
 
+.PHONY: readme
+readme: ## Build readme.txt from README.md
+	bin/build-readme
+
 .PHONY: release-build
 release-build: ## Build the prefixed plugin package in build/, PHP-Scoper runs in a PHP 8 container
 	docker run --rm -v $(CURDIR):/app -w /app composer:2.8 sh -c '\

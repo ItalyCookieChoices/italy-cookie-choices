@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration;
 
+use ItalyCookieChoices\I18n\TextDomain;
+use ItalyCookieChoices\Legacy\LegacyLoader;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BootstrapTest extends WPTestCase
@@ -12,7 +14,7 @@ final class BootstrapTest extends WPTestCase
 
     public function testConstantsAreDefined(): void
     {
-        $this->assertTrue(ITALY_COOKIE_CHOICES_PLUGIN);
+        $this->assertSame(true, ITALY_COOKIE_CHOICES_PLUGIN);
         $this->assertSame(self::PLUGIN_DIR . '/define-constants.php', ITALY_COOKIE_CHOICES_FILE);
         $this->assertSame(self::PLUGIN_DIR . '/', ITALY_COOKIE_CHOICES_PLUGIN_PATH);
         $this->assertSame('italy-cookie-choices/legacy/define-constants.php', ITALY_COOKIE_CHOICES_BASENAME);
@@ -26,16 +28,17 @@ final class BootstrapTest extends WPTestCase
 
     public function testTextDomainIsLoadedOnInit(): void
     {
-        $this->assertSame(100, $this->findClosurePriority('init'));
+        $this->assertSame(100, $this->findListenerPriority('init', TextDomain::class));
     }
 
     public function testInitFilesAreRequiredOnPluginsLoaded(): void
     {
-        $this->assertSame(11, $this->findClosurePriority('plugins_loaded'));
+        $this->assertSame(11, $this->findListenerPriority('plugins_loaded', LegacyLoader::class));
     }
 
     public function testAdminSettingsAreNotLoadedOnTheFrontEnd(): void
     {
+        /** @var array<string, \WP_Hook> $wp_filter */
         global $wp_filter;
 
         foreach ($wp_filter['admin_menu']->callbacks ?? [] as $callbacks) {
@@ -49,21 +52,18 @@ final class BootstrapTest extends WPTestCase
     }
 
     /**
+     * @param class-string $listenerClass
      * @return int|false
      */
-    private function findClosurePriority(string $hook)
+    private function findListenerPriority(string $hook, string $listenerClass)
     {
+        /** @var array<string, \WP_Hook> $wp_filter */
         global $wp_filter;
 
         foreach ($wp_filter[$hook]->callbacks as $priority => $callbacks) {
             foreach ($callbacks as $callback) {
-                if (!$callback['function'] instanceof \Closure) {
-                    continue;
-                }
-
-                $reflection = new \ReflectionFunction($callback['function']);
-                if ($reflection->getFileName() === self::PLUGIN_DIR . '/bootstrap.php') {
-                    return $priority;
+                if (\is_array($callback['function']) && $callback['function'][0] instanceof $listenerClass) {
+                    return (int) $priority;
                 }
             }
         }

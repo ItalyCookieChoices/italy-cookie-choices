@@ -13,6 +13,9 @@ final class FieldsTest extends WPTestCase
 
     private const REQUIRED_OPTIONS = ['text' => '', 'url' => '', 'anchor_text' => '', 'button_text' => ''];
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function checkboxes(): iterable
     {
         foreach (['active', 'scroll', 'secondView', 'reload', 'html_margin', 'target'] as $field) {
@@ -68,6 +71,9 @@ final class FieldsTest extends WPTestCase
         $this->assertSame(1, \substr_count($output, 'selected'));
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function templates(): iterable
     {
         foreach (['default', 'bigbutton', 'smallbutton', 'custom'] as $template) {
@@ -86,6 +92,9 @@ final class FieldsTest extends WPTestCase
         $this->assertSame(1, \substr_count($output, 'selected'));
     }
 
+    /**
+     * @return iterable<string, array{string, string}>
+     */
     public function textInputs(): iterable
     {
         yield 'slug' => ['slug', 'slug'];
@@ -114,6 +123,9 @@ final class FieldsTest extends WPTestCase
         );
     }
 
+    /**
+     * @return iterable<string, array{string, string, string}>
+     */
     public function textInputDefaults(): iterable
     {
         yield 'slug' => ['slug', 'slug', ''];
@@ -167,6 +179,7 @@ final class FieldsTest extends WPTestCase
     public function testTheUrlAndSlugFieldsListThePages(): void
     {
         $page = self::factory()->post->create(['post_type' => 'page', 'post_name' => 'cookie-policy']);
+        $this->assertIsInt($page);
 
         $this->assertStringContainsString(
             "var urls = '" . \wp_json_encode([\get_permalink($page)]) . "';",
@@ -222,6 +235,9 @@ final class FieldsTest extends WPTestCase
         $this->assertStringContainsString("name='italy_cookie_choices[all_block]'  checked='checked'", $output);
     }
 
+    /**
+     * @return iterable<string, array{string, string}>
+     */
     public function scriptTextareas(): iterable
     {
         yield 'allowed in body' => ['custom_script_block_body_exclude', 'allow'];
@@ -283,6 +299,9 @@ final class FieldsTest extends WPTestCase
         );
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     private function renderField(string $field, array $options): string
     {
         \update_option(self::OPTION_NAME, \array_merge(self::REQUIRED_OPTIONS, $options));

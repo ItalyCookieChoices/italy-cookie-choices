@@ -10,12 +10,6 @@ class Cookie_Choices {
 	const SEPARATOR = '<---------SOMETHING--------->';
 
 	/**
-	 * Option
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * Default Cookie name
 	 * @var string
 	 */
@@ -75,15 +69,10 @@ class Cookie_Choices {
 	 */
 	private $block_script = [];
 
-	/**
-	 * @var Cookie
-	 */
-	private $cookie;
-
-
-	public function __construct( ConfigInterface $options, Cookie $cookie ) {
-		$this->cookie = $cookie;
-		$this->options = $options;
+	public function __construct(
+		private ConfigInterface $options,
+		private readonly Cookie $cookie
+	) {
 	}
 
 
@@ -283,7 +272,7 @@ class Cookie_Choices {
 			( isset( $_SERVER['HTTP_ACCEPT'] ) &&
 
 			// if is an HTML request (alternative methods???)
-			strpos( $_SERVER['HTTP_ACCEPT'], 'html' ) !== false ) &&
+			str_contains( $_SERVER['HTTP_ACCEPT'], 'html' ) ) &&
 
 			//if the page isn't privacy page
 			// ( $_SERVER['REQUEST_URI'] != $this->slug ) &&
@@ -446,7 +435,7 @@ class Cookie_Choices {
 		if ( ob_get_contents() )
 			ob_end_clean();
 		// If is an HTML request (alternative methods???).
-		if( isset( $_SERVER['HTTP_ACCEPT'] ) && strpos( $_SERVER["HTTP_ACCEPT"], 'html' ) !== false ) {
+		if( isset( $_SERVER['HTTP_ACCEPT'] ) && str_contains( $_SERVER["HTTP_ACCEPT"], 'html' ) ) {
 			$buffer_new = $this->removeCustomScript( $buffer );
 			/**
 			 * Function for print cookiechoiches inline
@@ -613,7 +602,7 @@ class Cookie_Choices {
 		// If json_encode() was successful, no need to do more sanity checking.
 		// ... unless we're in an old version of PHP, and json_encode() returned
 		// a string containing 'null'. Then we need to do more sanity checking.
-		if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || false === strpos( $json, 'null' ) ) )
+		if ( false !== $json && ( version_compare( PHP_VERSION, '5.5', '>=' ) || !str_contains( $json, 'null' ) ) )
 			return $json;
 
 		return call_user_func_array( 'json_encode', $args );

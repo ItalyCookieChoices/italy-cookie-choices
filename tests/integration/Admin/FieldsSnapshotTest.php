@@ -68,6 +68,9 @@ final class FieldsSnapshotTest extends WPTestCase
         parent::tearDown();
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function fields(): iterable
     {
         $fields = [
@@ -108,7 +111,9 @@ final class FieldsSnapshotTest extends WPTestCase
     public function testTheFieldMarkupDoesNotChange(string $field): void
     {
         // An administrator could see the media buttons, the fields disable them
-        \wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+        $userId = self::factory()->user->create(['role' => 'administrator']);
+        $this->assertIsInt($userId);
+        \wp_set_current_user($userId);
         \update_option('italy_cookie_choices', self::OPTIONS);
         $sut = new Settings();
         $sut->italy_cl_settings_init();
