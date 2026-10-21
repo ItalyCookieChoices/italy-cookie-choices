@@ -95,3 +95,12 @@ release-build: ## Build the prefixed plugin package in build/, PHP-Scoper runs i
 		chmod +x /usr/local/bin/php-scoper && \
 		git config --global --add safe.directory /app && \
 		bin/build-release; status=$$?; chown -R $(HOST_UID):$(HOST_GID) build vendor; exit $$status'
+
+.PHONY: e2e-build
+e2e-build: ## Run the e2e suite against the release package in build/, run release-build first
+	@test -d build/$(PROJECT_NAME) || { echo "Missing build/$(PROJECT_NAME), run make release-build first"; exit 1; }
+	$(COMPOSE) -f .docker/docker-compose.build.yml up -d --force-recreate wordpress
+	docker exec --user www-data -w /var/www/project $(CONTAINER) vendor/bin/codecept run e2e $(ARGS); \
+		status=$$?; \
+		$(COMPOSE) up -d --force-recreate wordpress; \
+		exit $$status
