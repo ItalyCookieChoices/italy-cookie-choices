@@ -1,0 +1,165 @@
+name: 🚀 Release to WordPress.org
+
+on:
+  release:
+    types: [published]
+  # Build and smoke test only, to check the package before a release
+  pull_request:
+    paths:
+      - '**workflows/release.yml'
+      - 'bin/**'
+      - 'legacy/**'
+      - 'italy-cookie-choices.php'
+      - 'uninstall.php'
+      - 'scoper.inc.php'
+      - '.distignore'
+      - 'composer.json'
+      - 'composer.lock'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to build, it must match the plugin header'
+        required: true
+      dry-run:
+        description: 'Build and test without committing to WordPress.org'
+        type: boolean
+        default: true
+
+env:
+  SLUG: italy-cookie-choices
+  VERSION: ${{ github.event.release.tag_name || inputs.version }}
+
+jobs:
+  build:
+    name: Build the prefixed package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check the version
+        if: github.event_name != 'pull_request'
+        run: |
+          version="${{ env.VERSION }}"
+          version="${version#v}"
+          grep -q "^ \* Version: ${version}$" italy-cookie-choices.php || { echo "Plugin header is not ${version}"; exit 1; }
+          grep -q "^Stable tag: ${version}$" readme.txt || { echo "readme.txt Stable tag is not ${version}"; exit 1; }
+
+      # PHP-Scoper needs PHP 8.2, the platform in composer.json keeps the PHP 7.4 dependencies
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer:v2, php-scoper:0.18.20
+
+      # The dev dependencies provide the WordPress symbols to exclude from the prefix
+      - uses: ramsey/composer-install@v3
+
+      - name: Build
+        run: bin/build-release
+
+      - name: Upload the package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SLUG }}
+          path: build/${{ env.SLUG }}
+          if-no-files-found: error
+
+  smoke-test:
+    name: Smoke test on PHP 7.4 & WordPress ${{ matrix.wp_versions }}
+    needs: build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        wp_versions: ['6.1', '7.1']
+
+    env:
+      WP_DIR: /tmp/wordpress
+      DB_NAME: wordpress
+      DB_USER: root
+      DB_PASSWORD: root
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          extensions: mysqli
+          tools: wp-cli
+
+      - name: Download the package
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SLUG }}
+          path: package/${{ env.SLUG }}
+
+      - name: Lint the package on PHP 7.4
+        run: find package -type f -name '*.php' -not -path '*/legacy/js/*' -print0 | xargs -0 -L 1 -P 4 -- php -l
+
+      - name: Install WordPress
+        run: |
+          sudo systemctl start mysql.service
+          mkdir -p "$WP_DIR"
+          cd "$WP_DIR"
+          wp core download --version="${{ matrix.wp_versions }}"
+          wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASSWORD" --dbhost=127.0.0.1
+          wp db create
+          wp core install --url=http://localhost:8888 --title=Smoke --admin_user=admin --admin_password=password --admin_email=admin@example.com --skip-email
+
+      - name: Activate the plugin
+        run: |
+          cp -r "package/$SLUG" "$WP_DIR/wp-content/plugins/"
+          cd "$WP_DIR"
+          wp plugin activate "$SLUG"
+          wp option update italy_cookie_choices --format=json '{"active":"1","banner":"1","text":"Smoke test banner","url":"http://localhost:8888/privacy/","anchor_text":"More","button_text":"OK","cookie_name":"displayCookieConsent","cookie_value":"y"}'
+
+      - name: Check the banner on the front end
+        run: |
+          php -S localhost:8888 -t "$WP_DIR" >/tmp/server.log 2>&1 &
+          sleep 3
+          curl -sf -H 'Accept: text/html' http://localhost:8888/ -o /tmp/home.html
+          grep -q '<!-- Italy Cookie Choices -->' /tmp/home.html
+          grep -q "showCookieConsentBar('Smoke test banner'" /tmp/home.html
+          if grep -E 'Fatal error|Warning:|Parse error' /tmp/home.html /tmp/server.log; then exit 1; fi
+
+  deploy:
+    name: Deploy to WordPress.org
+    needs: smoke-test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # The assets for the plugin page are in .wordpress-org
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the package
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.SLUG }}
+          path: build/${{ env.SLUG }}
+
+      - name: WordPress.org plugin deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run }}
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          BUILD_DIR: build/${{ env.SLUG }}
+          SLUG: ${{ env.SLUG }}
+          VERSION: ${{ env.VERSION }}
+
+      - name: Attach the zip to the GitHub release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          (cd build && zip -rq "$SLUG.zip" "$SLUG")
+          gh release upload "${{ github.event.release.tag_name }}" "build/$SLUG.zip" --clobber
