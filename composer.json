@@ -30,7 +30,7 @@
   "require": {
     "php": ">=8.2",
     "italystrap/platform-requirements-check": "^2.0",
-    "italystrap/event": "^0.2.1",
+    "italystrap/event": "^0.2.2",
     "overclokk/cookie": "^1.0",
     "italystrap/config": "^2.11"
   },
