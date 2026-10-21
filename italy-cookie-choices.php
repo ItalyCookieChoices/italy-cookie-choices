@@ -40,10 +40,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 require __DIR__ . '/vendor/autoload.php';
 
-if ( ! require __DIR__ . '/requirements.php' ) {
-	return;
-}
-
 require __DIR__ . '/legacy/define-constants.php';
 
 icc_set_plugin_default_constant();

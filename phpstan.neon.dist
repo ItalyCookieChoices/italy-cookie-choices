@@ -6,7 +6,6 @@ parameters:
     level: max
     paths:
         - italy-cookie-choices.php
-        - requirements.php
         - bootstrap.php
         - uninstall.php
         - src

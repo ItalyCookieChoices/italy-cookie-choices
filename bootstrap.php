@@ -2,8 +2,6 @@
 
 /**
  * The composition root: the container autowires the plugin services and hooks them into WordPress.
- *
- * Loaded only when the platform requirements are met, so it can use the PHP 8.2 syntax.
  */
 
 declare(strict_types=1);

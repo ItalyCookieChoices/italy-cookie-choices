@@ -29,7 +29,6 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.2",
-    "italystrap/platform-requirements-check": "^2.0",
     "italystrap/event": "^0.2.2",
     "italystrap/empress": "dev-modularized",
     "overclokk/auryn": "dev-master",
@@ -137,7 +136,6 @@
     },
     "platform": {
       "php": "8.2.29"
-    },
-    "platform-check": false
+    }
   }
 }

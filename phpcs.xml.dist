@@ -16,7 +16,6 @@
     <config name="testVersion" value="8.2-"/>
 
     <file>./italy-cookie-choices.php</file>
-    <file>./requirements.php</file>
     <file>./bootstrap.php</file>
     <file>./uninstall.php</file>
     <file>./src/</file>
@@ -26,7 +25,6 @@
     <!-- The legacy code follows its own style until the refactor moves it under src. -->
     <rule ref="PSR12">
         <exclude-pattern>./italy-cookie-choices.php</exclude-pattern>
-        <exclude-pattern>./requirements.php</exclude-pattern>
         <exclude-pattern>./uninstall.php</exclude-pattern>
         <exclude-pattern>*/legacy/*</exclude-pattern>
     </rule>

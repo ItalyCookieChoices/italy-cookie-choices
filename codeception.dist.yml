@@ -21,7 +21,6 @@ coverage:
     include:
         - src/*
         - bootstrap.php
-        - requirements.php
         - legacy/*.php
         - legacy/admin/*.php
         - legacy/core/*.php
