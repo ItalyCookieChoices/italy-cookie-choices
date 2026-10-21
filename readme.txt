@@ -1,7 +1,7 @@
 === Italy Cookie Choices (for EU Cookie Law & Cookie Notice) ===
 Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
-Tags: cookie notice, cookie law, cookie choices, cookies, eu cookie law, eu law, eu privacy directive, privacy, privacy directive, notification, privacy law, cookie law banner, implied consent, third party script, third party cookie, compliance
+Tags: cookie notice, cookie law, cookie choices, cookies, eu cookie law
 Requires at least: 6.1
 Requires PHP: 7.4
 Tested up to: 7.1
@@ -9,7 +9,7 @@ Stable tag: 2.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The most complete cookie consent to easily comply with the european cookie law, display cookie notice and block third party cookie without degrading website performance.
+Comply with the EU cookie law: show a cookie notice and block third party cookies until consent, without slowing down your website.
 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
