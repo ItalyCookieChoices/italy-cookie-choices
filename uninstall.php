@@ -48,7 +48,7 @@ if ( is_multisite() ) {
 /**
  * Require multilingual functions
  */
-require( plugin_dir_path( __FILE__ ) . 'includes/functions-italy-cookie-choices-lang.php' );
+require( plugin_dir_path( __FILE__ ) . 'legacy/includes/functions-italy-cookie-choices-lang.php' );
 deregister_string( 'Italy Cookie Choices', 'Banner text' );
 deregister_string( 'Italy Cookie Choices', 'Banner url' );
 deregister_string( 'Italy Cookie Choices', 'Banner slug' );

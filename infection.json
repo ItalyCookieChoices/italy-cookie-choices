@@ -1,0 +1,24 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "source": {
+        "directories": [
+            "legacy"
+        ],
+        "excludes": [
+            "admin/template",
+            "js",
+            "lang"
+        ]
+    },
+    "testFramework": "codeception",
+    "testFrameworkOptions": "integration --env infection",
+    "tmpDir": "tests/_output/infection",
+    "logs": {
+        "text": "tests/_output/infection/infection.log",
+        "html": "tests/_output/infection/infection.html",
+        "summary": "tests/_output/infection/summary.log"
+    },
+    "mutators": {
+        "@default": true
+    }
+}

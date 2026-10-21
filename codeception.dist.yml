@@ -1,0 +1,28 @@
+paths:
+    tests: tests
+    output: tests/_output
+    data: tests/_data
+    support: tests/_support
+    envs: tests/_envs
+actor_suffix: Tester
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+    commands:
+        - lucatume\WPBrowser\Command\RunOriginal
+        - lucatume\WPBrowser\Command\RunAll
+        - lucatume\WPBrowser\Command\DbExport
+        - lucatume\WPBrowser\Command\DbImport
+        - lucatume\WPBrowser\Command\MonkeyCachePath
+        - lucatume\WPBrowser\Command\MonkeyCacheClear
+        - lucatume\WPBrowser\Command\GenerateWPUnit
+coverage:
+    enabled: true
+    include:
+        - legacy/*.php
+        - legacy/admin/*.php
+        - legacy/core/*.php
+        - legacy/functions/*.php
+        - legacy/includes/*.php
+params:
+    - .docker/test.env

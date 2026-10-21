@@ -1,0 +1,89 @@
+services:
+  wordpress:
+    build:
+      context: ./wordpress
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+        WP_VERSION: ${WP_VERSION}
+        WP_CORE_VERSION: ${WP_CORE_VERSION:-}
+        HOST_UID: ${HOST_UID:-1000}
+        HOST_GID: ${HOST_GID:-1000}
+    container_name: ${PROJECT_NAME:-wordpress}_test
+    restart: always
+    ports:
+      - ${WP_PORT}:80
+    environment:
+      WORDPRESS_DB_HOST: ${DB_HOST:-mysql}
+      WORDPRESS_DB_NAME: ${DB_NAME:-test}
+      WORDPRESS_DB_USER: ${DB_USER:-root}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-root}
+      WORDPRESS_TABLE_PREFIX: ${TABLE_PREFIX:-wp_}
+      WORDPRESS_DEBUG: 1
+      # Keep the WordPress version pinned to the image one
+      WORDPRESS_CONFIG_EXTRA: |
+        define( 'AUTOMATIC_UPDATER_DISABLED', true );
+        define( 'WP_AUTO_UPDATE_CORE', false );
+    volumes:
+      - ../:/var/www/html/wp-content/plugins/${PROJECT_NAME:-wordpress}
+      - ../tests/_output/:/var/www/html/wp-content/plugins/${PROJECT_NAME:-wordpress}/tests/_output/
+      - ./mu-plugins/:/var/www/html/wp-content/mu-plugins/
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      integration_test_networks:
+
+  mysql:
+    image: mysql:${DB_VERSION:-5.7}
+    container_name: ${PROJECT_NAME:-wordpress}_mysql_test
+    restart: always
+    ports:
+      - ${DB_PORT}:3306
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-test}
+      #MYSQL_USER: ${DB_USER:-root}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-root}
+      #MYSQL_RANDOM_ROOT_PASSWORD: '1'
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_PASSWORD:-root}"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    networks:
+      - integration_test_networks
+
+  phpmyadmin:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    image: phpmyadmin/phpmyadmin:${PMA_VERSION:-latest}
+    container_name: ${PROJECT_NAME}_phpmyadmin_test
+    restart: always
+    ports:
+      - ${PMA_PORT}:80
+    environment:
+      #     For max upload from PHPMYADMIN https://github.com/10up/wp-local-docker-v2/issues/40#issuecomment-719915040
+      UPLOAD_LIMIT: 1G
+      PMA_HOST: ${DB_HOST:-mysql}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+    networks:
+      - integration_test_networks
+
+  # Browser for the WPWebDriver e2e suite, watch it live at http://localhost:${VNC_PORT}
+  selenium:
+    image: selenium/standalone-chrome:${SELENIUM_VERSION:-latest}
+    container_name: ${PROJECT_NAME:-wordpress}_selenium_test
+    restart: always
+    shm_size: 2gb
+    ports:
+      - ${SELENIUM_PORT}:4444
+      - ${VNC_PORT}:7900
+    depends_on:
+      - wordpress
+    networks:
+      - integration_test_networks
+
+networks:
+  integration_test_networks:
+    driver: bridge
