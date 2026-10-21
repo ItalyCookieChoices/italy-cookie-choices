@@ -81,13 +81,19 @@
   },
   "scripts": {
     "cs": [
-      "@php vendor/bin/phpcs -p --ignore=./tests/_support/* ./legacy/ ./tests/"
+      "@php vendor/bin/phpcs -p"
     ],
     "cs:fix": [
-      "@php vendor/bin/phpcbf -p --ignore=./tests/_support/* ./legacy/ ./tests/"
+      "@php vendor/bin/phpcbf -p"
+    ],
+    "stan": [
+      "@php -d memory_limit=1G vendor/bin/phpstan analyse --no-progress"
+    ],
+    "stan:baseline": [
+      "@php -d memory_limit=1G vendor/bin/phpstan analyse --no-progress --generate-baseline phpstan-baseline.neon"
     ],
     "analyze": [
-      "@php vendor/bin/phpstan analyze --level=max ./legacy/",
+      "@stan",
       "@php vendor/bin/psalm"
     ],
     "integration": [

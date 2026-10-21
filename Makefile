@@ -73,3 +73,16 @@ infection: ## Run the mutation tests on the integration suite
 .PHONY: clean
 clean: ## Remove the Codeception output
 	$(EXEC) vendor/bin/codecept clean
+
+.PHONY: cs
+cs: ## Run PHP CodeSniffer
+	$(EXEC) composer cs
+
+.PHONY: cs-fix
+cs-fix: ## Fix the coding standard issues
+	$(EXEC) composer cs:fix
+
+.PHONY: stan
+stan: ## Run PHPStan
+	$(EXEC) vendor/bin/codecept build
+	$(EXEC) composer stan

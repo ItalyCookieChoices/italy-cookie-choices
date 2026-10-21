@@ -1,0 +1,2281 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to an undefined property Italy_Cookie_Choices\\Admin\\Sanitize\:\:\$cookieName\.$#'
+			identifier: property.notFound
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Access to an undefined property Italy_Cookie_Choices\\Admin\\Sanitize\:\:\$cookieVal\.$#'
+			identifier: property.notFound
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Sanitize\:\:__construct\(\) has parameter \$input with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Sanitize\:\:sanitize_callback\(\) has parameter \$input with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Sanitize\:\:sanitize_callback\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Offset ''banner_bg'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Offset ''banner_text_color'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Parameter \#1 \$input of method Italy_Cookie_Choices\\Admin\\Sanitize\:\:sanitize_callback\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Parameter \#1 \$str of function sanitize_text_field expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 11
+			path: legacy/admin/Sanitize.php
+
+		-
+			message: '#^Action callback returns Italy_Cookie_Choices\\Admin\\Append but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Binary operation "\." between ''\<option value\="'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Cannot access offset ''size'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Cannot access offset ''tmp_name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Cannot access property \$ID on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Cannot access property \$post_name on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Elseif condition is always true\.$#'
+			identifier: elseif.alwaysTrue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Left side of \|\| is always true\.$#'
+			identifier: booleanOr.leftAlwaysTrue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:addMenuPage\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:add_script_and_style\(\) has invalid return type Italy_Cookie_Choices\\Admin\\Append\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:add_script_and_style\(\) should return Italy_Cookie_Choices\\Admin\\Append but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:add_script_and_style\(\) should return Italy_Cookie_Choices\\Admin\\Append but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:dashboard\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:foreach_script\(\) has parameter \$arr_key with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:foreach_script\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:foreach_script\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_advanced_settings_section_callback\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_active\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_active\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_active\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_anchor_text\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_anchor_text\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner_bg\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner_bg\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner_bg\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner_text_color\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner_text_color\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_banner_text_color\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_block\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_block\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_block\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_button_text\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_button_text\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_content_message_button_text\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_content_message_button_text\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_content_message_text\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_content_message_text\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_cookie_name\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_cookie_name\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_cookie_name\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_cookie_value\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_cookie_value\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_cookie_value\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_customCSS\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_customCSS\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_customClass\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_customClass\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_custom_script_block\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_custom_script_block\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_custom_script_block_body_exclude\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_custom_script_block_body_exclude\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_html_margin\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_html_margin\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_html_margin\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_js_template\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_js_template\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_js_template\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_reload\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_reload\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_reload\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_slug\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_slug\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_slug\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_target\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_target\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_target\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_text\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_text\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_url\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_url\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_settings_init\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_settings_section_callback\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_style_settings_section_callback\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:plugin_action_links\(\) has parameter \$links with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:plugin_action_links\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:sanitize_callback\(\) has parameter \$input with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:sanitize_callback\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:settings_export\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:settings_import\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:wp_json_encode\(\) should return bool\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 2
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Offset ''bannerStyle'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Offset ''banner_bg'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Offset ''banner_text_color'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Offset ''closeClass'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Offset ''consentText'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Offset ''contentStyle'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Offset ''infoClass'' on non\-empty\-array in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^PHPDoc tag @return has invalid value \(\[type\] \[description\]\)\: Unexpected token "\[", expected type at offset 38 on line 3$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^PHPDoc tag @var above assignment does not specify variable name\.$#'
+			identifier: varTag.noVariable
+			count: 2
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^PHPDoc tag @var has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 5
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$args of function get_pages expects array\{child_of\?\: int, sort_order\?\: string, sort_column\?\: string, hierarchical\?\: bool, exclude\?\: array\<int\>, include\?\: array\<int\>, meta_key\?\: string, meta_value\?\: string, \.\.\.\}, ''numberposts\=\-1'' given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$capability of function current_user_can expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$data of function wp_kses_post expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 6
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$filename of function file_get_contents expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$nonce of function wp_verify_nonce expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$obj of function get_object_vars expects object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$str of function sanitize_text_field expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 15
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 16
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_textarea expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#1 \$url of function esc_url expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Parameter \#3 \$capability of function add_options_page expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$capability has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$default_options type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$embed_array is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$embed_array type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$iframe_array is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$iframe_array type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$options \(array\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$options type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$post_and_page_array type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$script_array is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Admin\\Settings\:\:\$script_array type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/admin/Settings.php
+
+		-
+			message: '#^Cannot access offset ''allow_embed'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot access offset ''allow_iframe'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot access offset ''allow_script'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot access property \$embed_array on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot access property \$iframe_array on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot access property \$options on mixed\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot access property \$script_array on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot call method foreach_script\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: legacy/admin/template/allow-script.php
+
+		-
+			message: '#^Cannot access offset ''block_embed'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Cannot access offset ''block_iframe'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Cannot access offset ''block_script'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Cannot access property \$embed_array on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Cannot access property \$iframe_array on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Cannot access property \$options on mixed\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Cannot access property \$script_array on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Cannot call method foreach_script\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Variable \$this might not be defined\.$#'
+			identifier: variable.undefined
+			count: 6
+			path: legacy/admin/template/block-script.php
+
+		-
+			message: '#^Argument of an invalid type array\<mixed, mixed\>\|object supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 7
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between ''\:'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between ''\<embed\<\-\-\-\-\-\-\-\-…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between ''\<iframe\<\-\-\-\-\-\-\-\-…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between ''\<script\<\-\-\-\-\-\-\-\-…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''",bgB\="'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''",elPos\="fixed"…'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''",tar\="'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\.\=" between ''http\://''\|''https\://'' and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Binary operation "\.\=" between non\-falsy\-string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Cannot access offset \(int\|string\) on non\-empty\-array\|object\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Elseif condition is always true\.$#'
+			identifier: elseif.alwaysTrue
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 4
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Left side of \|\| is always true\.$#'
+			identifier: booleanOr.leftAlwaysTrue
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:CurrentPageURL\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:__construct\(\) has parameter \$options with generic interface ItalyStrap\\Config\\ConfigInterface but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:autoErase\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:bufferBodyEnd\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:bufferBodyStart\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:bufferFooterEnd\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:bufferFooterStart\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:bufferHeadEnd\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:bufferHeadStart\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:disable_w3tc_page_cache\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:fnFixArray\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:fnFixArray\(\) has parameter \$v with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:get_allowed_script\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:get_blocked_script\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:get_blocked_script\(\) has parameter \$val with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:in_array_match\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:in_array_match\(\) has parameter \$array with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:in_array_match\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:isSecondView\(\) has parameter \$secondViewOpt with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:matches\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:print_script_inline\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:run\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:widgetErase\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:widgetErase\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:widgetErase\(\) has parameter \$instance with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:widgetErase\(\) has parameter \$widget with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:wp_json_encode\(\) should return bool\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var above assignment does not specify variable name\.$#'
+			identifier: varTag.noVariable
+			count: 3
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var contains unknown class Italy_Cookie_Choices\\Core\\bol\.$#'
+			identifier: class.notFound
+			count: 8
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var contains unknown class Italy_Cookie_Choices\\Core\\bolean\.$#'
+			identifier: class.notFound
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var does not specify variable name\.$#'
+			identifier: varTag.noVariable
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$bPos Deprecated\)\: Unexpected token "\$bPos", expected type at offset 166 on line 6$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$banner Bar/Dialog\)\: Unexpected token "\$banner", expected type at offset 57 on line 3$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$contentStyle Style for content div\)\: Unexpected token "\$contentStyle", expected type at offset 86 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$htmlM Bolean for margin top\)\: Unexpected token "\$htmlM", expected type at offset 193 on line 7$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$style Style for banner\)\: Unexpected token "\$style", expected type at offset 132 on line 5$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\[type\]\)\: Unexpected token "\[", expected type at offset 37 on line 3$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\[type\]\)\: Unexpected token "\[", expected type at offset 88 on line 3$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(string/bolean\)\: Unexpected token "/bolean", expected TOKEN_HORIZONTAL_WS at offset 38 on line 3$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 5
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var with type Italy_Cookie_Choices\\Core\\bol is not subtype of native type ''''\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var with type array is not subtype of native type list\<string\>\|false\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^PHPDoc tag @var with type string is not subtype of native type non\-falsy\-string\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$buffer of method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:removeCustomScript\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$data of function wp_kses_post expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$name of function setcookie expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$secondViewOpt of method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:is_policy_page\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$str of function preg_quote expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$str of function trim expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 10
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_js expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$url of function esc_url expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \$url of function parse_url expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#1 \(mixed\) of echo cannot be converted to string\.$#'
+			identifier: echo.nonString
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#2 \$subject of function preg_match expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#2 \$value of function setcookie expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function preg_replace expects array\<float\|int\|string\>\|string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Parameter \#3 \$value of function get_string expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 8
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$allow_script type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$block_script type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$cookie is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$js_array type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$options \(array\) does not accept ItalyStrap\\Config\\ConfigInterface\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$options type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$slug \(string\) does not accept int\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$url \(string\) does not accept int\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: legacy/core/Cookie_Choices.php
+
+		-
+			message: '#^Function icc_set_plugin_default_constant\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/define-constants.php
+
+		-
+			message: '#^Elseif condition is always true\.$#'
+			identifier: elseif.alwaysTrue
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Function Italy_Cookie_Choices\\Core\\is_debug\(\) should return string but returns bool\.$#'
+			identifier: return.type
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Function Italy_Cookie_Choices\\Core\\is_sitemaps_xml\(\) should return bool but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Function Italy_Cookie_Choices\\Core\\is_sitemaps_xml\(\) should return bool but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Function Italy_Cookie_Choices\\Core\\wp_json_encode\(\) should return bool\|string but returns mixed\.$#'
+			identifier: return.type
+			count: 2
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Left side of \|\| is always true\.$#'
+			identifier: booleanOr.leftAlwaysTrue
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$value$#'
+			identifier: parameter.notFound
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function stripos expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Parameter \#1 \$str of function strtolower expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Parameter \#1 \$string of function substr expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Parameter \#2 \$pieces of function implode expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: legacy/functions/general-functions.php
+
+		-
+			message: '#^Call to static method delete\(\) on an unknown class CMLTranslations\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Call to static method get\(\) on an unknown class CMLTranslations\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Call to static method get_current_id\(\) on an unknown class CMLLanguage\.$#'
+			identifier: class.notFound
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Function cml_icc_strings\(\) has parameter \$groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Function cml_icc_strings\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Function deregister_string\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Function get_language\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 3
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Function get_string\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Function register_string\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: legacy/includes/functions-italy-cookie-choices-lang.php
+
+		-
+			message: '#^Anonymous function has an unused use \$config\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: legacy/init.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: legacy/init.php
+
+		-
+			message: '#^Method E2eTester\:\:defaultOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/_support/E2eTester.php
+
+		-
+			message: '#^Method E2eTester\:\:haveCookieChoicesOptions\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/_support/E2eTester.php
+
+		-
+			message: '#^Cannot access an offset on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/_support/multilingual-stub.php
+
+		-
+			message: '#^Cannot access offset ''deprecated_file_trigger_error'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/_support/wploader-config.php
+
+		-
+			message: '#^Cannot access offset ''icc_tests'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/_support/wploader-config.php
+
+		-
+			message: '#^Cannot access offset 10 on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/_support/wploader-config.php
+
+		-
+			message: '#^Cannot access offset ''active'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Cannot access offset ''anchor_text'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Cannot access offset ''banner'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Cannot access offset ''button_text'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Cannot access offset ''cookie_name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Cannot access offset ''cookie_value'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Cannot access offset ''js_template'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Parameter \#1 \$json of function json_decode expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/e2e/AdminCest.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: tests/e2e/BannerCest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\FieldsSnapshotTest\:\:fields\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/FieldsSnapshotTest.php
+
+		-
+			message: '#^Parameter \#1 \$id of function wp_set_current_user expects int\|null, int\|WP_Error given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/Admin/FieldsSnapshotTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\FieldsTest\:\:checkboxes\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/FieldsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\FieldsTest\:\:renderField\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/FieldsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\FieldsTest\:\:scriptTextareas\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/FieldsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\FieldsTest\:\:templates\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/FieldsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\FieldsTest\:\:textInputDefaults\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/FieldsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\FieldsTest\:\:textInputs\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/FieldsTest.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, int\|WP_Error given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/Admin/FieldsTest.php
+
+		-
+			message: '#^Cannot access offset ''tmp_name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Filter callback return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\ImportExportTest\:\:die\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\ImportExportTest\:\:die\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\ImportExportTest\:\:export\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Parameter \#1 \$id of function wp_set_current_user expects int\|null, int\|WP_Error given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\Admin\\ImportExportTest\:\:\$files type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\Admin\\ImportExportTest\:\:\$post type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/ImportExportTest.php
+
+		-
+			message: '#^Cannot access offset ''active'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/Admin/SanitizeCallbackTest.php
+
+		-
+			message: '#^Cannot access offset ''anchor_text'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/Admin/SanitizeCallbackTest.php
+
+		-
+			message: '#^Cannot access offset ''cookie_name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/Admin/SanitizeCallbackTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\SanitizeCallbackTest\:\:arrayFields\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/SanitizeCallbackTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\SanitizeCallbackTest\:\:htmlFields\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/SanitizeCallbackTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\SanitizeCallbackTest\:\:passThroughFields\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/SanitizeCallbackTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\SanitizeCallbackTest\:\:textFields\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/SanitizeCallbackTest.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Binary operation "\." between ''italy_cl_option_'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Cannot access offset ''advanced_setting_section'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Cannot access offset ''callback'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 4
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Cannot access offset ''italy_cl_options_group'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 8
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Cannot access offset ''options\-general\.php'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Cannot access offset ''setting_section'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Cannot access offset ''style_setting_section'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\Admin\\SettingsTest\:\:sectionCallbacks\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Offset ''group'' does not exist on array\{type\: string, label\: string, description\: string, sanitize_callback\: callable\(\)\: mixed, show_in_rest\: array\|bool, default\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Parameter \#1 \$id of function wp_set_current_user expects int\|null, int\|WP_Error given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Parameter \#1 \$input of function array_keys expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of method PHPUnit\\Framework\\Assert\:\:assertContains\(\) expects iterable, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\Admin\\SettingsTest\:\:\$get type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/Admin/SettingsTest.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 4
+			path: tests/integration/BootstrapTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertTrue\(\) with true will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/integration/BootstrapTest.php
+
+		-
+			message: '#^Cannot access offset ''admin_menu'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/BootstrapTest.php
+
+		-
+			message: '#^Cannot access offset ''function'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/integration/BootstrapTest.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/BootstrapTest.php
+
+		-
+			message: '#^Cannot access property \$callbacks on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/integration/BootstrapTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\BootstrapTest\:\:findClosurePriority\(\) should return int\|false but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/integration/BootstrapTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:bannerOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:blockedVendors\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:bufferStarts\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:makeCookieChoices\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:notHtmlAcceptHeaders\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:testRemoveCustomScriptKeepsOtherVendors\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:testRemoveCustomScriptRemovesBlockedVendors\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of method PHPUnit\\Framework\\Assert\:\:assertStringContainsString\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Parameter \#2 \$string of method PHPUnit\\Framework\\Assert\:\:assertStringEndsWith\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Parameter \#2 \$string of method PHPUnit\\Framework\\Assert\:\:assertStringStartsWith\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\BufferTest\:\:\$server type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/BufferTest.php
+
+		-
+			message: '#^Cannot access offset ''count'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Cannot access offset ''empty'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Cannot access offset ''flag'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Cannot access offset ''html'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Cannot access offset ''nested'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Cannot access offset ''text'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Cannot access offset ''title'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function substr_count expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of method PHPUnit\\Framework\\Assert\:\:assertStringContainsString\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Parameter \#2 \$string of method PHPUnit\\Framework\\Assert\:\:assertStringEndsWith\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Parameter \#2 \$string of method PHPUnit\\Framework\\Assert\:\:assertStringStartsWith\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/integration/CookieChoices/EraseTest.php
+
+		-
+			message: '#^Constant DONOTCACHEPAGE not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: tests/integration/CookieChoices/PageCacheTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:customCssBanners\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:makeCookieChoices\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:missingSlugs\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:options\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:render\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:templates\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:testScrollIsKeptOnOtherPagesWithoutSlug\(\) has parameter \$slug with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:unknownBanners\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Parameter \#1 \$post of function get_permalink expects int\|WP_Post, int\|WP_Error given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\PrintScriptInlineTest\:\:\$cookie type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/PrintScriptInlineTest.php
+
+		-
+			message: '#^Cannot access offset ''text'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:blockedScriptOptions\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:makeCookieChoices\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:secondViewNotAccepted\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:testItBuffersHeadAndFooterWhenScriptsAreBlockedWithAllBlock\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:testItDoesNotAcceptConsentOnTheSecondPageView\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:testItDoesNotAcceptConsentOnTheSecondPageView\(\) has parameter \$server with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:testItDoesNotBufferHeadAndFooterWithoutAllBlock\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of method PHPUnit\\Framework\\Assert\:\:assertStringContainsString\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Parameter \#2 \$string of method PHPUnit\\Framework\\Assert\:\:assertStringStartsWith\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:\$cookie type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\CookieChoices\\RunTest\:\:\$server type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/CookieChoices/RunTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with bool will always evaluate to false\.$#'
+			identifier: method.impossibleType
+			count: 2
+			path: tests/integration/GeneralFunctionsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\GeneralFunctionsTest\:\:botUserAgents\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/GeneralFunctionsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\GeneralFunctionsTest\:\:notSitemapUris\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/GeneralFunctionsTest.php
+
+		-
+			message: '#^Method ItalyCookieChoices\\Tests\\Integration\\GeneralFunctionsTest\:\:sitemapUris\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/GeneralFunctionsTest.php
+
+		-
+			message: '#^Property ItalyCookieChoices\\Tests\\Integration\\GeneralFunctionsTest\:\:\$server type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/integration/GeneralFunctionsTest.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: uninstall.php
+
+		-
+			message: '#^Cannot access offset ''blog_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: uninstall.php
+
+		-
+			message: '#^Cannot access property \$blogs on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: uninstall.php
+
+		-
+			message: '#^Cannot call method get_results\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: uninstall.php
+
+		-
+			message: '#^Parameter \#1 \$new_blog_id of function switch_to_blog expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: uninstall.php
+
+		-
+			message: '#^Part \$wpdb\-\>blogs \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: uninstall.php

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ruleset
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        name="Italy Cookie Choices"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd"
+>
+    <description>A custom set of rules to check for this project</description>
+    <arg name="colors"/>
+    <arg name="tab-width" value="4" />
+
+    <!-- Only check the PHP files. -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Check PHP version compatibility, the whole plugin. -->
+    <rule ref="PHPCompatibility"/>
+    <config name="testVersion" value="7.4-"/>
+
+    <file>./italy-cookie-choices.php</file>
+    <file>./uninstall.php</file>
+    <file>./legacy/</file>
+    <file>./tests/</file>
+
+    <!-- The legacy code follows its own style until the refactor moves it under src. -->
+    <rule ref="PSR12">
+        <exclude-pattern>./italy-cookie-choices.php</exclude-pattern>
+        <exclude-pattern>./uninstall.php</exclude-pattern>
+        <exclude-pattern>*/legacy/*</exclude-pattern>
+    </rule>
+
+    <!-- Codeception actors live in the global namespace. -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>*/tests/_support/*Tester.php</exclude-pattern>
+    </rule>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/tests/_data/*</exclude-pattern>
+    <exclude-pattern>*/tests/_output/*</exclude-pattern>
+    <exclude-pattern>*/tests/_support/_generated/*</exclude-pattern>
+</ruleset>

@@ -1,0 +1,25 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    level: max
+    paths:
+        - italy-cookie-choices.php
+        - uninstall.php
+        - legacy
+        - tests
+    bootstrapFiles:
+        - tests/_support/phpstan-bootstrap.php
+    scanDirectories:
+        # WordPress core test classes, like the factories, used by WPTestCase
+        - vendor/lucatume/wp-browser/includes/core-phpunit/includes
+    excludePaths:
+        analyse:
+            - legacy/js/*
+            - legacy/lang/*
+            - tests/_data/*
+            - tests/_output/*
+            - tests/_support/_generated/*
+    parallel:
+        maximumNumberOfProcesses: 1
