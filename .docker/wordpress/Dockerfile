@@ -15,7 +15,8 @@ RUN set -eux; \
 
 # Install pcov for code coverage
 RUN set -eux; \
-    pecl install pcov; \
+    pecl channel-update pecl.php.net; \
+    for attempt in 1 2 3; do pecl install pcov && break; sleep 5; done; \
     docker-php-ext-enable pcov
 
 # If you want to use xdebug, uncomment the following lines
