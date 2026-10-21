@@ -1,0 +1,29 @@
+name: Readme
+
+on:
+  push:
+    paths:
+      - '**workflows/readme.yml'
+      - 'README.md'
+      - 'readme.txt'
+      - 'bin/build-readme'
+  pull_request:
+    paths:
+      - '**workflows/readme.yml'
+      - 'README.md'
+      - 'readme.txt'
+      - 'bin/build-readme'
+
+jobs:
+  readme:
+    name: readme.txt is built from README.md
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '--skip ci') && !github.event.pull_request.draft"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # README.md is the source of truth, run bin/build-readme after changing it
+      - name: Check readme.txt
+        run: bin/build-readme --check
