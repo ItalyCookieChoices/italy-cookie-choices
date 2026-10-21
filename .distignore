@@ -26,3 +26,16 @@ package-lock.json
 *.yml
 *.local
 .docker
+bin
+build
+.gitattributes
+README.md
+Makefile
+Gruntfile.js
+package.json
+infection.json
+rector.php
+scoper.inc.php
+phpcs.xml.dist
+phpstan.neon.dist
+phpstan-baseline.neon

@@ -86,3 +86,12 @@ cs-fix: ## Fix the coding standard issues
 stan: ## Run PHPStan
 	$(EXEC) vendor/bin/codecept build
 	$(EXEC) composer stan
+
+.PHONY: release-build
+release-build: ## Build the prefixed plugin package in build/, PHP-Scoper runs in a PHP 8 container
+	docker run --rm -v $(CURDIR):/app -w /app composer:2.8 sh -c '\
+		apk add --no-cache bash rsync zip >/dev/null && \
+		curl -fsSL -o /usr/local/bin/php-scoper https://github.com/humbug/php-scoper/releases/download/0.18.20/php-scoper.phar && \
+		chmod +x /usr/local/bin/php-scoper && \
+		git config --global --add safe.directory /app && \
+		bin/build-release; status=$$?; chown -R $(HOST_UID):$(HOST_GID) build vendor; exit $$status'

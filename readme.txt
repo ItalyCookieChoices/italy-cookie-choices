@@ -5,7 +5,7 @@ Tags: cookie notice, cookie law, cookie choices, cookies, eu cookie law, eu law,
 Requires at least: 6.1
 Requires PHP: 7.4
 Tested up to: 7.1
-Stable tag: 2.5.3
+Stable tag: 2.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,13 @@ if it doesn't work activate standard theme and try
 6. Italy Cookie Choices Content area
 
 == Changelog ==
+
+= 2.6.0 =
+Release Date: Oct 21st, 2026
+
+* Requires PHP 7.4 and WordPress 6.1, tested up to WordPress 7.1
+* Updated all the dependencies, now prefixed to avoid conflicts with other plugins and themes that use the same packages
+* Added integration and end to end tests, static analysis and continuous integration to prepare the refactor
 
 = 2.5.3 =
 Release Date: Sep 29th, 2021
@@ -386,6 +393,9 @@ Dev time: 50h
 * First release.
 
 == Upgrade Notice ==
+
+= 2.6.0 =
+Requires PHP 7.4 and WordPress 6.1, please check your server before updating
 
 = 2.2.1 =
 Fixed some issue, see the changelog for more informations

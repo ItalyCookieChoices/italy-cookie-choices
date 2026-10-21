@@ -1,11 +1,8 @@
 name: 🚀 Deploy plugin assets/readme to WordPress.org
 
+# Manual only: the release workflow already updates readme and assets, a push on master
+# would change the readme of the stable tag before the new version is on WordPress.org.
 on:
-  push:
-    branches:
-    - master
-
-  # Allows you to run this workflow manually from the Actions tab.
   workflow_dispatch:
 
 jobs:
