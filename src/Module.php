@@ -6,6 +6,7 @@ namespace ItalyCookieChoices;
 
 use ItalyCookieChoices\I18n\TextDomain;
 use ItalyCookieChoices\Legacy\LegacyLoader;
+use ItalyCookieChoices\Settings\Migration;
 use ItalyCookieChoices\Settings\Registration;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
@@ -44,6 +45,7 @@ final readonly class Module implements ModuleInterface
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 TextDomain::class,
+                Migration::class,
                 Registration::class,
                 LegacyLoader::class,
             ],

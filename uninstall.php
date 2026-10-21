@@ -23,6 +23,7 @@ if ( is_multisite() ) {
 
 	// delete_transient( 'TRANSIENT_NAME' );
 	delete_option('italy_cookie_choices');
+	delete_option('italy_cookie_choices_version');
 
 	if ( $blogs )
 		foreach ( $blogs as $blog ) {
@@ -31,6 +32,7 @@ if ( is_multisite() ) {
 
 			// delete_transient( 'TRANSIENT_NAME' );
 			delete_option('italy_cookie_choices');
+			delete_option('italy_cookie_choices_version');
 
 			restore_current_blog();
 
@@ -38,10 +40,9 @@ if ( is_multisite() ) {
 
 } else {
 
-	delete_option('italy_cookie_choices');
-
 	// delete_transient( 'TRANSIENT_NAME' );
 	delete_option('italy_cookie_choices');
+	delete_option('italy_cookie_choices_version');
 
 }
 
