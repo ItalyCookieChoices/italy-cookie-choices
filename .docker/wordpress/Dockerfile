@@ -14,9 +14,17 @@ RUN set -eux; \
     chown -R www-data:www-data /var/www
 
 # Install pcov for code coverage
+# Built from the GitHub source, pecl.php.net refuses the downloads from the CI runners
+ARG PCOV_VERSION=1.0.12
 RUN set -eux; \
-    pecl channel-update pecl.php.net; \
-    for attempt in 1 2 3; do pecl install pcov && break; sleep 5; done; \
+    curl -fsSL "https://github.com/krakjoe/pcov/archive/refs/tags/v${PCOV_VERSION}.tar.gz" | tar -xz -C /tmp; \
+    cd "/tmp/pcov-${PCOV_VERSION}"; \
+    phpize; \
+    ./configure --enable-pcov; \
+    make -j"$(nproc)"; \
+    make install; \
+    cd /; \
+    rm -rf "/tmp/pcov-${PCOV_VERSION}"; \
     docker-php-ext-enable pcov
 
 # If you want to use xdebug, uncomment the following lines
