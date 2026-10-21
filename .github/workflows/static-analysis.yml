@@ -9,7 +9,15 @@ on:
       - '**phpstan-baseline.neon'
       - '**composer.json'
       - '**composer.lock'
+  # Runs only when the files it checks change
   pull_request:
+    paths:
+      - '**workflows/static-analysis.yml'
+      - '**.php'
+      - '**phpstan.neon.dist'
+      - '**phpstan-baseline.neon'
+      - '**composer.json'
+      - '**composer.lock'
 
 jobs:
   static-analysis:

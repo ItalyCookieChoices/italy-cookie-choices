@@ -8,7 +8,14 @@ on:
       - '**phpcs.xml.dist'
       - '**composer.json'
       - '**composer.lock'
+  # Runs only when the files it checks change
   pull_request:
+    paths:
+      - '**workflows/lint.yml'
+      - '**.php'
+      - '**phpcs.xml.dist'
+      - '**composer.json'
+      - '**composer.lock'
 
 jobs:
   lint:
