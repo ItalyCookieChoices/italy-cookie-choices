@@ -5,7 +5,7 @@
  * Description: Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
  * Version: 2.6.0
  * Requires at least: 6.1
- * Requires PHP: 7.4
+ * Requires PHP: 8.2
  * Author: Enea Overclokk, Andrea Pernici, Andrea Cardinale
  * Author URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
  * Text Domain: italy-cookie-choices
@@ -38,11 +38,17 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-require( __DIR__ . '/legacy/define-constants.php' );
+require __DIR__ . '/vendor/autoload.php';
+
+if ( ! require __DIR__ . '/requirements.php' ) {
+	return;
+}
+
+require __DIR__ . '/legacy/define-constants.php';
 
 icc_set_plugin_default_constant();
 
-require( __DIR__ . '/legacy/bootstrap.php' );
+require __DIR__ . '/bootstrap.php';
 
 /**
  * Fires once Italy_Cookie_Choices plugin has been loaded.
