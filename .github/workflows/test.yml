@@ -13,7 +13,18 @@ on:
       - '**composer.json'
       - '**composer.lock'
       - '**Makefile'
+  # Runs only when the files it checks change
   pull_request:
+    paths:
+      - '**workflows/test.yml'
+      - '**.php'
+      - '**.js'
+      - '.docker/**'
+      - 'tests/**'
+      - '**codeception.dist.yml'
+      - '**composer.json'
+      - '**composer.lock'
+      - '**Makefile'
 
 jobs:
   tests:
