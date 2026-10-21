@@ -1,0 +1,39 @@
+name: CS - File lint and coding standard
+
+on:
+  push:
+    paths:
+      - '**workflows/lint.yml'
+      - '**.php'
+      - '**phpcs.xml.dist'
+      - '**composer.json'
+      - '**composer.lock'
+  pull_request:
+
+jobs:
+  lint:
+    name: ✔ CS check all files
+
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '--skip ci') && !github.event.pull_request.draft"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Validate php files
+        run: find ./italy-cookie-choices.php ./uninstall.php ./legacy/ ./tests/ -type f -name '*.php' -not -path './tests/_output/*' -print0 | xargs -0 -L 1 -P 4 -- php -l
+
+      - uses: ramsey/composer-install@v3
+
+      - name: Coding standard
+        run: composer run cs

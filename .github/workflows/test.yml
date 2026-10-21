@@ -1,0 +1,56 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**workflows/test.yml'
+      - '**.php'
+      - '**.js'
+      - '.docker/**'
+      - 'tests/**'
+      - '**codeception.dist.yml'
+      - '**composer.json'
+      - '**composer.lock'
+      - '**Makefile'
+  pull_request:
+
+jobs:
+  tests:
+    name: Integration & e2e tests on the Docker environment
+
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '--skip ci') && !github.event.pull_request.draft"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Same environment used locally, PHP and WordPress versions come from .docker/test.env
+      - name: Start the containers
+        run: make up
+
+      - name: Wait for WordPress
+        run: |
+          timeout 180 sh -c 'until docker exec italy-cookie-choices_test test -f /var/www/html/wp-config.php; do sleep 2; done'
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run Integration tests
+        run: make integration
+
+      - name: Wait for Selenium
+        run: |
+          timeout 180 sh -c 'until curl -sf http://localhost:4444/status | grep -q "\"ready\": *true"; do sleep 2; done'
+
+      - name: Run e2e tests
+        run: make e2e
+
+      - name: Upload the test output
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tests-output
+          path: tests/_output
+          if-no-files-found: ignore
