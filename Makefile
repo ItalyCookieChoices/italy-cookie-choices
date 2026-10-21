@@ -1,5 +1,9 @@
 PROJECT_NAME := italy-cookie-choices
-COMPOSE := docker-compose -f .docker/docker-compose.yml --env-file .docker/test.env
+COMPOSE := docker compose -f .docker/docker-compose.yml --env-file .docker/test.env
+
+# The container user writes in the plugin folder, map it to the host user
+export HOST_UID ?= $(shell id -u)
+export HOST_GID ?= $(shell id -g)
 CONTAINER := $(PROJECT_NAME)_test
 PLUGIN_DIR := /var/www/html/wp-content/plugins/$(PROJECT_NAME)
 EXEC := docker exec --user www-data -w $(PLUGIN_DIR) $(CONTAINER)
