@@ -13,8 +13,10 @@ final class RunTest extends WPTestCase
 {
     private const COOKIE_NAME = 'displayCookieConsent';
 
+    /** @var array<mixed> */
     private array $cookie = [];
 
+    /** @var array<mixed> */
     private array $server = [];
 
     public function setUp(): void
@@ -80,6 +82,7 @@ final class RunTest extends WPTestCase
         $sut = $this->makeCookieChoices(['widget_block' => '1']);
         $sut->run();
 
+        /** @var array{text: string} $instance */
         $instance = \apply_filters(
             'widget_display_callback',
             ['text' => '<iframe src="https://example.com"></iframe>'],
@@ -102,6 +105,9 @@ final class RunTest extends WPTestCase
         $this->assertFalse(\has_action('template_redirect', [$sut, 'bufferHeadStart']));
     }
 
+    /**
+     * @return iterable<string, array{array<string, string|list<string>>}>
+     */
     public function blockedScriptOptions(): iterable
     {
         yield 'custom script block' => [['custom_script_block' => '<script src="tracker.js"></script>']];
@@ -112,6 +118,7 @@ final class RunTest extends WPTestCase
 
     /**
      * @dataProvider blockedScriptOptions
+     * @param array<string, string|list<string>> $options
      */
     public function testItBuffersHeadAndFooterWhenScriptsAreBlockedWithAllBlock(array $options): void
     {
@@ -128,6 +135,7 @@ final class RunTest extends WPTestCase
 
     /**
      * @dataProvider blockedScriptOptions
+     * @param array<string, string|list<string>> $options
      */
     public function testItDoesNotBufferHeadAndFooterWithoutAllBlock(array $options): void
     {
@@ -183,6 +191,7 @@ final class RunTest extends WPTestCase
         $sut->run();
 
         $placeholder = $sut->autoErase('<iframe src="https://example.com"></iframe>');
+        $this->assertIsString($placeholder);
 
         $this->assertStringContainsString('color:#000000;background-color:#ffffff;', $placeholder);
         $this->assertStringContainsString(');">&nbsp;&nbsp;<button', $placeholder);
@@ -199,6 +208,9 @@ final class RunTest extends WPTestCase
         $this->assertFalse(\has_action('wp_footer', [$sut, 'print_script_inline']));
     }
 
+    /**
+     * @return iterable<string, array{array<string, string>, array<string, string|null>}>
+     */
     public function secondViewNotAccepted(): iterable
     {
         yield 'option disabled' => [[], []];
@@ -220,6 +232,8 @@ final class RunTest extends WPTestCase
 
     /**
      * @dataProvider secondViewNotAccepted
+     * @param array<string, string> $options
+     * @param array<string, string|null> $server
      */
     public function testItDoesNotAcceptConsentOnTheSecondPageView(array $options, array $server): void
     {
@@ -258,6 +272,9 @@ final class RunTest extends WPTestCase
         $_SERVER[$key] = $value;
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     private function makeCookieChoices(array $options): Cookie_Choices
     {
         return new Cookie_Choices(

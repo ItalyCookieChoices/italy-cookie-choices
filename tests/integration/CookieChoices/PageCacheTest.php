@@ -34,7 +34,7 @@ final class PageCacheTest extends WPTestCase
         \file_put_contents(self::ADVANCED_CACHE, '<?php');
 
         $this->assertNull($this->makeCookieChoices()->disable_w3tc_page_cache());
-        $this->assertTrue(DONOTCACHEPAGE);
+        $this->assertTrue(\constant('DONOTCACHEPAGE'));
         $this->assertTrue(SID);
     }
 

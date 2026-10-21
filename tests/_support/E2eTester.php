@@ -30,6 +30,8 @@ class E2eTester extends \Codeception\Actor
     /**
      * Store the plugin options, merged over a minimal active configuration.
      * A null value removes the option key.
+     *
+     * @param array<string, mixed> $options
      */
     public function haveCookieChoicesOptions(array $options): void
     {
@@ -54,6 +56,9 @@ class E2eTester extends \Codeception\Actor
         $this->waitForJS('return window.iccBeforeSubmit === undefined && document.readyState === "complete";', 15);
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function defaultOptions(): array
     {
         return [

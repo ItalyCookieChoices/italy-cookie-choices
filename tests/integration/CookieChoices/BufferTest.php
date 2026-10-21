@@ -24,6 +24,7 @@ final class BufferTest extends WPTestCase
         . 'display: inline-block;font-weight: normal; text-align: center;  vertical-align: middle;  cursor: pointer;'
         . '  border: 1px solid #000000;background: rgba(255, 255, 255, 0.03);"></button></div><cookie></div>';
 
+    /** @var array<mixed> */
     private array $server = [];
 
     public function setUp(): void
@@ -84,6 +85,9 @@ final class BufferTest extends WPTestCase
         $this->assertSame([$script, $script], $sut->js_array);
     }
 
+    /**
+     * @return iterable<string, array{array<string, list<string>>, string}>
+     */
     public function blockedVendors(): iterable
     {
         yield 'iframe' => [
@@ -102,6 +106,7 @@ final class BufferTest extends WPTestCase
 
     /**
      * @dataProvider blockedVendors
+     * @param array<string, list<string>> $options
      */
     public function testRemoveCustomScriptRemovesBlockedVendors(array $options, string $blocked): void
     {
@@ -116,6 +121,7 @@ final class BufferTest extends WPTestCase
 
     /**
      * @dataProvider blockedVendors
+     * @param array<string, list<string>> $options
      */
     public function testRemoveCustomScriptKeepsOtherVendors(array $options): void
     {
@@ -254,6 +260,9 @@ final class BufferTest extends WPTestCase
         $this->assertSame('<!-- ICCStartBody --><!-- ICCEndBody -->', $this->captureBody($sut, '<p>no body</p>'));
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function bufferStarts(): iterable
     {
         yield 'body' => ['bufferBodyStart'];
@@ -329,6 +338,7 @@ final class BufferTest extends WPTestCase
         echo '<footer>' . $script . '</footer>';
         $sut->bufferFooterEnd();
         $output = \ob_get_clean();
+        $this->assertIsString($output);
 
         $this->assertStringStartsWith('<!-- Italy Cookie Choices -->', $output);
         $this->assertStringContainsString(
@@ -341,6 +351,9 @@ final class BufferTest extends WPTestCase
         );
     }
 
+    /**
+     * @return iterable<string, array{string|null}>
+     */
     public function notHtmlAcceptHeaders(): iterable
     {
         yield 'json request' => ['application/json'];
@@ -395,6 +408,9 @@ final class BufferTest extends WPTestCase
         return (string) \ob_get_clean();
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function bannerOptions(): array
     {
         return [
@@ -407,6 +423,9 @@ final class BufferTest extends WPTestCase
         ];
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     private function makeCookieChoices(array $options): Cookie_Choices
     {
         return new Cookie_Choices(

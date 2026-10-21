@@ -13,6 +13,7 @@ final class PrintScriptInlineTest extends WPTestCase
 {
     private const DEFAULT_BUTTON_STYLE = '.italybtn{margin-left:10px;}';
 
+    /** @var array<mixed> */
     private array $cookie = [];
 
     public function setUp(): void
@@ -95,6 +96,9 @@ final class PrintScriptInlineTest extends WPTestCase
         $this->assertStringContainsString('cookieChoices.showCookieConsentBar(', $output);
     }
 
+    /**
+     * @return iterable<string, array{string|int}>
+     */
     public function unknownBanners(): iterable
     {
         yield 'unknown value' => ['4'];
@@ -136,6 +140,9 @@ final class PrintScriptInlineTest extends WPTestCase
         );
     }
 
+    /**
+     * @return iterable<string, array{string, string, string}>
+     */
     public function templates(): iterable
     {
         $bigButton = '.italybtn{color:#000;padding:7px 12px;font-size:18px;line-height:18px;text-decoration:none;'
@@ -192,6 +199,9 @@ final class PrintScriptInlineTest extends WPTestCase
         $this->assertStringContainsString('<style type="text/css">' . $style . '</style>', $output);
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
     public function customCssBanners(): iterable
     {
         yield 'top bar' => ['1'];
@@ -293,7 +303,7 @@ final class PrintScriptInlineTest extends WPTestCase
 
     public function testScrollIsDisabledOnThePolicyPage(): void
     {
-        $page = self::factory()->post->create(['post_type' => 'page', 'post_name' => 'privacy-policy']);
+        $page = $this->createPost(['post_type' => 'page', 'post_name' => 'privacy-policy']);
         $this->go_to(\get_permalink($page));
         $_COOKIE['displayCookieConsent'] = 'y';
         $sut = $this->makeCookieChoices(['scroll' => '1', 'slug' => 'privacy-policy'] + $this->options());
@@ -306,7 +316,7 @@ final class PrintScriptInlineTest extends WPTestCase
 
     public function testTheDialogIsNotUsedOnThePolicyPage(): void
     {
-        $post = self::factory()->post->create(['post_name' => 'privacy-policy']);
+        $post = $this->createPost(['post_name' => 'privacy-policy']);
         $this->go_to(\get_permalink($post));
         $_COOKIE['displayCookieConsent'] = 'y';
         $sut = $this->makeCookieChoices(['banner' => '2', 'slug' => 'privacy-policy'] + $this->options());
@@ -320,7 +330,7 @@ final class PrintScriptInlineTest extends WPTestCase
 
     public function testScrollIsKeptOnOtherPages(): void
     {
-        $this->go_to(\get_permalink(self::factory()->post->create(['post_type' => 'page'])));
+        $this->go_to(\get_permalink($this->createPost(['post_type' => 'page'])));
         $_COOKIE['displayCookieConsent'] = 'y';
         $sut = $this->makeCookieChoices(['scroll' => '1', 'slug' => 'privacy-policy'] + $this->options());
         $sut->run();
@@ -342,6 +352,9 @@ final class PrintScriptInlineTest extends WPTestCase
         $this->assertStringContainsString('scroll="",elPos="fixed"', $this->capture($sut));
     }
 
+    /**
+     * @return iterable<string, array{array<string, string>}>
+     */
     public function missingSlugs(): iterable
     {
         yield 'no slug' => [[]];
@@ -350,10 +363,11 @@ final class PrintScriptInlineTest extends WPTestCase
 
     /**
      * @dataProvider missingSlugs
+     * @param array<string, string> $slug
      */
     public function testScrollIsKeptOnOtherPagesWithoutSlug(array $slug): void
     {
-        $this->go_to(\get_permalink(self::factory()->post->create(['post_type' => 'page'])));
+        $this->go_to(\get_permalink($this->createPost(['post_type' => 'page'])));
         $_COOKIE['displayCookieConsent'] = 'y';
         $sut = $this->makeCookieChoices(['scroll' => '1'] + $slug + $this->options());
         $sut->run();
@@ -431,6 +445,9 @@ final class PrintScriptInlineTest extends WPTestCase
         return (string) \file_get_contents(ITALY_COOKIE_CHOICES_DIRNAME . $file);
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function options(): array
     {
         return [
@@ -445,6 +462,9 @@ final class PrintScriptInlineTest extends WPTestCase
         ];
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     private function render(array $options): string
     {
         return $this->capture($this->makeCookieChoices($options));
@@ -458,8 +478,22 @@ final class PrintScriptInlineTest extends WPTestCase
         return (string) \ob_get_clean();
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     private function makeCookieChoices(array $options): Cookie_Choices
     {
         return new Cookie_Choices(new Config($options), new Cookie());
+    }
+
+    /**
+     * @param array<string, mixed> $args
+     */
+    private function createPost(array $args): int
+    {
+        $postId = self::factory()->post->create($args);
+        $this->assertIsInt($postId);
+
+        return $postId;
     }
 }

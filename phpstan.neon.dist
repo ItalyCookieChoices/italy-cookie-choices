@@ -6,7 +6,10 @@ parameters:
     level: max
     paths:
         - italy-cookie-choices.php
+        - requirements.php
+        - bootstrap.php
         - uninstall.php
+        - src
         - legacy
         - tests
     bootstrapFiles:
@@ -21,5 +24,12 @@ parameters:
             - tests/_data/*
             - tests/_output/*
             - tests/_support/_generated/*
+    ignoreErrors:
+        # italystrap/event 0.2.1 documents a "callback" key, the constant is "function_to_add", fixed upstream after 0.2.1
+        -
+            message: '#^Generator expects value type .+, array\{function_to_add: .+\} given\.$#'
+            identifier: generator.valueType
+            paths:
+                - src/*
     parallel:
         maximumNumberOfProcesses: 1

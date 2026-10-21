@@ -9,7 +9,10 @@
 
 declare(strict_types=1);
 
-$GLOBALS['wp_filter']['deprecated_file_trigger_error'][10]['icc_tests'] = [
+/** @var array<string, array<int, array<string, array{function: string, accepted_args: int}>>> $wp_filter */
+global $wp_filter;
+
+$wp_filter['deprecated_file_trigger_error'][10]['icc_tests'] = [
     'function' => '__return_false',
     'accepted_args' => 1,
 ];

@@ -72,6 +72,7 @@ final class AdminCest
 
         $I->see('Settings saved.');
         $options = $I->grabOptionFromDatabase(E2eTester::OPTION_NAME);
+        $I->assertIsArray($options);
         $I->assertSame('1', $options['active']);
         $I->assertSame('2', $options['banner']);
         $I->assertSame('Policy page', $options['anchor_text']);
@@ -111,6 +112,7 @@ final class AdminCest
         $I->see('Cookie name field it can\'t be empty. Restored default name.');
         $I->see('Cookie value field it can\'t be empty. Restored default value.');
         $options = $I->grabOptionFromDatabase(E2eTester::OPTION_NAME);
+        $I->assertIsArray($options);
         $I->assertSame('displayCookieConsent', $options['cookie_name']);
         $I->assertSame('y', $options['cookie_value']);
     }
@@ -127,6 +129,7 @@ final class AdminCest
             . 'fetch(location.href, {method: "POST", body: new FormData(form), credentials: "same-origin"})'
             . '.then(function (response) { return response.text(); }).then(done);'
         );
+        $I->assertIsString($json);
 
         $I->assertSame([$I->grabOptionFromDatabase(E2eTester::OPTION_NAME)], \json_decode($json, true));
     }

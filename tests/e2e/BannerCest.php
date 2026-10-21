@@ -278,9 +278,12 @@ final class BannerCest
 
     private function bannerStyle(E2eTester $I, string $property): string
     {
-        return (string) $I->executeJS(
+        $value = $I->executeJS(
             'return getComputedStyle(document.querySelector(arguments[0])).getPropertyValue(arguments[1]);',
             [self::BANNER, $property]
         );
+        $I->assertIsString($value);
+
+        return $value;
     }
 }

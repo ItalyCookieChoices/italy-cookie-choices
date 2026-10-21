@@ -13,6 +13,7 @@ final class SettingsTest extends WPTestCase
 
     private const GROUP = 'italy_cl_options_group';
 
+    /** @var array<mixed> */
     private array $get = [];
 
     public function setUp(): void
@@ -80,7 +81,10 @@ final class SettingsTest extends WPTestCase
 
     public function testItAddsTheOptionsPageForAdministrators(): void
     {
-        \wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+        /** @var array<string, list<array<int, string>>> $submenu */
+        global $submenu;
+
+        $this->setCurrentUser('administrator');
 
         $sut = new Settings();
 
@@ -88,14 +92,14 @@ final class SettingsTest extends WPTestCase
 
         $this->assertContains(
             ['Italy Cookie Choices', 'manage_options', 'italy-cookie-choices', 'Italy Cookie Choices Dashboard'],
-            $GLOBALS['submenu']['options-general.php']
+            $submenu['options-general.php']
         );
         $this->assertSame(10, \has_action('admin_page_italy-cookie-choices', [$sut, 'dashboard']));
     }
 
     public function testItDoesNotAddTheOptionsPageForEditors(): void
     {
-        \wp_set_current_user(self::factory()->user->create(['role' => 'editor']));
+        $this->setCurrentUser('editor');
 
         (new Settings())->addMenuPage();
 
@@ -137,12 +141,15 @@ final class SettingsTest extends WPTestCase
         $sut->italy_cl_settings_init();
 
         $this->assertArrayHasKey(self::OPTION_NAME, \get_registered_settings());
-        $this->assertSame(self::GROUP, \get_registered_settings()[self::OPTION_NAME]['group']);
+        /** @var array<string, mixed> $setting */
+        $setting = \get_registered_settings()[self::OPTION_NAME];
+        $this->assertSame(self::GROUP, $setting['group']);
         $this->assertSame(10, \has_filter('sanitize_option_' . self::OPTION_NAME, [$sut, 'sanitize_callback']));
     }
 
     public function testSettingsInitRegistersTheSections(): void
     {
+        /** @var array<string, array<string, array<string, mixed>>> $wp_settings_sections */
         global $wp_settings_sections;
         $sut = new Settings();
 
@@ -168,6 +175,7 @@ final class SettingsTest extends WPTestCase
 
     public function testSettingsInitRegistersTheFields(): void
     {
+        /** @var array<string, array<string, array<string, array<string, mixed>>>> $wp_settings_fields */
         global $wp_settings_fields;
         $sut = new Settings();
 
@@ -236,7 +244,7 @@ final class SettingsTest extends WPTestCase
 
     public function testTheDashboardRendersTheForms(): void
     {
-        \wp_set_current_user(self::factory()->user->create(['role' => 'administrator']));
+        $this->setCurrentUser('administrator');
         \update_option(self::OPTION_NAME, ['text' => '', 'url' => '', 'anchor_text' => '', 'button_text' => '']);
         $sut = new Settings();
         $sut->italy_cl_settings_init();
@@ -259,7 +267,7 @@ final class SettingsTest extends WPTestCase
 
     public function testTheDashboardIsForbiddenWithoutCapability(): void
     {
-        \wp_set_current_user(self::factory()->user->create(['role' => 'editor']));
+        $this->setCurrentUser('editor');
 
         $this->expectException(\WPDieException::class);
         $this->expectExceptionMessage('You do not have sufficient permissions to access this page.');
@@ -267,6 +275,9 @@ final class SettingsTest extends WPTestCase
         (new Settings())->dashboard();
     }
 
+    /**
+     * @return iterable<string, array{string, string}>
+     */
     public function sectionCallbacks(): iterable
     {
         yield 'main' => ['italy_cl_settings_section_callback', 'Customize your banner for cookie law'];
@@ -288,18 +299,18 @@ final class SettingsTest extends WPTestCase
 
     /**
      * Current behaviour: on the very first load the option does not exist yet,
-     * the fields read it from memory and raise a notice.
+     * the fields read it from memory and raise a warning, fixed in #233.
      */
-    public function testTheFirstRenderBeforeTheOptionExistsRaisesANotice(): void
+    public function testTheFirstRenderBeforeTheOptionExistsRaisesAWarning(): void
     {
         $sut = new Settings();
         $sut->italy_cl_settings_init();
 
-        $notices = [];
-        \set_error_handler(static function (int $level, string $message) use (&$notices): bool {
-            $notices[] = $message;
+        $warnings = [];
+        \set_error_handler(static function (int $level, string $message) use (&$warnings): bool {
+            $warnings[] = $message;
             return true;
-        }, E_NOTICE);
+        }, E_WARNING);
 
         \ob_start();
         try {
@@ -309,7 +320,7 @@ final class SettingsTest extends WPTestCase
             \restore_error_handler();
         }
 
-        $this->assertSame(['Trying to access array offset on value of type bool'], $notices);
+        $this->assertSame(['Trying to access array offset on value of type bool'], $warnings);
     }
 
     public function testWpJsonEncodeEncodesData(): void
@@ -336,5 +347,12 @@ final class SettingsTest extends WPTestCase
     {
         $GLOBALS['wp_scripts'] = null;
         $GLOBALS['wp_styles'] = null;
+    }
+
+    private function setCurrentUser(string $role): void
+    {
+        $userId = self::factory()->user->create(['role' => $role]);
+        $this->assertIsInt($userId);
+        \wp_set_current_user($userId);
     }
 }

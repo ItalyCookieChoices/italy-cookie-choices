@@ -23,6 +23,7 @@ final class EraseTest extends WPTestCase
         $embed = '<embed src="movie.swf">';
 
         $content = $sut->autoErase('<p>Before</p>' . $iframe . '<p>Middle</p>' . $script . $embed . '<p>After</p>');
+        $this->assertIsString($content);
 
         $this->assertSame(3, \substr_count($content, self::PLACEHOLDER_START));
         $this->assertSame(3, \substr_count($content, self::PLACEHOLDER_END));
@@ -37,6 +38,7 @@ final class EraseTest extends WPTestCase
         $sut = $this->makeCookieChoices();
 
         $content = $sut->autoErase('<IFRAME src="x"></IFRAME>');
+        $this->assertIsString($content);
 
         $this->assertStringStartsWith(self::PLACEHOLDER_START, $content);
         $this->assertSame(['<IFRAME src="x"></IFRAME>'], $sut->js_array);
@@ -90,6 +92,15 @@ final class EraseTest extends WPTestCase
             'flag' => true,
         ];
 
+        /**
+         * @var array{
+         *     title: string,
+         *     text: string,
+         *     nested: array{html: string, count: int},
+         *     empty: string,
+         *     flag: bool
+         * } $result
+         */
         $result = $sut->widgetErase($instance, new \WP_Widget('test', 'Test'), []);
 
         $this->assertSame('Video', $result['title']);
