@@ -32,6 +32,8 @@
         <exclude-pattern>*/tests/_support/*Tester.php</exclude-pattern>
     </rule>
 
+    <!-- Minified JavaScript served with a .php extension. -->
+    <exclude-pattern>*/legacy/js/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>*/tests/_data/*</exclude-pattern>
     <exclude-pattern>*/tests/_output/*</exclude-pattern>
