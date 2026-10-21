@@ -11,12 +11,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Comply with the EU cookie law: show a cookie notice and block third party cookies until consent, without slowing down your website.
 
+== Description ==
+
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
 
 Plugin requirement PHP >= 7.4 and WordPress >= 6.1
-
-== Description ==
 
 The Cookie Law is one of the most stupid law in the world. Maybe made by someone, who doesn't really understand how the web works. 
 
