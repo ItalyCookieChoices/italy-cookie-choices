@@ -63,6 +63,16 @@ jobs:
       - name: Build
         run: bin/build-release
 
+      # WordPress.org refuses the commit when a file does not lint on its recent PHP
+      - name: Setup the latest PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+          coverage: none
+
+      - name: Lint the package on the latest PHP
+        run: find "build/$SLUG" -type f -name '*.php' -not -path '*/legacy/js/*' -print0 | xargs -0 -L 1 -P 4 -- php -l
+
       - name: Upload the package
         uses: actions/upload-artifact@v4
         with:
