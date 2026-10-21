@@ -62,16 +62,16 @@
         },
         {
             "name": "italystrap/config",
-            "version": "2.11.1",
+            "version": "2.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItalyStrap/config.git",
-                "reference": "ac014c305ee3bf986d3c4280dbb7cea34a31b27c"
+                "reference": "0de9ee385237d63a28a90d8965e484f3f98734f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItalyStrap/config/zipball/ac014c305ee3bf986d3c4280dbb7cea34a31b27c",
-                "reference": "ac014c305ee3bf986d3c4280dbb7cea34a31b27c",
+                "url": "https://api.github.com/repos/ItalyStrap/config/zipball/0de9ee385237d63a28a90d8965e484f3f98734f0",
+                "reference": "0de9ee385237d63a28a90d8965e484f3f98734f0",
                 "shasum": ""
             },
             "require": {
@@ -128,7 +128,7 @@
                 "issues": "https://github.com/ItalyStrap/config/issues",
                 "source": "https://github.com/ItalyStrap/config"
             },
-            "time": "2026-10-05T04:55:04+00:00"
+            "time": "2026-10-21T08:40:41+00:00"
         },
         {
             "name": "italystrap/storage",
