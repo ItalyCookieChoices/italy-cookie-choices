@@ -14,7 +14,7 @@ The most complete cookie consent to easily comply with the european cookie law, 
 Italy Cookie Choices allows you to easily comply with the european cookie law, showing
 a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
 
-Plugin requirement PHP >= 7.4 and WordPress >= 5.0
+Plugin requirement PHP >= 7.4 and WordPress >= 6.1
 
 == Description ==
 
