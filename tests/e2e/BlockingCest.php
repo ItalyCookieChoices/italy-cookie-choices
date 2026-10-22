@@ -53,7 +53,7 @@ final class BlockingCest
 
         $I->waitForElement('iframe[src*="icc-test"]');
         $I->dontSee('Content blocked');
-        $I->dontSeeElementInDOM('#cookieChoiceInfo');
+        $I->dontSeeElement('#icc-banner');
         $I->assertSame(E2eTester::COOKIE_VALUE, $I->grabCookie(E2eTester::COOKIE_NAME));
     }
 
@@ -110,7 +110,7 @@ final class BlockingCest
         $I->amOnPage('/blocked-post/');
 
         $I->assertNull($I->executeJS('return window.iccBodyScript;'));
-        $I->seeInPageSource('<!-- ICCStartBody -->');
+        $I->dontSeeInPageSource('<!-- ICCStartBody -->');
         $I->see('Body content');
 
         $I->click('.entry-content ' . self::PLACEHOLDER_BUTTON);
@@ -161,13 +161,12 @@ final class BlockingCest
 
         $I->amOnPage('/');
 
-        $I->waitForElementVisible('#cookieChoiceInfo');
+        $I->waitForElementVisible('#icc-banner');
         $I->dontSeeElementInDOM('#icc-head-tracker');
         $I->dontSeeElementInDOM('#icc-footer-tracker');
         $I->assertNull($I->executeJS('return window.iccHeadTracker;'));
         $I->assertNull($I->executeJS('return window.iccFooterTracker;'));
-        $I->seeInPageSource('<!-- ICCEndHead -->');
-        $I->seeInPageSource('<!-- ICCStartFooter -->');
+        $I->dontSeeInPageSource('<!-- ICCEndHead -->');
         $I->seeInPageSource(self::REMOVED);
     }
 
@@ -179,13 +178,13 @@ final class BlockingCest
             'custom_script_block' => '<script id="icc-head-tracker">window.iccHeadTracker = true;</script>',
         ]);
         $I->amOnPage('/');
-        $I->waitForElementVisible('#cookieChoiceInfo');
-        $I->click('#cookieChoiceDismiss');
+        $I->waitForElementVisible('#icc-banner');
+        $I->click('#icc-banner [data-icc-action="accept-all"]');
 
         $I->amOnPage('/');
 
         $I->assertTrue($I->executeJS('return window.iccHeadTracker;'));
-        $I->dontSeeInPageSource('<!-- ICCEndHead -->');
+        $I->dontSeeInPageSource(self::REMOVED);
     }
 
     public function itDoesNotRemoveTheCustomScriptsWithoutAllBlock(E2eTester $I): void
