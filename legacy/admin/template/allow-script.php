@@ -17,7 +17,6 @@
 
 	$this->foreach_script( $allow_embed, 'allow_embed', $this->embed_array );
 
-	echo '<div class="custom-script-title">' . __( 'Custom', 'italy-cookie-choices' ) . '</div>';
 
     ?>
 

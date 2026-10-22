@@ -423,7 +423,7 @@ class Settings {
 		 */
 		add_settings_field( 
 			'block', 
-			__( 'Third part cookie block (beta)', 'italy-cookie-choices' ), 
+			__( 'Compatibility mode', 'italy-cookie-choices' ), 
 			[ $this, 'italy_cl_option_block'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
@@ -434,7 +434,7 @@ class Settings {
 		 */
 		add_settings_field( 
 			'custom_script_block_body_exclude', 
-			__( 'Scripts allowed in body', 'italy-cookie-choices' ), 
+			__( 'Never blocked', 'italy-cookie-choices' ), 
 			[ $this, 'italy_cl_option_custom_script_block_body_exclude'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
@@ -445,7 +445,7 @@ class Settings {
 		 */
 		add_settings_field( 
 			'custom_script_block', 
-			__( 'Scripts to be blocked', 'italy-cookie-choices' ), 
+			__( 'Other vendors to block', 'italy-cookie-choices' ), 
 			[ $this, 'italy_cl_option_custom_script_block'], 
 			'italy_cl_options_group', 
 			'advanced_setting_section'
@@ -990,26 +990,11 @@ class Settings {
 
 		$all_block = $this->options['all_block'] ?? '' ;
 
-		$block = ( isset( $this->options['block'] ) && $all_block === '' ) ? $this->options['block'] : '' ;
-
-		$widget_block = ( isset( $this->options['widget_block'] ) && $all_block === '' ) ? $this->options['widget_block'] : '' ;
-
 	?>
 
-		<input type='checkbox' name='italy_cookie_choices[block]' <?php checked( $block, 1 ); ?> value='1' id="italy_cookie_choices[block]">
-		<label for="italy_cookie_choices[block]">
-			<?php _e( 'Cookie from any embed in your content (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
-		</label>
-		<br>
-		<input type='checkbox' name='italy_cookie_choices[widget_block]' <?php checked( $widget_block, 1 ); ?> value='1' id="italy_cookie_choices[widget_block]">
-		<label for="italy_cookie_choices[widget_block]">
-			<?php _e( 'Cookie from any embed in your widget area (Beta) (DEPRECATED)', 'italy-cookie-choices' ); ?>
-		</label>
-		<br>
-		<br>
 		<input type='checkbox' name='italy_cookie_choices[all_block]' <?php checked( $all_block, 1 ); ?> value='1' id="italy_cookie_choices[all_block]">
 		<label for="italy_cookie_choices[all_block]">
-			<?php _e( 'Cookie from any embed in all body, except head and footer (Beta)', 'italy-cookie-choices' ); ?>
+			<?php _e( 'Also block the vendors in the scripts printed by the theme and the plugins, with output buffering. The vendors in the content, the widgets, the embeds and the enqueued scripts are always blocked, turn it on only if a vendor is still loaded before the consent.', 'italy-cookie-choices' ); ?>
 		</label>
 
 	<?php
@@ -1028,24 +1013,10 @@ class Settings {
 		 */
 		require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/allow-script.php');
 
-		$custom_script_block_body_exclude = $this->options['custom_script_block_body_exclude'] ?? '' ;
-
 	?>
-		<!-- <div id="editor"><?php // echo esc_textarea( $custom_script_block_body_exclude ); ?></div> -->
-
-		<!-- <input type='checkbox' name='italy_cookie_choices[ppp]' <?php // checked( $block, 1 ); ?> value='1' id="italy_cookie_choices[ppp]"> -->
-		<!-- <br> -->
-		<textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block_body_exclude]" id="italy_cookie_choices[custom_script_block_body_exclude]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" class="textarea"><?php echo esc_textarea( $custom_script_block_body_exclude ); ?></textarea>
-		<br>
-		<a id="SEP" class="button button-secondary add-sep" data-value="<---------SEP--------->">&lt;---------SEP---------&gt;</a>
-		<a id="SOM" class="button button-secondary add-sep" data-value="<---------SOMETHING--------->">&lt;---------SOMETHING---------&gt;</a>
-
-	   <!--  <a href="#TB_inline?width=600&height=550&inlineId=code-example" class="thickbox button button-secondary"><?php // _e( 'View example', 'italy-cookie-choices' ); ?></a> -->
-
-		<br>
-		<label for="italy_cookie_choices[custom_script_block_body_exclude]">
-			<?php echo __( 'Scripts to be excluded from the automatic block.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex', 'italy-cookie-choices' ); ?>
-		</label>
+		<p class="description">
+			<?php _e( 'The scripts and the frames whose address or code contains one of these texts are never blocked.', 'italy-cookie-choices' ); ?>
+		</p>
 		<p>
 			<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script" target="_blank"><?php _e( 'For more information see the documentation', 'italy-cookie-choices' ); ?></a>
 		</p>
@@ -1065,17 +1036,10 @@ class Settings {
 		 */
 		require(ITALY_COOKIE_CHOICES_PLUGIN_PATH . 'admin/template/block-script.php');
 
-		$custom_script_block = $this->options['custom_script_block'] ?? '' ;
-
 	?>
-		<textarea rows="5" cols="70" name="italy_cookie_choices[custom_script_block]" id="italy_cookie_choices[custom_script_block]" placeholder="<?php _e( '&lt;script src=&quot;http://domain.com/widget-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://otherdomain.com/script-example.js&quot;&gt;&lt;/script&gt;'."\n".'&lt;---------SEP---------&gt;'."\n".'&lt;script src=&quot;http://lastdomain.com/gadget-example.js&quot;&gt;&lt;/script&gt;', 'italy-cookie-choices' ) ?>" ><?php echo esc_textarea( $custom_script_block ); ?></textarea>
-		<br>
-		<a id="SEP" class="button button-secondary add-sep" data-value="<---------SEP--------->">&lt;---------SEP---------&gt;</a>
-		<a id="SOM" class="button button-secondary add-sep" data-value="<---------SOMETHING--------->">&lt;---------SOMETHING---------&gt;</a>
-		<br>
-		<label for="italy_cookie_choices[custom_script_block]">
-			<?php echo __( 'Scripts shown in the head and in the footer does not automatically blocked.<br />Split each script with <strong><em>&lt;---------SEP---------&gt;</em></strong><br>Use <strong><---------SOMETHING---------></strong> for custom regex', 'italy-cookie-choices' ); ?>
-		</label>
+		<p class="description">
+			<?php _e( 'The scripts and the frames whose address or code contains one of these texts wait for the consent to the marketing cookies.', 'italy-cookie-choices' ); ?>
+		</p>
 		<p>
 			<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script" target="_blank"><?php _e( 'For more information see the documentation', 'italy-cookie-choices' ); ?></a>
 		</p>

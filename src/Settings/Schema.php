@@ -14,7 +14,7 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 2;
+    public const VERSION = 3;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -25,8 +25,6 @@ final readonly class Schema
         'html_margin',
         'target',
         'nofollow',
-        'block',
-        'widget_block',
         'all_block',
     ];
 
@@ -49,8 +47,6 @@ final readonly class Schema
         'consentText',
         'infoClass',
         'closeClass',
-        'custom_script_block_body_exclude',
-        'custom_script_block',
         'content_message_text',
         'content_message_button_text',
         'excluded_pages',
