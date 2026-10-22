@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
+use ItalyCookieChoices\Consent\Domain\PolicyVersion;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\Event\Dispatcher;
+use ItalyStrap\Event\GlobalOrderedListenerProvider;
+use ItalyStrap\Event\GlobalState;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConsentScriptTest extends WPTestCase
@@ -84,21 +89,13 @@ final class ConsentScriptTest extends WPTestCase
         );
     }
 
-    public function testTheConfigurationCanBeFiltered(): void
+    public function testTheConfigurationFollowsThePolicyListeners(): void
     {
-        \add_filter(
-            ConsentScript::CONFIG_FILTER,
-            static fn(array $config): array => ['version' => 'filtered'] + $config
-        );
+        \add_action(BuildingConsentPolicy::class, static function (BuildingConsentPolicy $event): void {
+            $event->changeVersion(new PolicyVersion('2'));
+        });
 
-        $this->assertSame('filtered', $this->makeSut()->config()['version']);
-    }
-
-    public function testAFilterThatReturnsNoArrayGivesAnEmptyConfiguration(): void
-    {
-        \add_filter(ConsentScript::CONFIG_FILTER, '__return_null');
-
-        $this->assertSame([], $this->makeSut()->config());
+        $this->assertSame('2', $this->makeSut()->config()['version']);
     }
 
     public function testItPrintsTheScriptWithItsConfiguration(): void
@@ -145,10 +142,15 @@ final class ConsentScriptTest extends WPTestCase
         $this->assertIsString($fixtures);
 
         return new ConsentScript(
-            new FilteredConsentPolicy(),
+            new ConsentPolicyFactory($this->dispatcher()),
             new Options(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );
+    }
+
+    private function dispatcher(): Dispatcher
+    {
+        return new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState());
     }
 }

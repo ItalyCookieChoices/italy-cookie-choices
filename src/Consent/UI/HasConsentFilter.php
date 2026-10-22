@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Consent\UI;
 
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -20,7 +20,7 @@ final readonly class HasConsentFilter implements SubscriberInterface
     public const FILTER = 'italy_cookie_choices_has_consent';
 
     public function __construct(
-        private FilteredConsentPolicy $policy,
+        private ConsentPolicyFactory $policy,
         private ConsentRepository $consents,
     ) {
     }

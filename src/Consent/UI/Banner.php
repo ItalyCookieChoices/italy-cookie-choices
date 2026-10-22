@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
+use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Event\SubscriberInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Prints the consent banner and the preferences dialog, hidden until the script finds no consent.
@@ -16,7 +18,6 @@ use ItalyStrap\Event\SubscriberInterface;
 final readonly class Banner implements SubscriberInterface
 {
     public const HANDLE = 'italy-cookie-choices-banner';
-    public const TEXTS_FILTER = 'italy_cookie_choices_banner_texts';
 
     private const SCRIPT = 'banner.js';
     private const STYLE = 'banner.css';
@@ -31,8 +32,8 @@ final readonly class Banner implements SubscriberInterface
      * @param string $templatesPath The templates folder, with the trailing slash.
      */
     public function __construct(
-        private FilteredConsentPolicy $policy,
-        private CategoryLabels $labels,
+        private ConsentPolicyFactory $policy,
+        private EventDispatcherInterface $dispatcher,
         private Options $options,
         private string $buildPath,
         private string $buildUrl,
@@ -113,8 +114,7 @@ final readonly class Banner implements SubscriberInterface
             'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
             'text' => \wp_kses_post($this->translated('Banner text', 'text')),
             'link' => $this->link(),
-            'texts' => $this->texts(),
-            'categories' => $this->categories(),
+            ...$this->content(),
         ];
     }
 
@@ -177,57 +177,83 @@ final readonly class Banner implements SubscriberInterface
     }
 
     /**
-     * @return array<string, string>
+     * The texts and the categories, after the listeners of BuildingBanner.
+     *
+     * @return array{
+     *     texts: array<string, string>,
+     *     categories: list<array{id: string, required: bool, label: string, description: string}>
+     * }
      */
-    private function texts(): array
+    private function content(): array
     {
-        $texts = [
-            'title' => \__('Cookie consent', 'italy-cookie-choices'),
-            'acceptAll' => $this->translated(
-                'Banner button text',
-                'button_text',
-                \__('Accept all', 'italy-cookie-choices')
-            ),
-            'rejectAll' => \__('Reject all', 'italy-cookie-choices'),
-            'preferences' => \__('Preferences', 'italy-cookie-choices'),
-            'close' => \__('Close and keep only the necessary cookies', 'italy-cookie-choices'),
-            'preferencesTitle' => \__('Cookie preferences', 'italy-cookie-choices'),
-            'save' => \__('Save preferences', 'italy-cookie-choices'),
-            'closePreferences' => \__('Close the preferences', 'italy-cookie-choices'),
-        ];
+        $event = new BuildingBanner($this->defaultTexts(), $this->defaultCategoryLabels());
+        $this->dispatcher->dispatch($event);
 
-        /**
-         * Filters the texts of the banner and of the preferences dialog.
-         *
-         * @param mixed $texts The texts keyed by name.
-         */
-        $filtered = \apply_filters(self::TEXTS_FILTER, $texts);
-        if (!\is_array($filtered)) {
-            return $texts;
-        }
-
-        foreach ($texts as $name => $text) {
-            $texts[$name] = \is_string($filtered[$name] ?? null) ? $filtered[$name] : $text;
-        }
-
-        return $texts;
-    }
-
-    /**
-     * @return list<array{id: string, required: bool, label: string, description: string}>
-     */
-    private function categories(): array
-    {
         $categories = [];
         foreach ($this->policy->create()->categories() as $category) {
             $categories[] = [
                 'id' => $category->id(),
                 'required' => $category->isRequired(),
-                ...$this->labels->for($category),
+                ...$event->categoryLabel($category),
             ];
         }
 
-        return $categories;
+        return ['texts' => $event->texts(), 'categories' => $categories];
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private function defaultTexts(): array
+    {
+        return [
+            BuildingBanner::TITLE => \__('Cookie consent', 'italy-cookie-choices'),
+            BuildingBanner::ACCEPT_ALL => $this->translated(
+                'Banner button text',
+                'button_text',
+                \__('Accept all', 'italy-cookie-choices')
+            ),
+            BuildingBanner::REJECT_ALL => \__('Reject all', 'italy-cookie-choices'),
+            BuildingBanner::PREFERENCES => \__('Preferences', 'italy-cookie-choices'),
+            BuildingBanner::CLOSE => \__('Close and keep only the necessary cookies', 'italy-cookie-choices'),
+            BuildingBanner::PREFERENCES_TITLE => \__('Cookie preferences', 'italy-cookie-choices'),
+            BuildingBanner::SAVE => \__('Save preferences', 'italy-cookie-choices'),
+            BuildingBanner::CLOSE_PREFERENCES => \__('Close the preferences', 'italy-cookie-choices'),
+        ];
+    }
+
+    /**
+     * @return array<string, array{label: string, description: string}>
+     */
+    private function defaultCategoryLabels(): array
+    {
+        return [
+            Category::NECESSARY => [
+                'label' => \__('Necessary', 'italy-cookie-choices'),
+                'description' => \__(
+                    'Needed for the site to work, like the cookie that stores this choice. Always active.',
+                    'italy-cookie-choices'
+                ),
+            ],
+            Category::PREFERENCES => [
+                'label' => \__('Preferences', 'italy-cookie-choices'),
+                'description' => \__('Remember your choices, like the language or the region.', 'italy-cookie-choices'),
+            ],
+            Category::STATISTICS => [
+                'label' => \__('Statistics', 'italy-cookie-choices'),
+                'description' => \__(
+                    'Help to understand how the site is used, collecting anonymous data.',
+                    'italy-cookie-choices'
+                ),
+            ],
+            Category::MARKETING => [
+                'label' => \__('Marketing', 'italy-cookie-choices'),
+                'description' => \__(
+                    'Used by third parties, like videos, maps and social networks, to show content and ads.',
+                    'italy-cookie-choices'
+                ),
+            ],
+        ];
     }
 
     private function translated(string $name, string $option, string $default = ''): string

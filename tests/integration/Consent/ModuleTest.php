@@ -6,12 +6,10 @@ namespace ItalyCookieChoices\Tests\Integration\Consent;
 
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
 use ItalyCookieChoices\Consent\Module;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
-use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -43,17 +41,12 @@ final class ModuleTest extends WPTestCase
         $this->assertSame(['necessary'], $repository->current()?->categories());
     }
 
-    public function testTheContainerBuildsTheScriptFromTheBuildFolder(): void
+    public function testTheContainerBuildsTheScriptWithThePolicy(): void
     {
-        $this->assertEquals(
-            new ConsentScript(
-                new FilteredConsentPolicy(),
-                new Options(),
-                '/plugin/assets/build/',
-                'https://example.com/plugin/assets/build/'
-            ),
-            $this->container([])->get(ConsentScript::class)
-        );
+        $script = $this->container([])->get(ConsentScript::class);
+
+        $this->assertInstanceOf(ConsentScript::class, $script);
+        $this->assertSame('1', $script->config()['version']);
     }
 
     /**

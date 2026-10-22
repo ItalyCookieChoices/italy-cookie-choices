@@ -6,7 +6,7 @@ namespace ItalyCookieChoices\Consent\UI;
 
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -18,7 +18,6 @@ use ItalyStrap\Event\SubscriberInterface;
 final readonly class ConsentScript implements SubscriberInterface
 {
     public const HANDLE = 'italy-cookie-choices-consent';
-    public const CONFIG_FILTER = 'italy_cookie_choices_consent_config';
 
     private const SCRIPT = 'consent.js';
     private const ASSET = 'consent.asset.php';
@@ -28,7 +27,7 @@ final readonly class ConsentScript implements SubscriberInterface
      * @param string $buildUrl The assets/build URL, with the trailing slash.
      */
     public function __construct(
-        private FilteredConsentPolicy $policy,
+        private ConsentPolicyFactory $policy,
         private Options $options,
         private string $buildPath,
         private string $buildUrl,
@@ -79,7 +78,13 @@ final readonly class ConsentScript implements SubscriberInterface
     }
 
     /**
-     * @return array<array-key, mixed>
+     * @return array{
+     *     cookieName: string,
+     *     categories: list<array{id: string, required: bool}>,
+     *     version: string,
+     *     durationDays: int,
+     *     legacyCookie: array{name: string, value: string}
+     * }
      */
     public function config(): array
     {
@@ -90,20 +95,13 @@ final readonly class ConsentScript implements SubscriberInterface
             $categories[] = ['id' => $category->id(), 'required' => $category->isRequired()];
         }
 
-        /**
-         * Filters the configuration of the JavaScript consent API.
-         *
-         * @param mixed $config The configuration array.
-         */
-        $config = \apply_filters(self::CONFIG_FILTER, [
+        return [
             'cookieName' => CookieConsentRepository::COOKIE_NAME,
             'categories' => $categories,
             'version' => $policy->version()->toString(),
             'durationDays' => $policy->duration()->days(),
             'legacyCookie' => $this->options->legacyCookie(),
-        ]);
-
-        return \is_array($config) ? $config : [];
+        ];
     }
 
     /**

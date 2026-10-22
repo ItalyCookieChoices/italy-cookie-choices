@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
+use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\UI\Banner;
-use ItalyCookieChoices\Consent\UI\CategoryLabels;
+use ItalyCookieChoices\Consent\UI\BuildingBanner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\Event\Dispatcher;
+use ItalyStrap\Event\GlobalOrderedListenerProvider;
+use ItalyStrap\Event\GlobalState;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BannerTest extends WPTestCase
@@ -283,31 +288,26 @@ final class BannerTest extends WPTestCase
         $this->assertSame($rel, $link['rel']);
     }
 
-    public function testTheTextsCanBeFiltered(): void
+    public function testTheListenersChangeTheTexts(): void
     {
-        \add_filter(Banner::TEXTS_FILTER, static fn(array $texts): array => [
-            'rejectAll' => 'Only necessary',
-            'title' => ['not a string'],
-            'unknown' => 'ignored',
-        ] + $texts);
+        \add_action(BuildingBanner::class, static function (BuildingBanner $event): void {
+            $event->changeText(BuildingBanner::REJECT_ALL, 'Only necessary');
+        });
 
         $texts = $this->texts($this->makeSut()->view());
 
         $this->assertSame('Only necessary', $texts['rejectAll']);
         $this->assertSame('Cookie consent', $texts['title']);
-        $this->assertArrayNotHasKey('unknown', $texts);
-    }
-
-    public function testAFilterThatReturnsNoArrayKeepsTheTexts(): void
-    {
-        \add_filter(Banner::TEXTS_FILTER, '__return_null');
-
-        $this->assertSame('Reject all', $this->texts($this->makeSut()->view())['rejectAll']);
     }
 
     public function testTheCategoriesHaveTheirLabels(): void
     {
-        \add_filter(FilteredConsentPolicy::CATEGORIES_FILTER, static fn(): array => [['id' => 'social']]);
+        \add_action(BuildingConsentPolicy::class, static function (BuildingConsentPolicy $event): void {
+            foreach ($event->categories()->ids() as $id) {
+                $event->removeCategory($id);
+            }
+            $event->addCategory(new Category('social'));
+        });
 
         $categories = $this->makeSut()->view()['categories'];
 
@@ -327,12 +327,11 @@ final class BannerTest extends WPTestCase
         );
     }
 
-    public function testTheCategoryLabelsCanBeFiltered(): void
+    public function testTheListenersChangeTheCategoryLabels(): void
     {
-        \add_filter(CategoryLabels::FILTER, static fn(array $labels): array => [
-            'statistics' => ['label' => 'Analytics', 'description' => 'Visits'],
-            'marketing' => 'invalid',
-        ] + $labels);
+        \add_action(BuildingBanner::class, static function (BuildingBanner $event): void {
+            $event->changeCategoryLabel('statistics', 'Analytics', 'Visits');
+        });
 
         $categories = $this->makeSut()->view()['categories'];
 
@@ -341,10 +340,8 @@ final class BannerTest extends WPTestCase
             ['id' => 'statistics', 'required' => false, 'label' => 'Analytics', 'description' => 'Visits'],
             $categories[2]
         );
-        $this->assertSame(
-            ['id' => 'marketing', 'required' => false, 'label' => 'marketing', 'description' => ''],
-            $categories[3]
-        );
+        $this->assertIsArray($categories[3]);
+        $this->assertSame('Marketing', $categories[3]['label']);
     }
 
     public function testTheTemplatePrintsAnAccessibleDialog(): void
@@ -415,12 +412,17 @@ final class BannerTest extends WPTestCase
         $this->assertIsString($root);
 
         return new Banner(
-            new FilteredConsentPolicy(),
-            new CategoryLabels(),
+            new ConsentPolicyFactory($this->dispatcher()),
+            $this->dispatcher(),
             new Options(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL,
             $root
         );
+    }
+
+    private function dispatcher(): Dispatcher
+    {
+        return new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState());
     }
 }

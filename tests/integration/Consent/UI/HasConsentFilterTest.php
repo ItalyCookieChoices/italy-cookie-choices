@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
+use ItalyCookieChoices\Consent\Domain\PolicyVersion;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\Event\Dispatcher;
+use ItalyStrap\Event\GlobalOrderedListenerProvider;
+use ItalyStrap\Event\GlobalState;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class HasConsentFilterTest extends WPTestCase
@@ -45,7 +50,9 @@ final class HasConsentFilterTest extends WPTestCase
 
     public function testAConsentForAnotherVersionIsAskedAgain(): void
     {
-        \add_filter(FilteredConsentPolicy::VERSION_FILTER, static fn(): string => '2');
+        \add_action(BuildingConsentPolicy::class, static function (BuildingConsentPolicy $event): void {
+            $event->changeVersion(new PolicyVersion('2'));
+        });
 
         $this->assertFalse($this->makeSut(['statistics'])->hasConsent(false, 'statistics'));
     }
@@ -79,6 +86,14 @@ final class HasConsentFilterTest extends WPTestCase
             ]));
         }
 
-        return new HasConsentFilter(new FilteredConsentPolicy(), new CookieConsentRepository($cookies));
+        return new HasConsentFilter(
+            new ConsentPolicyFactory($this->dispatcher()),
+            new CookieConsentRepository($cookies)
+        );
+    }
+
+    private function dispatcher(): Dispatcher
+    {
+        return new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState());
     }
 }
