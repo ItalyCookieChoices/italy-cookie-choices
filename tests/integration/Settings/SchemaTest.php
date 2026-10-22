@@ -16,14 +16,15 @@ final class SchemaTest extends WPTestCase
     private const KEYS = [
         'active', 'all_block', 'allow_embed', 'allow_iframe', 'allow_script', 'anchor_text', 'banner',
         'bannerStyle', 'banner_bg', 'banner_text_color', 'block_embed', 'block_iframe', 'block_script',
-        'button_text', 'closeClass', 'consentText', 'contentStyle', 'content_message_button_text',
-        'content_message_text', 'cookie_name', 'cookie_value', 'customCSS', 'excluded_pages', 'html_margin',
-        'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target', 'text', 'url',
+        'button_text', 'closeClass', 'consentText', 'consent_log', 'consent_log_retention', 'contentStyle',
+        'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
+        'excluded_pages', 'html_margin', 'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target', 'text',
+        'url',
     ];
 
-    public function testTheSchemaIsAtVersion3(): void
+    public function testTheSchemaIsAtVersion4(): void
     {
-        $this->assertSame(3, Schema::VERSION);
+        $this->assertSame(4, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -38,6 +39,8 @@ final class SchemaTest extends WPTestCase
                 'cookie_value' => 'y',
                 'content_message_text' => '',
                 'content_message_button_text' => '',
+                'consent_log' => '1',
+                'consent_log_retention' => '12',
             ],
             (new Schema())->defaults()
         );
@@ -90,6 +93,7 @@ final class SchemaTest extends WPTestCase
         yield 'widget blocking always on in version 3' => [['widget_block' => '1']];
         yield 'snippets moved to the lists in version 3' => [['custom_script_block' => '<script></script>']];
         yield 'banner out of range' => [['banner' => '4']];
+        yield 'consent log retention not listed' => [['consent_log_retention' => '7']];
         yield 'unknown template' => [['js_template' => 'other']];
         yield 'empty cookie name' => [['cookie_name' => '']];
         yield 'empty cookie value' => [['cookie_value' => '']];

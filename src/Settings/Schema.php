@@ -14,7 +14,7 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 3;
+    public const VERSION = 4;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -26,11 +26,13 @@ final readonly class Schema
         'target',
         'nofollow',
         'all_block',
+        'consent_log',
     ];
 
     private const ENUMS = [
         'banner' => ['1', '2', '3'],
         'js_template' => ['default', 'bigbutton', 'smallbutton', 'custom'],
+        'consent_log_retention' => ['3', '6', '12', '24', '36'],
     ];
 
     private const STRINGS = [
@@ -50,6 +52,11 @@ final readonly class Schema
         'content_message_text',
         'content_message_button_text',
         'excluded_pages',
+    ];
+
+    public const CONSENT_LOG_DEFAULTS = [
+        'consent_log' => '1',
+        'consent_log_retention' => '12',
     ];
 
     private const REQUIRED_STRINGS = [
@@ -82,6 +89,7 @@ final readonly class Schema
             'cookie_value' => self::COOKIE_VALUE,
             'content_message_text' => '',
             'content_message_button_text' => '',
+            ...self::CONSENT_LOG_DEFAULTS,
         ];
     }
 

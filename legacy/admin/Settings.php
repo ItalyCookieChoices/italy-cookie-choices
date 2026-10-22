@@ -473,6 +473,17 @@ class Settings {
 			'advanced_setting_section'
 			);
 
+		/**
+		 * The consent log, its retention and its export
+		 */
+		add_settings_field( 
+			'consent_log', 
+			__( 'Consent log', 'italy-cookie-choices' ), 
+			[ $this, 'italy_cl_option_consent_log'], 
+			'italy_cl_options_group', 
+			'advanced_setting_section'
+			);
+
 	}
 
 
@@ -1042,6 +1053,45 @@ class Settings {
 		</p>
 		<p>
 			<a href="https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Custom-script" target="_blank"><?php _e( 'For more information see the documentation', 'italy-cookie-choices' ); ?></a>
+		</p>
+
+	<?php
+
+	}
+
+	/**
+	 * Checkbox, retention and export of the consent log
+	 */
+	public function italy_cl_option_consent_log( mixed $args ): void {
+
+		$consent_log = $this->options['consent_log'] ?? '' ;
+
+		$retention = $this->options['consent_log_retention'] ?? '12' ;
+
+		$export_url = wp_nonce_url(
+			admin_url( 'admin-post.php?action=' . \ItalyCookieChoices\ConsentLog\UI\ConsentLogExport::ACTION ),
+			\ItalyCookieChoices\ConsentLog\UI\ConsentLogExport::ACTION
+		);
+
+	?>
+
+		<input type='checkbox' name='italy_cookie_choices[consent_log]' <?php checked( $consent_log, 1 ); ?> value='1' id="italy_cookie_choices[consent_log]">
+		<label for="italy_cookie_choices[consent_log]">
+			<?php _e( 'Keep a log of the consents to demonstrate them: a random id, the categories, the policy version and the date, without IP addresses.', 'italy-cookie-choices' ); ?>
+		</label>
+		<br>
+		<label for="italy_cookie_choices[consent_log_retention]">
+			<?php _e( 'Keep the records for', 'italy-cookie-choices' ); ?>
+		</label>
+		<select name="italy_cookie_choices[consent_log_retention]" id="italy_cookie_choices[consent_log_retention]">
+			<?php foreach ( [ '3', '6', '12', '24', '36' ] as $months ) : ?>
+				<option value="<?php echo esc_attr( $months ); ?>" <?php selected( $retention, $months ); ?>>
+					<?php echo esc_html( sprintf( _n( '%s month', '%s months', (int) $months, 'italy-cookie-choices' ), $months ) ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+		<p>
+			<a class="button button-secondary" href="<?php echo esc_url( $export_url ); ?>"><?php _e( 'Export the consent log (CSV)', 'italy-cookie-choices' ); ?></a>
 		</p>
 
 	<?php

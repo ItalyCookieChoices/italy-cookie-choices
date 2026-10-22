@@ -8,6 +8,7 @@ const entries = {
 	consent: './assets/src/consent/index.ts',
 	banner: './assets/src/banner/index.ts',
 	blocking: './assets/src/blocking/index.ts',
+	'consent-log': './assets/src/consent-log/index.ts',
 };
 
 module.exports = {

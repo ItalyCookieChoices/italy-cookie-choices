@@ -15,24 +15,34 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
+/**
+ * The options, the consent log table and its cleanup of the current site.
+ */
+$icc_uninstall_site = static function (): void {
+	global $wpdb;
+	/** @var \wpdb $wpdb */
+
+	delete_option( 'italy_cookie_choices' );
+	delete_option( 'italy_cookie_choices_version' );
+	delete_option( 'italy_cookie_choices_log_table_version' );
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}icc_consent_log" ); // phpcs:ignore
+	wp_clear_scheduled_hook( 'italy_cookie_choices_consent_log_cleanup' );
+};
+
 if ( is_multisite() ) {
 
 	global $wpdb;
 
 	$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
 
-	// delete_transient( 'TRANSIENT_NAME' );
-	delete_option('italy_cookie_choices');
-	delete_option('italy_cookie_choices_version');
+	$icc_uninstall_site();
 
 	if ( $blogs )
 		foreach ( $blogs as $blog ) {
 
 			switch_to_blog( $blog[ 'blog_id' ] );
 
-			// delete_transient( 'TRANSIENT_NAME' );
-			delete_option('italy_cookie_choices');
-			delete_option('italy_cookie_choices_version');
+			$icc_uninstall_site();
 
 			restore_current_blog();
 
@@ -40,9 +50,7 @@ if ( is_multisite() ) {
 
 } else {
 
-	// delete_transient( 'TRANSIENT_NAME' );
-	delete_option('italy_cookie_choices');
-	delete_option('italy_cookie_choices_version');
+	$icc_uninstall_site();
 
 }
 

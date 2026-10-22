@@ -46,9 +46,9 @@ final class MigrationTest extends WPTestCase
     }
 
     /**
-     * The 2.x values have the shape of the schema version 1, they are kept as they are.
+     * The 2.x values have the shape of the schema version 1, they are kept as they are, the consent log is added.
      */
-    public function testTheOptionOfThe2xVersionsIsKept(): void
+    public function testTheOptionOfThe2xVersionsIsKeptWithTheConsentLog(): void
     {
         $legacy = [
             'active' => '1',
@@ -62,7 +62,7 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame($legacy, \get_option(Schema::OPTION));
+        $this->assertSame($legacy + Schema::CONSENT_LOG_DEFAULTS, \get_option(Schema::OPTION));
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
     }
 
@@ -86,7 +86,7 @@ final class MigrationTest extends WPTestCase
                 'active' => '1',
                 'text' => 'Policy',
                 'block_script' => ['analytics.js' => 'analytics.js'],
-            ],
+            ] + Schema::CONSENT_LOG_DEFAULTS,
             \get_option(Schema::OPTION)
         );
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
@@ -98,7 +98,10 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['text' => '<script>raw</script>'], \get_option(Schema::OPTION));
+        $this->assertSame(
+            ['text' => '<script>raw</script>'] + Schema::CONSENT_LOG_DEFAULTS,
+            \get_option(Schema::OPTION)
+        );
     }
 
     public function testAnOptionAtVersion1RunsOnlyTheNextVersions(): void
@@ -108,7 +111,7 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['active' => '1'], \get_option(Schema::OPTION));
+        $this->assertSame(['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS, \get_option(Schema::OPTION));
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
     }
 
@@ -142,7 +145,7 @@ final class MigrationTest extends WPTestCase
                     'window.tracker = true;' => 'window.tracker = true;',
                 ],
                 'allow_script' => ['window.allowed' => 'window.allowed'],
-            ],
+            ] + Schema::CONSENT_LOG_DEFAULTS,
             \get_option(Schema::OPTION)
         );
     }
@@ -158,7 +161,7 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['active' => '1'], \get_option(Schema::OPTION));
+        $this->assertSame(['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS, \get_option(Schema::OPTION));
     }
 
     public function testAnOptionWithoutTheTextareasIsKept(): void
@@ -168,8 +171,27 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['active' => '1', 'block_script' => 'invalid'], \get_option(Schema::OPTION));
+        $this->assertSame(
+            ['active' => '1', 'block_script' => 'invalid'] + Schema::CONSENT_LOG_DEFAULTS,
+            \get_option(Schema::OPTION)
+        );
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
+    }
+
+    /**
+     * Version 4: the consent log is on with a 12 months retention, a saved choice is kept.
+     */
+    public function testTheConsentLogIsTurnedOn(): void
+    {
+        \update_option(Schema::VERSION_OPTION, 3);
+        \add_option(Schema::OPTION, ['active' => '1', 'consent_log_retention' => '24']);
+
+        (new Migration(new Schema(), new LegacySnippets()))->migrate();
+
+        $this->assertSame(
+            ['active' => '1', 'consent_log_retention' => '24', 'consent_log' => '1'],
+            \get_option(Schema::OPTION)
+        );
     }
 
     public function testAMissingOptionAtVersion1IsNotCreated(): void

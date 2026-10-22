@@ -33,6 +33,7 @@ README.md
 Makefile
 package.json
 tsconfig.json
+webpack.config.js
 .nvmrc
 assets/src
 infection.json
