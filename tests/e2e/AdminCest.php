@@ -51,6 +51,8 @@ final class AdminCest
                 'cookie_value' => 'y',
                 'content_message_text' => '',
                 'content_message_button_text' => '',
+                'consent_log' => '1',
+                'consent_log_retention' => '12',
             ],
             $I->grabOptionFromDatabase(E2eTester::OPTION_NAME)
         );
