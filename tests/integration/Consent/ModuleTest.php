@@ -10,6 +10,7 @@ use ItalyCookieChoices\Consent\Module;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
+use ItalyCookieChoices\Consent\UI\PreferencesShortcode;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -24,7 +25,7 @@ final class ModuleTest extends WPTestCase
 
         $this->assertIsArray($config);
         $this->assertSame(
-            [ConsentScript::class, Banner::class, HasConsentFilter::class],
+            [ConsentScript::class, Banner::class, HasConsentFilter::class, PreferencesShortcode::class],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
     }

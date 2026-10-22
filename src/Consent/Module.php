@@ -9,6 +9,7 @@ use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
+use ItalyCookieChoices\Consent\UI\PreferencesShortcode;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -55,6 +56,7 @@ final readonly class Module implements ModuleInterface
                 ConsentScript::class,
                 Banner::class,
                 HasConsentFilter::class,
+                PreferencesShortcode::class,
             ],
         ];
     }
