@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ItalyCookieChoices/italy-cookie-choices",
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@wordpress/scripts": "^35.0.0",
+    "@wordpress/scripts": "^37.0.0",
     "axe-core": "^4.14.0",
     "typescript": "^6.0.3"
   },
