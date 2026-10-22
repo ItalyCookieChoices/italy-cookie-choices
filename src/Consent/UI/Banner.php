@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
-use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
-use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\Config\Config;
 use ItalyStrap\View\ViewInterface;
-use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Prints the consent banner and the preferences dialog, hidden until the script finds no consent.
@@ -33,8 +30,7 @@ final readonly class Banner implements SubscriberInterface
      * @param string $buildUrl The assets/build URL, with the trailing slash.
      */
     public function __construct(
-        private ConsentPolicyFactory $policy,
-        private EventDispatcherInterface $dispatcher,
+        private ConsentTexts $texts,
         private Options $options,
         private ViewInterface $view,
         private string $buildPath,
@@ -112,9 +108,9 @@ final readonly class Banner implements SubscriberInterface
             'modal' => $position === self::POSITIONS['2'],
             'reload' => $this->options->isChecked('reload'),
             'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
-            'text' => \wp_kses_post($this->translated('Banner text', 'text')),
+            'text' => \wp_kses_post($this->options->translated('Banner text', 'text')),
             'link' => $this->link(),
-            ...$this->content(),
+            ...$this->texts->all(),
         ];
     }
 
@@ -157,7 +153,7 @@ final readonly class Banner implements SubscriberInterface
      */
     private function link(): ?array
     {
-        $url = $this->translated('Banner url', 'url');
+        $url = $this->options->translated('Banner url', 'url');
         if ($url === '') {
             return null;
         }
@@ -170,102 +166,10 @@ final readonly class Banner implements SubscriberInterface
 
         return [
             'url' => $url,
-            'text' => $this->translated('Banner anchor text', 'anchor_text', $url),
+            'text' => $this->options->translated('Banner anchor text', 'anchor_text', $url),
             'newTab' => $newTab,
             'rel' => \implode(' ', $rel),
         ];
-    }
-
-    /**
-     * The texts and the categories, after the listeners of BuildingBanner.
-     *
-     * @return array{
-     *     texts: array<string, string>,
-     *     categories: list<array{id: string, required: bool, label: string, description: string}>
-     * }
-     */
-    private function content(): array
-    {
-        $event = new BuildingBanner($this->defaultTexts(), $this->defaultCategoryLabels());
-        $this->dispatcher->dispatch($event);
-
-        $categories = [];
-        foreach ($this->policy->create()->categories() as $category) {
-            $categories[] = [
-                'id' => $category->id(),
-                'required' => $category->isRequired(),
-                ...$event->categoryLabel($category),
-            ];
-        }
-
-        return ['texts' => $event->texts(), 'categories' => $categories];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private function defaultTexts(): array
-    {
-        return [
-            BuildingBanner::TITLE => \__('Cookie consent', 'italy-cookie-choices'),
-            BuildingBanner::ACCEPT_ALL => $this->translated(
-                'Banner button text',
-                'button_text',
-                \__('Accept all', 'italy-cookie-choices')
-            ),
-            BuildingBanner::REJECT_ALL => \__('Reject all', 'italy-cookie-choices'),
-            BuildingBanner::PREFERENCES => \__('Preferences', 'italy-cookie-choices'),
-            BuildingBanner::CLOSE => \__('Close and keep only the necessary cookies', 'italy-cookie-choices'),
-            BuildingBanner::PREFERENCES_TITLE => \__('Cookie preferences', 'italy-cookie-choices'),
-            BuildingBanner::SAVE => \__('Save preferences', 'italy-cookie-choices'),
-            BuildingBanner::CLOSE_PREFERENCES => \__('Close the preferences', 'italy-cookie-choices'),
-        ];
-    }
-
-    /**
-     * @return array<string, array{label: string, description: string}>
-     */
-    private function defaultCategoryLabels(): array
-    {
-        return [
-            Category::NECESSARY => [
-                'label' => \__('Necessary', 'italy-cookie-choices'),
-                'description' => \__(
-                    'Needed for the site to work, like the cookie that stores this choice. Always active.',
-                    'italy-cookie-choices'
-                ),
-            ],
-            Category::PREFERENCES => [
-                'label' => \__('Preferences', 'italy-cookie-choices'),
-                'description' => \__('Remember your choices, like the language or the region.', 'italy-cookie-choices'),
-            ],
-            Category::STATISTICS => [
-                'label' => \__('Statistics', 'italy-cookie-choices'),
-                'description' => \__(
-                    'Help to understand how the site is used, collecting anonymous data.',
-                    'italy-cookie-choices'
-                ),
-            ],
-            Category::MARKETING => [
-                'label' => \__('Marketing', 'italy-cookie-choices'),
-                'description' => \__(
-                    'Used by third parties, like videos, maps and social networks, to show content and ads.',
-                    'italy-cookie-choices'
-                ),
-            ],
-        ];
-    }
-
-    private function translated(string $name, string $option, string $default = ''): string
-    {
-        $value = $this->options->text($option);
-        if ($value === '') {
-            return $default;
-        }
-
-        $translated = \get_string('Italy Cookie Choices', $name, $value);
-
-        return \is_string($translated) && $translated !== '' ? $translated : $value;
     }
 
     private function inlineStyle(): string
