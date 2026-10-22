@@ -99,12 +99,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
 
-    # The minimum supported versions and the newest ones, WordPress 6.1 does not run on PHP 8.5
+    # The minimum supported versions and the newest ones, WordPress 6.5 does not run on PHP 8.5
     strategy:
       matrix:
         include:
           - php_versions: '8.2'
-            wp_versions: '6.1'
+            wp_versions: '6.5'
           - php_versions: '8.2'
             wp_versions: '7.1'
           - php_versions: '8.5'
