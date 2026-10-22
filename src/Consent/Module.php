@@ -9,6 +9,7 @@ use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
+use ItalyCookieChoices\Consent\UI\PreferencesButtonBlock;
 use ItalyCookieChoices\Consent\UI\PreferencesShortcode;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
@@ -51,12 +52,16 @@ final readonly class Module implements ModuleInterface
                     ':buildPath' => $this->pluginPath . self::BUILD,
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
                 ],
+                PreferencesButtonBlock::class => [
+                    ':buildPath' => $this->pluginPath . self::BUILD,
+                ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 ConsentScript::class,
                 Banner::class,
                 HasConsentFilter::class,
                 PreferencesShortcode::class,
+                PreferencesButtonBlock::class,
             ],
         ];
     }

@@ -20,6 +20,7 @@ final readonly class PreferencesShortcode implements SubscriberInterface
     public const LEGACY_TAG = 'delete_cookie';
 
     public function __construct(
+        private PreferencesButton $button,
         private Options $options,
     ) {
     }
@@ -41,15 +42,8 @@ final readonly class PreferencesShortcode implements SubscriberInterface
 
     public function render(mixed $attributes = []): string
     {
-        $attributes = \shortcode_atts(
-            ['text' => \__('Cookie preferences', 'italy-cookie-choices')],
-            \is_array($attributes) ? $attributes : [],
-            self::TAG
-        );
+        $attributes = \shortcode_atts(['text' => ''], \is_array($attributes) ? $attributes : [], self::TAG);
 
-        return \sprintf(
-            '<button type="button" class="icc-preferences-button" data-icc-open-preferences>%s</button>',
-            \esc_html((string) $attributes['text'])
-        );
+        return $this->button->html($attributes['text']);
     }
 }

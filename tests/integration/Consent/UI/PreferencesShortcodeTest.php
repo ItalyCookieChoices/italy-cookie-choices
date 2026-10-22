@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
+use ItalyCookieChoices\Consent\UI\PreferencesButton;
 use ItalyCookieChoices\Consent\UI\PreferencesShortcode;
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
@@ -29,7 +30,8 @@ final class PreferencesShortcodeTest extends WPTestCase
         $this->makeSut()->register();
 
         $this->assertSame(
-            '<button type="button" class="icc-preferences-button" data-icc-open-preferences>Cookie preferences</button>',
+            '<button type="button" class="icc-preferences-button" data-icc-open-preferences>'
+            . 'Cookie preferences</button>',
             \do_shortcode('[cookie_preferences]')
         );
     }
@@ -71,6 +73,6 @@ final class PreferencesShortcodeTest extends WPTestCase
 
     private function makeSut(): PreferencesShortcode
     {
-        return new PreferencesShortcode(new Options());
+        return new PreferencesShortcode(new PreferencesButton(), new Options());
     }
 }

@@ -57,6 +57,20 @@ final class ShortcodeCest
         $I->waitForElementVisible('#icc-preferences');
     }
 
+    public function theBlockOpensThePreferences(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->havePolicyPage(
+            $I,
+            '<!-- wp:italy-cookie-choices/preferences-button {"label":"Change your choice"} /-->'
+        );
+        $I->amOnPage('/cookie-policy/');
+
+        $I->click('Change your choice', '.entry-content');
+
+        $I->waitForElementVisible('#icc-preferences');
+    }
+
     public function theShortcodesAreNotRegisteredWhenNotActive(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions(['active' => null]);
