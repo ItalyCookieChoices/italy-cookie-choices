@@ -69,9 +69,10 @@ final class ImportExportTest extends WPTestCase
     {
         $_POST = [];
         \update_option(self::OPTION_NAME, ['active' => '1']);
+        $saved = \get_option(self::OPTION_NAME);
 
         $this->assertNull((new Settings())->settings_import());
-        $this->assertSame(['active' => '1'], \get_option(self::OPTION_NAME));
+        $this->assertSame($saved, \get_option(self::OPTION_NAME));
     }
 
     public function testImportDoesNothingWithAnInvalidNonce(): void
@@ -79,9 +80,10 @@ final class ImportExportTest extends WPTestCase
         $this->prepareImport('settings.json', '[{"active":"0"}]');
         $_POST['icc_import_nonce'] = 'invalid';
         \update_option(self::OPTION_NAME, ['active' => '1']);
+        $saved = \get_option(self::OPTION_NAME);
 
         $this->assertNull((new Settings())->settings_import());
-        $this->assertSame(['active' => '1'], \get_option(self::OPTION_NAME));
+        $this->assertSame($saved, \get_option(self::OPTION_NAME));
     }
 
     public function testImportDoesNothingWithoutCapability(): void
@@ -89,9 +91,10 @@ final class ImportExportTest extends WPTestCase
         $this->setCurrentUser('editor');
         $this->prepareImport('settings.json', '[{"active":"0"}]');
         \update_option(self::OPTION_NAME, ['active' => '1']);
+        $saved = \get_option(self::OPTION_NAME);
 
         $this->assertNull((new Settings())->settings_import());
-        $this->assertSame(['active' => '1'], \get_option(self::OPTION_NAME));
+        $this->assertSame($saved, \get_option(self::OPTION_NAME));
     }
 
     public function testImportRejectsFilesThatAreNotJson(): void
@@ -131,6 +134,9 @@ final class ImportExportTest extends WPTestCase
         );
     }
 
+    /**
+     * The imported values go through the sanitizer, the option is registered before the import runs.
+     */
     public function testImportSavesTheSettingsAndRedirectsToTheSettingsPage(): void
     {
         $this->prepareImport('export.settings.json', '[{"active":"1","text":"Imported","block_script":["analytics"]}]');
@@ -144,7 +150,20 @@ final class ImportExportTest extends WPTestCase
         }
 
         $this->assertSame(
-            ['active' => '1', 'text' => 'Imported', 'block_script' => ['analytics']],
+            [
+                'active' => '1',
+                'text' => 'Imported',
+                'banner_bg' => '#fff',
+                'banner_text_color' => '#000',
+                'bannerStyle' => 'bannerStyle',
+                'contentStyle' => 'contentStyle',
+                'consentText' => 'consentText',
+                'infoClass' => 'italybtn',
+                'closeClass' => 'italybtn',
+                'cookie_name' => 'displayCookieConsent',
+                'cookie_value' => 'y',
+                'block_script' => ['analytics'],
+            ],
             \get_option(self::OPTION_NAME)
         );
     }
