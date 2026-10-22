@@ -18,7 +18,6 @@ parameters:
         - vendor/lucatume/wp-browser/includes/core-phpunit/includes
     excludePaths:
         analyse:
-            - legacy/js/*
             - legacy/lang/*
             - tests/_data/*
             - tests/_output/*

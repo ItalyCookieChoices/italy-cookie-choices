@@ -34,7 +34,6 @@
     "overclokk/auryn": "dev-master",
     "italystrap/view": "^1.1.3",
     "italystrap/finder": "dev-master",
-    "overclokk/cookie": "^1.0",
     "italystrap/config": "^2.11"
   },
   "require-dev": {
@@ -65,7 +64,6 @@
   "autoload": {
     "psr-4": {
       "Italy_Cookie_Choices\\Admin\\": "legacy/admin/",
-      "Italy_Cookie_Choices\\Core\\": "legacy/core/",
       "ItalyCookieChoices\\": "src/"
     }
   },

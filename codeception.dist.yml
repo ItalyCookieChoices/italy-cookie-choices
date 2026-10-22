@@ -24,7 +24,6 @@ coverage:
         - bootstrap.php
         - legacy/*.php
         - legacy/admin/*.php
-        - legacy/core/*.php
         - legacy/functions/*.php
         - legacy/includes/*.php
 params:

@@ -41,7 +41,7 @@ final class BannerTest extends WPTestCase
         parent::tearDown();
     }
 
-    public function testItPrintsTheBannerOutsideTheLegacyBuffers(): void
+    public function testItPrintsTheBannerBeforeTheFooterScripts(): void
     {
         $this->assertSame(
             [

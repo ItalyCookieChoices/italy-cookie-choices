@@ -41,8 +41,7 @@ final readonly class Banner implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield 'wp_enqueue_scripts' => 'enqueue';
-        // Between the body and the footer buffers of the 2.x blocking,
-        // its patterns can remove the markup and the script.
+        // Before the footer scripts, the banner is the first thing the keyboard reaches.
         yield 'wp_footer' => [
             self::CALLBACK => 'render',
             self::PRIORITY => -99999,

@@ -37,7 +37,7 @@ final readonly class ConsentScript implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield 'wp_enqueue_scripts' => 'enqueue';
-        // After the head buffer of the 2.x blocking, its patterns can remove the scripts in it.
+        // At the end of the head, so the listeners of its events are already there.
         yield 'wp_head' => [
             self::CALLBACK => 'print',
             self::PRIORITY => 100000,
