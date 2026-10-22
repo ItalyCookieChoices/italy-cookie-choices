@@ -1,5 +1,5 @@
 import type { Cookies } from './cookies';
-import type { ConsentApi, LegacyCookie } from './types';
+import type { Consent, ConsentApi, ConsentConfig } from './types';
 
 type AllowCookie = ( ( ...args: unknown[] ) => unknown ) & {
 	italyCookieChoicesBridge?: true;
@@ -7,52 +7,86 @@ type AllowCookie = ( ( ...args: unknown[] ) => unknown ) & {
 
 declare global {
 	interface Window {
-		/** Defined by the 2.x banner script, it runs when the visitor accepts. */
+		/** Defined by the 2.x script, it restores the blocked content in the page. */
 		allowCookie?: AllowCookie;
 	}
 }
 
+const DAY = 24 * 60 * 60 * 1000;
+
 /**
- * The 2.x banner accepts every cookie: until the new banner replaces it, its accept gives the consent to all the categories.
+ * Keeps the 2.x blocking working until the new blocking replaces it.
  *
- * A visitor who accepted with the 2.x banner gets the same consent, unless a consent cookie already exists.
- * @param api               The consent API.
- * @param cookies           The site cookies.
- * @param consentCookieName The cookie of the consent API.
- * @param legacyCookie      The cookie written by the 2.x banner, null when unknown.
- * @param window            The window where the 2.x banner defines allowCookie().
+ * The 2.x blocking is not split by category: the blocked content needs the consent to every category.
+ * The 2.x cookie exists only while that consent lasts, the server reads it to stop blocking.
+ * A visitor who accepted with the 2.x banner is asked again, that consent may come from a scroll.
+ *
+ * @param api     The consent API.
+ * @param cookies The site cookies.
+ * @param config  The consent configuration.
+ * @param window  The window where the 2.x script defines allowCookie().
  */
-export function bridgeLegacyBanner(
+export function bridgeLegacyBlocking(
 	api: ConsentApi,
 	cookies: Cookies,
-	consentCookieName: string,
-	legacyCookie: LegacyCookie | null,
+	config: ConsentConfig,
 	window: Pick< Window, 'allowCookie' >
 ): void {
-	if (
-		legacyCookie !== null &&
-		cookies.read( consentCookieName ) === null &&
-		cookies.read( legacyCookie.name ) === legacyCookie.value
-	) {
-		api.acceptAll();
+	const legacyCookie = config.legacyCookie;
+	if ( legacyCookie === null ) {
+		return;
 	}
 
-	const allowCookie = window.allowCookie;
+	const optional = config.categories
+		.filter( ( category ) => ! category.required )
+		.map( ( category ) => category.id );
+	const acceptsEverything = ( consent: Consent | null ): boolean =>
+		consent !== null &&
+		optional.every( ( category ) =>
+			consent.categories.includes( category )
+		);
+
+	const syncCookie = ( consent: Consent | null ): void => {
+		if ( consent === null || ! acceptsEverything( consent ) ) {
+			cookies.remove( legacyCookie.name );
+			return;
+		}
+
+		const expires = new Date(
+			Date.parse( consent.date ) + config.durationDays * DAY
+		);
+		cookies.write( legacyCookie.name, legacyCookie.value, expires );
+	};
+
+	const restore = window.allowCookie;
+	syncCookie( api.getConsent() );
+
+	api.onChange( ( { consent, previous } ) => {
+		syncCookie( consent );
+		if (
+			typeof restore === 'function' &&
+			acceptsEverything( consent ) &&
+			! acceptsEverything( previous )
+		) {
+			restore();
+		}
+	} );
+
 	if (
-		typeof allowCookie !== 'function' ||
-		allowCookie.italyCookieChoicesBridge === true
+		typeof restore !== 'function' ||
+		restore.italyCookieChoicesBridge === true
 	) {
 		return;
 	}
 
-	const bridged: AllowCookie = function (
-		this: unknown,
-		...args: unknown[]
-	) {
-		const result = allowCookie.apply( this, args );
-		api.acceptAll();
+	// The buttons in the blocked content accept everything, the change listener restores the content.
+	const bridged: AllowCookie = () => {
+		if ( acceptsEverything( api.getConsent() ) ) {
+			return restore();
+		}
 
-		return result;
+		api.acceptAll();
+		return undefined;
 	};
 	bridged.italyCookieChoicesBridge = true;
 	window.allowCookie = bridged;

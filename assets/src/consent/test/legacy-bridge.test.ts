@@ -1,128 +1,144 @@
 import { createConsentApi } from '../api';
 import { Cookies } from '../cookies';
-import { bridgeLegacyBanner } from '../legacy-bridge';
+import { bridgeLegacyBlocking } from '../legacy-bridge';
 import type { ConsentConfig } from '../types';
-
-const legacyCookie = { name: 'displayCookieConsent', value: 'y' };
 
 const config: ConsentConfig = {
 	cookieName: 'icc_consent',
 	categories: [
 		{ id: 'necessary', required: true },
 		{ id: 'statistics', required: false },
+		{ id: 'marketing', required: false },
 	],
 	version: '1',
 	durationDays: 182,
-	legacyCookie,
+	legacyCookie: { name: 'displayCookieConsent', value: 'y' },
 };
 
 function clearCookies(): void {
 	document.cookie.split( '; ' ).forEach( ( cookie ) => {
 		const name = cookie.split( '=' )[ 0 ];
-		document.cookie = `${ name }=; expires=${ new Date( 0 ).toUTCString() }; path=/`;
+		document.cookie = `${ name }=; expires=${ new Date(
+			0
+		).toUTCString() }; path=/`;
 	} );
 }
 
-function setUp() {
+function setUp( restore?: jest.Mock ) {
 	const cookies = new Cookies( document, false );
-	const api = createConsentApi( config, cookies, document );
+	const api = createConsentApi( config, cookies, new EventTarget() );
+	const legacyWindow: Pick< Window, 'allowCookie' > =
+		restore === undefined ? {} : { allowCookie: restore };
+	bridgeLegacyBlocking( api, cookies, config, legacyWindow );
 
-	return { api, cookies };
+	return { api, cookies, legacyWindow };
 }
 
-describe( 'bridgeLegacyBanner', () => {
+describe( 'bridgeLegacyBlocking', () => {
 	beforeEach( clearCookies );
 
-	it( 'gives the consent to all categories when the 2.x banner accepts', () => {
+	it( 'writes the 2.x cookie when every category is accepted', () => {
 		const { api, cookies } = setUp();
-		const allowCookie = jest.fn( () => 'allowed' );
-		const legacyWindow: Pick< Window, 'allowCookie' > = { allowCookie };
 
-		bridgeLegacyBanner(
-			api,
-			cookies,
-			'icc_consent',
-			legacyCookie,
-			legacyWindow
+		api.acceptAll();
+
+		expect( cookies.read( 'displayCookieConsent' ) ).toBe( 'y' );
+	} );
+
+	it( 'writes the 2.x cookie until the consent expires', () => {
+		const { api } = setUp();
+		const write = jest.spyOn( Cookies.prototype, 'write' );
+
+		const consent = api.acceptAll();
+
+		expect( write ).toHaveBeenCalledWith(
+			'displayCookieConsent',
+			'y',
+			new Date( Date.parse( consent.date ) + 182 * 24 * 60 * 60 * 1000 )
 		);
+		write.mockRestore();
+	} );
 
-		expect( legacyWindow.allowCookie?.( 'argument' ) ).toBe( 'allowed' );
-		expect( allowCookie ).toHaveBeenCalledWith( 'argument' );
+	it( 'removes the 2.x cookie when a category is refused', () => {
+		const { api, cookies } = setUp();
+		api.acceptAll();
+
+		api.setConsent( [ 'statistics' ] );
+
+		expect( cookies.read( 'displayCookieConsent' ) ).toBeNull();
+	} );
+
+	it( 'removes the 2.x cookie of a visitor without the new consent', () => {
+		document.cookie = 'displayCookieConsent=y; path=/';
+
+		const { api, cookies } = setUp();
+
+		expect( cookies.read( 'displayCookieConsent' ) ).toBeNull();
+		expect( api.getConsent() ).toBeNull();
+	} );
+
+	it( 'restores the blocked content when every category is accepted', () => {
+		const restore = jest.fn();
+		const { api } = setUp( restore );
+
+		api.setConsent( [ 'statistics' ] );
+		expect( restore ).not.toHaveBeenCalled();
+
+		api.acceptAll();
+		api.acceptAll();
+		expect( restore ).toHaveBeenCalledTimes( 1 );
+	} );
+
+	it( 'accepts every category from the buttons in the blocked content', () => {
+		const restore = jest.fn();
+		const { api, legacyWindow } = setUp( restore );
+
+		legacyWindow.allowCookie?.();
+
 		expect( api.getConsent()?.categories ).toEqual( [
 			'necessary',
 			'statistics',
+			'marketing',
 		] );
+		expect( restore ).toHaveBeenCalledTimes( 1 );
 	} );
 
-	it( 'wraps the 2.x accept only once', () => {
-		const { api, cookies } = setUp();
-		const legacyWindow: Pick< Window, 'allowCookie' > = {
-			allowCookie: jest.fn(),
-		};
+	it( 'restores directly when the consent is already given', () => {
+		const restore = jest.fn( () => 'restored' );
+		const { api, legacyWindow } = setUp( restore );
+		api.acceptAll();
 
-		bridgeLegacyBanner(
-			api,
-			cookies,
-			'icc_consent',
-			legacyCookie,
-			legacyWindow
-		);
+		expect( legacyWindow.allowCookie?.() ).toBe( 'restored' );
+		expect( restore ).toHaveBeenCalledTimes( 2 );
+	} );
+
+	it( 'wraps the 2.x function only once', () => {
+		const restore = jest.fn();
+		const { api, cookies, legacyWindow } = setUp( restore );
 		const bridged = legacyWindow.allowCookie;
-		bridgeLegacyBanner(
-			api,
-			cookies,
-			'icc_consent',
-			legacyCookie,
-			legacyWindow
-		);
+
+		bridgeLegacyBlocking( api, cookies, config, legacyWindow );
 
 		expect( legacyWindow.allowCookie ).toBe( bridged );
 	} );
 
-	it( 'does nothing without the 2.x banner', () => {
-		const { api, cookies } = setUp();
-		const legacyWindow: Pick< Window, 'allowCookie' > = {};
-
-		bridgeLegacyBanner(
-			api,
+	it( 'does nothing without the 2.x cookie', () => {
+		const cookies = new Cookies( document, false );
+		const withoutLegacy = { ...config, legacyCookie: null };
+		const api = createConsentApi(
+			withoutLegacy,
 			cookies,
-			'icc_consent',
-			legacyCookie,
-			legacyWindow
+			new EventTarget()
 		);
+		const legacyWindow: Pick< Window, 'allowCookie' > = {
+			allowCookie: jest.fn(),
+		};
+		const original = legacyWindow.allowCookie;
 
-		expect( legacyWindow.allowCookie ).toBeUndefined();
-		expect( api.getConsent() ).toBeNull();
-	} );
+		bridgeLegacyBlocking( api, cookies, withoutLegacy, legacyWindow );
+		api.acceptAll();
 
-	it( 'converts the consent given with the 2.x banner', () => {
-		const { api, cookies } = setUp();
-		document.cookie = 'displayCookieConsent=y; path=/';
-
-		bridgeLegacyBanner( api, cookies, 'icc_consent', legacyCookie, {} );
-
-		expect( api.getConsent()?.categories ).toEqual( [
-			'necessary',
-			'statistics',
-		] );
-	} );
-
-	it( 'keeps an existing consent', () => {
-		const { api, cookies } = setUp();
-		const consent = api.rejectAll();
-		document.cookie = 'displayCookieConsent=y; path=/';
-
-		bridgeLegacyBanner( api, cookies, 'icc_consent', legacyCookie, {} );
-
-		expect( api.getConsent() ).toEqual( consent );
-	} );
-
-	it( 'ignores a 2.x cookie with another value', () => {
-		const { api, cookies } = setUp();
-		document.cookie = 'displayCookieConsent=n; path=/';
-
-		bridgeLegacyBanner( api, cookies, 'icc_consent', legacyCookie, {} );
-
-		expect( api.getConsent() ).toBeNull();
+		expect( legacyWindow.allowCookie ).toBe( original );
+		expect( cookies.read( 'displayCookieConsent' ) ).toBeNull();
 	} );
 } );

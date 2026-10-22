@@ -9,7 +9,8 @@
 import { createConsentApi } from './api';
 import { parseConfig } from './config';
 import { Cookies } from './cookies';
-import { bridgeLegacyBanner } from './legacy-bridge';
+import { bridgeLegacyBlocking } from './legacy-bridge';
+import { CHANNEL, syncTabs } from './tab-sync';
 import { READY, type ConsentApi } from './types';
 
 declare global {
@@ -27,15 +28,16 @@ if ( window.italyCookieChoices === undefined ) {
 	);
 	const api = createConsentApi( config, cookies, document );
 	window.italyCookieChoices = api;
+	syncTabs(
+		api,
+		document,
+		typeof BroadcastChannel === 'function'
+			? new BroadcastChannel( CHANNEL )
+			: null
+	);
 
 	const ready = (): void => {
-		bridgeLegacyBanner(
-			api,
-			cookies,
-			config.cookieName,
-			config.legacyCookie,
-			window
-		);
+		bridgeLegacyBlocking( api, cookies, config, window );
 		document.dispatchEvent(
 			new CustomEvent( READY, { detail: { consent: api.getConsent() } } )
 		);
