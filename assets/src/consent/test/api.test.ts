@@ -32,12 +32,15 @@ function storeConsent( consent: object ): void {
 	document.cookie = `icc_consent=${ encodeURIComponent( JSON.stringify( consent ) ) }; path=/`;
 }
 
+const ID = '3f2504e0-4f89-41d3-9a0c-0305e82c3301';
+
 function makeApi( now: Date = NOW ) {
 	return createConsentApi(
 		config,
 		new Cookies( document, false ),
 		document,
-		() => now
+		() => now,
+		() => ID
 	);
 }
 
@@ -74,6 +77,7 @@ describe( 'consent API', () => {
 		const consent = api.setConsent( [ 'marketing', 'unknown' ] );
 
 		expect( consent ).toEqual( {
+			id: ID,
 			categories: [ 'necessary', 'marketing' ],
 			version: '1',
 			date: NOW.toISOString(),
@@ -108,8 +112,20 @@ describe( 'consent API', () => {
 		write.mockRestore();
 	} );
 
+	it( 'keeps the id of the browser for the next choices', () => {
+		storeConsent( {
+			id: 'stored-id',
+			categories: [ 'necessary' ],
+			version: '0',
+			date: NOW.toISOString(),
+		} );
+
+		expect( makeApi().acceptAll().id ).toBe( 'stored-id' );
+	} );
+
 	it( 'ignores a consent given for another policy version', () => {
 		storeConsent( {
+			id: ID,
 			categories: [ 'necessary', 'statistics' ],
 			version: '0',
 			date: NOW.toISOString(),
@@ -133,7 +149,13 @@ describe( 'consent API', () => {
 		[ 'not JSON', 'not-json' ],
 		[
 			'without categories',
-			encodeURIComponent( '{"version":"1","date":"x"}' ),
+			encodeURIComponent( '{"id":"a","version":"1","date":"x"}' ),
+		],
+		[
+			'without an id',
+			encodeURIComponent(
+				'{"categories":[],"version":"1","date":"2026-10-22T10:00:00.000Z"}'
+			),
 		],
 		[
 			'with a category that is not a string',

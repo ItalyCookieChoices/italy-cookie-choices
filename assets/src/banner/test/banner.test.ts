@@ -265,6 +265,7 @@ describe( 'Banner', () => {
 			new CustomEvent< ConsentChange >( CONSENT_CHANGED, {
 				detail: {
 					consent: {
+						id: '3f2504e0-4f89-41d3-9a0c-0305e82c3301',
 						categories: [ 'necessary' ],
 						version: '1',
 						date: new Date().toISOString(),
