@@ -188,6 +188,16 @@ jobs:
       - name: Install dependencies
         run: make install
 
+      # The e2e suite runs axe-core from node_modules
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install the npm packages
+        run: npm ci --no-audit --no-fund
+
       - name: Wait for Selenium
         run: |
           timeout 180 sh -c 'until curl -sf http://localhost:4444/status | grep -q "\"ready\": *true"; do sleep 2; done'
