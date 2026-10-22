@@ -168,8 +168,7 @@ final class BufferTest extends WPTestCase
         $output = $this->captureBody($sut, $head . '<body class="home"><p>Hi</p>' . $iframe . '</body>');
 
         $this->assertSame(
-            '<!-- ICCStartBody -->' . $head . '<body class="home"><p>Hi</p>' . self::PLACEHOLDER
-            . '</body><!-- ICCEndBody -->',
+            $head . '<body class="home"><p>Hi</p>' . self::PLACEHOLDER . '</body>',
             $output
         );
         $this->assertSame([$iframe], $sut->js_array);
@@ -187,10 +186,7 @@ final class BufferTest extends WPTestCase
 
         $output = $this->captureBody($sut, '<body>' . $allowed . $blocked . '</body>');
 
-        $this->assertSame(
-            '<!-- ICCStartBody --><body>' . $allowed . self::PLACEHOLDER . '</body><!-- ICCEndBody -->',
-            $output
-        );
+        $this->assertSame('<body>' . $allowed . self::PLACEHOLDER . '</body>', $output);
         $this->assertSame([$blocked], $sut->js_array);
     }
 
@@ -215,8 +211,8 @@ final class BufferTest extends WPTestCase
         );
 
         $this->assertSame(
-            '<!-- ICCStartBody --><body>' . $iframe . $script . $embed
-            . self::PLACEHOLDER . self::PLACEHOLDER . self::PLACEHOLDER . '</body><!-- ICCEndBody -->',
+            '<body>' . $iframe . $script . $embed
+            . self::PLACEHOLDER . self::PLACEHOLDER . self::PLACEHOLDER . '</body>',
             $output
         );
         $this->assertSame([$blockedIframe, $blockedScript, $blockedEmbed], $sut->js_array);
@@ -230,7 +226,7 @@ final class BufferTest extends WPTestCase
 
         $output = $this->captureBody($sut, '<body>' . $allowed . '</body>');
 
-        $this->assertSame('<!-- ICCStartBody --><body>' . $allowed . '</body><!-- ICCEndBody -->', $output);
+        $this->assertSame('<body>' . $allowed . '</body>', $output);
         $this->assertSame([], $sut->js_array);
     }
 
@@ -246,18 +242,17 @@ final class BufferTest extends WPTestCase
         );
 
         $this->assertSame(
-            '<!-- ICCStartBody -->' . $head . "<body class=\"home\">\n<p>Hi</p>\n" . self::PLACEHOLDER
-            . "\n</body>\n</html><!-- ICCEndBody -->",
+            $head . "<body class=\"home\">\n<p>Hi</p>\n" . self::PLACEHOLDER . "\n</body>\n</html>",
             $output
         );
     }
 
-    public function testBufferBodyEndWithoutBodyTagOutputsOnlyTheMarkers(): void
+    public function testBufferBodyEndWithoutBodyTagOutputsNothing(): void
     {
         $sut = $this->makeCookieChoices([]);
         $sut->run();
 
-        $this->assertSame('<!-- ICCStartBody --><!-- ICCEndBody -->', $this->captureBody($sut, '<p>no body</p>'));
+        $this->assertSame('', $this->captureBody($sut, '<p>no body</p>'));
     }
 
     /**
@@ -324,10 +319,10 @@ final class BufferTest extends WPTestCase
         $sut->bufferHeadEnd();
         $output = \ob_get_clean();
 
-        $this->assertSame('<!-- ICCStartHead --><head>' . self::REMOVED . '</head><!-- ICCEndHead -->', $output);
+        $this->assertSame('<head>' . self::REMOVED . '</head>', $output);
     }
 
-    public function testBufferFooterEndRemovesScriptsAndPrintsTheBannerForHtmlRequests(): void
+    public function testBufferFooterEndRemovesScriptsAndPrintsTheScriptForHtmlRequests(): void
     {
         $_SERVER['HTTP_ACCEPT'] = 'text/html';
         $script = '<script src="https://example.com/tracker.js"></script>';
@@ -345,10 +340,7 @@ final class BufferTest extends WPTestCase
             'jsArr = ["<script src=\"https:\/\/example.com\/tracker.js\"><\/script>"];',
             $output
         );
-        $this->assertStringEndsWith(
-            '<!-- ICCStartFooter --><footer>' . self::REMOVED . '</footer><!-- ICCEndFooter -->',
-            $output
-        );
+        $this->assertStringEndsWith('</script><footer>' . self::REMOVED . '</footer>', $output);
     }
 
     /**

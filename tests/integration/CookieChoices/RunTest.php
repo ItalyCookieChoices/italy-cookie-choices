@@ -198,54 +198,19 @@ final class RunTest extends WPTestCase
         $this->assertStringContainsString('0.03);"></button>', $placeholder);
     }
 
-    public function testItAcceptsConsentOnTheSecondPageView(): void
+    /**
+     * The consent on the second page view was removed in #235: a referer from the same host
+     * no longer sets the cookie, so the content is still blocked.
+     */
+    public function testASecondPageViewDoesNotAcceptTheConsent(): void
     {
         $this->simulateSecondPageView();
-        $sut = $this->makeCookieChoices(['secondView' => '1', 'url' => 'http://wordpress/privacy/']);
-
-        $sut->run();
-
-        $this->assertFalse(\has_action('wp_footer', [$sut, 'print_script_inline']));
-    }
-
-    /**
-     * @return iterable<string, array{array<string, string>, array<string, string|null>}>
-     */
-    public function secondViewNotAccepted(): iterable
-    {
-        yield 'option disabled' => [[], []];
-        yield 'not an html request' => [['secondView' => '1'], ['HTTP_ACCEPT' => 'application/json']];
-        yield 'missing accept header' => [['secondView' => '1'], ['HTTP_ACCEPT' => null]];
-        yield 'missing referer' => [['secondView' => '1'], ['HTTP_REFERER' => null]];
-        yield 'page refresh' => [['secondView' => '1'], ['HTTP_REFERER' => 'http://wordpress/current-page/']];
-        yield 'external referer' => [['secondView' => '1'], ['HTTP_REFERER' => 'http://example.com/previous-page/']];
-        yield 'on the policy page' => [['secondView' => '1', 'url' => 'http://wordpress/current-page/'], []];
-        yield 'on the policy page with port' => [
-            ['secondView' => '1', 'url' => 'http://wordpress:8080/current-page/'],
-            ['SERVER_PORT' => '8080'],
-        ];
-        yield 'on the policy page over https' => [
-            ['secondView' => '1', 'url' => 'https://wordpress/current-page/'],
-            ['HTTPS' => 'on'],
-        ];
-    }
-
-    /**
-     * @dataProvider secondViewNotAccepted
-     * @param array<string, string> $options
-     * @param array<string, string|null> $server
-     */
-    public function testItDoesNotAcceptConsentOnTheSecondPageView(array $options, array $server): void
-    {
-        $this->simulateSecondPageView();
-        foreach ($server as $key => $value) {
-            $this->setServer($key, $value);
-        }
-        $sut = $this->makeCookieChoices(\array_merge(['url' => 'http://wordpress/privacy/'], $options));
+        $sut = $this->makeCookieChoices(['secondView' => '1', 'block' => '1']);
 
         $sut->run();
 
         $this->assertSame(-99999, \has_action('wp_footer', [$sut, 'print_script_inline']));
+        $this->assertSame(11, \has_filter('the_content', [$sut, 'autoErase']));
     }
 
     private function simulateSecondPageView(): void
@@ -257,19 +222,6 @@ final class RunTest extends WPTestCase
         $_SERVER['REQUEST_URI'] = '/current-page/';
         $_SERVER['HTTP_REFERER'] = 'http://wordpress/previous-page/';
         unset($_SERVER['HTTPS']);
-    }
-
-    /**
-     * @param mixed $value
-     */
-    private function setServer(string $key, $value): void
-    {
-        if ($value === null) {
-            unset($_SERVER[$key]);
-            return;
-        }
-
-        $_SERVER[$key] = $value;
     }
 
     /**

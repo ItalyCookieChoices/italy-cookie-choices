@@ -34,28 +34,10 @@ class Cookie_Choices {
 	private $valore = '';
 
 	/**
-	 * Inizialize banner template to default
-	 * @var string
-	 */
-	private $js_template = 'default';
-
-	/**
 	 * Array with embed found
 	 * @var array
 	 */
 	public $js_array = [];
-
-	/**
-	 * If exist set a page slug
-	 * @var string
-	 */
-	private $slug = '';
-
-	/**
-	 * URL for policy page
-	 * @var string
-	 */
-	private $url = '';
 
 	/**
 	 * Array with list of allowed script|iframe|embed
@@ -78,30 +60,10 @@ class Cookie_Choices {
 
 	public function run(){
 
-		/**
-		 * Check for second view option
-		 * @var bol
-		 */
-		$accept_on_second_page_view_option = $this->options['secondView'] ?? '' ;
-
-		/**
-		 * Assegno il valore allo slug nel costruttore
-		 * Default ID 1 perché su null non settava correttamente lo scroll se il valore era assente
-		 * @var bolean
-		 */
-		$this->slug = ( isset( $this->options['slug'] ) && !empty( $this->options['slug'] ) ) ? esc_attr( get_string( 'Italy Cookie Choices', 'Banner slug', $this->options['slug'] ) ) : 1 ;
-
-		/**
-		 * Assegno il valore della URL della policy page
-		 * Default ID 1 perché su null non settava correttamente lo scroll se il valore era assente
-		 * @var bolean
-		 */
-		$this->url = ( isset( $this->options['url'] ) && !empty( $this->options['url'] ) ) ? esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) ) : 1 ;
-
 //		d( $this->cookie->get( $this->options->get('cookie_name') ) );
 //		$this->cookie->delete( $this->options->get('cookie_name') );
 
-		if ( ! isset( $_COOKIE[ $this->options['cookie_name'] ] ) && ! $this->isSecondView( $accept_on_second_page_view_option ) ){
+		if ( ! isset( $_COOKIE[ $this->options['cookie_name'] ] ) ){
 
 			$this->disable_w3tc_page_cache();
 
@@ -239,65 +201,6 @@ class Cookie_Choices {
 	}
 
 
-	/**
-	 * Get the current page url
-	 * @link http://www.brosulo.net/content/informatica/ottenere-la-url-completa-da-una-pagina-php-0
-	 */
-	private function CurrentPageURL() {
-
-		if ( isset( $_SERVER['HTTPS'] ) )
-			$pageURL = $_SERVER['HTTPS'];
-		else
-			$pageURL = NULL;
-
-		$pageURL = $pageURL === 'on' ? 'https://' : 'http://';
-		$pageURL .= $_SERVER["SERVER_NAME"];
-		$pageURL .= ( $_SERVER['SERVER_PORT'] !== '80' ) ? ':' . $_SERVER["SERVER_PORT"] : '';
-		$pageURL .= $_SERVER["REQUEST_URI"];
-
-		return esc_url( $pageURL );
-
-	}
-
-	/**
-	 * Check if is the policy page
-	 * Required url input
-	 * @param  boolean $secondViewOpt Check for second view option
-	 * @return boolean                Return bolean value
-	 */
-	private function is_policy_page( $secondViewOpt = false ){
-
-		if(
-			// if HTTP_ACCEPT is set
-			( isset( $_SERVER['HTTP_ACCEPT'] ) &&
-
-			// if is an HTML request (alternative methods???)
-			str_contains( $_SERVER['HTTP_ACCEPT'], 'html' ) ) &&
-
-			//if the page isn't privacy page
-			// ( $_SERVER['REQUEST_URI'] != $this->slug ) &&
-			( $this->CurrentPageURL() !== $this->url ) &&
-			//if HTTP_REFERER is set
-			( isset( $_SERVER['HTTP_REFERER'] ) ) &&
-			//if isn't refresh
-			( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH) !== $_SERVER['REQUEST_URI'] ) &&
-			//if referrer is not privacy page (to be evaluated)
-			// ( parse_url($_SERVER['HTTP_REFERER'], PHP_URL_PATH ) != $this->slug ) &&
-			// ( $_SERVER['HTTP_REFERER'] !== $this->url ) &&
-			//if the cookie is not already set
-			( !isset( $_COOKIE[ $this->options['cookie_name'] ] ) ) &&
-			//if the referer is in the same domain
-			( parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) === $_SERVER['HTTP_HOST'] )  &&
-			// If the secondView options is checked
-			( $secondViewOpt )
-		)
-			return true;
-		else
-			return false;
-
-	}
-
-
 	private function in_array_match($value, $array) {
 		foreach($array as $k=>$v) {
 			if(preg_match('/'.str_replace(preg_quote("<---------SOMETHING--------->"), ".*", preg_quote(preg_replace( "/([\r|\n]*)/is", "", trim($v)), '/')).'/is', preg_replace( "/([\r|\n]*)/is", "", $value))) {
@@ -409,7 +312,7 @@ class Cookie_Choices {
 		}
 
 		$buffer_new = $head.$body;
-		echo '<!-- ICCStartBody -->' . $buffer_new . '<!-- ICCEndBody -->';
+		echo $buffer_new;
 	}
 
 	public function bufferFooterStart() {
@@ -441,7 +344,7 @@ class Cookie_Choices {
 			 * Function for print cookiechoiches inline
 			 */
 			$this->print_script_inline();
-			echo '<!-- ICCStartFooter -->' . $buffer_new . '<!-- ICCEndFooter -->';
+			echo $buffer_new;
 		} else {
 			echo $buffer;
 		}
@@ -458,7 +361,7 @@ class Cookie_Choices {
 		if ( ob_get_contents() )
 			ob_end_clean();
 		$buffer_new = $this->removeCustomScript( $buffer );
-		echo '<!-- ICCStartHead -->' . $buffer_new . '<!-- ICCEndHead -->';
+		echo $buffer_new;
 	}
 
 	/**
@@ -620,295 +523,33 @@ class Cookie_Choices {
 		if ( ! isset( $this->options['active'] ) || is_feed() )
 			return;
 
-		/**
-		 * Accept on scroll
-		 * @var bol
-		 */
-		$scroll = ( isset( $this->options['scroll'] ) && ! ( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) ? $this->options['scroll'] : '' ;
-
-		/**
-		 * Reload on accept
-		 * @var bol
-		 */
-		$reload = $this->options['reload'] ?? '' ;
-
-		/**
-		 * ADVANCED OPTIONS
-		 */
-		/**
-		 * Cookie name
-		 * @var string
-		 */
 		$cookie_name = $this->options['cookie_name'] ?? $this->cookieName ;
 
-		/**
-		 * Cookie value
-		 * @var string/bolean
-		 */
 		$cookie_value = $this->options['cookie_value'] ?? $this->cookieVal ;
 
 		/**
-		 * Js_Template value
-		 * @var string
-		 */
-		// $js_template = ( isset( $this->options['js_template'] ) && $this->options['js_template'] !== 'custom') ? $this->options['js_template'] : $this->js_template ;
-		$js_template = $this->options['js_template'] ?? $this->js_template ;
-
-		/**
-		 * If is set html_margin checkbox in admin panel then add margin-top to HTML tag
-		 * @var bol
-		 */
-		$htmlM = '' ;
-
-		/**
-		 * If set open policy page in new browser tab
-		 * @var bol
-		 */
-		$target = $this->options['target'] ?? '' ;
-
-		/**
-		 * Colore dello sfondo della dialog/topbar
-		 * @var string
-		 */
-		$banner_bg = ( isset( $this->options['banner_bg'] ) && ! empty( $this->options['banner_bg'] ) ) ? esc_attr( $this->options['banner_bg'] ) : '#fff' ;
-
-		/**
-		 * Colore del font della dialog/topbar
-		 * @var string
-		 */
-		$banner_text_color = ( isset( $this->options['banner_text_color'] ) && ! empty( $this->options['banner_text_color'] ) ) ? esc_attr( $this->options['banner_text_color'] ) : '#000' ;
-
-		/**
-		 * Custom CSS
-		 * @var string
-		 */
-		$customCSS = ( isset( $this->options['customCSS'] ) ) ? esc_attr( $this->options['customCSS'] ) : '' ;
-
-		/**
-		 * CSS class for div bannerStyle
-		 * @var string
-		 */
-		$bannerStyle = ( isset( $this->options['bannerStyle'] ) && ! empty( $this->options['bannerStyle'] ) ) ? esc_attr( $this->options['bannerStyle'] ) : 'bannerStyle' ;
-
-		/**
-		 * CSS class for div content
-		 * @var string
-		 */
-		$contStyle = ( isset( $this->options['contentStyle'] ) && ! empty( $this->options['contentStyle'] ) ) ? esc_attr( $this->options['contentStyle'] ) : 'contentStyle' ;
-
-		/**
-		 * CSS class for text in span
-		 * @var string
-		 */
-		$consentText = ( isset( $this->options['consentText'] ) && ! empty( $this->options['consentText'] ) ) ? esc_attr( $this->options['consentText'] ) : 'consentText' ;
-
-		/**
-		 * CSS class for info link
-		 * @var string
-		 */
-		$infoClass = ( isset( $this->options['infoClass'] ) && ! empty( $this->options['infoClass'] ) ) ? esc_attr( $this->options['infoClass'] ) : 'italybtn' ;
-
-		/**
-		 * CSS class for close link
-		 * @var string
-		 */
-		$closeClass = ( isset( $this->options['closeClass'] ) && ! empty( $this->options['closeClass'] ) ) ? esc_attr( $this->options['closeClass'] ) : 'italybtn' ;
-
-		/**
-		 * If $infoClass and $closeClass are exactly alike print only first var
-		 * @var [type]
-		 */
-		$buttonClass = ( $infoClass === $closeClass ) ? $infoClass : $infoClass . ',.' . $closeClass;
-
-		/**
-		 * Attribute for text for template
-		 * @var string
-		 */
-		$text_align = 'center';
-
-		/**
-		 * CSS for content style
-		 * @var string
-		 */
-		$contentStyle = '';
-
-		/**
-		 * Button style
-		 * @var string
-		 */
-		$buttonStyle = '.' . $buttonClass . '{margin-left:10px;}';
-
-		/**
-		 * Conditional button style for bigbutton or smallbutton
-		 * Default margin
-		 */
-		if ( 'bigbutton' === $js_template ) {
-
-			$buttonStyle = '.' . $buttonClass . '{color:' . $banner_text_color . ';padding:7px 12px;font-size:18px;line-height:18px;text-decoration:none;text-transform:uppercase;margin:10px 20px 2px 0;letter-spacing: 0.125em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}.' . $consentText . '{display:block}';
-
-			$text_align = 'left';
-
-		} elseif ( 'smallbutton' === $js_template ) {
-
-			$buttonStyle = '.' . $buttonClass . '{color:' . $banner_text_color . ';padding:3px 7px;font-size:14px;line-height:14px;text-decoration:none;text-transform:uppercase;margin:10px 20px 2px 0;letter-spacing: 0.115em;display:inline-block;font-weight:normal;text-align:center;  vertical-align:middle;cursor:pointer;border:1px solid ' . $banner_text_color . ';background:rgba(255, 255, 255, 0.03);}.' . $consentText . '{display:block}';
-
-			$text_align = 'left';
-
-		}
-
-		/**
-		 * Select what kind of banner to display
-		 * @var $banner Bar/Dialog
-		 * @var $contentStyle Style for content div
-		 * @var $style Style for banner
-		 * @var $bPos Deprecated
-		 * @var $htmlM Bolean for margin top
-		 */
-		if ( $this->options['banner'] === '1' ) {
-
-			$banner = 'Bar';
-
-			$contentStyle = ( 'bigbutton' === $js_template || 'smallbutton' === $js_template ) ? '.contentStyle{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
-
-			$style = ( 'custom' === $js_template ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:' . $text_align . ';top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
-
-			$bPos = 'top:0'; // Deprecato.
-
-			$htmlM = $this->options['html_margin'] ?? '' ;
-
-		} elseif ( $this->options['banner'] === '2' && ! ( is_page( $this->slug ) ||  is_single( $this->slug ) ) ) {
-
-			$banner = 'Dialog';
-
-			$style = ( 'custom' === $js_template ) ? $customCSS : '.glassStyle{position:fixed;width:100%;height:100%;z-index:999;top:0;left:0;opacity:0.5;filter:alpha(opacity=50);background-color:#ccc;}.' . $bannerStyle . '{min-width:100%;z-index:9999;position:fixed;top:25%;}.contentStyle{position:relative;background-color:' . $banner_bg . ';padding:20px;box-shadow:4px 4px 25px #888;max-width:80%;margin:0 auto;}' . $buttonStyle;
-
-			$bPos = 'top:0'; // Deprecato.
-
-		} elseif ( $this->options['banner'] === '3' ) {
-
-			$banner = 'Bar';
-
-			$contentStyle = ( 'bigbutton' === $js_template || 'smallbutton' === $js_template ) ? '.contentStyle{max-width:980px;margin-right:auto;margin-left:auto;padding:15px;}' : '' ;
-
-			$style = ( 'custom' === $js_template ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:' . $text_align . ';bottom:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
-
-			$bPos = 'bottom:0'; // Deprecato.
-
-		} else {
-
-			$banner = 'Bar';
-
-			$style = ( 'custom' === $js_template ) ? $customCSS : '#cookieChoiceInfo{background-color: ' . $banner_bg . ';color: ' . $banner_text_color . ';left:0;margin:0;padding:4px;position:fixed;text-align:center;top:0;width:100%;z-index:9999;}' . $contentStyle . $buttonStyle;
-
-			$bPos = 'top:0'; // Deprecato.
-
-		}
-
-		/**
-		 * Declarations of JS variables and set parameters
-		 * var elPos = Gestisce la Posizione banner nella funzione _createHeaderElement
-		 * var infoClass = aggiunge una classe personalizzata per il link info
-		 * var closeClass = aggiunge una classe personalizzata per il link di accettazione
-		 * var htmlM = Aggiunge un margine a HTML per la top bar
+		 * The 2.x script only restores the blocked content now,
+		 * ItalyCookieChoices\Consent\UI\Banner prints the banner and reloads the page when needed.
 		 * var coNA = cookie name
 		 * var coVA = cookie val
-		 * var rel = Setto il reload per la pagina all'accettazione
-		 * var tar = Target -blank
-		 * var bgB = Colore del background della topbar/dialog
-		 * var btcB = Colore del font della topbar/dialog
-		 * var bannerStyle = Variabile per le classe del contenitore
-		 * var contentStyle = Variabile per le classe del contenitore del contenuto
-		 * var consText = Variabile per le classe dello span per il testo
+		 * var jsArr = the blocked scripts to restore
+		 * The other variables are read only by the 2.x banner functions.
 		 * @var string
 		 */
-
 		$jsVariables = 'var coNA="'
 			. $cookie_name . '",coVA="'
-			. $cookie_value . '";scroll="'
-			. $scroll . '",elPos="fixed",infoClass="'
-			. $infoClass . '",closeClass="'
-			. $closeClass . '",htmlM="'
-			. $htmlM . '",rel="'
-			. $reload . '",tar="'
-			. $target . '",bgB="'
-			. $banner_bg . '",btcB="'
-			. $banner_text_color . '",bPos="'
-			. $bPos . '",bannerStyle="'
-			. $bannerStyle . '",contentStyle="'
-			. $contStyle . '",consText="'
-			. $consentText . '",jsArr = '
+			. $cookie_value . '";scroll="",elPos="fixed",infoClass="",closeClass="",htmlM="",rel="",tar="",bgB="",btcB="",bPos="",bannerStyle="",contentStyle="",consText="",jsArr = '
 			. $this->wp_json_encode( apply_filters( 'icc_js_array', $this->js_array ) ) . ';';
-
-		/**
-		 * Snippet per il multilingua
-		 * function get_string return multilanguage $value
-		 * if isn't installed any language plugin return $value
-		 */
-		$text = \wp_kses_post(
-			\get_string(
-				'Italy Cookie Choices',
-				'Banner text',
-				$this->options['text']
-			)
-		);
-
-		$url = esc_url( get_string( 'Italy Cookie Choices', 'Banner url', $this->options['url'] ) );
-
-		$anchor_text = esc_js( get_string( 'Italy Cookie Choices', 'Banner anchor text', $this->options['anchor_text'] ) );
-
-		$button_text = esc_js( get_string( 'Italy Cookie Choices', 'Banner button text', $this->options['button_text'] ) );
-
-		/**
-		 * Snippet for display banner
-		 * Il testo se contiene il singolo apice '
-		 * viene filtrato aggiungendo \' solo nel testo
-		 * essendo i singoli apici usati per wrappare il testo stesso
-		 * @var string
-		 */
-		$banner = \sprintf(
-			'document.addEventListener("DOMContentLoaded", function(event) {cookieChoices.showCookieConsent%s(\'%s\', "%s", "%s", "%s");});',
-			$banner,
-			addcslashes( $text, '\'' ),
-			$button_text,
-			$anchor_text,
-			$url
-		);
-
-		/**
-		 * Noscript snippet in case browser has JavaScript disabled
-		 * @var string
-		 */
-		$noscript = '<noscript><style type="text/css">html{margin-top:35px}</style><div id="cookieChoiceInfo"><span>' . $text . '</span><a href="' . $url . '" class="' . $infoClass . '" target="_blank">' . $anchor_text . '</a></div></noscript>';
 
 		/**
 		 * Select wich file to use in debug mode
 		 * @var string
 		 */
-		// $fileJS = ( WP_DEBUG ) ? '/js/' . $js_template . '/cookiechoices.js' : '/js/' . $js_template . '/cookiechoices.php' ;
 		$fileJS = ( WP_DEBUG ) ? '/js/default/cookiechoices.js' : '/js/default/cookiechoices.php' ;
 
-		$output_html = '<!-- Italy Cookie Choices -->' . '<style type="text/css">' . $style . '</style><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) .  $banner . '</script>' . $noscript;
+		$output_html = '<!-- Italy Cookie Choices --><script>' . $jsVariables . file_get_contents( ITALY_COOKIE_CHOICES_DIRNAME . $fileJS ) . '</script>';
 
 		echo apply_filters( 'icc_output_html', $output_html );
 
-	}
-
-	/**
-	 * @param $secondViewOpt
-	 * @return bool
-	 */
-	private function isSecondView( $secondViewOpt ): bool {
-		/*
-		 * Set cookie if the user agree navigating through the pages of the site
-		 */
-		$secondView = false;
-
-		if ( $this->is_policy_page( $secondViewOpt ) ) {
-
-			setcookie( $this->options[ 'cookie_name' ], $this->options[ 'cookie_value' ], ['expires' => time() + (3600 * 24 * 365), 'path' => '/'] );
-			$secondView = true;
-		}
-
-		return $secondView;
 	}
 }
