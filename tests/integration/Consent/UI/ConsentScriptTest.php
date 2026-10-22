@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
-use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
+use ItalyCookieChoices\Consent\Domain\PolicyVersion;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\Event\Dispatcher;
+use ItalyStrap\Event\GlobalOrderedListenerProvider;
+use ItalyStrap\Event\GlobalState;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConsentScriptTest extends WPTestCase
@@ -30,16 +36,19 @@ final class ConsentScriptTest extends WPTestCase
     public function testItEnqueuesOnTheFrontEnd(): void
     {
         $this->assertSame(
-            ['wp_enqueue_scripts' => 'enqueue'],
+            [
+                'wp_enqueue_scripts' => 'enqueue',
+                'wp_head' => [SubscriberInterface::CALLBACK => 'print', SubscriberInterface::PRIORITY => 100000],
+            ],
             \iterator_to_array($this->makeSut()->getSubscribedEvents())
         );
     }
 
-    public function testItEnqueuesTheBuiltScriptInTheHead(): void
+    public function testItRegistersTheBuiltScriptInTheHead(): void
     {
         $this->makeSut()->enqueue();
 
-        $this->assertTrue(\wp_script_is(ConsentScript::HANDLE, 'enqueued'));
+        $this->assertTrue(\wp_script_is(ConsentScript::HANDLE, 'registered'));
         $script = \wp_scripts()->registered[ConsentScript::HANDLE];
         $this->assertSame(self::BUILD_URL . 'consent.js', $script->src);
         $this->assertSame(['wp-dom-ready'], $script->deps);
@@ -80,21 +89,35 @@ final class ConsentScriptTest extends WPTestCase
         );
     }
 
-    public function testTheConfigurationCanBeFiltered(): void
+    public function testTheConfigurationFollowsThePolicyListeners(): void
     {
-        \add_filter(
-            ConsentScript::CONFIG_FILTER,
-            static fn(array $config): array => ['version' => 'filtered'] + $config
-        );
+        \add_action(BuildingConsentPolicy::class, static function (BuildingConsentPolicy $event): void {
+            $event->changeVersion(new PolicyVersion('2'));
+        });
 
-        $this->assertSame('filtered', $this->makeSut()->config()['version']);
+        $this->assertSame('2', $this->makeSut()->config()['version']);
     }
 
-    public function testAFilterThatReturnsNoArrayGivesAnEmptyConfiguration(): void
+    public function testItPrintsTheScriptWithItsConfiguration(): void
     {
-        \add_filter(ConsentScript::CONFIG_FILTER, '__return_null');
+        $sut = $this->makeSut();
+        $sut->enqueue();
 
-        $this->assertSame([], $this->makeSut()->config());
+        \ob_start();
+        $sut->print();
+        $output = (string) \ob_get_clean();
+
+        $this->assertStringContainsString('window.italyCookieChoicesConfig = ', $output);
+        $this->assertStringContainsString(self::BUILD_URL . 'consent.js?ver=test-version', $output);
+        $this->assertTrue(\wp_script_is(ConsentScript::HANDLE, 'done'));
+    }
+
+    public function testNothingIsPrintedWhenTheScriptIsNotRegistered(): void
+    {
+        \ob_start();
+        $this->makeSut()->print();
+
+        $this->assertSame('', \ob_get_clean());
     }
 
     public function testNothingIsEnqueuedWhenThePluginIsNotActive(): void
@@ -119,10 +142,15 @@ final class ConsentScriptTest extends WPTestCase
         $this->assertIsString($fixtures);
 
         return new ConsentScript(
-            new FilteredConsentPolicy(),
+            new ConsentPolicyFactory($this->dispatcher()),
             new Options(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );
+    }
+
+    private function dispatcher(): Dispatcher
+    {
+        return new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState());
     }
 }

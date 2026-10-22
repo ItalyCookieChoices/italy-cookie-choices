@@ -161,7 +161,7 @@ final class SettingsTest extends WPTestCase
         $sut->italy_cl_settings_init();
 
         $this->assertSame(
-            ['active', 'banner', 'scroll', 'secondView', 'reload', 'text', 'url', 'slug', 'anchor_text', 'button_text'],
+            ['active', 'banner', 'reload', 'text', 'url', 'slug', 'anchor_text', 'button_text'],
             \array_keys($wp_settings_fields[self::GROUP]['setting_section'])
         );
         $this->assertSame(
@@ -173,6 +173,8 @@ final class SettingsTest extends WPTestCase
                 'cookie_name',
                 'cookie_value',
                 'target',
+                'nofollow',
+                'excluded_pages',
                 'block',
                 'custom_script_block_body_exclude',
                 'custom_script_block',

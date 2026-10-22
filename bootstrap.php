@@ -18,7 +18,11 @@ require __DIR__ . '/legacy/bootstrap.php';
 (static function (string $pluginFile): void {
     (new ContainerBuilder())
         ->addModule(new EventModule())
-        ->addModule(new Module(ITALY_COOKIE_CHOICES_PLUGIN_PATH, \dirname(ITALY_COOKIE_CHOICES_BASENAME) . '/lang'))
+        ->addModule(new Module(
+            ITALY_COOKIE_CHOICES_PLUGIN_PATH,
+            \dirname(ITALY_COOKIE_CHOICES_BASENAME) . '/lang',
+            \plugin_dir_path($pluginFile) . 'templates/'
+        ))
         ->addModule(new Consent\Module(\plugin_dir_path($pluginFile), \plugin_dir_url($pluginFile), $_COOKIE))
         ->extend(SubscribersConfigExtension::class)
         ->build();

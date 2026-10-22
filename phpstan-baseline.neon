@@ -385,42 +385,6 @@ parameters:
 			path: legacy/admin/Settings.php
 
 		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
-			identifier: class.notFound
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) has parameter \$args with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
-			identifier: class.notFound
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) has parameter \$args with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
 			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_slug\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
 			identifier: class.notFound
 			count: 1
@@ -805,12 +769,6 @@ parameters:
 			path: legacy/core/Cookie_Choices.php
 
 		-
-			message: '#^Binary operation "\." between ''\:'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
 			message: '#^Binary operation "\." between ''\<embed\<\-\-\-\-\-\-\-\-…'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
@@ -829,19 +787,7 @@ parameters:
 			path: legacy/core/Cookie_Choices.php
 
 		-
-			message: '#^Binary operation "\." between mixed and ''",bgB\="'' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Binary operation "\." between mixed and ''",elPos\="fixed"…'' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Binary operation "\." between mixed and ''",tar\="'' results in an error\.$#'
+			message: '#^Binary operation "\." between ''var coNA\="'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: legacy/core/Cookie_Choices.php
@@ -849,18 +795,6 @@ parameters:
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 2
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Binary operation "\.\=" between ''http\://''\|''https\://'' and mixed results in an error\.$#'
-			identifier: assignOp.invalid
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Binary operation "\.\=" between non\-falsy\-string and mixed results in an error\.$#'
-			identifier: assignOp.invalid
 			count: 1
 			path: legacy/core/Cookie_Choices.php
 
@@ -891,12 +825,6 @@ parameters:
 		-
 			message: '#^Left side of \|\| is always true\.$#'
 			identifier: booleanOr.leftAlwaysTrue
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:CurrentPageURL\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: legacy/core/Cookie_Choices.php
 
@@ -1003,12 +931,6 @@ parameters:
 			path: legacy/core/Cookie_Choices.php
 
 		-
-			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:isSecondView\(\) has parameter \$secondViewOpt with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
 			message: '#^Method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:matches\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -1059,19 +981,13 @@ parameters:
 		-
 			message: '#^PHPDoc tag @var above assignment does not specify variable name\.$#'
 			identifier: varTag.noVariable
-			count: 3
+			count: 1
 			path: legacy/core/Cookie_Choices.php
 
 		-
 			message: '#^PHPDoc tag @var contains unknown class Italy_Cookie_Choices\\Core\\bol\.$#'
 			identifier: class.notFound
-			count: 8
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^PHPDoc tag @var contains unknown class Italy_Cookie_Choices\\Core\\bolean\.$#'
-			identifier: class.notFound
-			count: 2
+			count: 3
 			path: legacy/core/Cookie_Choices.php
 
 		-
@@ -1081,49 +997,7 @@ parameters:
 			path: legacy/core/Cookie_Choices.php
 
 		-
-			message: '#^PHPDoc tag @var has invalid value \(\$bPos Deprecated\)\: Unexpected token "\$bPos", expected type at offset 166 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(\$banner Bar/Dialog\)\: Unexpected token "\$banner", expected type at offset 57 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(\$contentStyle Style for content div\)\: Unexpected token "\$contentStyle", expected type at offset 86 on line 4$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(\$htmlM Bolean for margin top\)\: Unexpected token "\$htmlM", expected type at offset 193 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(\$style Style for banner\)\: Unexpected token "\$style", expected type at offset 132 on line 5$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
 			message: '#^PHPDoc tag @var has invalid value \(\[type\]\)\: Unexpected token "\[", expected type at offset 37 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(\[type\]\)\: Unexpected token "\[", expected type at offset 88 on line 3$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(string/bolean\)\: Unexpected token "/bolean", expected TOKEN_HORIZONTAL_WS at offset 38 on line 3$#'
 			identifier: phpDoc.parseError
 			count: 1
 			path: legacy/core/Cookie_Choices.php
@@ -1135,12 +1009,6 @@ parameters:
 			path: legacy/core/Cookie_Choices.php
 
 		-
-			message: '#^PHPDoc tag @var with type Italy_Cookie_Choices\\Core\\bol is not subtype of native type ''''\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
 			message: '#^PHPDoc tag @var with type array is not subtype of native type list\<string\>\.$#'
 			identifier: varTag.nativeType
 			count: 2
@@ -1149,7 +1017,7 @@ parameters:
 		-
 			message: '#^PHPDoc tag @var with type string is not subtype of native type non\-falsy\-string\.$#'
 			identifier: varTag.nativeType
-			count: 3
+			count: 1
 			path: legacy/core/Cookie_Choices.php
 
 		-
@@ -1161,25 +1029,13 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$data of function wp_kses_post expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: legacy/core/Cookie_Choices.php
 
 		-
 			message: '#^Parameter \#1 \$haystack of function str_contains expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 3
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Parameter \#1 \$name of function setcookie expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Parameter \#1 \$secondViewOpt of method Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:is_policy_page\(\) expects bool, mixed given\.$#'
-			identifier: argument.type
-			count: 1
+			count: 2
 			path: legacy/core/Cookie_Choices.php
 
 		-
@@ -1197,25 +1053,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$text of function esc_attr expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 10
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Parameter \#1 \$text of function esc_js expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Parameter \#1 \$url of function esc_url expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Parameter \#1 \$url of function parse_url expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
+			count: 1
 			path: legacy/core/Cookie_Choices.php
 
 		-
@@ -1226,12 +1064,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#2 \$subject of function preg_match expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Parameter \#2 \$value of function setcookie expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: legacy/core/Cookie_Choices.php
@@ -1251,13 +1083,13 @@ parameters:
 		-
 			message: '#^Parameter \#3 \$value of function get_string expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 8
+			count: 2
 			path: legacy/core/Cookie_Choices.php
 
 		-
 			message: '#^Possibly invalid array key type mixed\.$#'
 			identifier: offsetAccess.invalidOffset
-			count: 2
+			count: 1
 			path: legacy/core/Cookie_Choices.php
 
 		-
@@ -1281,18 +1113,6 @@ parameters:
 		-
 			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$js_array type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$slug \(string\) does not accept int\|string\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: legacy/core/Cookie_Choices.php
-
-		-
-			message: '#^Property Italy_Cookie_Choices\\Core\\Cookie_Choices\:\:\$url \(string\) does not accept int\|string\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: legacy/core/Cookie_Choices.php
 

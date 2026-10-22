@@ -47,11 +47,11 @@ rsync -a --exclude='vendor' --exclude-from="$BUILD/distignore" "$WORK/" "$OUT/"
 mv "$BUILD/vendor-scoped" "$OUT/vendor"
 
 echo "Point the plugin code to the prefixed dependencies"
-PLUGIN_CODE=("$OUT"/*.php "$OUT/src" "$OUT/legacy")
-grep -rlE '^use (ItalyStrap|Overclokk)\\' "${PLUGIN_CODE[@]}" | while read -r file; do
-    sed -i -E "s/^use (ItalyStrap|Overclokk)\\\\/use ${PREFIX}\\\\\\1\\\\/" "$file"
+PLUGIN_CODE=("$OUT"/*.php "$OUT/src" "$OUT/templates" "$OUT/legacy")
+grep -rlE '^use (ItalyStrap|Overclokk|Psr)\\' "${PLUGIN_CODE[@]}" | while read -r file; do
+    sed -i -E "s/^use (ItalyStrap|Overclokk|Psr)\\\\/use ${PREFIX}\\\\\\1\\\\/" "$file"
 done
-if grep -rnE '(ItalyStrap|Overclokk)\\' "${PLUGIN_CODE[@]}" | grep -v "$PREFIX"; then
+if grep -rnE '(ItalyStrap|Overclokk|Psr)\\' "${PLUGIN_CODE[@]}" | grep -v "$PREFIX"; then
     echo "Unprefixed dependencies left in the plugin code" >&2
     exit 1
 fi

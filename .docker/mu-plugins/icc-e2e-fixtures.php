@@ -34,8 +34,14 @@ add_action('wp_head', static function (): void {
         . '});</script>';
 }, 0);
 
-add_filter('italy_cookie_choices_policy_version', static function (string $version): string {
-    $e2eVersion = get_option('icc_e2e_policy_version');
+add_action(
+    \ItalyCookieChoices\Consent\Application\BuildingConsentPolicy::class,
+    static function (\ItalyCookieChoices\Consent\Application\BuildingConsentPolicy $event): void {
+        $e2eVersion = get_option('icc_e2e_policy_version');
+        if (!is_string($e2eVersion) || $e2eVersion === '') {
+            return;
+        }
 
-    return is_string($e2eVersion) && $e2eVersion !== '' ? $e2eVersion : $version;
-});
+        $event->changeVersion(new \ItalyCookieChoices\Consent\Domain\PolicyVersion($e2eVersion));
+    }
+);

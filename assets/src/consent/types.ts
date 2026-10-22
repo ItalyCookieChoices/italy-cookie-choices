@@ -32,12 +32,11 @@ export interface Consent {
 export interface ConsentChange {
 	consent: Consent | null;
 	previous: Consent | null;
+	/** True when the visitor changed the consent in another tab of the site. */
+	fromAnotherTab: boolean;
 }
 
-export type ConsentListener = (
-	consent: Consent | null,
-	previous: Consent | null
-) => void;
+export type ConsentListener = ( change: ConsentChange ) => void;
 
 export interface ConsentApi {
 	categories: () => Category[];

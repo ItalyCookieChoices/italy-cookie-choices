@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f179145b94de1b710cafaae7c2777235",
+    "content-hash": "06b6904f343f1af960e0fdd26836ba1d",
     "packages": [
         {
             "name": "italystrap/common",
@@ -300,6 +300,81 @@
             "time": "2026-10-15T10:12:04+00:00"
         },
         {
+            "name": "italystrap/finder",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ItalyStrap/finder.git",
+                "reference": "b31f7aceeeeca25a5cf25247a65d9b85d493bcb5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ItalyStrap/finder/zipball/b31f7aceeeeca25a5cf25247a65d9b85d493bcb5",
+                "reference": "b31f7aceeeeca25a5cf25247a65d9b85d493bcb5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "brianium/paratest": "^4.0",
+                "codeception/c3": "2.*",
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
+                "infection/infection": "^0.15.3",
+                "italystrap/debug": "^2.0",
+                "lucatume/function-mocker-le": "^1.0",
+                "lucatume/wp-browser": "^2.4",
+                "nunomaduro/phpinsights": "^1.14.0",
+                "phpbench/phpbench": "@dev",
+                "phpcompatibility/php-compatibility": "*",
+                "phpmetrics/phpmetrics": "^2.5",
+                "phpspec/prophecy-phpunit": "^1.1",
+                "phpstan/phpstan": "^0.11.16",
+                "squizlabs/php_codesniffer": "*",
+                "szepeviktor/phpstan-wordpress": "^0.3.0",
+                "vimeo/psalm": "^3.9"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "functions/autoload.php"
+                ],
+                "psr-4": {
+                    "ItalyStrap\\Finder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enea Overclokk",
+                    "email": "info@overclokk.net",
+                    "homepage": "https://www.italystrap.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A file finder for PHP the OOP way",
+            "keywords": [
+                "file finder",
+                "finder"
+            ],
+            "support": {
+                "issues": "https://github.com/ItalyStrap/finder/issues",
+                "source": "https://github.com/ItalyStrap/finder"
+            },
+            "time": "2025-10-29T06:55:41+00:00"
+        },
+        {
             "name": "italystrap/storage",
             "version": "1.0.2",
             "source": {
@@ -368,6 +443,82 @@
                 "source": "https://github.com/ItalyStrap/storage"
             },
             "time": "2024-10-09T15:56:43+00:00"
+        },
+        {
+            "name": "italystrap/view",
+            "version": "1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ItalyStrap/view.git",
+                "reference": "3ee26a12132407f1cc6e339a9da98a1c8bc9857d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ItalyStrap/view/zipball/3ee26a12132407f1cc6e339a9da98a1c8bc9857d",
+                "reference": "3ee26a12132407f1cc6e339a9da98a1c8bc9857d",
+                "shasum": ""
+            },
+            "require": {
+                "italystrap/config": "^2.1",
+                "italystrap/finder": "dev-master",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "brianium/paratest": "^4.0",
+                "codeception/c3": "2.*",
+                "codeception/module-asserts": "^1.0",
+                "codeception/module-cli": "^1.0",
+                "codeception/module-db": "^1.0",
+                "codeception/module-filesystem": "^1.0",
+                "codeception/module-phpbrowser": "^1.0",
+                "codeception/module-webdriver": "^1.0",
+                "codeception/util-universalframework": "^1.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+                "infection/infection": "^0.15.3",
+                "italystrap/debug": "^2.0",
+                "lucatume/function-mocker-le": "^1.0",
+                "lucatume/wp-browser": "^2.4",
+                "nunomaduro/phpinsights": "^1.14.0",
+                "phpbench/phpbench": "@dev",
+                "phpcompatibility/php-compatibility": "*",
+                "phpmetrics/phpmetrics": "^2.5",
+                "phpstan/phpstan": "^0.11.16",
+                "squizlabs/php_codesniffer": "*",
+                "szepeviktor/phpstan-wordpress": "^0.3.0",
+                "vimeo/psalm": "^3.9"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "functions/autoload.php"
+                ],
+                "psr-4": {
+                    "ItalyStrap\\View\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enea Overclokk",
+                    "email": "info@overclokk.net",
+                    "homepage": "https://www.italystrap.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "View API for loading template parts and views the OOP way",
+            "keywords": [
+                "renderer",
+                "template",
+                "view"
+            ],
+            "support": {
+                "issues": "https://github.com/ItalyStrap/view/issues",
+                "source": "https://github.com/ItalyStrap/view"
+            },
+            "time": "2025-10-28T08:55:20+00:00"
         },
         {
             "name": "overclokk/auryn",
@@ -8531,6 +8682,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "italystrap/empress": 20,
+        "italystrap/finder": 20,
         "overclokk/auryn": 20
     },
     "prefer-stable": false,

@@ -19,6 +19,7 @@
     <file>./bootstrap.php</file>
     <file>./uninstall.php</file>
     <file>./src/</file>
+    <file>./templates/</file>
     <file>./legacy/</file>
     <file>./tests/</file>
 

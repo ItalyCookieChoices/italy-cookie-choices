@@ -13,6 +13,8 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class Migration implements SubscriberInterface
 {
+    private const IMPLICIT_CONSENTS = ['scroll', 'secondView'];
+
     public function __construct(
         private Schema $schema,
     ) {
@@ -48,6 +50,7 @@ final readonly class Migration implements SubscriberInterface
     {
         return [
             1 => $this->createTheDefaults(...),
+            2 => $this->removeTheImplicitConsents(...),
         ];
     }
 
@@ -61,6 +64,24 @@ final readonly class Migration implements SubscriberInterface
         }
 
         \add_option(Schema::OPTION, $this->schema->defaults());
+    }
+
+    /**
+     * Version 2: accepting on scroll and on the second page view is not a valid consent under the GDPR.
+     */
+    private function removeTheImplicitConsents(): void
+    {
+        $option = \get_option(Schema::OPTION, null);
+        if (!\is_array($option)) {
+            return;
+        }
+
+        $migrated = \array_diff_key($option, \array_flip(self::IMPLICIT_CONSENTS));
+        if ($migrated === $option) {
+            return;
+        }
+
+        \update_option(Schema::OPTION, $migrated);
     }
 
     private function storedVersion(): int

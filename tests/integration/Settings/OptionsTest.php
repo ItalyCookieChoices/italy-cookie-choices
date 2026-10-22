@@ -47,4 +47,25 @@ final class OptionsTest extends WPTestCase
         $this->assertFalse((new Options())->isActive());
         $this->assertSame(['name' => 'displayCookieConsent', 'value' => 'y'], (new Options())->legacyCookie());
     }
+
+    public function testACheckboxIsOnWhenItIsSaved(): void
+    {
+        \update_option(Schema::OPTION, ['target' => '1']);
+
+        $this->assertTrue((new Options())->isChecked('target'));
+        $this->assertFalse((new Options())->isChecked('nofollow'));
+    }
+
+    public function testATextFallsBackToTheDefault(): void
+    {
+        \remove_all_filters('sanitize_option_' . Schema::OPTION);
+        \update_option(Schema::OPTION, ['url' => 'https://example.com/', 'slug' => '', 'banner' => 2]);
+
+        $sut = new Options();
+
+        $this->assertSame('https://example.com/', $sut->text('url'));
+        $this->assertSame('policy', $sut->text('slug', 'policy'));
+        $this->assertSame('1', $sut->text('banner', '1'));
+        $this->assertSame('', $sut->text('missing'));
+    }
 }

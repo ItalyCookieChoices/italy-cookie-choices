@@ -11,17 +11,21 @@ use ItalyCookieChoices\Settings\Migration;
 use ItalyCookieChoices\Settings\Registration;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
+use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscribersConfigExtension;
+use ItalyStrap\View\View;
+use ItalyStrap\View\ViewInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ModuleTest extends WPTestCase
 {
     private const LEGACY_PATH = '/legacy/';
     private const LANGUAGES_PATH = 'italy-cookie-choices/legacy/lang';
+    private const TEMPLATES_PATH = WP_PLUGIN_DIR . '/italy-cookie-choices/templates/';
 
     public function testTheSubscribersAreRegisteredInOrder(): void
     {
-        $config = (new Module(self::LEGACY_PATH, self::LANGUAGES_PATH))();
+        $config = (new Module(self::LEGACY_PATH, self::LANGUAGES_PATH, self::TEMPLATES_PATH))();
 
         $this->assertIsArray($config);
         $this->assertSame(
@@ -34,7 +38,7 @@ final class ModuleTest extends WPTestCase
     {
         $container = (new ContainerBuilder())
             ->addModule(new EventModule())
-            ->addModule(new Module(self::LEGACY_PATH, self::LANGUAGES_PATH))
+            ->addModule(new Module(self::LEGACY_PATH, self::LANGUAGES_PATH, self::TEMPLATES_PATH))
             ->build();
 
         $this->assertEquals(new TextDomain(self::LANGUAGES_PATH), $container->get(TextDomain::class));
@@ -45,6 +49,27 @@ final class ModuleTest extends WPTestCase
     {
         $this->assertSame(1, $this->countListeners('init', TextDomain::class));
         $this->assertSame(1, $this->countListeners('plugins_loaded', LegacyLoader::class));
+    }
+
+    public function testTheContainerRendersThePluginTemplates(): void
+    {
+        $view = (new ContainerBuilder())
+            ->addModule(new EventModule())
+            ->addModule(new Module(self::LEGACY_PATH, self::LANGUAGES_PATH, self::TEMPLATES_PATH))
+            ->build()
+            ->get(ViewInterface::class);
+
+        $this->assertInstanceOf(View::class, $view);
+        $this->assertStringContainsString('id="icc-banner"', $view->render('banner', new Config([
+            'classes' => ['banner' => '', 'content' => '', 'text' => '', 'link' => '', 'button' => ''],
+            'modal' => false,
+            'reload' => false,
+            'htmlMargin' => false,
+            'text' => '',
+            'link' => null,
+            'texts' => [],
+            'categories' => [],
+        ])));
     }
 
     /**

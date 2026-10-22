@@ -99,6 +99,7 @@ assets: ## Build the TypeScript in assets/build, Node runs on the host
 .PHONY: js-check
 js-check: ## Lint, type check and unit test the TypeScript
 	npm run lint:js
+	npm run lint:css
 	npm run typecheck
 	npm run test:js
 

@@ -18,7 +18,7 @@ final class FieldsTest extends WPTestCase
      */
     public function checkboxes(): iterable
     {
-        foreach (['active', 'scroll', 'secondView', 'reload', 'html_margin', 'target'] as $field) {
+        foreach (['active', 'reload', 'html_margin', 'target', 'nofollow'] as $field) {
             yield $field => [$field];
         }
     }
@@ -105,6 +105,7 @@ final class FieldsTest extends WPTestCase
         yield 'cookie name' => ['cookie_name', 'cookie_name'];
         yield 'cookie value' => ['cookie_value', 'cookie_value'];
         yield 'content message button' => ['content_message_button_text', 'content_message_button_text'];
+        yield 'excluded pages' => ['excluded_pages', 'excluded_pages'];
         yield 'banner style' => ['customClass', 'bannerStyle'];
         yield 'content style' => ['customClass', 'contentStyle'];
         yield 'consent text' => ['customClass', 'consentText'];
@@ -134,6 +135,7 @@ final class FieldsTest extends WPTestCase
         yield 'cookie name' => ['cookie_name', 'cookie_name', 'displayCookieConsent'];
         yield 'cookie value' => ['cookie_value', 'cookie_value', 'y'];
         yield 'content message button' => ['content_message_button_text', 'content_message_button_text', ''];
+        yield 'excluded pages' => ['excluded_pages', 'excluded_pages', ''];
         yield 'banner style' => ['customClass', 'bannerStyle', 'bannerStyle'];
         yield 'content style' => ['customClass', 'contentStyle', 'contentStyle'];
         yield 'consent text' => ['customClass', 'consentText', 'consentText'];

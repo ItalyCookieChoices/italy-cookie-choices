@@ -32,6 +32,8 @@
     "italystrap/event": "^0.2.2",
     "italystrap/empress": "dev-modularized",
     "overclokk/auryn": "dev-master",
+    "italystrap/view": "^1.1.3",
+    "italystrap/finder": "dev-master",
     "overclokk/cookie": "^1.0",
     "italystrap/config": "^2.11"
   },

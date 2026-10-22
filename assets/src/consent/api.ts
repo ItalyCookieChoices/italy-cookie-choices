@@ -101,7 +101,7 @@ export function createConsentApi(
 			encodeURIComponent( JSON.stringify( consent ) ),
 			new Date( givenAt.getTime() + config.durationDays * DAY )
 		);
-		dispatch( { consent, previous } );
+		dispatch( { consent, previous, fromAnotherTab: false } );
 
 		return consent;
 	}
@@ -123,14 +123,11 @@ export function createConsentApi(
 		withdraw(): void {
 			const previous = getConsent();
 			cookies.remove( config.cookieName );
-			dispatch( { consent: null, previous } );
+			dispatch( { consent: null, previous, fromAnotherTab: false } );
 		},
 		onChange( listener: ConsentListener ): () => void {
 			const handler = ( event: Event ): void => {
-				const { consent, previous } = (
-					event as CustomEvent< ConsentChange >
-				 ).detail;
-				listener( consent, previous );
+				listener( ( event as CustomEvent< ConsentChange > ).detail );
 			};
 			events.addEventListener( CONSENT_CHANGED, handler );
 

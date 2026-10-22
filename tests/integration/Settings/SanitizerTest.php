@@ -71,12 +71,11 @@ final class SanitizerTest extends WPTestCase
         $fields = [
             'active',
             'banner',
-            'scroll',
-            'secondView',
             'reload',
             'html_margin',
             'js_template',
             'target',
+            'nofollow',
             'block',
             'widget_block',
             'all_block',
@@ -144,6 +143,7 @@ final class SanitizerTest extends WPTestCase
             'cookie_name',
             'cookie_value',
             'content_message_button_text',
+            'excluded_pages',
         ];
 
         foreach ($fields as $field) {
@@ -182,11 +182,44 @@ final class SanitizerTest extends WPTestCase
         $this->assertSame('<a href="https://example.com">policy</a>alert(1)', $result[$field]);
     }
 
+    /**
+     * Changed in #235: accepting on scroll and on the second page view is not a valid consent, they are removed.
+     *
+     * @return iterable<string, array{string}>
+     */
+    public function removedFields(): iterable
+    {
+        yield 'scroll' => ['scroll'];
+        yield 'secondView' => ['secondView'];
+    }
+
+    /**
+     * @dataProvider removedFields
+     */
+    public function testRemovedFieldsAreNotSaved(string $field): void
+    {
+        $result = (new Sanitizer())([$field => '1', 'active' => '1']);
+
+        $this->assertArrayNotHasKey($field, $result);
+        $this->assertSame('1', $result['active']);
+    }
+
     public function testMissingOptionalFieldsAreNotAdded(): void
     {
         $result = (new Sanitizer())([]);
 
-        $fields = ['active', 'text', 'url', 'slug', 'customCSS', 'block', 'allow_iframe', 'content_message_text'];
+        $fields = [
+            'active',
+            'text',
+            'url',
+            'slug',
+            'customCSS',
+            'block',
+            'allow_iframe',
+            'content_message_text',
+            'nofollow',
+            'excluded_pages',
+        ];
 
         foreach ($fields as $field) {
             $this->assertArrayNotHasKey($field, $result);

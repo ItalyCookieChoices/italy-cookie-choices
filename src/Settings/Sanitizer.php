@@ -21,8 +21,6 @@ final readonly class Sanitizer
     private const FIELDS = [
         'active' => self::RAW,
         'banner' => self::RAW,
-        'scroll' => self::RAW,
-        'secondView' => self::RAW,
         'reload' => self::RAW,
         'text' => self::HTML,
         'url' => self::TEXT,
@@ -42,6 +40,7 @@ final readonly class Sanitizer
         'cookie_name' => self::REQUIRED,
         'cookie_value' => self::REQUIRED,
         'target' => self::RAW,
+        'nofollow' => self::RAW,
         'block' => self::RAW,
         'widget_block' => self::RAW,
         'all_block' => self::RAW,
@@ -55,6 +54,7 @@ final readonly class Sanitizer
         'custom_script_block' => self::RAW,
         'content_message_text' => self::HTML,
         'content_message_button_text' => self::TEXT,
+        'excluded_pages' => self::TEXT,
     ];
 
     private const DEFAULTS = [

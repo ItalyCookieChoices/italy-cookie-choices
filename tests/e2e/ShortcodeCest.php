@@ -13,11 +13,11 @@ final class ShortcodeCest
         $I->haveCookieChoicesOptions(['button_text' => 'I agree']);
         $this->havePolicyPage($I, '[accept_button]');
         $I->amOnPage('/cookie-policy/');
-        $I->waitForElementVisible('#cookieChoiceInfo');
+        $I->waitForElementVisible('#icc-banner');
 
         $I->click('I agree', '.entry-content');
 
-        $I->dontSeeElementInDOM('#cookieChoiceInfo');
+        $I->waitForElementNotVisible('#icc-banner');
         $I->assertSame(E2eTester::COOKIE_VALUE, $I->grabCookie(E2eTester::COOKIE_NAME));
     }
 
@@ -39,12 +39,14 @@ final class ShortcodeCest
         $I->haveCookieChoicesOptions([]);
         $this->havePolicyPage($I, '[delete_cookie]');
         $I->amOnPage('/');
-        $I->setCookie(E2eTester::COOKIE_NAME, E2eTester::COOKIE_VALUE);
+        $I->executeJS('window.italyCookieChoices.acceptAll();');
         $I->amOnPage('/cookie-policy/');
 
         $I->click('Delete cookie');
 
+        // Broken since 2.x, the withdrawal is fixed in #237.
         $I->assertSame(E2eTester::COOKIE_VALUE, $I->grabCookie(E2eTester::COOKIE_NAME));
+        $I->assertNotNull($I->executeJS('return window.italyCookieChoices.getConsent();'));
     }
 
     public function theShortcodesAreNotRegisteredWhenNotActive(E2eTester $I): void

@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Consent;
 
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
+use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyStrap\Empress\AurynConfig;
@@ -45,9 +46,14 @@ final readonly class Module implements ModuleInterface
                     ':buildPath' => $this->pluginPath . self::BUILD,
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
                 ],
+                Banner::class => [
+                    ':buildPath' => $this->pluginPath . self::BUILD,
+                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 ConsentScript::class,
+                Banner::class,
                 HasConsentFilter::class,
             ],
         ];

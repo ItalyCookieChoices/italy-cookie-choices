@@ -12,9 +12,9 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
  */
 final class ConsentCest
 {
-    private const BANNER = '#cookieChoiceInfo';
+    private const BANNER = '#icc-banner';
 
-    private const ACCEPT = '#cookieChoiceDismiss';
+    private const ACCEPT = '#icc-banner [data-icc-action="accept-all"]';
 
     private const CONSENT_COOKIE = 'icc_consent';
 
@@ -46,7 +46,7 @@ final class ConsentCest
         $I->assertFalse($I->executeJS('return window.italyCookieChoices.hasConsent("statistics");'));
     }
 
-    public function theLegacyBannerGivesTheConsentToAllCategories(E2eTester $I): void
+    public function theBannerGivesTheConsentToAllCategories(E2eTester $I): void
     {
         $I->amOnPage('/');
         $I->waitForElementVisible(self::BANNER);
@@ -113,14 +113,19 @@ final class ConsentCest
         $I->assertFalse($I->executeJS('return window.italyCookieChoices.hasConsent("statistics");'));
     }
 
-    public function theConsentGivenWithThe2xBannerIsKept(E2eTester $I): void
+    /**
+     * The 2.x consent may come from a scroll or a second page view, the visitor is asked again.
+     */
+    public function theConsentGivenWithThe2xBannerIsAskedAgain(E2eTester $I): void
     {
         $I->amOnPage('/');
         $I->setCookie(E2eTester::COOKIE_NAME, E2eTester::COOKIE_VALUE);
 
         $I->amOnPage('/');
 
-        $I->assertSame(self::ALL_CATEGORIES, $this->consentCategories($I));
+        $I->waitForElementVisible(self::BANNER);
+        $I->assertNull($I->executeJS('return window.italyCookieChoices.getConsent();'));
+        $I->dontSeeCookie(E2eTester::COOKIE_NAME);
     }
 
     public function theConsentCanBeWithdrawn(E2eTester $I): void

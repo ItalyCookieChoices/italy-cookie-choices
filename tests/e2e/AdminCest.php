@@ -95,8 +95,8 @@ final class AdminCest
         $I->logOut();
         $I->amOnPage('/');
 
-        $I->waitForElementVisible('#cookieChoiceInfo');
-        $I->see('Got it', '#cookieChoiceDismiss');
+        $I->waitForElementVisible('#icc-banner');
+        $I->see('Got it', '#icc-banner [data-icc-action="accept-all"]');
     }
 
     public function itRestoresTheDefaultCookieName(E2eTester $I): void
