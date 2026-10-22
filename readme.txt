@@ -105,6 +105,16 @@ deactivate all plugin and try
 if it works activate one pluigin at time and try
 if it doesn't work activate standard theme and try
 
+= How do I check the consent in my code? =
+
+The consent is given by category: `necessary`, `preferences`, `statistics` and `marketing`. It is checked in the browser, so the pages can be cached:
+
+`window.italyCookieChoices.hasConsent( 'statistics' )` returns true when the visitor accepted the category, `getConsent()`, `setConsent( categories )`, `acceptAll()`, `rejectAll()`, `withdraw()` and `onChange( callback )` are available too. The `italy-cookie-choices:ready` and `italy-cookie-choices:consent-changed` events are dispatched on the document.
+
+In PHP, on pages that are not cached, use `apply_filters( 'italy_cookie_choices_has_consent', false, 'statistics' )`.
+
+The `italy_cookie_choices_categories`, `italy_cookie_choices_policy_version` and `italy_cookie_choices_consent_duration` filters change the categories, the policy version (a new version asks the consent again) and the days a consent lasts, 182 by default.
+
 == Screenshots ==
 
 1. Italy Cookie Choices Options Menu
