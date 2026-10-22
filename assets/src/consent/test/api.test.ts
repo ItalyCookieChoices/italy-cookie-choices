@@ -159,8 +159,8 @@ describe( 'consent API', () => {
 		const second = api.acceptAll();
 
 		expect( changes.slice( -2 ) ).toEqual( [
-			{ consent: first, previous: null },
-			{ consent: second, previous: first },
+			{ consent: first, previous: null, fromAnotherTab: false },
+			{ consent: second, previous: first, fromAnotherTab: false },
 		] );
 	} );
 
@@ -176,6 +176,7 @@ describe( 'consent API', () => {
 		expect( changes[ changes.length - 1 ] ).toEqual( {
 			consent: null,
 			previous: consent,
+			fromAnotherTab: false,
 		} );
 	} );
 
@@ -189,7 +190,11 @@ describe( 'consent API', () => {
 		api.rejectAll();
 
 		expect( listener ).toHaveBeenCalledTimes( 1 );
-		expect( listener ).toHaveBeenCalledWith( consent, null );
+		expect( listener ).toHaveBeenCalledWith( {
+			consent,
+			previous: null,
+			fromAnotherTab: false,
+		} );
 	} );
 
 	it( 'returns copies of the consent', () => {
