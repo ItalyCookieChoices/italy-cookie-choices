@@ -8,6 +8,8 @@ use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\Config\Config;
+use ItalyStrap\View\ViewInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -22,22 +24,21 @@ final readonly class Banner implements SubscriberInterface
     private const SCRIPT = 'banner.js';
     private const STYLE = 'banner.css';
     private const ASSET = 'banner.asset.php';
-    private const TEMPLATE = 'banner.php';
+    private const TEMPLATE = 'banner';
     private const CUSTOM_TEMPLATE = 'custom';
     private const POSITIONS = ['1' => 'top', '2' => 'modal', '3' => 'bottom'];
 
     /**
      * @param string $buildPath The assets/build folder, with the trailing slash.
      * @param string $buildUrl The assets/build URL, with the trailing slash.
-     * @param string $templatesPath The templates folder, with the trailing slash.
      */
     public function __construct(
         private ConsentPolicyFactory $policy,
         private EventDispatcherInterface $dispatcher,
         private Options $options,
+        private ViewInterface $view,
         private string $buildPath,
         private string $buildUrl,
-        private string $templatesPath,
     ) {
     }
 
@@ -81,8 +82,7 @@ final readonly class Banner implements SubscriberInterface
             return;
         }
 
-        $view = $this->view();
-        require $this->templatesPath . self::TEMPLATE;
+        echo $this->view->render(self::TEMPLATE, new Config($this->data())); // phpcs:ignore -- Escaped in the template.
         \wp_print_scripts([self::HANDLE]);
     }
 
@@ -91,7 +91,7 @@ final readonly class Banner implements SubscriberInterface
      *
      * @return array<string, mixed>
      */
-    public function view(): array
+    public function data(): array
     {
         $position = self::POSITIONS[$this->options->text('banner', '1')] ?? self::POSITIONS['1'];
         $template = $this->options->text('js_template', 'default');

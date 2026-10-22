@@ -9,7 +9,6 @@ parameters:
         - bootstrap.php
         - uninstall.php
         - src
-        - templates
         - legacy
         - tests
     bootstrapFiles:

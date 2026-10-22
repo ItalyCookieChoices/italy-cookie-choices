@@ -19,7 +19,6 @@ use ItalyStrap\Event\SubscribersConfigExtension;
 final readonly class Module implements ModuleInterface
 {
     private const BUILD = 'assets/build/';
-    private const TEMPLATES = 'templates/';
 
     /**
      * @param string $pluginPath The plugin folder, with the trailing slash.
@@ -50,7 +49,6 @@ final readonly class Module implements ModuleInterface
                 Banner::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
-                    ':templatesPath' => $this->pluginPath . self::TEMPLATES,
                 ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [

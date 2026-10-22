@@ -3,67 +3,60 @@
 /**
  * The consent banner and the preferences dialog, hidden until the script finds no consent.
  *
- * @see \ItalyCookieChoices\Consent\UI\Banner::view()
+ * Rendered by italystrap/view, $this is the Config with the data, read with the array notation.
  *
- * @var array{
- *     classes: array{banner: string, content: string, text: string, link: string, button: string},
- *     modal: bool,
- *     reload: bool,
- *     htmlMargin: bool,
- *     text: string,
- *     link: array{url: string, text: string, newTab: bool, rel: string}|null,
- *     texts: array<string, string>,
- *     categories: list<array{id: string, required: bool, label: string, description: string}>
- * } $view
+ * @see \ItalyCookieChoices\Consent\UI\Banner::data()
+ *
+ * @var \ItalyStrap\Config\ConfigInterface $this
  */
 
 declare(strict_types=1);
 
-$texts = $view['texts'];
+$texts = $this['texts'];
 ?>
 <div
     id="icc-banner"
-    class="<?php echo \esc_attr($view['classes']['banner']); ?>"
+    class="<?php echo \esc_attr($this['classes']['banner']); ?>"
     role="dialog"
-    aria-modal="<?php echo $view['modal'] ? 'true' : 'false'; ?>"
+    aria-modal="<?php echo $this['modal'] ? 'true' : 'false'; ?>"
     aria-labelledby="icc-banner-title"
     aria-describedby="icc-banner-text"
     tabindex="-1"
-    data-reload="<?php echo $view['reload'] ? '1' : '0'; ?>"
-    data-html-margin="<?php echo $view['htmlMargin'] ? '1' : '0'; ?>"
+    data-reload="<?php echo $this['reload'] ? '1' : '0'; ?>"
+    data-html-margin="<?php echo $this['htmlMargin'] ? '1' : '0'; ?>"
     hidden
 >
-    <div class="<?php echo \esc_attr($view['classes']['content']); ?>">
+    <div class="<?php echo \esc_attr($this['classes']['content']); ?>">
         <h2 id="icc-banner-title" class="icc-banner__title"><?php echo \esc_html($texts['title'] ?? ''); ?></h2>
-        <div id="icc-banner-text" class="<?php echo \esc_attr($view['classes']['text']); ?>">
-            <?php echo $view['text']; // Sanitized with wp_kses_post(). ?>
-            <?php if ($view['link'] !== null) : ?>
+        <div id="icc-banner-text" class="<?php echo \esc_attr($this['classes']['text']); ?>">
+            <?php echo $this['text']; // Sanitized with wp_kses_post(). ?>
+            <?php if ($this['link'] !== null) : ?>
                 <a
-                    href="<?php echo \esc_url($view['link']['url']); ?>"
-                    class="icc-banner__link <?php echo \esc_attr($view['classes']['link']); ?>"
-                    <?php echo $view['link']['newTab'] ? 'target="_blank"' : ''; ?>
-                    <?php echo $view['link']['rel'] !== '' ? 'rel="' . \esc_attr($view['link']['rel']) . '"' : ''; ?>
-                ><?php echo \esc_html($view['link']['text']); ?></a>
+                    href="<?php echo \esc_url($this['link']['url']); ?>"
+                    class="icc-banner__link <?php echo \esc_attr($this['classes']['link']); ?>"
+                    <?php echo $this['link']['newTab'] ? 'target="_blank"' : ''; ?>
+                    <?php echo $this['link']['rel'] !== '' ? 'rel="' . \esc_attr($this['link']['rel']) . '"' : ''; ?>
+                ><?php echo \esc_html($this['link']['text']); ?></a>
             <?php endif; ?>
         </div>
         <div class="icc-banner__actions">
             <button
                 type="button"
-                class="<?php echo \esc_attr($view['classes']['button']); ?>"
+                class="<?php echo \esc_attr($this['classes']['button']); ?>"
                 data-icc-action="accept-all"
             >
                 <?php echo \esc_html($texts['acceptAll'] ?? ''); ?>
             </button>
             <button
                 type="button"
-                class="<?php echo \esc_attr($view['classes']['button']); ?>"
+                class="<?php echo \esc_attr($this['classes']['button']); ?>"
                 data-icc-action="reject-all"
             >
                 <?php echo \esc_html($texts['rejectAll'] ?? ''); ?>
             </button>
             <button
                 type="button"
-                class="<?php echo \esc_attr($view['classes']['button']); ?>"
+                class="<?php echo \esc_attr($this['classes']['button']); ?>"
                 data-icc-action="preferences"
                 aria-controls="icc-preferences"
                 aria-expanded="false"
@@ -93,7 +86,7 @@ $texts = $view['texts'];
         <form class="icc-preferences__form">
             <fieldset class="icc-preferences__categories">
                 <legend class="icc-visually-hidden"><?php echo \esc_html($texts['preferencesTitle'] ?? ''); ?></legend>
-                <?php foreach ($view['categories'] as $category) : ?>
+                <?php foreach ($this['categories'] as $category) : ?>
                     <?php $id = 'icc-category-' . $category['id']; ?>
                     <div class="icc-preferences__category">
                         <input
@@ -116,19 +109,19 @@ $texts = $view['texts'];
                 <?php endforeach; ?>
             </fieldset>
             <div class="icc-preferences__actions">
-                <button type="submit" class="<?php echo \esc_attr($view['classes']['button']); ?>">
+                <button type="submit" class="<?php echo \esc_attr($this['classes']['button']); ?>">
                     <?php echo \esc_html($texts['save'] ?? ''); ?>
                 </button>
                 <button
                 type="button"
-                class="<?php echo \esc_attr($view['classes']['button']); ?>"
+                class="<?php echo \esc_attr($this['classes']['button']); ?>"
                 data-icc-action="accept-all"
             >
                     <?php echo \esc_html($texts['acceptAll'] ?? ''); ?>
                 </button>
                 <button
                 type="button"
-                class="<?php echo \esc_attr($view['classes']['button']); ?>"
+                class="<?php echo \esc_attr($this['classes']['button']); ?>"
                 data-icc-action="reject-all"
             >
                     <?php echo \esc_html($texts['rejectAll'] ?? ''); ?>

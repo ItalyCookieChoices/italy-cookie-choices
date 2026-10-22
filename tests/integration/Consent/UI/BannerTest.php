@@ -13,6 +13,8 @@ use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\Finder\FinderFactory;
+use ItalyStrap\View\View;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -160,7 +162,7 @@ final class BannerTest extends WPTestCase
 
     public function testTheViewHasTheDefaults(): void
     {
-        $view = $this->makeSut()->view();
+        $view = $this->makeSut()->data();
 
         $this->assertSame(
             [
@@ -198,7 +200,7 @@ final class BannerTest extends WPTestCase
     {
         $this->saveOptions(['banner' => $banner, 'js_template' => 'bigbutton']);
 
-        $view = $this->makeSut()->view();
+        $view = $this->makeSut()->data();
 
         $this->assertIsArray($view['classes']);
         $this->assertSame(
@@ -211,10 +213,10 @@ final class BannerTest extends WPTestCase
     public function testTheHtmlMarginIsOnlyForTheTopBar(): void
     {
         $this->saveOptions(['html_margin' => '1']);
-        $this->assertTrue($this->makeSut()->view()['htmlMargin']);
+        $this->assertTrue($this->makeSut()->data()['htmlMargin']);
 
         $this->saveOptions(['html_margin' => '1', 'banner' => '3']);
-        $this->assertFalse($this->makeSut()->view()['htmlMargin']);
+        $this->assertFalse($this->makeSut()->data()['htmlMargin']);
     }
 
     public function testTheViewUsesTheSavedTextsAndClasses(): void
@@ -232,7 +234,7 @@ final class BannerTest extends WPTestCase
             'closeClass' => 'my-button',
         ]);
 
-        $view = $this->makeSut()->view();
+        $view = $this->makeSut()->data();
 
         $this->assertSame('We use <strong>cookies</strong>x', $view['text']);
         $this->assertSame(
@@ -257,7 +259,7 @@ final class BannerTest extends WPTestCase
     {
         $this->saveOptions(['url' => 'https://example.com/policy/']);
 
-        $link = $this->makeSut()->view()['link'];
+        $link = $this->makeSut()->data()['link'];
 
         $this->assertIsArray($link);
         $this->assertSame('https://example.com/policy/', $link['text']);
@@ -281,7 +283,7 @@ final class BannerTest extends WPTestCase
     {
         $this->saveOptions(['url' => 'https://example.com/policy/'] + $options);
 
-        $link = $this->makeSut()->view()['link'];
+        $link = $this->makeSut()->data()['link'];
 
         $this->assertIsArray($link);
         $this->assertSame($newTab, $link['newTab']);
@@ -294,7 +296,7 @@ final class BannerTest extends WPTestCase
             $event->changeText(BuildingBanner::REJECT_ALL, 'Only necessary');
         });
 
-        $texts = $this->texts($this->makeSut()->view());
+        $texts = $this->texts($this->makeSut()->data());
 
         $this->assertSame('Only necessary', $texts['rejectAll']);
         $this->assertSame('Cookie consent', $texts['title']);
@@ -309,7 +311,7 @@ final class BannerTest extends WPTestCase
             $event->addCategory(new Category('social'));
         });
 
-        $categories = $this->makeSut()->view()['categories'];
+        $categories = $this->makeSut()->data()['categories'];
 
         $this->assertIsArray($categories);
         $this->assertSame(
@@ -333,7 +335,7 @@ final class BannerTest extends WPTestCase
             $event->changeCategoryLabel('statistics', 'Analytics', 'Visits');
         });
 
-        $categories = $this->makeSut()->view()['categories'];
+        $categories = $this->makeSut()->data()['categories'];
 
         $this->assertIsArray($categories);
         $this->assertSame(
@@ -407,17 +409,19 @@ final class BannerTest extends WPTestCase
     private function makeSut(string $buildPath = ''): Banner
     {
         $fixtures = \codecept_data_dir('consent-build/');
-        $root = \codecept_root_dir('templates/');
+        $templates = \codecept_root_dir('templates/');
         $this->assertIsString($fixtures);
-        $this->assertIsString($root);
+        $this->assertIsString($templates);
+        $finder = (new FinderFactory())->make();
+        $finder->in($templates);
 
         return new Banner(
             new ConsentPolicyFactory($this->dispatcher()),
             $this->dispatcher(),
             new Options(),
+            new View($finder),
             $buildPath === '' ? $fixtures : $buildPath,
-            self::BUILD_URL,
-            $root
+            self::BUILD_URL
         );
     }
 
