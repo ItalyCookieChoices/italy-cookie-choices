@@ -8,6 +8,7 @@ use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\UI\Banner;
+use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Consent\UI\BuildingBanner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Settings\Options;
@@ -40,7 +41,7 @@ final class BannerTest extends WPTestCase
         parent::tearDown();
     }
 
-    public function testItPrintsTheBannerOutsideTheLegacyBuffers(): void
+    public function testItPrintsTheBannerBeforeTheFooterScripts(): void
     {
         $this->assertSame(
             [
@@ -416,8 +417,7 @@ final class BannerTest extends WPTestCase
         $finder->in($templates);
 
         return new Banner(
-            new ConsentPolicyFactory($this->dispatcher()),
-            $this->dispatcher(),
+            new ConsentTexts(new ConsentPolicyFactory($this->dispatcher()), $this->dispatcher(), new Options()),
             new Options(),
             new View($finder),
             $buildPath === '' ? $fixtures : $buildPath,

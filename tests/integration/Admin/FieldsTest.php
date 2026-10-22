@@ -219,53 +219,53 @@ final class FieldsTest extends WPTestCase
         );
     }
 
-    public function testBlockCheckboxesAreCheckedFromTheOptions(): void
+    public function testTheCompatibilityModeIsOffByDefault(): void
     {
-        $output = $this->renderField('block', ['block' => '1', 'widget_block' => '1']);
+        $output = $this->renderField('block', []);
 
-        $this->assertStringContainsString("name='italy_cookie_choices[block]'  checked='checked'", $output);
-        $this->assertStringContainsString("name='italy_cookie_choices[widget_block]'  checked='checked'", $output);
         $this->assertStringContainsString("name='italy_cookie_choices[all_block]'  value='1'", $output);
     }
 
-    public function testAllBlockUnchecksTheOtherBlocks(): void
+    /**
+     * Changed in #236: the vendors are always blocked in the content and the widgets,
+     * only the compatibility mode is left.
+     */
+    public function testOnlyTheCompatibilityModeIsShown(): void
     {
         $output = $this->renderField('block', ['block' => '1', 'widget_block' => '1', 'all_block' => '1']);
 
-        $this->assertStringContainsString("name='italy_cookie_choices[block]'  value='1'", $output);
-        $this->assertStringContainsString("name='italy_cookie_choices[widget_block]'  value='1'", $output);
         $this->assertStringContainsString("name='italy_cookie_choices[all_block]'  checked='checked'", $output);
+        $this->assertStringNotContainsString('italy_cookie_choices[block]', $output);
+        $this->assertStringNotContainsString('italy_cookie_choices[widget_block]', $output);
     }
 
     /**
      * @return iterable<string, array{string, string}>
      */
-    public function scriptTextareas(): iterable
+    public function scriptLists(): iterable
     {
-        yield 'allowed in body' => ['custom_script_block_body_exclude', 'allow'];
+        yield 'allowed' => ['custom_script_block_body_exclude', 'allow'];
         yield 'blocked' => ['custom_script_block', 'block'];
     }
 
     /**
-     * @dataProvider scriptTextareas
+     * Changed in #236: the 2.x textareas moved to the lists.
+     *
+     * @dataProvider scriptLists
      */
-    public function testScriptTextareasShowTheEscapedOption(string $field, string $prefix): void
+    public function testScriptListsHaveNoSnippetTextarea(string $field, string $prefix): void
     {
         $output = $this->renderField($field, [$field => '<script src="a.js"></script>']);
 
-        $this->assertStringContainsString(
-            '>&lt;script src=&quot;a.js&quot;&gt;&lt;/script&gt;</textarea>',
-            $output
-        );
-        $this->assertStringContainsString('data-value="<---------SEP--------->"', $output);
-        $this->assertStringContainsString('data-value="<---------SOMETHING--------->"', $output);
+        $this->assertStringNotContainsString('<textarea', $output);
+        $this->assertStringNotContainsString('<---------SEP--------->', $output);
         $this->assertStringContainsString('name="italy_cookie_choices[' . $prefix . '_iframe][]"', $output);
         $this->assertStringContainsString('name="italy_cookie_choices[' . $prefix . '_script][]"', $output);
         $this->assertStringContainsString('name="italy_cookie_choices[' . $prefix . '_embed][]"', $output);
     }
 
     /**
-     * @dataProvider scriptTextareas
+     * @dataProvider scriptLists
      */
     public function testScriptListsShowTheSavedVendors(string $field, string $prefix): void
     {

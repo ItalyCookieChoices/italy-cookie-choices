@@ -15,16 +15,15 @@ final class SchemaTest extends WPTestCase
      */
     private const KEYS = [
         'active', 'all_block', 'allow_embed', 'allow_iframe', 'allow_script', 'anchor_text', 'banner',
-        'bannerStyle', 'banner_bg', 'banner_text_color', 'block', 'block_embed', 'block_iframe', 'block_script',
+        'bannerStyle', 'banner_bg', 'banner_text_color', 'block_embed', 'block_iframe', 'block_script',
         'button_text', 'closeClass', 'consentText', 'contentStyle', 'content_message_button_text',
-        'content_message_text', 'cookie_name', 'cookie_value', 'customCSS', 'custom_script_block',
-        'custom_script_block_body_exclude', 'excluded_pages', 'html_margin', 'infoClass', 'js_template',
-        'nofollow', 'reload', 'slug', 'target', 'text', 'url', 'widget_block',
+        'content_message_text', 'cookie_name', 'cookie_value', 'customCSS', 'excluded_pages', 'html_margin',
+        'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target', 'text', 'url',
     ];
 
-    public function testTheSchemaIsAtVersion2(): void
+    public function testTheSchemaIsAtVersion3(): void
     {
-        $this->assertSame(2, Schema::VERSION);
+        $this->assertSame(3, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -87,6 +86,9 @@ final class SchemaTest extends WPTestCase
         yield 'excluded pages not a string' => [['excluded_pages' => [42]]];
         yield 'scroll removed in version 2' => [['scroll' => '1']];
         yield 'second view removed in version 2' => [['secondView' => '1']];
+        yield 'content blocking always on in version 3' => [['block' => '1']];
+        yield 'widget blocking always on in version 3' => [['widget_block' => '1']];
+        yield 'snippets moved to the lists in version 3' => [['custom_script_block' => '<script></script>']];
         yield 'banner out of range' => [['banner' => '4']];
         yield 'unknown template' => [['js_template' => 'other']];
         yield 'empty cookie name' => [['cookie_name' => '']];

@@ -17,7 +17,6 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->skip([
-        __DIR__ . '/legacy/js',
         __DIR__ . '/tests/_data',
         __DIR__ . '/tests/_output',
         __DIR__ . '/tests/_support/_generated',

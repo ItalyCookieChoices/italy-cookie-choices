@@ -12,7 +12,6 @@
 namespace Italy_Cookie_Choices\Core;
 
 use ItalyStrap\Config\Config;
-use Overclokk\Cookie\Cookie;
 
 if ( is_admin() ) {
 	return;
@@ -36,12 +35,6 @@ if ( ! $config->has('active') ) {
 if ( 'wp-login.php' === $GLOBALS['pagenow'] ) {
 	return;
 }
-// if ( isset( $_COOKIE[ $options['cookie_name'] ] ) ) {
-// 	return;
-// }
-
-$cookie = new Cookie();
-
 
 /**
  * accept_button
@@ -54,7 +47,7 @@ add_shortcode( 'accept_button', function ( $atts, $content = null ) use ( $confi
 
 	$button_text = $config['button_text'] ?? '' ;
 
-	return '<span class="el"><button onclick="cookieChoices.removeCookieConsent()">' . esc_attr( $button_text ) . '</button></span>';
+	return '<span class="el"><button type="button" data-icc-accept-all>' . esc_attr( $button_text ) . '</button></span>';
 
 } );
 
@@ -90,9 +83,3 @@ function _display_cookie() {
 	return $cookie_list;
 
 }
-
-/**
- * @todo https://wordpress.org/support/topic/disattivazione-testo-embed-bloccati/
- */
-$icc_cookie_choices = new Cookie_Choices( $config, $cookie );
-$icc_cookie_choices->run();

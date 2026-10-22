@@ -76,11 +76,7 @@ final class SanitizerTest extends WPTestCase
             'js_template',
             'target',
             'nofollow',
-            'block',
-            'widget_block',
             'all_block',
-            'custom_script_block_body_exclude',
-            'custom_script_block',
         ];
 
         foreach ($fields as $field) {
@@ -184,6 +180,7 @@ final class SanitizerTest extends WPTestCase
 
     /**
      * Changed in #235: accepting on scroll and on the second page view is not a valid consent, they are removed.
+     * Changed in #236: the vendors are always blocked, the 2.x textareas moved to the lists.
      *
      * @return iterable<string, array{string}>
      */
@@ -191,6 +188,10 @@ final class SanitizerTest extends WPTestCase
     {
         yield 'scroll' => ['scroll'];
         yield 'secondView' => ['secondView'];
+        yield 'block' => ['block'];
+        yield 'widget_block' => ['widget_block'];
+        yield 'custom_script_block' => ['custom_script_block'];
+        yield 'custom_script_block_body_exclude' => ['custom_script_block_body_exclude'];
     }
 
     /**
@@ -214,7 +215,7 @@ final class SanitizerTest extends WPTestCase
             'url',
             'slug',
             'customCSS',
-            'block',
+            'all_block',
             'allow_iframe',
             'content_message_text',
             'nofollow',

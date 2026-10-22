@@ -31,6 +31,41 @@ final readonly class Options
     }
 
     /**
+     * A saved text translated by WPML or Polylang, the default when it is missing or empty.
+     *
+     * @param string $name The name of the string registered for the translation.
+     */
+    public function translated(string $name, string $option, string $default = ''): string
+    {
+        $value = $this->text($option);
+        if ($value === '') {
+            return $default;
+        }
+
+        $translated = \get_string('Italy Cookie Choices', $name, $value);
+
+        return $this->nonEmptyString($translated, $value);
+    }
+
+    /**
+     * The non empty texts of a saved list.
+     *
+     * @return list<string>
+     */
+    public function values(string $name): array
+    {
+        $values = $this->all()[$name] ?? [];
+        if (!\is_array($values)) {
+            return [];
+        }
+
+        return \array_values(\array_filter(
+            $values,
+            static fn(mixed $value): bool => \is_string($value) && \trim($value) !== ''
+        ));
+    }
+
+    /**
      * The cookie the 2.x banner writes on accept.
      *
      * @return array{name: string, value: string}

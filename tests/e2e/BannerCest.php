@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\E2e;
 
 use E2eTester;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 /**
  * The consent banner of #235: accept all, reject all and preferences with the same weight.
@@ -363,12 +362,12 @@ final class BannerCest
         $I->amOnPage('/');
         $I->waitForElementVisible(self::BANNER);
 
-        $I->assertSame([], $this->accessibilityViolations($I, self::BANNER));
+        $I->assertSame([], $I->grabAccessibilityViolations(self::BANNER));
 
         $I->click(self::OPEN_PREFERENCES);
         $I->waitForElementVisible(self::PREFERENCES);
 
-        $I->assertSame([], $this->accessibilityViolations($I, self::PREFERENCES));
+        $I->assertSame([], $I->grabAccessibilityViolations(self::PREFERENCES));
     }
 
     /**
@@ -377,26 +376,5 @@ final class BannerCest
     private function consentCategories(E2eTester $I): mixed
     {
         return $I->executeJS('return window.italyCookieChoices.getConsent().categories;');
-    }
-
-    /**
-     * Runs axe-core on the element and returns the ids of the violated rules.
-     *
-     * @return mixed
-     */
-    private function accessibilityViolations(E2eTester $I, string $selector): mixed
-    {
-        $root = \codecept_root_dir();
-        $I->assertIsString($root);
-        $axe = \file_get_contents($root . 'node_modules/axe-core/axe.min.js');
-        $I->assertIsString($axe);
-        $I->executeJS($axe);
-
-        return $I->executeInSelenium(static fn(RemoteWebDriver $driver): mixed => $driver->executeAsyncScript(
-            'const done = arguments[arguments.length - 1];'
-            . 'axe.run(arguments[0], {runOnly: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"]})'
-            . '.then((results) => done(results.violations.map((violation) => violation.id)));',
-            [$selector]
-        ));
     }
 }
