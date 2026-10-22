@@ -38,6 +38,11 @@ final readonly class ConsentScript implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield 'wp_enqueue_scripts' => 'enqueue';
+        // After the head buffer of the 2.x blocking, its patterns can remove the scripts in it.
+        yield 'wp_head' => [
+            self::CALLBACK => 'print',
+            self::PRIORITY => 100000,
+        ];
     }
 
     public function enqueue(): void
@@ -47,7 +52,7 @@ final readonly class ConsentScript implements SubscriberInterface
             return;
         }
 
-        \wp_enqueue_script(
+        \wp_register_script(
             self::HANDLE,
             $this->buildUrl . self::SCRIPT,
             $asset['dependencies'],
@@ -59,6 +64,18 @@ final readonly class ConsentScript implements SubscriberInterface
             \sprintf('window.italyCookieChoicesConfig = %s;', (string) \wp_json_encode($this->config())),
             'before'
         );
+    }
+
+    /**
+     * Prints the registered script, with its configuration.
+     */
+    public function print(): void
+    {
+        if (!\wp_script_is(self::HANDLE, 'registered')) {
+            return;
+        }
+
+        \wp_print_scripts([self::HANDLE]);
     }
 
     /**

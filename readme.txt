@@ -115,6 +115,12 @@ In PHP, on pages that are not cached, use `apply_filters( 'italy_cookie_choices_
 
 The `italy_cookie_choices_categories`, `italy_cookie_choices_policy_version` and `italy_cookie_choices_consent_duration` filters change the categories, the policy version (a new version asks the consent again) and the days a consent lasts, 182 by default.
 
+= How can visitors change their choice? =
+
+Add a link to `#icc-preferences`, like `<a href="#icc-preferences">Cookie preferences</a>`, or any element with the `data-icc-open-preferences` attribute: it opens the preferences dialog. The `italy-cookie-choices:open-preferences` event on the document opens it too.
+
+The `italy_cookie_choices_banner_texts` and `italy_cookie_choices_category_labels` filters change the texts of the banner and the names and descriptions of the categories.
+
 == Screenshots ==
 
 1. Italy Cookie Choices Options Menu

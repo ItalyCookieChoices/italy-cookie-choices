@@ -156,8 +156,10 @@ jobs:
           php -S localhost:8888 -t "$WP_DIR" >/tmp/server.log 2>&1 &
           sleep 3
           curl -sf -H 'Accept: text/html' http://localhost:8888/ -o /tmp/home.html
-          grep -q '<!-- Italy Cookie Choices -->' /tmp/home.html
-          grep -q "showCookieConsentBar('Smoke test banner'" /tmp/home.html
+          grep -q 'id="icc-banner"' /tmp/home.html
+          grep -q 'Smoke test banner' /tmp/home.html
+          grep -q 'assets/build/consent.js' /tmp/home.html
+          grep -q 'assets/build/banner.js' /tmp/home.html
           if grep -E 'Fatal error|Warning:|Parse error' /tmp/home.html /tmp/server.log; then exit 1; fi
 
   e2e:

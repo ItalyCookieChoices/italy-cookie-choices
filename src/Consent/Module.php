@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Consent;
 
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
+use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyStrap\Empress\AurynConfig;
@@ -18,6 +19,7 @@ use ItalyStrap\Event\SubscribersConfigExtension;
 final readonly class Module implements ModuleInterface
 {
     private const BUILD = 'assets/build/';
+    private const TEMPLATES = 'templates/';
 
     /**
      * @param string $pluginPath The plugin folder, with the trailing slash.
@@ -45,9 +47,15 @@ final readonly class Module implements ModuleInterface
                     ':buildPath' => $this->pluginPath . self::BUILD,
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
                 ],
+                Banner::class => [
+                    ':buildPath' => $this->pluginPath . self::BUILD,
+                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':templatesPath' => $this->pluginPath . self::TEMPLATES,
+                ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 ConsentScript::class,
+                Banner::class,
                 HasConsentFilter::class,
             ],
         ];

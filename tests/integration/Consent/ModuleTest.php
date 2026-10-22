@@ -8,6 +8,7 @@ use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
 use ItalyCookieChoices\Consent\Module;
+use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyCookieChoices\Settings\Options;
@@ -25,7 +26,7 @@ final class ModuleTest extends WPTestCase
 
         $this->assertIsArray($config);
         $this->assertSame(
-            [ConsentScript::class, HasConsentFilter::class],
+            [ConsentScript::class, Banner::class, HasConsentFilter::class],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
     }

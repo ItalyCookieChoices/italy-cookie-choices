@@ -8,6 +8,7 @@ use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyStrap\Event\SubscriberInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConsentScriptTest extends WPTestCase
@@ -30,16 +31,19 @@ final class ConsentScriptTest extends WPTestCase
     public function testItEnqueuesOnTheFrontEnd(): void
     {
         $this->assertSame(
-            ['wp_enqueue_scripts' => 'enqueue'],
+            [
+                'wp_enqueue_scripts' => 'enqueue',
+                'wp_head' => [SubscriberInterface::CALLBACK => 'print', SubscriberInterface::PRIORITY => 100000],
+            ],
             \iterator_to_array($this->makeSut()->getSubscribedEvents())
         );
     }
 
-    public function testItEnqueuesTheBuiltScriptInTheHead(): void
+    public function testItRegistersTheBuiltScriptInTheHead(): void
     {
         $this->makeSut()->enqueue();
 
-        $this->assertTrue(\wp_script_is(ConsentScript::HANDLE, 'enqueued'));
+        $this->assertTrue(\wp_script_is(ConsentScript::HANDLE, 'registered'));
         $script = \wp_scripts()->registered[ConsentScript::HANDLE];
         $this->assertSame(self::BUILD_URL . 'consent.js', $script->src);
         $this->assertSame(['wp-dom-ready'], $script->deps);
@@ -95,6 +99,28 @@ final class ConsentScriptTest extends WPTestCase
         \add_filter(ConsentScript::CONFIG_FILTER, '__return_null');
 
         $this->assertSame([], $this->makeSut()->config());
+    }
+
+    public function testItPrintsTheScriptWithItsConfiguration(): void
+    {
+        $sut = $this->makeSut();
+        $sut->enqueue();
+
+        \ob_start();
+        $sut->print();
+        $output = (string) \ob_get_clean();
+
+        $this->assertStringContainsString('window.italyCookieChoicesConfig = ', $output);
+        $this->assertStringContainsString(self::BUILD_URL . 'consent.js?ver=test-version', $output);
+        $this->assertTrue(\wp_script_is(ConsentScript::HANDLE, 'done'));
+    }
+
+    public function testNothingIsPrintedWhenTheScriptIsNotRegistered(): void
+    {
+        \ob_start();
+        $this->makeSut()->print();
+
+        $this->assertSame('', \ob_get_clean());
     }
 
     public function testNothingIsEnqueuedWhenThePluginIsNotActive(): void

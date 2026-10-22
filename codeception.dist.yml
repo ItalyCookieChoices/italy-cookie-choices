@@ -20,6 +20,7 @@ coverage:
     enabled: true
     include:
         - src/*
+        - templates/*
         - bootstrap.php
         - legacy/*.php
         - legacy/admin/*.php
