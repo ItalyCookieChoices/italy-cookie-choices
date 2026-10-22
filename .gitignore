@@ -11,7 +11,6 @@ _other/
 
 # Files
 c3.php
-package-lock.json
 .svn
 *.lock
 !composer.lock
@@ -27,3 +26,4 @@ package-lock.json
 !tests/*.suite.yml
 !tests/_envs/*.yml
 /build/
+/assets/build/

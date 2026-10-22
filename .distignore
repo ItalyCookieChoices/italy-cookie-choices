@@ -27,12 +27,14 @@ package-lock.json
 *.local
 .docker
 bin
-build
+/build
 .gitattributes
 README.md
 Makefile
-Gruntfile.js
 package.json
+tsconfig.json
+.nvmrc
+assets/src
 infection.json
 rector.php
 scoper.inc.php

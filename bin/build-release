@@ -4,6 +4,7 @@
 #
 # Requires PHP 8.2+, composer, php-scoper, rsync and zip.
 # The dev dependencies must be installed in the project, the WordPress excludes come from them.
+# The JavaScript must be built first with npm ci && npm run build.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -14,6 +15,11 @@ WORK="$BUILD/work"
 OUT="$BUILD/$SLUG"
 SCOPER="${PHP_SCOPER:-php-scoper}"
 
+if [ ! -f "$ROOT/assets/build/consent.asset.php" ]; then
+    echo "Missing assets/build, run npm ci && npm run build first" >&2
+    exit 1
+fi
+
 rm -rf "$BUILD"
 mkdir -p "$WORK" "$BUILD/wp-excludes"
 
@@ -22,7 +28,7 @@ cp "$ROOT"/vendor/sniccowp/php-scoper-wordpress-excludes/generated/*.json "$BUIL
 
 echo "Copy the plugin and install the production dependencies"
 rsync -a \
-    --exclude='.git' --exclude='build' --exclude='vendor' --exclude='node_modules' --exclude='tests/_output' \
+    --exclude='.git' --exclude='/build' --exclude='/vendor' --exclude='node_modules' --exclude='tests/_output' \
     "$ROOT/" "$WORK/"
 composer install --working-dir="$WORK" --no-dev --prefer-dist --no-interaction --no-progress --no-scripts
 

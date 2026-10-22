@@ -1,0 +1,45 @@
+name: JavaScript
+
+on:
+  push:
+    paths:
+      - '**workflows/js.yml'
+      - 'assets/src/**'
+      - '**package.json'
+      - '**package-lock.json'
+      - '**tsconfig.json'
+  pull_request:
+    paths:
+      - '**workflows/js.yml'
+      - 'assets/src/**'
+      - '**package.json'
+      - '**package-lock.json'
+      - '**tsconfig.json'
+
+jobs:
+  js:
+    name: Lint, type check and unit tests
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '--skip ci') && !github.event.pull_request.draft"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint:js
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test:js

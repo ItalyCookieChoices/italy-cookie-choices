@@ -7,6 +7,10 @@ on:
       - '**workflows/test.yml'
       - '**.php'
       - '**.js'
+      - '**.ts'
+      - '**package.json'
+      - '**package-lock.json'
+      - '**tsconfig.json'
       - '.docker/**'
       - 'tests/**'
       - '**codeception.dist.yml'
@@ -19,6 +23,10 @@ on:
       - '**workflows/test.yml'
       - '**.php'
       - '**.js'
+      - '**.ts'
+      - '**package.json'
+      - '**package-lock.json'
+      - '**tsconfig.json'
       - '.docker/**'
       - 'tests/**'
       - '**codeception.dist.yml'
@@ -36,6 +44,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Build the assets
+        run: make assets
 
       # Same environment used locally, PHP and WordPress versions come from .docker/test.env
       - name: Start the containers
