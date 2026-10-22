@@ -32,7 +32,7 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema()))->migrate();
 
         $this->assertSame((new Schema())->defaults(), \get_option(Schema::OPTION, null));
-        $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
+        $this->assertSame(2, \get_option(Schema::VERSION_OPTION));
     }
 
     public function testTheDefaultsAreStoredWithoutTheSanitizer(): void
@@ -63,6 +63,62 @@ final class MigrationTest extends WPTestCase
 
         $this->assertSame($legacy, \get_option(Schema::OPTION));
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
+    }
+
+    /**
+     * Version 2: accepting on scroll and on the second page view is not a valid consent under the GDPR.
+     */
+    public function testTheScrollAndTheSecondViewOfThe2xVersionsAreRemoved(): void
+    {
+        \add_option(Schema::OPTION, [
+            'active' => '1',
+            'scroll' => '1',
+            'secondView' => '1',
+            'text' => 'Policy',
+            'block_script' => ['analytics.js' => 'analytics.js'],
+        ]);
+
+        (new Migration(new Schema()))->migrate();
+
+        $this->assertSame(
+            [
+                'active' => '1',
+                'text' => 'Policy',
+                'block_script' => ['analytics.js' => 'analytics.js'],
+            ],
+            \get_option(Schema::OPTION)
+        );
+        $this->assertSame(2, \get_option(Schema::VERSION_OPTION));
+    }
+
+    public function testTheRemovedValuesAreStoredWithoutTheSanitizer(): void
+    {
+        \add_option(Schema::OPTION, ['scroll' => '1', 'text' => '<script>raw</script>']);
+
+        (new Migration(new Schema()))->migrate();
+
+        $this->assertSame(['text' => '<script>raw</script>'], \get_option(Schema::OPTION));
+    }
+
+    public function testAnOptionAtVersion1RunsOnlyTheVersion2(): void
+    {
+        \update_option(Schema::VERSION_OPTION, 1);
+        \add_option(Schema::OPTION, ['secondView' => '1', 'active' => '1']);
+
+        (new Migration(new Schema()))->migrate();
+
+        $this->assertSame(['active' => '1'], \get_option(Schema::OPTION));
+        $this->assertSame(2, \get_option(Schema::VERSION_OPTION));
+    }
+
+    public function testAMissingOptionAtVersion1IsNotCreated(): void
+    {
+        \update_option(Schema::VERSION_OPTION, 1);
+
+        (new Migration(new Schema()))->migrate();
+
+        $this->assertNull(\get_option(Schema::OPTION, null));
+        $this->assertSame(2, \get_option(Schema::VERSION_OPTION));
     }
 
     public function testNothingRunsWhenTheVersionIsCurrent(): void

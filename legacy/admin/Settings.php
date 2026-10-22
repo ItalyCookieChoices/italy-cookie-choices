@@ -212,28 +212,6 @@ class Settings {
 			);
 
 		/**
-		 * Checkbox for scroll event
-		 */
-		add_settings_field( 
-			'scroll', 
-			__( 'Mouse scroll event', 'italy-cookie-choices' ), 
-			[ $this, 'italy_cl_option_scroll'], 
-			'italy_cl_options_group', 
-			'setting_section'
-			);
-
-		/**
-		 * Checkbox for open in new page
-		 */
-		add_settings_field( 
-			'secondView', 
-			__( 'Accept on second view', 'italy-cookie-choices' ), 
-			[ $this, 'italy_cl_option_secondView'], 
-			'italy_cl_options_group', 
-			'setting_section'
-			);
-
-		/**
 		 * Checkbox for reload page
 		 */
 		add_settings_field( 
@@ -419,6 +397,28 @@ class Settings {
 			);
 
 		/**
+		 * Checkbox for nofollow policy link
+		 */
+		add_settings_field( 
+			'nofollow', 
+			__( 'Nofollow policy link', 'italy-cookie-choices' ), 
+			[ $this, 'italy_cl_option_nofollow'], 
+			'italy_cl_options_group', 
+			'advanced_setting_section'
+			);
+
+		/**
+		 * Pages where the banner is not shown
+		 */
+		add_settings_field( 
+			'excluded_pages', 
+			__( 'Pages without banner', 'italy-cookie-choices' ), 
+			[ $this, 'italy_cl_option_excluded_pages'], 
+			'italy_cl_options_group', 
+			'advanced_setting_section'
+			);
+
+		/**
 		 * Checkbox for activation third part cookie eraser
 		 */
 		add_settings_field( 
@@ -543,44 +543,6 @@ class Settings {
 	}
 
 	/**
-	 * Snippet for checkbox
-	 * @return strimg       Activate banner in front-end Default doesn't display
-	 */
-	public function italy_cl_option_scroll($args) {
-
-		$scroll = $this->options['scroll'] ?? '' ;
-	?>
-
-		<input type='checkbox' name='italy_cookie_choices[scroll]' <?php checked( $scroll, 1 ); ?> value='1' id="italy_cookie_choices[scroll]">
-		<label for="italy_cookie_choices[scroll]">
-			<?php _e( 'Accepts disclosures on mouse scroll event', 'italy-cookie-choices' ); ?>
-		</label>
-
-	<?php
-
-	}
-
-	/**
-	 * Snippet for second view checkbox $secondView
-	 * @return strimg       Activate for accept on second view 
-	 *                      Default do nothing
-	 */
-	public function italy_cl_option_secondView($args) {
-
-		$secondView = $this->options['secondView'] ?? '' ;
-
-	?>
-
-		<input type='checkbox' name='italy_cookie_choices[secondView]' <?php checked( $secondView, 1 ); ?> value='1' id="italy_cookie_choices[secondView]">
-		<label for="italy_cookie_choices[secondView]">
-			<?php _e( 'Activate accept on second view', 'italy-cookie-choices' ); ?>
-		</label>
-
-	<?php
-
-	}
-
-	/**
 	 * Snippet for reload
 	 * @return strimg       Reload page after click
 	 */
@@ -692,7 +654,7 @@ class Settings {
 		<input type="text" id="italy_cookie_choices[slug]" name="italy_cookie_choices[slug]" value="<?php echo esc_attr( $slug ); ?>" placeholder="<?php _e( 'e.g. privacy-e-cookie', 'italy-cookie-choices' ); ?>" size="70" class="slug_autocomplete"/>
 		<br>
 		<label for="italy_cookie_choices[slug]">
-			<?php _e( 'Insert your cookie policy page slug (e.g. for the page http://www.miodominio.it/privacy-e-cookie/ the slug is <strong>privacy-e-cookie</strong>).<br>In this way it will display only the topbar in your cookie policy page, the scroll and the second view will be deactivated in that page too.', 'italy-cookie-choices' ); ?>
+			<?php _e( 'Insert your cookie policy page slug (e.g. for the page http://www.miodominio.it/privacy-e-cookie/ the slug is <strong>privacy-e-cookie</strong>).<br>In this way it will display only the topbar in your cookie policy page.', 'italy-cookie-choices' ); ?>
 			<br>
 			<?php echo __( 'Start typing first two letters of the name of the policy page and then select it from the menu below the input', 'italy-cookie-choices' ); ?>
 		</label>
@@ -972,6 +934,47 @@ class Settings {
 		<input type='checkbox' name='italy_cookie_choices[target]' <?php checked( $target, 1 ); ?> value='1' id="italy_cookie_choices[target]">
 		<label for="italy_cookie_choices[target]">
 			<?php _e( 'Open your cookie policy page in new one', 'italy-cookie-choices' ); ?>
+		</label>
+
+	<?php
+
+	}
+
+	/**
+	 * Snippet for nofollow checkbox, adds rel="nofollow" to the cookie policy link
+	 * @param mixed $args
+	 * @return void
+	 */
+	public function italy_cl_option_nofollow($args) {
+
+		$nofollow = $this->options['nofollow'] ?? '' ;
+
+	?>
+
+		<input type='checkbox' name='italy_cookie_choices[nofollow]' <?php checked( $nofollow, 1 ); ?> value='1' id="italy_cookie_choices[nofollow]">
+		<label for="italy_cookie_choices[nofollow]">
+			<?php _e( 'Add rel="nofollow" to the cookie policy link', 'italy-cookie-choices' ); ?>
+		</label>
+
+	<?php
+
+	}
+
+	/**
+	 * Input for the pages without banner
+	 * @param mixed $args
+	 * @return void
+	 */
+	public function italy_cl_option_excluded_pages($args) {
+
+		$excluded_pages = $this->options['excluded_pages'] ?? '' ;
+		$excluded_pages = is_string( $excluded_pages ) ? $excluded_pages : '' ;
+
+	?>
+		<input type="text" id="italy_cookie_choices[excluded_pages]" name="italy_cookie_choices[excluded_pages]" value="<?php echo esc_attr( $excluded_pages ); ?>" placeholder="<?php _e( 'e.g. 42, contact', 'italy-cookie-choices' ); ?>" size="70" />
+		<br>
+		<label for="italy_cookie_choices[excluded_pages]">
+			<?php _e( 'Comma separated IDs or slugs of the pages where the banner is not shown, the cookie policy page never shows it', 'italy-cookie-choices' ); ?>
 		</label>
 
 	<?php

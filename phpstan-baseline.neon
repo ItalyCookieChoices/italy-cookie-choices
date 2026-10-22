@@ -385,42 +385,6 @@ parameters:
 			path: legacy/admin/Settings.php
 
 		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
-			identifier: class.notFound
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) has parameter \$args with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_scroll\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
-			identifier: class.notFound
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) has parameter \$args with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
-			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_secondView\(\) should return Italy_Cookie_Choices\\Admin\\strimg but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: legacy/admin/Settings.php
-
-		-
 			message: '#^Method Italy_Cookie_Choices\\Admin\\Settings\:\:italy_cl_option_slug\(\) has invalid return type Italy_Cookie_Choices\\Admin\\strimg\.$#'
 			identifier: class.notFound
 			count: 1

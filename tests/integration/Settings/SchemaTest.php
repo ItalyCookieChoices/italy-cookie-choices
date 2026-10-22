@@ -10,16 +10,22 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 final class SchemaTest extends WPTestCase
 {
     /**
-     * Every key the 2.x versions read from the option.
+     * Every key the 2.x versions read from the option, without scroll and secondView removed in version 2,
+     * plus the ones added in version 2.
      */
-    private const LEGACY_KEYS = [
+    private const KEYS = [
         'active', 'all_block', 'allow_embed', 'allow_iframe', 'allow_script', 'anchor_text', 'banner',
         'bannerStyle', 'banner_bg', 'banner_text_color', 'block', 'block_embed', 'block_iframe', 'block_script',
         'button_text', 'closeClass', 'consentText', 'contentStyle', 'content_message_button_text',
         'content_message_text', 'cookie_name', 'cookie_value', 'customCSS', 'custom_script_block',
-        'custom_script_block_body_exclude', 'html_margin', 'infoClass', 'js_template', 'reload', 'scroll',
-        'secondView', 'slug', 'target', 'text', 'url', 'widget_block',
+        'custom_script_block_body_exclude', 'excluded_pages', 'html_margin', 'infoClass', 'js_template',
+        'nofollow', 'reload', 'slug', 'target', 'text', 'url', 'widget_block',
     ];
+
+    public function testTheSchemaIsAtVersion2(): void
+    {
+        $this->assertSame(2, Schema::VERSION);
+    }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
     {
@@ -38,12 +44,12 @@ final class SchemaTest extends WPTestCase
         );
     }
 
-    public function testEveryLegacyKeyIsInTheSchema(): void
+    public function testEveryKeyIsInTheSchema(): void
     {
         $properties = \array_keys((new Schema())->toJsonSchema()['properties']);
         \sort($properties);
 
-        $this->assertSame(self::LEGACY_KEYS, $properties);
+        $this->assertSame(self::KEYS, $properties);
     }
 
     public function testTheDefaultsAreValid(): void
@@ -63,6 +69,8 @@ final class SchemaTest extends WPTestCase
             'cookie_name' => 'name',
             'cookie_value' => 'value',
             'allow_iframe' => ['youtube.com' => 'youtube.com'],
+            'nofollow' => '1',
+            'excluded_pages' => '42, contact',
         ];
 
         $this->assertTrue(\rest_validate_value_from_schema($option, (new Schema())->toJsonSchema()));
@@ -75,6 +83,10 @@ final class SchemaTest extends WPTestCase
     {
         yield 'unknown key' => [['unknown' => '1']];
         yield 'checkbox not 1' => [['active' => 'yes']];
+        yield 'nofollow not 1' => [['nofollow' => 'yes']];
+        yield 'excluded pages not a string' => [['excluded_pages' => [42]]];
+        yield 'scroll removed in version 2' => [['scroll' => '1']];
+        yield 'second view removed in version 2' => [['secondView' => '1']];
         yield 'banner out of range' => [['banner' => '4']];
         yield 'unknown template' => [['js_template' => 'other']];
         yield 'empty cookie name' => [['cookie_name' => '']];

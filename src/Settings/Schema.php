@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Settings;
 
 /**
- * The shape of the plugin option, the same of the 2.x versions.
+ * The shape of the plugin option.
  *
  * A checkbox is on when its key exists with the '1' value, the script lists are keyed by value.
  */
@@ -14,18 +14,17 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 1;
+    public const VERSION = 2;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
 
     private const CHECKBOXES = [
         'active',
-        'scroll',
-        'secondView',
         'reload',
         'html_margin',
         'target',
+        'nofollow',
         'block',
         'widget_block',
         'all_block',
@@ -54,6 +53,7 @@ final readonly class Schema
         'custom_script_block',
         'content_message_text',
         'content_message_button_text',
+        'excluded_pages',
     ];
 
     private const REQUIRED_STRINGS = [
