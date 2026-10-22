@@ -3,13 +3,15 @@
  *
  * window.italyCookieChoices.hasConsent( 'statistics' );
  * document.addEventListener( 'italy-cookie-choices:consent-changed', ( event ) => event.detail.consent );
+ * <button data-icc-accept="marketing">Show the video</button>
  *
  * The consent is read in the browser, so the pages can be cached.
  */
+import { listenToConsentButtons } from './actions';
 import { createConsentApi } from './api';
 import { parseConfig } from './config';
 import { Cookies } from './cookies';
-import { bridgeLegacyBlocking } from './legacy-bridge';
+import { syncLegacyCookie } from './legacy-cookie';
 import { CHANNEL, syncTabs } from './tab-sync';
 import { READY, type ConsentApi } from './types';
 
@@ -36,8 +38,10 @@ if ( window.italyCookieChoices === undefined ) {
 			: null
 	);
 
+	syncLegacyCookie( api, cookies, config );
+	listenToConsentButtons( document, api );
+
 	const ready = (): void => {
-		bridgeLegacyBlocking( api, cookies, config, window );
 		document.dispatchEvent(
 			new CustomEvent( READY, { detail: { consent: api.getConsent() } } )
 		);

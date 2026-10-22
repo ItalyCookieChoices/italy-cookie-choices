@@ -24,8 +24,8 @@
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "build": "wp-scripts build consent=./assets/src/consent/index.ts banner=./assets/src/banner/index.ts --output-path=assets/build",
-    "start": "wp-scripts start consent=./assets/src/consent/index.ts banner=./assets/src/banner/index.ts --output-path=assets/build",
+    "build": "wp-scripts build consent=./assets/src/consent/index.ts banner=./assets/src/banner/index.ts blocking=./assets/src/blocking/index.ts --output-path=assets/build",
+    "start": "wp-scripts start consent=./assets/src/consent/index.ts banner=./assets/src/banner/index.ts blocking=./assets/src/blocking/index.ts --output-path=assets/build",
     "typecheck": "tsc --noEmit",
     "lint:js": "wp-scripts lint-js assets/src",
     "test:js": "wp-scripts test-unit-js assets/src",
