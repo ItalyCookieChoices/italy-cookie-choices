@@ -7,12 +7,13 @@
  *
  * @see \ItalyCookieChoices\Consent\UI\Banner::data()
  *
- * @var \ItalyStrap\Config\ConfigInterface $this
+ * @var ConfigInterface $this
  */
 
 declare(strict_types=1);
 
 use ItalyStrap\Config\Config;
+use ItalyStrap\Config\ConfigInterface;
 
 $buttonClass = (string) $this->get('classes.button');
 $linkUrl = (string) $this->get('link.url');
