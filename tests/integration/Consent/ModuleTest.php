@@ -1,0 +1,68 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ItalyCookieChoices\Tests\Integration\Consent;
+
+use ItalyCookieChoices\Consent\Domain\ConsentRepository;
+use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
+use ItalyCookieChoices\Consent\Infrastructure\FilteredConsentPolicy;
+use ItalyCookieChoices\Consent\Module;
+use ItalyCookieChoices\Consent\UI\ConsentScript;
+use ItalyCookieChoices\Consent\UI\HasConsentFilter;
+use ItalyCookieChoices\Settings\Options;
+use ItalyStrap\Empress\ContainerBuilder;
+use ItalyStrap\Event\Module as EventModule;
+use ItalyStrap\Event\SubscribersConfigExtension;
+use lucatume\WPBrowser\TestCase\WPTestCase;
+use Psr\Container\ContainerInterface;
+
+final class ModuleTest extends WPTestCase
+{
+    public function testTheSubscribersAreRegistered(): void
+    {
+        $config = (new Module('/plugin/', 'https://example.com/plugin/', []))();
+
+        $this->assertIsArray($config);
+        $this->assertSame(
+            [ConsentScript::class, HasConsentFilter::class],
+            $config[SubscribersConfigExtension::SUBSCRIBERS]
+        );
+    }
+
+    public function testTheContainerReadsTheConsentFromTheRequestCookies(): void
+    {
+        $cookies = [
+            'icc_consent' => '{"categories":["necessary"],"version":"1","date":"2026-10-22T10:00:00.000Z"}',
+        ];
+
+        $repository = $this->container($cookies)->get(ConsentRepository::class);
+
+        $this->assertInstanceOf(CookieConsentRepository::class, $repository);
+        $this->assertSame(['necessary'], $repository->current()?->categories());
+    }
+
+    public function testTheContainerBuildsTheScriptFromTheBuildFolder(): void
+    {
+        $this->assertEquals(
+            new ConsentScript(
+                new FilteredConsentPolicy(),
+                new Options(),
+                '/plugin/assets/build/',
+                'https://example.com/plugin/assets/build/'
+            ),
+            $this->container([])->get(ConsentScript::class)
+        );
+    }
+
+    /**
+     * @param array<string, string> $cookies
+     */
+    private function container(array $cookies): ContainerInterface
+    {
+        return (new ContainerBuilder())
+            ->addModule(new EventModule())
+            ->addModule(new Module('/plugin/', 'https://example.com/plugin/', $cookies))
+            ->build();
+    }
+}

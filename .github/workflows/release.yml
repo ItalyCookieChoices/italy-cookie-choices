@@ -9,6 +9,10 @@ on:
       - '**workflows/release.yml'
       - 'bin/**'
       - 'src/**'
+      - 'assets/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'tsconfig.json'
       - 'legacy/**'
       - 'italy-cookie-choices.php'
       - 'bootstrap.php'
@@ -60,6 +64,15 @@ jobs:
 
       # The dev dependencies provide the WordPress symbols to exclude from the prefix
       - uses: ramsey/composer-install@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Build the assets
+        run: make assets
 
       - name: Build
         run: bin/build-release

@@ -91,8 +91,19 @@ stan: ## Run PHPStan
 readme: ## Build readme.txt from README.md
 	bin/build-readme
 
+.PHONY: assets
+assets: ## Build the TypeScript in assets/build, Node runs on the host
+	npm ci --no-audit --no-fund
+	npm run build
+
+.PHONY: js-check
+js-check: ## Lint, type check and unit test the TypeScript
+	npm run lint:js
+	npm run typecheck
+	npm run test:js
+
 .PHONY: release-build
-release-build: ## Build the prefixed plugin package in build/, PHP-Scoper runs in a PHP 8 container
+release-build: assets ## Build the prefixed plugin package in build/, PHP-Scoper runs in a PHP 8 container
 	docker run --rm -v $(CURDIR):/app -w /app composer:2.8 sh -c '\
 		apk add --no-cache bash rsync zip >/dev/null && \
 		curl -fsSL -o /usr/local/bin/php-scoper https://github.com/humbug/php-scoper/releases/download/0.18.20/php-scoper.phar && \
