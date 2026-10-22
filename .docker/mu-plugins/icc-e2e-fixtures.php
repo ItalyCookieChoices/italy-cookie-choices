@@ -45,3 +45,36 @@ add_action(
         $event->changeVersion(new \ItalyCookieChoices\Consent\Domain\PolicyVersion($e2eVersion));
     }
 );
+
+// A vendor served by the site, its script runs only after the consent to the statistics.
+add_action(
+    \ItalyCookieChoices\Blocking\Application\BuildingVendors::class,
+    static function (\ItalyCookieChoices\Blocking\Application\BuildingVendors $event): void {
+        if (!get_option('icc_e2e_enqueued')) {
+            return;
+        }
+
+        $event->addVendor(new \ItalyCookieChoices\Blocking\Domain\Vendor('icc-e2e', 'statistics', ['icc-e2e/tracker.js']));
+    }
+);
+
+add_action('wp_enqueue_scripts', static function (): void {
+    if (!get_option('icc_e2e_enqueued')) {
+        return;
+    }
+
+    $url = content_url('mu-plugins/icc-e2e/');
+    wp_enqueue_script('icc-e2e-tracker', $url . 'tracker.js', [], null);
+    wp_add_inline_script('icc-e2e-tracker', 'window.iccTrackerQueue = ["inline"];', 'before');
+    wp_enqueue_script('icc-e2e-tagged', $url . 'tagged.js', [], null);
+    wp_script_add_data('icc-e2e-tagged', 'consent_category', 'preferences');
+});
+
+// The YouTube oEmbed without asking YouTube.
+add_filter('pre_oembed_result', static function (mixed $result, string $url): mixed {
+    if (!str_contains($url, 'icc-oembed')) {
+        return $result;
+    }
+
+    return '<iframe width="560" height="315" src="https://www.youtube.com/embed/icc-oembed"></iframe>';
+}, 10, 2);

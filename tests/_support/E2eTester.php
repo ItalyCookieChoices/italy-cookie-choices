@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+
 /**
  * Inherited Methods
  * @method void wantToTest($text)
@@ -54,6 +56,27 @@ class E2eTester extends \Codeception\Actor
         $this->executeJS('window.iccBeforeSubmit = true;');
         $this->click($button);
         $this->waitForJS('return window.iccBeforeSubmit === undefined && document.readyState === "complete";', 15);
+    }
+
+    /**
+     * Runs axe-core on the element and returns the ids of the violated rules.
+     *
+     * @return mixed
+     */
+    public function grabAccessibilityViolations(string $selector): mixed
+    {
+        $root = \codecept_root_dir();
+        $this->assertIsString($root);
+        $axe = \file_get_contents($root . 'node_modules/axe-core/axe.min.js');
+        $this->assertIsString($axe);
+        $this->executeJS($axe);
+
+        return $this->executeInSelenium(static fn(RemoteWebDriver $driver): mixed => $driver->executeAsyncScript(
+            'const done = arguments[arguments.length - 1];'
+            . 'axe.run(arguments[0], {runOnly: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"]})'
+            . '.then((results) => done(results.violations.map((violation) => violation.id)));',
+            [$selector]
+        ));
     }
 
     /**
