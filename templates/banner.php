@@ -29,6 +29,7 @@ $linkRel = (string) $this->get(['link', 'rel']);
     tabindex="-1"
     data-reload="<?php echo (bool) $this->get('reload') ? '1' : '0'; ?>"
     data-html-margin="<?php echo (bool) $this->get('htmlMargin') ? '1' : '0'; ?>"
+    data-opens-by-itself="<?php echo (bool) $this->get('opensByItself') ? '1' : '0'; ?>"
     hidden
 >
     <div class="<?php echo \esc_attr((string) $this->get(['classes', 'content'])); ?>">

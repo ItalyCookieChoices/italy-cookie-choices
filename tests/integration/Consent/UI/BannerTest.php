@@ -135,16 +135,20 @@ final class BannerTest extends WPTestCase
         $this->assertSame('', $this->render($this->makeSut()));
     }
 
-    public function testNothingIsPrintedOnThePolicyPage(): void
+    /**
+     * Changed in #237: the preferences can be opened on the policy page, to change or withdraw the consent.
+     */
+    public function testTheBannerDoesNotOpenByItselfOnThePolicyPage(): void
     {
         $id = $this->createPage('cookie-policy');
         $this->saveOptions(['slug' => 'cookie-policy']);
         $this->go_to(\get_permalink($id));
 
-        $this->assertSame('', $this->render($this->makeSut()));
+        $this->assertFalse($this->makeSut()->data()['opensByItself']);
+        $this->assertStringContainsString('data-opens-by-itself="0"', $this->render($this->makeSut()));
     }
 
-    public function testNothingIsPrintedOnTheExcludedPagesByIdOrSlug(): void
+    public function testTheBannerDoesNotOpenByItselfOnTheExcludedPagesByIdOrSlug(): void
     {
         $byId = $this->createPage('contact');
         $bySlug = $this->createPage('about');
@@ -152,13 +156,14 @@ final class BannerTest extends WPTestCase
         $this->saveOptions(['excluded_pages' => $byId . ', about,,']);
 
         $this->go_to(\get_permalink($byId));
-        $this->assertSame('', $this->render($this->makeSut()));
+        $this->assertFalse($this->makeSut()->data()['opensByItself']);
 
         $this->go_to(\get_permalink($bySlug));
-        $this->assertSame('', $this->render($this->makeSut()));
+        $this->assertFalse($this->makeSut()->data()['opensByItself']);
 
         $this->go_to(\get_permalink($other));
-        $this->assertStringContainsString('id="icc-banner"', $this->render($this->makeSut()));
+        $this->assertTrue($this->makeSut()->data()['opensByItself']);
+        $this->assertStringContainsString('data-opens-by-itself="1"', $this->render($this->makeSut()));
     }
 
     public function testTheViewHasTheDefaults(): void
