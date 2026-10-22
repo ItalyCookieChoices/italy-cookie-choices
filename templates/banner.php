@@ -3,7 +3,7 @@
 /**
  * The consent banner and the preferences dialog, hidden until the script finds no consent.
  *
- * Rendered by italystrap/view, $this is the Config with the data, nested keys use the dot notation.
+ * Rendered by italystrap/view, $this is the Config with the data, nested keys use an array of segments.
  *
  * @see \ItalyCookieChoices\Consent\UI\Banner::data()
  *
@@ -15,13 +15,13 @@ declare(strict_types=1);
 use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
 
-$buttonClass = (string) $this->get('classes.button');
-$linkUrl = (string) $this->get('link.url');
-$linkRel = (string) $this->get('link.rel');
+$buttonClass = (string) $this->get(['classes', 'button']);
+$linkUrl = (string) $this->get(['link', 'url']);
+$linkRel = (string) $this->get(['link', 'rel']);
 ?>
 <div
     id="icc-banner"
-    class="<?php echo \esc_attr((string) $this->get('classes.banner')); ?>"
+    class="<?php echo \esc_attr((string) $this->get(['classes', 'banner'])); ?>"
     role="dialog"
     aria-modal="<?php echo (bool) $this->get('modal') ? 'true' : 'false'; ?>"
     aria-labelledby="icc-banner-title"
@@ -31,27 +31,27 @@ $linkRel = (string) $this->get('link.rel');
     data-html-margin="<?php echo (bool) $this->get('htmlMargin') ? '1' : '0'; ?>"
     hidden
 >
-    <div class="<?php echo \esc_attr((string) $this->get('classes.content')); ?>">
+    <div class="<?php echo \esc_attr((string) $this->get(['classes', 'content'])); ?>">
         <h2 id="icc-banner-title" class="icc-banner__title">
-            <?php echo \esc_html((string) $this->get('texts.title')); ?>
+            <?php echo \esc_html((string) $this->get(['texts', 'title'])); ?>
         </h2>
-        <div id="icc-banner-text" class="<?php echo \esc_attr((string) $this->get('classes.text')); ?>">
+        <div id="icc-banner-text" class="<?php echo \esc_attr((string) $this->get(['classes', 'text'])); ?>">
             <?php echo (string) $this->get('text'); // Sanitized with wp_kses_post(). ?>
             <?php if ($linkUrl !== '') : ?>
                 <a
                     href="<?php echo \esc_url($linkUrl); ?>"
-                    class="icc-banner__link <?php echo \esc_attr((string) $this->get('classes.link')); ?>"
-                    <?php echo (bool) $this->get('link.newTab') ? 'target="_blank"' : ''; ?>
+                    class="icc-banner__link <?php echo \esc_attr((string) $this->get(['classes', 'link'])); ?>"
+                    <?php echo (bool) $this->get(['link', 'newTab']) ? 'target="_blank"' : ''; ?>
                     <?php echo $linkRel !== '' ? 'rel="' . \esc_attr($linkRel) . '"' : ''; ?>
-                ><?php echo \esc_html((string) $this->get('link.text')); ?></a>
+                ><?php echo \esc_html((string) $this->get(['link', 'text'])); ?></a>
             <?php endif; ?>
         </div>
         <div class="icc-banner__actions">
             <button type="button" class="<?php echo \esc_attr($buttonClass); ?>" data-icc-action="accept-all">
-                <?php echo \esc_html((string) $this->get('texts.acceptAll')); ?>
+                <?php echo \esc_html((string) $this->get(['texts', 'acceptAll'])); ?>
             </button>
             <button type="button" class="<?php echo \esc_attr($buttonClass); ?>" data-icc-action="reject-all">
-                <?php echo \esc_html((string) $this->get('texts.rejectAll')); ?>
+                <?php echo \esc_html((string) $this->get(['texts', 'rejectAll'])); ?>
             </button>
             <button
                 type="button"
@@ -59,13 +59,13 @@ $linkRel = (string) $this->get('link.rel');
                 data-icc-action="preferences"
                 aria-controls="icc-preferences"
                 aria-expanded="false"
-            ><?php echo \esc_html((string) $this->get('texts.preferences')); ?></button>
+            ><?php echo \esc_html((string) $this->get(['texts', 'preferences'])); ?></button>
         </div>
         <button
             type="button"
             class="icc-banner__close"
             data-icc-action="close"
-            aria-label="<?php echo \esc_attr((string) $this->get('texts.close')); ?>"
+            aria-label="<?php echo \esc_attr((string) $this->get(['texts', 'close'])); ?>"
         ><span aria-hidden="true">&times;</span></button>
     </div>
 </div>
@@ -80,12 +80,12 @@ $linkRel = (string) $this->get('link.rel');
 >
     <div class="icc-preferences__panel">
         <h2 id="icc-preferences-title" class="icc-preferences__title">
-            <?php echo \esc_html((string) $this->get('texts.preferencesTitle')); ?>
+            <?php echo \esc_html((string) $this->get(['texts', 'preferencesTitle'])); ?>
         </h2>
         <form class="icc-preferences__form">
             <fieldset class="icc-preferences__categories">
                 <legend class="icc-visually-hidden">
-                    <?php echo \esc_html((string) $this->get('texts.preferencesTitle')); ?>
+                    <?php echo \esc_html((string) $this->get(['texts', 'preferencesTitle'])); ?>
                 </legend>
                 <?php foreach ((array) $this->get('categories') as $categoryData) : ?>
                     <?php
@@ -117,13 +117,13 @@ $linkRel = (string) $this->get('link.rel');
             </fieldset>
             <div class="icc-preferences__actions">
                 <button type="submit" class="<?php echo \esc_attr($buttonClass); ?>">
-                    <?php echo \esc_html((string) $this->get('texts.save')); ?>
+                    <?php echo \esc_html((string) $this->get(['texts', 'save'])); ?>
                 </button>
                 <button type="button" class="<?php echo \esc_attr($buttonClass); ?>" data-icc-action="accept-all">
-                    <?php echo \esc_html((string) $this->get('texts.acceptAll')); ?>
+                    <?php echo \esc_html((string) $this->get(['texts', 'acceptAll'])); ?>
                 </button>
                 <button type="button" class="<?php echo \esc_attr($buttonClass); ?>" data-icc-action="reject-all">
-                    <?php echo \esc_html((string) $this->get('texts.rejectAll')); ?>
+                    <?php echo \esc_html((string) $this->get(['texts', 'rejectAll'])); ?>
                 </button>
             </div>
         </form>
@@ -131,7 +131,7 @@ $linkRel = (string) $this->get('link.rel');
             type="button"
             class="icc-banner__close"
             data-icc-action="close-preferences"
-            aria-label="<?php echo \esc_attr((string) $this->get('texts.closePreferences')); ?>"
+            aria-label="<?php echo \esc_attr((string) $this->get(['texts', 'closePreferences'])); ?>"
         ><span aria-hidden="true">&times;</span></button>
     </div>
 </div>
