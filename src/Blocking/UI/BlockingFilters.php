@@ -49,7 +49,7 @@ final readonly class BlockingFilters implements SubscriberInterface
         yield 'script_loader_tag' => [
             self::CALLBACK => 'blockScript',
             self::PRIORITY => self::LATE_PRIORITY,
-            self::ACCEPTED_ARGS => 2,
+            self::ACCEPTED_ARGS => 3,
         ];
     }
 
@@ -65,14 +65,18 @@ final readonly class BlockingFilters implements SubscriberInterface
     /**
      * The tag has the inline scripts added before and after the script, they wait for the same consent.
      */
-    public function blockScript(mixed $tag, mixed $handle = ''): mixed
+    public function blockScript(mixed $tag, mixed $handle = '', mixed $source = ''): mixed
     {
         if (!\is_string($tag) || !\is_string($handle) || !$this->request->isBlockable()) {
             return $tag;
         }
 
+        $vendors = $this->vendors->create();
         $category = \wp_scripts()->get_data($handle, self::SCRIPT_CATEGORY);
+        if (!\is_string($category) || $category === '') {
+            $category = \is_string($source) ? $vendors->loading($source)?->category() ?? '' : '';
+        }
 
-        return $this->blocker->block($tag, $this->vendors->create(), \is_string($category) ? $category : '');
+        return $this->blocker->block($tag, $vendors, $category);
     }
 }

@@ -50,7 +50,7 @@ final class BlockingFiltersTest extends WPTestCase
                 'script_loader_tag' => [
                     SubscriberInterface::CALLBACK => 'blockScript',
                     SubscriberInterface::PRIORITY => 999,
-                    SubscriberInterface::ACCEPTED_ARGS => 2,
+                    SubscriberInterface::ACCEPTED_ARGS => 3,
                 ],
             ],
             \iterator_to_array($this->makeSut()->getSubscribedEvents())
@@ -98,6 +98,18 @@ final class BlockingFiltersTest extends WPTestCase
         $this->assertStringContainsString('<script id="site-js" src="https://example.com/site.js"></script>', $output);
     }
 
+    public function testTheInlineScriptsOfAVendorWaitForItsCategory(): void
+    {
+        \wp_enqueue_script('analytics', 'https://www.googletagmanager.com/gtag/js?id=G-1', [], null);
+        \wp_add_inline_script('analytics', 'gtag("config", "G-1");');
+
+        $this->assertMatchesRegularExpression(
+            '#<script data-category="statistics" type="text/plain" id="analytics-js-after">'
+            . '\s*gtag\("config", "G-1"\);#',
+            $this->printScripts()
+        );
+    }
+
     public function testItBlocksAScriptAndItsInlineScriptsByItsCategory(): void
     {
         \wp_enqueue_script('tracker', 'https://example.com/tracker.js', [], null);
@@ -121,12 +133,13 @@ final class BlockingFiltersTest extends WPTestCase
     {
         $this->assertNull($this->makeSut()->blockScript(null, 'handle'));
         $this->assertSame('<script></script>', $this->makeSut()->blockScript('<script></script>', null));
+        $this->assertSame('<script></script>', $this->makeSut()->blockScript('<script></script>', 'handle', null));
     }
 
     private function printScripts(): string
     {
         $sut = $this->makeSut();
-        \add_filter('script_loader_tag', [$sut, 'blockScript'], 999, 2);
+        \add_filter('script_loader_tag', [$sut, 'blockScript'], 999, 3);
 
         \ob_start();
         \wp_print_scripts();
