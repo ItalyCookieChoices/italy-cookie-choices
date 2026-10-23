@@ -27,7 +27,8 @@ final class ConsentLogExportTest extends WPTestCase
         $url = $this->makeSut()->url();
 
         $this->assertStringContainsString('admin-post.php?action=italy_cookie_choices_export_consent_log', $url);
-        \parse_str((string) \wp_parse_url(\html_entity_decode($url), \PHP_URL_QUERY), $query);
+        $this->assertStringNotContainsString('&amp;', $url);
+        \parse_str((string) \wp_parse_url($url, \PHP_URL_QUERY), $query);
         $nonce = $query['_wpnonce'] ?? '';
         $this->assertIsString($nonce);
         $this->assertSame(1, \wp_verify_nonce($nonce, ConsentLogExport::ACTION));

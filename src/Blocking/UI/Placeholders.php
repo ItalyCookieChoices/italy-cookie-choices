@@ -84,8 +84,8 @@ final readonly class Placeholders implements SubscriberInterface
     public function data(): array
     {
         $texts = $this->texts->all();
-        $message = \wp_kses_post($this->options->translated('Content message text', 'content_message_text'));
-        $button = $this->options->translated('Content message button text', 'content_message_button_text');
+        $message = \wp_kses_post($this->options->translated('content_message_text'));
+        $button = $this->options->translated('content_message_button_text');
 
         $categories = [];
         foreach ($texts['categories'] as $category) {

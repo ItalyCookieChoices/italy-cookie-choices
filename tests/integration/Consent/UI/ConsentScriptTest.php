@@ -8,16 +8,18 @@ use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\PolicyVersion;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
-use ItalyStrap\Event\SubscriberInterface;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
+use ItalyStrap\Event\SubscriberInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConsentScriptTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
 
     public function setUp(): void
@@ -143,7 +145,7 @@ final class ConsentScriptTest extends WPTestCase
 
         return new ConsentScript(
             new ConsentPolicyFactory($this->dispatcher()),
-            new Options(),
+            $this->options(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );

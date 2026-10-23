@@ -9,6 +9,7 @@ const entries = {
 	banner: './assets/src/banner/index.ts',
 	blocking: './assets/src/blocking/index.ts',
 	'consent-log': './assets/src/consent-log/index.ts',
+	admin: './assets/src/admin/index.tsx',
 };
 
 module.exports = {

@@ -7,7 +7,7 @@ namespace ItalyCookieChoices\Legacy;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
- * Loads the legacy front end and admin code, until each feature moves to src.
+ * Loads the legacy front end code, until each feature moves to src.
  */
 final readonly class LegacyLoader implements SubscriberInterface
 {
@@ -30,6 +30,5 @@ final readonly class LegacyLoader implements SubscriberInterface
     public function load(): void
     {
         require $this->legacyPath . 'init.php';
-        require $this->legacyPath . 'init-admin.php';
     }
 }

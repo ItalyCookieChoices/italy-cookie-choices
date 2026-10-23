@@ -6,12 +6,14 @@ namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
 use ItalyCookieChoices\Consent\UI\PreferencesButton;
 use ItalyCookieChoices\Consent\UI\PreferencesButtonBlock;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class PreferencesButtonBlockTest extends WPTestCase
 {
+    use BuildsOptions;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -117,7 +119,7 @@ final class PreferencesButtonBlockTest extends WPTestCase
 
         return new PreferencesButtonBlock(
             new PreferencesButton(),
-            new Options(),
+            $this->options(),
             $buildPath === '' ? $fixtures : $buildPath
         );
     }

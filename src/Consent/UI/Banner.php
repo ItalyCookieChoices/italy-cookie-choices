@@ -79,8 +79,29 @@ final readonly class Banner implements SubscriberInterface
             return;
         }
 
-        echo $this->view->render(self::TEMPLATE, new Config($this->data())); // phpcs:ignore -- Escaped in the template.
+        echo $this->html(); // phpcs:ignore -- Escaped in the template.
         \wp_print_scripts([self::HANDLE]);
+    }
+
+    /**
+     * The markup of the banner and the preferences dialog, both hidden.
+     */
+    public function html(): string
+    {
+        return $this->view->render(self::TEMPLATE, new Config($this->data()));
+    }
+
+    /**
+     * The URL of the plugin styles, null for the custom template that has only the custom CSS.
+     */
+    public function stylesheet(): ?string
+    {
+        $asset = $this->asset();
+        if ($asset === null || $this->options->text('js_template') === self::CUSTOM_TEMPLATE) {
+            return null;
+        }
+
+        return \add_query_arg('ver', $asset['version'], $this->buildUrl . self::STYLE);
     }
 
     /**
@@ -110,7 +131,7 @@ final readonly class Banner implements SubscriberInterface
             'opensByItself' => $this->opensByItself(),
             'reload' => $this->options->isChecked('reload'),
             'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
-            'text' => \wp_kses_post($this->options->translated('Banner text', 'text')),
+            'text' => \wp_kses_post($this->options->translated('text')),
             'link' => $this->link(),
             ...$this->texts->all(),
         ];
@@ -156,7 +177,7 @@ final readonly class Banner implements SubscriberInterface
      */
     private function link(): ?array
     {
-        $url = $this->options->translated('Banner url', 'url');
+        $url = $this->options->translated('url');
         if ($url === '') {
             return null;
         }
@@ -169,13 +190,16 @@ final readonly class Banner implements SubscriberInterface
 
         return [
             'url' => $url,
-            'text' => $this->options->translated('Banner anchor text', 'anchor_text', $url),
+            'text' => $this->options->translated('anchor_text', $url),
             'newTab' => $newTab,
             'rel' => \implode(' ', $rel),
         ];
     }
 
-    private function inlineStyle(): string
+    /**
+     * The colors of the banner and the custom CSS.
+     */
+    public function inlineStyle(): string
     {
         $background = \sanitize_hex_color($this->options->text('banner_bg')) ?? '#ffffff';
         $color = \sanitize_hex_color($this->options->text('banner_text_color')) ?? '#000000';

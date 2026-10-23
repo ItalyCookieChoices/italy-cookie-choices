@@ -15,7 +15,7 @@ use ItalyStrap\Event\SubscribersConfigExtension;
 require __DIR__ . '/legacy/bootstrap.php';
 
 // A closure keeps the variables out of the global scope
-(static function (string $pluginPath, string $pluginUrl): void {
+(static function (string $pluginPath, string $pluginUrl, string $basename): void {
     (new ContainerBuilder())
         ->addModule(new EventModule())
         ->addModule(new Module(
@@ -23,9 +23,10 @@ require __DIR__ . '/legacy/bootstrap.php';
             \dirname(ITALY_COOKIE_CHOICES_BASENAME) . '/lang',
             $pluginPath . 'templates/'
         ))
+        ->addModule(new Settings\Module($pluginPath, $pluginUrl, $basename))
         ->addModule(new Consent\Module($pluginPath, $pluginUrl, $_COOKIE))
         ->addModule(new Blocking\Module($pluginPath, $pluginUrl))
         ->addModule(new ConsentLog\Module($pluginPath, $pluginUrl))
         ->extend(SubscribersConfigExtension::class)
         ->build();
-})(\plugin_dir_path(__FILE__), \plugin_dir_url(__FILE__));
+})(\plugin_dir_path(__FILE__), \plugin_dir_url(__FILE__), \plugin_basename(__DIR__ . '/italy-cookie-choices.php'));

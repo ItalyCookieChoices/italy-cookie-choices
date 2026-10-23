@@ -6,12 +6,14 @@ namespace ItalyCookieChoices\Tests\Integration\ConsentLog\UI;
 
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\UI\PrivacyPolicyText;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class PrivacyPolicyTextTest extends WPTestCase
 {
+    use BuildsOptions;
+
     public function testItAddsTheTextInTheAdmin(): void
     {
         $this->assertSame(['admin_init' => 'add'], \iterator_to_array($this->makeSut()->getSubscribedEvents()));
@@ -53,6 +55,6 @@ final class PrivacyPolicyTextTest extends WPTestCase
 
     private function makeSut(): PrivacyPolicyText
     {
-        return new PrivacyPolicyText(new LogSettings(new Options()));
+        return new PrivacyPolicyText(new LogSettings($this->options()));
     }
 }

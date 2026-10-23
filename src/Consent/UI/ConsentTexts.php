@@ -29,7 +29,7 @@ final readonly class ConsentTexts
      */
     public function all(): array
     {
-        $event = new BuildingBanner($this->defaultTexts(), $this->defaultCategoryLabels());
+        $event = new BuildingBanner($this->defaultTexts(), $this->savedCategoryLabels());
         $this->dispatcher->dispatch($event);
 
         $categories = [];
@@ -45,6 +45,26 @@ final readonly class ConsentTexts
     }
 
     /**
+     * The categories with their default label and description, before the saved texts and the listeners.
+     *
+     * @return list<array{id: string, required: bool, label: string, description: string}>
+     */
+    public function defaultCategories(): array
+    {
+        $labels = $this->defaultCategoryLabels();
+        $categories = [];
+        foreach ($this->policy->create()->categories() as $category) {
+            $categories[] = [
+                'id' => $category->id(),
+                'required' => $category->isRequired(),
+                ...($labels[$category->id()] ?? ['label' => $category->id(), 'description' => '']),
+            ];
+        }
+
+        return $categories;
+    }
+
+    /**
      * @return array<string, string>
      */
     private function defaultTexts(): array
@@ -52,7 +72,6 @@ final readonly class ConsentTexts
         return [
             BuildingBanner::TITLE => \__('Cookie consent', 'italy-cookie-choices'),
             BuildingBanner::ACCEPT_ALL => $this->options->translated(
-                'Banner button text',
                 'button_text',
                 \__('Accept all', 'italy-cookie-choices')
             ),
@@ -63,6 +82,25 @@ final readonly class ConsentTexts
             BuildingBanner::SAVE => \__('Save preferences', 'italy-cookie-choices'),
             BuildingBanner::CLOSE_PREFERENCES => \__('Close the preferences', 'italy-cookie-choices'),
         ];
+    }
+
+    /**
+     * The default labels replaced by the saved texts.
+     *
+     * @return array<string, array{label: string, description: string}>
+     */
+    private function savedCategoryLabels(): array
+    {
+        $labels = $this->defaultCategoryLabels();
+        foreach (\array_keys($this->options->categoryTexts()) as $id) {
+            $default = $labels[$id] ?? ['label' => $id, 'description' => ''];
+            $labels[$id] = [
+                'label' => $this->options->translatedCategoryText($id, 'label', $default['label']),
+                'description' => $this->options->translatedCategoryText($id, 'description', $default['description']),
+            ];
+        }
+
+        return $labels;
     }
 
     /**

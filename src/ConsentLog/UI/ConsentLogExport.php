@@ -29,9 +29,16 @@ final readonly class ConsentLogExport implements SubscriberInterface
         yield 'admin_post_' . self::ACTION => 'export';
     }
 
+    /**
+     * The link with the nonce, not escaped: wp_nonce_url() escapes the ampersands for the HTML.
+     */
     public function url(): string
     {
-        return \wp_nonce_url(\admin_url('admin-post.php?action=' . self::ACTION), self::ACTION);
+        return \add_query_arg(
+            '_wpnonce',
+            \wp_create_nonce(self::ACTION),
+            \admin_url('admin-post.php?action=' . self::ACTION)
+        );
     }
 
     public function export(): void

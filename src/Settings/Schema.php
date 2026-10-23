@@ -7,14 +7,16 @@ namespace ItalyCookieChoices\Settings;
 /**
  * The shape of the plugin option.
  *
- * A checkbox is on when its key exists with the '1' value, the script lists are keyed by value.
+ * A checkbox is on when its key exists with the '1' value.
+ * The categories hold the texts that replace the default ones, keyed by category id.
+ * The vendors are the presets turned off, the custom vendors and the texts never blocked.
  */
 final readonly class Schema
 {
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 4;
+    public const VERSION = 5;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -64,14 +66,7 @@ final readonly class Schema
         'cookie_value',
     ];
 
-    private const SCRIPT_LISTS = [
-        'allow_iframe',
-        'allow_script',
-        'allow_embed',
-        'block_iframe',
-        'block_script',
-        'block_embed',
-    ];
+    private const ID_PATTERN = '^[a-z0-9_-]+$';
 
     /**
      * The values stored on a new installation.
@@ -118,14 +113,52 @@ final readonly class Schema
             $properties[$name] = ['type' => 'string', 'minLength' => 1];
         }
 
-        foreach (self::SCRIPT_LISTS as $name) {
-            $properties[$name] = ['type' => 'object', 'additionalProperties' => ['type' => 'string']];
-        }
-
         return [
             'type' => 'object',
-            'properties' => $properties,
+            'properties' => [...$properties, ...$this->vendorProperties()],
             'additionalProperties' => false,
+        ];
+    }
+
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    private function vendorProperties(): array
+    {
+        $texts = ['type' => 'array', 'items' => ['type' => 'string']];
+        $id = ['type' => 'string', 'pattern' => self::ID_PATTERN];
+
+        return [
+            'categories' => [
+                'type' => 'object',
+                'patternProperties' => [
+                    self::ID_PATTERN => [
+                        'type' => 'object',
+                        'properties' => [
+                            'label' => ['type' => 'string'],
+                            'description' => ['type' => 'string'],
+                        ],
+                        'additionalProperties' => false,
+                    ],
+                ],
+                'additionalProperties' => false,
+            ],
+            'disabled_vendors' => ['type' => 'array', 'items' => $id],
+            'custom_vendors' => [
+                'type' => 'array',
+                'items' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'id' => $id,
+                        'name' => ['type' => 'string'],
+                        'category' => $id,
+                        'patterns' => $texts,
+                    ],
+                    'required' => ['id', 'name', 'category', 'patterns'],
+                    'additionalProperties' => false,
+                ],
+            ],
+            'allowed_patterns' => $texts,
         ];
     }
 }

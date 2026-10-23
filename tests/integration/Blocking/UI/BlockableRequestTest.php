@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration\Blocking\UI;
 
 use ItalyCookieChoices\Blocking\UI\BlockableRequest;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BlockableRequestTest extends WPTestCase
 {
+    use BuildsOptions;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -62,6 +64,6 @@ final class BlockableRequestTest extends WPTestCase
 
     private function makeSut(): BlockableRequest
     {
-        return new BlockableRequest(new Options());
+        return new BlockableRequest($this->options());
     }
 }

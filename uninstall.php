@@ -55,13 +55,25 @@ if ( is_multisite() ) {
 }
 
 /**
- * Require multilingual functions
+ * The strings registered in WPML, Polylang lists only the strings registered on the current request.
  */
-require( plugin_dir_path( __FILE__ ) . 'legacy/includes/functions-italy-cookie-choices-lang.php' );
-deregister_string( 'Italy Cookie Choices', 'Banner text' );
-deregister_string( 'Italy Cookie Choices', 'Banner url' );
-deregister_string( 'Italy Cookie Choices', 'Banner slug' );
-deregister_string( 'Italy Cookie Choices', 'Banner anchor text' );
-deregister_string( 'Italy Cookie Choices', 'Banner button text' );
-deregister_string( 'Italy Cookie Choices', 'Content message text' );
-deregister_string( 'Italy Cookie Choices', 'Content message button text' );
+if ( function_exists( 'icl_unregister_string' ) ) {
+	$icc_strings = [
+		'Banner text',
+		'Banner url',
+		'Banner slug',
+		'Banner anchor text',
+		'Banner button text',
+		'Content message text',
+		'Content message button text',
+	];
+
+	foreach ( [ 'necessary', 'preferences', 'statistics', 'marketing' ] as $icc_category ) {
+		$icc_strings[] = "Category {$icc_category} label";
+		$icc_strings[] = "Category {$icc_category} description";
+	}
+
+	foreach ( $icc_strings as $icc_string ) {
+		icl_unregister_string( 'Italy Cookie Choices', $icc_string );
+	}
+}

@@ -11,20 +11,19 @@ final class SchemaTest extends WPTestCase
 {
     /**
      * Every key the 2.x versions read from the option, without scroll and secondView removed in version 2,
-     * plus the ones added in version 2.
+     * plus the consent log of version 4 and the vendors of version 5 that replaced the script lists.
      */
     private const KEYS = [
-        'active', 'all_block', 'allow_embed', 'allow_iframe', 'allow_script', 'anchor_text', 'banner',
-        'bannerStyle', 'banner_bg', 'banner_text_color', 'block_embed', 'block_iframe', 'block_script',
-        'button_text', 'closeClass', 'consentText', 'consent_log', 'consent_log_retention', 'contentStyle',
-        'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
-        'excluded_pages', 'html_margin', 'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target', 'text',
-        'url',
+        'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg',
+        'banner_text_color', 'button_text', 'categories', 'closeClass', 'consentText', 'consent_log',
+        'consent_log_retention', 'contentStyle', 'content_message_button_text', 'content_message_text',
+        'cookie_name', 'cookie_value', 'customCSS', 'custom_vendors', 'disabled_vendors', 'excluded_pages',
+        'html_margin', 'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target', 'text', 'url',
     ];
 
-    public function testTheSchemaIsAtVersion4(): void
+    public function testTheSchemaIsAtVersion5(): void
     {
-        $this->assertSame(4, Schema::VERSION);
+        $this->assertSame(5, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -70,9 +69,14 @@ final class SchemaTest extends WPTestCase
             'text' => '<a href="/policy">Policy</a>',
             'cookie_name' => 'name',
             'cookie_value' => 'value',
-            'allow_iframe' => ['youtube.com' => 'youtube.com'],
             'nofollow' => '1',
             'excluded_pages' => '42, contact',
+            'categories' => ['statistics' => ['label' => 'Analytics', 'description' => 'Visits.']],
+            'disabled_vendors' => ['youtube'],
+            'custom_vendors' => [
+                ['id' => 'custom', 'name' => 'Custom', 'category' => 'marketing', 'patterns' => ['a.example.com']],
+            ],
+            'allowed_patterns' => ['youtube.com/embed/public'],
         ];
 
         $this->assertTrue(\rest_validate_value_from_schema($option, (new Schema())->toJsonSchema()));
@@ -98,7 +102,17 @@ final class SchemaTest extends WPTestCase
         yield 'empty cookie name' => [['cookie_name' => '']];
         yield 'empty cookie value' => [['cookie_value' => '']];
         yield 'text not a string' => [['text' => ['a']]];
-        yield 'script list with a list' => [['block_script' => [['a']]]];
+        yield 'script lists moved to the vendors in version 5' => [['block_script' => ['a' => 'a']]];
+        yield 'category id not valid' => [['categories' => ['Not Valid' => ['label' => 'a']]]];
+        yield 'category with an unknown text' => [['categories' => ['statistics' => ['title' => 'a']]]];
+        yield 'disabled vendor id not valid' => [['disabled_vendors' => ['Not Valid']]];
+        yield 'custom vendor without patterns' => [
+            ['custom_vendors' => [['id' => 'a', 'name' => 'A', 'category' => 'marketing']]],
+        ];
+        yield 'custom vendor with an invalid category' => [
+            ['custom_vendors' => [['id' => 'a', 'name' => 'A', 'category' => 'Ads', 'patterns' => ['a']]]],
+        ];
+        yield 'allowed pattern not a string' => [['allowed_patterns' => [['a']]]];
     }
 
     /**

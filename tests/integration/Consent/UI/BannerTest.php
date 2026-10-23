@@ -8,21 +8,23 @@ use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\UI\Banner;
-use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Consent\UI\BuildingBanner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
-use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Settings\Schema;
-use ItalyStrap\Event\SubscriberInterface;
-use ItalyStrap\Finder\FinderFactory;
-use ItalyStrap\View\View;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
+use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\Finder\FinderFactory;
+use ItalyStrap\View\View;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BannerTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
 
     public function setUp(): void
@@ -352,6 +354,44 @@ final class BannerTest extends WPTestCase
         $this->assertSame('Marketing', $categories[3]['label']);
     }
 
+    public function testTheSavedCategoryTextsReplaceTheDefaultOnes(): void
+    {
+        \update_option(Schema::OPTION, [
+            'active' => '1',
+            'categories' => [
+                'statistics' => ['label' => 'Analytics'],
+                'marketing' => ['description' => 'Ads and videos.'],
+            ],
+        ]);
+
+        $categories = $this->makeSut()->data()['categories'];
+
+        $this->assertIsArray($categories);
+        $this->assertIsArray($categories[2]);
+        $this->assertSame('Analytics', $categories[2]['label']);
+        $this->assertSame(
+            'Help to understand how the site is used, collecting anonymous data.',
+            $categories[2]['description']
+        );
+        $this->assertIsArray($categories[3]);
+        $this->assertSame('Marketing', $categories[3]['label']);
+        $this->assertSame('Ads and videos.', $categories[3]['description']);
+    }
+
+    public function testTheListenersChangeTheSavedCategoryTexts(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'categories' => ['statistics' => ['label' => 'Analytics']]]);
+        \add_action(BuildingBanner::class, static function (BuildingBanner $event): void {
+            $event->changeCategoryLabel('statistics', 'Visits', 'Anonymous visits.');
+        });
+
+        $categories = $this->makeSut()->data()['categories'];
+
+        $this->assertIsArray($categories);
+        $this->assertIsArray($categories[2]);
+        $this->assertSame('Visits', $categories[2]['label']);
+    }
+
     public function testTheTemplatePrintsAnAccessibleDialog(): void
     {
         $this->saveOptions(['text' => 'We use cookies', 'url' => 'https://example.com/policy/', 'banner' => '2']);
@@ -422,8 +462,8 @@ final class BannerTest extends WPTestCase
         $finder->in($templates);
 
         return new Banner(
-            new ConsentTexts(new ConsentPolicyFactory($this->dispatcher()), $this->dispatcher(), new Options()),
-            new Options(),
+            new ConsentTexts(new ConsentPolicyFactory($this->dispatcher()), $this->dispatcher(), $this->options()),
+            $this->options(),
             new View($finder),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL

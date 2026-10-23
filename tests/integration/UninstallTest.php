@@ -35,4 +35,22 @@ final class UninstallTest extends WPTestCase
         $this->assertFalse(\wp_next_scheduled('italy_cookie_choices_consent_log_cleanup'));
         $this->assertContains('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'icc_consent_log', $queries);
     }
+
+    public function testUninstallUnregistersTheWpmlStrings(): void
+    {
+        require_once \codecept_root_dir('tests/_support/stubs/multilingual.php');
+        $GLOBALS['icc_wpml_unregistered'] = [];
+        if (!\defined('WP_UNINSTALL_PLUGIN')) {
+            \define('WP_UNINSTALL_PLUGIN', 'italy-cookie-choices/italy-cookie-choices.php');
+        }
+
+        require \dirname(ITALY_COOKIE_CHOICES_DIRNAME) . '/uninstall.php';
+
+        $unregistered = $GLOBALS['icc_wpml_unregistered'];
+        $this->assertIsArray($unregistered);
+        $this->assertContains(['Italy Cookie Choices', 'Banner text'], $unregistered);
+        $this->assertContains(['Italy Cookie Choices', 'Category marketing description'], $unregistered);
+        $this->assertCount(15, $unregistered);
+        unset($GLOBALS['icc_wpml_unregistered']);
+    }
 }

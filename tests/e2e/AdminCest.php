@@ -5,24 +5,26 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\E2e;
 
 use E2eTester;
+use Facebook\WebDriver\WebDriverKeys;
 
 final class AdminCest
 {
     private const SETTINGS_PAGE = '/options-general.php?page=italy-cookie-choices';
+    private const NOTICE = '.components-notice__content';
+    private const TABS = '.components-tab-panel__tabs';
 
     public function itShowsTheSettingsPage(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);
-        $I->loginAsAdmin();
 
-        $I->amOnAdminPage(self::SETTINGS_PAGE);
+        $this->openTheSettings($I);
 
-        $I->see('Italy Cookie Choices options page', 'h2');
-        $I->see('Style settings', 'h2');
-        $I->see('Advanced settings', 'h2');
-        $I->seeElement('#italy-cookie-choices-ID');
-        $I->see('Export Settings');
-        $I->see('Import Settings');
+        $I->see('Italy Cookie Choices', 'h1');
+        foreach (['Banner', 'Style', 'Categories', 'Blocking', 'Consent log', 'Tools'] as $tab) {
+            $I->see($tab, self::TABS);
+        }
+        $I->seeInField('Banner text', 'This site uses cookies');
+        $I->seeElement('.icc-admin__actions button.is-primary[disabled]');
     }
 
     public function itIsListedInTheSettingsMenu(E2eTester $I): void
@@ -61,38 +63,37 @@ final class AdminCest
     public function itSavesTheSettings(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions(['active' => null]);
-        $I->loginAsAdmin();
-        $I->amOnAdminPage(self::SETTINGS_PAGE);
+        $this->openTheSettings($I);
 
-        $I->checkOption(['name' => 'italy_cookie_choices[active]']);
-        $I->selectOption(['name' => 'italy_cookie_choices[banner]'], '2');
-        $I->fillField(['name' => 'italy_cookie_choices[anchor_text]'], 'Policy <b>page</b>');
-        $I->fillField(['name' => 'italy_cookie_choices[button_text]'], 'Got it');
-        $I->selectOption(['name' => 'italy_cookie_choices[js_template]'], 'bigbutton');
-        $I->fillField(['name' => 'italy_cookie_choices[cookie_name]'], 'savedConsent');
-        $I->submitAndWaitForReload('Save Changes');
+        $I->checkOption('Show the banner');
+        $I->fillField('Policy link text', 'Policy <b>page</b>');
+        $I->fillField('Accept button text', 'Got it');
+        $this->openTab($I, 'Style');
+        $I->selectOption('Position', 'Modal window');
+        $I->selectOption('Template', 'Big buttons');
+        $this->save($I);
 
-        $I->see('Settings saved.');
-        $options = $I->grabOptionFromDatabase(E2eTester::OPTION_NAME);
-        $I->assertIsArray($options);
+        $I->see('Settings saved.', self::NOTICE);
+        $options = $this->savedOptions($I);
         $I->assertSame('1', $options['active']);
         $I->assertSame('2', $options['banner']);
         $I->assertSame('Policy page', $options['anchor_text']);
         $I->assertSame('Got it', $options['button_text']);
         $I->assertSame('bigbutton', $options['js_template']);
-        $I->assertSame('savedConsent', $options['cookie_name']);
-        $I->seeCheckboxIsChecked(['name' => 'italy_cookie_choices[active]']);
-        $I->seeInField(['name' => 'italy_cookie_choices[button_text]'], 'Got it');
+
+        $I->reloadPage();
+        $I->waitForElement('.icc-admin__tabs');
+        $I->seeCheckboxIsChecked('Show the banner');
+        $I->seeInField('Accept button text', 'Got it');
     }
 
     public function theSavedSettingsChangeTheBanner(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);
-        $I->loginAsAdmin();
-        $I->amOnAdminPage(self::SETTINGS_PAGE);
-        $I->fillField(['name' => 'italy_cookie_choices[button_text]'], 'Got it');
-        $I->submitAndWaitForReload('Save Changes');
-        $I->see('Settings saved.');
+        $this->openTheSettings($I);
+        $I->fillField('Accept button text', 'Got it');
+        $this->save($I);
+        $I->see('Settings saved.', self::NOTICE);
 
         $I->logOut();
         $I->amOnPage('/');
@@ -101,84 +102,156 @@ final class AdminCest
         $I->see('Got it', '#icc-banner [data-icc-action="accept-all"]');
     }
 
-    public function itRestoresTheDefaultCookieName(E2eTester $I): void
+    public function thePreviewShowsTheSettingsNotSavedYet(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);
-        $I->loginAsAdmin();
-        $I->amOnAdminPage(self::SETTINGS_PAGE);
+        $this->openTheSettings($I);
 
-        $I->fillField(['name' => 'italy_cookie_choices[cookie_name]'], '');
-        $I->fillField(['name' => 'italy_cookie_choices[cookie_value]'], '');
-        $I->submitAndWaitForReload('Save Changes');
+        $I->fillField('Banner text', 'Text not saved yet');
 
-        $I->see('Cookie name field it can\'t be empty. Restored default name.');
-        $I->see('Cookie value field it can\'t be empty. Restored default value.');
-        $options = $I->grabOptionFromDatabase(E2eTester::OPTION_NAME);
-        $I->assertIsArray($options);
-        $I->assertSame('displayCookieConsent', $options['cookie_name']);
-        $I->assertSame('y', $options['cookie_value']);
+        $I->waitForJS(
+            'const frame = document.querySelector(".icc-admin__preview-frame");'
+            . 'return frame !== null && frame.srcdoc.includes("Text not saved yet");',
+            10
+        );
+        $I->click('Preferences', '.icc-admin__preview');
+        $I->waitForJS(
+            'return document.querySelector(".icc-admin__preview-frame").srcdoc'
+            . '.includes(\'id="icc-preferences"\');',
+            10
+        );
+        $I->assertSame('This site uses cookies', $this->savedOptions($I)['text']);
+    }
+
+    public function itFindsThePolicyPage(E2eTester $I): void
+    {
+        $I->havePageInDatabase(['post_title' => 'Cookie policy', 'post_name' => 'cookie-policy']);
+        $I->haveCookieChoicesOptions(['url' => null, 'slug' => null]);
+        $this->openTheSettings($I);
+
+        $I->fillField('Policy page', 'Cookie');
+        $I->waitForText('Cookie policy', 10, '.components-form-token-field__suggestion');
+        $I->click('.components-form-token-field__suggestion');
+        $this->save($I);
+
+        $options = $this->savedOptions($I);
+        $I->assertSame('cookie-policy', $options['slug']);
+        $I->assertIsString($options['url']);
+        $I->assertStringEndsWith('/cookie-policy/', $options['url']);
+    }
+
+    public function itRenamesACategory(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Categories');
+
+        $I->fillField('.icc-admin__panel fieldset:nth-of-type(3) input', 'Analytics');
+        $this->save($I);
+
+        $I->assertSame(['statistics' => ['label' => 'Analytics']], $this->savedOptions($I)['categories']);
+        $I->logOut();
+        $I->amOnPage('/');
+        $I->assertSame(
+            'Analytics',
+            $I->executeJS('return document.querySelector(\'label[for="icc-category-statistics"]\').textContent.trim();')
+        );
+    }
+
+    public function itChangesTheVendors(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Blocking');
+
+        $I->uncheckOption('YouTube');
+        $I->click('Add a vendor');
+        $I->fillField('Name', 'Ads');
+        $I->fillField('Addresses and scripts to block', 'ads.example.com');
+        $I->pressKey('.icc-admin__group:nth-of-type(2) .components-form-token-field__input', WebDriverKeys::ENTER);
+        $this->save($I);
+
+        $options = $this->savedOptions($I);
+        $I->assertSame(['youtube'], $options['disabled_vendors']);
+        $I->assertSame(
+            [['id' => 'custom-1', 'name' => 'Ads', 'category' => 'marketing', 'patterns' => ['ads.example.com']]],
+            $options['custom_vendors']
+        );
+    }
+
+    public function anEmptyCookieNameIsNotSaved(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Tools');
+
+        // Cleared with the keyboard, React does not see a value set by the driver.
+        $I->pressKey(
+            '.icc-admin__panel fieldset:first-of-type input',
+            [WebDriverKeys::CONTROL, 'a'],
+            WebDriverKeys::BACKSPACE
+        );
+        $this->save($I);
+
+        $I->waitForElementVisible('.components-notice.is-error', 10);
+        $I->assertSame('displayCookieConsent', $this->savedOptions($I)['cookie_name']);
     }
 
     public function itExportsTheSettings(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions(['button_text' => 'Exported']);
-        $I->loginAsAdmin();
-        $I->amOnAdminPage(self::SETTINGS_PAGE);
-
-        $json = $I->executeAsyncJS(
-            'const done = arguments[0];'
-            . 'const form = document.querySelector("input[value=export_settings]").form;'
-            . 'fetch(location.href, {method: "POST", body: new FormData(form), credentials: "same-origin"})'
-            . '.then(function (response) { return response.text(); }).then(done);'
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Tools');
+        // The file is read from the link instead of downloaded.
+        $I->executeJS(
+            'window.iccExported = null;'
+            . 'URL.createObjectURL = (blob) => { blob.text().then((text) => { window.iccExported = text; });'
+            . ' return "about:blank"; };'
+            . 'URL.revokeObjectURL = () => {};'
+            . 'HTMLAnchorElement.prototype.click = () => {};'
         );
-        $I->assertIsString($json);
 
-        $I->assertSame([$I->grabOptionFromDatabase(E2eTester::OPTION_NAME)], \json_decode($json, true));
+        $I->click('Export the settings');
+
+        $I->waitForJS('return window.iccExported !== null;', 10);
+        $json = $I->executeJS('return window.iccExported;');
+        $I->assertIsString($json);
+        $file = \json_decode($json, true);
+        $I->assertIsArray($file);
+        $I->assertSame('italy-cookie-choices', $file['plugin']);
+        $I->assertSame(5, $file['version']);
+        $I->assertIsArray($file['settings']);
+        $I->assertSame('Exported', $file['settings']['button_text']);
     }
 
-    public function itImportsTheSettings(E2eTester $I): void
+    public function itImportsTheSettingsOfThe2xVersions(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);
-        $I->loginAsAdmin();
-        $I->amOnAdminPage(self::SETTINGS_PAGE);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Tools');
 
-        $I->attachFile('input[name=icc_import_file]', 'settings-import.json');
-        $I->submitAndWaitForReload(['css' => 'form[enctype="multipart/form-data"] input[type=submit]']);
+        $I->attachFile('#icc-admin-import', 'settings-import.json');
 
-        $I->seeInCurrentUrl('options-general.php?page=italy-cookie-choices');
-        // The import goes through the registered sanitize callback, that adds the style defaults
-        $I->assertSame(
-            [
-                'active' => '1',
-                'banner' => '3',
-                'text' => 'Imported text',
-                'url' => 'http://wordpress/imported-policy/',
-                'anchor_text' => 'Imported anchor',
-                'button_text' => 'Imported button',
-                'banner_bg' => '#fff',
-                'banner_text_color' => '#000',
-                'bannerStyle' => 'bannerStyle',
-                'contentStyle' => 'contentStyle',
-                'consentText' => 'consentText',
-                'infoClass' => 'italybtn',
-                'closeClass' => 'italybtn',
-                'cookie_name' => 'importedConsent',
-                'cookie_value' => 'yes',
-            ],
-            $I->grabOptionFromDatabase(E2eTester::OPTION_NAME)
-        );
+        $I->waitForText('Settings imported.', 10, self::NOTICE);
+        $options = $this->savedOptions($I);
+        $I->assertSame('3', $options['banner']);
+        $I->assertSame('Imported text', $options['text']);
+        $I->assertSame('importedConsent', $options['cookie_name']);
+        $I->assertSame('1', $options['consent_log']);
+        $this->openTab($I, 'Banner');
+        $I->seeInField('Banner text', 'Imported text');
     }
 
     public function itRejectsImportsThatAreNotJson(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);
-        $I->loginAsAdmin();
-        $I->amOnAdminPage(self::SETTINGS_PAGE);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Tools');
 
-        $I->attachFile('input[name=icc_import_file]', 'settings-import.txt');
-        $I->submitAndWaitForReload(['css' => 'form[enctype="multipart/form-data"] input[type=submit]']);
+        $I->attachFile('#icc-admin-import', 'settings-import.txt');
 
-        $I->see('Please upload a valid .json file');
+        $I->waitForText('The file is not a valid JSON file.', 10, self::NOTICE);
+        $I->assertSame('This site uses cookies', $this->savedOptions($I)['text']);
     }
 
     public function editorsCannotOpenTheSettingsPage(E2eTester $I): void
@@ -191,20 +264,54 @@ final class AdminCest
         $I->see('Sorry, you are not allowed to access this page.');
     }
 
-    /**
-     * Current behaviour: the links are hooked to the basename of define-constants.php,
-     * so they never show up in the plugins list.
-     */
-    public function thePluginActionLinksAreNotShown(E2eTester $I): void
+    public function thePluginActionLinksAreShown(E2eTester $I): void
     {
         $I->loginAsAdmin();
 
         $I->amOnPluginsPage();
 
         $I->seePluginActivated('italy-cookie-choices');
-        $I->dontSeeLink('Documentation');
-        $I->dontSeeElement(
-            'tr[data-slug="italy-cookie-choices"] a[href="options-general.php?page=italy-cookie-choices"]'
+        $I->see('Settings', 'tr[data-slug="italy-cookie-choices"] .settings a[href$="page=italy-cookie-choices"]');
+        $I->see(
+            'Documentation',
+            'tr[data-slug="italy-cookie-choices"] .documentation a[href$="/italy-cookie-choices/wiki"]'
         );
+    }
+
+    public function theSettingsPageHasNoAccessibilityViolations(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+
+        $I->assertSame([], $I->grabAccessibilityViolations('.icc-admin'));
+    }
+
+    private function openTheSettings(E2eTester $I): void
+    {
+        $I->loginAsAdmin();
+        $I->amOnAdminPage(self::SETTINGS_PAGE);
+        $I->waitForElement('.icc-admin__tabs', 10);
+    }
+
+    private function openTab(E2eTester $I, string $tab): void
+    {
+        $I->click($tab, self::TABS);
+    }
+
+    private function save(E2eTester $I): void
+    {
+        $I->click('Save changes');
+        $I->waitForElementVisible('.components-notice', 10);
+    }
+
+    /**
+     * @return array<array-key, mixed>
+     */
+    private function savedOptions(E2eTester $I): array
+    {
+        $options = $I->grabOptionFromDatabase(E2eTester::OPTION_NAME);
+        $I->assertIsArray($options);
+
+        return $options;
     }
 }

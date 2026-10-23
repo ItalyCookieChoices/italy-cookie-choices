@@ -1,0 +1,76 @@
+// The settings page, next to the preview on the wide screens.
+// The panels are white: on the admin background the help texts
+// of the components have not enough contrast.
+.icc-admin {
+	max-width: 1400px;
+	margin-top: 1em;
+
+	&__layout {
+		display: grid;
+		gap: 2em;
+		align-items: start;
+
+		@media (min-width: 1100px) {
+			grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+		}
+	}
+
+	&__tabs,
+	&__preview {
+		padding: 0 1.5em 1.5em;
+		border: 1px solid #dcdcde;
+		background: #fff;
+	}
+
+	&__panel {
+		display: grid;
+		gap: 1.5em;
+		padding: 1.5em 0;
+	}
+
+	&__group {
+		display: grid;
+		gap: 1em;
+		margin: 0;
+		padding: 1em;
+		border: 1px solid #dcdcde;
+
+		legend {
+			padding: 0 0.5em;
+			font-weight: 600;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+
+	&__preview {
+		display: grid;
+		gap: 1em;
+		padding-top: 1.5em;
+
+		@media (min-width: 1100px) {
+			position: sticky;
+			top: 48px;
+		}
+
+		h2 {
+			margin: 0;
+		}
+	}
+
+	&__preview-frame {
+		width: 100%;
+		height: 480px;
+		border: 1px solid #dcdcde;
+		background: #f0f0f1;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 1em;
+		align-items: center;
+		margin-top: 1.5em;
+	}
+}

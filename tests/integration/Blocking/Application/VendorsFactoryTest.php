@@ -8,8 +8,8 @@ use ItalyCookieChoices\Blocking\Application\BuildingVendors;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Blocking\Domain\Vendor;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -17,42 +17,77 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class VendorsFactoryTest extends WPTestCase
 {
+    use BuildsOptions;
+
     public function testThePresetsAreBlockedByDefault(): void
     {
         \update_option(Schema::OPTION, ['active' => '1']);
 
-        $ids = $this->ids();
-
         $this->assertSame(
             \array_map(static fn(Vendor $vendor): string => $vendor->id(), (new VendorPresets())->all()),
-            $ids
+            $this->ids()
         );
-        $this->assertNotContains(VendorsFactory::CUSTOM, $ids);
     }
 
-    public function testTheSavedListsAreACustomMarketingVendor(): void
+    public function testThePresetsTurnedOffAreNotBlocked(): void
+    {
+        \update_option(Schema::OPTION, ['disabled_vendors' => ['youtube', 'hotjar']]);
+
+        $ids = $this->ids();
+
+        $this->assertNotContains('youtube', $ids);
+        $this->assertNotContains('hotjar', $ids);
+        $this->assertContains('vimeo', $ids);
+    }
+
+    public function testTheCustomVendorsBlockTheirPatternsInTheirCategory(): void
     {
         \update_option(Schema::OPTION, [
-            'block_script' => ['tracker.example.com' => 'tracker.example.com'],
-            'block_iframe' => ['widgets.example.com', ''],
-            'block_embed' => ['tracker.example.com'],
+            'custom_vendors' => [
+                [
+                    'id' => 'tracker',
+                    'name' => 'Tracker',
+                    'category' => 'statistics',
+                    'patterns' => ['tracker.example.com', 'widgets.example.com'],
+                ],
+            ],
         ]);
 
         $vendors = $this->makeSut()->create();
 
         $custom = $vendors->loading('https://widgets.example.com/frame');
         $this->assertNotNull($custom);
-        $this->assertSame(VendorsFactory::CUSTOM, $custom->id());
-        $this->assertSame('marketing', $custom->category());
-        $this->assertSame(VendorsFactory::CUSTOM, $vendors->running('load("tracker.example.com")')?->id());
+        $this->assertSame('tracker', $custom->id());
+        $this->assertSame('statistics', $custom->category());
+        $this->assertSame('tracker', $vendors->running('load("tracker.example.com")')?->id());
     }
 
-    public function testTheSavedAllowedListsAreNeverBlocked(): void
+    public function testAnInvalidCustomVendorIsSkipped(): void
+    {
+        \remove_all_filters('sanitize_option_' . Schema::OPTION);
+        \update_option(Schema::OPTION, [
+            'custom_vendors' => [
+                ['id' => 'Not Valid', 'category' => 'marketing', 'patterns' => ['invalid.example.com']],
+                ['id' => 'no-category', 'patterns' => ['category.example.com']],
+                'not a vendor',
+                ['id' => 'valid', 'category' => 'marketing', 'patterns' => ['valid.example.com', 42]],
+            ],
+        ]);
+
+        $vendors = $this->makeSut()->create();
+
+        $this->assertNull($vendors->loading('https://invalid.example.com/'));
+        $this->assertNull($vendors->loading('https://category.example.com/'));
+        $this->assertSame('valid', $vendors->loading('https://valid.example.com/')?->id());
+    }
+
+    public function testTheAllowedPatternsAreNeverBlocked(): void
     {
         \update_option(Schema::OPTION, [
-            'allow_iframe' => ['youtube.com/embed/public'],
-            'allow_script' => ['iccAllowed'],
-            'block_script' => ['icc'],
+            'allowed_patterns' => ['youtube.com/embed/public', 'iccAllowed'],
+            'custom_vendors' => [
+                ['id' => 'icc', 'name' => 'ICC', 'category' => 'marketing', 'patterns' => ['icc']],
+            ],
         ]);
 
         $vendors = $this->makeSut()->create();
@@ -91,7 +126,7 @@ final class VendorsFactoryTest extends WPTestCase
         return new VendorsFactory(
             new VendorPresets(),
             new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState()),
-            new Options()
+            $this->options()
         );
     }
 }

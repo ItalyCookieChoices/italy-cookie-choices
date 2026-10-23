@@ -7,8 +7,6 @@ namespace ItalyCookieChoices\Tests\Integration;
 use ItalyCookieChoices\I18n\TextDomain;
 use ItalyCookieChoices\Legacy\LegacyLoader;
 use ItalyCookieChoices\Module;
-use ItalyCookieChoices\Settings\Migration;
-use ItalyCookieChoices\Settings\Registration;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
 use ItalyStrap\Config\Config;
@@ -29,7 +27,7 @@ final class ModuleTest extends WPTestCase
 
         $this->assertIsArray($config);
         $this->assertSame(
-            [TextDomain::class, Migration::class, Registration::class, LegacyLoader::class],
+            [TextDomain::class, LegacyLoader::class],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
     }
