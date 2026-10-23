@@ -46,6 +46,11 @@ icc_set_plugin_default_constant();
 
 require __DIR__ . '/bootstrap.php';
 
+// The daily cleanup of the consent log starts again on the next request after the activation.
+register_deactivation_hook( __FILE__, static function (): void {
+	wp_clear_scheduled_hook( 'italy_cookie_choices_consent_log_cleanup' );
+} );
+
 /**
  * Fires once Italy_Cookie_Choices plugin has been loaded.
  *

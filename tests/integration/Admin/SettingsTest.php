@@ -180,6 +180,7 @@ final class SettingsTest extends WPTestCase
                 'custom_script_block',
                 'content_message_text',
                 'content_message_button_text',
+                'consent_log',
             ],
             \array_keys($wp_settings_fields[self::GROUP]['advanced_setting_section'])
         );

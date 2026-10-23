@@ -239,6 +239,28 @@ final class FieldsTest extends WPTestCase
         $this->assertStringNotContainsString('italy_cookie_choices[widget_block]', $output);
     }
 
+    public function testTheConsentLogIsCheckedWithItsRetentionAndExport(): void
+    {
+        $userId = self::factory()->user->create(['role' => 'administrator']);
+        $this->assertIsInt($userId);
+        \wp_set_current_user($userId);
+
+        $output = $this->renderField('consent_log', ['consent_log' => '1', 'consent_log_retention' => '24']);
+
+        $this->assertStringContainsString("name='italy_cookie_choices[consent_log]'  checked='checked'", $output);
+        $this->assertMatchesRegularExpression("#<option value=\"24\"  selected='selected'>\\s*24 months#", $output);
+        $this->assertStringContainsString('admin-post.php?action=italy_cookie_choices_export_consent_log', $output);
+        $this->assertStringContainsString('_wpnonce=', $output);
+    }
+
+    public function testTheConsentLogKeepsTwelveMonthsByDefault(): void
+    {
+        $output = $this->renderField('consent_log', []);
+
+        $this->assertStringContainsString("name='italy_cookie_choices[consent_log]'  value='1'", $output);
+        $this->assertMatchesRegularExpression("#<option value=\"12\"  selected='selected'>#", $output);
+    }
+
     /**
      * @return iterable<string, array{string, string}>
      */

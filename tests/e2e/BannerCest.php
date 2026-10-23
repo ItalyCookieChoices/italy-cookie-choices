@@ -319,7 +319,23 @@ final class BannerCest
 
         $I->amOnPage('/cookie-policy/');
 
-        $I->dontSeeElementInDOM(self::BANNER);
+        $I->seeElementInDOM(self::BANNER);
+        $I->dontSeeElement(self::BANNER);
+    }
+
+    public function thePreferencesOpenOnThePolicyPage(E2eTester $I): void
+    {
+        $I->havePageInDatabase([
+            'post_name' => 'cookie-policy',
+            'post_title' => 'Cookie policy',
+            'post_content' => '<a href="#icc-preferences">Change your choice</a>',
+        ]);
+        $I->haveCookieChoicesOptions(['slug' => 'cookie-policy']);
+        $I->amOnPage('/cookie-policy/');
+
+        $I->click('Change your choice');
+
+        $I->waitForElementVisible(self::PREFERENCES);
     }
 
     public function itIsNotShownOnTheExcludedPages(E2eTester $I): void
@@ -329,10 +345,10 @@ final class BannerCest
         $I->haveCookieChoicesOptions(['excluded_pages' => $id . ', about']);
 
         $I->amOnPage('/contact/');
-        $I->dontSeeElementInDOM(self::BANNER);
+        $I->dontSeeElement(self::BANNER);
 
         $I->amOnPage('/about/');
-        $I->dontSeeElementInDOM(self::BANNER);
+        $I->dontSeeElement(self::BANNER);
 
         $I->amOnPage('/');
         $I->waitForElementVisible(self::BANNER);

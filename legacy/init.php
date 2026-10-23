@@ -52,22 +52,6 @@ add_shortcode( 'accept_button', function ( $atts, $content = null ) use ( $confi
 } );
 
 /**
- *  _delete_cookie
- * Shortcode per stampare il bottone nella pagina della policy
- * @param  array  $atts    Array con gli attributi dello shortcode.
- * @param  string $content Content of shortcode.
- * @return string          Button per l'accettazione
- */
-add_shortcode( 'delete_cookie', function( $atts, $content = null ) use ( $config ) {
-
-	// $button_text = ( isset( $config['button_text'] ) ) ? $config['button_text'] : '' ;
-	$button_text = 'Delete cookie';
-
-	return '<span class="ele"><button onclick="deleteCookie()">' . esc_attr( $button_text ) . '</button></span>';
-
-} );
-
-/**
  * Display cookie, only for internal use
  * @return string
  */

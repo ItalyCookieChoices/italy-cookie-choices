@@ -895,12 +895,6 @@ parameters:
 			path: legacy/includes/functions-italy-cookie-choices-lang.php
 
 		-
-			message: '#^Anonymous function has an unused use \$config\.$#'
-			identifier: closure.unusedUse
-			count: 1
-			path: legacy/init.php
-
-		-
 			message: '#^Parameter \#1 \$text of function esc_attr expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2

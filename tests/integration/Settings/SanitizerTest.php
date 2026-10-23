@@ -77,6 +77,8 @@ final class SanitizerTest extends WPTestCase
             'target',
             'nofollow',
             'all_block',
+            'consent_log',
+            'consent_log_retention',
         ];
 
         foreach ($fields as $field) {

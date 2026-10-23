@@ -23,6 +23,8 @@ export interface ConsentConfig {
 }
 
 export interface Consent {
+	/** A random UUID kept by the browser, it links the choices of the same visitor in the consent log. */
+	id: string;
 	categories: string[];
 	version: string;
 	/** ISO 8601 date, when the consent was given. */

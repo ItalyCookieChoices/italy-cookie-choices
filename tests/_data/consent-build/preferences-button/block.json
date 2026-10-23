@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "italy-cookie-choices/preferences-button",
+  "title": "Cookie preferences button",
+  "description": "A button that opens the cookie preferences, to change or withdraw the consent.",
+  "category": "widgets",
+  "icon": "admin-settings",
+  "keywords": [
+    "cookie",
+    "consent",
+    "privacy",
+    "gdpr"
+  ],
+  "textdomain": "italy-cookie-choices",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": "",
+      "role": "content"
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "color": {
+      "text": true,
+      "background": true
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    },
+    "__experimentalBorder": {
+      "radius": true,
+      "width": true,
+      "color": true,
+      "style": true
+    }
+  },
+  "editorScript": "file:./index.js"
+}

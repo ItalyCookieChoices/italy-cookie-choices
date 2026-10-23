@@ -100,6 +100,16 @@ describe( 'Banner', () => {
 		expect( banner.ownerDocument.activeElement ).toBe( banner );
 	} );
 
+	it( 'stays closed where it does not open by itself', () => {
+		const { banner, preferences, start } = setUp( { opensByItself: '0' } );
+
+		start();
+		expect( banner.hidden ).toBe( true );
+
+		element( '#reopen' ).click();
+		expect( preferences.hidden ).toBe( false );
+	} );
+
 	it( 'stays closed when the consent is given', () => {
 		const { api, banner, start } = setUp();
 		api.rejectAll();
@@ -255,6 +265,7 @@ describe( 'Banner', () => {
 			new CustomEvent< ConsentChange >( CONSENT_CHANGED, {
 				detail: {
 					consent: {
+						id: '3f2504e0-4f89-41d3-9a0c-0305e82c3301',
 						categories: [ 'necessary' ],
 						version: '1',
 						date: new Date().toISOString(),

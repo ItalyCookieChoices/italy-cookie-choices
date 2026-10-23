@@ -1,4 +1,5 @@
 import type { Cookies } from './cookies';
+import { randomId } from './id';
 import {
 	CONSENT_CHANGED,
 	type Consent,
@@ -18,6 +19,8 @@ function isConsent( value: unknown ): value is Consent {
 	const consent = value as Record< string, unknown >;
 
 	return (
+		typeof consent.id === 'string' &&
+		consent.id !== '' &&
 		Array.isArray( consent.categories ) &&
 		consent.categories.every(
 			( category ) => typeof category === 'string'
@@ -33,12 +36,14 @@ function isConsent( value: unknown ): value is Consent {
  * @param cookies Where the consent is stored.
  * @param events  Where the change events are dispatched, the document in the page.
  * @param now     The current date, replaceable in the tests.
+ * @param newId   Creates the id of a new consent, replaceable in the tests.
  */
 export function createConsentApi(
 	config: ConsentConfig,
 	cookies: Cookies,
 	events: EventTarget,
-	now: () => Date = () => new Date()
+	now: () => Date = () => new Date(),
+	newId: () => string = () => randomId()
 ): ConsentApi {
 	const categoryIds = config.categories.map( ( category ) => category.id );
 	const requiredIds = config.categories
@@ -89,6 +94,8 @@ export function createConsentApi(
 		const previous = getConsent();
 		const givenAt = now();
 		const consent: Consent = {
+			// The same browser keeps its id, also for another policy version.
+			id: storedConsent()?.id ?? newId(),
 			categories: categoryIds.filter( ( category ) =>
 				chosen.has( category )
 			),

@@ -49,7 +49,10 @@ export class Banner {
 		);
 		this.api.onChange( ( change ) => this.onConsentChange( change ) );
 
-		if ( this.api.getConsent() === null ) {
+		if (
+			this.api.getConsent() === null &&
+			banner.dataset.opensByItself !== '0'
+		) {
 			this.openBanner();
 		}
 	}

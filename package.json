@@ -19,13 +19,19 @@
   "homepage": "https://github.com/ItalyCookieChoices/italy-cookie-choices",
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "@types/wordpress__block-editor": "^15.0.7",
+    "@types/wordpress__blocks": "^15.10.2",
+    "@wordpress/block-editor": "^12.19.9",
+    "@wordpress/blocks": "^12.28.6",
+    "@wordpress/element": "^5.28.1",
+    "@wordpress/i18n": "^4.51.1",
     "@wordpress/scripts": "^35.0.0",
     "axe-core": "^4.14.0",
     "typescript": "^6.0.3"
   },
   "scripts": {
-    "build": "wp-scripts build consent=./assets/src/consent/index.ts banner=./assets/src/banner/index.ts blocking=./assets/src/blocking/index.ts --output-path=assets/build",
-    "start": "wp-scripts start consent=./assets/src/consent/index.ts banner=./assets/src/banner/index.ts blocking=./assets/src/blocking/index.ts --output-path=assets/build",
+    "build": "wp-scripts build --webpack-src-dir=assets/src/blocks --output-path=assets/build",
+    "start": "wp-scripts start --webpack-src-dir=assets/src/blocks --output-path=assets/build",
     "typecheck": "tsc --noEmit",
     "lint:js": "wp-scripts lint-js assets/src",
     "test:js": "wp-scripts test-unit-js assets/src",

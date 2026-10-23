@@ -21,32 +21,54 @@ final class ShortcodeCest
         $I->assertSame(E2eTester::COOKIE_VALUE, $I->grabCookie(E2eTester::COOKIE_NAME));
     }
 
-    public function theDeleteCookieButtonIsPrinted(E2eTester $I): void
+    public function thePreferencesButtonWithdrawsTheConsent(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);
-        $this->havePolicyPage($I, '[delete_cookie]');
-
-        $I->amOnPage('/cookie-policy/');
-
-        $I->see('Delete cookie', '.entry-content .ele button');
-    }
-
-    /**
-     * Current behaviour: deleteCookie() reads an undefined global, the cookie stays.
-     */
-    public function theDeleteCookieButtonDoesNotDeleteTheCookie(E2eTester $I): void
-    {
-        $I->haveCookieChoicesOptions([]);
-        $this->havePolicyPage($I, '[delete_cookie]');
+        $this->havePolicyPage(
+            $I,
+            '[cookie_preferences text="Change your choice"]<iframe src="https://www.youtube.com/embed/a"></iframe>'
+        );
         $I->amOnPage('/');
         $I->executeJS('window.italyCookieChoices.acceptAll();');
         $I->amOnPage('/cookie-policy/');
+        $I->seeElement('.entry-content iframe[src*="youtube.com"]');
 
-        $I->click('Delete cookie');
+        $I->click('Change your choice');
+        $I->waitForElementVisible('#icc-preferences');
+        $I->click('#icc-preferences [data-icc-action="reject-all"]');
 
-        // Broken since 2.x, the withdrawal is fixed in #237.
-        $I->assertSame(E2eTester::COOKIE_VALUE, $I->grabCookie(E2eTester::COOKIE_NAME));
-        $I->assertNotNull($I->executeJS('return window.italyCookieChoices.getConsent();'));
+        $I->waitForElementNotVisible('#icc-preferences');
+        $I->assertSame(['necessary'], $I->executeJS('return window.italyCookieChoices.getConsent().categories;'));
+        $I->waitForElement('.entry-content iframe[data-icc-src*="youtube.com"]:not([src])');
+        $I->seeElement('.entry-content .icc-placeholder');
+    }
+
+    /**
+     * Changed in #237: the 2.x button called an undefined function, it opens the preferences now (#209).
+     */
+    public function theDeleteCookieButtonOpensThePreferences(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->havePolicyPage($I, '[delete_cookie]');
+        $I->amOnPage('/cookie-policy/');
+
+        $I->click('Cookie preferences', '.entry-content');
+
+        $I->waitForElementVisible('#icc-preferences');
+    }
+
+    public function theBlockOpensThePreferences(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->havePolicyPage(
+            $I,
+            '<!-- wp:italy-cookie-choices/preferences-button {"label":"Change your choice"} /-->'
+        );
+        $I->amOnPage('/cookie-policy/');
+
+        $I->click('Change your choice', '.entry-content');
+
+        $I->waitForElementVisible('#icc-preferences');
     }
 
     public function theShortcodesAreNotRegisteredWhenNotActive(E2eTester $I): void

@@ -42,6 +42,8 @@ final readonly class Sanitizer
         'target' => self::RAW,
         'nofollow' => self::RAW,
         'all_block' => self::RAW,
+        'consent_log' => self::RAW,
+        'consent_log_retention' => self::RAW,
         'allow_iframe' => self::RAW,
         'allow_script' => self::RAW,
         'allow_embed' => self::RAW,

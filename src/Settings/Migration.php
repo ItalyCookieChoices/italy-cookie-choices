@@ -58,6 +58,7 @@ final readonly class Migration implements SubscriberInterface
             1 => $this->createTheDefaults(...),
             2 => $this->removeTheImplicitConsents(...),
             3 => $this->moveTheSnippetsToTheLists(...),
+            4 => $this->turnOnTheConsentLog(...),
         ];
     }
 
@@ -114,6 +115,24 @@ final readonly class Migration implements SubscriberInterface
             $migrated[$list] = $saved + \array_combine($texts, $texts);
         }
 
+        if ($migrated === $option) {
+            return;
+        }
+
+        \update_option(Schema::OPTION, $migrated);
+    }
+
+    /**
+     * Version 4: the consent log demonstrates the consents, GDPR art. 7(1), it is on with a 12 months retention.
+     */
+    private function turnOnTheConsentLog(): void
+    {
+        $option = \get_option(Schema::OPTION, null);
+        if (!\is_array($option)) {
+            return;
+        }
+
+        $migrated = $option + Schema::CONSENT_LOG_DEFAULTS;
         if ($migrated === $option) {
             return;
         }

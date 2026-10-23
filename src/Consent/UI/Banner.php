@@ -11,6 +11,8 @@ use ItalyStrap\View\ViewInterface;
 
 /**
  * Prints the consent banner and the preferences dialog, hidden until the script finds no consent.
+ * On the policy page and on the excluded pages the banner does not open by itself,
+ * the visitor can still open the preferences there to change or withdraw the consent.
  *
  * The markup is the same for every visitor, so the pages can be cached.
  */
@@ -51,7 +53,7 @@ final readonly class Banner implements SubscriberInterface
     public function enqueue(): void
     {
         $asset = $this->asset();
-        if ($asset === null || !$this->isShown()) {
+        if ($asset === null || !$this->isPrinted()) {
             return;
         }
 
@@ -73,7 +75,7 @@ final readonly class Banner implements SubscriberInterface
 
     public function render(): void
     {
-        if ($this->asset() === null || !$this->isShown()) {
+        if ($this->asset() === null || !$this->isPrinted()) {
             return;
         }
 
@@ -105,6 +107,7 @@ final readonly class Banner implements SubscriberInterface
                 'button' => \trim('icc-banner__button ' . $this->options->text('closeClass')),
             ],
             'modal' => $position === self::POSITIONS['2'],
+            'opensByItself' => $this->opensByItself(),
             'reload' => $this->options->isChecked('reload'),
             'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
             'text' => \wp_kses_post($this->options->translated('Banner text', 'text')),
@@ -113,12 +116,13 @@ final readonly class Banner implements SubscriberInterface
         ];
     }
 
-    private function isShown(): bool
+    private function isPrinted(): bool
     {
-        if (!$this->options->isActive() || \is_feed()) {
-            return false;
-        }
+        return $this->options->isActive() && !\is_feed();
+    }
 
+    private function opensByItself(): bool
+    {
         $policyPage = $this->options->text('slug');
         if ($policyPage !== '' && (\is_page($policyPage) || \is_single($policyPage))) {
             return false;
