@@ -112,6 +112,18 @@ final class VendorPresetsTest extends WPTestCase
         $this->assertNull($this->vendors()->running('var theme = {"youtube":"https://www.youtube.com/@channel"};'));
     }
 
+    public function testEveryPresetHasAName(): void
+    {
+        $sut = new VendorPresets();
+
+        foreach ($sut->all() as $vendor) {
+            $this->assertNotSame($vendor->id(), $sut->name($vendor->id()), $vendor->id());
+        }
+
+        $this->assertSame('YouTube', $sut->name('youtube'));
+        $this->assertSame('custom', $sut->name('custom'));
+    }
+
     private function vendors(): Vendors
     {
         return new Vendors((new VendorPresets())->all());

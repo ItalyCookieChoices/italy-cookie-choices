@@ -36,21 +36,6 @@ final class BootstrapTest extends WPTestCase
         $this->assertSame(11, $this->findListenerPriority('plugins_loaded', LegacyLoader::class));
     }
 
-    public function testAdminSettingsAreNotLoadedOnTheFrontEnd(): void
-    {
-        /** @var array<string, \WP_Hook> $wp_filter */
-        global $wp_filter;
-
-        foreach ($wp_filter['admin_menu']->callbacks ?? [] as $callbacks) {
-            foreach ($callbacks as $callback) {
-                $this->assertFalse(
-                    \is_array($callback['function'])
-                    && $callback['function'][0] instanceof \Italy_Cookie_Choices\Admin\Settings
-                );
-            }
-        }
-    }
-
     /**
      * @param class-string $listenerClass
      * @return int|false

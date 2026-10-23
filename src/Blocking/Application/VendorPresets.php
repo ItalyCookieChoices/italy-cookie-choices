@@ -12,6 +12,30 @@ use ItalyCookieChoices\Consent\Domain\Category;
  */
 final readonly class VendorPresets
 {
+    private const NAMES = [
+        'google-analytics' => 'Google Analytics',
+        'google-tag-manager' => 'Google Tag Manager',
+        'hotjar' => 'Hotjar',
+        'youtube' => 'YouTube',
+        'vimeo' => 'Vimeo',
+        'google-maps' => 'Google Maps',
+        'facebook' => 'Facebook',
+        'instagram' => 'Instagram',
+        'x' => 'X (Twitter)',
+        'linkedin' => 'LinkedIn',
+        'tiktok' => 'TikTok',
+        'spotify' => 'Spotify',
+        'soundcloud' => 'SoundCloud',
+    ];
+
+    /**
+     * The name shown to the site owner, the id when the vendor is not a preset.
+     */
+    public function name(string $id): string
+    {
+        return self::NAMES[$id] ?? $id;
+    }
+
     /**
      * @return list<Vendor>
      */

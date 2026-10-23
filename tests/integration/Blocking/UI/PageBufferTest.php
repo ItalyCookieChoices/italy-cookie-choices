@@ -9,8 +9,8 @@ use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Blocking\Infrastructure\HtmlBlocker;
 use ItalyCookieChoices\Blocking\UI\BlockableRequest;
 use ItalyCookieChoices\Blocking\UI\PageBuffer;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -19,6 +19,8 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class PageBufferTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const PAGE = '<!DOCTYPE html><html><head><script async '
         . 'src="https://www.googletagmanager.com/gtag/js?id=G-1"></script>'
         . '</head><body><p>Text</p></body></html>';
@@ -82,7 +84,7 @@ final class PageBufferTest extends WPTestCase
 
     private function makeSut(): PageBuffer
     {
-        $options = new Options();
+        $options = $this->options();
 
         return new PageBuffer(
             new HtmlBlocker(),

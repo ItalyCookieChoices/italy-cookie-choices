@@ -10,8 +10,8 @@ use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\UI\BuildingBanner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -21,6 +21,8 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class PlaceholdersTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
 
     public function setUp(): void
@@ -184,7 +186,7 @@ final class PlaceholdersTest extends WPTestCase
         $finder = (new FinderFactory())->make();
         $finder->in($templates);
         $dispatcher = new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState());
-        $options = new Options();
+        $options = $this->options();
 
         return new Placeholders(
             new ConsentTexts(new ConsentPolicyFactory($dispatcher), $dispatcher, $options),

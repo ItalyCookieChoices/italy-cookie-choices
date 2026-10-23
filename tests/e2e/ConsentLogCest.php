@@ -66,6 +66,8 @@ final class ConsentLogCest
         $this->waitForRecords($I, $id, 1);
         $I->loginAsAdmin();
         $I->amOnAdminPage('options-general.php?page=italy-cookie-choices');
+        $I->waitForElement('.icc-admin__tabs', 10);
+        $I->click('Consent log', '.components-tab-panel__tabs');
 
         $exportUrl = $I->grabAttributeFrom('a[href*="italy_cookie_choices_export_consent_log"]', 'href');
         $I->assertIsString($exportUrl);

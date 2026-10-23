@@ -7,12 +7,14 @@ namespace ItalyCookieChoices\Tests\Integration\ConsentLog\UI;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\UI\LogScript;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class LogScriptTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
 
     public function setUp(): void
@@ -77,7 +79,7 @@ final class LogScriptTest extends WPTestCase
         $this->assertIsString($fixtures);
 
         return new LogScript(
-            new LogSettings(new Options()),
+            new LogSettings($this->options()),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );

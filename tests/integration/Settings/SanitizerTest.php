@@ -98,26 +98,83 @@ final class SanitizerTest extends WPTestCase
         $this->assertSame($value, $result[$field]);
     }
 
-    /**
-     * @return iterable<string, array{string}>
-     */
-    public function arrayFields(): iterable
+    public function testTheCategoryTextsAreSanitizedWithoutTheEmptyOnes(): void
     {
-        $fields = ['allow_iframe', 'allow_script', 'allow_embed', 'block_iframe', 'block_script', 'block_embed'];
+        $result = (new Sanitizer())([
+            'categories' => [
+                'statistics' => ['label' => '<b>Analytics</b>', 'description' => "Anonymous\nvisits.", 'other' => 'x'],
+                'marketing' => ['label' => '', 'description' => ''],
+                'Not Valid!' => ['label' => 'Kept with a valid id'],
+                'preferences' => 'not texts',
+            ],
+        ]);
 
-        foreach ($fields as $field) {
-            yield $field => [$field];
-        }
+        $this->assertSame(
+            [
+                'statistics' => ['label' => 'Analytics', 'description' => "Anonymous\nvisits."],
+                'notvalid' => ['label' => 'Kept with a valid id'],
+            ],
+            $result['categories']
+        );
     }
 
-    /**
-     * @dataProvider arrayFields
-     */
-    public function testScriptListsArePassedThroughUntouched(string $field): void
+    public function testTheDisabledVendorsAreUniqueIds(): void
     {
-        $result = (new Sanitizer())([$field => ['youtube', '<b>x</b>']]);
+        $result = (new Sanitizer())(['disabled_vendors' => ['youtube', 'YouTube', '', ['x'], 'google-maps']]);
 
-        $this->assertSame(['youtube', '<b>x</b>'], $result[$field]);
+        $this->assertSame(['youtube', 'google-maps'], $result['disabled_vendors']);
+    }
+
+    public function testTheCustomVendorsNeedACategoryAndAPattern(): void
+    {
+        $result = (new Sanitizer())([
+            'custom_vendors' => [
+                ['id' => 'tracker', 'name' => '<b>Tracker</b>', 'category' => 'statistics', 'patterns' => [
+                    ' tracker.example.com/t.js?a=%20b ',
+                    "fbq(\n'init'",
+                    '',
+                    'tracker.example.com/t.js?a=%20b',
+                ]],
+                ['id' => 'no-patterns', 'name' => 'None', 'category' => 'marketing', 'patterns' => []],
+                ['id' => 'no-category', 'name' => 'None', 'patterns' => ['a.example.com']],
+                'not a vendor',
+            ],
+        ]);
+
+        $this->assertSame(
+            [
+                [
+                    'id' => 'tracker',
+                    'name' => 'Tracker',
+                    'category' => 'statistics',
+                    'patterns' => ['tracker.example.com/t.js?a=%20b', "fbq( 'init'"],
+                ],
+            ],
+            $result['custom_vendors']
+        );
+    }
+
+    public function testTheCustomVendorsGetAUniqueIdFromTheirName(): void
+    {
+        $vendor = ['category' => 'marketing', 'patterns' => ['a.example.com']];
+
+        $result = (new Sanitizer())([
+            'custom_vendors' => [
+                ['id' => '', 'name' => 'My Ads', ...$vendor],
+                ['id' => 'myads', 'name' => 'Other', ...$vendor],
+                ['id' => '', 'name' => '', ...$vendor],
+            ],
+        ]);
+
+        $this->assertIsArray($result['custom_vendors']);
+        $this->assertSame(['myads', 'myads-2', 'custom'], \array_column($result['custom_vendors'], 'id'));
+    }
+
+    public function testTheAllowedPatternsAreUniqueTexts(): void
+    {
+        $result = (new Sanitizer())(['allowed_patterns' => ['iccAllowed', ' iccAllowed ', '', 42, ['x']]]);
+
+        $this->assertSame(['iccAllowed', '42'], $result['allowed_patterns']);
     }
 
     /**
@@ -218,7 +275,10 @@ final class SanitizerTest extends WPTestCase
             'slug',
             'customCSS',
             'all_block',
-            'allow_iframe',
+            'categories',
+            'disabled_vendors',
+            'custom_vendors',
+            'allowed_patterns',
             'content_message_text',
             'nofollow',
             'excluded_pages',
@@ -227,35 +287,6 @@ final class SanitizerTest extends WPTestCase
         foreach ($fields as $field) {
             $this->assertArrayNotHasKey($field, $result);
         }
-    }
-
-    public function testTranslatableStringsAreRegistered(): void
-    {
-        require_once \codecept_root_dir('tests/_support/multilingual-stub.php');
-        $GLOBALS['icc_registered_strings'] = [];
-
-        (new Sanitizer())([
-            'text' => 'Text',
-            'url' => 'https://example.com',
-            'slug' => 'policy',
-            'anchor_text' => 'Anchor',
-            'button_text' => 'Button',
-            'content_message_text' => 'Message',
-            'content_message_button_text' => 'Message button',
-        ]);
-
-        $this->assertSame(
-            [
-                ['Italy Cookie Choices', 'Banner text', 'Text'],
-                ['Italy Cookie Choices', 'Banner url', 'https://example.com'],
-                ['Italy Cookie Choices', 'Banner slug', 'policy'],
-                ['Italy Cookie Choices', 'Banner anchor text', 'Anchor'],
-                ['Italy Cookie Choices', 'Banner button text', 'Button'],
-                ['Italy Cookie Choices', 'Content message text', 'Message'],
-                ['Italy Cookie Choices', 'Content message button text', 'Message button'],
-            ],
-            $GLOBALS['icc_registered_strings']
-        );
     }
 
     public function testSavingTheOptionRunsTheSanitizer(): void

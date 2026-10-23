@@ -27,13 +27,13 @@ final class LegacyLoaderTest extends WPTestCase
         );
     }
 
-    public function testLoadRequiresTheFrontEndThenTheAdminFiles(): void
+    public function testLoadRequiresTheFrontEndFile(): void
     {
         $GLOBALS['icc_legacy_loader_files'] = [];
 
         (new LegacyLoader(self::FIXTURES))->load();
 
-        $this->assertSame(['init.php', 'init-admin.php'], $GLOBALS['icc_legacy_loader_files']);
+        $this->assertSame(['init.php'], $GLOBALS['icc_legacy_loader_files']);
         unset($GLOBALS['icc_legacy_loader_files']);
     }
 }

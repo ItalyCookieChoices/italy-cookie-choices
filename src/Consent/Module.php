@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Consent;
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\UI\Banner;
+use ItalyCookieChoices\Consent\UI\BannerPreviewEndpoint;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyCookieChoices\Consent\UI\PreferencesButtonBlock;
@@ -62,6 +63,7 @@ final readonly class Module implements ModuleInterface
                 HasConsentFilter::class,
                 PreferencesShortcode::class,
                 PreferencesButtonBlock::class,
+                BannerPreviewEndpoint::class,
             ],
         ];
     }

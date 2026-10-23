@@ -122,7 +122,7 @@ final class BlockingCest
     public function theAllowedFramesAreNeverBlocked(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([
-            'allow_iframe' => ['youtube.com/embed/icc-test' => 'youtube.com/embed/icc-test'],
+            'allowed_patterns' => ['youtube.com/embed/icc-test'],
         ]);
         $this->havePost($I, self::IFRAME);
 
@@ -181,7 +181,7 @@ final class BlockingCest
     public function theThemeScriptsAreBlockedOnlyInTheCompatibilityMode(E2eTester $I): void
     {
         $I->haveOptionInDatabase('icc_e2e_scripts', '1');
-        $I->haveCookieChoicesOptions(['block_script' => ['iccHeadTracker' => 'iccHeadTracker']]);
+        $I->haveCookieChoicesOptions(['custom_vendors' => [$this->trackers(['iccHeadTracker'])]]);
 
         $I->amOnPage('/');
 
@@ -193,7 +193,7 @@ final class BlockingCest
         $I->haveOptionInDatabase('icc_e2e_scripts', '1');
         $I->haveCookieChoicesOptions([
             'all_block' => '1',
-            'block_script' => ['iccHeadTracker' => 'iccHeadTracker', 'iccFooterTracker' => 'iccFooterTracker'],
+            'custom_vendors' => [$this->trackers(['iccHeadTracker', 'iccFooterTracker'])],
         ]);
         $I->amOnPage('/');
 
@@ -207,13 +207,31 @@ final class BlockingCest
         $I->waitForJS('return window.iccHeadTracker === true && window.iccFooterTracker === true;');
     }
 
+    /**
+     * The lists of the 2.x versions become a custom vendor on the first request after the update.
+     */
+    public function theListsOfThe2xVersionsStillBlock(E2eTester $I): void
+    {
+        $I->haveOptionInDatabase('icc_e2e_scripts', '1');
+        $I->haveCookieChoicesOptions([
+            'all_block' => '1',
+            'block_script' => ['iccHeadTracker' => 'iccHeadTracker'],
+            'allow_script' => ['iccFooterTracker' => 'iccFooterTracker'],
+        ]);
+
+        $I->amOnPage('/');
+
+        $I->assertNull($I->executeJS('return window.iccHeadTracker;'));
+        $I->assertTrue($I->executeJS('return window.iccFooterTracker;'));
+    }
+
     public function theCompatibilityModeKeepsTheAllowedScripts(E2eTester $I): void
     {
         $I->haveOptionInDatabase('icc_e2e_scripts', '1');
         $I->haveCookieChoicesOptions([
             'all_block' => '1',
-            'block_script' => ['Tracker' => 'Tracker'],
-            'allow_script' => ['iccFooterTracker' => 'iccFooterTracker'],
+            'custom_vendors' => [$this->trackers(['Tracker'])],
+            'allowed_patterns' => ['iccFooterTracker'],
         ]);
 
         $I->amOnPage('/');
@@ -257,5 +275,14 @@ final class BlockingCest
     private function consentCategories(E2eTester $I): mixed
     {
         return $I->executeJS('return window.italyCookieChoices.getConsent().categories;');
+    }
+
+    /**
+     * @param list<string> $patterns
+     * @return array{id: string, name: string, category: string, patterns: list<string>}
+     */
+    private function trackers(array $patterns): array
+    {
+        return ['id' => 'trackers', 'name' => 'Trackers', 'category' => 'marketing', 'patterns' => $patterns];
     }
 }

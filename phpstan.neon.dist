@@ -13,6 +13,8 @@ parameters:
         - tests
     bootstrapFiles:
         - tests/_support/phpstan-bootstrap.php
+    scanFiles:
+        - tests/_support/stubs/multilingual.php
     scanDirectories:
         # WordPress core test classes, like the factories, used by WPTestCase
         - vendor/lucatume/wp-browser/includes/core-phpunit/includes

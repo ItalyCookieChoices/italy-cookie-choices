@@ -8,6 +8,7 @@ use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\Module;
 use ItalyCookieChoices\Consent\UI\Banner;
+use ItalyCookieChoices\Consent\UI\BannerPreviewEndpoint;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyCookieChoices\Consent\UI\PreferencesButtonBlock;
@@ -32,6 +33,7 @@ final class ModuleTest extends WPTestCase
                 HasConsentFilter::class,
                 PreferencesShortcode::class,
                 PreferencesButtonBlock::class,
+                BannerPreviewEndpoint::class,
             ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );

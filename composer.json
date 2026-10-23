@@ -63,7 +63,6 @@
 
   "autoload": {
     "psr-4": {
-      "Italy_Cookie_Choices\\Admin\\": "legacy/admin/",
       "ItalyCookieChoices\\": "src/"
     }
   },

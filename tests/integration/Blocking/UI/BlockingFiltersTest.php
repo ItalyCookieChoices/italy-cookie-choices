@@ -9,8 +9,8 @@ use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Blocking\Infrastructure\HtmlBlocker;
 use ItalyCookieChoices\Blocking\UI\BlockableRequest;
 use ItalyCookieChoices\Blocking\UI\BlockingFilters;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -19,6 +19,8 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BlockingFiltersTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const VIDEO = '<iframe src="https://www.youtube.com/embed/a"></iframe>';
     private const BLOCKED_VIDEO = '<iframe data-category="marketing" data-icc-src="https://www.youtube.com/embed/a" >'
         . '</iframe>';
@@ -149,7 +151,7 @@ final class BlockingFiltersTest extends WPTestCase
 
     private function makeSut(): BlockingFilters
     {
-        $options = new Options();
+        $options = $this->options();
 
         return new BlockingFilters(
             new HtmlBlocker(),

@@ -11,12 +11,14 @@ use ItalyCookieChoices\ConsentLog\Domain\ConsentRecord;
 use ItalyCookieChoices\ConsentLog\Infrastructure\DatabaseConsentLog;
 use ItalyCookieChoices\ConsentLog\Infrastructure\LogTable;
 use ItalyCookieChoices\ConsentLog\UI\RetentionCleanup;
-use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class RetentionCleanupTest extends WPTestCase
 {
+    use BuildsOptions;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -104,6 +106,6 @@ final class RetentionCleanupTest extends WPTestCase
 
     private function makeSut(): RetentionCleanup
     {
-        return new RetentionCleanup($this->log(), new LogSettings(new Options()));
+        return new RetentionCleanup($this->log(), new LogSettings($this->options()));
     }
 }

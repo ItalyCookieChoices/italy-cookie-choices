@@ -17,9 +17,13 @@
     "types": [
       "jest"
     ],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "jsxFactory": "createElement",
+    "jsxFragmentFactory": "Fragment"
   },
   "include": [
-    "assets/src/**/*.ts"
+    "assets/src/**/*.ts",
+    "assets/src/**/*.tsx"
   ]
 }

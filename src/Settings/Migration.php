@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
+use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
  * Brings the stored option to the current schema version, one step at a time.
  *
  * It runs before the option is registered, so the values are stored as they are.
+ * The imported settings go through the same steps.
  */
 final readonly class Migration implements SubscriberInterface
 {
+    public const CUSTOM_VENDOR = 'custom';
+
     private const IMPLICIT_CONSENTS = ['scroll', 'secondView'];
     private const ALWAYS_ON = ['block', 'widget_block'];
     private const SNIPPET_LISTS = [
         'custom_script_block' => 'block_script',
         'custom_script_block_body_exclude' => 'allow_script',
     ];
+    private const BLOCKED_LISTS = ['block_script', 'block_iframe', 'block_embed'];
+    private const ALLOWED_LISTS = ['allow_script', 'allow_iframe', 'allow_embed'];
 
     public function __construct(
         private Schema $schema,
@@ -38,53 +44,45 @@ final readonly class Migration implements SubscriberInterface
             return;
         }
 
-        foreach ($this->steps() as $version => $step) {
-            if ($version <= $storedVersion) {
-                continue;
-            }
-
-            $step();
-        }
-
+        $this->migrateTheOption($storedVersion);
         \update_option(Schema::VERSION_OPTION, Schema::VERSION);
     }
 
     /**
-     * @return array<int, callable(): void>
+     * The option brought from a schema version to the current one.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
      */
-    private function steps(): array
+    public function upgrade(array $option, int $fromVersion): array
     {
-        return [
-            1 => $this->createTheDefaults(...),
-            2 => $this->removeTheImplicitConsents(...),
-            3 => $this->moveTheSnippetsToTheLists(...),
-            4 => $this->turnOnTheConsentLog(...),
-        ];
+        foreach ($this->steps() as $version => $step) {
+            if ($version <= $fromVersion) {
+                continue;
+            }
+
+            $option = $step($option);
+        }
+
+        return $option;
     }
 
     /**
      * Version 1: the 2.x values are kept, a new installation gets the defaults.
      */
-    private function createTheDefaults(): void
+    private function migrateTheOption(int $storedVersion): void
     {
-        if (\get_option(Schema::OPTION, null) !== null) {
+        $option = \get_option(Schema::OPTION, null);
+        if ($option === null && $storedVersion < 1) {
+            \add_option(Schema::OPTION, $this->schema->defaults());
             return;
         }
 
-        \add_option(Schema::OPTION, $this->schema->defaults());
-    }
-
-    /**
-     * Version 2: accepting on scroll and on the second page view is not a valid consent under the GDPR.
-     */
-    private function removeTheImplicitConsents(): void
-    {
-        $option = \get_option(Schema::OPTION, null);
         if (!\is_array($option)) {
             return;
         }
 
-        $migrated = \array_diff_key($option, \array_flip(self::IMPLICIT_CONSENTS));
+        $migrated = $this->upgrade($option, \max($storedVersion, 1));
         if ($migrated === $option) {
             return;
         }
@@ -93,16 +91,38 @@ final readonly class Migration implements SubscriberInterface
     }
 
     /**
+     * @return array<int, callable(array<array-key, mixed>): array<array-key, mixed>>
+     */
+    private function steps(): array
+    {
+        return [
+            2 => $this->removeTheImplicitConsents(...),
+            3 => $this->moveTheSnippetsToTheLists(...),
+            4 => $this->turnOnTheConsentLog(...),
+            5 => $this->moveTheListsToTheVendors(...),
+        ];
+    }
+
+    /**
+     * Version 2: accepting on scroll and on the second page view is not a valid consent under the GDPR.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function removeTheImplicitConsents(array $option): array
+    {
+        return \array_diff_key($option, \array_flip(self::IMPLICIT_CONSENTS));
+    }
+
+    /**
      * Version 3: the vendors are always blocked in the content and the widgets,
      * the snippets of the 2.x textareas become texts in the lists of the blocked and allowed scripts.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
      */
-    private function moveTheSnippetsToTheLists(): void
+    private function moveTheSnippetsToTheLists(array $option): array
     {
-        $option = \get_option(Schema::OPTION, null);
-        if (!\is_array($option)) {
-            return;
-        }
-
         $migrated = \array_diff_key($option, \array_flip([...self::ALWAYS_ON, ...\array_keys(self::SNIPPET_LISTS)]));
         foreach (self::SNIPPET_LISTS as $textarea => $list) {
             $snippets = $option[$textarea] ?? '';
@@ -115,29 +135,88 @@ final readonly class Migration implements SubscriberInterface
             $migrated[$list] = $saved + \array_combine($texts, $texts);
         }
 
-        if ($migrated === $option) {
-            return;
-        }
-
-        \update_option(Schema::OPTION, $migrated);
+        return $migrated;
     }
 
     /**
      * Version 4: the consent log demonstrates the consents, GDPR art. 7(1), it is on with a 12 months retention.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
      */
-    private function turnOnTheConsentLog(): void
+    private function turnOnTheConsentLog(array $option): array
     {
-        $option = \get_option(Schema::OPTION, null);
-        if (!\is_array($option)) {
-            return;
+        return $option + Schema::CONSENT_LOG_DEFAULTS;
+    }
+
+    /**
+     * Version 5: the blocked lists become a custom vendor in the marketing category,
+     * the allowed lists become the allowed patterns, the values the REST API cannot read are removed.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function moveTheListsToTheVendors(array $option): array
+    {
+        $blocked = $this->listTexts($option, self::BLOCKED_LISTS);
+        $allowed = $this->listTexts($option, self::ALLOWED_LISTS);
+        $migrated = \array_diff_key($option, \array_flip([...self::BLOCKED_LISTS, ...self::ALLOWED_LISTS]));
+
+        if ($blocked !== []) {
+            // The 2.x lists have no category, the marketing one needs the most explicit choice.
+            $migrated['custom_vendors'] = [[
+                'id' => self::CUSTOM_VENDOR,
+                'name' => 'Custom',
+                'category' => Category::MARKETING,
+                'patterns' => $blocked,
+            ]];
         }
 
-        $migrated = $option + Schema::CONSENT_LOG_DEFAULTS;
-        if ($migrated === $option) {
-            return;
+        if ($allowed !== []) {
+            $migrated['allowed_patterns'] = $allowed;
         }
 
-        \update_option(Schema::OPTION, $migrated);
+        return $this->validValues($migrated);
+    }
+
+    /**
+     * @param array<array-key, mixed> $option
+     * @param list<string> $lists
+     * @return list<string>
+     */
+    private function listTexts(array $option, array $lists): array
+    {
+        $texts = [];
+        foreach ($lists as $list) {
+            $values = \is_array($option[$list] ?? null) ? $option[$list] : [];
+            foreach ($values as $value) {
+                if (!\is_string($value) || \trim($value) === '') {
+                    continue;
+                }
+
+                $texts[] = \trim($value);
+            }
+        }
+
+        return \array_values(\array_unique($texts));
+    }
+
+    /**
+     * Only the keys of the schema with a valid value, the REST API reads null for an invalid option.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function validValues(array $option): array
+    {
+        $properties = $this->schema->toJsonSchema()['properties'];
+
+        return \array_filter(
+            $option,
+            static fn(mixed $value, int|string $name): bool => \array_key_exists($name, $properties)
+                && \rest_validate_value_from_schema($value, $properties[$name], (string) $name) === true,
+            \ARRAY_FILTER_USE_BOTH
+        );
     }
 
     private function storedVersion(): int
