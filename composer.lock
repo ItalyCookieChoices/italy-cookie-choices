@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb6343174a692fd5a59f77f5cd125885",
+    "content-hash": "cda05f80d82cdf5b46c714ccca9f150f",
     "packages": [
         {
             "name": "italystrap/common",
@@ -3134,49 +3134,60 @@
         },
         {
             "name": "italystrap/debug",
-            "version": "2.1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItalyStrap/debug.git",
-                "reference": "0c952e768d2e42d3b8af2a9a210c9eedc026c0f9"
+                "reference": "2547444ea100d782b38ddd4f7ac39c8f2bd6cf3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItalyStrap/debug/zipball/0c952e768d2e42d3b8af2a9a210c9eedc026c0f9",
-                "reference": "0c952e768d2e42d3b8af2a9a210c9eedc026c0f9",
+                "url": "https://api.github.com/repos/ItalyStrap/debug/zipball/2547444ea100d782b38ddd4f7ac39c8f2bd6cf3a",
+                "reference": "2547444ea100d782b38ddd4f7ac39c8f2bd6cf3a",
                 "shasum": ""
             },
             "require": {
-                "filp/whoops": "^2.6",
-                "kint-php/kint": "^3.3",
-                "php": ">=7.2",
-                "symfony/var-dumper": "^5.0"
+                "filp/whoops": "^2.15",
+                "kint-php/kint": "^5.0",
+                "php": ">=7.4",
+                "symfony/var-dumper": "^5.2"
             },
             "require-dev": {
-                "lucatume/wp-browser": "~2.2"
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "inpsyde/wp-stubs": "dev-main",
+                "lucatume/wp-browser": "^3.1",
+                "phpcompatibility/php-compatibility": "^9.3",
+                "squizlabs/php_codesniffer": "^3.7"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
-                    "src/autoload.php"
+                    "functions/helpers.php",
+                    "functions/bootstrap.php"
                 ],
                 "psr-4": {
-                    "ItalyStrap\\Debug\\": "src/Debug/"
+                    "ItalyStrap\\Debug\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "overclokk",
-                    "email": "info@overclokk.net"
+                    "email": "info@overclokk.net",
+                    "homepage": "https://www.italystrap.com",
+                    "role": "Developer"
                 }
             ],
             "description": "Classes and functions for handling debug",
             "support": {
                 "issues": "https://github.com/ItalyStrap/debug/issues",
-                "source": "https://github.com/ItalyStrap/debug/tree/master"
+                "source": "https://github.com/ItalyStrap/debug"
             },
-            "time": "2019-12-27T15:19:41+00:00"
+            "time": "2026-03-11T06:25:38+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -3245,37 +3256,32 @@
         },
         {
             "name": "kint-php/kint",
-            "version": "3.3",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kint-php/kint.git",
-                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b"
+                "reference": "8c5ec370c3382ceae0b88e91f9bbb00e6bb4f93b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kint-php/kint/zipball/335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
-                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
+                "url": "https://api.github.com/repos/kint-php/kint/zipball/8c5ec370c3382ceae0b88e91f9bbb00e6bb4f93b",
+                "reference": "8c5ec370c3382ceae0b88e91f9bbb00e6bb4f93b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.6"
+                "php": ">=7.1"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "phpunit/phpunit": "^4.0",
-                "seld/phar-utils": "^1.0",
-                "symfony/finder": "^2.0 || ^3.0 || ^4.0",
-                "vimeo/psalm": "^3.0"
+                "friendsofphp/php-cs-fixer": "^3",
+                "phpspec/prophecy-phpunit": "^2",
+                "phpunit/phpunit": "^9",
+                "seld/phar-utils": "^1",
+                "symfony/finder": ">=4.0",
+                "vimeo/psalm": "^5"
             },
             "suggest": {
-                "ext-ctype": "Simple data type tests",
-                "ext-iconv": "Provides fallback detection for ambiguous legacy string encodings such as the Windows and ISO 8859 code pages",
-                "ext-mbstring": "Provides string encoding detection",
-                "kint-php/kint-js": "Provides a simplified dump to console.log()",
-                "kint-php/kint-twig": "Provides d() and s() functions in twig templates",
-                "symfony/polyfill-ctype": "Replacement for ext-ctype if missing",
-                "symfony/polyfill-iconv": "Replacement for ext-iconv if missing",
-                "symfony/polyfill-mbstring": "Replacement for ext-mbstring if missing"
+                "kint-php/kint-helpers": "Provides extra helper functions",
+                "kint-php/kint-twig": "Provides d() and s() functions in twig templates"
             },
             "type": "library",
             "autoload": {
@@ -3296,10 +3302,6 @@
                     "homepage": "https://github.com/jnvsor"
                 },
                 {
-                    "name": "Rokas Šleinius",
-                    "homepage": "https://github.com/raveren"
-                },
-                {
                     "name": "Contributors",
                     "homepage": "https://github.com/kint-php/kint/graphs/contributors"
                 }
@@ -3313,9 +3315,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kint-php/kint/issues",
-                "source": "https://github.com/kint-php/kint/tree/master"
+                "source": "https://github.com/kint-php/kint/tree/5.1.1"
             },
-            "time": "2019-10-17T18:05:24+00:00"
+            "time": "2024-04-26T14:20:09+00:00"
         },
         {
             "name": "lucatume/wp-browser",
@@ -8641,6 +8643,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "italystrap/debug": 20,
         "italystrap/empress": 20,
         "italystrap/finder": 20,
         "overclokk/auryn": 20
