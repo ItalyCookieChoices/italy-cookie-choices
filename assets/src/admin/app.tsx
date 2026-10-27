@@ -10,6 +10,7 @@ import { BannerTab } from './tabs/banner';
 import { BlockingTab } from './tabs/blocking';
 import { CategoriesTab } from './tabs/categories';
 import { ConsentLogTab } from './tabs/consent-log';
+import { IntegrationsTab } from './tabs/integrations';
 import { StyleTab } from './tabs/style';
 import { ToolsTab } from './tabs/tools';
 
@@ -135,6 +136,7 @@ export function App( { data }: { data: AdminData } ) {
 				vendors={ data.vendors }
 			/>
 		),
+		integrations: <IntegrationsTab { ...props } />,
 		'consent-log': (
 			<ConsentLogTab
 				{ ...props }
@@ -178,6 +180,10 @@ export function App( { data }: { data: AdminData } ) {
 						{
 							name: 'blocking',
 							title: __( 'Blocking', 'italy-cookie-choices' ),
+						},
+						{
+							name: 'integrations',
+							title: __( 'Integrations', 'italy-cookie-choices' ),
 						},
 						{
 							name: 'consent-log',

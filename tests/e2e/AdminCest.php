@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\E2e;
 
 use E2eTester;
 use Facebook\WebDriver\WebDriverKeys;
+use ItalyCookieChoices\Settings\Schema;
 
 final class AdminCest
 {
@@ -20,7 +21,7 @@ final class AdminCest
         $this->openTheSettings($I);
 
         $I->see('Italy Cookie Choices', 'h1');
-        foreach (['Banner', 'Style', 'Categories', 'Blocking', 'Consent log', 'Tools'] as $tab) {
+        foreach (['Banner', 'Style', 'Categories', 'Blocking', 'Integrations', 'Consent log', 'Tools'] as $tab) {
             $I->see($tab, self::TABS);
         }
         $I->seeInField('Banner text', 'This site uses cookies');
@@ -55,6 +56,8 @@ final class AdminCest
                 'content_message_button_text' => '',
                 'consent_log' => '1',
                 'consent_log_retention' => '12',
+                'consent_mode' => '1',
+                'youtube_nocookie' => '1',
             ],
             $I->grabOptionFromDatabase(E2eTester::OPTION_NAME)
         );
@@ -179,6 +182,25 @@ final class AdminCest
         );
     }
 
+    public function itSavesTheIntegrations(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Integrations');
+
+        $I->seeCheckboxIsChecked('Send the Consent Mode signals');
+        $I->checkOption('Load the Google tags before the consent (advanced mode)');
+        $I->fillField('Google Analytics measurement ID', 'G-ICCTEST');
+        $I->fillField('Facebook pixel ID', '123456');
+        $this->save($I);
+
+        $I->see('Settings saved.', self::NOTICE);
+        $options = $this->savedOptions($I);
+        $I->assertSame('1', $options['consent_mode_advanced']);
+        $I->assertSame('G-ICCTEST', $options['ga_measurement_id']);
+        $I->assertSame('123456', $options['facebook_pixel_id']);
+    }
+
     public function anEmptyCookieNameIsNotSaved(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);
@@ -219,7 +241,7 @@ final class AdminCest
         $file = \json_decode($json, true);
         $I->assertIsArray($file);
         $I->assertSame('italy-cookie-choices', $file['plugin']);
-        $I->assertSame(5, $file['version']);
+        $I->assertSame(Schema::VERSION, $file['version']);
         $I->assertIsArray($file['settings']);
         $I->assertSame('Exported', $file['settings']['button_text']);
     }

@@ -4,7 +4,7 @@ describe( 'the export', () => {
 	it( 'has the version of the schema', () => {
 		expect( exportFile( { active: '1' } ) ).toEqual( {
 			plugin: 'italy-cookie-choices',
-			version: 5,
+			version: 6,
 			settings: { active: '1' },
 		} );
 	} );
