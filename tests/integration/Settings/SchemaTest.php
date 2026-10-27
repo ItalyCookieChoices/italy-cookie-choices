@@ -11,19 +11,22 @@ final class SchemaTest extends WPTestCase
 {
     /**
      * Every key the 2.x versions read from the option, without scroll and secondView removed in version 2,
-     * plus the consent log of version 4 and the vendors of version 5 that replaced the script lists.
+     * plus the consent log of version 4, the vendors of version 5 that replaced the script lists
+     * and the integrations of version 6.
      */
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg',
         'banner_text_color', 'button_text', 'categories', 'closeClass', 'consentText', 'consent_log',
-        'consent_log_retention', 'contentStyle', 'content_message_button_text', 'content_message_text',
-        'cookie_name', 'cookie_value', 'customCSS', 'custom_vendors', 'disabled_vendors', 'excluded_pages',
-        'html_margin', 'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target', 'text', 'url',
+        'consent_log_retention', 'consent_mode', 'consent_mode_advanced', 'contentStyle',
+        'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
+        'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id', 'ga_measurement_id',
+        'gtm_container_id', 'html_margin', 'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target',
+        'text', 'url', 'youtube_nocookie',
     ];
 
-    public function testTheSchemaIsAtVersion5(): void
+    public function testTheSchemaIsAtVersion6(): void
     {
-        $this->assertSame(5, Schema::VERSION);
+        $this->assertSame(6, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -40,6 +43,8 @@ final class SchemaTest extends WPTestCase
                 'content_message_button_text' => '',
                 'consent_log' => '1',
                 'consent_log_retention' => '12',
+                'consent_mode' => '1',
+                'youtube_nocookie' => '1',
             ],
             (new Schema())->defaults()
         );
@@ -77,6 +82,10 @@ final class SchemaTest extends WPTestCase
                 ['id' => 'custom', 'name' => 'Custom', 'category' => 'marketing', 'patterns' => ['a.example.com']],
             ],
             'allowed_patterns' => ['youtube.com/embed/public'],
+            'consent_mode' => '1',
+            'ga_measurement_id' => 'G-ABC123',
+            'gtm_container_id' => '',
+            'facebook_pixel_id' => '123456',
         ];
 
         $this->assertTrue(\rest_validate_value_from_schema($option, (new Schema())->toJsonSchema()));
@@ -113,6 +122,10 @@ final class SchemaTest extends WPTestCase
             ['custom_vendors' => [['id' => 'a', 'name' => 'A', 'category' => 'Ads', 'patterns' => ['a']]]],
         ];
         yield 'allowed pattern not a string' => [['allowed_patterns' => [['a']]]];
+        yield 'measurement id of another tag' => [['ga_measurement_id' => 'UA-123-1']];
+        yield 'container id in lower case' => [['gtm_container_id' => 'gtm-abc']];
+        yield 'pixel id with letters' => [['facebook_pixel_id' => 'abc']];
+        yield 'advanced consent mode not 1' => [['consent_mode_advanced' => 'yes']];
     }
 
     /**

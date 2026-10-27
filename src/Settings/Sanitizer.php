@@ -18,6 +18,7 @@ final readonly class Sanitizer
     private const IDS = 'ids';
     private const VENDORS = 'vendors';
     private const PATTERNS = 'patterns';
+    private const TAG_ID = 'tag_id';
 
     /**
      * The fields in the order they are saved.
@@ -48,6 +49,12 @@ final readonly class Sanitizer
         'all_block' => self::RAW,
         'consent_log' => self::RAW,
         'consent_log_retention' => self::RAW,
+        'consent_mode' => self::RAW,
+        'consent_mode_advanced' => self::RAW,
+        'ga_measurement_id' => self::TAG_ID,
+        'gtm_container_id' => self::TAG_ID,
+        'facebook_pixel_id' => self::TAG_ID,
+        'youtube_nocookie' => self::RAW,
         'categories' => self::CATEGORIES,
         'disabled_vendors' => self::IDS,
         'custom_vendors' => self::VENDORS,
@@ -107,6 +114,7 @@ final readonly class Sanitizer
             self::IDS => $this->ids($value),
             self::VENDORS => $this->vendors($value),
             self::PATTERNS => $this->patterns($value),
+            self::TAG_ID => $this->tagId($name, $value),
             default => $this->required($name, $value),
         };
     }
@@ -171,6 +179,16 @@ final readonly class Sanitizer
         }
 
         return $texts;
+    }
+
+    /**
+     * The id in upper case, empty when it has not the shape of the tag, like G-ABC123 for Google Analytics.
+     */
+    private function tagId(string $name, mixed $value): string
+    {
+        $id = \strtoupper(\trim($this->toString($value)));
+
+        return \preg_match('/' . Schema::TAG_IDS[$name] . '/', $id) === 1 ? $id : '';
     }
 
     /**

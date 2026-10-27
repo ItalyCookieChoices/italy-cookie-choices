@@ -72,6 +72,7 @@ final class MigrationTest extends WPTestCase
                 'cookie_value' => 'ok',
                 ...Schema::CONSENT_LOG_DEFAULTS,
                 'custom_vendors' => [$this->customVendor(['analytics.js'])],
+                ...Schema::CONSENT_MODE_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -99,6 +100,7 @@ final class MigrationTest extends WPTestCase
                 'text' => 'Policy',
                 ...Schema::CONSENT_LOG_DEFAULTS,
                 'custom_vendors' => [$this->customVendor(['analytics.js'])],
+                ...Schema::CONSENT_MODE_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -112,7 +114,7 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['text' => '<script>raw</script>'] + Schema::CONSENT_LOG_DEFAULTS,
+            ['text' => '<script>raw</script>'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
             \get_option(Schema::OPTION)
         );
     }
@@ -124,7 +126,10 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS, \get_option(Schema::OPTION));
+        $this->assertSame(
+            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
+            \get_option(Schema::OPTION)
+        );
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
     }
 
@@ -157,6 +162,7 @@ final class MigrationTest extends WPTestCase
                     $this->customVendor(['analytics.js', 'tracker.example.com/t.js', 'window.tracker = true;']),
                 ],
                 'allowed_patterns' => ['window.allowed'],
+                ...Schema::CONSENT_MODE_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -173,7 +179,10 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS, \get_option(Schema::OPTION));
+        $this->assertSame(
+            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
+            \get_option(Schema::OPTION)
+        );
     }
 
     public function testAnOptionWithoutTheTextareasIsKeptWithoutTheInvalidLists(): void
@@ -183,7 +192,10 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS, \get_option(Schema::OPTION));
+        $this->assertSame(
+            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
+            \get_option(Schema::OPTION)
+        );
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
     }
 
@@ -198,7 +210,7 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['active' => '1', 'consent_log_retention' => '24', 'consent_log' => '1'],
+            ['active' => '1', 'consent_log_retention' => '24', 'consent_log' => '1', 'consent_mode' => '1'],
             \get_option(Schema::OPTION)
         );
     }
@@ -226,6 +238,7 @@ final class MigrationTest extends WPTestCase
                 'active' => '1',
                 'custom_vendors' => [$this->customVendor(['analytics.js', 'maps.example.com'])],
                 'allowed_patterns' => ['window.allowed', 'youtube.com/embed/public'],
+                ...Schema::CONSENT_MODE_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -248,11 +261,27 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['banner' => '2', 'text' => '<p>Kept</p>'], \get_option(Schema::OPTION));
+        $this->assertSame(
+            ['banner' => '2', 'text' => '<p>Kept</p>', ...Schema::CONSENT_MODE_DEFAULTS],
+            \get_option(Schema::OPTION)
+        );
         $this->assertTrue(\rest_validate_value_from_schema(
             \get_option(Schema::OPTION),
             (new Schema())->toJsonSchema()
         ));
+    }
+
+    /**
+     * Version 6: the Google tags get the Consent Mode signals, a saved choice is kept.
+     */
+    public function testTheConsentModeIsTurnedOn(): void
+    {
+        \update_option(Schema::VERSION_OPTION, 5);
+        \add_option(Schema::OPTION, ['active' => '1']);
+
+        (new Migration(new Schema(), new LegacySnippets()))->migrate();
+
+        $this->assertSame(['active' => '1', 'consent_mode' => '1'], \get_option(Schema::OPTION));
     }
 
     public function testTheImportedSettingsAreUpgradedFromTheirVersion(): void
@@ -260,7 +289,12 @@ final class MigrationTest extends WPTestCase
         $sut = new Migration(new Schema(), new LegacySnippets());
 
         $this->assertSame(
-            ['active' => '1', ...Schema::CONSENT_LOG_DEFAULTS, 'allowed_patterns' => ['a.example.com']],
+            [
+                'active' => '1',
+                ...Schema::CONSENT_LOG_DEFAULTS,
+                'allowed_patterns' => ['a.example.com'],
+                ...Schema::CONSENT_MODE_DEFAULTS,
+            ],
             $sut->upgrade(['active' => '1', 'scroll' => '1', 'allow_script' => ['a.example.com']], 1)
         );
         $this->assertSame(['active' => '1'], $sut->upgrade(['active' => '1'], Schema::VERSION));
