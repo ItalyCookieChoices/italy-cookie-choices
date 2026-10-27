@@ -28,6 +28,7 @@ package-lock.json
 .docker
 bin
 /build
+/docs
 .gitattributes
 README.md
 Makefile
