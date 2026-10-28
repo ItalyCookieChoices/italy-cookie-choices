@@ -18,7 +18,7 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 final class ModuleTest extends WPTestCase
 {
     private const LEGACY_PATH = '/legacy/';
-    private const LANGUAGES_PATH = 'italy-cookie-choices/legacy/lang';
+    private const LANGUAGES_PATH = 'italy-cookie-choices/languages';
     private const TEMPLATES_PATH = WP_PLUGIN_DIR . '/italy-cookie-choices/templates/';
 
     public function testTheSubscribersAreRegisteredInOrder(): void

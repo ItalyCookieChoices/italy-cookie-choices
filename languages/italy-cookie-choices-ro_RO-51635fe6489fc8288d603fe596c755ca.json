@@ -1,0 +1,318 @@
+{
+    "translation-revision-date": "2015-07-11 00:08+0100",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/build\/settings.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "ro_RO",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Custom CSS": [
+                "CSS personal"
+            ],
+            "Accept all": [
+                ""
+            ],
+            "Preferences": [
+                ""
+            ],
+            "Documentation": [
+                ""
+            ],
+            "Preview": [
+                ""
+            ],
+            "Dialog to preview": [
+                ""
+            ],
+            "Banner": [
+                ""
+            ],
+            "The preview is not available.": [
+                ""
+            ],
+            "Banner preview": [
+                ""
+            ],
+            "Policy page": [
+                ""
+            ],
+            "Type to search the page, the banner links to it and does not open by itself there.": [
+                ""
+            ],
+            "Show the banner": [
+                ""
+            ],
+            "The banner asks the consent and the third party content waits for it.": [
+                ""
+            ],
+            "Banner text": [
+                ""
+            ],
+            "Links and simple HTML are allowed.": [
+                ""
+            ],
+            "Policy link": [
+                ""
+            ],
+            "Policy link text": [
+                ""
+            ],
+            "The link shows its address when it is empty.": [
+                ""
+            ],
+            "Open the policy in a new tab": [
+                ""
+            ],
+            "Add rel=\"nofollow\" to the policy link": [
+                ""
+            ],
+            "Accept button text": [
+                ""
+            ],
+            "Pages where the banner does not open by itself": [
+                ""
+            ],
+            "IDs or slugs, separated by commas. The visitors can still open the preferences there.": [
+                ""
+            ],
+            "Reload the page after the choice": [
+                ""
+            ],
+            "New vendor": [
+                ""
+            ],
+            "Name": [
+                ""
+            ],
+            "Category": [
+                ""
+            ],
+            "Addresses and scripts to block": [
+                ""
+            ],
+            "A part of the address, like tracker.example.com\/script.js, or a text of the inline script. Press Enter after each one.": [
+                ""
+            ],
+            "Remove %s": [
+                ""
+            ],
+            "the vendor": [
+                ""
+            ],
+            "Common vendors": [
+                ""
+            ],
+            "Waits for the %s consent.": [
+                ""
+            ],
+            "Custom vendors": [
+                ""
+            ],
+            "Add a vendor": [
+                ""
+            ],
+            "Never blocked": [
+                ""
+            ],
+            "The addresses and the scripts the site needs, even when a vendor matches them.": [
+                ""
+            ],
+            "Block the vendors in the whole page": [
+                ""
+            ],
+            "Also in the theme and in the plugins that do not use the WordPress functions. It buffers the page, turn it on only when needed.": [
+                ""
+            ],
+            "Placeholder text of the blocked content": [
+                ""
+            ],
+            "Empty for a text with the category name.": [
+                ""
+            ],
+            "Placeholder button text": [
+                ""
+            ],
+            "Leave a field empty to use the default text, translated in the language of the site.": [
+                ""
+            ],
+            "Description": [
+                ""
+            ],
+            "Log the consents": [
+                ""
+            ],
+            "Each choice is stored with a random id, the categories, the policy version and the date. No IP address and no personal data.": [
+                ""
+            ],
+            "Keep the records for": [
+                ""
+            ],
+            "%s months": [
+                ""
+            ],
+            "Export the log as CSV": [
+                ""
+            ],
+            "Google Consent Mode v2": [
+                ""
+            ],
+            "Send the Consent Mode signals": [
+                ""
+            ],
+            "The Google tags get the consent of the visitor: denied until the choice, then granted for the accepted categories.": [
+                ""
+            ],
+            "Load the Google tags before the consent (advanced mode)": [
+                ""
+            ],
+            "Google Analytics and Google Tag Manager are not blocked, they send cookieless pings until the consent. Check that it is allowed where your visitors are, the Italian Garante requires the consent before any tracking.": [
+                ""
+            ],
+            "Tags": [
+                ""
+            ],
+            "The plugin prints the tags with the ids below, blocked until the consent. Leave a field empty when the tag is printed by the theme or by another plugin.": [
+                ""
+            ],
+            "Google Analytics measurement ID": [
+                ""
+            ],
+            "Google Tag Manager container ID": [
+                ""
+            ],
+            "Facebook pixel ID": [
+                ""
+            ],
+            "Use the privacy-enhanced mode of the YouTube embeds": [
+                ""
+            ],
+            "The videos load from youtube-nocookie.com, they still wait for the marketing consent.": [
+                ""
+            ],
+            "Position": [
+                ""
+            ],
+            "Top bar": [
+                ""
+            ],
+            "Modal window": [
+                ""
+            ],
+            "Bottom bar": [
+                ""
+            ],
+            "Push the page down under the top bar": [
+                ""
+            ],
+            "Template": [
+                ""
+            ],
+            "The custom template has no styles, only the custom CSS.": [
+                ""
+            ],
+            "Default": [
+                ""
+            ],
+            "Big buttons": [
+                ""
+            ],
+            "Small buttons": [
+                ""
+            ],
+            "Custom": [
+                ""
+            ],
+            "Background color": [
+                ""
+            ],
+            "Text color": [
+                ""
+            ],
+            "CSS classes": [
+                ""
+            ],
+            "Content": [
+                ""
+            ],
+            "Text": [
+                ""
+            ],
+            "Buttons": [
+                ""
+            ],
+            "Cookie of the 2.x versions": [
+                ""
+            ],
+            "Written while every category is accepted, for the code that still reads it.": [
+                ""
+            ],
+            "Value": [
+                ""
+            ],
+            "Export": [
+                ""
+            ],
+            "Downloads the saved settings as a JSON file.": [
+                ""
+            ],
+            "Export the settings": [
+                ""
+            ],
+            "Import": [
+                ""
+            ],
+            "Replaces the saved settings with the ones of an exported file, also of the 2.x versions.": [
+                ""
+            ],
+            "Settings file": [
+                ""
+            ],
+            "The file is not a valid JSON file.": [
+                ""
+            ],
+            "The settings were not imported.": [
+                ""
+            ],
+            "The settings were not loaded.": [
+                ""
+            ],
+            "Loading the settings\u2026": [
+                ""
+            ],
+            "Settings imported.": [
+                ""
+            ],
+            "Style": [
+                ""
+            ],
+            "Categories": [
+                ""
+            ],
+            "Blocking": [
+                ""
+            ],
+            "Integrations": [
+                ""
+            ],
+            "Consent log": [
+                ""
+            ],
+            "Tools": [
+                ""
+            ],
+            "Settings saved.": [
+                ""
+            ],
+            "The settings were not saved.": [
+                ""
+            ],
+            "Save changes": [
+                ""
+            ]
+        }
+    }
+}

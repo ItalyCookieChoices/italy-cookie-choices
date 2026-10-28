@@ -1,73 +1,55 @@
 # Italy Cookie Choices (for EU Cookie Law & Cookie Notice) #
 **Contributors:** [overclokk](https://profiles.wordpress.org/overclokk), [andreapernici](https://profiles.wordpress.org/andreapernici), [cardinaleandrea](https://profiles.wordpress.org/cardinaleandrea)  
 Donate link: 
-**Tags:** cookie notice, cookie law, cookie choices, cookies, eu cookie law  
+**Tags:** cookie, gdpr, cookie consent, cookie banner, consent mode  
 **Requires at least:** 6.5  
 **Requires PHP:** 8.2  
 **Tested up to:** 7.1  
-**Stable tag:** 2.6.0  
+**Stable tag:** 3.0.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Comply with the EU cookie law: show a cookie notice and block third party cookies until consent, without slowing down your website.
+Ask the cookie consent by category and block third party scripts, videos and maps until the consent. With a consent log and Google Consent Mode v2.
 
 ## Description ##
 
-Italy Cookie Choices allows you to easily comply with the european cookie law, showing
-a notice to the user only the very first time that visits your website without degrading website performance and remove all the occurence of third party embed inside your site until consent, fully customizable also with your custom css.
+Italy Cookie Choices helps you comply with the EU cookie rules: the ePrivacy Directive, art. 122 of the Italian Codice Privacy with the 2021 guidelines of the Garante, and the GDPR consent requirements.
 
-Plugin requirement PHP >= 8.2 and WordPress >= 6.5
-
-The Cookie Law is one of the most stupid law in the world. Maybe made by someone, who doesn't really understand how the web works. 
-
-Italy Cookie Choices allows you to easily comply with the european cookie law (and Italian too), showing a notice to the user only the very first time he visits your website.
-Message, position and the style can be easily modified through the plugin menu.
-
-The plugin will not add any CSS stylesheet or Javascript file but only inline script, so it doesn't make your website slower.
-
-Now you can block all cookies with new Third Part Cookie Eraser, activated it and let me now if you have any issue
+The banner asks the consent by category, with three buttons of the same importance: accept all, reject all and preferences. The scripts, the videos and the maps of the third parties wait for the consent to their category. The consent is read in the browser, so the plugin works with the cached pages.
 
 ### What you can do ###
 
-* Display banner in front-end
-** Three template (standard, big buttons, small buttons)
-** Three position (top, dialog, bottom)
-** Or custom style
-* Content banner customizable with HTML tags
-* URL and buttons text customizable
-* Acceptance on mouse scroll
-* Acceptance on second view
-* Block third party script in page
-* Add custom script to not block (all page)
-* Add custom script to block (wp_header and wp_footer)
-* Multilanguage (WPML, Polylang, Ceceppa)
+* Show a banner at the top, at the bottom or in a modal window, with your text, colors and CSS
+* Let the visitors choose the categories: necessary, preferences, statistics and marketing
+* Block Google Analytics, Google Tag Manager, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Spotify, SoundCloud and Hotjar until the consent, and add your own vendors
+* Show a placeholder with a button to accept the category of the blocked videos and maps
+* Let the visitors change or withdraw the consent with a block, a shortcode or a link
+* Log the consents to demonstrate them, without IP addresses, and export the log as CSV
+* Send the Google Consent Mode v2 signals, in the basic or advanced mode
+* Print Google Analytics, Google Tag Manager and the Facebook pixel from their ids
+* Preview the banner while you change the settings
+* Translate the texts with WPML and Polylang, the plugin is translated in Italian
+* Import the settings of the 2.x versions
 
-[For more informations read the documentation](https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki)
+### Documentation ###
 
-Please, notify any issue on github repository https://github.com/ItalyCookieChoices/italy-cookie-choices/issues
+* [Getting started](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/getting-started.md)
+* [Blocking the third parties](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/blocking.md)
+* [Consent log](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/consent-log.md)
+* [Multilingual sites](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/multilingual.md)
+* [Integrations, for the developers](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/integrations.md)
+* [Upgrading from 2.x](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/upgrade-3.0.md)
+* [Documentazione in italiano](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/it/README.md)
 
-### Anonymize Analytics IP ###
+Please report the issues on [GitHub](https://github.com/ItalyCookieChoices/italy-cookie-choices/issues).
 
-Add `ga('set', 'anonymizeIp', true);` in your analytics snippet [AnonymizeIP](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#anonymizeIp)
+This plugin provides technical tools, not legal advice. Check with your consultant what your site needs.
 
-### Compatibilità W3TC & WP Super Cache fix ###
-
-https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Compatibilit%C3%A0-W3TC-fix
-
-### Style customization ###
-
-https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customization
-
-### Developer ###
+### Developers ###
 
 * [Enea Overclokk](http://www.overclokk.net/)
 * [Andrea Pernici](https://www.andreapernici.com/)
 * [Andrea Cardinale](https://www.andrea-cardinale.it/)
-
-### Link ###
-
-* [WPItaly+](https://plus.google.com/u/0/communities/109254048492234113886)
-* [Forum GT](http://www.giorgiotave.it/forum/)
 
 ### Translators ###
 
@@ -75,62 +57,68 @@ https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki/Style-customizat
 
 ## Installation ##
 
-1. Upload `italy-cookie-choices` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Configure the plugin throught Settings -> Italy Cookie Choices
+1. Install the plugin from **Plugins > Add New**, or upload the `italy-cookie-choices` folder to `/wp-content/plugins/`
+2. Activate the plugin through the **Plugins** menu in WordPress
+3. Configure it in **Settings > Italy Cookie Choices** and turn on **Show the banner**
 
 ## Frequently Asked Questions ##
 
-### How does it work? ###
+### I updated from 2.x, what changes? ###
 
-When a user visit your site, the plugin will check if this user has been already there, checking for a cookie that the plugin self creates (it is just a session cookie, so it is not against the law). If the user has not this cookie, a message will be shown (you can configure where, how and what will be show). If the users keeps surfing in your website, now or withing the next month, it means that he accepted the use of cookies in your website, so this message
-will not be shown again.
+Your settings are migrated, but the visitors give the consent again, because the 2.x consent had no categories. Read [Upgrading from 2.x](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/upgrade-3.0.md) before you update, and test the update on a staging site first.
 
-### Why am I not seeing the message? ###
+### Why am I not seeing the banner? ###
 
-Probably, you already have visited the site before, so you accepted the use of cookies and the plugin installed a cookie in your browser to know it. If you want to test if the plugin is working properly, try removing the cookies `displayCookieConsent` from your web browser or navigating in incognito mode. If you think that the plugin is not working properly, just open an issue here https://github.com/overclokk/italy-cookie-choices/issues and I will check it for you.
+Check that **Show the banner** is on, then open the site in a private window: you probably already gave your consent. The banner does not open by itself on the policy page and on the excluded pages.
 
-### Does it work in static HTML pages? ###
+### How can the visitors change their choice? ###
 
-Yes, simply copy the snippet generate by "Italy Cookie Choses for WordPress" and put in your HTML footer before </body> tag
+Add the **Cookie preferences button** block, the `[cookie_preferences]` shortcode or a link to `#icc-preferences` to the footer or to the cookie policy page. It opens the preferences, where the visitor can change or withdraw the consent.
 
-### I use Async JS and CSS plugin, but the banner doesn't display ###
+### A script of my theme is not blocked ###
 
-You have to uncheck the `Detect <script> tags in wp_footer` in Async JS and CSS plugin settings page and refresh page.
+The plugin blocks the vendors in the content, in the widgets, in the embeds and in the scripts added with `wp_enqueue_script()`. Add the vendor in **Blocking > Custom vendors**, or turn on **Block the vendors in the whole page** for the scripts printed directly in the page.
 
-### I don't see the banner in my site ###
+### Does it work with the cache plugins? ###
 
-Try this way:
-deactivate all plugin and try
-if it works activate one pluigin at time and try
-if it doesn't work activate standard theme and try
+Yes. The banner and the blocked content are the same for every visitor, the consent is read in the browser.
+
+### Is the consent log personal data? ###
+
+The log has a random id created by the browser, the accepted categories, the policy version and the date, without IP addresses. The plugin suggests a text for your privacy policy in **Settings > Privacy**.
 
 ### How do I check the consent in my code? ###
 
-The consent is given by category: `necessary`, `preferences`, `statistics` and `marketing`. It is checked in the browser, so the pages can be cached:
-
-`window.italyCookieChoices.hasConsent( 'statistics' )` returns true when the visitor accepted the category, `getConsent()`, `setConsent( categories )`, `acceptAll()`, `rejectAll()`, `withdraw()` and `onChange( callback )` are available too. The `italy-cookie-choices:ready` and `italy-cookie-choices:consent-changed` events are dispatched on the document.
-
-In PHP, on pages that are not cached, use `apply_filters( 'italy_cookie_choices_has_consent', false, 'statistics' )`.
-
-Listen to the `ItalyCookieChoices\Consent\Application\BuildingConsentPolicy` event to change the categories, the policy version (a new version asks the consent again) and the days a consent lasts, 182 by default. The plugin dispatches it with the PSR-14 dispatcher of [italystrap/event](https://github.com/ItalyStrap/event), a listener is a WordPress action named after the event class: `add_action( BuildingConsentPolicy::class, function ( BuildingConsentPolicy $event ) { $event->changeVersion( new PolicyVersion( '2' ) ); } );`.
-
-### How can visitors change their choice? ###
-
-Add a link to `#icc-preferences`, like `<a href="#icc-preferences">Cookie preferences</a>`, or any element with the `data-icc-open-preferences` attribute: it opens the preferences dialog. The `italy-cookie-choices:open-preferences` event on the document opens it too.
-
-Listen to the `ItalyCookieChoices\Consent\UI\BuildingBanner` event to change the texts of the banner and the names and descriptions of the categories, with `changeText()` and `changeCategoryLabel()`.
+In JavaScript use `window.italyCookieChoices.hasConsent( 'statistics' )`, in PHP `apply_filters( 'italy_cookie_choices_has_consent', false, 'statistics' )`. Read [Integrations](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/integrations.md) for the events, the vendors and the Consent Mode.
 
 ## Screenshots ##
 
-1. Italy Cookie Choices Options Menu
-2. Italy Cookie Choices top bar and embed block in front end
-3. Italy Cookie Choices Options for Dialog box
-4. Italy Cookie Choices Dialog Box in front end
-5. Italy Cookie Choices Widget area
-6. Italy Cookie Choices Content area
+1. The settings page, with the preview of the banner
+2. The names and descriptions of the categories, with the preview of the preferences
+3. The vendors blocked until the consent
+4. Google Consent Mode v2, the Google and Facebook tags and the YouTube embeds
+5. The banner at the bottom of a page
+6. The preferences, to choose the categories
+7. The placeholder of a blocked video
 
 ## Changelog ##
+
+### 3.0.0 ###
+
+A rewrite of the plugin for the current consent rules. Read [Upgrading from 2.x](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/upgrade-3.0.md) before you update.
+
+* Requires PHP 8.2 and WordPress 6.5
+* New banner with accept all, reject all and preferences buttons of the same importance, accessible from the keyboard and the screen readers
+* Consent by category: necessary, preferences, statistics and marketing, stored for six months in the new `icc_consent` cookie
+* Removed the consent on scroll and on the second page view, they are not a valid consent
+* The common vendors are always blocked until the consent, without buffering the page, with a placeholder for the blocked videos and maps
+* Custom vendors with their category, and the addresses never blocked
+* The visitors change or withdraw the consent with the Cookie preferences button block, the `[cookie_preferences]` shortcode or a link to `#icc-preferences`, the `[delete_cookie]` shortcode works again
+* Consent log, without IP addresses, with a retention period and the CSV export
+* Google Consent Mode v2, basic or advanced, and the Google Analytics, Google Tag Manager and Facebook pixel tags from their ids
+* New settings page with a live preview, the import and the export of the settings
+* WPML and Polylang translate the texts again, Italian translation included
+* Removed the `icc_js_array` and `icc_output_html` filters and the Ceceppa Multilingua support
 
 ### 2.6.0 ###
 Release Date: Oct 21st, 2026
@@ -409,6 +397,9 @@ Dev time: 50h
 * First release.
 
 ## Upgrade Notice ##
+
+### 3.0.0 ###
+A rewrite for the current consent rules. Requires PHP 8.2 and WordPress 6.5. The visitors give the consent again. Read the upgrade notes and test on a staging site first.
 
 ### 2.6.0 ###
 Requires PHP 7.4 and WordPress 6.1, please check your server before updating

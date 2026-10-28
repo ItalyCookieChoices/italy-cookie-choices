@@ -1,5 +1,7 @@
 # Integrations
 
+[Leggi in italiano](it/integrazioni.md).
+
 How to connect a script, a service or a theme to the consent of Italy Cookie Choices.
 
 The consent is stored in the browser, so the pages can be cached: every integration reads it in JavaScript, or lets the plugin block its scripts until the visitor accepts their category.

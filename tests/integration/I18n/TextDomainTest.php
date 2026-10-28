@@ -12,7 +12,7 @@ final class TextDomainTest extends WPTestCase
 {
     public function testItLoadsOnInitAfterTheDefaultPriority(): void
     {
-        $sut = new TextDomain('italy-cookie-choices/legacy/lang');
+        $sut = new TextDomain('italy-cookie-choices/languages');
 
         $this->assertSame(
             [
@@ -25,17 +25,17 @@ final class TextDomainTest extends WPTestCase
         );
     }
 
-    public function testLoadUsesTheLegacyLanguagesFolder(): void
+    public function testLoadUsesTheLanguagesFolder(): void
     {
         \switch_to_locale('it_IT');
         \unload_textdomain(TextDomain::DOMAIN);
 
-        (new TextDomain('italy-cookie-choices/legacy/lang'))->load();
+        (new TextDomain('italy-cookie-choices/languages'))->load();
 
         /** @var \WP_Textdomain_Registry $registry */
         $registry = $GLOBALS['wp_textdomain_registry'];
         $this->assertSame(
-            WP_PLUGIN_DIR . '/italy-cookie-choices/legacy/lang/',
+            WP_PLUGIN_DIR . '/italy-cookie-choices/languages/',
             $registry->get(TextDomain::DOMAIN, 'it_IT')
         );
         \restore_previous_locale();

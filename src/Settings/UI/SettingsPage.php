@@ -24,14 +24,15 @@ final readonly class SettingsPage implements SubscriberInterface
     public const DOCUMENTATION = 'https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki';
 
     private const HOOK_SUFFIX = 'settings_page_' . self::SLUG;
-    private const SCRIPT = 'admin.js';
-    private const STYLE = 'admin.css';
-    private const ASSET = 'admin.asset.php';
+    private const SCRIPT = 'settings.js';
+    private const STYLE = 'settings.css';
+    private const ASSET = 'settings.asset.php';
     private const TEMPLATE = 'settings-page';
 
     /**
      * @param string $buildPath The assets/build folder, with the trailing slash.
      * @param string $buildUrl The assets/build URL, with the trailing slash.
+     * @param string $languagesPath The folder of the translations bundled with the plugin.
      */
     public function __construct(
         private ConsentTexts $texts,
@@ -40,6 +41,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private ViewInterface $view,
         private string $buildPath,
         private string $buildUrl,
+        private string $languagesPath,
     ) {
     }
 
@@ -87,7 +89,7 @@ final readonly class SettingsPage implements SubscriberInterface
             $asset['version'],
             ['in_footer' => true]
         );
-        \wp_set_script_translations(self::HANDLE, 'italy-cookie-choices');
+        \wp_set_script_translations(self::HANDLE, 'italy-cookie-choices', $this->languagesPath);
         \wp_add_inline_script(
             self::HANDLE,
             \sprintf('window.italyCookieChoicesAdmin = %s;', (string) \wp_json_encode($this->data())),

@@ -55,6 +55,7 @@ final readonly class Module implements ModuleInterface
                 ],
                 PreferencesButtonBlock::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
+                    ':languagesPath' => $this->pluginPath . 'languages',
                 ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [

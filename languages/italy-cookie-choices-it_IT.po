@@ -1,0 +1,607 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: italy-cookie-choices\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Enea Overclokk <info@overclokk.net>\n"
+"Language-Team: info@overclokk.net\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2015-09-08 17:00+0200\n"
+"PO-Revision-Date: 2026-10-28 08:00+0100\n"
+"Language: it_IT\n"
+"X-Generator: Poedit 1.8.4\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: .git\n"
+
+#: assets/build/settings.js:4
+msgid "Custom CSS"
+msgstr "CSS personalizzato"
+
+#: src/Settings/Sanitizer.php:138
+msgid "Cookie name field it can't be empty. Restored default name."
+msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
+
+#: src/Settings/Sanitizer.php:139
+msgid "Cookie value field it can't be empty. Restored default value."
+msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
+
+#: src/Settings/UI/PluginActionLinks.php:39
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: src/Settings/UI/PluginActionLinks.php:44
+#: assets/build/settings.js:4
+msgid "Documentation"
+msgstr "Documentazione"
+
+#: assets/build/settings.js:4
+msgid "Export"
+msgstr "Esporta"
+
+#: assets/build/settings.js:4
+msgid "Import"
+msgstr "Importa"
+
+#: assets/build/settings.js:1
+#~ msgid "Banner text"
+#~ msgstr "Testo del banner"
+
+#. Plugin Name of the plugin
+#: italy-cookie-choices.php
+msgid "Italy Cookie Choices (for EU Cookie Law & Cookie Notice)"
+msgstr "Italy Cookie Choices (per la Cookie Law europea e l'informativa cookie)"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: italy-cookie-choices.php
+msgid "https://github.com/ItalyCookieChoices/italy-cookie-choices"
+msgstr "https://github.com/ItalyCookieChoices/italy-cookie-choices"
+
+#. Description of the plugin
+#: italy-cookie-choices.php
+msgid "Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page."
+msgstr "Italy Cookie Choices ti permette di rispettare facilmente la cookie law europea e di bloccare i cookie di terze parti nelle tue pagine."
+
+#. Author of the plugin
+#: italy-cookie-choices.php
+msgid "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
+msgstr "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
+
+#. translators: %s: the category label, like Marketing.
+#: src/Blocking/UI/Placeholders.php:100
+#, php-format
+msgid "This content is blocked until you accept the %s cookies."
+msgstr "Questo contenuto è bloccato finché non accetti i cookie %s."
+
+#. translators: %s: the category label, like Marketing.
+#: src/Blocking/UI/Placeholders.php:105
+#, php-format
+msgid "Accept the %s cookies"
+msgstr "Accetta i cookie %s"
+
+#: src/Consent/UI/ConsentTexts.php:73
+msgid "Cookie consent"
+msgstr "Consenso ai cookie"
+
+#: src/Consent/UI/ConsentTexts.php:76
+#: assets/build/settings.js:1
+msgid "Accept all"
+msgstr "Accetta tutti"
+
+#: src/Consent/UI/ConsentTexts.php:78
+msgid "Reject all"
+msgstr "Rifiuta tutti"
+
+#: src/Consent/UI/ConsentTexts.php:79
+#: src/Consent/UI/ConsentTexts.php:120
+#: assets/build/settings.js:1
+msgid "Preferences"
+msgstr "Preferenze"
+
+#: src/Consent/UI/ConsentTexts.php:80
+msgid "Close and keep only the necessary cookies"
+msgstr "Chiudi e mantieni solo i cookie necessari"
+
+#: src/Consent/UI/ConsentTexts.php:81
+#: src/Consent/UI/PreferencesButton.php:23
+#: assets/build/preferences-button/index.js:1
+msgid "Cookie preferences"
+msgstr "Preferenze cookie"
+
+#: src/Consent/UI/ConsentTexts.php:82
+msgid "Save preferences"
+msgstr "Salva le preferenze"
+
+#: src/Consent/UI/ConsentTexts.php:83
+msgid "Close the preferences"
+msgstr "Chiudi le preferenze"
+
+#: src/Consent/UI/ConsentTexts.php:113
+msgid "Necessary"
+msgstr "Necessari"
+
+#: src/Consent/UI/ConsentTexts.php:114
+msgid "Needed for the site to work, like the cookie that stores this choice. Always active."
+msgstr "Servono al funzionamento del sito, come il cookie che memorizza questa scelta. Sempre attivi."
+
+#: src/Consent/UI/ConsentTexts.php:121
+msgid "Remember your choices, like the language or the region."
+msgstr "Ricordano le tue scelte, come la lingua o la regione."
+
+#: src/Consent/UI/ConsentTexts.php:124
+msgid "Statistics"
+msgstr "Statistiche"
+
+#: src/Consent/UI/ConsentTexts.php:125
+msgid "Help to understand how the site is used, collecting anonymous data."
+msgstr "Aiutano a capire come viene usato il sito, raccogliendo dati anonimi."
+
+#: src/Consent/UI/ConsentTexts.php:131
+msgid "Marketing"
+msgstr "Marketing"
+
+#: src/Consent/UI/ConsentTexts.php:132
+msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
+msgstr "Usati da terze parti, come video, mappe e social network, per mostrare contenuti e pubblicità."
+
+#: src/ConsentLog/UI/ConsentLogExport.php:47
+msgid "You cannot export the consent log."
+msgstr "Non puoi esportare il registro dei consensi."
+
+#: src/ConsentLog/UI/PrivacyPolicyText.php:33
+msgid "This site asks your consent before it uses cookies that are not necessary. The cookies are grouped in categories: necessary, preferences, statistics and marketing. The content of third parties, like videos and maps, is loaded only after you accept its category."
+msgstr "Questo sito chiede il tuo consenso prima di usare i cookie non necessari. I cookie sono raggruppati in categorie: necessari, preferenze, statistiche e marketing. I contenuti di terze parti, come video e mappe, vengono caricati solo dopo che hai accettato la loro categoria."
+
+#: src/ConsentLog/UI/PrivacyPolicyText.php:39
+msgid "Your choice is stored for six months in a cookie named icc_consent, with the accepted categories, the version of the cookie policy and the date. You can change or withdraw your consent at any time from the cookie preferences."
+msgstr "La tua scelta viene memorizzata per sei mesi in un cookie chiamato icc_consent, con le categorie accettate, la versione della cookie policy e la data. Puoi modificare o revocare il consenso in qualsiasi momento dalle preferenze cookie."
+
+#. translators: %d: how many months the consent log keeps a record.
+#: src/ConsentLog/UI/PrivacyPolicyText.php:50
+#, php-format
+msgid "To demonstrate your consent, the site keeps a log of your choices for %d months: a random id created by your browser, the accepted categories, the version of the cookie policy and the date. The log does not contain your IP address or any other data that identifies you."
+msgstr "Per dimostrare il tuo consenso, il sito conserva un registro delle tue scelte per %d mesi: un id casuale creato dal tuo browser, le categorie accettate, la versione della cookie policy e la data. Il registro non contiene il tuo indirizzo IP né altri dati che ti identificano."
+
+#: src/Settings/UI/ImportEndpoint.php:58
+msgid "The file has no settings of Italy Cookie Choices."
+msgstr "Il file non contiene impostazioni di Italy Cookie Choices."
+
+#: src/Settings/UI/SettingsPage.php:57
+msgid "Italy Cookie Choices"
+msgstr "Italy Cookie Choices"
+
+#: templates/settings-page.php:19
+msgid "The settings page needs JavaScript."
+msgstr "La pagina delle impostazioni richiede JavaScript."
+
+#: assets/build/settings.js:1
+msgid "Preview"
+msgstr "Anteprima"
+
+#: assets/build/settings.js:1
+msgid "Dialog to preview"
+msgstr "Finestra da mostrare in anteprima"
+
+#: assets/build/settings.js:1
+#: assets/build/settings.js:4
+msgid "Banner"
+msgstr "Banner"
+
+#: assets/build/settings.js:1
+msgid "The preview is not available."
+msgstr "L'anteprima non è disponibile."
+
+#: assets/build/settings.js:1
+msgid "Banner preview"
+msgstr "Anteprima del banner"
+
+#: assets/build/settings.js:1
+msgid "Policy page"
+msgstr "Pagina della policy"
+
+#: assets/build/settings.js:1
+msgid "Type to search the page, the banner links to it and does not open by itself there."
+msgstr "Scrivi per cercare la pagina: il banner la collega e su quella pagina non si apre da solo."
+
+#: assets/build/settings.js:1
+msgid "Show the banner"
+msgstr "Mostra il banner"
+
+#: assets/build/settings.js:1
+msgid "The banner asks the consent and the third party content waits for it."
+msgstr "Il banner chiede il consenso e i contenuti di terze parti lo attendono."
+
+#: assets/build/settings.js:1
+msgid "Links and simple HTML are allowed."
+msgstr "Sono ammessi link e HTML semplice."
+
+#: assets/build/settings.js:1
+#: assets/build/settings.js:4
+msgid "Policy link"
+msgstr "Link alla policy"
+
+#: assets/build/settings.js:1
+msgid "Policy link text"
+msgstr "Testo del link alla policy"
+
+#: assets/build/settings.js:1
+msgid "The link shows its address when it is empty."
+msgstr "Se è vuoto, il link mostra il suo indirizzo."
+
+#: assets/build/settings.js:1
+msgid "Open the policy in a new tab"
+msgstr "Apri la policy in una nuova scheda"
+
+#: assets/build/settings.js:1
+msgid "Add rel=\"nofollow\" to the policy link"
+msgstr "Aggiungi rel=\"nofollow\" al link alla policy"
+
+#: assets/build/settings.js:1
+msgid "Accept button text"
+msgstr "Testo del pulsante di accettazione"
+
+#: assets/build/settings.js:1
+msgid "Pages where the banner does not open by itself"
+msgstr "Pagine dove il banner non si apre da solo"
+
+#: assets/build/settings.js:1
+msgid "IDs or slugs, separated by commas. The visitors can still open the preferences there."
+msgstr "ID o slug, separati da virgole. I visitatori possono comunque aprire le preferenze."
+
+#: assets/build/settings.js:1
+msgid "Reload the page after the choice"
+msgstr "Ricarica la pagina dopo la scelta"
+
+#: assets/build/settings.js:1
+msgid "New vendor"
+msgstr "Nuovo fornitore"
+
+#: assets/build/settings.js:1
+#: assets/build/settings.js:3
+#: assets/build/settings.js:4
+msgid "Name"
+msgstr "Nome"
+
+#: assets/build/settings.js:1
+msgid "Category"
+msgstr "Categoria"
+
+#: assets/build/settings.js:1
+msgid "Addresses and scripts to block"
+msgstr "Indirizzi e script da bloccare"
+
+#: assets/build/settings.js:1
+msgid "A part of the address, like tracker.example.com/script.js, or a text of the inline script. Press Enter after each one."
+msgstr "Una parte dell'indirizzo, come tracker.example.com/script.js, o un testo dello script inline. Premi Invio dopo ognuno."
+
+#. translators: %s: the vendor name.
+#: assets/build/settings.js:2
+#, js-format
+msgid "Remove %s"
+msgstr "Rimuovi %s"
+
+#: assets/build/settings.js:2
+msgid "the vendor"
+msgstr "il fornitore"
+
+#: assets/build/settings.js:2
+msgid "Common vendors"
+msgstr "Fornitori comuni"
+
+#. translators: %s: the category name.
+#: assets/build/settings.js:3
+#, js-format
+msgid "Waits for the %s consent."
+msgstr "Attende il consenso %s."
+
+#: assets/build/settings.js:3
+msgid "Custom vendors"
+msgstr "Fornitori personalizzati"
+
+#: assets/build/settings.js:3
+msgid "Add a vendor"
+msgstr "Aggiungi un fornitore"
+
+#: assets/build/settings.js:3
+msgid "Never blocked"
+msgstr "Mai bloccati"
+
+#: assets/build/settings.js:3
+msgid "The addresses and the scripts the site needs, even when a vendor matches them."
+msgstr "Gli indirizzi e gli script che servono al sito, anche quando corrispondono a un fornitore."
+
+#: assets/build/settings.js:3
+msgid "Block the vendors in the whole page"
+msgstr "Blocca i fornitori in tutta la pagina"
+
+#: assets/build/settings.js:3
+msgid "Also in the theme and in the plugins that do not use the WordPress functions. It buffers the page, turn it on only when needed."
+msgstr "Anche nel tema e nei plugin che non usano le funzioni di WordPress. Mette la pagina in un buffer, attivalo solo quando serve."
+
+#: assets/build/settings.js:3
+msgid "Placeholder text of the blocked content"
+msgstr "Testo segnaposto dei contenuti bloccati"
+
+#: assets/build/settings.js:3
+msgid "Empty for a text with the category name."
+msgstr "Vuoto per un testo con il nome della categoria."
+
+#: assets/build/settings.js:3
+msgid "Placeholder button text"
+msgstr "Testo del pulsante del segnaposto"
+
+#: assets/build/settings.js:3
+msgid "Leave a field empty to use the default text, translated in the language of the site."
+msgstr "Lascia un campo vuoto per usare il testo predefinito, tradotto nella lingua del sito."
+
+#: assets/build/settings.js:3
+msgid "Description"
+msgstr "Descrizione"
+
+#: assets/build/settings.js:3
+msgid "Log the consents"
+msgstr "Registra i consensi"
+
+#: assets/build/settings.js:3
+msgid "Each choice is stored with a random id, the categories, the policy version and the date. No IP address and no personal data."
+msgstr "Ogni scelta viene salvata con un id casuale, le categorie, la versione della policy e la data. Nessun indirizzo IP e nessun dato personale."
+
+#: assets/build/settings.js:3
+msgid "Keep the records for"
+msgstr "Conserva i record per"
+
+#. translators: %s: a number of months.
+#: assets/build/settings.js:4
+#, js-format
+msgid "%s months"
+msgstr "%s mesi"
+
+#: assets/build/settings.js:4
+msgid "Export the log as CSV"
+msgstr "Esporta il registro in CSV"
+
+#: assets/build/settings.js:4
+msgid "Google Consent Mode v2"
+msgstr "Google Consent Mode v2"
+
+#: assets/build/settings.js:4
+msgid "Send the Consent Mode signals"
+msgstr "Invia i segnali del Consent Mode"
+
+#: assets/build/settings.js:4
+msgid "The Google tags get the consent of the visitor: denied until the choice, then granted for the accepted categories."
+msgstr "I tag di Google ricevono il consenso del visitatore: negato fino alla scelta, poi concesso per le categorie accettate."
+
+#: assets/build/settings.js:4
+msgid "Load the Google tags before the consent (advanced mode)"
+msgstr "Carica i tag di Google prima del consenso (modalità avanzata)"
+
+#: assets/build/settings.js:4
+msgid "Google Analytics and Google Tag Manager are not blocked, they send cookieless pings until the consent. Check that it is allowed where your visitors are, the Italian Garante requires the consent before any tracking."
+msgstr "Google Analytics e Google Tag Manager non vengono bloccati, inviano ping senza cookie fino al consenso. Verifica che sia consentito dove si trovano i tuoi visitatori: il Garante italiano richiede il consenso prima di qualsiasi tracciamento."
+
+#: assets/build/settings.js:4
+msgid "Tags"
+msgstr "Tag"
+
+#: assets/build/settings.js:4
+msgid "The plugin prints the tags with the ids below, blocked until the consent. Leave a field empty when the tag is printed by the theme or by another plugin."
+msgstr "Il plugin stampa i tag con gli id qui sotto, bloccati fino al consenso. Lascia un campo vuoto quando il tag è stampato dal tema o da un altro plugin."
+
+#: assets/build/settings.js:4
+msgid "Google Analytics measurement ID"
+msgstr "ID di misurazione di Google Analytics"
+
+#: assets/build/settings.js:4
+msgid "Google Tag Manager container ID"
+msgstr "ID del contenitore di Google Tag Manager"
+
+#: assets/build/settings.js:4
+msgid "Facebook pixel ID"
+msgstr "ID del pixel di Facebook"
+
+#: assets/build/settings.js:4
+msgid "Use the privacy-enhanced mode of the YouTube embeds"
+msgstr "Usa la modalità privacy avanzata per i video di YouTube"
+
+#: assets/build/settings.js:4
+msgid "The videos load from youtube-nocookie.com, they still wait for the marketing consent."
+msgstr "I video vengono caricati da youtube-nocookie.com e attendono comunque il consenso marketing."
+
+#: assets/build/settings.js:4
+msgid "Position"
+msgstr "Posizione"
+
+#: assets/build/settings.js:4
+msgid "Top bar"
+msgstr "Barra in alto"
+
+#: assets/build/settings.js:4
+msgid "Modal window"
+msgstr "Finestra modale"
+
+#: assets/build/settings.js:4
+msgid "Bottom bar"
+msgstr "Barra in basso"
+
+#: assets/build/settings.js:4
+msgid "Push the page down under the top bar"
+msgstr "Sposta la pagina sotto la barra in alto"
+
+#: assets/build/settings.js:4
+msgid "Template"
+msgstr "Modello"
+
+#: assets/build/settings.js:4
+msgid "The custom template has no styles, only the custom CSS."
+msgstr "Il modello personalizzato non ha stili, solo il CSS personalizzato."
+
+#: assets/build/settings.js:4
+msgid "Default"
+msgstr "Predefinito"
+
+#: assets/build/settings.js:4
+msgid "Big buttons"
+msgstr "Pulsanti grandi"
+
+#: assets/build/settings.js:4
+msgid "Small buttons"
+msgstr "Pulsanti piccoli"
+
+#: assets/build/settings.js:4
+msgid "Custom"
+msgstr "Personalizzato"
+
+#: assets/build/settings.js:4
+msgid "Background color"
+msgstr "Colore di sfondo"
+
+#: assets/build/settings.js:4
+msgid "Text color"
+msgstr "Colore del testo"
+
+#: assets/build/settings.js:4
+msgid "CSS classes"
+msgstr "Classi CSS"
+
+#: assets/build/settings.js:4
+msgid "Content"
+msgstr "Contenuto"
+
+#: assets/build/settings.js:4
+msgid "Text"
+msgstr "Testo"
+
+#: assets/build/settings.js:4
+msgid "Buttons"
+msgstr "Pulsanti"
+
+#: assets/build/settings.js:4
+msgid "Cookie of the 2.x versions"
+msgstr "Cookie delle versioni 2.x"
+
+#: assets/build/settings.js:4
+msgid "Written while every category is accepted, for the code that still reads it."
+msgstr "Scritto quando tutte le categorie sono accettate, per il codice che lo legge ancora."
+
+#: assets/build/settings.js:4
+msgid "Value"
+msgstr "Valore"
+
+#: assets/build/settings.js:4
+msgid "Downloads the saved settings as a JSON file."
+msgstr "Scarica le impostazioni salvate in un file JSON."
+
+#: assets/build/settings.js:4
+msgid "Export the settings"
+msgstr "Esporta le impostazioni"
+
+#: assets/build/settings.js:4
+msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
+msgstr "Sostituisce le impostazioni salvate con quelle di un file esportato, anche dalle versioni 2.x."
+
+#: assets/build/settings.js:4
+msgid "Settings file"
+msgstr "File delle impostazioni"
+
+#: assets/build/settings.js:4
+msgid "The file is not a valid JSON file."
+msgstr "Il file non è un file JSON valido."
+
+#: assets/build/settings.js:4
+msgid "The settings were not imported."
+msgstr "Le impostazioni non sono state importate."
+
+#: assets/build/settings.js:4
+msgid "The settings were not loaded."
+msgstr "Le impostazioni non sono state caricate."
+
+#: assets/build/settings.js:4
+msgid "Loading the settings…"
+msgstr "Caricamento delle impostazioni…"
+
+#: assets/build/settings.js:4
+msgid "Settings imported."
+msgstr "Impostazioni importate."
+
+#: assets/build/settings.js:4
+msgid "Style"
+msgstr "Stile"
+
+#: assets/build/settings.js:4
+msgid "Categories"
+msgstr "Categorie"
+
+#: assets/build/settings.js:4
+msgid "Blocking"
+msgstr "Blocco"
+
+#: assets/build/settings.js:4
+msgid "Integrations"
+msgstr "Integrazioni"
+
+#: assets/build/settings.js:4
+msgid "Consent log"
+msgstr "Registro dei consensi"
+
+#: assets/build/settings.js:4
+msgid "Tools"
+msgstr "Strumenti"
+
+#: assets/build/settings.js:4
+msgid "Settings saved."
+msgstr "Impostazioni salvate."
+
+#: assets/build/settings.js:4
+msgid "The settings were not saved."
+msgstr "Le impostazioni non sono state salvate."
+
+#: assets/build/settings.js:4
+msgid "Save changes"
+msgstr "Salva le modifiche"
+
+#: assets/build/preferences-button/index.js:1
+msgid "Button label"
+msgstr "Testo del pulsante"
+
+#: assets/build/preferences-button/block.json
+#: assets/src/blocks/preferences-button/block.json
+msgctxt "block title"
+msgid "Cookie preferences button"
+msgstr "Pulsante delle preferenze cookie"
+
+#: assets/build/preferences-button/block.json
+#: assets/src/blocks/preferences-button/block.json
+msgctxt "block description"
+msgid "A button that opens the cookie preferences, to change or withdraw the consent."
+msgstr "Un pulsante che apre le preferenze cookie, per modificare o revocare il consenso."
+
+#: assets/build/preferences-button/block.json
+#: assets/src/blocks/preferences-button/block.json
+msgctxt "block keyword"
+msgid "cookie"
+msgstr "cookie"
+
+#: assets/build/preferences-button/block.json
+#: assets/src/blocks/preferences-button/block.json
+msgctxt "block keyword"
+msgid "consent"
+msgstr "consenso"
+
+#: assets/build/preferences-button/block.json
+#: assets/src/blocks/preferences-button/block.json
+msgctxt "block keyword"
+msgid "privacy"
+msgstr "privacy"
+
+#: assets/build/preferences-button/block.json
+#: assets/src/blocks/preferences-button/block.json
+msgctxt "block keyword"
+msgid "gdpr"
+msgstr "gdpr"

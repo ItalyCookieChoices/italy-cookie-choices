@@ -38,6 +38,7 @@ final readonly class Module implements ModuleInterface
                 SettingsPage::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':languagesPath' => $this->pluginPath . 'languages',
                 ],
                 PluginActionLinks::class => [
                     ':basename' => $this->basename,

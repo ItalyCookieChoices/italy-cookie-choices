@@ -17,6 +17,7 @@ final class SettingsPageTest extends WPTestCase
     use BuildsContainer;
 
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
+    private const LANGUAGES = '/plugin/languages';
 
     public function setUp(): void
     {
@@ -76,9 +77,10 @@ final class SettingsPageTest extends WPTestCase
 
         $sut->enqueue('settings_page_italy-cookie-choices');
         $script = \wp_scripts()->registered[SettingsPage::HANDLE];
-        $this->assertSame(self::BUILD_URL . 'admin.js', $script->src);
+        $this->assertSame(self::BUILD_URL . 'settings.js', $script->src);
         $this->assertSame(['wp-api-fetch', 'wp-components', 'wp-element', 'wp-i18n'], $script->deps);
         $this->assertSame('italy-cookie-choices', $script->textdomain);
+        $this->assertSame(self::LANGUAGES, $script->translations_path);
         $this->assertSame(
             ['window.italyCookieChoicesAdmin = ' . \wp_json_encode($sut->data()) . ';'],
             \array_values(\array_filter((array) \wp_scripts()->get_data(SettingsPage::HANDLE, 'before')))
@@ -129,7 +131,8 @@ final class SettingsPageTest extends WPTestCase
             $this->service(ConsentLogExport::class),
             $this->service(ViewInterface::class),
             $buildPath === '' ? $fixtures : $buildPath,
-            self::BUILD_URL
+            self::BUILD_URL,
+            self::LANGUAGES
         );
     }
 
