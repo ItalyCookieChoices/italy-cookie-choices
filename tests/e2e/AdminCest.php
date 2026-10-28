@@ -188,6 +188,7 @@ final class AdminCest
         $this->openTheSettings($I);
         $this->openTab($I, 'Integrations');
 
+        $I->waitForText('Load the Google tags before the consent (advanced mode)', 5);
         $I->seeCheckboxIsChecked('Send the Consent Mode signals');
         $I->checkOption('Load the Google tags before the consent (advanced mode)');
         $I->fillField('Google Analytics measurement ID', 'G-ICCTEST');
