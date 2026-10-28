@@ -1,0 +1,315 @@
+{
+    "translation-revision-date": "2026-10-28 08:00+0100",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/build\/settings.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "it_IT",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Custom CSS": [
+                "CSS personalizzato"
+            ],
+            "Documentation": [
+                "Documentazione"
+            ],
+            "Export": [
+                "Esporta"
+            ],
+            "Import": [
+                "Importa"
+            ],
+            "Accept all": [
+                "Accetta tutti"
+            ],
+            "Preferences": [
+                "Preferenze"
+            ],
+            "Preview": [
+                "Anteprima"
+            ],
+            "Dialog to preview": [
+                "Finestra da mostrare in anteprima"
+            ],
+            "Banner": [
+                "Banner"
+            ],
+            "The preview is not available.": [
+                "L'anteprima non \u00e8 disponibile."
+            ],
+            "Banner preview": [
+                "Anteprima del banner"
+            ],
+            "Policy page": [
+                "Pagina della policy"
+            ],
+            "Type to search the page, the banner links to it and does not open by itself there.": [
+                "Scrivi per cercare la pagina: il banner la collega e su quella pagina non si apre da solo."
+            ],
+            "Show the banner": [
+                "Mostra il banner"
+            ],
+            "The banner asks the consent and the third party content waits for it.": [
+                "Il banner chiede il consenso e i contenuti di terze parti lo attendono."
+            ],
+            "Links and simple HTML are allowed.": [
+                "Sono ammessi link e HTML semplice."
+            ],
+            "Policy link": [
+                "Link alla policy"
+            ],
+            "Policy link text": [
+                "Testo del link alla policy"
+            ],
+            "The link shows its address when it is empty.": [
+                "Se \u00e8 vuoto, il link mostra il suo indirizzo."
+            ],
+            "Open the policy in a new tab": [
+                "Apri la policy in una nuova scheda"
+            ],
+            "Add rel=\"nofollow\" to the policy link": [
+                "Aggiungi rel=\"nofollow\" al link alla policy"
+            ],
+            "Accept button text": [
+                "Testo del pulsante di accettazione"
+            ],
+            "Pages where the banner does not open by itself": [
+                "Pagine dove il banner non si apre da solo"
+            ],
+            "IDs or slugs, separated by commas. The visitors can still open the preferences there.": [
+                "ID o slug, separati da virgole. I visitatori possono comunque aprire le preferenze."
+            ],
+            "Reload the page after the choice": [
+                "Ricarica la pagina dopo la scelta"
+            ],
+            "New vendor": [
+                "Nuovo fornitore"
+            ],
+            "Name": [
+                "Nome"
+            ],
+            "Category": [
+                "Categoria"
+            ],
+            "Addresses and scripts to block": [
+                "Indirizzi e script da bloccare"
+            ],
+            "A part of the address, like tracker.example.com\/script.js, or a text of the inline script. Press Enter after each one.": [
+                "Una parte dell'indirizzo, come tracker.example.com\/script.js, o un testo dello script inline. Premi Invio dopo ognuno."
+            ],
+            "Remove %s": [
+                "Rimuovi %s"
+            ],
+            "the vendor": [
+                "il fornitore"
+            ],
+            "Common vendors": [
+                "Fornitori comuni"
+            ],
+            "Waits for the %s consent.": [
+                "Attende il consenso %s."
+            ],
+            "Custom vendors": [
+                "Fornitori personalizzati"
+            ],
+            "Add a vendor": [
+                "Aggiungi un fornitore"
+            ],
+            "Never blocked": [
+                "Mai bloccati"
+            ],
+            "The addresses and the scripts the site needs, even when a vendor matches them.": [
+                "Gli indirizzi e gli script che servono al sito, anche quando corrispondono a un fornitore."
+            ],
+            "Block the vendors in the whole page": [
+                "Blocca i fornitori in tutta la pagina"
+            ],
+            "Also in the theme and in the plugins that do not use the WordPress functions. It buffers the page, turn it on only when needed.": [
+                "Anche nel tema e nei plugin che non usano le funzioni di WordPress. Mette la pagina in un buffer, attivalo solo quando serve."
+            ],
+            "Placeholder text of the blocked content": [
+                "Testo segnaposto dei contenuti bloccati"
+            ],
+            "Empty for a text with the category name.": [
+                "Vuoto per un testo con il nome della categoria."
+            ],
+            "Placeholder button text": [
+                "Testo del pulsante del segnaposto"
+            ],
+            "Leave a field empty to use the default text, translated in the language of the site.": [
+                "Lascia un campo vuoto per usare il testo predefinito, tradotto nella lingua del sito."
+            ],
+            "Description": [
+                "Descrizione"
+            ],
+            "Log the consents": [
+                "Registra i consensi"
+            ],
+            "Each choice is stored with a random id, the categories, the policy version and the date. No IP address and no personal data.": [
+                "Ogni scelta viene salvata con un id casuale, le categorie, la versione della policy e la data. Nessun indirizzo IP e nessun dato personale."
+            ],
+            "Keep the records for": [
+                "Conserva i record per"
+            ],
+            "%s months": [
+                "%s mesi"
+            ],
+            "Export the log as CSV": [
+                "Esporta il registro in CSV"
+            ],
+            "Google Consent Mode v2": [
+                "Google Consent Mode v2"
+            ],
+            "Send the Consent Mode signals": [
+                "Invia i segnali del Consent Mode"
+            ],
+            "The Google tags get the consent of the visitor: denied until the choice, then granted for the accepted categories.": [
+                "I tag di Google ricevono il consenso del visitatore: negato fino alla scelta, poi concesso per le categorie accettate."
+            ],
+            "Load the Google tags before the consent (advanced mode)": [
+                "Carica i tag di Google prima del consenso (modalit\u00e0 avanzata)"
+            ],
+            "Google Analytics and Google Tag Manager are not blocked, they send cookieless pings until the consent. Check that it is allowed where your visitors are, the Italian Garante requires the consent before any tracking.": [
+                "Google Analytics e Google Tag Manager non vengono bloccati, inviano ping senza cookie fino al consenso. Verifica che sia consentito dove si trovano i tuoi visitatori: il Garante italiano richiede il consenso prima di qualsiasi tracciamento."
+            ],
+            "Tags": [
+                "Tag"
+            ],
+            "The plugin prints the tags with the ids below, blocked until the consent. Leave a field empty when the tag is printed by the theme or by another plugin.": [
+                "Il plugin stampa i tag con gli id qui sotto, bloccati fino al consenso. Lascia un campo vuoto quando il tag \u00e8 stampato dal tema o da un altro plugin."
+            ],
+            "Google Analytics measurement ID": [
+                "ID di misurazione di Google Analytics"
+            ],
+            "Google Tag Manager container ID": [
+                "ID del contenitore di Google Tag Manager"
+            ],
+            "Facebook pixel ID": [
+                "ID del pixel di Facebook"
+            ],
+            "Use the privacy-enhanced mode of the YouTube embeds": [
+                "Usa la modalit\u00e0 privacy avanzata per i video di YouTube"
+            ],
+            "The videos load from youtube-nocookie.com, they still wait for the marketing consent.": [
+                "I video vengono caricati da youtube-nocookie.com e attendono comunque il consenso marketing."
+            ],
+            "Position": [
+                "Posizione"
+            ],
+            "Top bar": [
+                "Barra in alto"
+            ],
+            "Modal window": [
+                "Finestra modale"
+            ],
+            "Bottom bar": [
+                "Barra in basso"
+            ],
+            "Push the page down under the top bar": [
+                "Sposta la pagina sotto la barra in alto"
+            ],
+            "Template": [
+                "Modello"
+            ],
+            "The custom template has no styles, only the custom CSS.": [
+                "Il modello personalizzato non ha stili, solo il CSS personalizzato."
+            ],
+            "Default": [
+                "Predefinito"
+            ],
+            "Big buttons": [
+                "Pulsanti grandi"
+            ],
+            "Small buttons": [
+                "Pulsanti piccoli"
+            ],
+            "Custom": [
+                "Personalizzato"
+            ],
+            "Background color": [
+                "Colore di sfondo"
+            ],
+            "Text color": [
+                "Colore del testo"
+            ],
+            "CSS classes": [
+                "Classi CSS"
+            ],
+            "Content": [
+                "Contenuto"
+            ],
+            "Text": [
+                "Testo"
+            ],
+            "Buttons": [
+                "Pulsanti"
+            ],
+            "Cookie of the 2.x versions": [
+                "Cookie delle versioni 2.x"
+            ],
+            "Written while every category is accepted, for the code that still reads it.": [
+                "Scritto quando tutte le categorie sono accettate, per il codice che lo legge ancora."
+            ],
+            "Value": [
+                "Valore"
+            ],
+            "Downloads the saved settings as a JSON file.": [
+                "Scarica le impostazioni salvate in un file JSON."
+            ],
+            "Export the settings": [
+                "Esporta le impostazioni"
+            ],
+            "Replaces the saved settings with the ones of an exported file, also of the 2.x versions.": [
+                "Sostituisce le impostazioni salvate con quelle di un file esportato, anche dalle versioni 2.x."
+            ],
+            "Settings file": [
+                "File delle impostazioni"
+            ],
+            "The file is not a valid JSON file.": [
+                "Il file non \u00e8 un file JSON valido."
+            ],
+            "The settings were not imported.": [
+                "Le impostazioni non sono state importate."
+            ],
+            "The settings were not loaded.": [
+                "Le impostazioni non sono state caricate."
+            ],
+            "Loading the settings\u2026": [
+                "Caricamento delle impostazioni\u2026"
+            ],
+            "Settings imported.": [
+                "Impostazioni importate."
+            ],
+            "Style": [
+                "Stile"
+            ],
+            "Categories": [
+                "Categorie"
+            ],
+            "Blocking": [
+                "Blocco"
+            ],
+            "Integrations": [
+                "Integrazioni"
+            ],
+            "Consent log": [
+                "Registro dei consensi"
+            ],
+            "Tools": [
+                "Strumenti"
+            ],
+            "Settings saved.": [
+                "Impostazioni salvate."
+            ],
+            "The settings were not saved.": [
+                "Le impostazioni non sono state salvate."
+            ],
+            "Save changes": [
+                "Salva le modifiche"
+            ]
+        }
+    }
+}

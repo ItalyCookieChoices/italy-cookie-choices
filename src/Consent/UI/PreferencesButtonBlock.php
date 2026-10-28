@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\I18n\TextDomain;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -20,11 +21,13 @@ final readonly class PreferencesButtonBlock implements SubscriberInterface
 
     /**
      * @param string $buildPath The assets/build folder, with the trailing slash.
+     * @param string $languagesPath The folder of the translations bundled with the plugin.
      */
     public function __construct(
         private PreferencesButton $button,
         private Options $options,
         private string $buildPath,
+        private string $languagesPath,
     ) {
     }
 
@@ -40,7 +43,14 @@ final readonly class PreferencesButtonBlock implements SubscriberInterface
             return;
         }
 
-        \register_block_type($folder, ['render_callback' => $this->render(...)]);
+        $block = \register_block_type($folder, ['render_callback' => $this->render(...)]);
+        if ($block === false) {
+            return;
+        }
+
+        foreach ($block->editor_script_handles as $handle) {
+            \wp_set_script_translations($handle, TextDomain::DOMAIN, $this->languagesPath);
+        }
     }
 
     /**

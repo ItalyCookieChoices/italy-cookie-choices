@@ -87,6 +87,16 @@ stan: ## Run PHPStan
 	$(EXEC) vendor/bin/codecept build
 	$(EXEC) composer stan
 
+.PHONY: i18n
+i18n: ## Update the translation template, the PO, MO and JSON files in languages/, run assets first
+	$(EXEC) wp i18n make-pot . languages/italy-cookie-choices.pot --slug=italy-cookie-choices \
+		--exclude=vendor,node_modules,tests,build/italy-cookie-choices,languages,docs,.docker,assets/src \
+		--include=assets/src/blocks,assets/build,src,templates,legacy,italy-cookie-choices.php \
+		--headers='{"Report-Msgid-Bugs-To":"https://github.com/ItalyCookieChoices/italy-cookie-choices/issues"}'
+	$(EXEC) wp i18n update-po languages/italy-cookie-choices.pot languages/
+	$(EXEC) wp i18n make-mo languages/
+	$(EXEC) wp i18n make-json languages/ --no-purge --pretty-print
+
 .PHONY: readme
 readme: ## Build readme.txt from README.md
 	bin/build-readme

@@ -9,6 +9,7 @@
  * Author: Enea Overclokk, Andrea Pernici, Andrea Cardinale
  * Author URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
  * Text Domain: italy-cookie-choices
+ * Domain Path: /languages
  * License: GPLv2 or later
  * Git URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
  * GitHub Plugin URI: https://github.com/ItalyCookieChoices/italy-cookie-choices

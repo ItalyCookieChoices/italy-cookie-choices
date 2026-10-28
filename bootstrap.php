@@ -20,7 +20,7 @@ require __DIR__ . '/legacy/bootstrap.php';
         ->addModule(new EventModule())
         ->addModule(new Module(
             ITALY_COOKIE_CHOICES_PLUGIN_PATH,
-            \dirname(ITALY_COOKIE_CHOICES_BASENAME) . '/lang',
+            \dirname($basename) . '/languages',
             $pluginPath . 'templates/'
         ))
         ->addModule(new Settings\Module($pluginPath, $pluginUrl, $basename))

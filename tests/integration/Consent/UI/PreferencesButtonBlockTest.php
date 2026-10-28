@@ -14,6 +14,8 @@ final class PreferencesButtonBlockTest extends WPTestCase
 {
     use BuildsOptions;
 
+    private const LANGUAGES = '/plugin/languages';
+
     public function setUp(): void
     {
         parent::setUp();
@@ -43,6 +45,16 @@ final class PreferencesButtonBlockTest extends WPTestCase
             ['label' => true]
         ));
         $this->assertSame(['italy-cookie-choices-preferences-button-editor-script'], $blockType->editor_script_handles);
+    }
+
+    public function testTheEditorScriptUsesTheBundledTranslations(): void
+    {
+        $this->makeSut()->register();
+
+        $script = \wp_scripts()->registered['italy-cookie-choices-preferences-button-editor-script'] ?? null;
+        $this->assertInstanceOf(\_WP_Dependency::class, $script);
+        $this->assertSame('italy-cookie-choices', $script->textdomain);
+        $this->assertSame(self::LANGUAGES, $script->translations_path);
     }
 
     public function testNothingIsRegisteredWhenTheAssetsAreNotBuilt(): void
@@ -120,7 +132,8 @@ final class PreferencesButtonBlockTest extends WPTestCase
         return new PreferencesButtonBlock(
             new PreferencesButton(),
             $this->options(),
-            $buildPath === '' ? $fixtures : $buildPath
+            $buildPath === '' ? $fixtures : $buildPath,
+            self::LANGUAGES
         );
     }
 }
