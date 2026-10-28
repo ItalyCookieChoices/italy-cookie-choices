@@ -16,10 +16,9 @@ final class ScreenshotsCest
 {
     private const SETTINGS_PAGE = '/options-general.php?page=italy-cookie-choices';
     private const PREVIEW = '.icc-admin__preview-frame';
-    private const TABS = '.components-tab-panel__tabs';
 
     /**
-     * @return list<array{locale: string, text: string, vendor: string}>
+     * @return list<array{locale: string, text: string}>
      */
     protected function locales(): array
     {
@@ -28,27 +27,26 @@ final class ScreenshotsCest
                 'locale' => 'en_US',
                 'text' => 'We use cookies to measure the visits and to show videos and maps. '
                     . 'You can accept them, refuse them or choose the categories.',
-                'vendor' => 'Newsletter',
             ],
             [
                 'locale' => 'it_IT',
                 'text' => 'Usiamo i cookie per misurare le visite e per mostrare video e mappe. '
                     . 'Puoi accettarli, rifiutarli o scegliere le categorie.',
-                'vendor' => 'Newsletter',
             ],
         ];
     }
 
     /**
      * @dataProvider locales
+     * @param Example<string, string> $example
      */
     public function takeTheScreenshots(E2eTester $I, Example $example): void
     {
-        $locale = (string) $example['locale'];
+        $locale = $this->text($I, $example, 'locale');
         $I->haveOptionInDatabase('WPLANG', $locale === 'en_US' ? '' : $locale);
         $I->haveCookieChoicesOptions([
             'banner' => '3',
-            'text' => (string) $example['text'],
+            'text' => $this->text($I, $example, 'text'),
             'anchor_text' => 'Cookie policy',
             'button_text' => null,
             'content_message_text' => null,
@@ -58,7 +56,7 @@ final class ScreenshotsCest
             'ga_measurement_id' => 'G-EXAMPLE123',
             'custom_vendors' => [[
                 'id' => 'newsletter',
-                'name' => (string) $example['vendor'],
+                'name' => 'Newsletter',
                 'category' => 'marketing',
                 'patterns' => ['newsletter.example.com/form.js'],
             ]],
@@ -66,7 +64,7 @@ final class ScreenshotsCest
         $I->havePostInDatabase([
             'post_title' => $locale === 'en_US' ? 'Our latest video' : 'Il nostro ultimo video',
             'post_name' => 'video',
-            'post_content' => "<!-- wp:embed {\"url\":\"https://www.youtube.com/watch?v=icc-oembed\",\"type\":\"video\","
+            'post_content' => '<!-- wp:embed {"url":"https://www.youtube.com/watch?v=icc-oembed","type":"video",'
                 . "\"providerNameSlug\":\"youtube\"} -->\n<figure class=\"wp-block-embed is-type-video\">"
                 . "<div class=\"wp-block-embed__wrapper\">\nhttps://www.youtube.com/watch?v=icc-oembed\n"
                 . "</div></figure>\n<!-- /wp:embed -->",
@@ -111,6 +109,17 @@ final class ScreenshotsCest
         $I->waitForElementNotVisible('#icc-preferences');
         $I->scrollTo('.wp-block-embed', 0, -120);
         $this->screenshot($I, $locale, 7, 'placeholder');
+    }
+
+    /**
+     * @param Example<string, string> $example
+     */
+    private function text(E2eTester $I, Example $example, string $key): string
+    {
+        $text = $example[$key];
+        $I->assertIsString($text);
+
+        return $text;
     }
 
     private function waitForThePreview(E2eTester $I, string $dialog): void
