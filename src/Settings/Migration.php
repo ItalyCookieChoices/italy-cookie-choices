@@ -100,6 +100,7 @@ final readonly class Migration implements SubscriberInterface
             3 => $this->moveTheSnippetsToTheLists(...),
             4 => $this->turnOnTheConsentLog(...),
             5 => $this->moveTheListsToTheVendors(...),
+            6 => $this->turnOnTheConsentMode(...),
         ];
     }
 
@@ -177,6 +178,17 @@ final readonly class Migration implements SubscriberInterface
         }
 
         return $this->validValues($migrated);
+    }
+
+    /**
+     * Version 6: the Google tags get the Consent Mode v2 signals, they stay blocked until the consent.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function turnOnTheConsentMode(array $option): array
+    {
+        return $option + Schema::CONSENT_MODE_DEFAULTS;
     }
 
     /**

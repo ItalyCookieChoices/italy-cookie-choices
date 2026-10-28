@@ -79,6 +79,9 @@ final class SanitizerTest extends WPTestCase
             'all_block',
             'consent_log',
             'consent_log_retention',
+            'consent_mode',
+            'consent_mode_advanced',
+            'youtube_nocookie',
         ];
 
         foreach ($fields as $field) {
@@ -168,6 +171,28 @@ final class SanitizerTest extends WPTestCase
 
         $this->assertIsArray($result['custom_vendors']);
         $this->assertSame(['myads', 'myads-2', 'custom'], \array_column($result['custom_vendors'], 'id'));
+    }
+
+    /**
+     * @return iterable<string, array{string, mixed, string}>
+     */
+    public function tagIds(): iterable
+    {
+        yield 'measurement id' => ['ga_measurement_id', ' g-abc123 ', 'G-ABC123'];
+        yield 'universal analytics id' => ['ga_measurement_id', 'UA-123-1', ''];
+        yield 'container id' => ['gtm_container_id', 'gtm-abc1', 'GTM-ABC1'];
+        yield 'container id with a script' => ['gtm_container_id', 'GTM-A");alert(1);//', ''];
+        yield 'pixel id' => ['facebook_pixel_id', '123456789', '123456789'];
+        yield 'pixel id with letters' => ['facebook_pixel_id', '123abc', ''];
+        yield 'pixel id not a string' => ['facebook_pixel_id', ['1'], ''];
+    }
+
+    /**
+     * @dataProvider tagIds
+     */
+    public function testTheTagIdsHaveTheShapeOfTheirTag(string $field, mixed $value, string $expected): void
+    {
+        $this->assertSame($expected, (new Sanitizer())([$field => $value])[$field]);
     }
 
     public function testTheAllowedPatternsAreUniqueTexts(): void

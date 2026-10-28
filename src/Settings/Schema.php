@@ -16,7 +16,7 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 5;
+    public const VERSION = 6;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -29,6 +29,9 @@ final readonly class Schema
         'nofollow',
         'all_block',
         'consent_log',
+        'consent_mode',
+        'consent_mode_advanced',
+        'youtube_nocookie',
     ];
 
     private const ENUMS = [
@@ -54,6 +57,19 @@ final readonly class Schema
         'content_message_text',
         'content_message_button_text',
         'excluded_pages',
+    ];
+
+    /**
+     * The ids of the Google and Facebook tags, empty when the tag is not printed.
+     */
+    public const TAG_IDS = [
+        'ga_measurement_id' => '^(G-[A-Z0-9]+)?$',
+        'gtm_container_id' => '^(GTM-[A-Z0-9]+)?$',
+        'facebook_pixel_id' => '^([0-9]+)?$',
+    ];
+
+    public const CONSENT_MODE_DEFAULTS = [
+        'consent_mode' => '1',
     ];
 
     public const CONSENT_LOG_DEFAULTS = [
@@ -85,6 +101,8 @@ final readonly class Schema
             'content_message_text' => '',
             'content_message_button_text' => '',
             ...self::CONSENT_LOG_DEFAULTS,
+            ...self::CONSENT_MODE_DEFAULTS,
+            'youtube_nocookie' => '1',
         ];
     }
 
@@ -107,6 +125,10 @@ final readonly class Schema
 
         foreach (self::STRINGS as $name) {
             $properties[$name] = ['type' => 'string'];
+        }
+
+        foreach (self::TAG_IDS as $name => $pattern) {
+            $properties[$name] = ['type' => 'string', 'pattern' => $pattern];
         }
 
         foreach (self::REQUIRED_STRINGS as $name) {

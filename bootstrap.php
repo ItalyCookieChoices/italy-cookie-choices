@@ -27,6 +27,7 @@ require __DIR__ . '/legacy/bootstrap.php';
         ->addModule(new Consent\Module($pluginPath, $pluginUrl, $_COOKIE))
         ->addModule(new Blocking\Module($pluginPath, $pluginUrl))
         ->addModule(new ConsentLog\Module($pluginPath, $pluginUrl))
+        ->addModule(new Integrations\Module($pluginPath))
         ->extend(SubscribersConfigExtension::class)
         ->build();
 })(\plugin_dir_path(__FILE__), \plugin_dir_url(__FILE__), \plugin_basename(__DIR__ . '/italy-cookie-choices.php'));

@@ -10,7 +10,10 @@ export type Checkbox =
 	| 'target'
 	| 'nofollow'
 	| 'all_block'
-	| 'consent_log';
+	| 'consent_log'
+	| 'consent_mode'
+	| 'consent_mode_advanced'
+	| 'youtube_nocookie';
 
 export type Text =
 	| 'text'
@@ -33,7 +36,10 @@ export type Text =
 	| 'excluded_pages'
 	| 'banner'
 	| 'js_template'
-	| 'consent_log_retention';
+	| 'consent_log_retention'
+	| 'ga_measurement_id'
+	| 'gtm_container_id'
+	| 'facebook_pixel_id';
 
 export interface CategoryTexts {
 	label?: string;
@@ -79,7 +85,7 @@ export interface AdminData {
 	documentationUrl: string;
 }
 
-export const SCHEMA_VERSION = 5;
+export const SCHEMA_VERSION = 6;
 
 function isRecord( value: unknown ): value is Record< string, unknown > {
 	return (

@@ -10,6 +10,7 @@ const entries = {
 	blocking: './assets/src/blocking/index.ts',
 	'consent-log': './assets/src/consent-log/index.ts',
 	admin: './assets/src/admin/index.tsx',
+	'consent-mode': './assets/src/consent-mode/index.ts',
 };
 
 module.exports = {
