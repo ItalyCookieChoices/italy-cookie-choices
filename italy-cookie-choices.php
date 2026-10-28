@@ -3,7 +3,7 @@
  * Plugin Name: Italy Cookie Choices (for EU Cookie Law & Cookie Notice)
  * Plugin URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
  * Description: Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page.
- * Version: 2.6.0
+ * Version: 3.0.0
  * Requires at least: 6.5
  * Requires PHP: 8.2
  * Author: Enea Overclokk, Andrea Pernici, Andrea Cardinale
