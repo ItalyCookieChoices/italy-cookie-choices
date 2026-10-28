@@ -1,0 +1,27 @@
+actor: E2eTester
+path: screenshots
+modules:
+    enabled:
+        - lucatume\WPBrowser\Module\WPDb
+        - lucatume\WPBrowser\Module\WPWebDriver
+        - Asserts
+        - \Helper\E2e
+    config:
+        lucatume\WPBrowser\Module\WPDb:
+            dbUrl: "mysql://%DB_USER%:%DB_PASSWORD%@%DB_HOST%/%DB_NAME%"
+            dump: "tests/_data/dump.sql"
+            populate: true
+            cleanup: true
+            waitlock: 10
+            url: "%WP_URL%"
+            urlReplacement: true
+            tablePrefix: "%TABLE_PREFIX%"
+        lucatume\WPBrowser\Module\WPWebDriver:
+            url: "%WP_URL%"
+            adminUsername: "%ADMIN_USERNAME%"
+            adminPassword: "%ADMIN_PASSWORD%"
+            adminPath: "/wp-admin"
+            browser: chrome
+            host: "%SELENIUM_HOST%"
+            port: 4444
+            window_size: 1280x860
