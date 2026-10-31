@@ -8,13 +8,13 @@ The texts you write in the settings are translated with your multilingual plugin
 
 Open **WPML > String Translation** and choose the **Italy Cookie Choices** domain. The strings are registered every time an administrator opens the dashboard:
 
-- Banner text
-- Banner url
-- Banner anchor text
-- Banner button text
-- Content message text
-- Content message button text
-- Category *id* label and Category *id* description, for the category texts you changed
+* Banner text
+* Banner url
+* Banner anchor text
+* Banner button text
+* Content message text
+* Content message button text
+* Category *id* label and Category *id* description, for the category texts you changed
 
 ## Polylang
 

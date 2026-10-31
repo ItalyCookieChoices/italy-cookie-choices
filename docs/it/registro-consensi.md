@@ -6,10 +6,10 @@ Il GDPR chiede al sito di dimostrare i consensi su cui si basa (art. 7, paragraf
 
 Ogni record contiene:
 
-- un id casuale creato dal browser, lo stesso per le scelte successive di quel browser;
-- le categorie accettate, nessuna per un rifiuto o una revoca;
-- la versione della cookie policy;
-- la data, in UTC.
+* un id casuale creato dal browser, lo stesso per le scelte successive di quel browser;
+* le categorie accettate, nessuna per un rifiuto o una revoca;
+* la versione della cookie policy;
+* la data, in UTC.
 
 Nessun indirizzo IP, nessun user agent e nessun account: il registro non identifica il visitatore. L'id è salvato anche nel cookie del consenso, così un visitatore può comunicarti il suo id per trovare le sue scelte.
 

@@ -118,7 +118,8 @@ A rewrite of the plugin for the current consent rules. Read [Upgrading from 2.x]
 * Google Consent Mode v2, basic or advanced, and the Google Analytics, Google Tag Manager and Facebook pixel tags from their ids
 * New settings page with a live preview, the import and the export of the settings
 * WPML and Polylang translate the texts again, Italian translation included
-* Removed the `icc_js_array` and `icc_output_html` filters and the Ceceppa Multilingua support
+* Removed the `icc_js_array` and `icc_output_html` filters and the Ceceppa Multilingua support, deprecated the `icc_bots` filter
+* New `PluginLoaded` event, the `icc_plugin_loaded` action still fires
 
 = 2.6.0 =
 Release Date: Oct 21st, 2026

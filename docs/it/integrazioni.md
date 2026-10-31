@@ -159,6 +159,18 @@ add_action( BuildingBanner::class, static function ( BuildingBanner $event ): vo
 } );
 ```
 
+## Quando il plugin è caricato
+
+```php
+use ItalyCookieChoices\PluginLoaded;
+
+add_action( PluginLoaded::class, static function ( PluginLoaded $event ): void {
+	// Il plugin è caricato e i suoi servizi sono agganciati.
+} );
+```
+
+L'azione `icc_plugin_loaded` delle versioni 2.x viene ancora eseguita, dopo l'evento.
+
 ## Tradurre i testi con un altro plugin multilingua
 
 WPML e Polylang traducono i testi salvati senza configurazioni aggiuntive. Altri plugin, come qTranslate-XT, li traducono con `TranslatingText`:

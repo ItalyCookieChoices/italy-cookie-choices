@@ -6,10 +6,10 @@ The GDPR asks the site to demonstrate the consents it relies on (art. 7(1)). Wit
 
 Each record has:
 
-- a random id created by the browser, the same for the next choices of that browser;
-- the accepted categories, none for a rejection or a withdrawal;
-- the version of the cookie policy;
-- the date, in UTC.
+* a random id created by the browser, the same for the next choices of that browser;
+* the accepted categories, none for a rejection or a withdrawal;
+* the version of the cookie policy;
+* the date, in UTC.
 
 No IP address, no user agent and no account: the log does not identify the visitor. The id is stored in the consent cookie too, so a visitor can tell you their id to find their choices.
 
