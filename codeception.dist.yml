@@ -23,6 +23,5 @@ coverage:
         - templates/*
         - bootstrap.php
         - legacy/*.php
-        - legacy/functions/*.php
 params:
     - .docker/test.env

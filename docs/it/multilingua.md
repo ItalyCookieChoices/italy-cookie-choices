@@ -8,13 +8,13 @@ I testi che scrivi nelle impostazioni vengono tradotti con il tuo plugin multili
 
 Apri **WPML > Traduzione stringhe** e scegli il dominio **Italy Cookie Choices**. Le stringhe vengono registrate ogni volta che un amministratore apre la bacheca:
 
-- Banner text
-- Banner url
-- Banner anchor text
-- Banner button text
-- Content message text
-- Content message button text
-- Category *id* label e Category *id* description, per i testi delle categorie che hai cambiato
+* Banner text
+* Banner url
+* Banner anchor text
+* Banner button text
+* Content message text
+* Content message button text
+* Category *id* label e Category *id* description, per i testi delle categorie che hai cambiato
 
 ## Polylang
 

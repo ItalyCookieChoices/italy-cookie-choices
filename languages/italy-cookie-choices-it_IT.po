@@ -89,6 +89,7 @@ msgstr "Accetta i cookie %s"
 msgid "Cookie consent"
 msgstr "Consenso ai cookie"
 
+#: src/Consent/UI/AcceptButtonShortcode.php:51
 #: src/Consent/UI/ConsentTexts.php:76
 #: assets/build/settings.js:1
 msgid "Accept all"
@@ -605,3 +606,7 @@ msgstr "privacy"
 msgctxt "block keyword"
 msgid "gdpr"
 msgstr "gdpr"
+
+#: src/Legacy/DeprecatedHooks.php:27
+msgid "The bots are no longer detected, they do not run the consent scripts."
+msgstr "I bot non vengono più rilevati, non eseguono gli script del consenso."

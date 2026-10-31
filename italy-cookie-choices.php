@@ -51,10 +51,3 @@ require __DIR__ . '/bootstrap.php';
 register_deactivation_hook( __FILE__, static function (): void {
 	wp_clear_scheduled_hook( 'italy_cookie_choices_consent_log_cleanup' );
 } );
-
-/**
- * Fires once Italy_Cookie_Choices plugin has been loaded.
- *
- * @since 2.5.0
- */
-do_action( 'icc_plugin_loaded' );

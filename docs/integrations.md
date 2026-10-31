@@ -161,6 +161,18 @@ add_action( BuildingBanner::class, static function ( BuildingBanner $event ): vo
 } );
 ```
 
+## When the plugin is loaded
+
+```php
+use ItalyCookieChoices\PluginLoaded;
+
+add_action( PluginLoaded::class, static function ( PluginLoaded $event ): void {
+	// The plugin is loaded and its services are hooked.
+} );
+```
+
+The `icc_plugin_loaded` action of the 2.x versions still fires, after the event.
+
 ## Translate the texts with another multilingual plugin
 
 WPML and Polylang translate the saved texts out of the box. Other plugins, like qTranslate-XT, translate them with `TranslatingText`:

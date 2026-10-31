@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Integration\Consent;
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\Module;
+use ItalyCookieChoices\Consent\UI\AcceptButtonShortcode;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\BannerPreviewEndpoint;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
@@ -32,6 +33,7 @@ final class ModuleTest extends WPTestCase
                 Banner::class,
                 HasConsentFilter::class,
                 PreferencesShortcode::class,
+                AcceptButtonShortcode::class,
                 PreferencesButtonBlock::class,
                 BannerPreviewEndpoint::class,
             ],
