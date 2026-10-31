@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices;
 
 use ItalyCookieChoices\I18n\TextDomain;
-use ItalyCookieChoices\Legacy\LegacyLoader;
+use ItalyCookieChoices\Legacy\DeprecatedHooks;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
 use ItalyStrap\Empress\AurynConfig;
@@ -21,12 +21,10 @@ use ItalyStrap\View\ViewInterface;
 final readonly class Module implements ModuleInterface
 {
     /**
-     * @param string $legacyPath The legacy folder, with the trailing slash.
      * @param string $languagesPath Relative to the plugins folder, as load_plugin_textdomain() expects it.
      * @param string $templatesPath The templates folder, with the trailing slash.
      */
     public function __construct(
-        private string $legacyPath,
         private string $languagesPath,
         private string $templatesPath,
     ) {
@@ -45,13 +43,10 @@ final readonly class Module implements ModuleInterface
                 TextDomain::class => [
                     ':languagesPath' => $this->languagesPath,
                 ],
-                LegacyLoader::class => [
-                    ':legacyPath' => $this->legacyPath,
-                ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 TextDomain::class,
-                LegacyLoader::class,
+                DeprecatedHooks::class,
             ],
         ];
     }

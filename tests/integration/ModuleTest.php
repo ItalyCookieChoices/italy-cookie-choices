@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration;
 
 use ItalyCookieChoices\I18n\TextDomain;
-use ItalyCookieChoices\Legacy\LegacyLoader;
+use ItalyCookieChoices\Legacy\DeprecatedHooks;
 use ItalyCookieChoices\Module;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
@@ -17,17 +17,16 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ModuleTest extends WPTestCase
 {
-    private const LEGACY_PATH = '/legacy/';
     private const LANGUAGES_PATH = 'italy-cookie-choices/languages';
     private const TEMPLATES_PATH = WP_PLUGIN_DIR . '/italy-cookie-choices/templates/';
 
     public function testTheSubscribersAreRegisteredInOrder(): void
     {
-        $config = (new Module(self::LEGACY_PATH, self::LANGUAGES_PATH, self::TEMPLATES_PATH))();
+        $config = (new Module(self::LANGUAGES_PATH, self::TEMPLATES_PATH))();
 
         $this->assertIsArray($config);
         $this->assertSame(
-            [TextDomain::class, LegacyLoader::class],
+            [TextDomain::class, DeprecatedHooks::class],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
     }
@@ -36,24 +35,23 @@ final class ModuleTest extends WPTestCase
     {
         $container = (new ContainerBuilder())
             ->addModule(new EventModule())
-            ->addModule(new Module(self::LEGACY_PATH, self::LANGUAGES_PATH, self::TEMPLATES_PATH))
+            ->addModule(new Module(self::LANGUAGES_PATH, self::TEMPLATES_PATH))
             ->build();
 
         $this->assertEquals(new TextDomain(self::LANGUAGES_PATH), $container->get(TextDomain::class));
-        $this->assertEquals(new LegacyLoader(self::LEGACY_PATH), $container->get(LegacyLoader::class));
     }
 
     public function testTheSubscribersAreHookedOnce(): void
     {
         $this->assertSame(1, $this->countListeners('init', TextDomain::class));
-        $this->assertSame(1, $this->countListeners('plugins_loaded', LegacyLoader::class));
+        $this->assertSame(1, $this->countListeners('init', DeprecatedHooks::class));
     }
 
     public function testTheContainerRendersThePluginTemplates(): void
     {
         $view = (new ContainerBuilder())
             ->addModule(new EventModule())
-            ->addModule(new Module(self::LEGACY_PATH, self::LANGUAGES_PATH, self::TEMPLATES_PATH))
+            ->addModule(new Module(self::LANGUAGES_PATH, self::TEMPLATES_PATH))
             ->build()
             ->get(ViewInterface::class);
 

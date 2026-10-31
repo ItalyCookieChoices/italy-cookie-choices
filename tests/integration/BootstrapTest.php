@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration;
 
 use ItalyCookieChoices\I18n\TextDomain;
-use ItalyCookieChoices\Legacy\LegacyLoader;
+use ItalyCookieChoices\PluginLoaded;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BootstrapTest extends WPTestCase
@@ -21,8 +21,9 @@ final class BootstrapTest extends WPTestCase
         $this->assertSame(self::PLUGIN_DIR, ITALY_COOKIE_CHOICES_DIRNAME);
     }
 
-    public function testPluginLoadedActionIsFired(): void
+    public function testThePluginLoadedEventAndThe2xActionAreFired(): void
     {
+        $this->assertSame(1, \did_action(PluginLoaded::class));
         $this->assertSame(1, \did_action('icc_plugin_loaded'));
     }
 
@@ -31,10 +32,6 @@ final class BootstrapTest extends WPTestCase
         $this->assertSame(100, $this->findListenerPriority('init', TextDomain::class));
     }
 
-    public function testInitFilesAreRequiredOnPluginsLoaded(): void
-    {
-        $this->assertSame(11, $this->findListenerPriority('plugins_loaded', LegacyLoader::class));
-    }
 
     /**
      * @param class-string $listenerClass

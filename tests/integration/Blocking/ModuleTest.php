@@ -34,7 +34,7 @@ final class ModuleTest extends WPTestCase
         $this->assertIsString($templates);
         $container = (new ContainerBuilder())
             ->addModule(new EventModule())
-            ->addModule(new PluginModule('/plugin/', 'italy-cookie-choices/lang', $templates))
+            ->addModule(new PluginModule('italy-cookie-choices/languages', $templates))
             ->addModule(new ConsentModule('/plugin/', 'https://example.com/plugin/', []))
             ->addModule(new Module('/plugin/', 'https://example.com/plugin/'))
             ->build();

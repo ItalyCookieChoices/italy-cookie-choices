@@ -27,7 +27,6 @@ trait BuildsContainer
         return (new ContainerBuilder())
             ->addModule(new EventModule())
             ->addModule(new Module(
-                $pluginPath . 'legacy/',
                 'italy-cookie-choices/languages',
                 $pluginPath . 'templates/'
             ))

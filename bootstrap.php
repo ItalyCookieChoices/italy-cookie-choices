@@ -11,15 +11,13 @@ namespace ItalyCookieChoices;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
 use ItalyStrap\Event\SubscribersConfigExtension;
-
-require __DIR__ . '/legacy/bootstrap.php';
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 // A closure keeps the variables out of the global scope
 (static function (string $pluginPath, string $pluginUrl, string $basename): void {
-    (new ContainerBuilder())
+    $container = (new ContainerBuilder())
         ->addModule(new EventModule())
         ->addModule(new Module(
-            ITALY_COOKIE_CHOICES_PLUGIN_PATH,
             \dirname($basename) . '/languages',
             $pluginPath . 'templates/'
         ))
@@ -30,4 +28,15 @@ require __DIR__ . '/legacy/bootstrap.php';
         ->addModule(new Integrations\Module($pluginPath))
         ->extend(SubscribersConfigExtension::class)
         ->build();
+
+    $dispatcher = $container->get(EventDispatcherInterface::class);
+    \assert($dispatcher instanceof EventDispatcherInterface);
+    $dispatcher->dispatch(new PluginLoaded());
+
+    /**
+     * Fires once the plugin is loaded, listen to PluginLoaded instead.
+     *
+     * @since 2.5.0
+     */
+    \do_action('icc_plugin_loaded');
 })(\plugin_dir_path(__FILE__), \plugin_dir_url(__FILE__), \plugin_basename(__DIR__ . '/italy-cookie-choices.php'));
