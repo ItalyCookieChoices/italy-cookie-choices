@@ -65,7 +65,7 @@ final class ConsentLogCest
         $I->assertIsString($id);
         $this->waitForRecords($I, $id, 1);
         $I->loginAsAdmin();
-        $I->amOnAdminPage('options-general.php?page=italy-cookie-choices');
+        $I->amOnAdminPage('admin.php?page=italy-cookie-choices');
         $I->waitForElement('.icc-admin__tabs', 10);
         $I->click('Consent log', '.components-tab-panel__tabs');
 

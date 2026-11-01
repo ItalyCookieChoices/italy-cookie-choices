@@ -10,7 +10,7 @@ use ItalyCookieChoices\Settings\Schema;
 
 final class AdminCest
 {
-    private const SETTINGS_PAGE = '/options-general.php?page=italy-cookie-choices';
+    private const SETTINGS_PAGE = '/admin.php?page=italy-cookie-choices';
     private const NOTICE = '.components-notice__content';
     private const TABS = '.components-tab-panel__tabs';
 
@@ -20,7 +20,7 @@ final class AdminCest
 
         $this->openTheSettings($I);
 
-        $I->see('Italy Cookie Choices', 'h1');
+        $I->see('Cookie Choices', 'h1');
         foreach (['Banner', 'Style', 'Categories', 'Blocking', 'Integrations', 'Consent log', 'Tools'] as $tab) {
             $I->see($tab, self::TABS);
         }
@@ -28,13 +28,24 @@ final class AdminCest
         $I->seeElement('.icc-admin__actions button.is-primary[disabled]');
     }
 
-    public function itIsListedInTheSettingsMenu(E2eTester $I): void
+    public function itIsATopLevelMenu(E2eTester $I): void
     {
         $I->loginAsAdmin();
 
         $I->amOnAdminPage('/');
 
-        $I->seeElementInDOM('#menu-settings a[href="options-general.php?page=italy-cookie-choices"]');
+        $I->see('Cookie Choices', '#toplevel_page_italy-cookie-choices a[href="admin.php?page=italy-cookie-choices"]');
+        $I->dontSeeElementInDOM('#menu-settings a[href*="page=italy-cookie-choices"]');
+    }
+
+    public function theOldUrlUnderTheSettingsOpensThePage(E2eTester $I): void
+    {
+        $I->loginAsAdmin();
+
+        $I->amOnAdminPage('/options-general.php?page=italy-cookie-choices');
+
+        $I->seeInCurrentUrl('/wp-admin/admin.php?page=italy-cookie-choices');
+        $I->waitForElement('.icc-admin__tabs', 10);
     }
 
     public function itCreatesTheDefaultOptionsOnTheFirstAdminVisit(E2eTester $I): void
