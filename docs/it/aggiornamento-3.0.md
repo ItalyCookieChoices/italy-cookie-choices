@@ -37,7 +37,7 @@ Il cookie della 2.x, `displayCookieConsent` per impostazione predefinita, viene 
 
 * Il banner ha tre pulsanti con la stessa importanza: accetta tutti, rifiuta tutti e preferenze. Chiuderlo mantiene solo i cookie necessari.
 * Il consenso si dà per categoria: necessari, preferenze, statistiche e marketing.
-* Il consenso con lo scroll e alla seconda pagina visitata sono stati rimossi, non sono un consenso valido.
+* Il consenso con lo scroll e alla seconda pagina visitata sono stati rimossi, non sono un consenso valido. Riscrivi un testo del banner che dice che il visitatore acconsente scorrendo la pagina o proseguendo la navigazione.
 * La scelta dura sei mesi, prima era un anno.
 * I visitatori possono modificare o revocare il consenso dalle preferenze, aperte dal blocco **Pulsante delle preferenze cookie**, dallo shortcode `[cookie_preferences]` o da un link a `#icc-preferences`. Lo shortcode `[delete_cookie]` stampa lo stesso pulsante.
 
