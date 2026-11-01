@@ -24,7 +24,7 @@ final readonly class PrivacyPolicyText implements SubscriberInterface
 
     public function add(): void
     {
-        \wp_add_privacy_policy_content('Italy Cookie Choices', $this->text());
+        \wp_add_privacy_policy_content('Cookie Choices', $this->text());
     }
 
     public function text(): string

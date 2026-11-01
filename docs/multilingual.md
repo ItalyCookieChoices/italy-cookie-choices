@@ -6,7 +6,7 @@ The texts you write in the settings are translated with your multilingual plugin
 
 ## WPML
 
-Open **WPML > String Translation** and choose the **Italy Cookie Choices** domain. The strings are registered every time an administrator opens the dashboard:
+Open **WPML > String Translation** and choose the **Italy Cookie Choices** domain, the name of the 2.x versions kept for the saved translations. The strings are registered every time an administrator opens the dashboard:
 
 * Banner text
 * Banner url

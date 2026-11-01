@@ -78,3 +78,20 @@ add_filter('pre_oembed_result', static function (mixed $result, string $url): mi
 
     return '<iframe width="560" height="315" src="https://www.youtube.com/embed/icc-oembed"></iframe>';
 }, 10, 2);
+
+// The screenshots show no update notice of WordPress, of the plugins or of the themes.
+foreach (['update_core', 'update_plugins', 'update_themes'] as $iccTransient) {
+    add_filter('pre_site_transient_' . $iccTransient, static function (mixed $value): mixed {
+        if (!get_option('icc_e2e_screenshots')) {
+            return $value;
+        }
+
+        return (object) [
+            'last_checked' => time(),
+            'version_checked' => wp_get_wp_version(),
+            'updates' => [],
+            'response' => [],
+            'translations' => [],
+        ];
+    });
+}

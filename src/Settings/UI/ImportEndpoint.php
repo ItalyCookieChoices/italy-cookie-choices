@@ -55,7 +55,7 @@ final readonly class ImportEndpoint implements SubscriberInterface
         if ($settings === null || $version > Schema::VERSION) {
             return new \WP_Error(
                 'italy_cookie_choices_invalid_import',
-                \__('The file has no settings of Italy Cookie Choices.', 'italy-cookie-choices'),
+                \__('The file has no settings of Cookie Choices.', 'italy-cookie-choices'),
                 ['status' => 400]
             );
         }

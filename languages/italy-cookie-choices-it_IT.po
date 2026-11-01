@@ -49,24 +49,14 @@ msgid "Import"
 msgstr "Importa"
 
 #: assets/build/settings.js:1
-#~ msgid "Banner text"
-#~ msgstr "Testo del banner"
-
-#. Plugin Name of the plugin
-#: italy-cookie-choices.php
-msgid "Italy Cookie Choices (for EU Cookie Law & Cookie Notice)"
-msgstr "Italy Cookie Choices (per la Cookie Law europea e l'informativa cookie)"
+msgid "Banner text"
+msgstr "Testo del banner"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 #: italy-cookie-choices.php
 msgid "https://github.com/ItalyCookieChoices/italy-cookie-choices"
 msgstr "https://github.com/ItalyCookieChoices/italy-cookie-choices"
-
-#. Description of the plugin
-#: italy-cookie-choices.php
-msgid "Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page."
-msgstr "Italy Cookie Choices ti permette di rispettare facilmente la cookie law europea e di bloccare i cookie di terze parti nelle tue pagine."
 
 #. Author of the plugin
 #: italy-cookie-choices.php
@@ -168,14 +158,6 @@ msgstr "La tua scelta viene memorizzata per sei mesi in un cookie chiamato icc_c
 #, php-format
 msgid "To demonstrate your consent, the site keeps a log of your choices for %d months: a random id created by your browser, the accepted categories, the version of the cookie policy and the date. The log does not contain your IP address or any other data that identifies you."
 msgstr "Per dimostrare il tuo consenso, il sito conserva un registro delle tue scelte per %d mesi: un id casuale creato dal tuo browser, le categorie accettate, la versione della cookie policy e la data. Il registro non contiene il tuo indirizzo IP né altri dati che ti identificano."
-
-#: src/Settings/UI/ImportEndpoint.php:58
-msgid "The file has no settings of Italy Cookie Choices."
-msgstr "Il file non contiene impostazioni di Italy Cookie Choices."
-
-#: src/Settings/UI/SettingsPage.php:57
-msgid "Italy Cookie Choices"
-msgstr "Italy Cookie Choices"
 
 #: templates/settings-page.php:19
 msgid "The settings page needs JavaScript."
@@ -610,3 +592,22 @@ msgstr "gdpr"
 #: src/Legacy/DeprecatedHooks.php:27
 msgid "The bots are no longer detected, they do not run the consent scripts."
 msgstr "I bot non vengono più rilevati, non eseguono gli script del consenso."
+
+#. Plugin Name of the plugin
+#: italy-cookie-choices.php
+msgid "Cookie Choices (for EU Cookie Law & GDPR)"
+msgstr "Cookie Choices (per la Cookie Law europea e il GDPR)"
+
+#. Description of the plugin
+#: italy-cookie-choices.php
+msgid "Asks the cookie consent by category and blocks the third party scripts, videos and maps until the consent."
+msgstr "Chiede il consenso ai cookie per categoria e blocca gli script, i video e le mappe di terze parti fino al consenso."
+
+#: src/Settings/UI/ImportEndpoint.php:58
+msgid "The file has no settings of Cookie Choices."
+msgstr "Il file non contiene impostazioni di Cookie Choices."
+
+#: src/Settings/UI/SettingsPage.php:63
+#: src/Settings/UI/SettingsPage.php:64
+msgid "Cookie Choices"
+msgstr "Cookie Choices"

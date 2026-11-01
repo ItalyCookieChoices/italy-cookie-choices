@@ -29,7 +29,7 @@ final readonly class Registration implements SubscriberInterface
             Schema::OPTION,
             [
                 'type' => 'object',
-                'description' => 'Italy Cookie Choices settings.',
+                'description' => 'Cookie Choices settings.',
                 'default' => $this->schema->defaults(),
                 'sanitize_callback' => $this->sanitizer,
                 'show_in_rest' => [

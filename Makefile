@@ -99,7 +99,9 @@ i18n: ## Update the translation template, the PO, MO and JSON files in languages
 
 .PHONY: screenshots
 screenshots: ## Take the screenshots in English and Italian, saved in tests/_output/debug
-	$(EXEC) sh -c 'cd /var/www/html && wp language core install it_IT >/dev/null && wp language theme install --all it_IT >/dev/null'
+	$(EXEC) sh -c 'cd /var/www/html && { wp core is-installed || wp core install --url=localhost --title=Test --admin_user=admin \
+		--admin_password=password --admin_email=admin@example.com --skip-email >/dev/null; } \
+		&& wp language core install it_IT >/dev/null && wp language theme install --all it_IT >/dev/null'
 	$(EXEC) vendor/bin/codecept run screenshots $(ARGS)
 
 .PHONY: readme

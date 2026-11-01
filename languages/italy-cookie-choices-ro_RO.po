@@ -30,20 +30,10 @@ msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
-#. Plugin Name of the plugin
-#: italy-cookie-choices.php
-msgid "Italy Cookie Choices (for EU Cookie Law & Cookie Notice)"
-msgstr ""
-
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 #: italy-cookie-choices.php
 msgid "https://github.com/ItalyCookieChoices/italy-cookie-choices"
-msgstr ""
-
-#. Description of the plugin
-#: italy-cookie-choices.php
-msgid "Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page."
 msgstr ""
 
 #. Author of the plugin
@@ -147,10 +137,6 @@ msgstr ""
 msgid "To demonstrate your consent, the site keeps a log of your choices for %d months: a random id created by your browser, the accepted categories, the version of the cookie policy and the date. The log does not contain your IP address or any other data that identifies you."
 msgstr ""
 
-#: src/Settings/UI/ImportEndpoint.php:58
-msgid "The file has no settings of Italy Cookie Choices."
-msgstr ""
-
 #: src/Settings/UI/PluginActionLinks.php:39
 msgid "Settings"
 msgstr ""
@@ -158,10 +144,6 @@ msgstr ""
 #: src/Settings/UI/PluginActionLinks.php:44
 #: assets/build/settings.js:4
 msgid "Documentation"
-msgstr ""
-
-#: src/Settings/UI/SettingsPage.php:57
-msgid "Italy Cookie Choices"
 msgstr ""
 
 #: templates/settings-page.php:19
@@ -608,4 +590,23 @@ msgstr ""
 
 #: src/Legacy/DeprecatedHooks.php:27
 msgid "The bots are no longer detected, they do not run the consent scripts."
+msgstr ""
+
+#. Plugin Name of the plugin
+#: italy-cookie-choices.php
+msgid "Cookie Choices (for EU Cookie Law & GDPR)"
+msgstr ""
+
+#. Description of the plugin
+#: italy-cookie-choices.php
+msgid "Asks the cookie consent by category and blocks the third party scripts, videos and maps until the consent."
+msgstr ""
+
+#: src/Settings/UI/ImportEndpoint.php:58
+msgid "The file has no settings of Cookie Choices."
+msgstr ""
+
+#: src/Settings/UI/SettingsPage.php:63
+#: src/Settings/UI/SettingsPage.php:64
+msgid "Cookie Choices"
 msgstr ""
