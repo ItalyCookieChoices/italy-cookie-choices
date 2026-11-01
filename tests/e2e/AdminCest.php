@@ -195,7 +195,8 @@ final class AdminCest
 
     public function itSavesTheIntegrations(E2eTester $I): void
     {
-        $I->haveCookieChoicesOptions([]);
+        // Saved, not left to the migration of the first request.
+        $I->haveCookieChoicesOptions(['consent_mode' => '1']);
         $this->openTheSettings($I);
         $this->openTab($I, 'Integrations');
 
