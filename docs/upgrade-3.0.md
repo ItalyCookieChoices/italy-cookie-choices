@@ -37,7 +37,7 @@ The 2.x cookie, `displayCookieConsent` by default, is still written while every 
 
 * The banner has three buttons with the same importance: accept all, reject all and preferences. Closing it keeps only the necessary cookies.
 * The consent is given by category: necessary, preferences, statistics and marketing.
-* The consent on scroll and on the second page view are removed, they are not a valid consent.
+* The consent on scroll and on the second page view are removed, they are not a valid consent. Rewrite a banner text that says the visitor consents by scrolling or by going on.
 * The choice lasts six months, it was one year.
 * The visitors can change or withdraw the consent from the preferences, opened by the **Cookie preferences button** block, the `[cookie_preferences]` shortcode or a link to `#icc-preferences`. The `[delete_cookie]` shortcode prints the same button.
 
