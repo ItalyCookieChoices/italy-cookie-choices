@@ -236,7 +236,7 @@ final class AdminCest
 
     public function itExportsTheSettings(E2eTester $I): void
     {
-        $I->haveCookieChoicesOptions(['button_text' => 'Exported']);
+        $I->haveCookieChoicesOptions(['anchor_text' => 'Exported']);
         $this->openTheSettings($I);
         $this->openTab($I, 'Tools');
         // The file is read from the link instead of downloaded.
@@ -258,7 +258,7 @@ final class AdminCest
         $I->assertSame('italy-cookie-choices', $file['plugin']);
         $I->assertSame(Schema::VERSION, $file['version']);
         $I->assertIsArray($file['settings']);
-        $I->assertSame('Exported', $file['settings']['button_text']);
+        $I->assertSame('Exported', $file['settings']['anchor_text']);
     }
 
     public function itImportsTheSettingsOfThe2xVersions(E2eTester $I): void

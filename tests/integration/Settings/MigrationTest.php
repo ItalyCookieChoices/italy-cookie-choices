@@ -107,6 +107,21 @@ final class MigrationTest extends WPTestCase
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
     }
 
+    /**
+     * Version 2: the 2.x button closed the banner, its text would name the button that accepts everything.
+     */
+    public function testTheTextOfThe2xCloseButtonIsRemoved(): void
+    {
+        \update_option(Schema::VERSION_OPTION, 1);
+        \add_option(Schema::OPTION, ['active' => '1', 'button_text' => 'Chiudi']);
+
+        (new Migration(new Schema(), new LegacySnippets()))->migrate();
+
+        $stored = \get_option(Schema::OPTION);
+        $this->assertIsArray($stored);
+        $this->assertArrayNotHasKey('button_text', $stored);
+    }
+
     public function testTheRemovedValuesAreStoredWithoutTheSanitizer(): void
     {
         \add_option(Schema::OPTION, ['scroll' => '1', 'text' => '<script>raw</script>']);
@@ -223,7 +238,7 @@ final class MigrationTest extends WPTestCase
         \update_option(Schema::VERSION_OPTION, 4);
         \add_option(Schema::OPTION, [
             'active' => '1',
-            'block_script' => ['analytics.js' => 'analytics.js', 'empty' => ' '],
+            'block_script' => ['analytics.js' => 'analytics.js', 0 => ' '],
             'block_iframe' => ['maps.example.com' => 'maps.example.com', 'analytics.js' => 'analytics.js'],
             'block_embed' => [],
             'allow_script' => ['window.allowed' => 'window.allowed'],
@@ -242,6 +257,26 @@ final class MigrationTest extends WPTestCase
             ],
             \get_option(Schema::OPTION)
         );
+    }
+
+    /**
+     * Version 5: the select of the 2.x settings page saved the text in the key, with an empty value.
+     */
+    public function testTheTextsInTheKeysOfTheListsAreMoved(): void
+    {
+        \update_option(Schema::VERSION_OPTION, 4);
+        \add_option(Schema::OPTION, [
+            'block_script' => ['analytics' => '', 'tracker.js' => 'tracker.js', 'old' => 'new.js', 0 => ''],
+            'allow_script' => ['googlesyndication' => ''],
+            'allow_iframe' => [''],
+        ]);
+
+        (new Migration(new Schema(), new LegacySnippets()))->migrate();
+
+        $stored = \get_option(Schema::OPTION);
+        $this->assertIsArray($stored);
+        $this->assertSame([$this->customVendor(['analytics', 'tracker.js', 'new.js'])], $stored['custom_vendors']);
+        $this->assertSame(['googlesyndication'], $stored['allowed_patterns']);
     }
 
     /**
