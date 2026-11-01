@@ -1,6 +1,6 @@
 # Getting started
 
-Install and activate the plugin, then open **Settings > Italy Cookie Choices**.
+Install and activate the plugin, then open **Cookie Choices** in the admin menu.
 
 The settings are grouped in tabs. The preview on the right shows the banner, or the preferences dialog, with the changes not saved yet. **Save changes** saves every tab at once.
 

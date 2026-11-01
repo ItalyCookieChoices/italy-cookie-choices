@@ -1,6 +1,6 @@
 # Guida introduttiva
 
-Installa e attiva il plugin, poi apri **Impostazioni > Italy Cookie Choices**.
+Installa e attiva il plugin, poi apri **Cookie Choices** nel menu di amministrazione.
 
 Le impostazioni sono divise in schede. L'anteprima a destra mostra il banner, o la finestra delle preferenze, con le modifiche non ancora salvate. **Salva le modifiche** salva tutte le schede insieme.
 

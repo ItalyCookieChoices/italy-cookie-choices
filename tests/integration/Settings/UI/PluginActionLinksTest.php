@@ -18,7 +18,7 @@ final class PluginActionLinksTest extends WPTestCase
 
         $this->assertSame(['settings', 'documentation', 'deactivate'], \array_keys($links));
         $this->assertSame(
-            '<a href="' . \admin_url('options-general.php?page=italy-cookie-choices') . '">Settings</a>',
+            '<a href="' . \admin_url('admin.php?page=italy-cookie-choices') . '">Settings</a>',
             $links['settings']
         );
         $this->assertSame(

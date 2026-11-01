@@ -23,7 +23,12 @@ final readonly class SettingsPage implements SubscriberInterface
     public const CAPABILITY = 'manage_options';
     public const DOCUMENTATION = 'https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki';
 
-    private const HOOK_SUFFIX = 'settings_page_' . self::SLUG;
+    private const HOOK_SUFFIX = 'toplevel_page_' . self::SLUG;
+    private const ICON = 'dashicons-privacy';
+    /**
+     * Below the Settings menu.
+     */
+    private const POSITION = 81;
     private const SCRIPT = 'settings.js';
     private const STYLE = 'settings.css';
     private const ASSET = 'settings.asset.php';
@@ -48,23 +53,46 @@ final readonly class SettingsPage implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield 'admin_menu' => 'addPage';
+        yield 'admin_init' => 'redirectTheOldUrl';
         yield 'admin_enqueue_scripts' => 'enqueue';
     }
 
     public function addPage(): void
     {
-        \add_options_page(
-            \__('Italy Cookie Choices', 'italy-cookie-choices'),
-            'Italy Cookie Choices',
+        \add_menu_page(
+            \__('Cookie Choices', 'italy-cookie-choices'),
+            \__('Cookie Choices', 'italy-cookie-choices'),
             self::CAPABILITY,
             self::SLUG,
-            $this->render(...)
+            $this->render(...),
+            self::ICON,
+            self::POSITION
         );
     }
 
     public function url(): string
     {
-        return \admin_url('options-general.php?page=' . self::SLUG);
+        return \admin_url('admin.php?page=' . self::SLUG);
+    }
+
+    /**
+     * The 2.x versions had the page under Settings, the old bookmarks and links open the new one.
+     */
+    public function redirectTheOldUrl(): void
+    {
+        if (!$this->isTheOldUrl()) {
+            return;
+        }
+
+        \wp_safe_redirect($this->url());
+        exit;
+    }
+
+    public function isTheOldUrl(): bool
+    {
+        global $pagenow, $plugin_page;
+
+        return $pagenow === 'options-general.php' && $plugin_page === self::SLUG;
     }
 
     public function render(): void

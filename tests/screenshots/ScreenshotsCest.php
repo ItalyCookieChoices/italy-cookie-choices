@@ -14,7 +14,7 @@ use E2eTester;
  */
 final class ScreenshotsCest
 {
-    private const SETTINGS_PAGE = '/options-general.php?page=italy-cookie-choices';
+    private const SETTINGS_PAGE = '/admin.php?page=italy-cookie-choices';
     private const PREVIEW = '.icc-admin__preview-frame';
 
     /**
@@ -44,6 +44,8 @@ final class ScreenshotsCest
     {
         $locale = $this->text($I, $example, 'locale');
         $I->haveOptionInDatabase('WPLANG', $locale === 'en_US' ? '' : $locale);
+        $I->haveOptionInDatabase('icc_e2e_screenshots', '1');
+        $I->haveOptionInDatabase('blogname', $locale === 'en_US' ? 'My site' : 'Il mio sito');
         $I->haveCookieChoicesOptions([
             'banner' => '3',
             'text' => $this->text($I, $example, 'text'),

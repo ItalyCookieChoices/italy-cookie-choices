@@ -1,4 +1,4 @@
-=== Italy Cookie Choices (for EU Cookie Law & Cookie Notice) ===
+=== Cookie Choices (for EU Cookie Law & GDPR) ===
 Contributors: overclokk, andreapernici, cardinaleandrea
 Donate link: 
 Tags: cookie, gdpr, cookie consent, cookie banner, consent mode
@@ -13,7 +13,7 @@ Ask the cookie consent by category and block third party scripts, videos and map
 
 == Description ==
 
-Italy Cookie Choices helps you comply with the EU cookie rules: the ePrivacy Directive, art. 122 of the Italian Codice Privacy with the 2021 guidelines of the Garante, and the GDPR consent requirements.
+Cookie Choices, formerly Italy Cookie Choices, helps you comply with the EU cookie rules: the ePrivacy Directive, art. 122 of the Italian Codice Privacy with the 2021 guidelines of the Garante, and the GDPR consent requirements.
 
 The banner asks the consent by category, with three buttons of the same importance: accept all, reject all and preferences. The scripts, the videos and the maps of the third parties wait for the consent to their category. The consent is read in the browser, so the plugin works with the cached pages.
 
@@ -59,7 +59,7 @@ This plugin provides technical tools, not legal advice. Check with your consulta
 
 1. Install the plugin from **Plugins > Add New**, or upload the `italy-cookie-choices` folder to `/wp-content/plugins/`
 2. Activate the plugin through the **Plugins** menu in WordPress
-3. Configure it in **Settings > Italy Cookie Choices** and turn on **Show the banner**
+3. Configure it in **Cookie Choices** in the admin menu and turn on **Show the banner**
 
 == Frequently Asked Questions ==
 
@@ -116,7 +116,8 @@ A rewrite of the plugin for the current consent rules. Read [Upgrading from 2.x]
 * The visitors change or withdraw the consent with the Cookie preferences button block, the `[cookie_preferences]` shortcode or a link to `#icc-preferences`, the `[delete_cookie]` shortcode works again
 * Consent log, without IP addresses, with a retention period and the CSV export
 * Google Consent Mode v2, basic or advanced, and the Google Analytics, Google Tag Manager and Facebook pixel tags from their ids
-* New settings page with a live preview, the import and the export of the settings
+* New settings page with a live preview, the import and the export of the settings, in its own admin menu
+* Renamed to Cookie Choices, the plugin works in every EU country
 * WPML and Polylang translate the texts again, Italian translation included
 * Removed the `icc_js_array` and `icc_output_html` filters and the Ceceppa Multilingua support, deprecated the `icc_bots` filter
 * New `PluginLoaded` event, the `icc_plugin_loaded` action still fires

@@ -1,6 +1,6 @@
-# Documentazione di Italy Cookie Choices
+# Documentazione di Cookie Choices
 
-Italy Cookie Choices chiede il consenso dei visitatori prima dei cookie non necessari e blocca script, video e mappe di terze parti finché non viene accettata la loro categoria.
+Cookie Choices, prima Italy Cookie Choices, chiede il consenso dei visitatori prima dei cookie non necessari e blocca script, video e mappe di terze parti finché non viene accettata la loro categoria.
 
 [Read the documentation in English](../README.md).
 

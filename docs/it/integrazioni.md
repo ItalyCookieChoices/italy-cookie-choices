@@ -1,6 +1,6 @@
 # Integrazioni
 
-Come collegare uno script, un servizio o un tema al consenso di Italy Cookie Choices.
+Come collegare uno script, un servizio o un tema al consenso di Cookie Choices.
 
 Il consenso è salvato nel browser, quindi le pagine possono essere in cache: ogni integrazione lo legge in JavaScript, o lascia che il plugin blocchi i suoi script finché il visitatore non accetta la loro categoria.
 

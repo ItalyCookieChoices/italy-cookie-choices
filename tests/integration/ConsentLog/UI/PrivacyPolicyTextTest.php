@@ -50,7 +50,7 @@ final class PrivacyPolicyTextTest extends WPTestCase
         \set_current_screen('front');
 
         $contents = \array_column(\WP_Privacy_Policy_Content::get_suggested_policy_text(), 'plugin_name');
-        $this->assertContains('Italy Cookie Choices', $contents);
+        $this->assertContains('Cookie Choices', $contents);
     }
 
     private function makeSut(): PrivacyPolicyText

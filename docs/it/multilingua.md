@@ -6,7 +6,7 @@ I testi che scrivi nelle impostazioni vengono tradotti con il tuo plugin multili
 
 ## WPML
 
-Apri **WPML > Traduzione stringhe** e scegli il dominio **Italy Cookie Choices**. Le stringhe vengono registrate ogni volta che un amministratore apre la bacheca:
+Apri **WPML > Traduzione stringhe** e scegli il dominio **Italy Cookie Choices**, il nome delle versioni 2.x mantenuto per le traduzioni salvate. Le stringhe vengono registrate ogni volta che un amministratore apre la bacheca:
 
 * Banner text
 * Banner url

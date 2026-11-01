@@ -4,6 +4,10 @@ The version 3.0 rewrites the plugin to meet the current consent rules: the ePriv
 
 Make a backup of the site and test the update on a staging site first.
 
+## Name and menu
+
+The plugin is now named **Cookie Choices**, it works in every EU country. Its settings page moves from **Settings** to its own **Cookie Choices** menu, the old address opens the new page.
+
 ## Requirements
 
 * WordPress 6.5 or later, it was 6.1.

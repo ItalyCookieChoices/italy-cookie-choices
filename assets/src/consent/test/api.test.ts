@@ -6,8 +6,9 @@ import {
 	type ConsentConfig,
 } from '../types';
 
-const NOW = new Date( '2026-10-22T10:00:00.000Z' );
 const DAY = 24 * 60 * 60 * 1000;
+// Today, the browser drops the cookie of a consent already expired.
+const NOW = new Date( Math.floor( Date.now() / DAY ) * DAY );
 
 const config: ConsentConfig = {
 	cookieName: 'icc_consent',

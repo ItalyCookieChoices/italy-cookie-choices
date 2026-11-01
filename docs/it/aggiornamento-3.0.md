@@ -4,6 +4,10 @@ La versione 3.0 riscrive il plugin per rispettare le regole attuali sul consenso
 
 Fai un backup del sito e prova l'aggiornamento su un sito di staging.
 
+## Nome e menu
+
+Il plugin ora si chiama **Cookie Choices**, funziona in tutti i paesi dell'UE. La sua pagina delle impostazioni passa da **Impostazioni** al suo menu **Cookie Choices**, il vecchio indirizzo apre la nuova pagina.
+
 ## Requisiti
 
 * WordPress 6.5 o successivo, prima era 6.1.

@@ -35,35 +35,51 @@ final class SettingsPageTest extends WPTestCase
     public function testItAddsThePageAndItsAssets(): void
     {
         $this->assertSame(
-            ['admin_menu' => 'addPage', 'admin_enqueue_scripts' => 'enqueue'],
+            ['admin_menu' => 'addPage', 'admin_init' => 'redirectTheOldUrl', 'admin_enqueue_scripts' => 'enqueue'],
             \iterator_to_array($this->makeSut()->getSubscribedEvents())
         );
     }
 
-    public function testThePageIsUnderTheSettingsForTheAdministrators(): void
+    public function testThePageIsATopLevelMenuForTheAdministrators(): void
     {
         $this->setCurrentUser('administrator');
 
         $this->makeSut()->addPage();
 
-        /** @var array<string, list<array<int, string>>> $submenu */
-        global $submenu;
-        $this->assertContains(
-            ['Italy Cookie Choices', 'manage_options', 'italy-cookie-choices', 'Italy Cookie Choices'],
-            $submenu['options-general.php'] ?? []
+        /** @var array<int|string, array<int, string>> $menu */
+        global $menu;
+        $this->assertSame(
+            ['Cookie Choices', 'manage_options', 'italy-cookie-choices', 'Cookie Choices'],
+            \array_slice($menu[81] ?? [], 0, 4)
         );
-        $this->assertSame(\admin_url('options-general.php?page=italy-cookie-choices'), $this->makeSut()->url());
+        $this->assertSame('dashicons-privacy', $menu[81][6] ?? null);
+        $this->assertSame(\admin_url('admin.php?page=italy-cookie-choices'), $this->makeSut()->url());
+    }
+
+    public function testTheOldUrlUnderTheSettingsIsRecognized(): void
+    {
+        $GLOBALS['pagenow'] = 'options-general.php';
+        $GLOBALS['plugin_page'] = 'italy-cookie-choices';
+        $this->assertTrue($this->makeSut()->isTheOldUrl());
+
+        $GLOBALS['pagenow'] = 'admin.php';
+        $this->assertFalse($this->makeSut()->isTheOldUrl());
+
+        $GLOBALS['pagenow'] = 'options-general.php';
+        $GLOBALS['plugin_page'] = 'other-plugin';
+        $this->assertFalse($this->makeSut()->isTheOldUrl());
+        unset($GLOBALS['plugin_page']);
     }
 
     public function testItPrintsTheRootOfTheApp(): void
     {
-        $GLOBALS['title'] = 'Italy Cookie Choices';
+        $GLOBALS['title'] = 'Cookie Choices';
 
         \ob_start();
         $this->makeSut()->render();
         $html = (string) \ob_get_clean();
 
-        $this->assertStringContainsString('<h1>Italy Cookie Choices</h1>', $html);
+        $this->assertStringContainsString('<h1>Cookie Choices</h1>', $html);
         $this->assertStringContainsString('<div id="icc-admin">', $html);
         unset($GLOBALS['title']);
     }
@@ -75,7 +91,7 @@ final class SettingsPageTest extends WPTestCase
         $sut->enqueue('index.php');
         $this->assertFalse(\wp_script_is(SettingsPage::HANDLE, 'registered'));
 
-        $sut->enqueue('settings_page_italy-cookie-choices');
+        $sut->enqueue('toplevel_page_italy-cookie-choices');
         $script = \wp_scripts()->registered[SettingsPage::HANDLE];
         $this->assertSame(self::BUILD_URL . 'settings.js', $script->src);
         $this->assertSame(['wp-api-fetch', 'wp-components', 'wp-element', 'wp-i18n'], $script->deps);
@@ -91,7 +107,7 @@ final class SettingsPageTest extends WPTestCase
 
     public function testNothingIsEnqueuedWhenTheAssetsAreNotBuilt(): void
     {
-        $this->makeSut('/not/built/')->enqueue('settings_page_italy-cookie-choices');
+        $this->makeSut('/not/built/')->enqueue('toplevel_page_italy-cookie-choices');
 
         $this->assertFalse(\wp_script_is(SettingsPage::HANDLE, 'registered'));
     }

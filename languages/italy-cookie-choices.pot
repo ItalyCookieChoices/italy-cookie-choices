@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Italy Cookie Choices (for EU Cookie Law & Cookie Notice) 3.0.0\n"
+"Project-Id-Version: Cookie Choices (for EU Cookie Law & GDPR) 3.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ItalyCookieChoices/italy-cookie-choices/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-31T21:57:52+00:00\n"
+"POT-Creation-Date: 2026-11-01T10:59:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
 
 #. Plugin Name of the plugin
 #: italy-cookie-choices.php
-msgid "Italy Cookie Choices (for EU Cookie Law & Cookie Notice)"
+msgid "Cookie Choices (for EU Cookie Law & GDPR)"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -27,7 +27,7 @@ msgstr ""
 
 #. Description of the plugin
 #: italy-cookie-choices.php
-msgid "Italy Cookie Choices allows you to easily comply with the european cookie law and block third part cookie in your page."
+msgid "Asks the cookie consent by category and blocks the third party scripts, videos and maps until the consent."
 msgstr ""
 
 #. Author of the plugin
@@ -144,7 +144,7 @@ msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
 #: src/Settings/UI/ImportEndpoint.php:58
-msgid "The file has no settings of Italy Cookie Choices."
+msgid "The file has no settings of Cookie Choices."
 msgstr ""
 
 #: src/Settings/UI/PluginActionLinks.php:39
@@ -156,8 +156,9 @@ msgstr ""
 msgid "Documentation"
 msgstr ""
 
-#: src/Settings/UI/SettingsPage.php:57
-msgid "Italy Cookie Choices"
+#: src/Settings/UI/SettingsPage.php:63
+#: src/Settings/UI/SettingsPage.php:64
+msgid "Cookie Choices"
 msgstr ""
 
 #: templates/settings-page.php:19

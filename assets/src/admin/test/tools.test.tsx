@@ -74,7 +74,7 @@ it( 'rejects a file that is not JSON', async () => {
 
 it( 'shows why the server rejected the file', async () => {
 	mocked.importSettings.mockRejectedValue( {
-		message: 'The file has no settings of Italy Cookie Choices.',
+		message: 'The file has no settings of Cookie Choices.',
 	} );
 	const { onError } = renderTab();
 
@@ -82,7 +82,7 @@ it( 'shows why the server rejected the file', async () => {
 
 	await waitFor( () =>
 		expect( onError ).toHaveBeenCalledWith(
-			'The file has no settings of Italy Cookie Choices.'
+			'The file has no settings of Cookie Choices.'
 		)
 	);
 } );
