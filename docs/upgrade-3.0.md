@@ -23,6 +23,7 @@ The settings are migrated on the first request after the update:
 * A 2.x snippet with the wildcard `<---------SOMETHING--------->` inside the tag cannot be migrated as it was: only its longest piece of code is kept. Check the custom vendor after the update.
 * The **Consent log** is turned on with a 12 months retention.
 * The **Google Consent Mode v2** signals are turned on.
+* The text of the 2.x button that closed the banner, like "Close", is not kept: the button now accepts every category, and shows "Accept all" in the language of the site. Write a new text in **Banner > Accept button text** if you need one.
 
 The 2.x settings files can still be imported from **Tools**.
 
