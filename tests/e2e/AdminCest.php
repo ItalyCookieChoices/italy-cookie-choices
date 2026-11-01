@@ -51,6 +51,8 @@ final class AdminCest
     public function itCreatesTheDefaultOptionsOnTheFirstAdminVisit(E2eTester $I): void
     {
         $I->dontHaveOptionInDatabase(E2eTester::OPTION_NAME);
+        // A request left by the previous test can store the version after the database is reset.
+        $I->dontHaveOptionInDatabase('italy_cookie_choices_version');
         $I->loginAsAdmin();
 
         $I->amOnAdminPage('/');
