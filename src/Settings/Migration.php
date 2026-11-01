@@ -18,6 +18,11 @@ final readonly class Migration implements SubscriberInterface
     public const CUSTOM_VENDOR = 'custom';
 
     private const IMPLICIT_CONSENTS = ['scroll', 'secondView'];
+
+    /**
+     * The text of the 2.x button that closed the banner, like "Close" or "OK".
+     */
+    private const LEGACY_BUTTON_TEXT = 'button_text';
     private const ALWAYS_ON = ['block', 'widget_block'];
     private const SNIPPET_LISTS = [
         'custom_script_block' => 'block_script',
@@ -106,13 +111,15 @@ final readonly class Migration implements SubscriberInterface
 
     /**
      * Version 2: accepting on scroll and on the second page view is not a valid consent under the GDPR.
+     * The 2.x button closed the banner, its text, like "Close", would name the button that accepts everything:
+     * that button gets its default text.
      *
      * @param array<array-key, mixed> $option
      * @return array<array-key, mixed>
      */
     private function removeTheImplicitConsents(array $option): array
     {
-        return \array_diff_key($option, \array_flip(self::IMPLICIT_CONSENTS));
+        return \array_diff_key($option, \array_flip([...self::IMPLICIT_CONSENTS, self::LEGACY_BUTTON_TEXT]));
     }
 
     /**
@@ -201,16 +208,32 @@ final readonly class Migration implements SubscriberInterface
         $texts = [];
         foreach ($lists as $list) {
             $values = \is_array($option[$list] ?? null) ? $option[$list] : [];
-            foreach ($values as $value) {
-                if (!\is_string($value) || \trim($value) === '') {
-                    continue;
-                }
-
-                $texts[] = \trim($value);
+            foreach ($values as $key => $value) {
+                $texts = [...$texts, ...$this->entryTexts($key, $value)];
             }
         }
 
         return \array_values(\array_unique($texts));
+    }
+
+    /**
+     * The text of an entry of a 2.x list: the value, or the key when the value is empty,
+     * like {"googlesyndication": ""} saved by the select of the settings page.
+     *
+     * @return list<string>
+     */
+    private function entryTexts(int|string $key, mixed $value): array
+    {
+        if (!\is_string($value)) {
+            return [];
+        }
+
+        $text = \trim($value);
+        if ($text === '' && \is_string($key)) {
+            $text = \trim($key);
+        }
+
+        return $text === '' ? [] : [$text];
     }
 
     /**

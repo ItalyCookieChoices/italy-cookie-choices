@@ -5,7 +5,7 @@ Tags: cookie, gdpr, cookie consent, cookie banner, consent mode
 Requires at least: 6.5
 Requires PHP: 8.2
 Tested up to: 7.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,6 +102,12 @@ In JavaScript use `window.italyCookieChoices.hasConsent( 'statistics' )`, in PHP
 7. The placeholder of a blocked video
 
 == Changelog ==
+
+= 3.0.1 =
+
+* The scripts selected in the 2.x lists, saved without a text, are migrated too
+* The text of the 2.x button that closed the banner, like "Close", is no longer used for the button that accepts every category: it shows "Accept all", translated
+* The bundled translations win over an older language pack of WordPress.org, the 2.x Italian pack showed the new texts in English
 
 = 3.0.0 =
 
@@ -399,6 +405,9 @@ Dev time: 50h
 * First release.
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Fixes the migration from 2.x and the Italian texts shown in English: update before your visitors see the new banner.
 
 = 3.0.0 =
 A rewrite for the current consent rules. Requires PHP 8.2 and WordPress 6.5. The visitors give the consent again. Read the upgrade notes and test on a staging site first.

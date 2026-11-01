@@ -23,6 +23,7 @@ Le impostazioni vengono migrate alla prima richiesta dopo l'aggiornamento:
 * Uno snippet della 2.x con il carattere jolly `<---------SOMETHING--------->` dentro il tag non può essere migrato com'era: viene mantenuto solo il suo pezzo di codice più lungo. Controlla il fornitore personalizzato dopo l'aggiornamento.
 * Il **Registro dei consensi** viene attivato con una conservazione di 12 mesi.
 * I segnali del **Google Consent Mode v2** vengono attivati.
+* Il testo del pulsante della 2.x che chiudeva il banner, come "Chiudi", non viene mantenuto: ora il pulsante accetta tutte le categorie e mostra "Accetta tutti" nella lingua del sito. Scrivi un nuovo testo in **Banner > Testo del pulsante di accettazione** se ti serve.
 
 I file delle impostazioni della 2.x si possono ancora importare da **Strumenti**.
 

@@ -10,8 +10,8 @@ final class ShortcodeCest
 {
     public function theAcceptButtonAcceptsTheCookies(E2eTester $I): void
     {
-        $I->haveCookieChoicesOptions(['button_text' => 'I agree']);
-        $this->havePolicyPage($I, '[accept_button]');
+        $I->haveCookieChoicesOptions([]);
+        $this->havePolicyPage($I, '[accept_button text="I agree"]');
         $I->amOnPage('/cookie-policy/');
         $I->waitForElementVisible('#icc-banner');
 

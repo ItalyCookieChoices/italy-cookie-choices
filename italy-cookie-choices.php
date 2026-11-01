@@ -3,7 +3,7 @@
  * Plugin Name: Cookie Choices (for EU Cookie Law & GDPR)
  * Plugin URI: https://github.com/ItalyCookieChoices/italy-cookie-choices
  * Description: Asks the cookie consent by category and blocks the third party scripts, videos and maps until the consent.
- * Version: 3.0.0
+ * Version: 3.0.1
  * Requires at least: 6.5
  * Requires PHP: 8.2
  * Author: Enea Overclokk, Andrea Pernici, Andrea Cardinale
