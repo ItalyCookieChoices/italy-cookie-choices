@@ -37,6 +37,8 @@ class E2eTester extends \Codeception\Actor
      */
     public function haveCookieChoicesOptions(array $options): void
     {
+        // A request left by the previous test can write the option after the database is reset.
+        $this->dontHaveOptionInDatabase(self::OPTION_NAME);
         $this->haveOptionInDatabase(
             self::OPTION_NAME,
             \array_filter(
