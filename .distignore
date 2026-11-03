@@ -31,6 +31,9 @@ bin
 /docs
 .gitattributes
 README.md
+AGENTS.md
+CLAUDE.md
+.claude
 Makefile
 package.json
 tsconfig.json
