@@ -40,6 +40,16 @@ The addresses and the scripts the site needs, even when a vendor matches them. F
 
 A blocked frame, like a video or a map, shows a placeholder with a button that accepts its category and a link to the preferences. **Placeholder text of the blocked content** and **Placeholder button text** replace the default texts, that contain the category name.
 
+To hide the placeholders, add this rule to the **Custom CSS**:
+
+```css
+.icc-placeholder {
+	display: none !important;
+}
+```
+
+The blocked frame stays hidden until the consent, the visitors accept its category from the banner or the preferences.
+
 ## Block the vendors in the whole page
 
 The scripts printed by the theme or by a plugin directly in the page, without the WordPress functions, are not blocked by default. **Block the vendors in the whole page** turns on the compatibility mode: the page is buffered and every script of a vendor is blocked. Turn it on only when it is needed, the buffer can conflict with the other plugins that use one.
