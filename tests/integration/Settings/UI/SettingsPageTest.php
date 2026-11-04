@@ -9,6 +9,7 @@ use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\View\ViewInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
@@ -146,6 +147,7 @@ final class SettingsPageTest extends WPTestCase
             $this->service(VendorPresets::class),
             $this->service(ConsentLogExport::class),
             $this->service(ViewInterface::class),
+            new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL,
             self::LANGUAGES

@@ -7,6 +7,15 @@ namespace ItalyCookieChoices\Integrations\UI;
 use ItalyCookieChoices\Blocking\UI\BlockingFilters;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Integrations\Application\IntegrationSettings;
+use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\Handle;
+use ItalyStrap\Asset\Hook;
+use ItalyStrap\Asset\InlineScript;
+use ItalyStrap\Asset\NoVersion;
+use ItalyStrap\Asset\Position;
+use ItalyStrap\Asset\Script;
+use ItalyStrap\Asset\ScriptLoading;
+use ItalyStrap\Asset\Strategy;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -23,12 +32,13 @@ final readonly class TrackingTags implements SubscriberInterface
 
     public function __construct(
         private IntegrationSettings $settings,
+        private AssetLoader $assets,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'wp_enqueue_scripts' => 'enqueue';
+        yield Hook::FRONT_END => 'enqueue';
     }
 
     public function enqueue(): void
@@ -105,13 +115,14 @@ final readonly class TrackingTags implements SubscriberInterface
      */
     private function enqueueTag(string $handle, string $source, string $before, string $category): void
     {
-        // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- The version breaks the tag URL.
-        \wp_enqueue_script($handle, $source, [], null, ['strategy' => 'async']);
-        \wp_add_inline_script($handle, $before, 'before');
-        if ($category === '') {
-            return;
-        }
-
-        \wp_script_add_data($handle, BlockingFilters::SCRIPT_CATEGORY, $category);
+        $this->assets->load(new Script(
+            handle: new Handle($handle),
+            source: $source,
+            // The version breaks the tag URL
+            version: new NoVersion(),
+            loading: new ScriptLoading(strategy: Strategy::Async),
+            inlineScripts: [new InlineScript($before, Position::Before)],
+            data: $category === '' ? [] : [BlockingFilters::SCRIPT_CATEGORY => $category],
+        ));
     }
 }

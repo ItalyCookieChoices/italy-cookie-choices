@@ -10,6 +10,7 @@ use ItalyCookieChoices\Consent\Domain\PolicyVersion;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -147,6 +148,7 @@ final class ConsentScriptTest extends WPTestCase
         return new ConsentScript(
             new ConsentPolicyFactory($this->dispatcher()),
             $this->options(),
+            new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );

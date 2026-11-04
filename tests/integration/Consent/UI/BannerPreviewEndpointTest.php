@@ -11,6 +11,7 @@ use ItalyCookieChoices\Settings\Sanitizer;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\View\ViewInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
@@ -162,6 +163,7 @@ final class BannerPreviewEndpointTest extends WPTestCase
                 $this->service(ConsentTexts::class),
                 $this->options(),
                 $this->service(ViewInterface::class),
+                new AssetLoader(),
                 $fixtures,
                 self::BUILD_URL
             ),

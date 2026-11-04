@@ -9,6 +9,7 @@ use ItalyCookieChoices\Integrations\Application\IntegrationSettings;
 use ItalyCookieChoices\Integrations\UI\TrackingTags;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyStrap\Asset\AssetLoader;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class TrackingTagsTest extends WPTestCase
@@ -112,6 +113,6 @@ final class TrackingTagsTest extends WPTestCase
 
     private function makeSut(): TrackingTags
     {
-        return new TrackingTags(new IntegrationSettings($this->options()));
+        return new TrackingTags(new IntegrationSettings($this->options()), new AssetLoader());
     }
 }

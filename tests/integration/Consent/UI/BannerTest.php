@@ -13,6 +13,7 @@ use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -465,6 +466,7 @@ final class BannerTest extends WPTestCase
             new ConsentTexts(new ConsentPolicyFactory($this->dispatcher()), $this->dispatcher(), $this->options()),
             $this->options(),
             new View($finder),
+            new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );
