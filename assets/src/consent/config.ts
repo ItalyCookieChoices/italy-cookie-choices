@@ -69,5 +69,8 @@ export function parseConfig( raw: unknown ): ConsentConfig {
 				? raw.durationDays
 				: DEFAULTS.durationDays,
 		legacyCookie: legacyCookieFrom( raw.legacyCookie ),
+		...( typeof raw.renewalUrl === 'string' && raw.renewalUrl !== ''
+			? { renewalUrl: raw.renewalUrl }
+			: {} ),
 	};
 }

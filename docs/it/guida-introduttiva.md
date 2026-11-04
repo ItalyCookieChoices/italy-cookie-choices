@@ -66,7 +66,7 @@ Il registro dimostra i consensi, vedi [Registro dei consensi](registro-consensi.
 
 ![La finestra delle preferenze](../images/it_IT-6-preferences.png)
 
-La scelta dura sei mesi. Il visitatore può modificarla, o revocare il consenso, dalle preferenze: aggiungi un pulsante che le apre nel footer o nella pagina della cookie policy.
+La scelta dura sei mesi, anche in Safari: Safari conserva i cookie scritti da JavaScript per 7 giorni al massimo, quindi dopo ogni scelta il browser chiede al sito, su `/wp-json/italy-cookie-choices/v1/consent-cookie`, di impostare di nuovo lo stesso cookie del consenso dal server. Il visitatore può modificarla, o revocare il consenso, dalle preferenze: aggiungi un pulsante che le apre nel footer o nella pagina della cookie policy.
 
 * Il blocco **Pulsante delle preferenze cookie**, nell'editor a blocchi.
 * Lo shortcode `[cookie_preferences text="Modifica le tue scelte sui cookie"]`. Lo shortcode `[delete_cookie]` delle versioni 2.x stampa lo stesso pulsante.

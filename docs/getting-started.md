@@ -66,7 +66,7 @@ The log demonstrates the consents, see [Consent log](consent-log.md).
 
 ![The preferences dialog](images/en_US-6-preferences.png)
 
-The choice lasts six months. The visitor can change it, or withdraw the consent, from the preferences: add a button that opens them to the footer or to the cookie policy page.
+The choice lasts six months, in Safari too: Safari keeps the cookies written by JavaScript for 7 days at most, so after each choice the browser asks the site, at `/wp-json/italy-cookie-choices/v1/consent-cookie`, to set the same consent cookie again from the server. The visitor can change it, or withdraw the consent, from the preferences: add a button that opens them to the footer or to the cookie policy page.
 
 * The **Cookie preferences button** block, in the block editor.
 * The `[cookie_preferences text="Change your cookie choices"]` shortcode. The `[delete_cookie]` shortcode of the 2.x versions prints the same button.

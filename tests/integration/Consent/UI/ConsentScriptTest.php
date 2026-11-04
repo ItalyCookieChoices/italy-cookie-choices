@@ -86,6 +86,7 @@ final class ConsentScriptTest extends WPTestCase
                 'version' => '1',
                 'durationDays' => 182,
                 'legacyCookie' => ['name' => 'accepted', 'value' => 'yes'],
+                'renewalUrl' => \rest_url('italy-cookie-choices/v1/consent-cookie'),
             ],
             $this->makeSut()->config()
         );

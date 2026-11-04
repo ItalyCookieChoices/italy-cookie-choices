@@ -101,6 +101,35 @@ final class ConsentCest
         $I->assertEqualsWithDelta(\time() + 182 * self::DAY, $expiry, 120);
     }
 
+    public function theServerKeepsTheConsentForItsFullDuration(E2eTester $I): void
+    {
+        $I->haveOptionInDatabase('icc_e2e_renewal', '1');
+        $I->amOnPage('/');
+        $I->executeJS('window.italyCookieChoices.acceptAll();');
+        $I->waitForJS(
+            'return performance.getEntriesByName(window.italyCookieChoicesConfig.renewalUrl).length === 1;',
+            5
+        );
+        $consent = $I->executeJS('return window.italyCookieChoices.getConsent();');
+        // Safari keeps the cookies written by JavaScript for 7 days at most.
+        $I->executeJS(
+            'const value = document.cookie.split("; ").find((cookie) => cookie.startsWith("icc_consent="));'
+            . 'document.cookie = value + "; expires=" + new Date(Date.now() + 86400000).toUTCString()'
+            . ' + "; path=/; SameSite=Lax";'
+        );
+
+        $status = $I->executeInSelenium(static fn(RemoteWebDriver $driver): mixed => $driver->executeAsyncScript(
+            'const done = arguments[arguments.length - 1];'
+            . 'fetch(window.italyCookieChoicesConfig.renewalUrl, {method: "POST", credentials: "same-origin"})'
+            . '.then((response) => done(response.status));'
+        ));
+
+        $I->assertSame(204, $status);
+        $I->assertEqualsWithDelta(\time() + 182 * self::DAY, $this->consentExpiry($I), 120);
+        $I->amOnPage('/');
+        $I->assertEquals($consent, $I->executeJS('return window.italyCookieChoices.getConsent();'));
+    }
+
     public function aNewPolicyVersionAsksTheConsentAgain(E2eTester $I): void
     {
         $I->amOnPage('/');
@@ -152,6 +181,21 @@ final class ConsentCest
         $I->amOnPage('/');
 
         $I->assertNull($I->executeJS('return window.italyCookieChoices ?? null;'));
+    }
+
+    /**
+     * The expiry of the consent cookie, as a Unix timestamp.
+     */
+    private function consentExpiry(E2eTester $I): ?int
+    {
+        $expiry = $I->executeInSelenium(
+            static fn(RemoteWebDriver $driver): ?int => $driver
+                ->manage()
+                ->getCookieNamed(self::CONSENT_COOKIE)
+                ?->getExpiry()
+        );
+
+        return \is_int($expiry) ? $expiry : null;
     }
 
     /**

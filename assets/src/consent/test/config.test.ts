@@ -25,6 +25,20 @@ describe( 'parseConfig', () => {
 		} );
 	} );
 
+	it( 'reads the address that renews the consent cookie', () => {
+		expect(
+			parseConfig( { renewalUrl: 'https://example.com/consent-cookie' } )
+				.renewalUrl
+		).toBe( 'https://example.com/consent-cookie' );
+	} );
+
+	it.each( [ [ '' ], [ 42 ], [ undefined ] ] )(
+		'does not renew the consent cookie without an address, %p',
+		( renewalUrl ) => {
+			expect( parseConfig( { renewalUrl } ).renewalUrl ).toBeUndefined();
+		}
+	);
+
 	it.each( [ [ undefined ], [ null ], [ 'config' ] ] )(
 		'uses the defaults for %p',
 		( raw ) => {
