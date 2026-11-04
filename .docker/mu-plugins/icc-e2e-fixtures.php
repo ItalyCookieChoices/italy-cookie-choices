@@ -117,3 +117,14 @@ add_action('wp_footer', static function (): void {
     $consent = array_combine($categories, array_map('wp_has_consent', $categories));
     printf('<script id="icc-e2e-wp-has-consent" type="application/json">%s</script>', wp_json_encode($consent));
 });
+
+// A renewal of the consent cookie answered after the end of a test would set the cookie in the next one.
+add_filter('rest_endpoints', static function (array $endpoints): array {
+    if (get_option('icc_e2e_renewal')) {
+        return $endpoints;
+    }
+
+    unset($endpoints['/italy-cookie-choices/v1/consent-cookie']);
+
+    return $endpoints;
+});

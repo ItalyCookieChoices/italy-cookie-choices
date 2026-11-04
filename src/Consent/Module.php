@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Consent;
 
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
+use ItalyCookieChoices\Consent\Domain\ConsentStorage;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
+use ItalyCookieChoices\Consent\Infrastructure\CookieConsentStorage;
 use ItalyCookieChoices\Consent\UI\AcceptButtonShortcode;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\BannerPreviewEndpoint;
+use ItalyCookieChoices\Consent\UI\ConsentCookieEndpoint;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyCookieChoices\Consent\UI\PreferencesButtonBlock;
@@ -41,9 +44,13 @@ final readonly class Module implements ModuleInterface
         return [
             AurynConfig::ALIASES => [
                 ConsentRepository::class => CookieConsentRepository::class,
+                ConsentStorage::class => CookieConsentStorage::class,
             ],
             AurynConfig::DEFINITIONS => [
                 CookieConsentRepository::class => [
+                    ':cookies' => $this->cookies,
+                ],
+                CookieConsentStorage::class => [
                     ':cookies' => $this->cookies,
                 ],
                 ConsentScript::class => [
@@ -67,6 +74,7 @@ final readonly class Module implements ModuleInterface
                 AcceptButtonShortcode::class,
                 PreferencesButtonBlock::class,
                 BannerPreviewEndpoint::class,
+                ConsentCookieEndpoint::class,
             ],
         ];
     }

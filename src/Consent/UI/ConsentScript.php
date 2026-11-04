@@ -83,7 +83,8 @@ final readonly class ConsentScript implements SubscriberInterface
      *     categories: list<array{id: string, required: bool}>,
      *     version: string,
      *     durationDays: int,
-     *     legacyCookie: array{name: string, value: string}
+     *     legacyCookie: array{name: string, value: string},
+     *     renewalUrl: string
      * }
      */
     public function config(): array
@@ -101,6 +102,7 @@ final readonly class ConsentScript implements SubscriberInterface
             'version' => $policy->version()->toString(),
             'durationDays' => $policy->duration()->days(),
             'legacyCookie' => $this->options->legacyCookie(),
+            'renewalUrl' => \rest_url(ConsentCookieEndpoint::NAMESPACE . ConsentCookieEndpoint::ROUTE),
         ];
     }
 

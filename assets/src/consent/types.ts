@@ -20,6 +20,8 @@ export interface ConsentConfig {
 	version: string;
 	durationDays: number;
 	legacyCookie: LegacyCookie | null;
+	/** The endpoint that renews the consent cookie from the server, missing when it is not available. */
+	renewalUrl?: string;
 }
 
 export interface Consent {

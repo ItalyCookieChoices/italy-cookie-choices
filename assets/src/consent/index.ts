@@ -12,6 +12,7 @@ import { createConsentApi } from './api';
 import { parseConfig } from './config';
 import { Cookies } from './cookies';
 import { syncLegacyCookie } from './legacy-cookie';
+import { renewConsentCookie, renewWithFetch } from './renewal';
 import { CHANNEL, syncTabs } from './tab-sync';
 import { READY, type ConsentApi } from './types';
 
@@ -39,6 +40,12 @@ if ( window.italyCookieChoices === undefined ) {
 	);
 
 	syncLegacyCookie( api, cookies, config );
+	if ( config.renewalUrl !== undefined ) {
+		renewConsentCookie( document, config.renewalUrl, renewWithFetch, () =>
+			cookies.remove( config.cookieName )
+		);
+	}
+
 	listenToConsentButtons( document, api );
 
 	const ready = (): void => {
