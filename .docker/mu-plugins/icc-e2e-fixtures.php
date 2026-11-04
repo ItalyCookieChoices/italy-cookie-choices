@@ -70,6 +70,17 @@ add_action('wp_enqueue_scripts', static function (): void {
     wp_script_add_data('icc-e2e-tagged', 'consent_category', 'preferences');
 });
 
+// The Google tags served from the site by the Google tag gateway, the addresses answer 404.
+add_action('wp_enqueue_scripts', static function (): void {
+    if (!get_option('icc_e2e_gateway')) {
+        return;
+    }
+
+    wp_enqueue_script('icc-e2e-gateway-analytics', home_url('/metrics/?id=G-ICCTEST'), [], null);
+    wp_enqueue_script('icc-e2e-gateway-manager', home_url('/metrics/?id=GTM-ICCTEST'), [], null);
+    wp_enqueue_script('icc-e2e-gateway-tag', home_url('/metrics/tag.js'), [], null);
+});
+
 // The YouTube oEmbed without asking YouTube.
 add_filter('pre_oembed_result', static function (mixed $result, string $url): mixed {
     if (!str_contains($url, 'icc-oembed')) {

@@ -23,11 +23,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: src/Settings/Sanitizer.php:138
+#: src/Settings/Sanitizer.php:141
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
 
-#: src/Settings/Sanitizer.php:139
+#: src/Settings/Sanitizer.php:142
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
 
@@ -611,3 +611,11 @@ msgstr "Il file non contiene impostazioni di Cookie Choices."
 #: src/Settings/UI/SettingsPage.php:64
 msgid "Cookie Choices"
 msgstr "Cookie Choices"
+
+#: assets/build/settings.js:4
+msgid "Google tag gateway path"
+msgstr "Percorso del Google tag gateway"
+
+#: assets/build/settings.js:4
+msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
+msgstr "Quando i tag di Google vengono caricati da un percorso del tuo sito con il Google tag gateway, scrivi il percorso: gli script sotto quel percorso aspettano il consenso al marketing. I tag con il loro id nell'indirizzo, come G-XXXXXXXXXX, vengono bloccati comunque."

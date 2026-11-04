@@ -68,6 +68,13 @@ final readonly class Schema
         'facebook_pixel_id' => '^([0-9]+)?$',
     ];
 
+    /**
+     * The paths of the site, like /metrics, empty when they are not used.
+     */
+    public const PATHS = [
+        'google_tag_gateway_path' => '^(/[A-Za-z0-9._~-]+)*$',
+    ];
+
     public const CONSENT_MODE_DEFAULTS = [
         'consent_mode' => '1',
     ];
@@ -128,6 +135,10 @@ final readonly class Schema
         }
 
         foreach (self::TAG_IDS as $name => $pattern) {
+            $properties[$name] = ['type' => 'string', 'pattern' => $pattern];
+        }
+
+        foreach (self::PATHS as $name => $pattern) {
             $properties[$name] = ['type' => 'string', 'pattern' => $pattern];
         }
 

@@ -312,6 +312,12 @@
             ],
             "Save changes": [
                 ""
+            ],
+            "Google tag gateway path": [
+                ""
+            ],
+            "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway.": [
+                ""
             ]
         }
     }

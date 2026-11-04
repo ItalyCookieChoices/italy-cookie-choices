@@ -70,6 +70,49 @@ final class VendorTest extends WPTestCase
         $this->assertTrue($vendor->loads('https://notyoutube.com/redirect/www.youtube.com'));
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public function taggedUrls(): iterable
+    {
+        yield 'site domain' => ['https://example.com/metrics/?id=GTM-ABC'];
+        yield 'relative' => ['/metrics/?id=GTM-ABC'];
+        yield 'another parameter first' => ['https://example.com/metrics/?l=dataLayer&id=GTM-ABC'];
+        yield 'lowercase' => ['https://example.com/metrics/?id=gtm-abc'];
+        yield 'encoded ampersand' => ['https://example.com/metrics/?l=dataLayer&amp;id=GTM-ABC'];
+    }
+
+    /**
+     * @dataProvider taggedUrls
+     */
+    public function testItLoadsTheTagsWithItsIdsOnAnyHost(string $url): void
+    {
+        $vendor = new Vendor('google-tag-manager', 'marketing', [], [], ['GTM-']);
+
+        $this->assertTrue($vendor->loads($url));
+    }
+
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public function otherTaggedUrls(): iterable
+    {
+        yield 'another prefix' => ['https://example.com/metrics/?id=G-ABC'];
+        yield 'the prefix inside the id' => ['https://example.com/metrics/?id=XGTM-ABC'];
+        yield 'another parameter' => ['https://example.com/metrics/?gid=GTM-ABC'];
+        yield 'without a query' => ['https://example.com/metrics/GTM-ABC'];
+    }
+
+    /**
+     * @dataProvider otherTaggedUrls
+     */
+    public function testItDoesNotLoadTheTagsWithOtherIds(string $url): void
+    {
+        $vendor = new Vendor('google-tag-manager', 'marketing', [], [], ['GTM-']);
+
+        $this->assertFalse($vendor->loads($url));
+    }
+
     public function testItRunsTheScriptsWithItsSignatures(): void
     {
         $vendor = new Vendor('facebook', 'marketing', [], ['connect.facebook.net', 'fbq(']);

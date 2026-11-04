@@ -165,6 +165,30 @@ final class BlockingCest
         $I->assertNull($I->executeJS('return window.iccTagged;'));
     }
 
+    public function theGoogleTagsServedFromTheSiteWaitForTheConsent(E2eTester $I): void
+    {
+        $I->haveOptionInDatabase('icc_e2e_gateway', '1');
+        $I->haveCookieChoicesOptions(['google_tag_gateway_path' => '/metrics']);
+
+        $I->amOnPage('/');
+
+        $I->seeElementInDOM('script#icc-e2e-gateway-analytics-js[type="text/plain"][data-category="statistics"]');
+        $I->seeElementInDOM('script#icc-e2e-gateway-manager-js[type="text/plain"][data-category="marketing"]');
+        $I->seeElementInDOM('script#icc-e2e-gateway-tag-js[type="text/plain"][data-category="marketing"]');
+    }
+
+    public function withoutTheGatewayPathOnlyTheGoogleIdsAreBlocked(E2eTester $I): void
+    {
+        $I->haveOptionInDatabase('icc_e2e_gateway', '1');
+        $I->haveCookieChoicesOptions([]);
+
+        $I->amOnPage('/');
+
+        $I->seeElementInDOM('script#icc-e2e-gateway-analytics-js[type="text/plain"][data-category="statistics"]');
+        $I->seeElementInDOM('script#icc-e2e-gateway-manager-js[type="text/plain"][data-category="marketing"]');
+        $I->dontSeeElementInDOM('script#icc-e2e-gateway-tag-js[type="text/plain"]');
+    }
+
     public function aScriptIsBlockedByItsCategory(E2eTester $I): void
     {
         $I->haveOptionInDatabase('icc_e2e_enqueued', '1');

@@ -35,6 +35,21 @@ final class VendorPresetsTest extends WPTestCase
             'google-tag-manager',
             'marketing',
         ];
+        yield 'Google tag served from the site' => [
+            'https://example.com/metrics/?id=G-1',
+            'google-analytics',
+            'statistics',
+        ];
+        yield 'Google Ads tag served from the site' => [
+            'https://example.com/metrics/?id=AW-1',
+            'google-analytics',
+            'statistics',
+        ];
+        yield 'Google Tag Manager served from the site' => [
+            '/metrics/?id=GTM-1',
+            'google-tag-manager',
+            'marketing',
+        ];
         yield 'Hotjar' => ['https://static.hotjar.com/c/hotjar-1.js', 'hotjar', 'statistics'];
         yield 'YouTube' => ['https://www.youtube.com/embed/a', 'youtube', 'marketing'];
         yield 'YouTube without cookies' => ['https://www.youtube-nocookie.com/embed/a', 'youtube', 'marketing'];
@@ -71,6 +86,11 @@ final class VendorPresetsTest extends WPTestCase
         yield 'Google Tag Manager' => [
             "(function(w,d,s,l,i){j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;})(window,document,"
                 . "'script','dataLayer','GTM-1');",
+            'google-tag-manager',
+        ];
+        yield 'Google Tag Manager served from the site' => [
+            "(function(w,d,s,l,i){w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});"
+                . "j.src='/metrics/?id='+i+dl;})(window,document,'script','dataLayer','GTM-1');",
             'google-tag-manager',
         ];
         yield 'Facebook Pixel' => [

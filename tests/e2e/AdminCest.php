@@ -216,6 +216,20 @@ final class AdminCest
         $I->assertSame('123456', $options['facebook_pixel_id']);
     }
 
+    public function itSavesTheGoogleTagGatewayPath(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Integrations');
+
+        $I->waitForText('with the Google tag gateway', 5);
+        $I->fillField('Google tag gateway path', '/metrics');
+        $this->save($I);
+
+        $I->see('Settings saved.', self::NOTICE);
+        $I->assertSame('/metrics', $this->savedOptions($I)['google_tag_gateway_path']);
+    }
+
     public function anEmptyCookieNameIsNotSaved(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);

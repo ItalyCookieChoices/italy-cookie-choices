@@ -24,15 +24,23 @@ final readonly class Vendor
     private array $signatures;
 
     /**
+     * @var list<string>
+     */
+    private array $idPrefixes;
+
+    /**
      * @param string $category The consent category, like "marketing".
      * @param list<string> $sources The hosts and paths it loads from, like "youtube.com" or "facebook.com/plugins".
      * @param list<string> $signatures Text found only in its inline scripts, like "fbq(".
+     * @param list<string> $idPrefixes The start of the id parameter of its addresses, like "GTM-",
+     *     matched on any host, for the tags served from the domain of the site.
      */
     public function __construct(
         private string $id,
         private string $category,
         array $sources,
         array $signatures = [],
+        array $idPrefixes = [],
     ) {
         if (\preg_match(self::ID_PATTERN, $id) !== 1) {
             throw new \InvalidArgumentException(\sprintf(
@@ -46,6 +54,7 @@ final readonly class Vendor
 
         $this->sources = $this->nonEmpty($sources);
         $this->signatures = $this->nonEmpty($signatures);
+        $this->idPrefixes = \array_map('strtoupper', $this->nonEmpty($idPrefixes));
     }
 
     public function id(): string
@@ -59,7 +68,9 @@ final readonly class Vendor
     }
 
     /**
-     * Whether the URL is one of its sources, a source matches at the start of the host or of a path segment:
+     * Whether the URL is one of its sources, or has one of its ids on any host.
+     *
+     * A source matches at the start of the host or of a path segment:
      * "youtube.com" matches www.youtube.com and youtube.com, not notyoutube.com.
      */
     public function loads(string $url): bool
@@ -72,7 +83,7 @@ final readonly class Vendor
             }
         }
 
-        return false;
+        return $this->hasAnId($url);
     }
 
     /**
@@ -82,6 +93,35 @@ final readonly class Vendor
     {
         foreach ($this->signatures as $signature) {
             if (\str_contains($script, $signature)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Whether a value of the id parameter starts with one of its id prefixes, like GTM-ABC with "GTM-".
+     */
+    private function hasAnId(string $url): bool
+    {
+        if ($this->idPrefixes === [] || \preg_match_all('/[?&](?:amp;)?id=([^&#\s]+)/', $url, $matches) === 0) {
+            return false;
+        }
+
+        foreach ($matches[1] as $id) {
+            if ($this->startsWithAnIdPrefix(\strtoupper($id))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function startsWithAnIdPrefix(string $id): bool
+    {
+        foreach ($this->idPrefixes as $prefix) {
+            if (\str_starts_with($id, $prefix)) {
                 return true;
             }
         }

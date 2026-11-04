@@ -22,11 +22,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:138
+#: src/Settings/Sanitizer.php:141
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:139
+#: src/Settings/Sanitizer.php:142
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -609,4 +609,12 @@ msgstr ""
 #: src/Settings/UI/SettingsPage.php:63
 #: src/Settings/UI/SettingsPage.php:64
 msgid "Cookie Choices"
+msgstr ""
+
+#: assets/build/settings.js:4
+msgid "Google tag gateway path"
+msgstr ""
+
+#: assets/build/settings.js:4
+msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
 msgstr ""
