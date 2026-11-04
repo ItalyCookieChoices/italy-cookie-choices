@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
-use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
+use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
-use ItalyStrap\Asset\Hook;
 use ItalyStrap\Asset\InlineScript;
 use ItalyStrap\Asset\Position;
 use ItalyStrap\Asset\RegisterOnly;
@@ -46,7 +46,7 @@ final readonly class ConsentScript implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield Hook::FRONT_END => 'enqueue';
+        yield EventName::FRONT_END => 'enqueue';
         // At the end of the head, so the listeners of its events are already there.
         yield 'wp_head' => [
             self::CALLBACK => 'print',

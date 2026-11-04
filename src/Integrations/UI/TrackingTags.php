@@ -8,8 +8,8 @@ use ItalyCookieChoices\Blocking\UI\BlockingFilters;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Integrations\Application\IntegrationSettings;
 use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
-use ItalyStrap\Asset\Hook;
 use ItalyStrap\Asset\InlineScript;
 use ItalyStrap\Asset\NoVersion;
 use ItalyStrap\Asset\Position;
@@ -38,7 +38,7 @@ final readonly class TrackingTags implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield Hook::FRONT_END => 'enqueue';
+        yield EventName::FRONT_END => 'enqueue';
     }
 
     public function enqueue(): void

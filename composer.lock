@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d3742ef4adf20d19d5bcadd1961c44b",
+    "content-hash": "0fe14e377c01d7028b880efe6623baa2",
     "packages": [
         {
             "name": "italystrap/asset",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItalyStrap/asset.git",
-                "reference": "3a8cebe8edc7ce1d69c679a9d8b1bcdef85af7bc"
+                "reference": "cea3e6945f710c2d440f32ab8970652384397caf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItalyStrap/asset/zipball/3a8cebe8edc7ce1d69c679a9d8b1bcdef85af7bc",
-                "reference": "3a8cebe8edc7ce1d69c679a9d8b1bcdef85af7bc",
+                "url": "https://api.github.com/repos/ItalyStrap/asset/zipball/cea3e6945f710c2d440f32ab8970652384397caf",
+                "reference": "cea3e6945f710c2d440f32ab8970652384397caf",
                 "shasum": ""
             },
             "require": {
@@ -70,8 +70,8 @@
                 "issues": "https://github.com/ItalyStrap/asset/issues",
                 "source": "https://github.com/ItalyStrap/asset"
             },
-            "time": "2026-11-04T20:42:25+00:00",
-            "published-time": "2026-11-04T21:00:46+00:00"
+            "time": "2026-11-04T21:20:08+00:00",
+            "published-time": "2026-11-04T21:20:18+00:00"
         },
         {
             "name": "italystrap/common",

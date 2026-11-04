@@ -11,8 +11,8 @@ use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
 use ItalyStrap\Asset\Dependencies;
+use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
-use ItalyStrap\Asset\Hook;
 use ItalyStrap\Asset\InlineScript;
 use ItalyStrap\Asset\Position;
 use ItalyStrap\Asset\Script;
@@ -67,7 +67,7 @@ final readonly class SettingsPage implements SubscriberInterface
     {
         yield 'admin_menu' => 'addPage';
         yield 'admin_init' => 'redirectTheOldUrl';
-        yield Hook::ADMIN => 'enqueue';
+        yield EventName::ADMIN => 'enqueue';
     }
 
     public function addPage(): void

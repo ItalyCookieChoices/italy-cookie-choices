@@ -12,8 +12,8 @@ use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
 use ItalyStrap\Asset\Dependencies;
+use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
-use ItalyStrap\Asset\Hook;
 use ItalyStrap\Asset\Script;
 use ItalyStrap\Asset\ScriptLoading;
 use ItalyStrap\Asset\Style;
@@ -52,7 +52,7 @@ final readonly class Placeholders implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield Hook::FRONT_END => 'enqueue';
+        yield EventName::FRONT_END => 'enqueue';
         yield 'wp_footer' => 'render';
     }
 

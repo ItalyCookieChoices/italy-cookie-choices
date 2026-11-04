@@ -11,8 +11,8 @@ use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
 use ItalyStrap\Asset\Dependencies;
+use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
-use ItalyStrap\Asset\Hook;
 use ItalyStrap\Asset\InlineScript;
 use ItalyStrap\Asset\Position;
 use ItalyStrap\Asset\Script;
@@ -56,7 +56,7 @@ final readonly class WpConsentApiScript implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield Hook::FRONT_END => [
+        yield EventName::FRONT_END => [
             self::CALLBACK => 'enqueue',
             self::PRIORITY => self::AFTER_WP_CONSENT_API,
         ];

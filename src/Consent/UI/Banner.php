@@ -9,14 +9,14 @@ use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
 use ItalyStrap\Asset\Dependencies;
+use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
-use ItalyStrap\Asset\Hook;
 use ItalyStrap\Asset\RegisterOnly;
 use ItalyStrap\Asset\Script;
 use ItalyStrap\Asset\ScriptLoading;
 use ItalyStrap\Asset\Style;
-use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\Config\Config;
+use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
 use SplFileInfo;
 
@@ -53,7 +53,7 @@ final readonly class Banner implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield Hook::FRONT_END => 'enqueue';
+        yield EventName::FRONT_END => 'enqueue';
         // Before the footer scripts, the banner is the first thing the keyboard reaches.
         yield 'wp_footer' => [
             self::CALLBACK => 'render',
