@@ -85,3 +85,11 @@ RUN set -eux; \
     unzip -q /tmp/theme.zip -d /usr/src/wordpress/wp-content/themes; \
     rm /tmp/theme.zip; \
     chown -R www-data:www-data /usr/src/wordpress/wp-content/themes
+
+# The WP Consent API, the e2e suite activates it to test the integration
+ARG WP_CONSENT_API_VERSION=2.1.0
+RUN set -eux; \
+    curl -fsSL "https://downloads.wordpress.org/plugin/wp-consent-api.${WP_CONSENT_API_VERSION}.zip" -o /tmp/plugin.zip; \
+    unzip -q /tmp/plugin.zip -d /usr/src/wordpress/wp-content/plugins; \
+    rm /tmp/plugin.zip; \
+    chown -R www-data:www-data /usr/src/wordpress/wp-content/plugins/wp-consent-api

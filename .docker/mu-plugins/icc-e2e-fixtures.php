@@ -95,3 +95,14 @@ foreach (['update_core', 'update_plugins', 'update_themes'] as $iccTransient) {
         ];
     });
 }
+
+// The answers of wp_has_consent() in PHP, read by the WP Consent API e2e tests.
+add_action('wp_footer', static function (): void {
+    if (!get_option('icc_e2e_wp_consent_api') || !function_exists('wp_has_consent')) {
+        return;
+    }
+
+    $categories = ['functional', 'preferences', 'statistics', 'statistics-anonymous', 'marketing'];
+    $consent = array_combine($categories, array_map('wp_has_consent', $categories));
+    printf('<script id="icc-e2e-wp-has-consent" type="application/json">%s</script>', wp_json_encode($consent));
+});

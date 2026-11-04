@@ -52,6 +52,34 @@ add_action( BuildingConsentMode::class, static function ( BuildingConsentMode $e
 } );
 ```
 
+## WP Consent API
+
+Quando il plugin [WP Consent API](https://wordpress.org/plugins/wp-consent-api/) è attivo e il banner è acceso, Cookie Choices gli scrive il consenso, così i plugin che lo leggono, come WooCommerce e Site Kit, rispettano la scelta del visitatore. Non c'è nessuna impostazione.
+
+Senza un plugin del consenso l'API permette ogni categoria. Cookie Choices dichiara il tipo di consenso `optin`, quindi prima della scelta è permessa solo la categoria funzionale.
+
+Ogni categoria permette queste categorie dell'API:
+
+| Categoria | Categorie della WP Consent API |
+| --- | --- |
+| `necessary` | `functional` |
+| `preferences` | `preferences` |
+| `statistics` | `statistics`, `statistics-anonymous` |
+| `marketing` | `marketing` |
+
+Nel browser il plugin chiama `wp_set_consent()` con il consenso salvato e a ogni scelta, compresi il rifiuto e la revoca. In PHP `wp_has_consent()` risponde dal cookie del consenso di Cookie Choices, quindi un consenso scaduto non è mai permesso. I cookie dell'API durano quanto il consenso.
+
+### Associare una categoria personalizzata
+
+```php
+use ItalyCookieChoices\Integrations\Application\BuildingWpConsentApi;
+use ItalyCookieChoices\Integrations\Domain\WpConsentCategory;
+
+add_action( BuildingWpConsentApi::class, static function ( BuildingWpConsentApi $event ): void {
+	$event->mapCategory( 'social', WpConsentCategory::MARKETING );
+} );
+```
+
 ## I tag stampati dal plugin
 
 La scheda **Integrazioni** stampa Google Analytics 4, Google Tag Manager e il pixel di Facebook dai loro id, ognuno bloccato fino al consenso alla sua categoria:

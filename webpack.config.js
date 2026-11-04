@@ -11,6 +11,7 @@ const entries = {
 	'consent-log': './assets/src/consent-log/index.ts',
 	settings: './assets/src/admin/index.tsx',
 	'consent-mode': './assets/src/consent-mode/index.ts',
+	'wp-consent-api': './assets/src/wp-consent-api/index.ts',
 };
 
 module.exports = {

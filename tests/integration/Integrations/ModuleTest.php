@@ -8,6 +8,8 @@ use ItalyCookieChoices\Integrations\Module;
 use ItalyCookieChoices\Integrations\UI\AdvancedConsentMode;
 use ItalyCookieChoices\Integrations\UI\ConsentModeScript;
 use ItalyCookieChoices\Integrations\UI\TrackingTags;
+use ItalyCookieChoices\Integrations\UI\WpConsentApiFilters;
+use ItalyCookieChoices\Integrations\UI\WpConsentApiScript;
 use ItalyCookieChoices\Integrations\UI\YouTubeNoCookie;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyStrap\Event\SubscriberInterface;
@@ -20,7 +22,7 @@ final class ModuleTest extends WPTestCase
 
     public function testTheSubscribersAreRegistered(): void
     {
-        $config = (new Module('/plugin/'))();
+        $config = (new Module('/plugin/', 'https://example.com/plugin/'))();
 
         $this->assertIsArray($config);
         $this->assertSame(
@@ -29,6 +31,8 @@ final class ModuleTest extends WPTestCase
                 TrackingTags::class,
                 AdvancedConsentMode::class,
                 YouTubeNoCookie::class,
+                WpConsentApiFilters::class,
+                WpConsentApiScript::class,
             ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
@@ -40,5 +44,10 @@ final class ModuleTest extends WPTestCase
             ['wp_head' => [SubscriberInterface::CALLBACK => 'print', SubscriberInterface::PRIORITY => 1]],
             \iterator_to_array($this->service(ConsentModeScript::class)->getSubscribedEvents())
         );
+    }
+
+    public function testTheContainerBuildsTheWpConsentApiScript(): void
+    {
+        $this->assertInstanceOf(WpConsentApiScript::class, $this->service(WpConsentApiScript::class));
     }
 }
