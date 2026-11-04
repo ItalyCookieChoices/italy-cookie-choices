@@ -4,11 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92d901ec0bc2a10c22b8dc775a99b693",
+    "content-hash": "8d3742ef4adf20d19d5bcadd1961c44b",
     "packages": [
         {
             "name": "italystrap/asset",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItalyStrap/asset.git",
@@ -40,7 +40,6 @@
             "suggest": {
                 "italystrap/event": "Hook the assets with the AssetsSubscriber"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -72,7 +71,7 @@
                 "source": "https://github.com/ItalyStrap/asset"
             },
             "time": "2026-11-04T20:42:25+00:00",
-            "published-time": "2026-11-04T20:42:31+00:00"
+            "published-time": "2026-11-04T21:00:46+00:00"
         },
         {
             "name": "italystrap/common",
@@ -8711,7 +8710,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "italystrap/asset": 20,
         "italystrap/debug": 20,
         "italystrap/empress": 20,
         "italystrap/finder": 20,
