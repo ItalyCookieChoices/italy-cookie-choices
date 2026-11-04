@@ -19,6 +19,7 @@ final readonly class Sanitizer
     private const VENDORS = 'vendors';
     private const PATTERNS = 'patterns';
     private const TAG_ID = 'tag_id';
+    private const PATH = 'path';
 
     /**
      * The fields in the order they are saved.
@@ -54,6 +55,7 @@ final readonly class Sanitizer
         'ga_measurement_id' => self::TAG_ID,
         'gtm_container_id' => self::TAG_ID,
         'facebook_pixel_id' => self::TAG_ID,
+        'google_tag_gateway_path' => self::PATH,
         'youtube_nocookie' => self::RAW,
         'categories' => self::CATEGORIES,
         'disabled_vendors' => self::IDS,
@@ -115,6 +117,7 @@ final readonly class Sanitizer
             self::VENDORS => $this->vendors($value),
             self::PATTERNS => $this->patterns($value),
             self::TAG_ID => $this->tagId($name, $value),
+            self::PATH => $this->path($name, $value),
             default => $this->required($name, $value),
         };
     }
@@ -189,6 +192,21 @@ final readonly class Sanitizer
         $id = \strtoupper(\trim($this->toString($value)));
 
         return \preg_match('/' . Schema::TAG_IDS[$name] . '/', $id) === 1 ? $id : '';
+    }
+
+    /**
+     * The path of an address or of a text, with the leading slash and without the trailing one,
+     * empty when it is the root or it has not the shape of a path, like /metrics.
+     */
+    private function path(string $name, mixed $value): string
+    {
+        $path = (string) \wp_parse_url(\trim($this->toString($value)), \PHP_URL_PATH);
+        $path = '/' . \trim($path, '/');
+        if ($path === '/') {
+            return '';
+        }
+
+        return \preg_match('#' . Schema::PATHS[$name] . '#', $path) === 1 ? $path : '';
     }
 
     /**

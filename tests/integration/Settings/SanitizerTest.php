@@ -195,6 +195,33 @@ final class SanitizerTest extends WPTestCase
         $this->assertSame($expected, (new Sanitizer())([$field => $value])[$field]);
     }
 
+    /**
+     * @return iterable<string, array{mixed, string}>
+     */
+    public function gatewayPaths(): iterable
+    {
+        yield 'path' => ['/metrics', '/metrics'];
+        yield 'nested path' => ['/metrics/v1', '/metrics/v1'];
+        yield 'trailing slash' => [' /metrics/ ', '/metrics'];
+        yield 'without the slash' => ['metrics', '/metrics'];
+        yield 'address' => ['https://example.com/metrics/?id=G-1', '/metrics'];
+        yield 'root' => ['/', ''];
+        yield 'empty' => ['', ''];
+        yield 'space' => ['/my metrics', ''];
+        yield 'markup' => ['/m"><script>', ''];
+        yield 'not a string' => [['/metrics'], ''];
+    }
+
+    /**
+     * @dataProvider gatewayPaths
+     */
+    public function testTheGatewayPathIsAPathOfTheSite(mixed $value, string $expected): void
+    {
+        $sanitized = (new Sanitizer())(['google_tag_gateway_path' => $value]);
+
+        $this->assertSame($expected, $sanitized['google_tag_gateway_path']);
+    }
+
     public function testTheAllowedPatternsAreUniqueTexts(): void
     {
         $result = (new Sanitizer())(['allowed_patterns' => ['iccAllowed', ' iccAllowed ', '', 42, ['x']]]);

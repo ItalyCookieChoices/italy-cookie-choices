@@ -39,7 +39,8 @@ export type Text =
 	| 'consent_log_retention'
 	| 'ga_measurement_id'
 	| 'gtm_container_id'
-	| 'facebook_pixel_id';
+	| 'facebook_pixel_id'
+	| 'google_tag_gateway_path';
 
 export interface CategoryTexts {
 	label?: string;

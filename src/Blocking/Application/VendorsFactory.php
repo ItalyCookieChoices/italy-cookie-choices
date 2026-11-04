@@ -6,15 +6,18 @@ namespace ItalyCookieChoices\Blocking\Application;
 
 use ItalyCookieChoices\Blocking\Domain\Vendor;
 use ItalyCookieChoices\Blocking\Domain\Vendors;
+use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Settings\Options;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Collects the vendors to block from the presets not turned off, the custom vendors
+ * Collects the vendors to block from the presets not turned off, the Google tag gateway, the custom vendors
  * and the listeners of BuildingVendors.
  */
 final readonly class VendorsFactory
 {
+    private const GOOGLE_TAG_GATEWAY = 'google-tag-gateway';
+
     public function __construct(
         private VendorPresets $presets,
         private EventDispatcherInterface $dispatcher,
@@ -25,7 +28,7 @@ final readonly class VendorsFactory
     public function create(): Vendors
     {
         $event = new BuildingVendors(
-            [...$this->presets(), ...$this->customVendors()],
+            [...$this->presets(), ...$this->googleTagGateway(), ...$this->customVendors()],
             $this->options->values('allowed_patterns')
         );
         $this->dispatcher->dispatch($event);
@@ -44,6 +47,24 @@ final readonly class VendorsFactory
             $this->presets->all(),
             static fn(Vendor $vendor): bool => !\in_array($vendor->id(), $disabled, true)
         ));
+    }
+
+    /**
+     * The Google tags served from a path of the site by the Google tag gateway wait for the marketing consent.
+     * The presets come first: the ids in the address, like G-ABC123, keep Google Analytics in its category.
+     *
+     * @return list<Vendor>
+     */
+    private function googleTagGateway(): array
+    {
+        $path = $this->options->text('google_tag_gateway_path');
+        if ($path === '') {
+            return [];
+        }
+
+        $host = (string) \wp_parse_url(\home_url(), \PHP_URL_HOST);
+
+        return [new Vendor(self::GOOGLE_TAG_GATEWAY, Category::MARKETING, [$host . $path, $path])];
     }
 
     /**

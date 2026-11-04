@@ -29,6 +29,14 @@ final readonly class VendorPresets
     ];
 
     /**
+     * The ids of the Google tags loaded by gtag.js, like G-ABC123: they match on any host,
+     * so the tags served from the site domain by the Google tag gateway are blocked too.
+     */
+    private const GOOGLE_TAG_IDS = ['G-', 'GT-', 'AW-', 'DC-'];
+
+    private const GOOGLE_TAG_MANAGER_IDS = ['GTM-'];
+
+    /**
      * The name shown to the site owner, the id when the vendor is not a preset.
      */
     public function name(string $id): string
@@ -46,13 +54,15 @@ final readonly class VendorPresets
                 'google-analytics',
                 Category::STATISTICS,
                 ['google-analytics.com', 'googletagmanager.com/gtag/js'],
-                ['google-analytics.com/analytics.js', 'googletagmanager.com/gtag/js']
+                ['google-analytics.com/analytics.js', 'googletagmanager.com/gtag/js'],
+                self::GOOGLE_TAG_IDS
             ),
             new Vendor(
                 'google-tag-manager',
                 Category::MARKETING,
                 ['googletagmanager.com/gtm.js', 'googletagmanager.com/ns.html'],
-                ['googletagmanager.com/gtm.js']
+                ['googletagmanager.com/gtm.js', "'gtm.start'"],
+                self::GOOGLE_TAG_MANAGER_IDS
             ),
             new Vendor('hotjar', Category::STATISTICS, ['hotjar.com'], ['static.hotjar.com']),
             new Vendor(

@@ -20,8 +20,8 @@ final class SchemaTest extends WPTestCase
         'consent_log_retention', 'consent_mode', 'consent_mode_advanced', 'contentStyle',
         'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
         'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id', 'ga_measurement_id',
-        'gtm_container_id', 'html_margin', 'infoClass', 'js_template', 'nofollow', 'reload', 'slug', 'target',
-        'text', 'url', 'youtube_nocookie',
+        'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass', 'js_template', 'nofollow',
+        'reload', 'slug', 'target', 'text', 'url', 'youtube_nocookie',
     ];
 
     public function testTheSchemaIsAtVersion6(): void
@@ -86,6 +86,7 @@ final class SchemaTest extends WPTestCase
             'ga_measurement_id' => 'G-ABC123',
             'gtm_container_id' => '',
             'facebook_pixel_id' => '123456',
+            'google_tag_gateway_path' => '/metrics/v1',
         ];
 
         $this->assertTrue(\rest_validate_value_from_schema($option, (new Schema())->toJsonSchema()));
@@ -126,6 +127,9 @@ final class SchemaTest extends WPTestCase
         yield 'container id in lower case' => [['gtm_container_id' => 'gtm-abc']];
         yield 'pixel id with letters' => [['facebook_pixel_id' => 'abc']];
         yield 'advanced consent mode not 1' => [['consent_mode_advanced' => 'yes']];
+        yield 'gateway path without the slash' => [['google_tag_gateway_path' => 'metrics']];
+        yield 'gateway path with the host' => [['google_tag_gateway_path' => 'https://example.com/metrics']];
+        yield 'gateway path with a query' => [['google_tag_gateway_path' => '/metrics?a=1']];
     }
 
     /**

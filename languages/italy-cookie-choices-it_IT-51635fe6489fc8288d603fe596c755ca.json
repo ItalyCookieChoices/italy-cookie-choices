@@ -312,6 +312,12 @@
             ],
             "Save changes": [
                 "Salva le modifiche"
+            ],
+            "Google tag gateway path": [
+                "Percorso del Google tag gateway"
+            ],
+            "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway.": [
+                "Quando i tag di Google vengono caricati da un percorso del tuo sito con il Google tag gateway, scrivi il percorso: gli script sotto quel percorso aspettano il consenso al marketing. I tag con il loro id nell'indirizzo, come G-XXXXXXXXXX, vengono bloccati comunque."
             ]
         }
     }

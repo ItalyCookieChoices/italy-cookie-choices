@@ -26,6 +26,12 @@ A vendor is a third party, like YouTube, with the addresses it loads from and th
 
 In **Blocking > Common vendors** you can turn off a vendor the site does not need to block.
 
+## Google tag gateway
+
+With the Google tag gateway the Google tags load from a path of your site, like `/metrics`, instead of `googletagmanager.com`. The plugin blocks them by the id in their address: `G-`, `GT-`, `AW-` and `DC-` wait for the statistics consent like Google Analytics, `GTM-` waits for the marketing consent like Google Tag Manager. The inline loader of Google Tag Manager is blocked on any host too.
+
+When the address of a tag has no id, write the path in **Integrations > Google tag gateway path**, like `/metrics`: every script and frame under it waits for the marketing consent.
+
 ## Custom vendors
 
 **Add a vendor** for a third party the plugin does not know. Give it a name, a category and the texts to block: a part of the address, like `tracker.example.com/script.js`, or a text of its inline script, like `myTracker.start(`. Press Enter after each one.

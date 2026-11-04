@@ -75,6 +75,19 @@ export function IntegrationsTab( props: SettingsProps ) {
 					label={ __( 'Facebook pixel ID', 'italy-cookie-choices' ) }
 					placeholder="123456789012345"
 				/>
+				<TextField
+					{ ...props }
+					name="google_tag_gateway_path"
+					label={ __(
+						'Google tag gateway path',
+						'italy-cookie-choices'
+					) }
+					help={ __(
+						'When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway.',
+						'italy-cookie-choices'
+					) }
+					placeholder="/metrics"
+				/>
 			</fieldset>
 			<ToggleField
 				{ ...props }

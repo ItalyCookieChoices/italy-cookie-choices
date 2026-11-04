@@ -97,6 +97,36 @@ final class VendorsFactoryTest extends WPTestCase
         $this->assertNotNull($vendors->running('window.iccBlocked = true;'));
     }
 
+    public function testTheGoogleTagGatewayPathWaitsForTheMarketingConsent(): void
+    {
+        \update_option(Schema::OPTION, ['google_tag_gateway_path' => '/metrics']);
+        $host = (string) \wp_parse_url(\home_url(), \PHP_URL_HOST);
+
+        $vendors = $this->makeSut()->create();
+
+        $this->assertSame('google-tag-gateway', $vendors->loading('https://' . $host . '/metrics/tag.js')?->id());
+        $relative = $vendors->loading('/metrics/tag.js');
+        $this->assertNotNull($relative);
+        $this->assertSame('google-tag-gateway', $relative->id());
+        $this->assertSame('marketing', $relative->category());
+        $this->assertNull($vendors->loading('https://' . $host . '/blog/metrics/tag.js'));
+        $this->assertNull($vendors->loading('https://other.example/metrics/tag.js'));
+    }
+
+    public function testTheIdsOfTheGoogleTagsWinOverTheGatewayPath(): void
+    {
+        \update_option(Schema::OPTION, ['google_tag_gateway_path' => '/metrics']);
+
+        $this->assertSame('google-analytics', $this->makeSut()->create()->loading('/metrics/?id=G-1')?->id());
+    }
+
+    public function testWithoutTheGatewayPathTheSitePathsAreNotBlocked(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1']);
+
+        $this->assertNull($this->makeSut()->create()->loading('/metrics/tag.js'));
+    }
+
     public function testTheListenersChangeTheVendors(): void
     {
         \add_action(BuildingVendors::class, static function (BuildingVendors $event): void {
