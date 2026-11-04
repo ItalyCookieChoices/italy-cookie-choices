@@ -5,7 +5,7 @@ Donate link:
 **Requires at least:** 6.5  
 **Requires PHP:** 8.2  
 **Tested up to:** 7.1  
-**Stable tag:** 3.0.1  
+**Stable tag:** 3.1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -103,6 +103,12 @@ In JavaScript use `window.italyCookieChoices.hasConsent( 'statistics' )`, in PHP
 7. The placeholder of a blocked video
 
 ## Changelog ##
+
+### 3.1.0 ###
+
+* The consent is written to the WP Consent API: WooCommerce, Site Kit and the other plugins that read it no longer see a full consent before the choice
+* The Google tags served from the site domain by the Google tag gateway wait for the consent, by their id or by the new **Google tag gateway path** setting
+* The consent lasts six months in Safari too, the server sets the consent cookie again after each choice
 
 ### 3.0.1 ###
 
@@ -406,6 +412,9 @@ Dev time: 50h
 * First release.
 
 ## Upgrade Notice ##
+
+### 3.1.0 ###
+Writes the consent to the WP Consent API, blocks the Google tags served by the Google tag gateway and keeps the consent for six months in Safari.
 
 ### 3.0.1 ###
 Fixes the migration from 2.x and the Italian texts shown in English: update before your visitors see the new banner.
