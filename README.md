@@ -26,6 +26,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Let the visitors change or withdraw the consent with a block, a shortcode or a link
 * Log the consents to demonstrate them, without IP addresses, and export the log as CSV
 * Send the Google Consent Mode v2 signals, in the basic or advanced mode
+* Write the consent to the WP Consent API, for WooCommerce, Site Kit and the other plugins that read it
 * Print Google Analytics, Google Tag Manager and the Facebook pixel from their ids
 * Preview the banner while you change the settings
 * Translate the texts with WPML and Polylang, the plugin is translated in Italian
