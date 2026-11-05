@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration;
 
 use ItalyCookieChoices\I18n\TextDomain;
-use ItalyCookieChoices\Legacy\DeprecatedHooks;
+use ItalyCookieChoices\Legacy\DeprecatedEventNames;
 use ItalyCookieChoices\Module;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
@@ -26,7 +26,7 @@ final class ModuleTest extends WPTestCase
 
         $this->assertIsArray($config);
         $this->assertSame(
-            [TextDomain::class, DeprecatedHooks::class],
+            [TextDomain::class, DeprecatedEventNames::class],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
     }
@@ -41,10 +41,10 @@ final class ModuleTest extends WPTestCase
         $this->assertEquals(new TextDomain(self::LANGUAGES_PATH), $container->get(TextDomain::class));
     }
 
-    public function testTheSubscribersAreHookedOnce(): void
+    public function testTheSubscribersAreSubscribedOnce(): void
     {
         $this->assertSame(1, $this->countListeners('init', TextDomain::class));
-        $this->assertSame(1, $this->countListeners('init', DeprecatedHooks::class));
+        $this->assertSame(1, $this->countListeners('init', DeprecatedEventNames::class));
     }
 
     public function testTheContainerRendersThePluginTemplates(): void
@@ -71,13 +71,13 @@ final class ModuleTest extends WPTestCase
     /**
      * @param class-string $listenerClass
      */
-    private function countListeners(string $hook, string $listenerClass): int
+    private function countListeners(string $eventName, string $listenerClass): int
     {
         /** @var array<string, \WP_Hook> $wp_filter */
         global $wp_filter;
 
         $count = 0;
-        foreach ($wp_filter[$hook]->callbacks as $priorityCallbacks) {
+        foreach ($wp_filter[$eventName]->callbacks as $priorityCallbacks) {
             foreach ($priorityCallbacks as $callback) {
                 if (\is_array($callback['function']) && $callback['function'][0] instanceof $listenerClass) {
                     $count++;

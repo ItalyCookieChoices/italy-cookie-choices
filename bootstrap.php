@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The composition root: the container autowires the plugin services and hooks them into WordPress.
+ * The composition root: the container autowires the plugin services and subscribes them to the WordPress events.
  */
 
 declare(strict_types=1);

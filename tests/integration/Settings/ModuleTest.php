@@ -39,7 +39,7 @@ final class ModuleTest extends WPTestCase
         );
     }
 
-    public function testTheLinksAreHookedToTheMainPluginFile(): void
+    public function testTheLinksAreSubscribedToTheMainPluginFile(): void
     {
         $links = $this->service(PluginActionLinks::class);
 
@@ -49,22 +49,22 @@ final class ModuleTest extends WPTestCase
         );
     }
 
-    public function testThePluginHooksTheSettingsPage(): void
+    public function testThePluginSubscribesTheSettingsPage(): void
     {
-        $this->assertTrue($this->isHooked('admin_menu', SettingsPage::class));
-        $this->assertTrue($this->isHooked('admin_init', StringRegistration::class));
-        $this->assertTrue($this->isHooked(self::ACTION_LINKS, PluginActionLinks::class));
+        $this->assertTrue($this->isSubscribed('admin_menu', SettingsPage::class));
+        $this->assertTrue($this->isSubscribed('admin_init', StringRegistration::class));
+        $this->assertTrue($this->isSubscribed(self::ACTION_LINKS, PluginActionLinks::class));
     }
 
     /**
      * @param class-string $class
      */
-    private function isHooked(string $hook, string $class): bool
+    private function isSubscribed(string $eventName, string $class): bool
     {
         /** @var array<string, \WP_Hook> $wp_filter */
         global $wp_filter;
 
-        foreach ($wp_filter[$hook]->callbacks ?? [] as $callbacks) {
+        foreach ($wp_filter[$eventName]->callbacks ?? [] as $callbacks) {
             foreach ($callbacks as $callback) {
                 if (\is_array($callback['function']) && $callback['function'][0] instanceof $class) {
                     return true;

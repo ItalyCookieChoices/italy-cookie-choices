@@ -31,7 +31,7 @@ final class PlaceholdersTest extends WPTestCase
         parent::setUp();
         $GLOBALS['wp_scripts'] = new \WP_Scripts();
         $GLOBALS['wp_styles'] = new \WP_Styles();
-        // Registered by ConsentScript on the same hook.
+        // Registered by ConsentScript on the same event name.
         \wp_register_script(ConsentScript::HANDLE, false, [], null);
         \update_option(Schema::OPTION, ['active' => '1']);
     }

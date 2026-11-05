@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Legacy;
 
-use ItalyCookieChoices\Legacy\DeprecatedHooks;
+use ItalyCookieChoices\Legacy\DeprecatedEventNames;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
-final class DeprecatedHooksTest extends WPTestCase
+final class DeprecatedEventNamesTest extends WPTestCase
 {
     public function testItWarnsOnInit(): void
     {
-        $this->assertSame(['init' => 'warn'], \iterator_to_array((new DeprecatedHooks())->getSubscribedEvents()));
+        $this->assertSame(['init' => 'warn'], \iterator_to_array((new DeprecatedEventNames())->getSubscribedEvents()));
     }
 
     public function testFilteringTheBotsIsDeprecated(): void
@@ -19,7 +19,7 @@ final class DeprecatedHooksTest extends WPTestCase
         $this->setExpectedDeprecated('icc_bots');
         \add_filter('icc_bots', static fn(array $bots): array => [...$bots, 'mybot']);
 
-        (new DeprecatedHooks())->warn();
+        (new DeprecatedEventNames())->warn();
     }
 
     public function testNothingIsDeprecatedWithoutFilters(): void
@@ -30,7 +30,7 @@ final class DeprecatedHooksTest extends WPTestCase
             $warnings++;
         });
 
-        (new DeprecatedHooks())->warn();
+        (new DeprecatedEventNames())->warn();
 
         $this->assertSame(0, $warnings);
     }

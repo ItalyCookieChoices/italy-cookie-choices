@@ -22,7 +22,7 @@ final class ConsentCest
 
     private const DAY = 24 * 60 * 60;
 
-    // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore -- Codeception hook
+    // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore -- Codeception method
     public function _before(E2eTester $I): void
     {
         $I->haveOptionInDatabase('icc_e2e_events', '1');
