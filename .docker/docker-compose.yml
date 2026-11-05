@@ -26,6 +26,8 @@ services:
       WORDPRESS_CONFIG_EXTRA: |
         define( 'AUTOMATIC_UPDATER_DISABLED', true );
         define( 'WP_AUTO_UPDATE_CORE', false );
+        // The loopback request of WP-Cron writes after the database reset of the next test (#292)
+        define( 'DISABLE_WP_CRON', true );
     volumes:
       - ../:/var/www/html/wp-content/plugins/${PROJECT_NAME:-wordpress}
       - ../tests/_output/:/var/www/html/wp-content/plugins/${PROJECT_NAME:-wordpress}/tests/_output/
