@@ -119,7 +119,15 @@ final readonly class Migration implements SubscriberInterface
      */
     private function removeTheImplicitConsents(array $option): array
     {
-        return \array_diff_key($option, \array_flip([...self::IMPLICIT_CONSENTS, self::LEGACY_BUTTON_TEXT]));
+        $migrated = \array_diff_key($option, \array_flip(self::IMPLICIT_CONSENTS));
+        if (!\array_key_exists(self::LEGACY_BUTTON_TEXT, $migrated)) {
+            return $migrated;
+        }
+
+        // The empty text of the defaults, so the upgrade of the defaults does not change them (#300).
+        $migrated[self::LEGACY_BUTTON_TEXT] = '';
+
+        return $migrated;
     }
 
     /**
