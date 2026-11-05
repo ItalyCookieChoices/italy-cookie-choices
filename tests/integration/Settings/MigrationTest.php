@@ -394,6 +394,6 @@ final class MigrationTest extends WPTestCase
             }
         }
 
-        $this->fail('The migration is not hooked on plugins_loaded');
+        $this->fail('The migration is not subscribed to plugins_loaded');
     }
 }

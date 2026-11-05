@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices;
 
 use ItalyCookieChoices\I18n\TextDomain;
-use ItalyCookieChoices\Legacy\DeprecatedHooks;
+use ItalyCookieChoices\Legacy\DeprecatedEventNames;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\Core\CoreScriptRegistry;
 use ItalyStrap\Asset\Core\CoreStyleRegistry;
@@ -57,7 +57,7 @@ final readonly class Module implements ModuleInterface
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 TextDomain::class,
-                DeprecatedHooks::class,
+                DeprecatedEventNames::class,
             ],
         ];
     }

@@ -13,7 +13,7 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class RetentionCleanup implements SubscriberInterface
 {
-    public const HOOK = 'italy_cookie_choices_consent_log_cleanup';
+    public const EVENT_NAME = 'italy_cookie_choices_consent_log_cleanup';
 
     public function __construct(
         private ConsentLog $log,
@@ -24,17 +24,17 @@ final readonly class RetentionCleanup implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield 'init' => 'schedule';
-        yield self::HOOK => 'cleanup';
+        yield self::EVENT_NAME => 'cleanup';
     }
 
     public function schedule(): void
     {
-        $isScheduled = \wp_next_scheduled(self::HOOK) !== false;
+        $isScheduled = \wp_next_scheduled(self::EVENT_NAME) !== false;
         if ($isScheduled || !$this->settings->isEnabled()) {
             return;
         }
 
-        \wp_schedule_event(\time(), 'daily', self::HOOK);
+        \wp_schedule_event(\time(), 'daily', self::EVENT_NAME);
     }
 
     /**
