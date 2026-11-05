@@ -9,6 +9,7 @@ use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\UI\LogScript;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyStrap\Asset\AssetLoader;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class LogScriptTest extends WPTestCase
@@ -80,6 +81,7 @@ final class LogScriptTest extends WPTestCase
 
         return new LogScript(
             new LogSettings($this->options()),
+            new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );

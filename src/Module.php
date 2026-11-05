@@ -6,6 +6,11 @@ namespace ItalyCookieChoices;
 
 use ItalyCookieChoices\I18n\TextDomain;
 use ItalyCookieChoices\Legacy\DeprecatedHooks;
+use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\Core\CoreScriptRegistry;
+use ItalyStrap\Asset\Core\CoreStyleRegistry;
+use ItalyStrap\Asset\ScriptRegistry;
+use ItalyStrap\Asset\StyleRegistry;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
 use ItalyStrap\Empress\AurynConfig;
@@ -33,8 +38,14 @@ final readonly class Module implements ModuleInterface
     public function __invoke(): iterable
     {
         return [
+            AurynConfig::SHARING => [
+                AssetLoader::class,
+            ],
             AurynConfig::ALIASES => [
                 ConfigInterface::class => Config::class,
+                // The scripts and the styles of the UI classes, registered in the core
+                ScriptRegistry::class => CoreScriptRegistry::class,
+                StyleRegistry::class => CoreStyleRegistry::class,
             ],
             AurynConfig::DELEGATIONS => [
                 ViewInterface::class => fn(): ViewInterface => $this->view(),

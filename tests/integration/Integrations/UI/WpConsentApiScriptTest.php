@@ -10,6 +10,7 @@ use ItalyCookieChoices\Integrations\UI\WpConsentApiScript;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Event\SubscriberInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
@@ -115,6 +116,7 @@ final class WpConsentApiScriptTest extends WPTestCase
         return new WpConsentApiScript(
             $this->options(),
             $this->service(WpConsentApiMapping::class),
+            new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );

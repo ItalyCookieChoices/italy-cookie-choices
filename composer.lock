@@ -4,8 +4,75 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cda05f80d82cdf5b46c714ccca9f150f",
+    "content-hash": "0fe14e377c01d7028b880efe6623baa2",
     "packages": [
+        {
+            "name": "italystrap/asset",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ItalyStrap/asset.git",
+                "reference": "cea3e6945f710c2d440f32ab8970652384397caf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ItalyStrap/asset/zipball/cea3e6945f710c2d440f32ab8970652384397caf",
+                "reference": "cea3e6945f710c2d440f32ab8970652384397caf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "codeception/codeception": "^5.3",
+                "codeception/module-asserts": "^3.0",
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+                "infection/codeception-adapter": "^0.4.3",
+                "infection/infection": "^0.29",
+                "italystrap/event": "^0.2.2",
+                "lucatume/wp-browser": "^4.5",
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpstan/phpstan": "^2.3",
+                "rector/rector": "^2.2",
+                "squizlabs/php_codesniffer": "^3.13",
+                "szepeviktor/phpstan-wordpress": "^2.0"
+            },
+            "suggest": {
+                "italystrap/event": "Hook the assets with the AssetsSubscriber"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ItalyStrap\\Asset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enea Overclokk",
+                    "email": "info@overclokk.net",
+                    "homepage": "https://www.italystrap.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Register and enqueue scripts and styles as value objects",
+            "keywords": [
+                "asset",
+                "enqueue",
+                "register",
+                "script",
+                "style"
+            ],
+            "support": {
+                "issues": "https://github.com/ItalyStrap/asset/issues",
+                "source": "https://github.com/ItalyStrap/asset"
+            },
+            "time": "2026-11-04T21:20:08+00:00",
+            "published-time": "2026-11-04T21:20:18+00:00"
+        },
         {
             "name": "italystrap/common",
             "version": "1.0.1",
@@ -8657,5 +8724,5 @@
     "platform-overrides": {
         "php": "8.2.29"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
