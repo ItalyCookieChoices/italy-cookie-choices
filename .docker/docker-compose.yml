@@ -1,3 +1,6 @@
+# The project name, the folder .docker would share it with the other projects
+name: ${PROJECT_NAME:-italy-cookie-choices}
+
 services:
   wordpress:
     build:
