@@ -36,7 +36,7 @@ final readonly class SettingsPage implements SubscriberInterface
     public const CAPABILITY = 'manage_options';
     public const DOCUMENTATION = 'https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki';
 
-    private const HOOK_SUFFIX = 'toplevel_page_' . self::SLUG;
+    private const EVENT_NAME_SUFFIX = 'toplevel_page_' . self::SLUG;
     private const ICON = 'dashicons-privacy';
     /**
      * Below the Settings menu.
@@ -116,10 +116,10 @@ final readonly class SettingsPage implements SubscriberInterface
         );
     }
 
-    public function enqueue(mixed $hookSuffix = ''): void
+    public function enqueue(mixed $eventNameSuffix = ''): void
     {
         $metadata = $this->metadata();
-        if ($metadata === null || $hookSuffix !== self::HOOK_SUFFIX) {
+        if ($metadata === null || $eventNameSuffix !== self::EVENT_NAME_SUFFIX) {
             return;
         }
 

@@ -43,7 +43,7 @@ final class ConsentPolicyFactoryTest extends WPTestCase
         $this->assertSame(30, $policy->duration()->days());
     }
 
-    public function testTheEventIsCountedLikeAWordPressHook(): void
+    public function testTheEventIsCountedLikeAnEventName(): void
     {
         $dispatched = \did_action(BuildingConsentPolicy::class);
 

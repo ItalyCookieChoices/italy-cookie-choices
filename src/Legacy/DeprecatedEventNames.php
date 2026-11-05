@@ -7,9 +7,9 @@ namespace ItalyCookieChoices\Legacy;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
- * Warns the developers who still filter the hooks of the 2.x versions that no longer have an effect.
+ * Warns the developers who still filter the event names of the 2.x versions that no longer have an effect.
  */
-final readonly class DeprecatedHooks implements SubscriberInterface
+final readonly class DeprecatedEventNames implements SubscriberInterface
 {
     public function getSubscribedEvents(): iterable
     {

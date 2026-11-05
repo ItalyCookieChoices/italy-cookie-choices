@@ -12,7 +12,7 @@ use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
 
 /**
- * The saved settings read with the WordPress hooks, as the container builds them.
+ * The saved settings read with the WordPress filters, as the container builds them.
  */
 trait BuildsOptions
 {

@@ -64,13 +64,13 @@ msgid "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 msgstr "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:100
+#: src/Blocking/UI/Placeholders.php:116
 #, php-format
 msgid "This content is blocked until you accept the %s cookies."
 msgstr "Questo contenuto è bloccato finché non accetti i cookie %s."
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:105
+#: src/Blocking/UI/Placeholders.php:121
 #, php-format
 msgid "Accept the %s cookies"
 msgstr "Accetta i cookie %s"
@@ -589,7 +589,7 @@ msgctxt "block keyword"
 msgid "gdpr"
 msgstr "gdpr"
 
-#: src/Legacy/DeprecatedHooks.php:27
+#: src/Legacy/DeprecatedEventNames.php:27
 msgid "The bots are no longer detected, they do not run the consent scripts."
 msgstr "I bot non vengono più rilevati, non eseguono gli script del consenso."
 
@@ -607,8 +607,8 @@ msgstr "Chiede il consenso ai cookie per categoria e blocca gli script, i video 
 msgid "The file has no settings of Cookie Choices."
 msgstr "Il file non contiene impostazioni di Cookie Choices."
 
-#: src/Settings/UI/SettingsPage.php:63
-#: src/Settings/UI/SettingsPage.php:64
+#: src/Settings/UI/SettingsPage.php:76
+#: src/Settings/UI/SettingsPage.php:77
 msgid "Cookie Choices"
 msgstr "Cookie Choices"
 

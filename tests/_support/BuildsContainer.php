@@ -15,7 +15,7 @@ use ItalyStrap\Event\Module as EventModule;
 use Psr\Container\ContainerInterface;
 
 /**
- * The container with the modules of the plugin, without the subscribers hooked.
+ * The container with the modules of the plugin, without the subscribers subscribed.
  */
 trait BuildsContainer
 {

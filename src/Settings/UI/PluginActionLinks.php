@@ -9,7 +9,7 @@ use ItalyStrap\Event\SubscriberInterface;
 /**
  * The links to the settings and the documentation in the plugins list.
  *
- * The 2.x versions hooked them to the basename of define-constants.php, so they never showed up.
+ * The 2.x versions subscribed them to the basename of define-constants.php, so they never showed up.
  */
 final readonly class PluginActionLinks implements SubscriberInterface
 {

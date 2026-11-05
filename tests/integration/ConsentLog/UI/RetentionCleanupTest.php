@@ -22,20 +22,20 @@ final class RetentionCleanupTest extends WPTestCase
     public function setUp(): void
     {
         parent::setUp();
-        \wp_clear_scheduled_hook(RetentionCleanup::HOOK);
+        \wp_clear_scheduled_hook(RetentionCleanup::EVENT_NAME);
         \update_option(Schema::OPTION, ['active' => '1', 'consent_log' => '1', 'consent_log_retention' => '6']);
     }
 
     public function tearDown(): void
     {
-        \wp_clear_scheduled_hook(RetentionCleanup::HOOK);
+        \wp_clear_scheduled_hook(RetentionCleanup::EVENT_NAME);
         parent::tearDown();
     }
 
     public function testItSchedulesTheCleanupAndRunsIt(): void
     {
         $this->assertSame(
-            ['init' => 'schedule', RetentionCleanup::HOOK => 'cleanup'],
+            ['init' => 'schedule', RetentionCleanup::EVENT_NAME => 'cleanup'],
             \iterator_to_array($this->makeSut()->getSubscribedEvents())
         );
     }
@@ -44,17 +44,17 @@ final class RetentionCleanupTest extends WPTestCase
     {
         $this->makeSut()->schedule();
 
-        $this->assertSame('daily', \wp_get_schedule(RetentionCleanup::HOOK));
+        $this->assertSame('daily', \wp_get_schedule(RetentionCleanup::EVENT_NAME));
     }
 
     public function testItSchedulesTheCleanupOnce(): void
     {
         $this->makeSut()->schedule();
-        $first = \wp_next_scheduled(RetentionCleanup::HOOK);
+        $first = \wp_next_scheduled(RetentionCleanup::EVENT_NAME);
 
         $this->makeSut()->schedule();
 
-        $this->assertSame($first, \wp_next_scheduled(RetentionCleanup::HOOK));
+        $this->assertSame($first, \wp_next_scheduled(RetentionCleanup::EVENT_NAME));
     }
 
     public function testNothingIsScheduledWhenTheLogIsOff(): void
@@ -63,7 +63,7 @@ final class RetentionCleanupTest extends WPTestCase
 
         $this->makeSut()->schedule();
 
-        $this->assertFalse(\wp_next_scheduled(RetentionCleanup::HOOK));
+        $this->assertFalse(\wp_next_scheduled(RetentionCleanup::EVENT_NAME));
     }
 
     public function testTheCleanupDeletesTheRecordsOlderThanTheRetention(): void

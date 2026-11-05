@@ -37,12 +37,12 @@ final class BootstrapTest extends WPTestCase
      * @param class-string $listenerClass
      * @return int|false
      */
-    private function findListenerPriority(string $hook, string $listenerClass)
+    private function findListenerPriority(string $eventName, string $listenerClass)
     {
         /** @var array<string, \WP_Hook> $wp_filter */
         global $wp_filter;
 
-        foreach ($wp_filter[$hook]->callbacks as $priority => $callbacks) {
+        foreach ($wp_filter[$eventName]->callbacks as $priority => $callbacks) {
             foreach ($callbacks as $callback) {
                 if (\is_array($callback['function']) && $callback['function'][0] instanceof $listenerClass) {
                     return (int) $priority;
