@@ -110,7 +110,7 @@ final class MigrationTest extends WPTestCase
     /**
      * Version 2: the 2.x button closed the banner, its text would name the button that accepts everything.
      */
-    public function testTheTextOfThe2xCloseButtonIsRemoved(): void
+    public function testTheTextOfThe2xCloseButtonGetsItsDefault(): void
     {
         \update_option(Schema::VERSION_OPTION, 1);
         \add_option(Schema::OPTION, ['active' => '1', 'button_text' => 'Chiudi']);
@@ -119,7 +119,27 @@ final class MigrationTest extends WPTestCase
 
         $stored = \get_option(Schema::OPTION);
         $this->assertIsArray($stored);
-        $this->assertArrayNotHasKey('button_text', $stored);
+        $this->assertSame('', $stored['button_text'] ?? null);
+    }
+
+    public function testTheUpgradeKeepsTheDefaults(): void
+    {
+        $defaults = (new Schema())->defaults();
+
+        $this->assertSame($defaults, (new Migration(new Schema(), new LegacySnippets()))->upgrade($defaults, 1));
+    }
+
+    /**
+     * Two first requests: the other one stored the defaults after this one read the version 0 (#300).
+     */
+    public function testTheDefaultsStoredByAnotherRequestAreKept(): void
+    {
+        $defaults = (new Schema())->defaults();
+        \add_option(Schema::OPTION, $defaults);
+
+        (new Migration(new Schema(), new LegacySnippets()))->migrate();
+
+        $this->assertSame($defaults, \get_option(Schema::OPTION));
     }
 
     public function testTheRemovedValuesAreStoredWithoutTheSanitizer(): void
