@@ -9,6 +9,22 @@ const TYPE = 'data-icc-type';
 const HIDDEN = 'data-icc-hidden';
 const PLACEHOLDERS = 'template[data-icc-placeholder]';
 const PREFERENCES_LINK = '.icc-placeholder__preferences';
+const WEB_PROTOCOLS = [ 'http:', 'https:' ];
+
+/**
+ * Whether the address loads a page of the web, relative to the page or not: never a javascript: or data: one.
+ * @param address The address of the frame.
+ * @param base    The address of the page.
+ */
+export function isWebAddress( address: string, base: string ): boolean {
+	try {
+		return WEB_PROTOCOLS.includes(
+			new URL( address.trim(), base ).protocol
+		);
+	} catch {
+		return false;
+	}
+}
 
 /**
  * Runs the blocked scripts and loads the blocked frames once their category has the consent.
@@ -53,10 +69,14 @@ export class Blocker {
 			return;
 		}
 
+		const source = frame.getAttribute( SOURCE ) ?? '';
+		if ( ! isWebAddress( source, this.document.baseURI ) ) {
+			return;
+		}
+
 		this.placeholders.get( frame )?.remove();
 		this.placeholders.delete( frame );
 		frame.removeAttribute( HIDDEN );
-		const source = frame.getAttribute( SOURCE ) ?? '';
 		if ( frame.getAttribute( 'src' ) !== source ) {
 			frame.setAttribute( 'src', source );
 		}
