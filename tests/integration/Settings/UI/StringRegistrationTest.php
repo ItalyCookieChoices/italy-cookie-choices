@@ -50,6 +50,7 @@ final class StringRegistrationTest extends WPTestCase
             'button_text' => '',
             'content_message_text' => 'Message',
             'content_message_button_text' => 'Message button',
+            'floating_button_label' => 'Cookies',
             'categories' => [
                 'statistics' => ['label' => 'Analytics', 'description' => 'Anonymous visits.'],
                 'marketing' => ['description' => 'Ads.'],
@@ -65,6 +66,7 @@ final class StringRegistrationTest extends WPTestCase
                 ['Italy Cookie Choices', 'Banner anchor text', 'Anchor'],
                 ['Italy Cookie Choices', 'Content message text', 'Message'],
                 ['Italy Cookie Choices', 'Content message button text', 'Message button'],
+                ['Italy Cookie Choices', 'Floating button label', 'Cookies'],
                 ['Italy Cookie Choices', 'Category statistics label', 'Analytics'],
                 ['Italy Cookie Choices', 'Category statistics description', 'Anonymous visits.'],
                 ['Italy Cookie Choices', 'Category marketing description', 'Ads.'],

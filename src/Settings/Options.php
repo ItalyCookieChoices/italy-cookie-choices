@@ -19,6 +19,7 @@ final readonly class Options
         'button_text' => 'Banner button text',
         'content_message_text' => 'Content message text',
         'content_message_button_text' => 'Content message button text',
+        'floating_button_label' => 'Floating button label',
     ];
 
     /**

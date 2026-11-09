@@ -16,6 +16,7 @@ The settings are grouped in tabs. The preview on the right shows the banner, or 
 * **Accept button text**: the text of the button that accepts every category.
 * **Pages where the banner does not open by itself**: page IDs or slugs, separated by commas.
 * **Reload the page after the choice**: for the themes that need a reload to show the content accepted.
+* **Show a floating button to change the consent**: after the choice, a small round button in the bottom left or right corner opens the preferences, so the visitors can change or withdraw the consent without the block or the link. Its label is read by the screen readers, *Cookie preferences* when it is empty.
 
 The banner always has three buttons with the same importance: accept all, reject all and preferences. Closing it with the X keeps only the necessary cookies.
 

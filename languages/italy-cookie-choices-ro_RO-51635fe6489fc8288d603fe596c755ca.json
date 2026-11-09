@@ -19,6 +19,9 @@
             "Preferences": [
                 ""
             ],
+            "Cookie preferences": [
+                ""
+            ],
             "Documentation": [
                 ""
             ],
@@ -368,6 +371,27 @@
                 ""
             ],
             "Add a site cookie": [
+                ""
+            ],
+            "Show a floating button to change the consent": [
+                ""
+            ],
+            "After the choice, a small button in a corner of the page opens the preferences, without adding the block or the link to the site.": [
+                ""
+            ],
+            "Position of the floating button": [
+                ""
+            ],
+            "Bottom left": [
+                ""
+            ],
+            "Bottom right": [
+                ""
+            ],
+            "Label of the floating button": [
+                ""
+            ],
+            "Read by the screen readers and shown when the pointer is over the button.": [
                 ""
             ]
         }

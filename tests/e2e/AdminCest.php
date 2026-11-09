@@ -226,6 +226,24 @@ final class AdminCest
         $I->assertSame('123456', $options['facebook_pixel_id']);
     }
 
+    public function itSavesTheFloatingButton(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+
+        $I->checkOption('Show a floating button to change the consent');
+        $I->waitForText('Read by the screen readers', 5);
+        $I->selectOption('Position of the floating button', 'right');
+        $I->fillField('Label of the floating button', 'Your cookies');
+        $this->save($I);
+
+        $I->see('Settings saved.', self::NOTICE);
+        $options = $this->savedOptions($I);
+        $I->assertSame('1', $options['floating_button'] ?? null);
+        $I->assertSame('right', $options['floating_button_position'] ?? null);
+        $I->assertSame('Your cookies', $options['floating_button_label'] ?? null);
+    }
+
     public function itSavesASiteCookie(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);

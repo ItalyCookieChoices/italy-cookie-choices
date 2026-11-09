@@ -15,7 +15,8 @@ export type Checkbox =
 	| 'consent_mode_advanced'
 	| 'youtube_nocookie'
 	| 'uet_consent_mode'
-	| 'clarity_consent_mode';
+	| 'clarity_consent_mode'
+	| 'floating_button';
 
 export type Text =
 	| 'text'
@@ -42,7 +43,9 @@ export type Text =
 	| 'ga_measurement_id'
 	| 'gtm_container_id'
 	| 'facebook_pixel_id'
-	| 'google_tag_gateway_path';
+	| 'google_tag_gateway_path'
+	| 'floating_button_position'
+	| 'floating_button_label';
 
 export interface CategoryTexts {
 	label?: string;

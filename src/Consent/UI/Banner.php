@@ -37,6 +37,8 @@ final readonly class Banner implements SubscriberInterface
     private const CUSTOM_TEMPLATE = 'custom';
     private const POSITIONS = ['1' => 'top', '2' => 'modal', '3' => 'bottom'];
 
+    private const FLOATING_BUTTON_POSITIONS = ['left', 'right'];
+
     /**
      * @param string $buildPath The assets/build folder, with the trailing slash.
      * @param string $buildUrl The assets/build URL, with the trailing slash.
@@ -151,7 +153,30 @@ final readonly class Banner implements SubscriberInterface
             'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
             'text' => \wp_kses_post($this->options->translated('text')),
             'link' => $this->link(),
+            'floatingButton' => $this->floatingButton(),
             ...$this->texts->all(),
+        ];
+    }
+
+    /**
+     * The button always there after a choice, to change or withdraw the consent, null when it is off.
+     *
+     * @return array{position: string, label: string}|null
+     */
+    private function floatingButton(): ?array
+    {
+        if (!$this->options->isChecked('floating_button')) {
+            return null;
+        }
+
+        $position = $this->options->text('floating_button_position');
+
+        return [
+            'position' => \in_array($position, self::FLOATING_BUTTON_POSITIONS, true) ? $position : 'left',
+            'label' => $this->options->translated(
+                'floating_button_label',
+                \__('Cookie preferences', 'italy-cookie-choices')
+            ),
         ];
     }
 
@@ -223,7 +248,7 @@ final readonly class Banner implements SubscriberInterface
         $color = \sanitize_hex_color($this->options->text('banner_text_color')) ?? '#000000';
 
         return \sprintf(
-            '.icc-banner,.icc-preferences{--icc-background:%s;--icc-color:%s;}%s',
+            '.icc-banner,.icc-preferences,.icc-floating-button{--icc-background:%s;--icc-color:%s;}%s',
             $background,
             $color,
             \wp_strip_all_tags($this->options->text('customCSS'))

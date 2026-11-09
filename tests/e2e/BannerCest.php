@@ -274,6 +274,28 @@ final class BannerCest
         $I->assertSame('0px', $I->executeJS('return getComputedStyle(document.documentElement).marginTop;'));
     }
 
+    public function theFloatingButtonOpensThePreferencesAfterTheChoice(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['floating_button' => '1', 'floating_button_position' => 'right']);
+        $I->amOnPage('/');
+        $I->waitForElementVisible(self::BANNER);
+        $I->dontSeeElement('#icc-floating-button');
+
+        $I->click(self::ACCEPT);
+        $I->waitForElementVisible(['css' => 'button.icc-floating-button.icc-floating-button--right']);
+        $I->click('#icc-floating-button');
+
+        $I->waitForElementVisible(self::PREFERENCES);
+    }
+
+    public function thereIsNoFloatingButtonWhenItIsOff(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $I->amOnPage('/');
+
+        $I->dontSeeElementInDOM('#icc-floating-button');
+    }
+
     public function itReloadsThePageAfterAChoice(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions(['reload' => '1']);

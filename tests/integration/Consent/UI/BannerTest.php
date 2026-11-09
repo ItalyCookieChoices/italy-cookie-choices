@@ -79,7 +79,7 @@ final class BannerTest extends WPTestCase
         $this->assertSame(self::BUILD_URL . 'banner.css', \wp_styles()->registered[Banner::HANDLE]->src);
         $this->assertSame('replace', \wp_styles()->get_data(Banner::HANDLE, 'rtl'));
         $this->assertSame(
-            ['.icc-banner,.icc-preferences{--icc-background:#123456;--icc-color:#000000;}.a{b:c}'],
+            ['.icc-banner,.icc-preferences,.icc-floating-button{--icc-background:#123456;--icc-color:#000000;}.a{b:c}'],
             \wp_styles()->get_data(Banner::HANDLE, 'after')
         );
     }
@@ -189,6 +189,44 @@ final class BannerTest extends WPTestCase
         $this->assertSame('', $view['text']);
         $this->assertNull($view['link']);
         $this->assertSame('Accept all', $this->texts($view)['acceptAll']);
+    }
+
+    public function testTheFloatingButtonIsOffByDefault(): void
+    {
+        $sut = $this->makeSut();
+
+        $this->assertNull($sut->data()['floatingButton']);
+        $this->assertStringNotContainsString('icc-floating-button', $sut->html());
+    }
+
+    public function testTheFloatingButtonHasItsPositionAndLabel(): void
+    {
+        \update_option(Schema::OPTION, [
+            'active' => '1',
+            'floating_button' => '1',
+            'floating_button_position' => 'right',
+            'floating_button_label' => 'Your cookies',
+        ]);
+        $sut = $this->makeSut();
+
+        $this->assertSame(['position' => 'right', 'label' => 'Your cookies'], $sut->data()['floatingButton']);
+        $processor = new \WP_HTML_Tag_Processor($sut->html());
+        $this->assertTrue($processor->next_tag(['tag_name' => 'button', 'class_name' => 'icc-floating-button']));
+        $this->assertSame('icc-floating-button', $processor->get_attribute('id'));
+        $this->assertTrue($processor->has_class('icc-floating-button--right'));
+        $this->assertSame('Your cookies', $processor->get_attribute('aria-label'));
+        $this->assertTrue($processor->get_attribute('data-icc-open-preferences'));
+        $this->assertTrue($processor->get_attribute('hidden'));
+    }
+
+    public function testTheFloatingButtonHasADefaultPositionAndLabel(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'floating_button' => '1', 'floating_button_position' => 'up']);
+
+        $this->assertSame(
+            ['position' => 'left', 'label' => 'Cookie preferences'],
+            $this->makeSut()->data()['floatingButton']
+        );
     }
 
     /**

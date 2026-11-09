@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-09T16:34:42+00:00\n"
+"POT-Creation-Date: 2026-11-09T17:32:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -53,6 +53,14 @@ msgstr ""
 msgid "Accept all"
 msgstr ""
 
+#: src/Consent/UI/Banner.php:178
+#: src/Consent/UI/ConsentTexts.php:81
+#: src/Consent/UI/PreferencesButton.php:23
+#: assets/build/preferences-button/index.js:1
+#: assets/build/settings.js:1
+msgid "Cookie preferences"
+msgstr ""
+
 #: src/Consent/UI/ConsentTexts.php:73
 msgid "Cookie consent"
 msgstr ""
@@ -69,12 +77,6 @@ msgstr ""
 
 #: src/Consent/UI/ConsentTexts.php:80
 msgid "Close and keep only the necessary cookies"
-msgstr ""
-
-#: src/Consent/UI/ConsentTexts.php:81
-#: src/Consent/UI/PreferencesButton.php:23
-#: assets/build/preferences-button/index.js:1
-msgid "Cookie preferences"
 msgstr ""
 
 #: src/Consent/UI/ConsentTexts.php:82
@@ -379,11 +381,11 @@ msgstr ""
 msgid "The bots are no longer detected, they do not run the consent scripts."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:146
+#: src/Settings/Sanitizer.php:149
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:147
+#: src/Settings/Sanitizer.php:150
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
@@ -501,6 +503,34 @@ msgstr ""
 
 #: assets/build/settings.js:1
 msgid "Reload the page after the choice"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Show a floating button to change the consent"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "After the choice, a small button in a corner of the page opens the preferences, without adding the block or the link to the site."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Position of the floating button"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Bottom left"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Bottom right"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Label of the floating button"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Read by the screen readers and shown when the pointer is over the button."
 msgstr ""
 
 #: assets/build/settings.js:1

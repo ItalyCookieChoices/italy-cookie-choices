@@ -31,6 +31,9 @@
             "Preferences": [
                 "Preferenze"
             ],
+            "Cookie preferences": [
+                "Preferenze cookie"
+            ],
             "Preview": [
                 "Anteprima"
             ],
@@ -369,6 +372,27 @@
             ],
             "Add a site cookie": [
                 "Aggiungi un cookie del sito"
+            ],
+            "Show a floating button to change the consent": [
+                "Mostra un pulsante fluttuante per cambiare il consenso"
+            ],
+            "After the choice, a small button in a corner of the page opens the preferences, without adding the block or the link to the site.": [
+                "Dopo la scelta, un piccolo pulsante in un angolo della pagina apre le preferenze, senza aggiungere il blocco o il link al sito."
+            ],
+            "Position of the floating button": [
+                "Posizione del pulsante fluttuante"
+            ],
+            "Bottom left": [
+                "In basso a sinistra"
+            ],
+            "Bottom right": [
+                "In basso a destra"
+            ],
+            "Label of the floating button": [
+                "Etichetta del pulsante fluttuante"
+            ],
+            "Read by the screen readers and shown when the pointer is over the button.": [
+                "Letta dagli screen reader e mostrata quando il puntatore \u00e8 sopra il pulsante."
             ]
         }
     }
