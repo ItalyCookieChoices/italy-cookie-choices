@@ -27,6 +27,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * List the cookies of the site in a table for the cookie policy, with the Cookie table block or the `[cookie_table]` shortcode
 * Delete the cookies of a category when the visitor refuses or withdraws it
 * Log the consents to demonstrate them, without IP addresses, and export the log as CSV
+* See how the visitors answer the banner, month by month, from the consent log
 * Send the Google Consent Mode v2 signals, in the basic or advanced mode
 * Send the consent to Microsoft Advertising (UET) and Microsoft Clarity
 * Write the consent to the WP Consent API, for WooCommerce, Site Kit and the other plugins that read it

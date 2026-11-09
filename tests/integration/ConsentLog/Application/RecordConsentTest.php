@@ -50,6 +50,11 @@ final class RecordConsentTest extends WPTestCase
             {
                 return $this->records;
             }
+
+            public function choicesByMonth(): array
+            {
+                return [];
+            }
         };
     }
 

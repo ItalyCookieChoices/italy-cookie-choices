@@ -125,6 +125,78 @@ export async function searchPages( search: string ): Promise< Page[] > {
 		: [];
 }
 
+/** The choices of a month of the consent log. */
+export interface MonthStatistics {
+	month: string;
+	choices: number;
+	acceptAll: number;
+	rejectAll: number;
+	partial: number;
+	withdrawals: number;
+	/** The choices that accepted each optional category, keyed by category id. */
+	categories: Record< string, number >;
+}
+
+export interface Statistics {
+	categories: Array< { id: string; label: string } >;
+	months: MonthStatistics[];
+}
+
+function count( value: unknown ): number {
+	return typeof value === 'number' ? value : 0;
+}
+
+function monthFrom( value: unknown ): MonthStatistics | null {
+	if ( ! isRecord( value ) || typeof value.month !== 'string' ) {
+		return null;
+	}
+
+	const categories: Record< string, number > = {};
+	if ( isRecord( value.categories ) ) {
+		for ( const [ id, choices ] of Object.entries( value.categories ) ) {
+			categories[ id ] = count( choices );
+		}
+	}
+
+	return {
+		month: value.month,
+		choices: count( value.choices ),
+		acceptAll: count( value.acceptAll ),
+		rejectAll: count( value.rejectAll ),
+		partial: count( value.partial ),
+		withdrawals: count( value.withdrawals ),
+		categories,
+	};
+}
+
+/**
+ * The choices of the consent log by month, from GET /italy-cookie-choices/v1/statistics.
+ */
+export async function loadStatistics(): Promise< Statistics > {
+	const response: unknown = await apiFetch( {
+		path: '/italy-cookie-choices/v1/statistics',
+	} );
+	if ( ! isRecord( response ) ) {
+		return { categories: [], months: [] };
+	}
+
+	const categories = Array.isArray( response.categories )
+		? response.categories.filter(
+				( category ): category is { id: string; label: string } =>
+					isRecord( category ) &&
+					typeof category.id === 'string' &&
+					typeof category.label === 'string'
+			)
+		: [];
+	const months = Array.isArray( response.months )
+		? response.months
+				.map( monthFrom )
+				.filter( ( month ): month is MonthStatistics => month !== null )
+		: [];
+
+	return { categories, months };
+}
+
 /**
  * The message of a failed request.
  * @param error    What apiFetch rejected.

@@ -4,6 +4,7 @@ import { Button } from '@wordpress/components';
 import { createElement, Fragment } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { SelectField, ToggleField, type SettingsProps } from '../fields';
+import { ConsentStatistics } from '../statistics';
 
 /**
  * The log that demonstrates the consents, GDPR art. 7(1).
@@ -40,6 +41,14 @@ export function ConsentLogTab( props: SettingsProps & { exportUrl: string } ) {
 					{ __( 'Export the log as CSV', 'italy-cookie-choices' ) }
 				</Button>
 			) }
+			<h3>{ __( 'Statistics', 'italy-cookie-choices' ) }</h3>
+			<p>
+				{ __(
+					'The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once.',
+					'italy-cookie-choices'
+				) }
+			</p>
+			<ConsentStatistics />
 		</Fragment>
 	);
 }

@@ -23,6 +23,10 @@ I record vengono inviati dal browser a `/wp-json/italy-cookie-choices/v1/consent
 
 **Esporta il registro in CSV** scarica tutti i record, con le colonne `consent_id`, `recorded_at`, `policy_version`, `categories` e `withdrawn`. Solo gli amministratori possono esportarlo.
 
+## Statistiche
+
+**Registro dei consensi > Statistiche** mostra come i visitatori rispondono al banner, per ogni mese del registro: quante scelte hanno accettato ogni categoria, le hanno rifiutate tutte, ne hanno accettate solo alcune, e quante hanno revocato il consenso, con la quota di ogni categoria. Vengono dai record già salvati, non viene raccolto nient'altro. Il registro conta le scelte, non i visitatori: un visitatore può scegliere più di una volta.
+
 ## Privacy policy
 
 Il plugin suggerisce un testo per la tua privacy policy in **Impostazioni > Privacy > Guida alla policy**, con le categorie, il cookie del consenso e il registro.
