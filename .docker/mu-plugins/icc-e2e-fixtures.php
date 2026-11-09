@@ -6,6 +6,11 @@
 
 declare(strict_types=1);
 
+// The requests left by a test run with the first requests of the next one after the reset of the database,
+// their database errors, like a deadlock or a table created twice, are harmless but printed before the headers
+// they break the page. They still go to the error log (#313).
+$GLOBALS['wpdb']->hide_errors();
+
 add_action('wp_head', static function (): void {
     if (!get_option('icc_e2e_scripts')) {
         return;

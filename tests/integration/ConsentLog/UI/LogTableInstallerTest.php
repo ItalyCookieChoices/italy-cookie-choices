@@ -32,6 +32,30 @@ final class LogTableInstallerTest extends WPTestCase
         $this->assertSame(LogTable::VERSION, \get_option(LogTable::VERSION_OPTION));
     }
 
+    /**
+     * Two requests after an update can both create the table: the second one does not find it, then fails
+     * because the first one created it meanwhile. The error must not be printed, before the headers it breaks
+     * the page. The tests of WordPress create temporary tables, so the race is checked by its cause.
+     */
+    public function testTheErrorsOfTheDatabaseAreNotPrintedWhileTheTableIsCreated(): void
+    {
+        global $wpdb;
+        /** @var \wpdb $wpdb */
+        \update_option(LogTable::VERSION_OPTION, 0);
+        $suppressed = null;
+        \add_filter('dbdelta_queries', static function (array $queries) use ($wpdb, &$suppressed): array {
+            $suppressed = $wpdb->suppress_errors;
+
+            return $queries;
+        });
+        $wpdb->suppress_errors(false);
+
+        (new LogTableInstaller(new LogTable($wpdb)))->install();
+
+        $this->assertTrue($suppressed);
+        $this->assertFalse($wpdb->suppress_errors);
+    }
+
     public function testACurrentTableIsLeftAlone(): void
     {
         global $wpdb;
