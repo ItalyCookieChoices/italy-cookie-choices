@@ -13,6 +13,7 @@ final class SchemaTest extends WPTestCase
      * Every key the 2.x versions read from the option, without scroll and secondView removed in version 2,
      * plus the consent log of version 4, the vendors of version 5 that replaced the script lists
      * the integrations of version 6 and the Microsoft consent signals of version 7.
+     * Version 8 adds no key, it turns off the reCAPTCHA preset.
      */
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg',
@@ -24,9 +25,9 @@ final class SchemaTest extends WPTestCase
         'reload', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'youtube_nocookie',
     ];
 
-    public function testTheSchemaIsAtVersion7(): void
+    public function testTheSchemaIsAtVersion8(): void
     {
-        $this->assertSame(7, Schema::VERSION);
+        $this->assertSame(8, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -47,6 +48,7 @@ final class SchemaTest extends WPTestCase
                 'youtube_nocookie' => '1',
                 'uet_consent_mode' => '1',
                 'clarity_consent_mode' => '1',
+                'disabled_vendors' => ['google-recaptcha'],
             ],
             (new Schema())->defaults()
         );

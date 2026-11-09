@@ -89,7 +89,7 @@ export interface AdminData {
 }
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
-export const SCHEMA_VERSION = 7;
+export const SCHEMA_VERSION = 8;
 
 function isRecord( value: unknown ): value is Record< string, unknown > {
 	return (

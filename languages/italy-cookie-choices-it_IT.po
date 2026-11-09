@@ -273,7 +273,7 @@ msgstr "Rimuovi %s"
 msgid "the vendor"
 msgstr "il fornitore"
 
-#: assets/build/settings.js:2
+#: assets/build/settings.js:3
 msgid "Common vendors"
 msgstr "Fornitori comuni"
 
@@ -639,3 +639,7 @@ msgstr "Invia il consenso a Microsoft Clarity"
 #: assets/build/settings.js:4
 msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
 msgstr "Clarity riceve il consenso del visitatore con la sua Consent API v2: l'archiviazione analitica segue la categoria statistiche, quella pubblicitaria la categoria marketing. Clarity lo richiede per i visitatori dello SEE, del Regno Unito e della Svizzera."
+
+#: assets/build/settings.js:3
+msgid "The forms that use it wait for the consent too, turn it on only when they can."
+msgstr "Anche i moduli che lo usano aspettano il consenso, attivalo solo quando possono aspettare."

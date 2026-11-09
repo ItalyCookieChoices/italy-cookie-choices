@@ -12,7 +12,12 @@ A vendor is a third party, like YouTube, with the addresses it loads from and th
 | --- | --- |
 | Google Analytics | Statistics |
 | Hotjar | Statistics |
+| Microsoft Clarity | Statistics |
+| Matomo Cloud | Statistics |
 | Google Tag Manager | Marketing |
+| Google Ads | Marketing |
+| Google AdSense | Marketing |
+| Microsoft Advertising | Marketing |
 | YouTube | Marketing |
 | Vimeo | Marketing |
 | Google Maps | Marketing |
@@ -21,14 +26,21 @@ A vendor is a third party, like YouTube, with the addresses it loads from and th
 | X (Twitter) | Marketing |
 | LinkedIn | Marketing |
 | TikTok | Marketing |
+| Pinterest | Marketing |
+| Snapchat | Marketing |
+| Reddit | Marketing |
+| HubSpot | Marketing |
 | Spotify | Marketing |
 | SoundCloud | Marketing |
+| Google reCAPTCHA | Marketing, turned off |
 
 In **Blocking > Common vendors** you can turn off a vendor the site does not need to block.
 
+Google reCAPTCHA starts turned off: the forms that use it would wait for the marketing consent. Turn it on when the forms can wait. HubSpot blocks the tracking and the chat, not the forms of `js.hsforms.net`. Matomo Cloud blocks only the Matomo served by `matomo.cloud`, Matomo on your site can be set up without cookies.
+
 ## Google tag gateway
 
-With the Google tag gateway the Google tags load from a path of your site, like `/metrics`, instead of `googletagmanager.com`. The plugin blocks them by the id in their address: `G-`, `GT-`, `AW-` and `DC-` wait for the statistics consent like Google Analytics, `GTM-` waits for the marketing consent like Google Tag Manager. The inline loader of Google Tag Manager is blocked on any host too.
+With the Google tag gateway the Google tags load from a path of your site, like `/metrics`, instead of `googletagmanager.com`. The plugin blocks them by the id in their address: `G-` and `GT-` wait for the statistics consent like Google Analytics, `AW-` and `DC-` wait for the marketing consent like Google Ads, `GTM-` waits for the marketing consent like Google Tag Manager. The inline loader of Google Tag Manager is blocked on any host too.
 
 When the address of a tag has no id, write the path in **Integrations > Google tag gateway path**, like `/metrics`: every script and frame under it waits for the marketing consent.
 

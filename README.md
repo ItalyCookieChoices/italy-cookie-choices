@@ -21,7 +21,7 @@ The banner asks the consent by category, with three buttons of the same importan
 
 * Show a banner at the top, at the bottom or in a modal window, with your text, colors and CSS
 * Let the visitors choose the categories: necessary, preferences, statistics and marketing
-* Block Google Analytics, Google Tag Manager, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Spotify, SoundCloud and Hotjar until the consent, and add your own vendors
+* Block Google Analytics, Google Tag Manager, Google Ads, AdSense, Microsoft Clarity and Advertising, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, Snapchat, Reddit, HubSpot, Spotify, SoundCloud, Hotjar and Matomo Cloud until the consent, and add your own vendors
 * Show a placeholder with a button to accept the category of the blocked videos and maps
 * Let the visitors change or withdraw the consent with a block, a shortcode or a link
 * Log the consents to demonstrate them, without IP addresses, and export the log as CSV

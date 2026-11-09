@@ -13,6 +13,7 @@ use ItalyCookieChoices\Consent\Domain\Category;
 final readonly class VendorPresets
 {
     private const NAMES = [
+        'google-ads' => 'Google Ads',
         'google-analytics' => 'Google Analytics',
         'google-tag-manager' => 'Google Tag Manager',
         'hotjar' => 'Hotjar',
@@ -26,13 +27,27 @@ final readonly class VendorPresets
         'tiktok' => 'TikTok',
         'spotify' => 'Spotify',
         'soundcloud' => 'SoundCloud',
+        'google-adsense' => 'Google AdSense',
+        'microsoft-clarity' => 'Microsoft Clarity',
+        'microsoft-advertising' => 'Microsoft Advertising',
+        'pinterest' => 'Pinterest',
+        'snapchat' => 'Snapchat',
+        'reddit' => 'Reddit',
+        'hubspot' => 'HubSpot',
+        'matomo-cloud' => 'Matomo Cloud',
+        'google-recaptcha' => 'Google reCAPTCHA',
     ];
 
     /**
      * The ids of the Google tags loaded by gtag.js, like G-ABC123: they match on any host,
      * so the tags served from the site domain by the Google tag gateway are blocked too.
      */
-    private const GOOGLE_TAG_IDS = ['G-', 'GT-', 'AW-', 'DC-'];
+    private const GOOGLE_TAG_IDS = ['G-', 'GT-'];
+
+    /**
+     * The ids of the Google Ads and Floodlight tags, loaded by gtag.js too.
+     */
+    private const GOOGLE_ADS_IDS = ['AW-', 'DC-'];
 
     private const GOOGLE_TAG_MANAGER_IDS = ['GTM-'];
 
@@ -45,11 +60,20 @@ final readonly class VendorPresets
     }
 
     /**
+     * Google Ads comes first: its tags load from the address of gtag.js, like Google Analytics.
+     *
      * @return list<Vendor>
      */
     public function all(): array
     {
         return [
+            new Vendor(
+                'google-ads',
+                Category::MARKETING,
+                ['googleadservices.com', 'googleads.g.doubleclick.net'],
+                ['googleadservices.com/pagead/conversion'],
+                self::GOOGLE_ADS_IDS
+            ),
             new Vendor(
                 'google-analytics',
                 Category::STATISTICS,
@@ -109,6 +133,54 @@ final readonly class VendorPresets
             ),
             new Vendor('spotify', Category::MARKETING, ['open.spotify.com/embed']),
             new Vendor('soundcloud', Category::MARKETING, ['w.soundcloud.com']),
+            new Vendor(
+                'google-adsense',
+                Category::MARKETING,
+                ['googlesyndication.com', 'adservice.google.com'],
+                ['adsbygoogle']
+            ),
+            new Vendor('microsoft-clarity', Category::STATISTICS, ['clarity.ms'], ['clarity.ms/tag']),
+            new Vendor('microsoft-advertising', Category::MARKETING, ['bat.bing.com'], ['bat.bing.com/bat.js']),
+            new Vendor(
+                'pinterest',
+                Category::MARKETING,
+                ['s.pinimg.com/ct', 'ct.pinterest.com', 'assets.pinterest.com'],
+                ['s.pinimg.com/ct/core.js']
+            ),
+            new Vendor(
+                'snapchat',
+                Category::MARKETING,
+                ['sc-static.net', 'tr.snapchat.com'],
+                ['sc-static.net/scevent']
+            ),
+            new Vendor(
+                'reddit',
+                Category::MARKETING,
+                ['redditstatic.com/ads', 'alb.reddit.com'],
+                ['redditstatic.com/ads/pixel.js']
+            ),
+            // The tracking and the chat, not the forms of js.hsforms.net.
+            new Vendor(
+                'hubspot',
+                Category::MARKETING,
+                [
+                    'js.hs-scripts.com',
+                    'js.hs-analytics.net',
+                    'js.hs-banner.com',
+                    'js.hsadspixel.net',
+                    'js.hscollectedforms.net',
+                    'js.usemessages.com',
+                ],
+                ['js.hs-scripts.com']
+            ),
+            // Only the cloud: Matomo on the site can be set up without cookies.
+            new Vendor('matomo-cloud', Category::STATISTICS, ['matomo.cloud'], ['matomo.cloud']),
+            // Turned off by default, the forms that need it do not wait for the consent.
+            new Vendor(
+                'google-recaptcha',
+                Category::MARKETING,
+                ['google.com/recaptcha', 'gstatic.com/recaptcha', 'recaptcha.net']
+            ),
         ];
     }
 }

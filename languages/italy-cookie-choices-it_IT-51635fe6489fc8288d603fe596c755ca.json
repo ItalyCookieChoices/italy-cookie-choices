@@ -333,6 +333,9 @@
             ],
             "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland.": [
                 "Clarity riceve il consenso del visitatore con la sua Consent API v2: l'archiviazione analitica segue la categoria statistiche, quella pubblicitaria la categoria marketing. Clarity lo richiede per i visitatori dello SEE, del Regno Unito e della Svizzera."
+            ],
+            "The forms that use it wait for the consent too, turn it on only when they can.": [
+                "Anche i moduli che lo usano aspettano il consenso, attivalo solo quando possono aspettare."
             ]
         }
     }

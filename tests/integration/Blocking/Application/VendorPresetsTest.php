@@ -42,8 +42,43 @@ final class VendorPresetsTest extends WPTestCase
         ];
         yield 'Google Ads tag served from the site' => [
             'https://example.com/metrics/?id=AW-1',
-            'google-analytics',
+            'google-ads',
+            'marketing',
+        ];
+        yield 'Google Ads tag' => ['https://www.googletagmanager.com/gtag/js?id=AW-1', 'google-ads', 'marketing'];
+        yield 'Google Ads conversion' => [
+            'https://www.googleadservices.com/pagead/conversion.js',
+            'google-ads',
+            'marketing',
+        ];
+        yield 'Google Ads remarketing frame' => [
+            'https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1/',
+            'google-ads',
+            'marketing',
+        ];
+        yield 'AdSense' => [
+            'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1',
+            'google-adsense',
+            'marketing',
+        ];
+        yield 'Microsoft Clarity' => ['https://www.clarity.ms/tag/abc123', 'microsoft-clarity', 'statistics'];
+        yield 'Microsoft Advertising' => ['https://bat.bing.com/bat.js', 'microsoft-advertising', 'marketing'];
+        yield 'Pinterest tag' => ['https://s.pinimg.com/ct/core.js', 'pinterest', 'marketing'];
+        yield 'Pinterest widgets' => ['https://assets.pinterest.com/js/pinit.js', 'pinterest', 'marketing'];
+        yield 'Snapchat pixel' => ['https://sc-static.net/scevent.min.js', 'snapchat', 'marketing'];
+        yield 'Reddit pixel' => ['https://www.redditstatic.com/ads/pixel.js', 'reddit', 'marketing'];
+        yield 'HubSpot tracking' => ['https://js.hs-scripts.com/123.js', 'hubspot', 'marketing'];
+        yield 'HubSpot chat' => ['https://js.usemessages.com/conversations-embed.js', 'hubspot', 'marketing'];
+        yield 'Matomo Cloud' => [
+            'https://cdn.matomo.cloud/example.matomo.cloud/matomo.js',
+            'matomo-cloud',
             'statistics',
+        ];
+        yield 'reCAPTCHA' => ['https://www.google.com/recaptcha/api.js', 'google-recaptcha', 'marketing'];
+        yield 'reCAPTCHA from recaptcha.net' => [
+            'https://www.recaptcha.net/recaptcha/api.js',
+            'google-recaptcha',
+            'marketing',
         ];
         yield 'Google Tag Manager served from the site' => [
             '/metrics/?id=GTM-1',
@@ -93,6 +128,34 @@ final class VendorPresetsTest extends WPTestCase
                 . "j.src='/metrics/?id='+i+dl;})(window,document,'script','dataLayer','GTM-1');",
             'google-tag-manager',
         ];
+        yield 'Microsoft Clarity' => [
+            '(function(c,l,a,r,i,t,y){t=l.createElement(r);t.src="https://www.clarity.ms/tag/"+i;})'
+                . '(window, document, "clarity", "script", "abc123");',
+            'microsoft-clarity',
+        ];
+        yield 'Microsoft Advertising' => [
+            '(function(w,d,t,r,u){n=d.createElement(t);n.src=r;})'
+                . '(window,document,"script","//bat.bing.com/bat.js","uetq");',
+            'microsoft-advertising',
+        ];
+        yield 'Pinterest tag' => [
+            '!function(e){t.src=e;}("https://s.pinimg.com/ct/core.js");pintrk("load", "123");',
+            'pinterest',
+        ];
+        yield 'Snapchat pixel' => [
+            "(function(e,t,n){r.src=n;})(window,document,'https://sc-static.net/scevent.min.js');snaptr('init', 'a');",
+            'snapchat',
+        ];
+        yield 'Reddit pixel' => [
+            '!function(w,d){t.src="https://www.redditstatic.com/ads/pixel.js";}(window,document);rdt("init","a2_1");',
+            'reddit',
+        ];
+        yield 'AdSense unit' => ['(adsbygoogle = window.adsbygoogle || []).push({});', 'google-adsense'];
+        yield 'Matomo Cloud' => [
+            "var _paq = window._paq = window._paq || [];"
+                . "g.src='https://cdn.matomo.cloud/example.matomo.cloud/matomo.js';",
+            'matomo-cloud',
+        ];
         yield 'Facebook Pixel' => [
             "!function(f,b,e,v){t.src=v}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');",
             'facebook',
@@ -115,7 +178,8 @@ final class VendorPresetsTest extends WPTestCase
     public function siteScripts(): iterable
     {
         yield 'jQuery' => ['https://example.com/wp-includes/js/jquery/jquery.min.js'];
-        yield 'reCAPTCHA' => ['https://www.google.com/recaptcha/api.js'];
+        yield 'HubSpot forms' => ['https://js.hsforms.net/forms/embed/v2.js'];
+        yield 'Matomo on the site' => ['https://example.com/matomo/matomo.js'];
         yield 'Google Fonts' => ['https://fonts.googleapis.com/css2?family=Inter'];
     }
 
@@ -125,6 +189,13 @@ final class VendorPresetsTest extends WPTestCase
     public function testItDoesNotBlockTheScriptsTheSiteNeeds(string $url): void
     {
         $this->assertNull($this->vendors()->loading($url));
+    }
+
+    public function testMatomoOnTheSiteIsNotBlocked(): void
+    {
+        $this->assertNull($this->vendors()->running(
+            "var _paq = window._paq = window._paq || [];var u='https://example.com/matomo/';"
+        ));
     }
 
     public function testASocialLinkInTheScriptDataIsNotBlocked(): void

@@ -79,3 +79,30 @@ it( 'edits and removes a custom vendor', () => {
 	fireEvent.click( screen.getByRole( 'button', { name: 'Remove Ads' } ) );
 	expect( onChange ).toHaveBeenLastCalledWith( { custom_vendors: [] } );
 } );
+
+it( 'explains why reCAPTCHA starts turned off', () => {
+	render(
+		<BlockingTab
+			settings={ { disabled_vendors: [ 'google-recaptcha' ] } }
+			onChange={ jest.fn() }
+			categories={ data.categories }
+			vendors={ [
+				{
+					id: 'google-recaptcha',
+					name: 'Google reCAPTCHA',
+					category: 'marketing',
+				},
+			] }
+		/>
+	);
+
+	const recaptcha = screen.getByRole( 'checkbox', {
+		name: 'Google reCAPTCHA',
+	} );
+	expect( ( recaptcha as HTMLInputElement ).checked ).toBe( false );
+	expect(
+		screen.getByText(
+			'Waits for the Marketing consent. The forms that use it wait for the consent too, turn it on only when they can.'
+		)
+	).toBeTruthy();
+} );
