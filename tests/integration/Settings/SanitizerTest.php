@@ -84,6 +84,8 @@ final class SanitizerTest extends WPTestCase
             'youtube_nocookie',
             'uet_consent_mode',
             'clarity_consent_mode',
+            'floating_button',
+            'floating_button_position',
         ];
 
         foreach ($fields as $field) {
@@ -311,6 +313,7 @@ final class SanitizerTest extends WPTestCase
             'cookie_value',
             'content_message_button_text',
             'excluded_pages',
+            'floating_button_label',
         ];
 
         foreach ($fields as $field) {

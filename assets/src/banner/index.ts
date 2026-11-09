@@ -12,8 +12,14 @@ function start(): void {
 		return;
 	}
 
-	new Banner( { banner, preferences }, api, () =>
-		window.location.reload()
+	new Banner(
+		{
+			banner,
+			preferences,
+			floatingButton: document.getElementById( 'icc-floating-button' ),
+		},
+		api,
+		() => window.location.reload()
 	).start();
 }
 

@@ -39,6 +39,7 @@ const MARKUP = `
 	<button type="button" data-icc-action="close-preferences">Close</button>
 </div>
 <a href="#icc-preferences" id="reopen">Cookie preferences</a>
+<button type="button" id="icc-floating-button" data-icc-open-preferences aria-label="Cookie preferences" hidden></button>
 `;
 
 function clearCookies(): void {
@@ -78,7 +79,17 @@ function setUp( dataset: Record< string, string > = {} ) {
 		banner,
 		preferences,
 		reload,
-		start: () => new Banner( { banner, preferences }, api, reload ).start(),
+		floatingButton: element( '#icc-floating-button' ),
+		start: () =>
+			new Banner(
+				{
+					banner,
+					preferences,
+					floatingButton: element( '#icc-floating-button' ),
+				},
+				api,
+				reload
+			).start(),
 	};
 }
 
@@ -303,5 +314,54 @@ describe( 'Banner', () => {
 		expect(
 			document.documentElement.classList.contains( 'icc-banner-is-open' )
 		).toBe( false );
+	} );
+} );
+
+describe( 'the floating button', () => {
+	beforeEach( clearCookies );
+
+	it( 'stays hidden before the choice and appears after it', () => {
+		const { floatingButton, start } = setUp();
+		start();
+		expect( floatingButton.hidden ).toBe( true );
+
+		element( '#icc-banner [data-icc-action="accept-all"]' ).click();
+
+		expect( floatingButton.hidden ).toBe( false );
+	} );
+
+	it( 'is shown with a stored consent', () => {
+		const { api, floatingButton, start } = setUp();
+		api.rejectAll();
+
+		start();
+
+		expect( floatingButton.hidden ).toBe( false );
+	} );
+
+	it( 'opens the preferences and gets the focus back', () => {
+		const { api, floatingButton, preferences, start } = setUp();
+		api.rejectAll();
+		start();
+
+		floatingButton.click();
+		expect( preferences.hidden ).toBe( false );
+
+		element(
+			'#icc-preferences [data-icc-action="close-preferences"]'
+		).click();
+		expect( floatingButton.ownerDocument.activeElement ).toBe(
+			floatingButton
+		);
+	} );
+
+	it( 'hides when the consent is withdrawn and the banner opens again', () => {
+		const { api, floatingButton, start } = setUp();
+		api.acceptAll();
+		start();
+
+		api.withdraw();
+
+		expect( floatingButton.hidden ).toBe( true );
 	} );
 } );

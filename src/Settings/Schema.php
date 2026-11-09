@@ -34,12 +34,14 @@ final readonly class Schema
         'youtube_nocookie',
         'uet_consent_mode',
         'clarity_consent_mode',
+        'floating_button',
     ];
 
     private const ENUMS = [
         'banner' => ['1', '2', '3'],
         'js_template' => ['default', 'bigbutton', 'smallbutton', 'custom'],
         'consent_log_retention' => ['3', '6', '12', '24', '36'],
+        'floating_button_position' => ['left', 'right'],
     ];
 
     private const STRINGS = [
@@ -59,6 +61,7 @@ final readonly class Schema
         'content_message_text',
         'content_message_button_text',
         'excluded_pages',
+        'floating_button_label',
     ];
 
     /**

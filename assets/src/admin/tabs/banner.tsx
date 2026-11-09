@@ -3,12 +3,14 @@
 import { createElement, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
+	SelectField,
 	TextareaField,
 	TextField,
 	ToggleField,
 	type SettingsProps,
 } from '../fields';
 import { PolicyPage } from '../policy-page';
+import { isChecked } from '../settings';
 
 export function BannerTab( props: SettingsProps ) {
 	return (
@@ -89,6 +91,63 @@ export function BannerTab( props: SettingsProps ) {
 					'italy-cookie-choices'
 				) }
 			/>
+			<ToggleField
+				{ ...props }
+				name="floating_button"
+				label={ __(
+					'Show a floating button to change the consent',
+					'italy-cookie-choices'
+				) }
+				help={ __(
+					'After the choice, a small button in a corner of the page opens the preferences, without adding the block or the link to the site.',
+					'italy-cookie-choices'
+				) }
+			/>
+			{ isChecked( props.settings, 'floating_button' ) && (
+				<Fragment>
+					<SelectField
+						{ ...props }
+						name="floating_button_position"
+						label={ __(
+							'Position of the floating button',
+							'italy-cookie-choices'
+						) }
+						options={ [
+							{
+								value: 'left',
+								label: __(
+									'Bottom left',
+									'italy-cookie-choices'
+								),
+							},
+							{
+								value: 'right',
+								label: __(
+									'Bottom right',
+									'italy-cookie-choices'
+								),
+							},
+						] }
+						defaultValue="left"
+					/>
+					<TextField
+						{ ...props }
+						name="floating_button_label"
+						label={ __(
+							'Label of the floating button',
+							'italy-cookie-choices'
+						) }
+						help={ __(
+							'Read by the screen readers and shown when the pointer is over the button.',
+							'italy-cookie-choices'
+						) }
+						placeholder={ __(
+							'Cookie preferences',
+							'italy-cookie-choices'
+						) }
+					/>
+				</Fragment>
+			) }
 		</Fragment>
 	);
 }

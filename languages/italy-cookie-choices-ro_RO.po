@@ -22,11 +22,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:146
+#: src/Settings/Sanitizer.php:149
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:147
+#: src/Settings/Sanitizer.php:150
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -77,9 +77,11 @@ msgstr ""
 msgid "Close and keep only the necessary cookies"
 msgstr ""
 
+#: src/Consent/UI/Banner.php:178
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
+#: assets/build/settings.js:1
 msgid "Cookie preferences"
 msgstr ""
 
@@ -958,4 +960,32 @@ msgstr ""
 #: assets/src/blocks/cookie-table/block.json
 msgctxt "block keyword"
 msgid "policy"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Show a floating button to change the consent"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "After the choice, a small button in a corner of the page opens the preferences, without adding the block or the link to the site."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Position of the floating button"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Bottom left"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Bottom right"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Label of the floating button"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Read by the screen readers and shown when the pointer is over the button."
 msgstr ""

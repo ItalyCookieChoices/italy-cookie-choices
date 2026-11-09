@@ -23,7 +23,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Let the visitors choose the categories: necessary, preferences, statistics and marketing
 * Block Google Analytics, Google Tag Manager, Google Ads, AdSense, Microsoft Clarity and Advertising, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, Snapchat, Reddit, HubSpot, Spotify, SoundCloud, Hotjar and Matomo Cloud until the consent, and add your own vendors
 * Show a placeholder with a button to accept the category of the blocked videos and maps
-* Let the visitors change or withdraw the consent with a block, a shortcode or a link
+* Let the visitors change or withdraw the consent with a block, a shortcode, a link or a floating button
 * List the cookies of the site in a table for the cookie policy, with the Cookie table block or the `[cookie_table]` shortcode
 * Delete the cookies of a category when the visitor refuses or withdraws it
 * Log the consents to demonstrate them, without IP addresses, and export the log as CSV
@@ -78,7 +78,7 @@ Check that **Show the banner** is on, then open the site in a private window: yo
 
 ### How can the visitors change their choice? ###
 
-Add the **Cookie preferences button** block, the `[cookie_preferences]` shortcode or a link to `#icc-preferences` to the footer or to the cookie policy page. It opens the preferences, where the visitor can change or withdraw the consent.
+Turn on **Show a floating button to change the consent** in the Banner tab, or add the **Cookie preferences button** block, the `[cookie_preferences]` shortcode or a link to `#icc-preferences` to the footer or to the cookie policy page. It opens the preferences, where the visitor can change or withdraw the consent.
 
 ### A script of my theme is not blocked ###
 

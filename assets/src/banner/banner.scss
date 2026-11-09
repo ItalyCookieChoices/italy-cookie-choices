@@ -220,3 +220,54 @@ html.icc-banner-is-open {
 		transition: background-color 0.15s, color 0.15s;
 	}
 }
+
+// The button that opens the preferences after a choice,
+// small in a corner to leave the content visible.
+.icc-floating-button {
+	position: fixed;
+	bottom: 1rem;
+	z-index: 99998;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 3rem;
+	height: 3rem;
+	padding: 0;
+	border: 1px solid currentcolor;
+	border-radius: 50%;
+	background: var(--icc-background, #fff);
+	color: var(--icc-color, #000);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+
+	&[hidden] {
+		display: none;
+	}
+
+	&:focus-visible {
+		outline: 2px solid currentcolor;
+		outline-offset: 2px;
+	}
+
+	&--left {
+		left: 1rem;
+	}
+
+	&--right {
+		right: 1rem;
+	}
+
+	@media (max-width: 600px) {
+		bottom: 0.5rem;
+		width: 2.5rem;
+		height: 2.5rem;
+
+		&--left {
+			left: 0.5rem;
+		}
+
+		&--right {
+			right: 0.5rem;
+		}
+	}
+}

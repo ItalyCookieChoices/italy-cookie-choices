@@ -7,6 +7,8 @@ const HTML_OPEN_CLASS = 'icc-banner-is-open';
 export interface BannerElements {
 	banner: HTMLElement;
 	preferences: HTMLElement;
+	/** The floating button that opens the preferences, when it is turned on. */
+	floatingButton?: HTMLElement | null;
 }
 
 /**
@@ -55,6 +57,8 @@ export class Banner {
 		) {
 			this.openBanner();
 		}
+
+		this.updateFloatingButton();
 	}
 
 	public openBanner(): void {
@@ -92,6 +96,18 @@ export class Banner {
 		banner.hidden = true;
 		preferences.hidden = true;
 		this.updateHtmlMargin();
+	}
+
+	/**
+	 * The floating button is there only after a choice, before it the banner asks for the consent.
+	 */
+	private updateFloatingButton(): void {
+		const { floatingButton } = this.elements;
+		if ( floatingButton === null || floatingButton === undefined ) {
+			return;
+		}
+
+		floatingButton.hidden = this.api.getConsent() === null;
 	}
 
 	private onClick( event: Event ): void {
@@ -155,6 +171,7 @@ export class Banner {
 	}
 
 	private onConsentChange( change: ConsentChange ): void {
+		this.updateFloatingButton();
 		if ( change.consent === null ) {
 			this.openBanner();
 			return;

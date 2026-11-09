@@ -20,6 +20,8 @@ final readonly class BannerPreviewEndpoint implements SubscriberInterface
     public const NAMESPACE = 'italy-cookie-choices/v1';
     public const ROUTE = '/preview';
 
+    private const FLOATING_BUTTON = 'icc-floating-button';
+
     private const DIALOGS = ['banner' => 'icc-banner', 'preferences' => 'icc-preferences'];
 
     public function __construct(
@@ -89,18 +91,19 @@ final readonly class BannerPreviewEndpoint implements SubscriberInterface
     }
 
     /**
-     * The markup with the dialog shown, the script that shows it does not run in the preview.
+     * The markup with the dialog and the floating button shown, the script that shows them does not run
+     * in the preview.
      */
     private function shown(string $markup, string $dialogId): string
     {
+        $shown = [$dialogId, self::FLOATING_BUTTON];
         $processor = new \WP_HTML_Tag_Processor($markup);
         while ($processor->next_tag()) {
-            if ($processor->get_attribute('id') !== $dialogId) {
+            if (!\in_array($processor->get_attribute('id'), $shown, true)) {
                 continue;
             }
 
             $processor->remove_attribute('hidden');
-            break;
         }
 
         return $processor->get_updated_html();

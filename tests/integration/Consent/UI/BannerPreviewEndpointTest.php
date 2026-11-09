@@ -87,6 +87,16 @@ final class BannerPreviewEndpointTest extends WPTestCase
         $this->assertNull($processor->get_attribute('hidden'));
     }
 
+    public function testTheFloatingButtonIsShownWhenItIsOn(): void
+    {
+        $processor = new \WP_HTML_Tag_Processor(
+            $this->html($this->post(['settings' => ['floating_button' => '1'], 'dialog' => 'preferences']))
+        );
+
+        $this->assertTrue($this->nextById($processor, 'icc-floating-button'));
+        $this->assertNull($processor->get_attribute('hidden'));
+    }
+
     public function testThePreviewLoadsTheStylesOfTheFrontEnd(): void
     {
         $html = $this->makeSut()->document(['js_template' => 'default'], 'icc-banner');

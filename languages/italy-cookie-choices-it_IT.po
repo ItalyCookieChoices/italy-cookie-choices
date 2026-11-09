@@ -23,11 +23,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: src/Settings/Sanitizer.php:146
+#: src/Settings/Sanitizer.php:149
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
 
-#: src/Settings/Sanitizer.php:147
+#: src/Settings/Sanitizer.php:150
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
 
@@ -99,9 +99,11 @@ msgstr "Preferenze"
 msgid "Close and keep only the necessary cookies"
 msgstr "Chiudi e mantieni solo i cookie necessari"
 
+#: src/Consent/UI/Banner.php:178
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
+#: assets/build/settings.js:1
 msgid "Cookie preferences"
 msgstr "Preferenze cookie"
 
@@ -960,3 +962,31 @@ msgstr "I cookie del sito per categoria, con il fornitore, lo scopo e la durata,
 msgctxt "block keyword"
 msgid "policy"
 msgstr "policy"
+
+#: assets/build/settings.js:1
+msgid "Show a floating button to change the consent"
+msgstr "Mostra un pulsante fluttuante per cambiare il consenso"
+
+#: assets/build/settings.js:1
+msgid "After the choice, a small button in a corner of the page opens the preferences, without adding the block or the link to the site."
+msgstr "Dopo la scelta, un piccolo pulsante in un angolo della pagina apre le preferenze, senza aggiungere il blocco o il link al sito."
+
+#: assets/build/settings.js:1
+msgid "Position of the floating button"
+msgstr "Posizione del pulsante fluttuante"
+
+#: assets/build/settings.js:1
+msgid "Bottom left"
+msgstr "In basso a sinistra"
+
+#: assets/build/settings.js:1
+msgid "Bottom right"
+msgstr "In basso a destra"
+
+#: assets/build/settings.js:1
+msgid "Label of the floating button"
+msgstr "Etichetta del pulsante fluttuante"
+
+#: assets/build/settings.js:1
+msgid "Read by the screen readers and shown when the pointer is over the button."
+msgstr "Letta dagli screen reader e mostrata quando il puntatore è sopra il pulsante."

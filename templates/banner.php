@@ -136,3 +136,27 @@ $linkRel = (string) $this->get(['link', 'rel']);
         ><span aria-hidden="true">&times;</span></button>
     </div>
 </div>
+<?php $floatingButton = $this->get('floatingButton'); ?>
+<?php if (\is_array($floatingButton)) : ?>
+    <?php
+    $floatingButton = new Config($floatingButton);
+    $floatingPosition = (string) $floatingButton->get('position');
+    ?>
+    <button
+        type="button"
+        id="icc-floating-button"
+        class="icc-floating-button icc-floating-button--<?php echo \esc_attr($floatingPosition); ?>"
+        aria-label="<?php echo \esc_attr((string) $floatingButton->get('label')); ?>"
+        title="<?php echo \esc_attr((string) $floatingButton->get('label')); ?>"
+        data-icc-open-preferences
+        hidden
+    >
+        <svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="9" cy="9.5" r="1.5" fill="currentColor"/>
+            <circle cx="14.5" cy="8.5" r="1.25" fill="currentColor"/>
+            <circle cx="14.5" cy="14.5" r="1.5" fill="currentColor"/>
+            <circle cx="9.5" cy="15.5" r="1" fill="currentColor"/>
+        </svg>
+    </button>
+<?php endif; ?>
