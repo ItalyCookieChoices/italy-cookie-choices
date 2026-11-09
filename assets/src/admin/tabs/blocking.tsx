@@ -111,6 +111,27 @@ function CustomVendorFields( {
 }
 
 /**
+ * The category a preset waits for, with a note for the presets that start turned off.
+ * @param id       The preset id.
+ * @param category The category label.
+ */
+function presetHelp( id: string, category: string ): string {
+	const help = sprintf(
+		/* translators: %s: the category name. */
+		__( 'Waits for the %s consent.', 'italy-cookie-choices' ),
+		category
+	);
+	if ( id !== 'google-recaptcha' ) {
+		return help;
+	}
+
+	return `${ help } ${ __(
+		'The forms that use it wait for the consent too, turn it on only when they can.',
+		'italy-cookie-choices'
+	) }`;
+}
+
+/**
  * The vendors whose scripts and frames wait for the consent, and the placeholder of the blocked frames.
  * @param props The tab props.
  */
@@ -135,12 +156,8 @@ export function BlockingTab( props: BlockingTabProps ) {
 						__nextHasNoMarginBottom
 						key={ vendor.id }
 						label={ vendor.name }
-						help={ sprintf(
-							/* translators: %s: the category name. */
-							__(
-								'Waits for the %s consent.',
-								'italy-cookie-choices'
-							),
+						help={ presetHelp(
+							vendor.id,
 							labels.get( vendor.category ) ?? vendor.category
 						) }
 						checked={ isVendorBlocked( settings, vendor.id ) }

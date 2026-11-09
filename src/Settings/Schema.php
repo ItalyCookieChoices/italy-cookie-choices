@@ -16,7 +16,7 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 7;
+    public const VERSION = 8;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -81,6 +81,11 @@ final readonly class Schema
         'consent_mode' => '1',
     ];
 
+    /**
+     * The presets of the vendors turned off on a new installation, the site owner turns them on.
+     */
+    public const VENDORS_OFF_BY_DEFAULT = ['google-recaptcha'];
+
     public const MICROSOFT_CONSENT_DEFAULTS = [
         'uet_consent_mode' => '1',
         'clarity_consent_mode' => '1',
@@ -101,7 +106,7 @@ final readonly class Schema
     /**
      * The values stored on a new installation.
      *
-     * @return array<string, string>
+     * @return array<string, string|list<string>>
      */
     public function defaults(): array
     {
@@ -118,6 +123,7 @@ final readonly class Schema
             ...self::CONSENT_MODE_DEFAULTS,
             'youtube_nocookie' => '1',
             ...self::MICROSOFT_CONSENT_DEFAULTS,
+            'disabled_vendors' => self::VENDORS_OFF_BY_DEFAULT,
         ];
     }
 

@@ -333,6 +333,9 @@
             ],
             "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland.": [
                 ""
+            ],
+            "The forms that use it wait for the consent too, turn it on only when they can.": [
+                ""
             ]
         }
     }

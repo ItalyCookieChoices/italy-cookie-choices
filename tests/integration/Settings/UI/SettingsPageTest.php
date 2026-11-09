@@ -122,9 +122,14 @@ final class SettingsPageTest extends WPTestCase
             \array_column($data['categories'], 'id')
         );
         $this->assertSame('Statistics', $data['categories'][2]['label'] ?? null);
+        $vendors = \array_column($data['vendors'], null, 'id');
         $this->assertSame(
             ['id' => 'youtube', 'name' => 'YouTube', 'category' => 'marketing'],
-            $data['vendors'][3] ?? null
+            $vendors['youtube'] ?? null
+        );
+        $this->assertSame(
+            ['id' => 'google-recaptcha', 'name' => 'Google reCAPTCHA', 'category' => 'marketing'],
+            $vendors['google-recaptcha'] ?? null
         );
         $this->assertSame($this->service(ConsentLogExport::class)->url(), $data['consentLogExportUrl']);
         $this->assertSame(SettingsPage::DOCUMENTATION, $data['documentationUrl']);

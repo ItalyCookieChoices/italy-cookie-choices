@@ -12,7 +12,12 @@ Un fornitore è una terza parte, come YouTube, con gli indirizzi da cui carica i
 | --- | --- |
 | Google Analytics | Statistiche |
 | Hotjar | Statistiche |
+| Microsoft Clarity | Statistiche |
+| Matomo Cloud | Statistiche |
 | Google Tag Manager | Marketing |
+| Google Ads | Marketing |
+| Google AdSense | Marketing |
+| Microsoft Advertising | Marketing |
 | YouTube | Marketing |
 | Vimeo | Marketing |
 | Google Maps | Marketing |
@@ -21,14 +26,21 @@ Un fornitore è una terza parte, come YouTube, con gli indirizzi da cui carica i
 | X (Twitter) | Marketing |
 | LinkedIn | Marketing |
 | TikTok | Marketing |
+| Pinterest | Marketing |
+| Snapchat | Marketing |
+| Reddit | Marketing |
+| HubSpot | Marketing |
 | Spotify | Marketing |
 | SoundCloud | Marketing |
+| Google reCAPTCHA | Marketing, disattivato |
 
 In **Blocco > Fornitori comuni** puoi disattivare un fornitore che il sito non ha bisogno di bloccare.
 
+Google reCAPTCHA parte disattivato: i moduli che lo usano aspetterebbero il consenso al marketing. Attivalo quando i moduli possono aspettare. HubSpot blocca il tracciamento e la chat, non i moduli di `js.hsforms.net`. Matomo Cloud blocca solo il Matomo servito da `matomo.cloud`, Matomo sul tuo sito può essere configurato senza cookie.
+
 ## Google tag gateway
 
-Con il Google tag gateway i tag di Google vengono caricati da un percorso del tuo sito, come `/metrics`, invece che da `googletagmanager.com`. Il plugin li blocca dall'id nel loro indirizzo: `G-`, `GT-`, `AW-` e `DC-` aspettano il consenso alle statistiche come Google Analytics, `GTM-` aspetta il consenso al marketing come Google Tag Manager. Anche lo script inline che carica Google Tag Manager viene bloccato su qualsiasi dominio.
+Con il Google tag gateway i tag di Google vengono caricati da un percorso del tuo sito, come `/metrics`, invece che da `googletagmanager.com`. Il plugin li blocca dall'id nel loro indirizzo: `G-` e `GT-` aspettano il consenso alle statistiche come Google Analytics, `AW-` e `DC-` aspettano il consenso al marketing come Google Ads, `GTM-` aspetta il consenso al marketing come Google Tag Manager. Anche lo script inline che carica Google Tag Manager viene bloccato su qualsiasi dominio.
 
 Quando l'indirizzo di un tag non ha l'id, scrivi il percorso in **Integrazioni > Percorso del Google tag gateway**, come `/metrics`: ogni script e frame sotto quel percorso aspetta il consenso al marketing.
 

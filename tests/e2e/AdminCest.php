@@ -73,6 +73,7 @@ final class AdminCest
                 'youtube_nocookie' => '1',
                 'uet_consent_mode' => '1',
                 'clarity_consent_mode' => '1',
+                'disabled_vendors' => ['google-recaptcha'],
             ],
             $I->grabOptionFromDatabase(E2eTester::OPTION_NAME)
         );
@@ -190,7 +191,8 @@ final class AdminCest
         $this->save($I);
 
         $options = $this->savedOptions($I);
-        $I->assertSame(['youtube'], $options['disabled_vendors']);
+        // The migration of the first request turned off the reCAPTCHA preset.
+        $I->assertSame(['google-recaptcha', 'youtube'], $options['disabled_vendors']);
         $I->assertSame(
             [['id' => 'custom-1', 'name' => 'Ads', 'category' => 'marketing', 'patterns' => ['ads.example.com']]],
             $options['custom_vendors']

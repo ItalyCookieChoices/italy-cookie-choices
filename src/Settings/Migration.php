@@ -107,6 +107,7 @@ final readonly class Migration implements SubscriberInterface
             5 => $this->moveTheListsToTheVendors(...),
             6 => $this->turnOnTheConsentMode(...),
             7 => $this->turnOnTheMicrosoftConsent(...),
+            8 => $this->turnOffTheNewPresets(...),
         ];
     }
 
@@ -216,6 +217,21 @@ final readonly class Migration implements SubscriberInterface
     private function turnOnTheMicrosoftConsent(array $option): array
     {
         return $option + Schema::MICROSOFT_CONSENT_DEFAULTS;
+    }
+
+    /**
+     * Version 8: the reCAPTCHA preset starts turned off, the forms that need it keep working.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function turnOffTheNewPresets(array $option): array
+    {
+        $disabled = \is_array($option['disabled_vendors'] ?? null) ? $option['disabled_vendors'] : [];
+        $disabled = \array_filter($disabled, \is_string(...));
+        $option['disabled_vendors'] = \array_values(\array_unique([...$disabled, ...Schema::VENDORS_OFF_BY_DEFAULT]));
+
+        return $option;
     }
 
     /**
