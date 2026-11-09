@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Integrations;
 
 use ItalyCookieChoices\Integrations\UI\AdvancedConsentMode;
 use ItalyCookieChoices\Integrations\UI\ConsentModeScript;
+use ItalyCookieChoices\Integrations\UI\MicrosoftConsentScript;
 use ItalyCookieChoices\Integrations\UI\TrackingTags;
 use ItalyCookieChoices\Integrations\UI\WpConsentApiFilters;
 use ItalyCookieChoices\Integrations\UI\WpConsentApiScript;
@@ -15,8 +16,8 @@ use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
 
 /**
- * The integrations context: Google Consent Mode v2, the WP Consent API, the Google and Facebook tags
- * and the YouTube embeds.
+ * The integrations context: Google Consent Mode v2, the Microsoft consent signals, the WP Consent API,
+ * the Google and Facebook tags and the YouTube embeds.
  */
 final readonly class Module implements ModuleInterface
 {
@@ -39,6 +40,9 @@ final readonly class Module implements ModuleInterface
                 ConsentModeScript::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
                 ],
+                MicrosoftConsentScript::class => [
+                    ':buildPath' => $this->pluginPath . self::BUILD,
+                ],
                 WpConsentApiScript::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
@@ -51,6 +55,7 @@ final readonly class Module implements ModuleInterface
                 YouTubeNoCookie::class,
                 WpConsentApiFilters::class,
                 WpConsentApiScript::class,
+                MicrosoftConsentScript::class,
             ],
         ];
     }

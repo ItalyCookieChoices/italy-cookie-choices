@@ -23,11 +23,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: src/Settings/Sanitizer.php:141
+#: src/Settings/Sanitizer.php:143
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
 
-#: src/Settings/Sanitizer.php:142
+#: src/Settings/Sanitizer.php:144
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
 
@@ -619,3 +619,23 @@ msgstr "Percorso del Google tag gateway"
 #: assets/build/settings.js:4
 msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
 msgstr "Quando i tag di Google vengono caricati da un percorso del tuo sito con il Google tag gateway, scrivi il percorso: gli script sotto quel percorso aspettano il consenso al marketing. I tag con il loro id nell'indirizzo, come G-XXXXXXXXXX, vengono bloccati comunque."
+
+#: assets/build/settings.js:4
+msgid "Microsoft consent signals"
+msgstr "Segnali del consenso di Microsoft"
+
+#: assets/build/settings.js:4
+msgid "Send the consent to Microsoft Advertising (UET)"
+msgstr "Invia il consenso a Microsoft Advertising (UET)"
+
+#: assets/build/settings.js:4
+msgid "The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted."
+msgstr "Il tag UET riceve il consenso del visitatore: l'archiviazione pubblicitaria è negata finché non viene accettata la categoria marketing."
+
+#: assets/build/settings.js:4
+msgid "Send the consent to Microsoft Clarity"
+msgstr "Invia il consenso a Microsoft Clarity"
+
+#: assets/build/settings.js:4
+msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
+msgstr "Clarity riceve il consenso del visitatore con la sua Consent API v2: l'archiviazione analitica segue la categoria statistiche, quella pubblicitaria la categoria marketing. Clarity lo richiede per i visitatori dello SEE, del Regno Unito e della Svizzera."

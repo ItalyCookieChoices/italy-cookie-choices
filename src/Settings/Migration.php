@@ -106,6 +106,7 @@ final readonly class Migration implements SubscriberInterface
             4 => $this->turnOnTheConsentLog(...),
             5 => $this->moveTheListsToTheVendors(...),
             6 => $this->turnOnTheConsentMode(...),
+            7 => $this->turnOnTheMicrosoftConsent(...),
         ];
     }
 
@@ -204,6 +205,17 @@ final readonly class Migration implements SubscriberInterface
     private function turnOnTheConsentMode(array $option): array
     {
         return $option + Schema::CONSENT_MODE_DEFAULTS;
+    }
+
+    /**
+     * Version 7: Microsoft Advertising and Microsoft Clarity get the consent signals, as the Google tags.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function turnOnTheMicrosoftConsent(array $option): array
+    {
+        return $option + Schema::MICROSOFT_CONSENT_DEFAULTS;
     }
 
     /**

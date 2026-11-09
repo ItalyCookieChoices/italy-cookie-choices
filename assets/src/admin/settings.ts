@@ -13,7 +13,9 @@ export type Checkbox =
 	| 'consent_log'
 	| 'consent_mode'
 	| 'consent_mode_advanced'
-	| 'youtube_nocookie';
+	| 'youtube_nocookie'
+	| 'uet_consent_mode'
+	| 'clarity_consent_mode';
 
 export type Text =
 	| 'text'
@@ -86,7 +88,8 @@ export interface AdminData {
 	documentationUrl: string;
 }
 
-export const SCHEMA_VERSION = 6;
+/** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
+export const SCHEMA_VERSION = 7;
 
 function isRecord( value: unknown ): value is Record< string, unknown > {
 	return (

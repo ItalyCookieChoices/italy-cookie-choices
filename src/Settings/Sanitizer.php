@@ -57,6 +57,8 @@ final readonly class Sanitizer
         'facebook_pixel_id' => self::TAG_ID,
         'google_tag_gateway_path' => self::PATH,
         'youtube_nocookie' => self::RAW,
+        'uet_consent_mode' => self::RAW,
+        'clarity_consent_mode' => self::RAW,
         'categories' => self::CATEGORIES,
         'disabled_vendors' => self::IDS,
         'custom_vendors' => self::VENDORS,
