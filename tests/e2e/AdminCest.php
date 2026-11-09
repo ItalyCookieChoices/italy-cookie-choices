@@ -244,6 +244,24 @@ final class AdminCest
         $I->assertSame('Your cookies', $options['floating_button_label'] ?? null);
     }
 
+    public function itShowsTheStatisticsOfTheConsentLog(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['consent_log' => '1']);
+        $I->amOnPage('/');
+        $I->executeJS('window.italyCookieChoices.acceptAll();');
+        $I->waitForJS(
+            'return performance.getEntriesByType("resource")'
+            . '.some((entry) => entry.name.includes("/italy-cookie-choices/v1/consents"));',
+            5
+        );
+        $this->openTheSettings($I);
+
+        $this->openTab($I, 'Consent log');
+
+        $I->waitForElement('.icc-admin__statistics', 10);
+        $I->see('1 (100%)', '.icc-admin__statistics tbody td');
+    }
+
     public function itSavesASiteCookie(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);

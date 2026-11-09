@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-09T17:32:59+00:00\n"
+"POT-Creation-Date: 2026-11-09T20:21:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -50,6 +50,7 @@ msgstr ""
 #: src/Consent/UI/AcceptButtonShortcode.php:51
 #: src/Consent/UI/ConsentTexts.php:76
 #: assets/build/settings.js:1
+#: assets/build/settings.js:6
 msgid "Accept all"
 msgstr ""
 
@@ -66,6 +67,7 @@ msgid "Cookie consent"
 msgstr ""
 
 #: src/Consent/UI/ConsentTexts.php:78
+#: assets/build/settings.js:6
 msgid "Reject all"
 msgstr ""
 
@@ -100,6 +102,7 @@ msgid "Remember your choices, like the language or the region."
 msgstr ""
 
 #: src/Consent/UI/ConsentTexts.php:124
+#: assets/build/settings.js:7
 msgid "Statistics"
 msgstr ""
 
@@ -398,7 +401,7 @@ msgid "Settings"
 msgstr ""
 
 #: src/Settings/UI/PluginActionLinks.php:44
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Documentation"
 msgstr ""
 
@@ -432,7 +435,7 @@ msgid "Dialog to preview"
 msgstr ""
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Banner"
 msgstr ""
 
@@ -469,7 +472,7 @@ msgid "Links and simple HTML are allowed."
 msgstr ""
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Policy link"
 msgstr ""
 
@@ -561,7 +564,7 @@ msgstr ""
 
 #: assets/build/settings.js:2
 #: assets/build/settings.js:5
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Name"
 msgstr ""
 
@@ -664,265 +667,303 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: assets/build/settings.js:5
+#. translators: 1: a number of choices, 2: its percentage of the choices of the month.
+#: assets/build/settings.js:6
+#, js-format
+msgid "%1$d (%2$d%%)"
+msgstr ""
+
+#: assets/build/settings.js:6
+msgid "The statistics were not loaded."
+msgstr ""
+
+#: assets/build/settings.js:6
+msgid "Loading the statistics…"
+msgstr ""
+
+#: assets/build/settings.js:6
+msgid "No choice logged yet."
+msgstr ""
+
+#: assets/build/settings.js:6
+msgid "Month"
+msgstr ""
+
+#: assets/build/settings.js:6
+msgid "Choices"
+msgstr ""
+
+#: assets/build/settings.js:6
+msgid "Partial"
+msgstr ""
+
+#: assets/build/settings.js:6
+msgid "Withdrawals"
+msgstr ""
+
+#: assets/build/settings.js:6
 msgid "Log the consents"
 msgstr ""
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:6
 msgid "Each choice is stored with a random id, the categories, the policy version and the date. No IP address and no personal data."
 msgstr ""
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:6
 msgid "Keep the records for"
 msgstr ""
 
 #. translators: %s: a number of months.
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 #, js-format
 msgid "%s months"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Export the log as CSV"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
+msgid "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once."
+msgstr ""
+
+#: assets/build/settings.js:7
 msgid "Google Consent Mode v2"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Send the Consent Mode signals"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The Google tags get the consent of the visitor: denied until the choice, then granted for the accepted categories."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Load the Google tags before the consent (advanced mode)"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google Analytics and Google Tag Manager are not blocked, they send cookieless pings until the consent. Check that it is allowed where your visitors are, the Italian Garante requires the consent before any tracking."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Microsoft consent signals"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Send the consent to Microsoft Advertising (UET)"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Send the consent to Microsoft Clarity"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Tags"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The plugin prints the tags with the ids below, blocked until the consent. Leave a field empty when the tag is printed by the theme or by another plugin."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google Analytics measurement ID"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google Tag Manager container ID"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Facebook pixel ID"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google tag gateway path"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Use the privacy-enhanced mode of the YouTube embeds"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The videos load from youtube-nocookie.com, they still wait for the marketing consent."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Position"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Top bar"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Modal window"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Bottom bar"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Push the page down under the top bar"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Template"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The custom template has no styles, only the custom CSS."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Default"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Big buttons"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Small buttons"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Custom"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Background color"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Text color"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Custom CSS"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "CSS classes"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Content"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Text"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Buttons"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Cookie of the 2.x versions"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Written while every category is accepted, for the code that still reads it."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Value"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Export"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Downloads the saved settings as a JSON file."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Export the settings"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Import"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Settings file"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The file is not a valid JSON file."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The settings were not imported."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The settings were not loaded."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Loading the settings…"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Settings imported."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Style"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Categories"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Blocking"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Integrations"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Consent log"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Tools"
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Settings saved."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The settings were not saved."
 msgstr ""
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Save changes"
 msgstr ""
 

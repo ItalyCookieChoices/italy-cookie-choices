@@ -28,11 +28,17 @@
             "Accept all": [
                 "Accetta tutti"
             ],
+            "Reject all": [
+                "Rifiuta tutti"
+            ],
             "Preferences": [
                 "Preferenze"
             ],
             "Cookie preferences": [
                 "Preferenze cookie"
+            ],
+            "Statistics": [
+                "Statistiche"
             ],
             "Preview": [
                 "Anteprima"
@@ -393,6 +399,33 @@
             ],
             "Read by the screen readers and shown when the pointer is over the button.": [
                 "Letta dagli screen reader e mostrata quando il puntatore \u00e8 sopra il pulsante."
+            ],
+            "%1$d (%2$d%%)": [
+                "%1$d (%2$d%%)"
+            ],
+            "The statistics were not loaded.": [
+                "Le statistiche non sono state caricate."
+            ],
+            "Loading the statistics\u2026": [
+                "Caricamento delle statistiche\u2026"
+            ],
+            "No choice logged yet.": [
+                "Ancora nessuna scelta registrata."
+            ],
+            "Month": [
+                "Mese"
+            ],
+            "Choices": [
+                "Scelte"
+            ],
+            "Partial": [
+                "Parziali"
+            ],
+            "Withdrawals": [
+                "Revoche"
+            ],
+            "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once.": [
+                "Le scelte di ogni mese, dai record del registro: non viene raccolto nient'altro. Un visitatore pu\u00f2 scegliere pi\u00f9 di una volta."
             ]
         }
     }

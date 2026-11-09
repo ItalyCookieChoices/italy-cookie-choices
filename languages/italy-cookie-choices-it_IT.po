@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
@@ -36,15 +36,15 @@ msgid "Settings"
 msgstr "Impostazioni"
 
 #: src/Settings/UI/PluginActionLinks.php:44
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Documentation"
 msgstr "Documentazione"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Export"
 msgstr "Esporta"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Import"
 msgstr "Importa"
 
@@ -82,10 +82,12 @@ msgstr "Consenso ai cookie"
 #: src/Consent/UI/AcceptButtonShortcode.php:51
 #: src/Consent/UI/ConsentTexts.php:76
 #: assets/build/settings.js:1
+#: assets/build/settings.js:6
 msgid "Accept all"
 msgstr "Accetta tutti"
 
 #: src/Consent/UI/ConsentTexts.php:78
+#: assets/build/settings.js:6
 msgid "Reject all"
 msgstr "Rifiuta tutti"
 
@@ -128,6 +130,7 @@ msgid "Remember your choices, like the language or the region."
 msgstr "Ricordano le tue scelte, come la lingua o la regione."
 
 #: src/Consent/UI/ConsentTexts.php:124
+#: assets/build/settings.js:7
 msgid "Statistics"
 msgstr "Statistiche"
 
@@ -174,7 +177,7 @@ msgid "Dialog to preview"
 msgstr "Finestra da mostrare in anteprima"
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Banner"
 msgstr "Banner"
 
@@ -207,7 +210,7 @@ msgid "Links and simple HTML are allowed."
 msgstr "Sono ammessi link e HTML semplice."
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Policy link"
 msgstr "Link alla policy"
 
@@ -249,7 +252,7 @@ msgstr "Nuovo fornitore"
 
 #: assets/build/settings.js:2
 #: assets/build/settings.js:5
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Name"
 msgstr "Nome"
 
@@ -330,225 +333,225 @@ msgstr "Lascia un campo vuoto per usare il testo predefinito, tradotto nella lin
 msgid "Description"
 msgstr "Descrizione"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:6
 msgid "Log the consents"
 msgstr "Registra i consensi"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:6
 msgid "Each choice is stored with a random id, the categories, the policy version and the date. No IP address and no personal data."
 msgstr "Ogni scelta viene salvata con un id casuale, le categorie, la versione della policy e la data. Nessun indirizzo IP e nessun dato personale."
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:6
 msgid "Keep the records for"
 msgstr "Conserva i record per"
 
 #. translators: %s: a number of months.
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 #, js-format
 msgid "%s months"
 msgstr "%s mesi"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Export the log as CSV"
 msgstr "Esporta il registro in CSV"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google Consent Mode v2"
 msgstr "Google Consent Mode v2"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Send the Consent Mode signals"
 msgstr "Invia i segnali del Consent Mode"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The Google tags get the consent of the visitor: denied until the choice, then granted for the accepted categories."
 msgstr "I tag di Google ricevono il consenso del visitatore: negato fino alla scelta, poi concesso per le categorie accettate."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Load the Google tags before the consent (advanced mode)"
 msgstr "Carica i tag di Google prima del consenso (modalità avanzata)"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google Analytics and Google Tag Manager are not blocked, they send cookieless pings until the consent. Check that it is allowed where your visitors are, the Italian Garante requires the consent before any tracking."
 msgstr "Google Analytics e Google Tag Manager non vengono bloccati, inviano ping senza cookie fino al consenso. Verifica che sia consentito dove si trovano i tuoi visitatori: il Garante italiano richiede il consenso prima di qualsiasi tracciamento."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Tags"
 msgstr "Tag"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The plugin prints the tags with the ids below, blocked until the consent. Leave a field empty when the tag is printed by the theme or by another plugin."
 msgstr "Il plugin stampa i tag con gli id qui sotto, bloccati fino al consenso. Lascia un campo vuoto quando il tag è stampato dal tema o da un altro plugin."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google Analytics measurement ID"
 msgstr "ID di misurazione di Google Analytics"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google Tag Manager container ID"
 msgstr "ID del contenitore di Google Tag Manager"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Facebook pixel ID"
 msgstr "ID del pixel di Facebook"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Use the privacy-enhanced mode of the YouTube embeds"
 msgstr "Usa la modalità privacy avanzata per i video di YouTube"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The videos load from youtube-nocookie.com, they still wait for the marketing consent."
 msgstr "I video vengono caricati da youtube-nocookie.com e attendono comunque il consenso marketing."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Position"
 msgstr "Posizione"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Top bar"
 msgstr "Barra in alto"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Modal window"
 msgstr "Finestra modale"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Bottom bar"
 msgstr "Barra in basso"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Push the page down under the top bar"
 msgstr "Sposta la pagina sotto la barra in alto"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Template"
 msgstr "Modello"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The custom template has no styles, only the custom CSS."
 msgstr "Il modello personalizzato non ha stili, solo il CSS personalizzato."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Default"
 msgstr "Predefinito"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Big buttons"
 msgstr "Pulsanti grandi"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Small buttons"
 msgstr "Pulsanti piccoli"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Custom"
 msgstr "Personalizzato"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Background color"
 msgstr "Colore di sfondo"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Text color"
 msgstr "Colore del testo"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "CSS classes"
 msgstr "Classi CSS"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Content"
 msgstr "Contenuto"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Text"
 msgstr "Testo"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Buttons"
 msgstr "Pulsanti"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Cookie of the 2.x versions"
 msgstr "Cookie delle versioni 2.x"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Written while every category is accepted, for the code that still reads it."
 msgstr "Scritto quando tutte le categorie sono accettate, per il codice che lo legge ancora."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Value"
 msgstr "Valore"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Downloads the saved settings as a JSON file."
 msgstr "Scarica le impostazioni salvate in un file JSON."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Export the settings"
 msgstr "Esporta le impostazioni"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
 msgstr "Sostituisce le impostazioni salvate con quelle di un file esportato, anche dalle versioni 2.x."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Settings file"
 msgstr "File delle impostazioni"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The file is not a valid JSON file."
 msgstr "Il file non è un file JSON valido."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The settings were not imported."
 msgstr "Le impostazioni non sono state importate."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The settings were not loaded."
 msgstr "Le impostazioni non sono state caricate."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Loading the settings…"
 msgstr "Caricamento delle impostazioni…"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Settings imported."
 msgstr "Impostazioni importate."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Style"
 msgstr "Stile"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Categories"
 msgstr "Categorie"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Blocking"
 msgstr "Blocco"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Integrations"
 msgstr "Integrazioni"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Consent log"
 msgstr "Registro dei consensi"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Tools"
 msgstr "Strumenti"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Settings saved."
 msgstr "Impostazioni salvate."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The settings were not saved."
 msgstr "Le impostazioni non sono state salvate."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Save changes"
 msgstr "Salva le modifiche"
 
@@ -621,31 +624,31 @@ msgstr "Il file non contiene impostazioni di Cookie Choices."
 msgid "Cookie Choices"
 msgstr "Cookie Choices"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Google tag gateway path"
 msgstr "Percorso del Google tag gateway"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
 msgstr "Quando i tag di Google vengono caricati da un percorso del tuo sito con il Google tag gateway, scrivi il percorso: gli script sotto quel percorso aspettano il consenso al marketing. I tag con il loro id nell'indirizzo, come G-XXXXXXXXXX, vengono bloccati comunque."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Microsoft consent signals"
 msgstr "Segnali del consenso di Microsoft"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Send the consent to Microsoft Advertising (UET)"
 msgstr "Invia il consenso a Microsoft Advertising (UET)"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted."
 msgstr "Il tag UET riceve il consenso del visitatore: l'archiviazione pubblicitaria è negata finché non viene accettata la categoria marketing."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Send the consent to Microsoft Clarity"
 msgstr "Invia il consenso a Microsoft Clarity"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:7
 msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
 msgstr "Clarity riceve il consenso del visitatore con la sua Consent API v2: l'archiviazione analitica segue la categoria statistiche, quella pubblicitaria la categoria marketing. Clarity lo richiede per i visitatori dello SEE, del Regno Unito e della Svizzera."
 
@@ -990,3 +993,41 @@ msgstr "Etichetta del pulsante fluttuante"
 #: assets/build/settings.js:1
 msgid "Read by the screen readers and shown when the pointer is over the button."
 msgstr "Letta dagli screen reader e mostrata quando il puntatore è sopra il pulsante."
+
+#. translators: 1: a number of choices, 2: its percentage of the choices of the month.
+#: assets/build/settings.js:6
+#, js-format
+msgid "%1$d (%2$d%%)"
+msgstr "%1$d (%2$d%%)"
+
+#: assets/build/settings.js:6
+msgid "The statistics were not loaded."
+msgstr "Le statistiche non sono state caricate."
+
+#: assets/build/settings.js:6
+msgid "Loading the statistics…"
+msgstr "Caricamento delle statistiche…"
+
+#: assets/build/settings.js:6
+msgid "No choice logged yet."
+msgstr "Ancora nessuna scelta registrata."
+
+#: assets/build/settings.js:6
+msgid "Month"
+msgstr "Mese"
+
+#: assets/build/settings.js:6
+msgid "Choices"
+msgstr "Scelte"
+
+#: assets/build/settings.js:6
+msgid "Partial"
+msgstr "Parziali"
+
+#: assets/build/settings.js:6
+msgid "Withdrawals"
+msgstr "Revoche"
+
+#: assets/build/settings.js:7
+msgid "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once."
+msgstr "Le scelte di ogni mese, dai record del registro: non viene raccolto nient'altro. Un visitatore può scegliere più di una volta."

@@ -23,6 +23,10 @@ The records are sent by the browser to `/wp-json/italy-cookie-choices/v1/consent
 
 **Export the log as CSV** downloads every record, with the `consent_id`, `recorded_at`, `policy_version`, `categories` and `withdrawn` columns. Only the administrators can export it.
 
+## Statistics
+
+**Consent log > Statistics** shows how the visitors answer the banner, for each month in the log: how many choices accepted every category, rejected them all, accepted only some of them, and how many withdrew the consent, with the share of each category. They come from the records already stored, nothing else is collected. The log counts the choices, not the visitors: a visitor can choose more than once.
+
 ## Privacy policy
 
 The plugin suggests a text for your privacy policy in **Settings > Privacy > Policy guide**, with the categories, the consent cookie and the log.

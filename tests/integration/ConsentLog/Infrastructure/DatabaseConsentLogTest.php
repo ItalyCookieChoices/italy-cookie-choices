@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration\ConsentLog\Infrastructure;
 
 use ItalyCookieChoices\Consent\Domain\PolicyVersion;
+use ItalyCookieChoices\ConsentLog\Domain\ChoiceCount;
 use ItalyCookieChoices\ConsentLog\Domain\ConsentId;
 use ItalyCookieChoices\ConsentLog\Domain\ConsentRecord;
 use ItalyCookieChoices\ConsentLog\Infrastructure\DatabaseConsentLog;
@@ -91,6 +92,29 @@ final class DatabaseConsentLogTest extends WPTestCase
         $records = \iterator_to_array($sut->all(), false);
         $this->assertCount(1, $records);
         $this->assertSame('2026-01-01', $records[0]->recordedAt()->format('Y-m-d'));
+    }
+
+    public function testItCountsTheChoicesByMonthAndCategories(): void
+    {
+        $sut = $this->makeSut();
+        $sut->add($this->record(['necessary', 'marketing'], '2026-10-01T10:00:00+00:00'));
+        $sut->add($this->record(['necessary', 'marketing'], '2026-10-31T23:30:00+00:00'));
+        $sut->add($this->record([], '2026-10-15T10:00:00+00:00'));
+        $sut->add($this->record(['necessary'], '2026-11-01T00:30:00+00:00'));
+
+        $counts = \array_map(
+            static fn(ChoiceCount $count): array => [$count->month(), $count->categories(), $count->count()],
+            $sut->choicesByMonth()
+        );
+
+        $this->assertEqualsCanonicalizing(
+            [
+                ['2026-10', ['necessary', 'marketing'], 2],
+                ['2026-10', [], 1],
+                ['2026-11', ['necessary'], 1],
+            ],
+            $counts
+        );
     }
 
     /**

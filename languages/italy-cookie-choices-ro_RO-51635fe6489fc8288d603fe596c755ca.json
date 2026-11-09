@@ -16,10 +16,16 @@
             "Accept all": [
                 ""
             ],
+            "Reject all": [
+                ""
+            ],
             "Preferences": [
                 ""
             ],
             "Cookie preferences": [
+                ""
+            ],
+            "Statistics": [
                 ""
             ],
             "Documentation": [
@@ -392,6 +398,33 @@
                 ""
             ],
             "Read by the screen readers and shown when the pointer is over the button.": [
+                ""
+            ],
+            "%1$d (%2$d%%)": [
+                ""
+            ],
+            "The statistics were not loaded.": [
+                ""
+            ],
+            "Loading the statistics\u2026": [
+                ""
+            ],
+            "No choice logged yet.": [
+                ""
+            ],
+            "Month": [
+                ""
+            ],
+            "Choices": [
+                ""
+            ],
+            "Partial": [
+                ""
+            ],
+            "Withdrawals": [
+                ""
+            ],
+            "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once.": [
                 ""
             ]
         }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\ConsentLog\Infrastructure;
 
 use ItalyCookieChoices\Consent\Domain\PolicyVersion;
+use ItalyCookieChoices\ConsentLog\Domain\ChoiceCount;
 use ItalyCookieChoices\ConsentLog\Domain\ConsentId;
 use ItalyCookieChoices\ConsentLog\Domain\ConsentLog;
 use ItalyCookieChoices\ConsentLog\Domain\ConsentRecord;
@@ -71,6 +72,37 @@ final readonly class DatabaseConsentLog implements ConsentLog
                 yield $this->recordFrom($row);
             }
         } while (\count($rows) === self::BATCH);
+    }
+
+    /**
+     * Grouped by the database, the records are never read one by one.
+     *
+     * @return list<ChoiceCount>
+     */
+    public function choicesByMonth(): array
+    {
+        $rows = $this->database->get_results($this->database->prepare(
+            'SELECT DATE_FORMAT(recorded_at, %s) AS month, categories, COUNT(*) AS choices FROM %i'
+            . ' GROUP BY month, categories',
+            '%Y-%m',
+            $this->table->name()
+        ), \ARRAY_A);
+
+        return \array_map($this->choiceCountFrom(...), \is_array($rows) ? $rows : []);
+    }
+
+    /**
+     * @param array<array-key, mixed> $row
+     */
+    private function choiceCountFrom(array $row): ChoiceCount
+    {
+        $categories = $this->field($row, 'categories');
+
+        return new ChoiceCount(
+            $this->field($row, 'month'),
+            $categories === '' ? [] : \explode(' ', $categories),
+            (int) $this->field($row, 'choices')
+        );
     }
 
     /**

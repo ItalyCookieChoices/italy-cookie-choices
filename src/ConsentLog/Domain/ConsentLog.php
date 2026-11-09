@@ -22,4 +22,11 @@ interface ConsentLog
      * @return iterable<ConsentRecord>
      */
     public function all(): iterable;
+
+    /**
+     * How many choices of each month accepted the same categories, in UTC.
+     *
+     * @return list<ChoiceCount>
+     */
+    public function choicesByMonth(): array;
 }
