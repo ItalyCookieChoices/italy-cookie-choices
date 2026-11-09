@@ -127,6 +127,42 @@ describe( 'Blocker', () => {
 		expect( document.querySelector( '.icc-placeholder' ) ).toBeNull();
 	} );
 
+	it.each( [
+		[ 'javascript:alert(1)' ],
+		[ ' JavaScript:alert(1)' ],
+		[ 'data:text/html,<script>alert(1)</script>' ],
+		[ 'vbscript:msgbox(1)' ],
+	] )( 'never loads the address %p', async ( address ) => {
+		const { api, blocker } = setUp(
+			`<iframe id="unsafe" data-category="marketing" data-icc-src="${ address }"></iframe>`
+		);
+		await blocker.start();
+
+		api.setConsent( [ 'marketing' ] );
+		await blocker.update();
+
+		expect( element( '#unsafe' ).hasAttribute( 'src' ) ).toBe( false );
+	} );
+
+	it.each( [
+		[ '//www.youtube.com/embed/a' ],
+		[ '/embed/local' ],
+		[ 'http://example.com/map' ],
+	] )(
+		'loads the address %p of the site or of the web',
+		async ( address ) => {
+			const { api, blocker } = setUp(
+				`<iframe id="frame" data-category="marketing" data-icc-src="${ address }"></iframe>`
+			);
+			await blocker.start();
+
+			api.setConsent( [ 'marketing' ] );
+			await blocker.update();
+
+			expect( element( '#frame' ).getAttribute( 'src' ) ).toBe( address );
+		}
+	);
+
 	it( 'keeps the frame blocked when another category is accepted', async () => {
 		const { api, blocker } = setUp( VIDEO );
 		await blocker.start();
