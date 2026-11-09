@@ -36,7 +36,7 @@ trait BuildsContainer
             ->addModule(new BlockingModule($pluginPath, $pluginUrl))
             ->addModule(new ConsentLogModule($pluginPath, $pluginUrl))
             ->addModule(new IntegrationsModule($pluginPath, $pluginUrl))
-            ->addModule(new CookiesModule($pluginPath))
+            ->addModule(new CookiesModule($pluginPath, $pluginUrl))
             ->build();
     }
 

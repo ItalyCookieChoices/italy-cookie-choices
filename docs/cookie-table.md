@@ -16,6 +16,12 @@ The table follows the settings, it changes when you turn a vendor on or off.
 
 A name ending with `*` is a prefix: `_ga_*` is the cookie `_ga_` followed by the id of the property.
 
+## The cookies without the consent are deleted
+
+On each page and after each choice, the plugin deletes the cookies of the table whose category has no consent: a rejection or a withdrawal removes, for example, `_ga` and `_fbp` the vendors set before. The necessary cookies are never deleted.
+
+It deletes the cookies on the domain of the site and on its parent domains, where the vendors usually set them, like `.example.com` for `www.example.com`. The browser does not let a script reach the HttpOnly cookies and the cookies of the other sites, like the ones of YouTube on `youtube.com`: they stay until they expire, or until the visitor deletes them.
+
 ## The cookies of the common vendors
 
 The names, the durations and the purposes come from the documentation of each vendor, from its scripts when the documentation lacks the durations, or from cookiedatabase.org. The vendors can change them: check the cookies of your site with the developer tools of the browser.

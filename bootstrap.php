@@ -26,7 +26,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
         ->addModule(new Blocking\Module($pluginPath, $pluginUrl))
         ->addModule(new ConsentLog\Module($pluginPath, $pluginUrl))
         ->addModule(new Integrations\Module($pluginPath, $pluginUrl))
-        ->addModule(new Cookies\Module($pluginPath))
+        ->addModule(new Cookies\Module($pluginPath, $pluginUrl))
         ->extend(SubscribersConfigExtension::class)
         ->build();
 
