@@ -35,6 +35,20 @@ final readonly class LogTable
     {
         require_once \ABSPATH . 'wp-admin/includes/upgrade.php';
 
+        // Two requests after an update can both create the table, the second one fails because the table exists:
+        // a harmless error, that printed before the headers breaks the page.
+        $suppressed = $this->database->suppress_errors(true);
+        try {
+            $this->createTable();
+        } finally {
+            $this->database->suppress_errors($suppressed);
+        }
+
+        \update_option(self::VERSION_OPTION, self::VERSION);
+    }
+
+    private function createTable(): void
+    {
         // dbDelta() wants two spaces after PRIMARY KEY and one field per line.
         \dbDelta(\sprintf(
             "CREATE TABLE %s (
@@ -50,8 +64,6 @@ KEY recorded_at (recorded_at)
             $this->name(),
             $this->database->get_charset_collate()
         ));
-
-        \update_option(self::VERSION_OPTION, self::VERSION);
     }
 
     public function drop(): void
