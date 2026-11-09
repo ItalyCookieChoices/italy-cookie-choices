@@ -9,6 +9,7 @@ Cookie Choices, formerly Italy Cookie Choices, asks the consent of your visitors
 * [Getting started](getting-started.md): the settings page, tab by tab.
 * [Blocking the third parties](blocking.md): the vendors, the placeholders and the compatibility mode.
 * [Consent log](consent-log.md): how the consents are demonstrated.
+* [Cookie table](cookie-table.md): the cookies of the site for the cookie policy.
 * [Multilingual sites](multilingual.md): WPML, Polylang and the other plugins.
 * [Upgrading from 2.x](upgrade-3.0.md): what changes with the version 3.0.
 

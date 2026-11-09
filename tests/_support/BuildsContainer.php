@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Support;
 use ItalyCookieChoices\Blocking\Module as BlockingModule;
 use ItalyCookieChoices\Consent\Module as ConsentModule;
 use ItalyCookieChoices\ConsentLog\Module as ConsentLogModule;
+use ItalyCookieChoices\Cookies\Module as CookiesModule;
 use ItalyCookieChoices\Integrations\Module as IntegrationsModule;
 use ItalyCookieChoices\Module;
 use ItalyCookieChoices\Settings\Module as SettingsModule;
@@ -35,6 +36,7 @@ trait BuildsContainer
             ->addModule(new BlockingModule($pluginPath, $pluginUrl))
             ->addModule(new ConsentLogModule($pluginPath, $pluginUrl))
             ->addModule(new IntegrationsModule($pluginPath, $pluginUrl))
+            ->addModule(new CookiesModule($pluginPath))
             ->build();
     }
 

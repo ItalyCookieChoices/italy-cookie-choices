@@ -9,6 +9,7 @@ Cookie Choices, prima Italy Cookie Choices, chiede il consenso dei visitatori pr
 * [Guida introduttiva](guida-introduttiva.md): la pagina delle impostazioni, scheda per scheda.
 * [Blocco delle terze parti](blocco.md): i fornitori, i segnaposto e la modalità di compatibilità.
 * [Registro dei consensi](registro-consensi.md): come vengono dimostrati i consensi.
+* [Tabella dei cookie](tabella-cookie.md): i cookie del sito per la cookie policy.
 * [Siti multilingua](multilingua.md): WPML, Polylang e gli altri plugin.
 * [Aggiornamento dalla 2.x](aggiornamento-3.0.md): cosa cambia con la versione 3.0.
 

@@ -9,6 +9,7 @@ use ItalyCookieChoices\Integrations\UI\AdvancedConsentMode;
 use ItalyCookieChoices\Integrations\UI\ConsentModeScript;
 use ItalyCookieChoices\Integrations\UI\MicrosoftConsentScript;
 use ItalyCookieChoices\Integrations\UI\TrackingTags;
+use ItalyCookieChoices\Integrations\UI\WpConsentApiCookies;
 use ItalyCookieChoices\Integrations\UI\WpConsentApiFilters;
 use ItalyCookieChoices\Integrations\UI\WpConsentApiScript;
 use ItalyCookieChoices\Integrations\UI\YouTubeNoCookie;
@@ -35,6 +36,7 @@ final class ModuleTest extends WPTestCase
                 WpConsentApiFilters::class,
                 WpConsentApiScript::class,
                 MicrosoftConsentScript::class,
+                WpConsentApiCookies::class,
             ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );

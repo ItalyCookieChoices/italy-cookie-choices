@@ -45,6 +45,20 @@
 		}
 	}
 
+	&__cookies {
+		display: grid;
+		gap: 1em;
+		justify-items: start;
+	}
+
+	&__cookie {
+		display: grid;
+		gap: 0.75em;
+		justify-self: stretch;
+		padding-left: 1em;
+		border-left: 3px solid #dcdcde;
+	}
+
 	&__preview {
 		display: grid;
 		gap: 1em;

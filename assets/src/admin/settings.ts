@@ -49,11 +49,24 @@ export interface CategoryTexts {
 	description?: string;
 }
 
+/** A cookie of a custom vendor, for the cookie table. */
+export interface VendorCookie {
+	name: string;
+	duration: string;
+	purpose: string;
+}
+
+/** A cookie of the site itself, like the login of WordPress, for the cookie table. */
+export interface SiteCookie extends VendorCookie {
+	category: string;
+}
+
 export interface CustomVendor {
 	id: string;
 	name: string;
 	category: string;
 	patterns: string[];
+	cookies?: VendorCookie[];
 }
 
 export type Settings = Partial< Record< Checkbox, '1' > > &
@@ -62,6 +75,7 @@ export type Settings = Partial< Record< Checkbox, '1' > > &
 		disabled_vendors?: string[];
 		custom_vendors?: CustomVendor[];
 		allowed_patterns?: string[];
+		site_cookies?: SiteCookie[];
 	};
 
 /**
@@ -89,7 +103,7 @@ export interface AdminData {
 }
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
-export const SCHEMA_VERSION = 8;
+export const SCHEMA_VERSION = 9;
 
 function isRecord( value: unknown ): value is Record< string, unknown > {
 	return (

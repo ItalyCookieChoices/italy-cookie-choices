@@ -153,9 +153,67 @@ final class SanitizerTest extends WPTestCase
                     'name' => 'Tracker',
                     'category' => 'statistics',
                     'patterns' => ['tracker.example.com/t.js?a=%20b', "fbq( 'init'"],
+                    'cookies' => [],
                 ],
             ],
             $result['custom_vendors']
+        );
+    }
+
+    public function testTheCookiesOfTheCustomVendorsNeedAName(): void
+    {
+        $result = (new Sanitizer())([
+            'custom_vendors' => [
+                [
+                    'id' => 'tracker',
+                    'name' => 'Tracker',
+                    'category' => 'statistics',
+                    'patterns' => ['t.js'],
+                    'cookies' => [
+                        ['name' => ' <b>_trk</b> ', 'duration' => ' 1 year ', 'purpose' => "Counts\nthe visits"],
+                        ['name' => '', 'duration' => 'Session', 'purpose' => 'No name'],
+                        'not a cookie',
+                    ],
+                ],
+            ],
+        ]);
+
+        $this->assertIsArray($result['custom_vendors']);
+        $vendor = $result['custom_vendors'][0] ?? null;
+        $this->assertIsArray($vendor);
+        $this->assertSame(
+            [['name' => '_trk', 'duration' => '1 year', 'purpose' => 'Counts the visits']],
+            $vendor['cookies'] ?? null
+        );
+    }
+
+    public function testTheSiteCookiesNeedANameAndACategory(): void
+    {
+        $result = (new Sanitizer())([
+            'site_cookies' => [
+                [
+                    'name' => 'wordpress_logged_in_*',
+                    'category' => 'necessary',
+                    'duration' => '14 days',
+                    'purpose' => 'Login',
+                ],
+                ['name' => 'lang', 'category' => 'Not Valid!', 'duration' => '1 year', 'purpose' => 'Language'],
+                ['name' => '', 'category' => 'necessary', 'duration' => '', 'purpose' => ''],
+                ['name' => 'cart', 'duration' => '2 days', 'purpose' => 'Cart'],
+            ],
+        ]);
+
+        $this->assertSame(
+            [
+                [
+                    'name' => 'wordpress_logged_in_*',
+                    'category' => 'necessary',
+                    'duration' => '14 days',
+                    'purpose' => 'Login',
+                ],
+                ['name' => 'lang', 'category' => 'notvalid', 'duration' => '1 year', 'purpose' => 'Language'],
+            ],
+            $result['site_cookies']
         );
     }
 

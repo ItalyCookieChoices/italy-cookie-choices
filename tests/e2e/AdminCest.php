@@ -194,7 +194,13 @@ final class AdminCest
         // The migration of the first request turned off the reCAPTCHA preset.
         $I->assertSame(['google-recaptcha', 'youtube'], $options['disabled_vendors']);
         $I->assertSame(
-            [['id' => 'custom-1', 'name' => 'Ads', 'category' => 'marketing', 'patterns' => ['ads.example.com']]],
+            [[
+                'id' => 'custom-1',
+                'name' => 'Ads',
+                'category' => 'marketing',
+                'patterns' => ['ads.example.com'],
+                'cookies' => [],
+            ]],
             $options['custom_vendors']
         );
     }
@@ -218,6 +224,25 @@ final class AdminCest
         $I->assertSame('1', $options['consent_mode_advanced']);
         $I->assertSame('G-ICCTEST', $options['ga_measurement_id']);
         $I->assertSame('123456', $options['facebook_pixel_id']);
+    }
+
+    public function itSavesASiteCookie(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Blocking');
+
+        $I->click('Add a site cookie');
+        $I->fillField('Cookie name', 'wp_lang');
+        $I->fillField('Duration', 'Session');
+        $I->fillField('Purpose', 'Language');
+        $this->save($I);
+
+        $I->see('Settings saved.', self::NOTICE);
+        $I->assertSame(
+            [['name' => 'wp_lang', 'category' => 'necessary', 'duration' => 'Session', 'purpose' => 'Language']],
+            $this->savedOptions($I)['site_cookies'] ?? null
+        );
     }
 
     public function itSavesTheMicrosoftConsentSignals(E2eTester $I): void

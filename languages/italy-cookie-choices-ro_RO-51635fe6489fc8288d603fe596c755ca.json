@@ -336,6 +336,39 @@
             ],
             "The forms that use it wait for the consent too, turn it on only when they can.": [
                 ""
+            ],
+            "Purpose": [
+                ""
+            ],
+            "Duration": [
+                ""
+            ],
+            "Cookie name": [
+                ""
+            ],
+            "Add * for a prefix, like _ga_*.": [
+                ""
+            ],
+            "Cookie category": [
+                ""
+            ],
+            "1 year": [
+                ""
+            ],
+            "Remove the cookie %s": [
+                ""
+            ],
+            "Add a cookie of %s": [
+                ""
+            ],
+            "Site cookies": [
+                ""
+            ],
+            "The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors.": [
+                ""
+            ],
+            "Add a site cookie": [
+                ""
             ]
         }
     }

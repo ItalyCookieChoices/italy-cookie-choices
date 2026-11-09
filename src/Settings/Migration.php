@@ -108,6 +108,7 @@ final readonly class Migration implements SubscriberInterface
             6 => $this->turnOnTheConsentMode(...),
             7 => $this->turnOnTheMicrosoftConsent(...),
             8 => $this->turnOffTheNewPresets(...),
+            9 => $this->addTheCookiesOfTheCustomVendors(...),
         ];
     }
 
@@ -230,6 +231,26 @@ final readonly class Migration implements SubscriberInterface
         $disabled = \is_array($option['disabled_vendors'] ?? null) ? $option['disabled_vendors'] : [];
         $disabled = \array_filter($disabled, \is_string(...));
         $option['disabled_vendors'] = \array_values(\array_unique([...$disabled, ...Schema::VENDORS_OFF_BY_DEFAULT]));
+
+        return $option;
+    }
+
+    /**
+     * Version 9: the custom vendors list their cookies, for the cookie table.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function addTheCookiesOfTheCustomVendors(array $option): array
+    {
+        if (!\is_array($option['custom_vendors'] ?? null)) {
+            return $option;
+        }
+
+        $option['custom_vendors'] = \array_map(
+            static fn(mixed $vendor): mixed => \is_array($vendor) ? $vendor + ['cookies' => []] : $vendor,
+            $option['custom_vendors']
+        );
 
         return $option;
     }
