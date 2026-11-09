@@ -16,6 +16,12 @@ La tabella segue le impostazioni, cambia quando attivi o disattivi un fornitore.
 
 Un nome che finisce con `*` è un prefisso: `_ga_*` è il cookie `_ga_` seguito dall'id della proprietà.
 
+## I cookie senza consenso vengono cancellati
+
+A ogni pagina e dopo ogni scelta, il plugin cancella i cookie della tabella la cui categoria non ha il consenso: un rifiuto o una revoca rimuovono, per esempio, `_ga` e `_fbp` impostati prima dai fornitori. I cookie necessari non vengono mai cancellati.
+
+Cancella i cookie sul dominio del sito e sui suoi domini superiori, dove i fornitori di solito li impostano, come `.example.com` per `www.example.com`. Il browser non permette a uno script di raggiungere i cookie HttpOnly e i cookie degli altri siti, come quelli di YouTube su `youtube.com`: restano fino alla scadenza, o finché il visitatore non li cancella.
+
 ## I cookie dei fornitori comuni
 
 I nomi, le durate e gli scopi vengono dalla documentazione di ogni fornitore, dai suoi script quando la documentazione non riporta le durate, o da cookiedatabase.org. I fornitori possono cambiarli: verifica i cookie del tuo sito con gli strumenti per sviluppatori del browser.
