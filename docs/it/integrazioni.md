@@ -52,6 +52,28 @@ add_action( BuildingConsentMode::class, static function ( BuildingConsentMode $e
 } );
 ```
 
+## Segnali del consenso di Microsoft
+
+Con **Integrazioni > Invia il consenso a Microsoft Advertising (UET)** e **Invia il consenso a Microsoft Clarity** attivi, come da impostazione predefinita, il plugin stampa uno script all'inizio del `<head>`, prima dei tag di Microsoft. Le chiamate aspettano nelle code `window.uetq` e `window.clarity` finché i tag non vengono caricati.
+
+Microsoft Advertising riceve l'archiviazione pubblicitaria negata come impostazione predefinita, poi il consenso salvato e ogni scelta:
+
+```js
+window.uetq.push( 'consent', 'default', { ad_storage: 'denied' } );
+window.uetq.push( 'consent', 'update', { ad_storage: 'granted' } );
+```
+
+Microsoft Clarity riceve il consenso salvato, negato se non c'è, poi ogni scelta, con la sua Consent API v2. Clarity lo richiede per i visitatori dello SEE, del Regno Unito e della Svizzera:
+
+```js
+window.clarity( 'consentv2', { analytics_Storage: 'granted', ad_Storage: 'denied' } );
+```
+
+| Categoria | UET | Clarity |
+| --- | --- | --- |
+| `statistics` | | `analytics_Storage` |
+| `marketing` | `ad_storage` | `ad_Storage` |
+
 ## WP Consent API
 
 Quando il plugin [WP Consent API](https://wordpress.org/plugins/wp-consent-api/) è attivo e il banner è acceso, Cookie Choices gli scrive il consenso, così i plugin che lo leggono, come WooCommerce e Site Kit, rispettano la scelta del visitatore. Non c'è nessuna impostazione.

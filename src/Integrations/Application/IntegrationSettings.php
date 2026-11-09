@@ -7,7 +7,7 @@ namespace ItalyCookieChoices\Integrations\Application;
 use ItalyCookieChoices\Settings\Options;
 
 /**
- * The saved settings of the Google and Facebook tags.
+ * The saved settings of the Google, Microsoft and Facebook tags.
  */
 final readonly class IntegrationSettings
 {
@@ -27,6 +27,22 @@ final readonly class IntegrationSettings
     public function isConsentModeAdvanced(): bool
     {
         return $this->sendsConsentMode() && $this->options->isChecked('consent_mode_advanced');
+    }
+
+    /**
+     * Microsoft Advertising gets the consent of the visitor, through the UET tag.
+     */
+    public function sendsUetConsent(): bool
+    {
+        return $this->options->isActive() && $this->options->isChecked('uet_consent_mode');
+    }
+
+    /**
+     * Microsoft Clarity gets the consent of the visitor, through its Consent API v2.
+     */
+    public function sendsClarityConsent(): bool
+    {
+        return $this->options->isActive() && $this->options->isChecked('clarity_consent_mode');
     }
 
     public function measurementId(): string

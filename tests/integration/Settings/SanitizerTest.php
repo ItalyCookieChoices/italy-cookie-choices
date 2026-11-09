@@ -82,6 +82,8 @@ final class SanitizerTest extends WPTestCase
             'consent_mode',
             'consent_mode_advanced',
             'youtube_nocookie',
+            'uet_consent_mode',
+            'clarity_consent_mode',
         ];
 
         foreach ($fields as $field) {

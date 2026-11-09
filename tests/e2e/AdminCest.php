@@ -71,6 +71,8 @@ final class AdminCest
                 'consent_log_retention' => '12',
                 'consent_mode' => '1',
                 'youtube_nocookie' => '1',
+                'uet_consent_mode' => '1',
+                'clarity_consent_mode' => '1',
             ],
             $I->grabOptionFromDatabase(E2eTester::OPTION_NAME)
         );
@@ -214,6 +216,23 @@ final class AdminCest
         $I->assertSame('1', $options['consent_mode_advanced']);
         $I->assertSame('G-ICCTEST', $options['ga_measurement_id']);
         $I->assertSame('123456', $options['facebook_pixel_id']);
+    }
+
+    public function itSavesTheMicrosoftConsentSignals(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['uet_consent_mode' => '1', 'clarity_consent_mode' => '1']);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Integrations');
+
+        $I->waitForText('Send the consent to Microsoft Clarity', 5);
+        $I->seeCheckboxIsChecked('Send the consent to Microsoft Advertising (UET)');
+        $I->uncheckOption('Send the consent to Microsoft Clarity');
+        $this->save($I);
+
+        $I->see('Settings saved.', self::NOTICE);
+        $options = $this->savedOptions($I);
+        $I->assertSame('1', $options['uet_consent_mode'] ?? null);
+        $I->assertArrayNotHasKey('clarity_consent_mode', $options);
     }
 
     public function itSavesTheGoogleTagGatewayPath(E2eTester $I): void

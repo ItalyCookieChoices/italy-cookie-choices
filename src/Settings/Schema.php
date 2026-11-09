@@ -16,7 +16,7 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 6;
+    public const VERSION = 7;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -32,6 +32,8 @@ final readonly class Schema
         'consent_mode',
         'consent_mode_advanced',
         'youtube_nocookie',
+        'uet_consent_mode',
+        'clarity_consent_mode',
     ];
 
     private const ENUMS = [
@@ -79,6 +81,11 @@ final readonly class Schema
         'consent_mode' => '1',
     ];
 
+    public const MICROSOFT_CONSENT_DEFAULTS = [
+        'uet_consent_mode' => '1',
+        'clarity_consent_mode' => '1',
+    ];
+
     public const CONSENT_LOG_DEFAULTS = [
         'consent_log' => '1',
         'consent_log_retention' => '12',
@@ -110,6 +117,7 @@ final readonly class Schema
             ...self::CONSENT_LOG_DEFAULTS,
             ...self::CONSENT_MODE_DEFAULTS,
             'youtube_nocookie' => '1',
+            ...self::MICROSOFT_CONSENT_DEFAULTS,
         ];
     }
 

@@ -54,6 +54,28 @@ add_action( BuildingConsentMode::class, static function ( BuildingConsentMode $e
 } );
 ```
 
+## Microsoft consent signals
+
+With **Integrations > Send the consent to Microsoft Advertising (UET)** and **Send the consent to Microsoft Clarity** on, the default, the plugin prints a script at the start of the `<head>`, before the Microsoft tags. The calls wait in the `window.uetq` and `window.clarity` queues until the tags load.
+
+Microsoft Advertising gets the ad storage denied by default, then the stored consent and every choice:
+
+```js
+window.uetq.push( 'consent', 'default', { ad_storage: 'denied' } );
+window.uetq.push( 'consent', 'update', { ad_storage: 'granted' } );
+```
+
+Microsoft Clarity gets the stored consent, denied without one, then every choice, with its Consent API v2. Clarity requires it for the visitors from the EEA, the UK and Switzerland:
+
+```js
+window.clarity( 'consentv2', { analytics_Storage: 'granted', ad_Storage: 'denied' } );
+```
+
+| Category | UET | Clarity |
+| --- | --- | --- |
+| `statistics` | | `analytics_Storage` |
+| `marketing` | `ad_storage` | `ad_Storage` |
+
 ## WP Consent API
 
 When the [WP Consent API](https://wordpress.org/plugins/wp-consent-api/) plugin is active and the banner is on, Cookie Choices writes the consent to it, so the plugins that read it, like WooCommerce and Site Kit, respect the choice of the visitor. There is no setting.

@@ -22,11 +22,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:141
+#: src/Settings/Sanitizer.php:143
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:142
+#: src/Settings/Sanitizer.php:144
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -617,4 +617,24 @@ msgstr ""
 
 #: assets/build/settings.js:4
 msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
+msgstr ""
+
+#: assets/build/settings.js:4
+msgid "Microsoft consent signals"
+msgstr ""
+
+#: assets/build/settings.js:4
+msgid "Send the consent to Microsoft Advertising (UET)"
+msgstr ""
+
+#: assets/build/settings.js:4
+msgid "The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted."
+msgstr ""
+
+#: assets/build/settings.js:4
+msgid "Send the consent to Microsoft Clarity"
+msgstr ""
+
+#: assets/build/settings.js:4
+msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
 msgstr ""

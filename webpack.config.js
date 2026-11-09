@@ -12,6 +12,7 @@ const entries = {
 	settings: './assets/src/admin/index.tsx',
 	'consent-mode': './assets/src/consent-mode/index.ts',
 	'wp-consent-api': './assets/src/wp-consent-api/index.ts',
+	'microsoft-consent': './assets/src/microsoft-consent/index.ts',
 };
 
 module.exports = {

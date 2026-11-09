@@ -73,6 +73,7 @@ final class MigrationTest extends WPTestCase
                 ...Schema::CONSENT_LOG_DEFAULTS,
                 'custom_vendors' => [$this->customVendor(['analytics.js'])],
                 ...Schema::CONSENT_MODE_DEFAULTS,
+                ...Schema::MICROSOFT_CONSENT_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -101,6 +102,7 @@ final class MigrationTest extends WPTestCase
                 ...Schema::CONSENT_LOG_DEFAULTS,
                 'custom_vendors' => [$this->customVendor(['analytics.js'])],
                 ...Schema::CONSENT_MODE_DEFAULTS,
+                ...Schema::MICROSOFT_CONSENT_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -149,7 +151,8 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['text' => '<script>raw</script>'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
+            ['text' => '<script>raw</script>'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
+                + Schema::MICROSOFT_CONSENT_DEFAULTS,
             \get_option(Schema::OPTION)
         );
     }
@@ -162,7 +165,8 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
+            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
+                + Schema::MICROSOFT_CONSENT_DEFAULTS,
             \get_option(Schema::OPTION)
         );
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
@@ -198,6 +202,7 @@ final class MigrationTest extends WPTestCase
                 ],
                 'allowed_patterns' => ['window.allowed'],
                 ...Schema::CONSENT_MODE_DEFAULTS,
+                ...Schema::MICROSOFT_CONSENT_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -215,7 +220,8 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
+            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
+                + Schema::MICROSOFT_CONSENT_DEFAULTS,
             \get_option(Schema::OPTION)
         );
     }
@@ -228,7 +234,8 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS,
+            ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
+                + Schema::MICROSOFT_CONSENT_DEFAULTS,
             \get_option(Schema::OPTION)
         );
         $this->assertSame(Schema::VERSION, \get_option(Schema::VERSION_OPTION));
@@ -245,7 +252,13 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['active' => '1', 'consent_log_retention' => '24', 'consent_log' => '1', 'consent_mode' => '1'],
+            [
+                'active' => '1',
+                'consent_log_retention' => '24',
+                'consent_log' => '1',
+                'consent_mode' => '1',
+                ...Schema::MICROSOFT_CONSENT_DEFAULTS,
+            ],
             \get_option(Schema::OPTION)
         );
     }
@@ -274,6 +287,7 @@ final class MigrationTest extends WPTestCase
                 'custom_vendors' => [$this->customVendor(['analytics.js', 'maps.example.com'])],
                 'allowed_patterns' => ['window.allowed', 'youtube.com/embed/public'],
                 ...Schema::CONSENT_MODE_DEFAULTS,
+                ...Schema::MICROSOFT_CONSENT_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
         );
@@ -317,7 +331,12 @@ final class MigrationTest extends WPTestCase
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
         $this->assertSame(
-            ['banner' => '2', 'text' => '<p>Kept</p>', ...Schema::CONSENT_MODE_DEFAULTS],
+            [
+                'banner' => '2',
+                'text' => '<p>Kept</p>',
+                ...Schema::CONSENT_MODE_DEFAULTS,
+                ...Schema::MICROSOFT_CONSENT_DEFAULTS,
+            ],
             \get_option(Schema::OPTION)
         );
         $this->assertTrue(\rest_validate_value_from_schema(
@@ -336,7 +355,26 @@ final class MigrationTest extends WPTestCase
 
         (new Migration(new Schema(), new LegacySnippets()))->migrate();
 
-        $this->assertSame(['active' => '1', 'consent_mode' => '1'], \get_option(Schema::OPTION));
+        $this->assertSame(
+            ['active' => '1', 'consent_mode' => '1', ...Schema::MICROSOFT_CONSENT_DEFAULTS],
+            \get_option(Schema::OPTION)
+        );
+    }
+
+    /**
+     * Version 7: Microsoft Advertising and Microsoft Clarity get the consent signals, a saved choice is kept.
+     */
+    public function testTheMicrosoftConsentSignalsAreTurnedOn(): void
+    {
+        \update_option(Schema::VERSION_OPTION, 6);
+        \add_option(Schema::OPTION, ['active' => '1', 'consent_mode' => '1']);
+
+        (new Migration(new Schema(), new LegacySnippets()))->migrate();
+
+        $this->assertSame(
+            ['active' => '1', 'consent_mode' => '1', 'uet_consent_mode' => '1', 'clarity_consent_mode' => '1'],
+            \get_option(Schema::OPTION)
+        );
     }
 
     public function testTheImportedSettingsAreUpgradedFromTheirVersion(): void
@@ -349,6 +387,7 @@ final class MigrationTest extends WPTestCase
                 ...Schema::CONSENT_LOG_DEFAULTS,
                 'allowed_patterns' => ['a.example.com'],
                 ...Schema::CONSENT_MODE_DEFAULTS,
+                ...Schema::MICROSOFT_CONSENT_DEFAULTS,
             ],
             $sut->upgrade(['active' => '1', 'scroll' => '1', 'allow_script' => ['a.example.com']], 1)
         );

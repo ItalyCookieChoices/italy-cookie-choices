@@ -12,21 +12,21 @@ final class SchemaTest extends WPTestCase
     /**
      * Every key the 2.x versions read from the option, without scroll and secondView removed in version 2,
      * plus the consent log of version 4, the vendors of version 5 that replaced the script lists
-     * and the integrations of version 6.
+     * the integrations of version 6 and the Microsoft consent signals of version 7.
      */
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg',
-        'banner_text_color', 'button_text', 'categories', 'closeClass', 'consentText', 'consent_log',
-        'consent_log_retention', 'consent_mode', 'consent_mode_advanced', 'contentStyle',
+        'banner_text_color', 'button_text', 'categories', 'clarity_consent_mode', 'closeClass', 'consentText',
+        'consent_log', 'consent_log_retention', 'consent_mode', 'consent_mode_advanced', 'contentStyle',
         'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
         'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id', 'ga_measurement_id',
         'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass', 'js_template', 'nofollow',
-        'reload', 'slug', 'target', 'text', 'url', 'youtube_nocookie',
+        'reload', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'youtube_nocookie',
     ];
 
-    public function testTheSchemaIsAtVersion6(): void
+    public function testTheSchemaIsAtVersion7(): void
     {
-        $this->assertSame(6, Schema::VERSION);
+        $this->assertSame(7, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -45,6 +45,8 @@ final class SchemaTest extends WPTestCase
                 'consent_log_retention' => '12',
                 'consent_mode' => '1',
                 'youtube_nocookie' => '1',
+                'uet_consent_mode' => '1',
+                'clarity_consent_mode' => '1',
             ],
             (new Schema())->defaults()
         );

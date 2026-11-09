@@ -318,6 +318,21 @@
             ],
             "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway.": [
                 ""
+            ],
+            "Microsoft consent signals": [
+                ""
+            ],
+            "Send the consent to Microsoft Advertising (UET)": [
+                ""
+            ],
+            "The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted.": [
+                ""
+            ],
+            "Send the consent to Microsoft Clarity": [
+                ""
+            ],
+            "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland.": [
+                ""
             ]
         }
     }

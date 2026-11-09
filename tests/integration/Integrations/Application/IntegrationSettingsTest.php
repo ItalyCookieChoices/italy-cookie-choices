@@ -23,10 +23,14 @@ final class IntegrationSettingsTest extends WPTestCase
             'gtm_container_id' => 'GTM-ABC1',
             'facebook_pixel_id' => '123456',
             'youtube_nocookie' => '1',
+            'uet_consent_mode' => '1',
+            'clarity_consent_mode' => '1',
         ]);
 
         $sut = new IntegrationSettings($this->options());
 
+        $this->assertTrue($sut->sendsUetConsent());
+        $this->assertTrue($sut->sendsClarityConsent());
         $this->assertTrue($sut->sendsConsentMode());
         $this->assertTrue($sut->isConsentModeAdvanced());
         $this->assertSame('G-ABC123', $sut->measurementId());
@@ -51,10 +55,14 @@ final class IntegrationSettingsTest extends WPTestCase
             'consent_mode' => '1',
             'ga_measurement_id' => 'G-ABC123',
             'youtube_nocookie' => '1',
+            'uet_consent_mode' => '1',
+            'clarity_consent_mode' => '1',
         ]);
 
         $sut = new IntegrationSettings($this->options());
 
+        $this->assertFalse($sut->sendsUetConsent());
+        $this->assertFalse($sut->sendsClarityConsent());
         $this->assertFalse($sut->sendsConsentMode());
         $this->assertSame('', $sut->measurementId());
         $this->assertFalse($sut->usesYouTubeNoCookie());

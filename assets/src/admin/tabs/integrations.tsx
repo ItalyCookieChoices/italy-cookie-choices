@@ -6,7 +6,8 @@ import { TextField, ToggleField, type SettingsProps } from '../fields';
 import { isChecked } from '../settings';
 
 /**
- * Google Consent Mode v2, the Google and Facebook tags printed by the plugin and the YouTube embeds.
+ * Google Consent Mode v2, the Microsoft consent signals, the Google and Facebook tags printed by the plugin
+ * and the YouTube embeds.
  * @param props The settings props.
  */
 export function IntegrationsTab( props: SettingsProps ) {
@@ -42,6 +43,38 @@ export function IntegrationsTab( props: SettingsProps ) {
 						) }
 					/>
 				) }
+			</fieldset>
+			<fieldset className="icc-admin__group">
+				<legend>
+					{ __(
+						'Microsoft consent signals',
+						'italy-cookie-choices'
+					) }
+				</legend>
+				<ToggleField
+					{ ...props }
+					name="uet_consent_mode"
+					label={ __(
+						'Send the consent to Microsoft Advertising (UET)',
+						'italy-cookie-choices'
+					) }
+					help={ __(
+						'The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted.',
+						'italy-cookie-choices'
+					) }
+				/>
+				<ToggleField
+					{ ...props }
+					name="clarity_consent_mode"
+					label={ __(
+						'Send the consent to Microsoft Clarity',
+						'italy-cookie-choices'
+					) }
+					help={ __(
+						'Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland.',
+						'italy-cookie-choices'
+					) }
+				/>
 			</fieldset>
 			<fieldset className="icc-admin__group">
 				<legend>{ __( 'Tags', 'italy-cookie-choices' ) }</legend>
