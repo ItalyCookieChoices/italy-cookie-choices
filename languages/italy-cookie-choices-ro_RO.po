@@ -18,15 +18,15 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: .git\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:143
+#: src/Settings/Sanitizer.php:146
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:144
+#: src/Settings/Sanitizer.php:147
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -142,7 +142,7 @@ msgid "Settings"
 msgstr ""
 
 #: src/Settings/UI/PluginActionLinks.php:44
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Documentation"
 msgstr ""
 
@@ -159,7 +159,7 @@ msgid "Dialog to preview"
 msgstr ""
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Banner"
 msgstr ""
 
@@ -196,7 +196,7 @@ msgid "Links and simple HTML are allowed."
 msgstr ""
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Policy link"
 msgstr ""
 
@@ -232,319 +232,320 @@ msgstr ""
 msgid "Reload the page after the choice"
 msgstr ""
 
-#: assets/build/settings.js:1
+#: assets/build/settings.js:2
 msgid "New vendor"
 msgstr ""
 
-#: assets/build/settings.js:1
-#: assets/build/settings.js:3
-#: assets/build/settings.js:4
+#: assets/build/settings.js:2
+#: assets/build/settings.js:5
+#: assets/build/settings.js:6
 msgid "Name"
 msgstr ""
 
-#: assets/build/settings.js:1
+#: assets/build/settings.js:2
 msgid "Category"
 msgstr ""
 
-#: assets/build/settings.js:1
+#: assets/build/settings.js:2
 msgid "Addresses and scripts to block"
 msgstr ""
 
-#: assets/build/settings.js:1
+#: assets/build/settings.js:2
 msgid "A part of the address, like tracker.example.com/script.js, or a text of the inline script. Press Enter after each one."
 msgstr ""
 
 #. translators: %s: the vendor name.
-#: assets/build/settings.js:2
+#: assets/build/settings.js:4
 #, js-format
 msgid "Remove %s"
 msgstr ""
 
-#: assets/build/settings.js:2
+#: assets/build/settings.js:3
+#: assets/build/settings.js:4
 msgid "the vendor"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Common vendors"
 msgstr ""
 
 #. translators: %s: the category name.
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 #, js-format
 msgid "Waits for the %s consent."
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Custom vendors"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Add a vendor"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Never blocked"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "The addresses and the scripts the site needs, even when a vendor matches them."
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Block the vendors in the whole page"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Also in the theme and in the plugins that do not use the WordPress functions. It buffers the page, turn it on only when needed."
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Placeholder text of the blocked content"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Empty for a text with the category name."
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Placeholder button text"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Leave a field empty to use the default text, translated in the language of the site."
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Description"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Log the consents"
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Each choice is stored with a random id, the categories, the policy version and the date. No IP address and no personal data."
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "Keep the records for"
 msgstr ""
 
 #. translators: %s: a number of months.
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 #, js-format
 msgid "%s months"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Export the log as CSV"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Google Consent Mode v2"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Send the Consent Mode signals"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The Google tags get the consent of the visitor: denied until the choice, then granted for the accepted categories."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Load the Google tags before the consent (advanced mode)"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Google Analytics and Google Tag Manager are not blocked, they send cookieless pings until the consent. Check that it is allowed where your visitors are, the Italian Garante requires the consent before any tracking."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Tags"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The plugin prints the tags with the ids below, blocked until the consent. Leave a field empty when the tag is printed by the theme or by another plugin."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Google Analytics measurement ID"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Google Tag Manager container ID"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Facebook pixel ID"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Use the privacy-enhanced mode of the YouTube embeds"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The videos load from youtube-nocookie.com, they still wait for the marketing consent."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Position"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Top bar"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Modal window"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Bottom bar"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Push the page down under the top bar"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Template"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The custom template has no styles, only the custom CSS."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Default"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Big buttons"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Small buttons"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Custom"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Background color"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Text color"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "CSS classes"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Content"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Text"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Buttons"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Cookie of the 2.x versions"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Written while every category is accepted, for the code that still reads it."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Value"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Export"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Downloads the saved settings as a JSON file."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Export the settings"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Import"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Settings file"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The file is not a valid JSON file."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The settings were not imported."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The settings were not loaded."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Loading the settings…"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Settings imported."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Style"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Categories"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Blocking"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Integrations"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Consent log"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Tools"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Settings saved."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The settings were not saved."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Save changes"
 msgstr ""
 
@@ -564,7 +565,9 @@ msgctxt "block description"
 msgid "A button that opens the cookie preferences, to change or withdraw the consent."
 msgstr ""
 
+#: assets/build/cookie-table/block.json
 #: assets/build/preferences-button/block.json
+#: assets/src/blocks/cookie-table/block.json
 #: assets/src/blocks/preferences-button/block.json
 msgctxt "block keyword"
 msgid "cookie"
@@ -576,13 +579,17 @@ msgctxt "block keyword"
 msgid "consent"
 msgstr ""
 
+#: assets/build/cookie-table/block.json
 #: assets/build/preferences-button/block.json
+#: assets/src/blocks/cookie-table/block.json
 #: assets/src/blocks/preferences-button/block.json
 msgctxt "block keyword"
 msgid "privacy"
 msgstr ""
 
+#: assets/build/cookie-table/block.json
 #: assets/build/preferences-button/block.json
+#: assets/src/blocks/cookie-table/block.json
 #: assets/src/blocks/preferences-button/block.json
 msgctxt "block keyword"
 msgid "gdpr"
@@ -611,34 +618,344 @@ msgstr ""
 msgid "Cookie Choices"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Google tag gateway path"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Microsoft consent signals"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Send the consent to Microsoft Advertising (UET)"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted."
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Send the consent to Microsoft Clarity"
 msgstr ""
 
-#: assets/build/settings.js:4
+#: assets/build/settings.js:6
 msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
 msgstr ""
 
-#: assets/build/settings.js:3
+#: assets/build/settings.js:5
 msgid "The forms that use it wait for the consent too, turn it on only when they can."
+msgstr ""
+
+#: src/Cookies/Application/CookieDurations.php:14
+msgid "Session"
+msgstr ""
+
+#. translators: %d: the number of minutes.
+#: src/Cookies/Application/CookieDurations.php:20
+#, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: the number of days.
+#: src/Cookies/Application/CookieDurations.php:26
+#, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: the number of months.
+#: src/Cookies/Application/CookieDurations.php:32
+#, php-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: the number of years.
+#: src/Cookies/Application/CookieDurations.php:38
+#, php-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Cookies/Application/CookieTableFactory.php:53
+msgid "Stores the consent of the visitor to the cookie categories."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:50
+msgid "Stores the conversions of the Google ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:55
+msgid "Stores the click on a Google ad, to attribute the conversions."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:60
+#: src/Cookies/Application/PresetCookies.php:213
+msgid "Shows and personalizes the Google ads on other sites."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:65
+msgid "Checks if the browser accepts cookies."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:72
+msgid "Tells the visitors apart, for the statistics of the visits."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:77
+msgid "Keeps the state of the session, for the statistics of the visits."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:84
+msgid "Keeps the id of the visitor for the site."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:89
+msgid "Keeps the data of the current session."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:96
+msgid "Checks that the requests of a session come from the same visitor."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:101
+msgid "Measures the views and suggests videos and ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:106
+#: src/Cookies/Application/PresetCookies.php:118
+msgid "Stores the preferences of the video player."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:113
+msgid "Measures the views of the videos for their owner."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:123
+msgid "Tells the bots apart from the visitors."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:130
+msgid "Stores the preferences and shows ads to the visitors not signed in to Google."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:140
+msgid "Tells the visitors apart, to measure and show the Meta ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:145
+msgid "Stores the click on a Meta ad."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:150
+msgid "Shows and measures the Meta ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:157
+msgid "Stores the LinkedIn member id, for the conversions and the ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:162
+msgid "Identifies the browser, to detect abuse."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:167
+msgid "Chooses the data center."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:172
+msgid "Syncs the id of the LinkedIn ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:179
+msgid "Measures the ad campaigns and personalizes the ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:184
+msgid "Stores the click on a TikTok ad, for the conversions."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:191
+msgid "Recognizes the browser across the pages."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:198
+msgid "Lets the site show the Google ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:203
+msgid "Shows the Google ads and protects them."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:208
+msgid "Protects the ads from fraud."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:220
+msgid "Keeps the id of the visitor for Clarity."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:225
+msgid "Joins the pages viewed into one session recording."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:232
+msgid "Keeps the session, for the ad conversions."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:237
+msgid "Tells the visitors apart, for the Microsoft ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:242
+msgid "Stores the click on a Microsoft ad."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:249
+msgid "Groups the actions of the visitors not matched to a Pinterest account."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:257
+msgid "Stores the click on a Pinterest ad."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:262
+msgid "Stores the matches made without cookies."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:269
+msgid "Identifies the visitor, to measure the Snapchat ads."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:276
+msgid "Tells the visitors apart, for the Reddit ad conversions."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:281
+msgid "Stores the click on a Reddit ad."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:288
+msgid "Tracks the visitor and the times of the visits."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:293
+msgid "Identifies the visitor and links the forms sent."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:298
+msgid "Tracks the session."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:303
+msgid "Detects a new session after a restart of the browser."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:310
+msgid "Stores the id of the visitor."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:315
+msgid "Keeps the data of the current visit."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:320
+msgid "Stores the site that brought the visitor."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:327
+msgid "Analyzes the risk, to protect the forms from spam and bots."
+msgstr ""
+
+#: src/Cookies/UI/CookieTableRenderer.php:62
+msgid "Cookie"
+msgstr ""
+
+#: src/Cookies/UI/CookieTableRenderer.php:63
+msgid "Provider"
+msgstr ""
+
+#: src/Cookies/UI/CookieTableRenderer.php:64
+#: assets/build/settings.js:1
+msgid "Purpose"
+msgstr ""
+
+#: src/Cookies/UI/CookieTableRenderer.php:65
+#: assets/build/settings.js:1
+msgid "Duration"
+msgstr ""
+
+#: assets/build/cookie-table/index.js:1
+msgid "Cookie table"
+msgstr ""
+
+#: assets/build/cookie-table/index.js:1
+msgid "The cookies of the site by category, with their provider, purpose and duration. The table is printed on the page, from the vendors and the cookies of the settings."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Cookie name"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Add * for a prefix, like _ga_*."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Cookie category"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "1 year"
+msgstr ""
+
+#. translators: %s: the cookie name.
+#: assets/build/settings.js:2
+#, js-format
+msgid "Remove the cookie %s"
+msgstr ""
+
+#. translators: %s: the vendor name.
+#: assets/build/settings.js:3
+#, js-format
+msgid "Add a cookie of %s"
+msgstr ""
+
+#: assets/build/settings.js:5
+msgid "Site cookies"
+msgstr ""
+
+#: assets/build/settings.js:5
+msgid "The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors."
+msgstr ""
+
+#: assets/build/settings.js:5
+msgid "Add a site cookie"
+msgstr ""
+
+#: assets/build/cookie-table/block.json
+#: assets/src/blocks/cookie-table/block.json
+msgctxt "block title"
+msgid "Cookie table"
+msgstr ""
+
+#: assets/build/cookie-table/block.json
+#: assets/src/blocks/cookie-table/block.json
+msgctxt "block description"
+msgid "The cookies of the site by category, with their provider, purpose and duration, for the cookie policy."
+msgstr ""
+
+#: assets/build/cookie-table/block.json
+#: assets/src/blocks/cookie-table/block.json
+msgctxt "block keyword"
+msgid "policy"
 msgstr ""

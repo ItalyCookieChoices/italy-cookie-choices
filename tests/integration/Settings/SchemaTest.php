@@ -13,7 +13,7 @@ final class SchemaTest extends WPTestCase
      * Every key the 2.x versions read from the option, without scroll and secondView removed in version 2,
      * plus the consent log of version 4, the vendors of version 5 that replaced the script lists
      * the integrations of version 6 and the Microsoft consent signals of version 7.
-     * Version 8 adds no key, it turns off the reCAPTCHA preset.
+     * Version 8 adds no key, it turns off the reCAPTCHA preset, version 9 adds the site cookies.
      */
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg',
@@ -22,12 +22,12 @@ final class SchemaTest extends WPTestCase
         'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
         'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id', 'ga_measurement_id',
         'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass', 'js_template', 'nofollow',
-        'reload', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'youtube_nocookie',
+        'reload', 'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'youtube_nocookie',
     ];
 
-    public function testTheSchemaIsAtVersion8(): void
+    public function testTheSchemaIsAtVersion9(): void
     {
-        $this->assertSame(8, Schema::VERSION);
+        $this->assertSame(9, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -83,7 +83,16 @@ final class SchemaTest extends WPTestCase
             'categories' => ['statistics' => ['label' => 'Analytics', 'description' => 'Visits.']],
             'disabled_vendors' => ['youtube'],
             'custom_vendors' => [
-                ['id' => 'custom', 'name' => 'Custom', 'category' => 'marketing', 'patterns' => ['a.example.com']],
+                [
+                    'id' => 'custom',
+                    'name' => 'Custom',
+                    'category' => 'marketing',
+                    'patterns' => ['a.example.com'],
+                    'cookies' => [['name' => '_c', 'duration' => '1 year', 'purpose' => 'Counts the visits']],
+                ],
+            ],
+            'site_cookies' => [
+                ['name' => 'wp_lang', 'category' => 'preferences', 'duration' => 'Session', 'purpose' => 'Language'],
             ],
             'allowed_patterns' => ['youtube.com/embed/public'],
             'consent_mode' => '1',
@@ -132,6 +141,23 @@ final class SchemaTest extends WPTestCase
         yield 'pixel id with letters' => [['facebook_pixel_id' => 'abc']];
         yield 'advanced consent mode not 1' => [['consent_mode_advanced' => 'yes']];
         yield 'gateway path without the slash' => [['google_tag_gateway_path' => 'metrics']];
+        yield 'custom vendor cookie without a name' => [
+            ['custom_vendors' => [[
+                'id' => 'a',
+                'name' => 'A',
+                'category' => 'marketing',
+                'patterns' => ['a'],
+                'cookies' => [['duration' => '1 year', 'purpose' => 'P']],
+            ]]],
+        ];
+        yield 'site cookie without a category' => [
+            ['site_cookies' => [['name' => 'a', 'duration' => '1 year', 'purpose' => 'P']]],
+        ];
+        yield 'site cookie with an unknown key' => [
+            ['site_cookies' => [
+                ['name' => 'a', 'category' => 'necessary', 'duration' => '', 'purpose' => '', 'x' => '1'],
+            ]],
+        ];
         yield 'gateway path with the host' => [['google_tag_gateway_path' => 'https://example.com/metrics']];
         yield 'gateway path with a query' => [['google_tag_gateway_path' => '/metrics?a=1']];
     }

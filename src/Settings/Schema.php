@@ -16,7 +16,7 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 8;
+    public const VERSION = 9;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -174,6 +174,11 @@ final readonly class Schema
     {
         $texts = ['type' => 'array', 'items' => ['type' => 'string']];
         $id = ['type' => 'string', 'pattern' => self::ID_PATTERN];
+        $cookie = [
+            'name' => ['type' => 'string', 'minLength' => 1],
+            'duration' => ['type' => 'string'],
+            'purpose' => ['type' => 'string'],
+        ];
 
         return [
             'categories' => [
@@ -200,8 +205,26 @@ final readonly class Schema
                         'name' => ['type' => 'string'],
                         'category' => $id,
                         'patterns' => $texts,
+                        'cookies' => [
+                            'type' => 'array',
+                            'items' => [
+                                'type' => 'object',
+                                'properties' => $cookie,
+                                'required' => ['name'],
+                                'additionalProperties' => false,
+                            ],
+                        ],
                     ],
                     'required' => ['id', 'name', 'category', 'patterns'],
+                    'additionalProperties' => false,
+                ],
+            ],
+            'site_cookies' => [
+                'type' => 'array',
+                'items' => [
+                    'type' => 'object',
+                    'properties' => [...$cookie, 'category' => $id],
+                    'required' => ['name', 'category'],
                     'additionalProperties' => false,
                 ],
             ],

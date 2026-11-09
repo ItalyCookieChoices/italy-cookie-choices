@@ -128,3 +128,12 @@ add_filter('rest_endpoints', static function (array $endpoints): array {
 
     return $endpoints;
 });
+
+// A cookie registered by another plugin with the WP Consent API, for the cookie table.
+add_action('init', static function (): void {
+    if (!get_option('icc_e2e_cookie_info') || !function_exists('wp_add_cookie_info')) {
+        return;
+    }
+
+    wp_add_cookie_info('icc_e2e_api', 'E2E plugin', 'marketing', '1 year', 'Tests the cookie table.');
+});

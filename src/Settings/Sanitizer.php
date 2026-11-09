@@ -20,6 +20,7 @@ final readonly class Sanitizer
     private const PATTERNS = 'patterns';
     private const TAG_ID = 'tag_id';
     private const PATH = 'path';
+    private const SITE_COOKIES = 'site_cookies';
 
     /**
      * The fields in the order they are saved.
@@ -63,6 +64,7 @@ final readonly class Sanitizer
         'disabled_vendors' => self::IDS,
         'custom_vendors' => self::VENDORS,
         'allowed_patterns' => self::PATTERNS,
+        'site_cookies' => self::SITE_COOKIES,
         'content_message_text' => self::HTML,
         'content_message_button_text' => self::TEXT,
         'excluded_pages' => self::TEXT,
@@ -120,6 +122,7 @@ final readonly class Sanitizer
             self::PATTERNS => $this->patterns($value),
             self::TAG_ID => $this->tagId($name, $value),
             self::PATH => $this->path($name, $value),
+            self::SITE_COOKIES => $this->siteCookies($value),
             default => $this->required($name, $value),
         };
     }
@@ -240,10 +243,78 @@ final readonly class Sanitizer
 
             $id = $this->toString($vendor['id'] ?? '');
             $id = $this->uniqueId($id !== '' ? $id : $name, \array_column($vendors, 'id'));
-            $vendors[] = ['id' => $id, 'name' => $name, 'category' => $category, 'patterns' => $patterns];
+            $vendors[] = [
+                'id' => $id,
+                'name' => $name,
+                'category' => $category,
+                'patterns' => $patterns,
+                'cookies' => $this->cookies($vendor['cookies'] ?? []),
+            ];
         }
 
         return $vendors;
+    }
+
+    /**
+     * The cookies of a custom vendor, without the ones with no name.
+     *
+     * @return list<array{name: string, duration: string, purpose: string}>
+     */
+    private function cookies(mixed $value): array
+    {
+        $cookies = [];
+        foreach ($this->list($value) as $cookie) {
+            $cookie = $this->cookie($cookie);
+            if ($cookie === null) {
+                continue;
+            }
+
+            $cookies[] = $cookie;
+        }
+
+        return $cookies;
+    }
+
+    /**
+     * The cookies of the site, without the ones with no name or no category.
+     *
+     * @return list<array{name: string, category: string, duration: string, purpose: string}>
+     */
+    private function siteCookies(mixed $value): array
+    {
+        $cookies = [];
+        foreach ($this->list($value) as $cookie) {
+            $category = \sanitize_key($this->toString(\is_array($cookie) ? $cookie['category'] ?? '' : ''));
+            $cookie = $this->cookie($cookie);
+            if ($cookie === null || $category === '') {
+                continue;
+            }
+
+            $cookies[] = ['name' => $cookie['name'], 'category' => $category, ...\array_slice($cookie, 1)];
+        }
+
+        return $cookies;
+    }
+
+    /**
+     * @return array{name: string, duration: string, purpose: string}|null
+     */
+    private function cookie(mixed $value): ?array
+    {
+        if (!\is_array($value)) {
+            return null;
+        }
+
+        $name = \sanitize_text_field($this->toString($value['name'] ?? ''));
+        if ($name === '') {
+            return null;
+        }
+
+        return [
+            'name' => $name,
+            'duration' => \sanitize_text_field($this->toString($value['duration'] ?? '')),
+            'purpose' => \sanitize_text_field($this->toString($value['purpose'] ?? '')),
+        ];
     }
 
     /**

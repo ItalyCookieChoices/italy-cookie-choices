@@ -1,0 +1,21 @@
+{
+    "translation-revision-date": "2026-10-28 08:00+0100",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/build\/cookie-table\/index.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "it_IT",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Cookie table": [
+                "Tabella dei cookie"
+            ],
+            "The cookies of the site by category, with their provider, purpose and duration. The table is printed on the page, from the vendors and the cookies of the settings.": [
+                "I cookie del sito per categoria, con il fornitore, lo scopo e la durata. La tabella viene stampata nella pagina, dai fornitori e dai cookie delle impostazioni."
+            ]
+        }
+    }
+}

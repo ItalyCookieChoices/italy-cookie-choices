@@ -428,6 +428,30 @@ final class MigrationTest extends WPTestCase
         );
     }
 
+    /**
+     * Version 9: the custom vendors get their list of cookies, empty.
+     */
+    public function testTheCustomVendorsGetTheirCookies(): void
+    {
+        $sut = new Migration(new Schema(), new LegacySnippets());
+        $cookies = [['name' => '_c', 'duration' => '1 year', 'purpose' => 'P']];
+
+        $this->assertSame(
+            [
+                'custom_vendors' => [
+                    ['id' => 'a', 'name' => 'A', 'category' => 'marketing', 'patterns' => ['a'], 'cookies' => []],
+                    ['id' => 'b', 'name' => 'B', 'category' => 'marketing', 'patterns' => ['b'], 'cookies' => $cookies],
+                ],
+            ],
+            $sut->upgrade([
+                'custom_vendors' => [
+                    ['id' => 'a', 'name' => 'A', 'category' => 'marketing', 'patterns' => ['a']],
+                    ['id' => 'b', 'name' => 'B', 'category' => 'marketing', 'patterns' => ['b'], 'cookies' => $cookies],
+                ],
+            ], 8)
+        );
+    }
+
     public function testTheImportedSettingsAreUpgradedFromTheirVersion(): void
     {
         $sut = new Migration(new Schema(), new LegacySnippets());
@@ -485,11 +509,17 @@ final class MigrationTest extends WPTestCase
 
     /**
      * @param list<string> $patterns
-     * @return array{id: string, name: string, category: string, patterns: list<string>}
+     * @return array{id: string, name: string, category: string, patterns: list<string>, cookies: list<mixed>}
      */
     private function customVendor(array $patterns): array
     {
-        return ['id' => 'custom', 'name' => 'Custom', 'category' => 'marketing', 'patterns' => $patterns];
+        return [
+            'id' => 'custom',
+            'name' => 'Custom',
+            'category' => 'marketing',
+            'patterns' => $patterns,
+            'cookies' => [],
+        ];
     }
 
     private function registeredMigration(): Migration

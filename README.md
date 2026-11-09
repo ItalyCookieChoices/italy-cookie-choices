@@ -24,6 +24,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Block Google Analytics, Google Tag Manager, Google Ads, AdSense, Microsoft Clarity and Advertising, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, Snapchat, Reddit, HubSpot, Spotify, SoundCloud, Hotjar and Matomo Cloud until the consent, and add your own vendors
 * Show a placeholder with a button to accept the category of the blocked videos and maps
 * Let the visitors change or withdraw the consent with a block, a shortcode or a link
+* List the cookies of the site in a table for the cookie policy, with the Cookie table block or the `[cookie_table]` shortcode
 * Log the consents to demonstrate them, without IP addresses, and export the log as CSV
 * Send the Google Consent Mode v2 signals, in the basic or advanced mode
 * Send the consent to Microsoft Advertising (UET) and Microsoft Clarity
@@ -38,6 +39,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * [Getting started](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/getting-started.md)
 * [Blocking the third parties](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/blocking.md)
 * [Consent log](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/consent-log.md)
+* [Cookie table](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/cookie-table.md)
 * [Multilingual sites](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/multilingual.md)
 * [Integrations, for the developers](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/integrations.md)
 * [Upgrading from 2.x](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/upgrade-3.0.md)

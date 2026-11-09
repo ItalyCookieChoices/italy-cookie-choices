@@ -336,6 +336,39 @@
             ],
             "The forms that use it wait for the consent too, turn it on only when they can.": [
                 "Anche i moduli che lo usano aspettano il consenso, attivalo solo quando possono aspettare."
+            ],
+            "Purpose": [
+                "Scopo"
+            ],
+            "Duration": [
+                "Durata"
+            ],
+            "Cookie name": [
+                "Nome del cookie"
+            ],
+            "Add * for a prefix, like _ga_*.": [
+                "Aggiungi * per un prefisso, come _ga_*."
+            ],
+            "Cookie category": [
+                "Categoria del cookie"
+            ],
+            "1 year": [
+                "1 anno"
+            ],
+            "Remove the cookie %s": [
+                "Rimuovi il cookie %s"
+            ],
+            "Add a cookie of %s": [
+                "Aggiungi un cookie di %s"
+            ],
+            "Site cookies": [
+                "Cookie del sito"
+            ],
+            "The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors.": [
+                "I cookie del sito stesso, come l'accesso di WordPress o il carrello del negozio, per la tabella dei cookie. La tabella elenca gi\u00e0 il cookie del consenso e i cookie dei fornitori."
+            ],
+            "Add a site cookie": [
+                "Aggiungi un cookie del sito"
             ]
         }
     }

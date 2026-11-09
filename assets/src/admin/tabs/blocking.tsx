@@ -9,6 +9,7 @@ import {
 } from '@wordpress/components';
 import { createElement, Fragment } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
+import { CookieList } from '../cookies';
 import {
 	TextareaField,
 	TextField,
@@ -93,6 +94,18 @@ function CustomVendorFields( {
 					'italy-cookie-choices'
 				) }
 			</p>
+			<CookieList
+				cookies={ vendor.cookies ?? [] }
+				addLabel={ sprintf(
+					/* translators: %s: the vendor name. */
+					__( 'Add a cookie of %s', 'italy-cookie-choices' ),
+					vendor.name !== ''
+						? vendor.name
+						: __( 'the vendor', 'italy-cookie-choices' )
+				) }
+				newCookie={ () => ( { name: '', duration: '', purpose: '' } ) }
+				onChange={ ( cookies ) => onChange( { ...vendor, cookies } ) }
+			/>
 			<Button
 				variant="secondary"
 				isDestructive
@@ -202,6 +215,27 @@ export function BlockingTab( props: BlockingTabProps ) {
 			>
 				{ __( 'Add a vendor', 'italy-cookie-choices' ) }
 			</Button>
+			<h3>{ __( 'Site cookies', 'italy-cookie-choices' ) }</h3>
+			<p>
+				{ __(
+					'The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors.',
+					'italy-cookie-choices'
+				) }
+			</p>
+			<CookieList
+				cookies={ settings.site_cookies ?? [] }
+				categories={ props.categories }
+				addLabel={ __( 'Add a site cookie', 'italy-cookie-choices' ) }
+				newCookie={ () => ( {
+					name: '',
+					category: props.categories[ 0 ]?.id ?? '',
+					duration: '',
+					purpose: '',
+				} ) }
+				onChange={ ( siteCookies ) =>
+					onChange( { ...settings, site_cookies: siteCookies } )
+				}
+			/>
 			<FormTokenField
 				__nextHasNoMarginBottom
 				__next40pxDefaultSize

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "italy-cookie-choices/cookie-table",
+	"title": "Cookie table",
+	"description": "The cookies of the site by category, with their provider, purpose and duration, for the cookie policy.",
+	"category": "widgets",
+	"icon": "list-view",
+	"keywords": [ "cookie", "policy", "privacy", "gdpr" ],
+	"textdomain": "italy-cookie-choices",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"padding": true,
+			"margin": true
+		},
+		"typography": {
+			"fontSize": true
+		}
+	},
+	"editorScript": "file:./index.ts"
+}
