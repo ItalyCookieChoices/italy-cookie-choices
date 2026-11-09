@@ -42,6 +42,7 @@ final readonly class Module implements ModuleInterface
                 ],
                 MicrosoftConsentScript::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
+                    ':buildUrl' => $this->pluginUrl . self::BUILD,
                 ],
                 WpConsentApiScript::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
