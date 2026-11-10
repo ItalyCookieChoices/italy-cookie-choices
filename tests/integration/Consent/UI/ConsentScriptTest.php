@@ -167,7 +167,7 @@ final class ConsentScriptTest extends WPTestCase
         $this->assertIsString($fixtures);
 
         return new ConsentScript(
-            new ConsentPolicyFactory($this->dispatcher()),
+            new ConsentPolicyFactory($this->dispatcher(), $this->options()),
             $this->options(),
             new ConsentCookieDomain($this->options()),
             new AssetLoader(),

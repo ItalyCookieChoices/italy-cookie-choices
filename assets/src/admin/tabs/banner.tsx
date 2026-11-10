@@ -59,6 +59,37 @@ export function BannerTab( props: SettingsProps ) {
 					'italy-cookie-choices'
 				) }
 			/>
+			<SelectField
+				{ ...props }
+				name="consent_duration"
+				label={ __(
+					'Ask the consent again after',
+					'italy-cookie-choices'
+				) }
+				help={ __(
+					'The Italian Data Protection Authority recommends 6 months. A new policy version asks again anyway.',
+					'italy-cookie-choices'
+				) }
+				defaultValue="182"
+				options={ [
+					{
+						value: '30',
+						label: __( '1 month', 'italy-cookie-choices' ),
+					},
+					{
+						value: '90',
+						label: __( '3 months', 'italy-cookie-choices' ),
+					},
+					{
+						value: '182',
+						label: __( '6 months', 'italy-cookie-choices' ),
+					},
+					{
+						value: '365',
+						label: __( '12 months', 'italy-cookie-choices' ),
+					},
+				] }
+			/>
 			<TextField
 				{ ...props }
 				name="cookie_domain"

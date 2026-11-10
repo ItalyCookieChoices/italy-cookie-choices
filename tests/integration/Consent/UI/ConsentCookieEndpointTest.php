@@ -113,7 +113,10 @@ final class ConsentCookieEndpointTest extends WPTestCase
 
         return new ConsentCookieEndpoint(
             new RenewConsent(
-                new ConsentPolicyFactory(new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState())),
+                new ConsentPolicyFactory(
+                    new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState()),
+                    $this->options()
+                ),
                 new CookieConsentRepository($cookies),
                 new CookieConsentStorage(
                     $cookies,

@@ -9,10 +9,11 @@ use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\Domain\ConsentDuration;
 use ItalyCookieChoices\Consent\Domain\ConsentPolicy;
 use ItalyCookieChoices\Consent\Domain\PolicyVersion;
+use ItalyCookieChoices\Settings\Options;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Builds the consent policy from the defaults and the listeners of BuildingConsentPolicy.
+ * Builds the consent policy from the defaults, the saved duration and the listeners of BuildingConsentPolicy.
  *
  * It is built when it is needed, after the themes have added their listeners.
  */
@@ -22,6 +23,7 @@ final readonly class ConsentPolicyFactory
 
     public function __construct(
         private EventDispatcherInterface $dispatcher,
+        private Options $options,
     ) {
     }
 
@@ -35,10 +37,20 @@ final readonly class ConsentPolicyFactory
                 new Category(Category::MARKETING)
             ),
             new PolicyVersion(self::DEFAULT_VERSION),
-            new ConsentDuration()
+            $this->duration()
         );
         $this->dispatcher->dispatch($event);
 
         return $event->policy();
+    }
+
+    /**
+     * The saved number of days, the default one when it is not a positive number.
+     */
+    private function duration(): ConsentDuration
+    {
+        $days = (int) $this->options->text('consent_duration');
+
+        return $days > 0 ? new ConsentDuration($days) : new ConsentDuration();
     }
 }

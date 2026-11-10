@@ -13,10 +13,13 @@ use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class HasConsentFilterTest extends WPTestCase
 {
+    use BuildsOptions;
+
     public function testItAnswersTheHasConsentFilter(): void
     {
         $this->assertSame(
@@ -87,7 +90,7 @@ final class HasConsentFilterTest extends WPTestCase
         }
 
         return new HasConsentFilter(
-            new ConsentPolicyFactory($this->dispatcher()),
+            new ConsentPolicyFactory($this->dispatcher(), $this->options()),
             new CookieConsentRepository($cookies)
         );
     }

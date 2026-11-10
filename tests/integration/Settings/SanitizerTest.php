@@ -79,6 +79,7 @@ final class SanitizerTest extends WPTestCase
             'all_block',
             'consent_log',
             'consent_log_retention',
+            'consent_duration',
             'consent_mode',
             'consent_mode_advanced',
             'youtube_nocookie',

@@ -11,10 +11,13 @@ use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class RenewConsentTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const GIVEN_AT = '2026-11-01T10:00:00.000Z';
 
     public function testAValidConsentIsKeptUntilItExpires(): void
@@ -99,7 +102,10 @@ final class RenewConsentTest extends WPTestCase
     private function makeSut(array $cookies, ConsentStorage $storage): RenewConsent
     {
         return new RenewConsent(
-            new ConsentPolicyFactory(new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState())),
+            new ConsentPolicyFactory(
+                new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState()),
+                $this->options()
+            ),
             new CookieConsentRepository($cookies),
             $storage
         );
