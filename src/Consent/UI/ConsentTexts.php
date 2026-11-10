@@ -81,6 +81,10 @@ final readonly class ConsentTexts
             BuildingBanner::PREFERENCES_TITLE => \__('Cookie preferences', 'italy-cookie-choices'),
             BuildingBanner::SAVE => \__('Save preferences', 'italy-cookie-choices'),
             BuildingBanner::CLOSE_PREFERENCES => \__('Close the preferences', 'italy-cookie-choices'),
+            BuildingBanner::GLOBAL_PRIVACY_CONTROL => \__(
+                'Your browser asks not to share your data: accepting all leaves out the marketing cookies.',
+                'italy-cookie-choices'
+            ),
         ];
     }
 

@@ -206,6 +206,8 @@ add_action( BuildingConsentPolicy::class, static function ( BuildingConsentPolic
 
 add_action( BuildingBanner::class, static function ( BuildingBanner $event ): void {
 	$event->changeCategoryLabel( 'social', 'Social network', 'Pulsanti di condivisione e post incorporati.' );
+	// La nota mostrata quando il browser invia il segnale Global Privacy Control.
+	$event->changeText( BuildingBanner::GLOBAL_PRIVACY_CONTROL, 'Il tuo browser invia il GPC: il marketing resta disattivato.' );
 } );
 ```
 

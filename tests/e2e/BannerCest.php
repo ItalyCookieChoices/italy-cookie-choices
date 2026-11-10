@@ -421,6 +421,36 @@ final class BannerCest
         $I->assertSame([], $I->grabAccessibilityViolations(self::PREFERENCES));
     }
 
+    public function acceptAllLeavesOutMarketingWhenTheBrowserSendsTheGlobalPrivacyControl(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['global_privacy_control' => '1']);
+        $I->haveOptionInDatabase('icc_e2e_gpc', '1');
+
+        $I->amOnPage('/');
+
+        $I->waitForElementVisible(self::BANNER);
+        $I->see('Your browser asks not to share your data', self::BANNER . ' .icc-banner__gpc');
+        $I->click(self::ACCEPT);
+        $I->waitForElementNotVisible(self::BANNER);
+        $I->assertSame(['necessary', 'preferences', 'statistics'], $this->consentCategories($I));
+    }
+
+    public function acceptAllAcceptsMarketingWhenTheSiteIgnoresTheGlobalPrivacyControl(E2eTester $I): void
+    {
+        // At the current version, so the migration does not turn the Global Privacy Control on.
+        $I->haveOptionInDatabase('italy_cookie_choices_version', 10);
+        $I->haveCookieChoicesOptions(['global_privacy_control' => null]);
+        $I->haveOptionInDatabase('icc_e2e_gpc', '1');
+
+        $I->amOnPage('/');
+
+        $I->waitForElementVisible(self::BANNER);
+        $I->dontSeeElementInDOM(self::BANNER . ' .icc-banner__gpc');
+        $I->click(self::ACCEPT);
+        $I->waitForElementNotVisible(self::BANNER);
+        $I->assertSame(self::ALL_CATEGORIES, $this->consentCategories($I));
+    }
+
     /**
      * @return mixed The categories of the consent in the browser.
      */

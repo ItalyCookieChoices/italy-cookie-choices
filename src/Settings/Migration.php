@@ -109,6 +109,7 @@ final readonly class Migration implements SubscriberInterface
             7 => $this->turnOnTheMicrosoftConsent(...),
             8 => $this->turnOffTheNewPresets(...),
             9 => $this->addTheCookiesOfTheCustomVendors(...),
+            10 => $this->respectTheGlobalPrivacyControl(...),
         ];
     }
 
@@ -233,6 +234,17 @@ final readonly class Migration implements SubscriberInterface
         $option['disabled_vendors'] = \array_values(\array_unique([...$disabled, ...Schema::VENDORS_OFF_BY_DEFAULT]));
 
         return $option;
+    }
+
+    /**
+     * Version 10: accept all leaves out the marketing cookies when the browser sends the Global Privacy Control.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function respectTheGlobalPrivacyControl(array $option): array
+    {
+        return $option + Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS;
     }
 
     /**

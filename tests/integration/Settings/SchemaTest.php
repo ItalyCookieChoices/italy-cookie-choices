@@ -13,7 +13,8 @@ final class SchemaTest extends WPTestCase
      * Every key the 2.x versions read from the option, without scroll and secondView removed in version 2,
      * plus the consent log of version 4, the vendors of version 5 that replaced the script lists
      * the integrations of version 6 and the Microsoft consent signals of version 7.
-     * Version 8 adds no key, it turns off the reCAPTCHA preset, version 9 adds the site cookies.
+     * Version 8 adds no key, it turns off the reCAPTCHA preset, version 9 adds the site cookies,
+     * version 10 the Global Privacy Control.
      */
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg', 'banner_logo',
@@ -21,14 +22,14 @@ final class SchemaTest extends WPTestCase
         'consent_log', 'consent_log_retention', 'consent_mode', 'consent_mode_advanced', 'contentStyle',
         'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
         'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id', 'floating_button',
-        'floating_button_label', 'floating_button_position', 'ga_measurement_id',
+        'floating_button_label', 'floating_button_position', 'ga_measurement_id', 'global_privacy_control',
         'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass', 'js_template', 'nofollow',
         'reload', 'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'youtube_nocookie',
     ];
 
-    public function testTheSchemaIsAtVersion9(): void
+    public function testTheSchemaIsAtVersion10(): void
     {
-        $this->assertSame(9, Schema::VERSION);
+        $this->assertSame(10, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void
@@ -50,6 +51,7 @@ final class SchemaTest extends WPTestCase
                 'uet_consent_mode' => '1',
                 'clarity_consent_mode' => '1',
                 'disabled_vendors' => ['google-recaptcha'],
+                'global_privacy_control' => '1',
             ],
             (new Schema())->defaults()
         );

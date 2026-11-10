@@ -23,12 +23,14 @@ const config: ConsentConfig = {
 const MARKUP = `
 <div id="icc-banner" role="dialog" aria-modal="false" tabindex="-1" data-reload="0" data-html-margin="0" hidden>
 	<p>Text <a href="/policy">Policy</a></p>
+	<p class="gpc-note" data-icc-gpc-note hidden>Your browser sends the Global Privacy Control signal.</p>
 	<button type="button" data-icc-action="accept-all">Accept all</button>
 	<button type="button" data-icc-action="reject-all">Reject all</button>
 	<button type="button" data-icc-action="preferences" aria-expanded="false">Preferences</button>
 	<button type="button" data-icc-action="close">Close</button>
 </div>
 <div id="icc-preferences" role="dialog" aria-modal="true" tabindex="-1" hidden>
+	<p class="gpc-note" data-icc-gpc-note hidden>Your browser sends the Global Privacy Control signal.</p>
 	<form>
 		<input type="checkbox" name="icc-category" value="necessary" checked disabled>
 		<input type="checkbox" name="icc-category" value="statistics">
@@ -60,7 +62,10 @@ function element< T extends HTMLElement = HTMLElement >( selector: string ): T {
 	return found;
 }
 
-function setUp( dataset: Record< string, string > = {} ) {
+function setUp(
+	dataset: Record< string, string > = {},
+	globalPrivacyControl = false
+) {
 	document.body.innerHTML = MARKUP;
 	const banner = element( '#icc-banner' );
 	Object.assign( banner.dataset, dataset );
@@ -88,7 +93,8 @@ function setUp( dataset: Record< string, string > = {} ) {
 					floatingButton: element( '#icc-floating-button' ),
 				},
 				api,
-				reload
+				reload,
+				() => globalPrivacyControl
 			).start(),
 	};
 }
@@ -364,4 +370,79 @@ describe( 'the floating button', () => {
 
 		expect( floatingButton.hidden ).toBe( true );
 	} );
+} );
+
+describe( 'the Global Privacy Control signal of the browser', () => {
+	beforeEach( clearCookies );
+
+	const notes = () =>
+		Array.from( document.querySelectorAll< HTMLElement >( '.gpc-note' ) );
+
+	it.each( [
+		[ 'the banner', '#icc-banner [data-icc-action="accept-all"]' ],
+		[
+			'the preferences',
+			'#icc-preferences [data-icc-action="accept-all"]',
+		],
+	] )( 'accept all in %s leaves out marketing', ( _place, selector ) => {
+		const { api, start } = setUp( { globalPrivacyControl: '1' }, true );
+		start();
+		element( '[data-icc-action="preferences"]' ).click();
+
+		element( selector ).click();
+
+		expect( api.getConsent()?.categories ).toEqual( [
+			'necessary',
+			'statistics',
+		] );
+	} );
+
+	it( 'shows why in the banner and in the preferences', () => {
+		const { start } = setUp( { globalPrivacyControl: '1' }, true );
+
+		start();
+
+		expect( notes().map( ( note ) => note.hidden ) ).toEqual( [
+			false,
+			false,
+		] );
+	} );
+
+	it( 'lets the visitor choose marketing in the preferences', () => {
+		const { api, start } = setUp( { globalPrivacyControl: '1' }, true );
+		start();
+		element( '[data-icc-action="preferences"]' ).click();
+
+		element< HTMLInputElement >( 'input[value="marketing"]' ).click();
+		element( 'button[type="submit"]' ).click();
+
+		expect( api.getConsent()?.categories ).toEqual( [
+			'necessary',
+			'marketing',
+		] );
+	} );
+
+	it.each( [
+		[ 'the site ignores it', { globalPrivacyControl: '0' }, true ],
+		[
+			'the browser does not send it',
+			{ globalPrivacyControl: '1' },
+			false,
+		],
+	] )(
+		'accept all accepts everything when %s',
+		( _case, dataset, signal ) => {
+			const { api, start } = setUp( dataset, signal );
+			start();
+
+			element( '#icc-banner [data-icc-action="accept-all"]' ).click();
+
+			expect( api.getConsent()?.categories ).toEqual( [
+				'necessary',
+				'statistics',
+				'marketing',
+			] );
+			expect( notes().every( ( note ) => note.hidden ) ).toBe( true );
+		}
+	);
 } );

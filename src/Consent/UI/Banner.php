@@ -150,6 +150,7 @@ final readonly class Banner implements SubscriberInterface
             'modal' => $position === self::POSITIONS['2'],
             'opensByItself' => $this->opensByItself(),
             'reload' => $this->options->isChecked('reload'),
+            'globalPrivacyControl' => $this->options->isChecked('global_privacy_control'),
             'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
             'text' => \wp_kses_post($this->options->translated('text')),
             'link' => $this->link(),

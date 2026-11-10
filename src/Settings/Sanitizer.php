@@ -63,6 +63,7 @@ final readonly class Sanitizer
         'uet_consent_mode' => self::RAW,
         'clarity_consent_mode' => self::RAW,
         'floating_button' => self::RAW,
+        'global_privacy_control' => self::RAW,
         'floating_button_position' => self::RAW,
         'floating_button_label' => self::TEXT,
         'categories' => self::CATEGORIES,

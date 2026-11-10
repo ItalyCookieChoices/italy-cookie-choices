@@ -18,6 +18,8 @@ use ItalyStrap\Config\ConfigInterface;
 $buttonClass = (string) $this->get(['classes', 'button']);
 $linkUrl = (string) $this->get(['link', 'url']);
 $linkRel = (string) $this->get(['link', 'rel']);
+$globalPrivacyControl = (bool) $this->get('globalPrivacyControl');
+$globalPrivacyControlNote = (string) $this->get(['texts', 'globalPrivacyControl']);
 ?>
 <div
     id="icc-banner"
@@ -30,6 +32,7 @@ $linkRel = (string) $this->get(['link', 'rel']);
     data-reload="<?php echo (bool) $this->get('reload') ? '1' : '0'; ?>"
     data-html-margin="<?php echo (bool) $this->get('htmlMargin') ? '1' : '0'; ?>"
     data-opens-by-itself="<?php echo (bool) $this->get('opensByItself') ? '1' : '0'; ?>"
+    data-global-privacy-control="<?php echo $globalPrivacyControl ? '1' : '0'; ?>"
     hidden
 >
     <div class="<?php echo \esc_attr((string) $this->get(['classes', 'content'])); ?>">
@@ -48,6 +51,9 @@ $linkRel = (string) $this->get(['link', 'rel']);
                 ><?php echo \esc_html((string) $this->get(['link', 'text'])); ?></a>
             <?php endif; ?>
         </div>
+        <?php if ($globalPrivacyControl) : ?>
+            <p class="icc-banner__gpc" data-icc-gpc-note hidden><?php echo \esc_html($globalPrivacyControlNote); ?></p>
+        <?php endif; ?>
         <div class="icc-banner__actions">
             <button type="button" class="<?php echo \esc_attr($buttonClass); ?>" data-icc-action="accept-all">
                 <?php echo \esc_html((string) $this->get(['texts', 'acceptAll'])); ?>
@@ -84,6 +90,9 @@ $linkRel = (string) $this->get(['link', 'rel']);
         <h2 id="icc-preferences-title" class="icc-preferences__title">
             <?php echo \esc_html((string) $this->get(['texts', 'preferencesTitle'])); ?>
         </h2>
+        <?php if ($globalPrivacyControl) : ?>
+            <p class="icc-banner__gpc" data-icc-gpc-note hidden><?php echo \esc_html($globalPrivacyControlNote); ?></p>
+        <?php endif; ?>
         <form class="icc-preferences__form">
             <fieldset class="icc-preferences__categories">
                 <legend class="icc-visually-hidden">

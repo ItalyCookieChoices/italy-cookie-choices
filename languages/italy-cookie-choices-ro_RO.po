@@ -22,11 +22,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:152
+#: src/Settings/Sanitizer.php:153
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:153
+#: src/Settings/Sanitizer.php:154
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -70,7 +70,7 @@ msgid "Reject all"
 msgstr ""
 
 #: src/Consent/UI/ConsentTexts.php:79
-#: src/Consent/UI/ConsentTexts.php:120
+#: src/Consent/UI/ConsentTexts.php:124
 #: assets/build/settings.js:1
 msgid "Preferences"
 msgstr ""
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Close and keep only the necessary cookies"
 msgstr ""
 
-#: src/Consent/UI/Banner.php:196
+#: src/Consent/UI/Banner.php:197
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -95,32 +95,32 @@ msgstr ""
 msgid "Close the preferences"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:113
+#: src/Consent/UI/ConsentTexts.php:117
 msgid "Necessary"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:114
+#: src/Consent/UI/ConsentTexts.php:118
 msgid "Needed for the site to work, like the cookie that stores this choice. Always active."
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:121
+#: src/Consent/UI/ConsentTexts.php:125
 msgid "Remember your choices, like the language or the region."
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:124
+#: src/Consent/UI/ConsentTexts.php:128
 #: assets/build/settings.js:7
 msgid "Statistics"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:125
+#: src/Consent/UI/ConsentTexts.php:129
 msgid "Help to understand how the site is used, collecting anonymous data."
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:131
+#: src/Consent/UI/ConsentTexts.php:135
 msgid "Marketing"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:132
+#: src/Consent/UI/ConsentTexts.php:136
 msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
 msgstr ""
 
@@ -1128,4 +1128,16 @@ msgstr ""
 
 #: src/Settings/UI/SettingsAbility.php:32
 msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
+msgstr ""
+
+#: src/Consent/UI/ConsentTexts.php:84
+msgid "Your browser asks not to share your data: accepting all leaves out the marketing cookies."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Respect the Global Privacy Control of the browser"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "When the browser of the visitor asks not to share the data, accept all leaves out the marketing cookies. The visitor can still choose them in the preferences."
 msgstr ""

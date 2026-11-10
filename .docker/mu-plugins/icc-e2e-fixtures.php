@@ -27,6 +27,15 @@ add_action('wp_footer', static function (): void {
     echo '<script id="icc-footer-tracker">window.iccFooterTracker = true;</script>';
 }, 1);
 
+// The browser sends the Global Privacy Control signal, Chrome has no setting for it.
+add_action('wp_head', static function (): void {
+    if (!get_option('icc_e2e_gpc')) {
+        return;
+    }
+
+    echo '<script id="icc-gpc">Object.defineProperty(navigator, "globalPrivacyControl", {value: true});</script>';
+}, 0);
+
 // Records the consent events from the first line of the page, before the consent script runs.
 add_action('wp_head', static function (): void {
     if (!get_option('icc_e2e_events')) {

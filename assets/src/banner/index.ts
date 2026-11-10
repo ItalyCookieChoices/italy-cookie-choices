@@ -19,7 +19,10 @@ function start(): void {
 			floatingButton: document.getElementById( 'icc-floating-button' ),
 		},
 		api,
-		() => window.location.reload()
+		() => window.location.reload(),
+		() =>
+			( navigator as Navigator & { globalPrivacyControl?: boolean } )
+				.globalPrivacyControl === true
 	).start();
 }
 
