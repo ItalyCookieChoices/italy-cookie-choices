@@ -23,11 +23,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: src/Settings/Sanitizer.php:153
+#: src/Settings/Sanitizer.php:158
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
 
-#: src/Settings/Sanitizer.php:154
+#: src/Settings/Sanitizer.php:159
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
 
@@ -1174,3 +1174,11 @@ msgstr "Questo sito usa le impostazioni del sito principale della rete: qui camb
 #: assets/build/settings.js:7
 msgid "Texts"
 msgstr "Testi"
+
+#: assets/build/settings.js:1
+msgid "Cookie domain"
+msgstr "Dominio dei cookie"
+
+#: assets/build/settings.js:1
+msgid "Empty for the domain of the site only. Write the main domain, like example.com, to share the consent with its subdomains, like www.example.com and shop.example.com. A domain the site is not part of is not saved."
+msgstr "Vuoto per il solo dominio del sito. Scrivi il dominio principale, come example.com, per condividere il consenso con i suoi sottodomini, come www.example.com e shop.example.com. Un dominio di cui il sito non fa parte non viene salvato."

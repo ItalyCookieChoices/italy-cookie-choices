@@ -32,6 +32,18 @@ describe( 'parseConfig', () => {
 		).toBe( 'https://example.com/consent-cookie' );
 	} );
 
+	it( 'reads the domain of the consent cookie', () => {
+		expect(
+			parseConfig( { cookieDomain: 'example.com' } ).cookieDomain
+		).toBe( 'example.com' );
+		expect(
+			parseConfig( { cookieDomain: '' } ).cookieDomain
+		).toBeUndefined();
+		expect(
+			parseConfig( { cookieDomain: 42 } ).cookieDomain
+		).toBeUndefined();
+	} );
+
 	it.each( [ [ '' ], [ 42 ], [ undefined ] ] )(
 		'does not renew the consent cookie without an address, %p',
 		( renewalUrl ) => {

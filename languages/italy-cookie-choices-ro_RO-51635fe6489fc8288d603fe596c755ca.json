@@ -459,6 +459,12 @@
             ],
             "Texts": [
                 ""
+            ],
+            "Cookie domain": [
+                ""
+            ],
+            "Empty for the domain of the site only. Write the main domain, like example.com, to share the consent with its subdomains, like www.example.com and shop.example.com. A domain the site is not part of is not saved.": [
+                ""
             ]
         }
     }

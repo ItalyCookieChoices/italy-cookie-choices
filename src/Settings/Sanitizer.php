@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
+use ItalyCookieChoices\Consent\Domain\CookieDomain;
+
 /**
  * Sanitizes the option saved from the settings page, the REST API or an import.
  */
@@ -21,6 +23,7 @@ final readonly class Sanitizer
     private const TAG_ID = 'tag_id';
     private const PATH = 'path';
     private const ATTACHMENT = 'attachment';
+    private const DOMAIN = 'domain';
     private const SITE_COOKIES = 'site_cookies';
 
     /**
@@ -59,6 +62,7 @@ final readonly class Sanitizer
         'facebook_pixel_id' => self::TAG_ID,
         'google_tag_gateway_path' => self::PATH,
         'banner_logo' => self::ATTACHMENT,
+        'cookie_domain' => self::DOMAIN,
         'youtube_nocookie' => self::RAW,
         'uet_consent_mode' => self::RAW,
         'clarity_consent_mode' => self::RAW,
@@ -129,6 +133,7 @@ final readonly class Sanitizer
             self::TAG_ID => $this->tagId($name, $value),
             self::PATH => $this->path($name, $value),
             self::ATTACHMENT => $this->attachment($value),
+            self::DOMAIN => $this->domain($value),
             self::SITE_COOKIES => $this->siteCookies($value),
             default => $this->required($name, $value),
         };
@@ -218,6 +223,15 @@ final readonly class Sanitizer
         $id = \is_int($value) ? (string) $value : \trim($this->toString($value));
 
         return \preg_match('/^[1-9][0-9]*$/', $id) === 1 ? $id : '';
+    }
+
+    /**
+     * The domain of the consent cookie, empty when the browsers would refuse it on this site.
+     */
+    private function domain(mixed $value): string
+    {
+        return (new CookieDomain($this->toString($value)))
+            ->forHost((string) \wp_parse_url(\home_url(), \PHP_URL_HOST));
     }
 
     private function path(string $name, mixed $value): string

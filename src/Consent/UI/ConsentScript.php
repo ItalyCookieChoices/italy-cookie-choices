@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
@@ -38,6 +39,7 @@ final readonly class ConsentScript implements SubscriberInterface
     public function __construct(
         private ConsentPolicyFactory $policy,
         private Options $options,
+        private ConsentCookieDomain $cookieDomain,
         private AssetLoader $assets,
         private string $buildPath,
         private string $buildUrl,
@@ -94,7 +96,8 @@ final readonly class ConsentScript implements SubscriberInterface
      *     version: string,
      *     durationDays: int,
      *     legacyCookie: array{name: string, value: string},
-     *     renewalUrl: string
+     *     renewalUrl: string,
+     *     cookieDomain: string
      * }
      */
     public function config(): array
@@ -113,6 +116,7 @@ final readonly class ConsentScript implements SubscriberInterface
             'durationDays' => $policy->duration()->days(),
             'legacyCookie' => $this->options->legacyCookie(),
             'renewalUrl' => \rest_url(ConsentCookieEndpoint::NAMESPACE . ConsentCookieEndpoint::ROUTE),
+            'cookieDomain' => $this->cookieDomain->forThisSite(),
         ];
     }
 
