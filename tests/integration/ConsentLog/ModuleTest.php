@@ -9,6 +9,7 @@ use ItalyCookieChoices\ConsentLog\Infrastructure\DatabaseConsentLog;
 use ItalyCookieChoices\ConsentLog\Module;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogEndpoint;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\ConsentLog\UI\ConsentStatisticsAbility;
 use ItalyCookieChoices\ConsentLog\UI\ConsentStatisticsEndpoint;
 use ItalyCookieChoices\ConsentLog\UI\LogScript;
 use ItalyCookieChoices\ConsentLog\UI\LogTableInstaller;
@@ -35,6 +36,7 @@ final class ModuleTest extends WPTestCase
                 ConsentLogExport::class,
                 PrivacyPolicyText::class,
                 ConsentStatisticsEndpoint::class,
+                ConsentStatisticsAbility::class,
             ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );

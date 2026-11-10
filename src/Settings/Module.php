@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
+use ItalyCookieChoices\Settings\UI\Abilities;
 use ItalyCookieChoices\Settings\UI\ImportEndpoint;
 use ItalyCookieChoices\Settings\UI\PluginActionLinks;
+use ItalyCookieChoices\Settings\UI\SettingsAbility;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Settings\UI\StringRegistration;
 use ItalyStrap\Empress\AurynConfig;
@@ -51,6 +53,8 @@ final readonly class Module implements ModuleInterface
                 SettingsPage::class,
                 ImportEndpoint::class,
                 PluginActionLinks::class,
+                Abilities::class,
+                SettingsAbility::class,
             ],
         ];
     }

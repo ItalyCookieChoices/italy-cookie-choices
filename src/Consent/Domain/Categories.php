@@ -44,6 +44,16 @@ final readonly class Categories implements \IteratorAggregate
         return \array_values(\array_map(static fn(Category $category): string => $category->id(), $required));
     }
 
+    /**
+     * The categories the visitor can accept or refuse.
+     *
+     * @return list<string>
+     */
+    public function optionalIds(): array
+    {
+        return \array_values(\array_diff($this->ids(), $this->requiredIds()));
+    }
+
     public function has(string $id): bool
     {
         return \in_array($id, $this->ids(), true);

@@ -31,6 +31,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Send the Google Consent Mode v2 signals, in the basic or advanced mode
 * Send the consent to Microsoft Advertising (UET) and Microsoft Clarity
 * Write the consent to the WP Consent API, for WooCommerce, Site Kit and the other plugins that read it
+* Let the AI tools read the settings and turn the vendors on or off, with the Abilities API of WordPress 6.9
 * Print Google Analytics, Google Tag Manager and the Facebook pixel from their ids
 * Preview the banner while you change the settings
 * Translate the texts with WPML and Polylang, the plugin is translated in Italian
@@ -44,6 +45,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * [Cookie table](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/cookie-table.md)
 * [Multilingual sites](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/multilingual.md)
 * [Integrations, for the developers](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/integrations.md)
+* [Abilities for the AI tools](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/abilities.md)
 * [Upgrading from 2.x](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/upgrade-3.0.md)
 * [Documentazione in italiano](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/it/README.md)
 

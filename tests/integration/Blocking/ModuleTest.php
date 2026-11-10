@@ -8,6 +8,7 @@ use ItalyCookieChoices\Blocking\Module;
 use ItalyCookieChoices\Blocking\UI\BlockingFilters;
 use ItalyCookieChoices\Blocking\UI\PageBuffer;
 use ItalyCookieChoices\Blocking\UI\Placeholders;
+use ItalyCookieChoices\Blocking\UI\VendorAbilities;
 use ItalyCookieChoices\Consent\Module as ConsentModule;
 use ItalyCookieChoices\Module as PluginModule;
 use ItalyStrap\Empress\ContainerBuilder;
@@ -23,7 +24,7 @@ final class ModuleTest extends WPTestCase
 
         $this->assertIsArray($config);
         $this->assertSame(
-            [BlockingFilters::class, PageBuffer::class, Placeholders::class],
+            [BlockingFilters::class, PageBuffer::class, Placeholders::class, VendorAbilities::class],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
     }
@@ -42,5 +43,6 @@ final class ModuleTest extends WPTestCase
         $this->assertInstanceOf(BlockingFilters::class, $container->get(BlockingFilters::class));
         $this->assertInstanceOf(PageBuffer::class, $container->get(PageBuffer::class));
         $this->assertInstanceOf(Placeholders::class, $container->get(Placeholders::class));
+        $this->assertInstanceOf(VendorAbilities::class, $container->get(VendorAbilities::class));
     }
 }

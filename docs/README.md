@@ -16,6 +16,7 @@ Cookie Choices, formerly Italy Cookie Choices, asks the consent of your visitors
 ## For the developers
 
 * [Integrations](integrations.md): Google Consent Mode v2, the consent API, the events to block a script, add a vendor or change the texts.
+* [Abilities for the AI tools](abilities.md): read the settings and the consent statistics, turn the vendors on or off, with the Abilities API of WordPress.
 
 ## Requirements
 

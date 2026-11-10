@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\ConsentLog\UI;
 
-use ItalyCookieChoices\Consent\UI\ConsentTexts;
-use ItalyCookieChoices\ConsentLog\Application\StatisticsFactory;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -20,8 +18,7 @@ final readonly class ConsentStatisticsEndpoint implements SubscriberInterface
     private const CAPABILITY = 'manage_options';
 
     public function __construct(
-        private StatisticsFactory $statistics,
-        private ConsentTexts $texts,
+        private StatisticsReport $report,
     ) {
     }
 
@@ -34,33 +31,8 @@ final readonly class ConsentStatisticsEndpoint implements SubscriberInterface
     {
         \register_rest_route(ConsentLogEndpoint::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::READABLE,
-            'callback' => $this->read(...),
+            'callback' => fn(): \WP_REST_Response => new \WP_REST_Response($this->report->toArray()),
             'permission_callback' => static fn(): bool => \current_user_can(self::CAPABILITY),
         ]);
-    }
-
-    private function read(): \WP_REST_Response
-    {
-        return new \WP_REST_Response([
-            'categories' => $this->optionalCategories(),
-            'months' => $this->statistics->create()->months(),
-        ]);
-    }
-
-    /**
-     * @return list<array{id: string, label: string}>
-     */
-    private function optionalCategories(): array
-    {
-        $categories = [];
-        foreach ($this->texts->all()['categories'] as $category) {
-            if ($category['required']) {
-                continue;
-            }
-
-            $categories[] = ['id' => $category['id'], 'label' => $category['label']];
-        }
-
-        return $categories;
     }
 }

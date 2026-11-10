@@ -134,4 +134,27 @@ final class OptionsTest extends WPTestCase
         $this->assertSame([], $sut->records('text'));
         $this->assertSame([], $sut->records('missing'));
     }
+
+    public function testTheSavedSettingsAreTheWholeOption(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'text' => 'Hello']);
+
+        $saved = $this->options()->all();
+
+        $this->assertSame('1', $saved['active'] ?? null);
+        $this->assertSame('Hello', $saved['text'] ?? null);
+        $this->assertSame(\get_option(Schema::OPTION), $saved);
+    }
+
+    public function testSavingChangesOnlyTheGivenSettingsThroughTheSanitizer(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'anchor_text' => 'More']);
+
+        $this->options()->save(['anchor_text' => '<b>Read</b>']);
+
+        $saved = \get_option(Schema::OPTION);
+        $this->assertIsArray($saved);
+        $this->assertSame('1', $saved['active'] ?? null);
+        $this->assertSame('Read', $saved['anchor_text'] ?? null);
+    }
 }
