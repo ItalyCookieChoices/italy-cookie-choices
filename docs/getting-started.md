@@ -22,7 +22,8 @@ The banner always has three buttons with the same importance: accept all, reject
 
 ## Style
 
-* **Position**: a bar at the top, a bar at the bottom or a modal window.
+* **Position**: a bar at the top, a bar at the bottom, a modal window, or a box in the bottom left or right corner. In the box the three buttons are stacked at the same width.
+* **Logo**: an image of the media library, shown above the title of the banner. Its alternative text comes from the media library.
 * **Template**: default, big buttons, small buttons, or custom. The custom template prints no style, only your custom CSS.
 * **Background color** and **Text color**.
 * **Custom CSS**: added after the styles of the plugin.

@@ -20,6 +20,7 @@ final readonly class Sanitizer
     private const PATTERNS = 'patterns';
     private const TAG_ID = 'tag_id';
     private const PATH = 'path';
+    private const ATTACHMENT = 'attachment';
     private const SITE_COOKIES = 'site_cookies';
 
     /**
@@ -57,6 +58,7 @@ final readonly class Sanitizer
         'gtm_container_id' => self::TAG_ID,
         'facebook_pixel_id' => self::TAG_ID,
         'google_tag_gateway_path' => self::PATH,
+        'banner_logo' => self::ATTACHMENT,
         'youtube_nocookie' => self::RAW,
         'uet_consent_mode' => self::RAW,
         'clarity_consent_mode' => self::RAW,
@@ -125,6 +127,7 @@ final readonly class Sanitizer
             self::PATTERNS => $this->patterns($value),
             self::TAG_ID => $this->tagId($name, $value),
             self::PATH => $this->path($name, $value),
+            self::ATTACHMENT => $this->attachment($value),
             self::SITE_COOKIES => $this->siteCookies($value),
             default => $this->required($name, $value),
         };
@@ -206,6 +209,16 @@ final readonly class Sanitizer
      * The path of an address or of a text, with the leading slash and without the trailing one,
      * empty when it is the root or it has not the shape of a path, like /metrics.
      */
+    /**
+     * The id of an attachment, empty when it is not a positive number.
+     */
+    private function attachment(mixed $value): string
+    {
+        $id = \is_int($value) ? (string) $value : \trim($this->toString($value));
+
+        return \preg_match('/^[1-9][0-9]*$/', $id) === 1 ? $id : '';
+    }
+
     private function path(string $name, mixed $value): string
     {
         $path = (string) \wp_parse_url(\trim($this->toString($value)), \PHP_URL_PATH);

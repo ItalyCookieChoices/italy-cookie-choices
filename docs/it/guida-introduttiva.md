@@ -22,7 +22,8 @@ Il banner ha sempre tre pulsanti con la stessa importanza: accetta tutti, rifiut
 
 ## Stile
 
-* **Posizione**: una barra in alto, una barra in basso o una finestra modale.
+* **Posizione**: una barra in alto, una barra in basso, una finestra modale, o un riquadro nell'angolo in basso a sinistra o a destra. Nel riquadro i tre pulsanti sono uno sopra l'altro, con la stessa larghezza.
+* **Logo**: un'immagine della libreria media, mostrata sopra il titolo del banner. Il suo testo alternativo viene dalla libreria media.
 * **Modello**: predefinito, pulsanti grandi, pulsanti piccoli o personalizzato. Il modello personalizzato non stampa stili, solo il tuo CSS personalizzato.
 * **Colore di sfondo** e **Colore del testo**.
 * **CSS personalizzato**: aggiunto dopo gli stili del plugin.

@@ -33,6 +33,7 @@ $linkRel = (string) $this->get(['link', 'rel']);
     hidden
 >
     <div class="<?php echo \esc_attr((string) $this->get(['classes', 'content'])); ?>">
+        <?php echo (string) $this->get('logo'); // Escaped by wp_get_attachment_image(). ?>
         <h2 id="icc-banner-title" class="icc-banner__title">
             <?php echo \esc_html((string) $this->get(['texts', 'title'])); ?>
         </h2>

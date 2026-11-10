@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-09T20:21:53+00:00\n"
+"POT-Creation-Date: 2026-11-09T21:47:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Accept all"
 msgstr ""
 
-#: src/Consent/UI/Banner.php:178
+#: src/Consent/UI/Banner.php:196
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -384,11 +384,11 @@ msgstr ""
 msgid "The bots are no longer detected, they do not run the consent scripts."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:149
+#: src/Settings/Sanitizer.php:152
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:150
+#: src/Settings/Sanitizer.php:153
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
@@ -804,6 +804,26 @@ msgid "The videos load from youtube-nocookie.com, they still wait for the market
 msgstr ""
 
 #: assets/build/settings.js:7
+msgid "Logo"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "An image of the media library above the title of the banner."
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Replace the logo"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Choose a logo"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Remove the logo"
+msgstr ""
+
+#: assets/build/settings.js:7
 msgid "Position"
 msgstr ""
 
@@ -817,6 +837,14 @@ msgstr ""
 
 #: assets/build/settings.js:7
 msgid "Bottom bar"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Box in the bottom left corner"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Box in the bottom right corner"
 msgstr ""
 
 #: assets/build/settings.js:7

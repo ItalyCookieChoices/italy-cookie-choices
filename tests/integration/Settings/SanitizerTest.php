@@ -284,6 +284,27 @@ final class SanitizerTest extends WPTestCase
         $this->assertSame($expected, $sanitized['google_tag_gateway_path']);
     }
 
+    /**
+     * @return iterable<string, array{mixed, string}>
+     */
+    public function logos(): iterable
+    {
+        yield 'attachment id' => ['42', '42'];
+        yield 'number' => [42, '42'];
+        yield 'empty' => ['', ''];
+        yield 'zero' => ['0', ''];
+        yield 'text' => ['logo.png', ''];
+        yield 'negative' => ['-3', ''];
+    }
+
+    /**
+     * @dataProvider logos
+     */
+    public function testTheLogoIsAnAttachmentId(mixed $value, string $expected): void
+    {
+        $this->assertSame($expected, (new Sanitizer())(['banner_logo' => $value])['banner_logo']);
+    }
+
     public function testTheAllowedPatternsAreUniqueTexts(): void
     {
         $result = (new Sanitizer())(['allowed_patterns' => ['iccAllowed', ' iccAllowed ', '', 42, ['x']]]);

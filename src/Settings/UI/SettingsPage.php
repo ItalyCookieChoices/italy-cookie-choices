@@ -123,6 +123,9 @@ final readonly class SettingsPage implements SubscriberInterface
             return;
         }
 
+        // The media library of the logo of the banner.
+        \wp_enqueue_media();
+
         $this->assets->load(
             new Script(
                 handle: new Handle(self::HANDLE),

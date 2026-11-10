@@ -125,6 +125,30 @@ export async function searchPages( search: string ): Promise< Page[] > {
 		: [];
 }
 
+/** An image of the media library, as the settings page shows it. */
+export interface Media {
+	url: string;
+	alt: string;
+}
+
+/**
+ * The address and the alternative text of an attachment, null when it is missing.
+ * @param id The attachment id.
+ */
+export async function loadMedia( id: number ): Promise< Media | null > {
+	const response: unknown = await apiFetch( {
+		path: `/wp/v2/media/${ id }?_fields=source_url,alt_text`,
+	} );
+	if ( ! isRecord( response ) || typeof response.source_url !== 'string' ) {
+		return null;
+	}
+
+	return {
+		url: response.source_url,
+		alt: typeof response.alt_text === 'string' ? response.alt_text : '',
+	};
+}
+
 /** The choices of a month of the consent log. */
 export interface MonthStatistics {
 	month: string;

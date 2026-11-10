@@ -76,7 +76,7 @@ final class RegistrationTest extends WPTestCase
     {
         $this->setCurrentUser('administrator');
 
-        $response = $this->updateWithRest(['banner' => '4']);
+        $response = $this->updateWithRest(['banner' => '6']);
 
         $this->assertSame(400, $response->get_status());
         $this->assertNull(\get_option(Schema::OPTION, null));

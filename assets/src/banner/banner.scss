@@ -58,6 +58,32 @@
 		}
 	}
 
+	// A card in a bottom corner, the buttons stacked at the same width.
+	&--box-left,
+	&--box-right {
+		right: auto;
+		bottom: 1em;
+		left: auto;
+		width: min(24em, calc(100% - 2em));
+		border-radius: 0.25em;
+
+		.icc-banner__actions {
+			flex-direction: column;
+		}
+
+		.icc-banner__button {
+			width: 100%;
+		}
+	}
+
+	&--box-left {
+		left: 1em;
+	}
+
+	&--box-right {
+		right: 1em;
+	}
+
 	&--bigbutton {
 		--icc-button-padding: 0.75em 1.5em;
 		--icc-button-font-size: 1.125rem;
@@ -75,6 +101,15 @@
 	max-width: 70em;
 	margin: 0 auto;
 	padding: 1em 3em 1em 1em;
+}
+
+.icc-banner__logo {
+	display: block;
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	max-height: 3em;
+	margin: 0 0 0.5em;
 }
 
 .icc-banner__title,

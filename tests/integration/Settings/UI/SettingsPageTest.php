@@ -106,6 +106,13 @@ final class SettingsPageTest extends WPTestCase
         $this->assertSame(['wp-components'], \wp_styles()->registered[SettingsPage::HANDLE]->deps);
     }
 
+    public function testThePageLoadsTheMediaLibraryForTheLogo(): void
+    {
+        $this->makeSut()->enqueue('toplevel_page_italy-cookie-choices');
+
+        $this->assertSame(1, \did_action('wp_enqueue_media'));
+    }
+
     public function testNothingIsEnqueuedWhenTheAssetsAreNotBuilt(): void
     {
         $this->makeSut('/not/built/')->enqueue('toplevel_page_italy-cookie-choices');

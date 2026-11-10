@@ -38,7 +38,7 @@ final readonly class Schema
     ];
 
     private const ENUMS = [
-        'banner' => ['1', '2', '3'],
+        'banner' => ['1', '2', '3', '4', '5'],
         'js_template' => ['default', 'bigbutton', 'smallbutton', 'custom'],
         'consent_log_retention' => ['3', '6', '12', '24', '36'],
         'floating_button_position' => ['left', 'right'],
@@ -76,6 +76,13 @@ final readonly class Schema
     /**
      * The paths of the site, like /metrics, empty when they are not used.
      */
+    /**
+     * The attachments of the media library, by their id, empty when there is none.
+     */
+    public const ATTACHMENTS = [
+        'banner_logo' => '^([1-9][0-9]*)?$',
+    ];
+
     public const PATHS = [
         'google_tag_gateway_path' => '^(/[A-Za-z0-9._~-]+)*$',
     ];
@@ -152,6 +159,10 @@ final readonly class Schema
         }
 
         foreach (self::TAG_IDS as $name => $pattern) {
+            $properties[$name] = ['type' => 'string', 'pattern' => $pattern];
+        }
+
+        foreach (self::ATTACHMENTS as $name => $pattern) {
             $properties[$name] = ['type' => 'string', 'pattern' => $pattern];
         }
 

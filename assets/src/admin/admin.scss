@@ -45,6 +45,18 @@
 		}
 	}
 
+	&__logo {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+		align-items: center;
+
+		img {
+			max-width: 12em;
+			max-height: 4em;
+		}
+	}
+
 	&__cookies {
 		display: grid;
 		gap: 1em;
