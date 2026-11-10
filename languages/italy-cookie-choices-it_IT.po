@@ -619,6 +619,7 @@ msgstr "Chiede il consenso ai cookie per categoria e blocca gli script, i video 
 msgid "The file has no settings of Cookie Choices."
 msgstr "Il file non contiene impostazioni di Cookie Choices."
 
+#: src/Settings/UI/Abilities.php:29
 #: src/Settings/UI/SettingsPage.php:76
 #: src/Settings/UI/SettingsPage.php:77
 msgid "Cookie Choices"
@@ -1059,3 +1060,73 @@ msgstr "Riquadro nell'angolo in basso a sinistra"
 #: assets/build/settings.js:7
 msgid "Box in the bottom right corner"
 msgstr "Riquadro nell'angolo in basso a destra"
+
+#: src/Blocking/Application/VendorSettings.php:88
+msgid "The vendor needs a name."
+msgstr "Il fornitore ha bisogno di un nome."
+
+#: src/Blocking/Application/VendorSettings.php:97
+msgid "The vendor needs at least a pattern to block."
+msgstr "Il fornitore ha bisogno di almeno un pattern da bloccare."
+
+#. translators: %s: the id of the vendor.
+#: src/Blocking/Application/VendorSettings.php:121
+#, php-format
+msgid "There is no common vendor with the id \"%s\"."
+msgstr "Non esiste un fornitore comune con l'id \"%s\"."
+
+#. translators: %s: the id of the vendor.
+#: src/Blocking/Application/VendorSettings.php:135
+#, php-format
+msgid "A vendor with the id \"%s\" already exists."
+msgstr "Esiste già un fornitore con l'id \"%s\"."
+
+#. translators: 1: the id of the category, 2: the ids of the categories, separated by commas.
+#: src/Blocking/Application/VendorSettings.php:149
+#, php-format
+msgid "The category \"%1$s\" is not one the visitors can refuse: %2$s."
+msgstr "La categoria \"%1$s\" non è tra quelle che i visitatori possono rifiutare: %2$s."
+
+#: src/Blocking/UI/VendorAbilities.php:34
+msgid "List the vendors"
+msgstr "Elenca i fornitori"
+
+#: src/Blocking/UI/VendorAbilities.php:35
+msgid "Lists the vendors, the consent category they wait for and whether their scripts are blocked."
+msgstr "Elenca i fornitori, la categoria di consenso che attendono e se i loro script sono bloccati."
+
+#: src/Blocking/UI/VendorAbilities.php:56
+msgid "Turn a common vendor on or off"
+msgstr "Attiva o disattiva un fornitore comune"
+
+#: src/Blocking/UI/VendorAbilities.php:57
+msgid "Turns the blocking of a common vendor on or off, by its id from list-vendors."
+msgstr "Attiva o disattiva il blocco di un fornitore comune, con il suo id da list-vendors."
+
+#: src/Blocking/UI/VendorAbilities.php:81
+msgid "Add a custom vendor"
+msgstr "Aggiungi un fornitore personalizzato"
+
+#: src/Blocking/UI/VendorAbilities.php:82
+msgid "Adds a vendor blocked until the consent to its category, by texts of its addresses or scripts."
+msgstr "Aggiunge un fornitore bloccato fino al consenso alla sua categoria, con testi dei suoi indirizzi o script."
+
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:31
+msgid "Get the consent statistics"
+msgstr "Leggi le statistiche dei consensi"
+
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:32
+msgid "Counts the answers to the cookie banner by month, from the consent log, the newest month first."
+msgstr "Conta le risposte al banner dei cookie per mese, dal registro dei consensi, dal mese più recente."
+
+#: src/Settings/UI/Abilities.php:30
+msgid "The cookie banner, the blocked vendors and the consent log of the site."
+msgstr "Il banner dei cookie, i fornitori bloccati e il registro dei consensi del sito."
+
+#: src/Settings/UI/SettingsAbility.php:31
+msgid "Get the cookie settings"
+msgstr "Leggi le impostazioni dei cookie"
+
+#: src/Settings/UI/SettingsAbility.php:32
+msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
+msgstr "Restituisce le impostazioni del banner dei cookie, del blocco dei fornitori e del registro dei consensi."

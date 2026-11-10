@@ -21,15 +21,9 @@ final readonly class StatisticsFactory
 
     public function create(): ConsentStatistics
     {
-        $optional = [];
-        foreach ($this->policy->create()->categories() as $category) {
-            if ($category->isRequired()) {
-                continue;
-            }
-
-            $optional[] = $category->id();
-        }
-
-        return new ConsentStatistics($this->log->choicesByMonth(), $optional);
+        return new ConsentStatistics(
+            $this->log->choicesByMonth(),
+            $this->policy->create()->categories()->optionalIds()
+        );
     }
 }

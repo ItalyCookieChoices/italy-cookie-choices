@@ -59,6 +59,7 @@ final class CategoryTest extends WPTestCase
 
         $this->assertSame(['necessary', 'marketing', 'statistics'], $categories->ids());
         $this->assertSame(['necessary'], $categories->requiredIds());
+        $this->assertSame(['marketing', 'statistics'], $categories->optionalIds());
         $this->assertTrue($categories->has('marketing'));
         $this->assertFalse($categories->has('preferences'));
         $this->assertCount(3, \iterator_to_array($categories));
@@ -69,6 +70,7 @@ final class CategoryTest extends WPTestCase
         $categories = new Categories(new Category('marketing'), new Category('necessary', true));
 
         $this->assertSame(['necessary'], $categories->requiredIds());
+        $this->assertSame(['marketing'], $categories->optionalIds());
     }
 
     public function testCategoriesMustBeUnique(): void

@@ -618,6 +618,7 @@ msgstr ""
 msgid "The file has no settings of Cookie Choices."
 msgstr ""
 
+#: src/Settings/UI/Abilities.php:29
 #: src/Settings/UI/SettingsPage.php:76
 #: src/Settings/UI/SettingsPage.php:77
 msgid "Cookie Choices"
@@ -1057,4 +1058,74 @@ msgstr ""
 
 #: assets/build/settings.js:7
 msgid "Box in the bottom right corner"
+msgstr ""
+
+#: src/Blocking/Application/VendorSettings.php:88
+msgid "The vendor needs a name."
+msgstr ""
+
+#: src/Blocking/Application/VendorSettings.php:97
+msgid "The vendor needs at least a pattern to block."
+msgstr ""
+
+#. translators: %s: the id of the vendor.
+#: src/Blocking/Application/VendorSettings.php:121
+#, php-format
+msgid "There is no common vendor with the id \"%s\"."
+msgstr ""
+
+#. translators: %s: the id of the vendor.
+#: src/Blocking/Application/VendorSettings.php:135
+#, php-format
+msgid "A vendor with the id \"%s\" already exists."
+msgstr ""
+
+#. translators: 1: the id of the category, 2: the ids of the categories, separated by commas.
+#: src/Blocking/Application/VendorSettings.php:149
+#, php-format
+msgid "The category \"%1$s\" is not one the visitors can refuse: %2$s."
+msgstr ""
+
+#: src/Blocking/UI/VendorAbilities.php:34
+msgid "List the vendors"
+msgstr ""
+
+#: src/Blocking/UI/VendorAbilities.php:35
+msgid "Lists the vendors, the consent category they wait for and whether their scripts are blocked."
+msgstr ""
+
+#: src/Blocking/UI/VendorAbilities.php:56
+msgid "Turn a common vendor on or off"
+msgstr ""
+
+#: src/Blocking/UI/VendorAbilities.php:57
+msgid "Turns the blocking of a common vendor on or off, by its id from list-vendors."
+msgstr ""
+
+#: src/Blocking/UI/VendorAbilities.php:81
+msgid "Add a custom vendor"
+msgstr ""
+
+#: src/Blocking/UI/VendorAbilities.php:82
+msgid "Adds a vendor blocked until the consent to its category, by texts of its addresses or scripts."
+msgstr ""
+
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:31
+msgid "Get the consent statistics"
+msgstr ""
+
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:32
+msgid "Counts the answers to the cookie banner by month, from the consent log, the newest month first."
+msgstr ""
+
+#: src/Settings/UI/Abilities.php:30
+msgid "The cookie banner, the blocked vendors and the consent log of the site."
+msgstr ""
+
+#: src/Settings/UI/SettingsAbility.php:31
+msgid "Get the cookie settings"
+msgstr ""
+
+#: src/Settings/UI/SettingsAbility.php:32
+msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
 msgstr ""

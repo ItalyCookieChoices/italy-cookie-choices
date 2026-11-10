@@ -175,13 +175,25 @@ final readonly class Options
     }
 
     /**
+     * The saved settings, the defaults of the Schema before the first save.
+     *
      * @return array<array-key, mixed>
      */
-    private function all(): array
+    public function all(): array
     {
         $options = \get_option(Schema::OPTION);
 
         return \is_array($options) ? $options : [];
+    }
+
+    /**
+     * Saves the values over the saved settings, the Sanitizer of the option runs on the whole option.
+     *
+     * @param array<string, mixed> $values
+     */
+    public function save(array $values): void
+    {
+        \update_option(Schema::OPTION, [...$this->all(), ...$values]);
     }
 
     private function nonEmptyString(mixed $value, string $default): string

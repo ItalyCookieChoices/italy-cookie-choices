@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Blocking;
 use ItalyCookieChoices\Blocking\UI\BlockingFilters;
 use ItalyCookieChoices\Blocking\UI\PageBuffer;
 use ItalyCookieChoices\Blocking\UI\Placeholders;
+use ItalyCookieChoices\Blocking\UI\VendorAbilities;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -41,6 +42,7 @@ final readonly class Module implements ModuleInterface
                 BlockingFilters::class,
                 PageBuffer::class,
                 Placeholders::class,
+                VendorAbilities::class,
             ],
         ];
     }
