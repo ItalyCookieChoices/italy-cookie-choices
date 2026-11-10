@@ -426,6 +426,27 @@
             ],
             "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once.": [
                 "Le scelte di ogni mese, dai record del registro: non viene raccolto nient'altro. Un visitatore pu\u00f2 scegliere pi\u00f9 di una volta."
+            ],
+            "Logo": [
+                "Logo"
+            ],
+            "An image of the media library above the title of the banner.": [
+                "Un'immagine della libreria media sopra il titolo del banner."
+            ],
+            "Replace the logo": [
+                "Sostituisci il logo"
+            ],
+            "Choose a logo": [
+                "Scegli un logo"
+            ],
+            "Remove the logo": [
+                "Rimuovi il logo"
+            ],
+            "Box in the bottom left corner": [
+                "Riquadro nell'angolo in basso a sinistra"
+            ],
+            "Box in the bottom right corner": [
+                "Riquadro nell'angolo in basso a destra"
             ]
         }
     }

@@ -274,6 +274,19 @@ final class BannerCest
         $I->assertSame('0px', $I->executeJS('return getComputedStyle(document.documentElement).marginTop;'));
     }
 
+    public function theBoxSitsInTheBottomRightCorner(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['banner' => '5']);
+
+        $I->amOnPage('/');
+
+        $I->waitForElementVisible(['css' => '#icc-banner.icc-banner--box-right']);
+        $I->assertTrue($I->executeJS(
+            'const box = document.getElementById("icc-banner").getBoundingClientRect();'
+            . 'return box.right > window.innerWidth - 40 && box.width < window.innerWidth / 2;'
+        ));
+    }
+
     public function theFloatingButtonOpensThePreferencesAfterTheChoice(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions(['floating_button' => '1', 'floating_button_position' => 'right']);

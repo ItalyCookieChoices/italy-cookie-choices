@@ -45,7 +45,8 @@ export type Text =
 	| 'facebook_pixel_id'
 	| 'google_tag_gateway_path'
 	| 'floating_button_position'
-	| 'floating_button_label';
+	| 'floating_button_label'
+	| 'banner_logo';
 
 export interface CategoryTexts {
 	label?: string;

@@ -3,6 +3,7 @@
 import { BaseControl, ColorPalette, PanelBody } from '@wordpress/components';
 import { createElement, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { LogoField } from '../logo';
 import {
 	SelectField,
 	TextareaField,
@@ -59,8 +60,23 @@ export function StyleTab( props: SettingsProps ) {
 						value: '3',
 						label: __( 'Bottom bar', 'italy-cookie-choices' ),
 					},
+					{
+						value: '4',
+						label: __(
+							'Box in the bottom left corner',
+							'italy-cookie-choices'
+						),
+					},
+					{
+						value: '5',
+						label: __(
+							'Box in the bottom right corner',
+							'italy-cookie-choices'
+						),
+					},
 				] }
 			/>
+			<LogoField { ...props } />
 			{ ( position === '' || position === TOP ) && (
 				<ToggleField
 					{ ...props }

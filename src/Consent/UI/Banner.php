@@ -35,7 +35,7 @@ final readonly class Banner implements SubscriberInterface
     private const STYLE = 'banner.css';
     private const TEMPLATE = 'banner';
     private const CUSTOM_TEMPLATE = 'custom';
-    private const POSITIONS = ['1' => 'top', '2' => 'modal', '3' => 'bottom'];
+    private const POSITIONS = ['1' => 'top', '2' => 'modal', '3' => 'bottom', '4' => 'box-left', '5' => 'box-right'];
 
     private const FLOATING_BUTTON_POSITIONS = ['left', 'right'];
 
@@ -154,8 +154,26 @@ final readonly class Banner implements SubscriberInterface
             'text' => \wp_kses_post($this->options->translated('text')),
             'link' => $this->link(),
             'floatingButton' => $this->floatingButton(),
+            'logo' => $this->logo(),
             ...$this->texts->all(),
         ];
+    }
+
+    /**
+     * The image of the media library chosen as logo, empty without one or when it is not an image.
+     */
+    private function logo(): string
+    {
+        $id = (int) $this->options->text('banner_logo');
+        if ($id <= 0) {
+            return '';
+        }
+
+        return \wp_get_attachment_image($id, 'medium', false, [
+            'class' => 'icc-banner__logo',
+            'loading' => false,
+            'decoding' => 'async',
+        ]);
     }
 
     /**

@@ -191,6 +191,38 @@ final class BannerTest extends WPTestCase
         $this->assertSame('Accept all', $this->texts($view)['acceptAll']);
     }
 
+    public function testTheBannerHasNoLogoByDefault(): void
+    {
+        $sut = $this->makeSut();
+
+        $this->assertSame('', $sut->data()['logo']);
+        $this->assertStringNotContainsString('icc-banner__logo', $sut->html());
+    }
+
+    public function testTheLogoIsTheImageOfTheMediaLibrary(): void
+    {
+        $logo = \codecept_data_dir('logo.png');
+        $this->assertIsString($logo);
+        $attachment = self::factory()->attachment->create_upload_object($logo);
+        $this->assertIsInt($attachment);
+        \update_post_meta($attachment, '_wp_attachment_image_alt', 'Our logo');
+        \update_option(Schema::OPTION, ['active' => '1', 'banner_logo' => (string) $attachment]);
+        $sut = $this->makeSut();
+
+        $processor = new \WP_HTML_Tag_Processor($sut->html());
+
+        $this->assertTrue($processor->next_tag(['tag_name' => 'img', 'class_name' => 'icc-banner__logo']));
+        $this->assertSame('Our logo', $processor->get_attribute('alt'));
+        $this->assertStringContainsString('logo', (string) $processor->get_attribute('src'));
+    }
+
+    public function testALogoThatIsNotAnImageIsLeftOut(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'banner_logo' => '999999']);
+
+        $this->assertSame('', $this->makeSut()->data()['logo']);
+    }
+
     public function testTheFloatingButtonIsOffByDefault(): void
     {
         $sut = $this->makeSut();
@@ -237,7 +269,9 @@ final class BannerTest extends WPTestCase
         yield 'top bar' => ['1', 'top', false];
         yield 'dialog' => ['2', 'modal', true];
         yield 'bottom bar' => ['3', 'bottom', false];
-        yield 'unknown' => ['4', 'top', false];
+        yield 'box in the bottom left corner' => ['4', 'box-left', false];
+        yield 'box in the bottom right corner' => ['5', 'box-right', false];
+        yield 'unknown' => ['6', 'top', false];
     }
 
     /**

@@ -426,6 +426,27 @@
             ],
             "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once.": [
                 ""
+            ],
+            "Logo": [
+                ""
+            ],
+            "An image of the media library above the title of the banner.": [
+                ""
+            ],
+            "Replace the logo": [
+                ""
+            ],
+            "Choose a logo": [
+                ""
+            ],
+            "Remove the logo": [
+                ""
+            ],
+            "Box in the bottom left corner": [
+                ""
+            ],
+            "Box in the bottom right corner": [
+                ""
             ]
         }
     }

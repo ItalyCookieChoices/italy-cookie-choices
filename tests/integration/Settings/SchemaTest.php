@@ -16,7 +16,7 @@ final class SchemaTest extends WPTestCase
      * Version 8 adds no key, it turns off the reCAPTCHA preset, version 9 adds the site cookies.
      */
     private const KEYS = [
-        'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg',
+        'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg', 'banner_logo',
         'banner_text_color', 'button_text', 'categories', 'clarity_consent_mode', 'closeClass', 'consentText',
         'consent_log', 'consent_log_retention', 'consent_mode', 'consent_mode_advanced', 'contentStyle',
         'content_message_button_text', 'content_message_text', 'cookie_name', 'cookie_value', 'customCSS',
@@ -74,7 +74,8 @@ final class SchemaTest extends WPTestCase
     {
         $option = [
             'active' => '1',
-            'banner' => '2',
+            'banner' => '5',
+            'banner_logo' => '42',
             'js_template' => 'bigbutton',
             'text' => '<a href="/policy">Policy</a>',
             'cookie_name' => 'name',
@@ -123,7 +124,8 @@ final class SchemaTest extends WPTestCase
         yield 'content blocking always on in version 3' => [['block' => '1']];
         yield 'widget blocking always on in version 3' => [['widget_block' => '1']];
         yield 'snippets moved to the lists in version 3' => [['custom_script_block' => '<script></script>']];
-        yield 'banner out of range' => [['banner' => '4']];
+        yield 'banner out of range' => [['banner' => '6']];
+        yield 'logo not an attachment id' => [['banner_logo' => 'logo.png']];
         yield 'consent log retention not listed' => [['consent_log_retention' => '7']];
         yield 'unknown template' => [['js_template' => 'other']];
         yield 'empty cookie name' => [['cookie_name' => '']];

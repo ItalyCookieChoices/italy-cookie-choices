@@ -23,11 +23,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: src/Settings/Sanitizer.php:149
+#: src/Settings/Sanitizer.php:152
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
 
-#: src/Settings/Sanitizer.php:150
+#: src/Settings/Sanitizer.php:153
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
 
@@ -101,7 +101,7 @@ msgstr "Preferenze"
 msgid "Close and keep only the necessary cookies"
 msgstr "Chiudi e mantieni solo i cookie necessari"
 
-#: src/Consent/UI/Banner.php:178
+#: src/Consent/UI/Banner.php:196
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -1031,3 +1031,31 @@ msgstr "Revoche"
 #: assets/build/settings.js:7
 msgid "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once."
 msgstr "Le scelte di ogni mese, dai record del registro: non viene raccolto nient'altro. Un visitatore può scegliere più di una volta."
+
+#: assets/build/settings.js:7
+msgid "Logo"
+msgstr "Logo"
+
+#: assets/build/settings.js:7
+msgid "An image of the media library above the title of the banner."
+msgstr "Un'immagine della libreria media sopra il titolo del banner."
+
+#: assets/build/settings.js:7
+msgid "Replace the logo"
+msgstr "Sostituisci il logo"
+
+#: assets/build/settings.js:7
+msgid "Choose a logo"
+msgstr "Scegli un logo"
+
+#: assets/build/settings.js:7
+msgid "Remove the logo"
+msgstr "Rimuovi il logo"
+
+#: assets/build/settings.js:7
+msgid "Box in the bottom left corner"
+msgstr "Riquadro nell'angolo in basso a sinistra"
+
+#: assets/build/settings.js:7
+msgid "Box in the bottom right corner"
+msgstr "Riquadro nell'angolo in basso a destra"

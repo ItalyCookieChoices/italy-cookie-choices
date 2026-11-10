@@ -244,6 +244,22 @@ final class AdminCest
         $I->assertSame('Your cookies', $options['floating_button_label'] ?? null);
     }
 
+    public function itSavesTheBoxLayoutAndOpensTheMediaLibraryForTheLogo(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Style');
+
+        $I->selectOption('Position', 'Box in the bottom right corner');
+        $I->click('Choose a logo');
+        $I->waitForElementVisible('.media-modal', 10);
+        $I->click('.media-modal-close');
+        $this->save($I);
+
+        $I->see('Settings saved.', self::NOTICE);
+        $I->assertSame('5', $this->savedOptions($I)['banner'] ?? null);
+    }
+
     public function itShowsTheStatisticsOfTheConsentLog(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions(['consent_log' => '1']);
