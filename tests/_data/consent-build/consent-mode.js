@@ -1,1 +1,0 @@
-/* consent-mode fixture */

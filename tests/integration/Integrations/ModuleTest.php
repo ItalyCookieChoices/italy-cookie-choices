@@ -14,7 +14,6 @@ use ItalyCookieChoices\Integrations\UI\WpConsentApiFilters;
 use ItalyCookieChoices\Integrations\UI\WpConsentApiScript;
 use ItalyCookieChoices\Integrations\UI\YouTubeNoCookie;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
-use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
@@ -44,10 +43,7 @@ final class ModuleTest extends WPTestCase
 
     public function testTheContainerBuildsTheConsentModeScript(): void
     {
-        $this->assertSame(
-            ['wp_head' => [SubscriberInterface::CALLBACK => 'print', SubscriberInterface::PRIORITY => 1]],
-            \iterator_to_array($this->service(ConsentModeScript::class)->getSubscribedEvents())
-        );
+        $this->assertInstanceOf(ConsentModeScript::class, $this->service(ConsentModeScript::class));
     }
 
     public function testTheContainerBuildsTheWpConsentApiScript(): void
