@@ -22,6 +22,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Show a banner at the top, at the bottom, in a modal window or in a box in a corner, with your logo, text, colors and CSS
 * Let the visitors choose the categories: necessary, preferences, statistics and marketing
 * Share the consent with the subdomains of the site, with the cookie domain
+* Choose after how many months the banner asks the consent again, 6 by default
 * Respect the Global Privacy Control of the browser: accept all leaves out the marketing cookies
 * Block Google Analytics, Google Tag Manager, Google Ads, AdSense, Microsoft Clarity and Advertising, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, Snapchat, Reddit, HubSpot, Spotify, SoundCloud, Hotjar and Matomo Cloud until the consent, and add your own vendors
 * Show a placeholder with a button to accept the category of the blocked videos and maps

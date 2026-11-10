@@ -465,6 +465,24 @@
             ],
             "Empty for the domain of the site only. Write the main domain, like example.com, to share the consent with its subdomains, like www.example.com and shop.example.com. A domain the site is not part of is not saved.": [
                 ""
+            ],
+            "Ask the consent again after": [
+                ""
+            ],
+            "The Italian Data Protection Authority recommends 6 months. A new policy version asks again anyway.": [
+                ""
+            ],
+            "1 month": [
+                ""
+            ],
+            "3 months": [
+                ""
+            ],
+            "6 months": [
+                ""
+            ],
+            "12 months": [
+                ""
             ]
         }
     }

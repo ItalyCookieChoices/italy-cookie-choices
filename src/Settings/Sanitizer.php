@@ -55,6 +55,7 @@ final readonly class Sanitizer
         'all_block' => self::RAW,
         'consent_log' => self::RAW,
         'consent_log_retention' => self::RAW,
+        'consent_duration' => self::RAW,
         'consent_mode' => self::RAW,
         'consent_mode_advanced' => self::RAW,
         'ga_measurement_id' => self::TAG_ID,

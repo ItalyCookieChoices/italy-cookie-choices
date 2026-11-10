@@ -42,6 +42,7 @@ export type Text =
 	| 'banner'
 	| 'js_template'
 	| 'consent_log_retention'
+	| 'consent_duration'
 	| 'ga_measurement_id'
 	| 'gtm_container_id'
 	| 'facebook_pixel_id'

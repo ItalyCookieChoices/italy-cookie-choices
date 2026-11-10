@@ -111,7 +111,7 @@ final class WpConsentApiFiltersTest extends WPTestCase
         return new WpConsentApiFilters(
             $this->options(),
             new WpConsentApiMapping($dispatcher),
-            new ConsentPolicyFactory($dispatcher),
+            new ConsentPolicyFactory($dispatcher, $this->options()),
             new CookieConsentRepository($cookies)
         );
     }

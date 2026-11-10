@@ -22,11 +22,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:158
+#: src/Settings/Sanitizer.php:159
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:159
+#: src/Settings/Sanitizer.php:160
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -1180,4 +1180,28 @@ msgstr ""
 
 #: assets/build/settings.js:1
 msgid "Empty for the domain of the site only. Write the main domain, like example.com, to share the consent with its subdomains, like www.example.com and shop.example.com. A domain the site is not part of is not saved."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Ask the consent again after"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "The Italian Data Protection Authority recommends 6 months. A new policy version asks again anyway."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "1 month"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "3 months"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "6 months"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "12 months"
 msgstr ""

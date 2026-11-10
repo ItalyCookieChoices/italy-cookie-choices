@@ -572,7 +572,11 @@ final class BannerTest extends WPTestCase
         $finder->in($templates);
 
         return new Banner(
-            new ConsentTexts(new ConsentPolicyFactory($this->dispatcher()), $this->dispatcher(), $this->options()),
+            new ConsentTexts(
+                new ConsentPolicyFactory($this->dispatcher(), $this->options()),
+                $this->dispatcher(),
+                $this->options()
+            ),
             $this->options(),
             new View($finder),
             new AssetLoader(),

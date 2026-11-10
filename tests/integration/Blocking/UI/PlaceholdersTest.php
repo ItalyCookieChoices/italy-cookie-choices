@@ -190,7 +190,7 @@ final class PlaceholdersTest extends WPTestCase
         $options = $this->options();
 
         return new Placeholders(
-            new ConsentTexts(new ConsentPolicyFactory($dispatcher), $dispatcher, $options),
+            new ConsentTexts(new ConsentPolicyFactory($dispatcher, $options), $dispatcher, $options),
             $options,
             new BlockableRequest($options),
             new View($finder),

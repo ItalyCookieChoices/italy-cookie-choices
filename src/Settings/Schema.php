@@ -42,6 +42,7 @@ final readonly class Schema
         'banner' => ['1', '2', '3', '4', '5'],
         'js_template' => ['default', 'bigbutton', 'smallbutton', 'custom'],
         'consent_log_retention' => ['3', '6', '12', '24', '36'],
+        'consent_duration' => ['30', '90', '182', '365'],
         'floating_button_position' => ['left', 'right'],
     ];
 

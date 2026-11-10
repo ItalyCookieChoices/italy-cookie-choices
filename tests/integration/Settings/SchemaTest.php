@@ -20,12 +20,13 @@ final class SchemaTest extends WPTestCase
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg', 'banner_logo',
         'banner_text_color', 'button_text', 'categories', 'clarity_consent_mode', 'closeClass', 'consentText',
-        'consent_log', 'consent_log_retention', 'consent_mode', 'consent_mode_advanced', 'contentStyle',
-        'content_message_button_text', 'content_message_text', 'cookie_domain', 'cookie_name', 'cookie_value',
-        'customCSS', 'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id', 'floating_button',
-        'floating_button_label', 'floating_button_position', 'ga_measurement_id', 'global_privacy_control',
-        'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass', 'js_template', 'nofollow',
-        'reload', 'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'youtube_nocookie',
+        'consent_duration', 'consent_log', 'consent_log_retention', 'consent_mode', 'consent_mode_advanced',
+        'contentStyle', 'content_message_button_text', 'content_message_text', 'cookie_domain', 'cookie_name',
+        'cookie_value', 'customCSS', 'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id',
+        'floating_button', 'floating_button_label', 'floating_button_position', 'ga_measurement_id',
+        'global_privacy_control', 'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass',
+        'js_template', 'nofollow', 'reload', 'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url',
+        'youtube_nocookie',
     ];
 
     public function testTheSchemaIsAtVersion10(): void
@@ -117,6 +118,7 @@ final class SchemaTest extends WPTestCase
             'floating_button_position' => 'right',
             'floating_button_label' => 'Cookies',
             'cookie_domain' => '.example.com',
+            'consent_duration' => '365',
         ];
 
         $this->assertTrue(\rest_validate_value_from_schema($option, (new Schema())->toJsonSchema()));
@@ -159,6 +161,7 @@ final class SchemaTest extends WPTestCase
         yield 'pixel id with letters' => [['facebook_pixel_id' => 'abc']];
         yield 'advanced consent mode not 1' => [['consent_mode_advanced' => 'yes']];
         yield 'gateway path without the slash' => [['google_tag_gateway_path' => 'metrics']];
+        yield 'consent duration not listed' => [['consent_duration' => '100']];
         yield 'cookie domain with a path' => [['cookie_domain' => 'example.com/shop']];
         yield 'cookie domain with a scheme' => [['cookie_domain' => 'https://example.com']];
         yield 'floating button at the top' => [['floating_button_position' => 'top']];

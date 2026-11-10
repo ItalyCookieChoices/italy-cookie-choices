@@ -11,10 +11,13 @@ use ItalyCookieChoices\ConsentLog\Domain\ConsentRecord;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class RecordConsentTest extends WPTestCase
 {
+    use BuildsOptions;
+
     private const ID = '3f2504e0-4f89-41d3-9a0c-0305e82c3301';
 
     private ConsentLog $log;
@@ -104,7 +107,10 @@ final class RecordConsentTest extends WPTestCase
     private function makeSut(): RecordConsent
     {
         return new RecordConsent(
-            new ConsentPolicyFactory(new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState())),
+            new ConsentPolicyFactory(
+                new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState()),
+                $this->options()
+            ),
             $this->log
         );
     }

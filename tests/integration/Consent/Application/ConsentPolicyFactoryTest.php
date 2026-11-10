@@ -9,6 +9,8 @@ use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\Domain\ConsentDuration;
 use ItalyCookieChoices\Consent\Domain\PolicyVersion;
+use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -16,6 +18,8 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConsentPolicyFactoryTest extends WPTestCase
 {
+    use BuildsOptions;
+
     public function testTheDefaultPolicy(): void
     {
         $policy = $this->makeSut()->create();
@@ -26,8 +30,24 @@ final class ConsentPolicyFactoryTest extends WPTestCase
         $this->assertSame(182, $policy->duration()->days());
     }
 
+    public function testTheDurationIsTheSavedOne(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'consent_duration' => '365']);
+
+        $this->assertSame(365, $this->makeSut()->create()->duration()->days());
+    }
+
+    public function testAnInvalidDurationIsTheDefaultOne(): void
+    {
+        \remove_all_filters('sanitize_option_' . Schema::OPTION);
+        \update_option(Schema::OPTION, ['active' => '1', 'consent_duration' => 'never']);
+
+        $this->assertSame(182, $this->makeSut()->create()->duration()->days());
+    }
+
     public function testTheListenersChangeThePolicy(): void
     {
+        \update_option(Schema::OPTION, ['active' => '1', 'consent_duration' => '365']);
         \add_action(BuildingConsentPolicy::class, static function (BuildingConsentPolicy $event): void {
             $event->removeCategory(Category::PREFERENCES);
             $event->addCategory(new Category('social', true));
@@ -54,6 +74,9 @@ final class ConsentPolicyFactoryTest extends WPTestCase
 
     private function makeSut(): ConsentPolicyFactory
     {
-        return new ConsentPolicyFactory(new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState()));
+        return new ConsentPolicyFactory(
+            new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState()),
+            $this->options()
+        );
     }
 }
