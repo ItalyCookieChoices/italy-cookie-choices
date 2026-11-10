@@ -66,6 +66,21 @@ final readonly class Schema
     ];
 
     /**
+     * The texts each site of a network keeps when it uses the settings of the main site, for its language:
+     * the TRANSLATABLE texts of Options and the texts of the categories.
+     */
+    public const SITE_TEXTS = [
+        'text',
+        'url',
+        'anchor_text',
+        'button_text',
+        'content_message_text',
+        'content_message_button_text',
+        'floating_button_label',
+        'categories',
+    ];
+
+    /**
      * The ids of the Google and Facebook tags, empty when the tag is not printed.
      */
     public const TAG_IDS = [

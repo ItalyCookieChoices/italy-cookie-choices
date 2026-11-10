@@ -1,0 +1,17 @@
+# The integration tests of a multisite network, apart from the single site of the integration suite.
+actor: MultisiteTester
+modules:
+    enabled:
+        - lucatume\WPBrowser\Module\WPLoader
+    config:
+        lucatume\WPBrowser\Module\WPLoader:
+            wpRootFolder: "%WP_ROOT_FOLDER%"
+            dbUrl: "mysql://%DB_USER%:%DB_PASSWORD%@%DB_HOST%/%DB_NAME%"
+            tablePrefix: "%MULTISITE_TABLE_PREFIX%"
+            domain: "%WP_DOMAIN%"
+            adminEmail: "%ADMIN_EMAIL%"
+            title: "Test"
+            multisite: true
+            configFile: "tests/_support/wploader-config.php"
+            plugins:
+                - italy-cookie-choices/italy-cookie-choices.php

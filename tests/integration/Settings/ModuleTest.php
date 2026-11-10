@@ -7,8 +7,10 @@ namespace ItalyCookieChoices\Tests\Integration\Settings;
 use ItalyCookieChoices\Settings\Migration;
 use ItalyCookieChoices\Settings\Module;
 use ItalyCookieChoices\Settings\Registration;
+use ItalyCookieChoices\Settings\SharedSettings;
 use ItalyCookieChoices\Settings\UI\Abilities;
 use ItalyCookieChoices\Settings\UI\ImportEndpoint;
+use ItalyCookieChoices\Settings\UI\NetworkSettingsPage;
 use ItalyCookieChoices\Settings\UI\PluginActionLinks;
 use ItalyCookieChoices\Settings\UI\SettingsAbility;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
@@ -32,12 +34,14 @@ final class ModuleTest extends WPTestCase
             [
                 Migration::class,
                 Registration::class,
+                SharedSettings::class,
                 StringRegistration::class,
                 SettingsPage::class,
                 ImportEndpoint::class,
                 PluginActionLinks::class,
                 Abilities::class,
                 SettingsAbility::class,
+                NetworkSettingsPage::class,
             ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );

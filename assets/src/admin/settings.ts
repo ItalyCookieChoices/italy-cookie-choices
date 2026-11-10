@@ -105,6 +105,8 @@ export interface AdminData {
 	vendors: Vendor[];
 	consentLogExportUrl: string;
 	documentationUrl: string;
+	/** True on a site of a network that uses the settings of the main site, it edits only its texts. */
+	textsOnly: boolean;
 }
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
@@ -174,6 +176,7 @@ export function parseAdminData( raw: unknown ): AdminData {
 			typeof data.documentationUrl === 'string'
 				? data.documentationUrl
 				: '',
+		textsOnly: data.textsOnly === true,
 	};
 }
 

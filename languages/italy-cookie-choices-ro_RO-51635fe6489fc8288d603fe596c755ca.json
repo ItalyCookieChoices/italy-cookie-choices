@@ -453,6 +453,12 @@
             ],
             "When the browser of the visitor asks not to share the data, accept all leaves out the marketing cookies. The visitor can still choose them in the preferences.": [
                 ""
+            ],
+            "This site uses the settings of the main site of the network: here you change only its texts, for its language.": [
+                ""
+            ],
+            "Texts": [
+                ""
             ]
         }
     }

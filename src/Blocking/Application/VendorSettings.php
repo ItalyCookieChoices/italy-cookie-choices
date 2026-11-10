@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Blocking\Application;
 
 use ItalyCookieChoices\Blocking\Domain\Vendor;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
+use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyCookieChoices\Settings\Options;
 
 /**
@@ -20,6 +21,7 @@ final readonly class VendorSettings
         private VendorPresets $presets,
         private Options $options,
         private ConsentPolicyFactory $policy,
+        private NetworkSettings $network,
     ) {
     }
 
@@ -56,19 +58,21 @@ final readonly class VendorSettings
     }
 
     /**
-     * @throws \InvalidArgumentException When the id is not a preset.
+     * @throws \InvalidArgumentException When the id is not a preset or the site uses the main site.
      */
     public function enable(string $id): void
     {
+        $this->assertTheSiteHasItsOwnVendors();
         $this->assertIsAPreset($id);
         $this->options->save([self::DISABLED => $this->disabledWithout($id)]);
     }
 
     /**
-     * @throws \InvalidArgumentException When the id is not a preset.
+     * @throws \InvalidArgumentException When the id is not a preset or the site uses the main site.
      */
     public function disable(string $id): void
     {
+        $this->assertTheSiteHasItsOwnVendors();
         $this->assertIsAPreset($id);
         $this->options->save([self::DISABLED => [...$this->disabledWithout($id), $id]]);
     }
@@ -83,6 +87,7 @@ final readonly class VendorSettings
      */
     public function add(string $name, string $category, array $patterns): array
     {
+        $this->assertTheSiteHasItsOwnVendors();
         $name = \trim($name);
         if ($name === '') {
             throw new \InvalidArgumentException(\__('The vendor needs a name.', 'italy-cookie-choices'));
@@ -106,6 +111,20 @@ final readonly class VendorSettings
         $this->options->save([self::CUSTOM => $custom]);
 
         return $this->options->records(self::CUSTOM)[\count($custom) - 1] ?? [];
+    }
+
+    /**
+     * On a site that uses the settings of the main site of the network, a change would be lost.
+     */
+    private function assertTheSiteHasItsOwnVendors(): void
+    {
+        if (!$this->network->usesTheMainSite()) {
+            return;
+        }
+
+        throw new \InvalidArgumentException(
+            \__('The vendors of this site come from the main site of the network.', 'italy-cookie-choices')
+        );
     }
 
     private function assertIsAPreset(string $id): void

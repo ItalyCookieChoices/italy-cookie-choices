@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Settings\UI;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
@@ -55,6 +56,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private ConsentTexts $texts,
         private VendorPresets $presets,
         private ConsentLogExport $logExport,
+        private NetworkSettings $network,
         private ViewInterface $view,
         private AssetLoader $assets,
         private string $buildPath,
@@ -156,7 +158,8 @@ final readonly class SettingsPage implements SubscriberInterface
      *     categories: list<array{id: string, required: bool, label: string, description: string}>,
      *     vendors: list<array{id: string, name: string, category: string}>,
      *     consentLogExportUrl: string,
-     *     documentationUrl: string
+     *     documentationUrl: string,
+     *     textsOnly: bool
      * }
      */
     public function data(): array
@@ -175,6 +178,8 @@ final readonly class SettingsPage implements SubscriberInterface
             'vendors' => $vendors,
             'consentLogExportUrl' => $this->logExport->url(),
             'documentationUrl' => self::DOCUMENTATION,
+            // The other settings come from the main site of the network.
+            'textsOnly' => $this->network->usesTheMainSite(),
         ];
     }
 

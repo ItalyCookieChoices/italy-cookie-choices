@@ -453,6 +453,12 @@
             ],
             "When the browser of the visitor asks not to share the data, accept all leaves out the marketing cookies. The visitor can still choose them in the preferences.": [
                 "Quando il browser del visitatore chiede di non condividere i dati, accetta tutti esclude i cookie di marketing. Il visitatore pu\u00f2 comunque sceglierli nelle preferenze."
+            ],
+            "This site uses the settings of the main site of the network: here you change only its texts, for its language.": [
+                "Questo sito usa le impostazioni del sito principale della rete: qui cambi solo i suoi testi, per la sua lingua."
+            ],
+            "Texts": [
+                "Testi"
             ]
         }
     }

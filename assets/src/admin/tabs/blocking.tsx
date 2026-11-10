@@ -10,12 +10,7 @@ import {
 import { createElement, Fragment } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { CookieList } from '../cookies';
-import {
-	TextareaField,
-	TextField,
-	ToggleField,
-	type SettingsProps,
-} from '../fields';
+import { ToggleField, type SettingsProps } from '../fields';
 import {
 	isVendorBlocked,
 	newCustomVendor,
@@ -25,6 +20,7 @@ import {
 	type CustomVendor,
 	type Vendor,
 } from '../settings';
+import { PlaceholderTextFields } from '../texts';
 
 interface BlockingTabProps extends SettingsProps {
 	categories: readonly Category[];
@@ -266,26 +262,7 @@ export function BlockingTab( props: BlockingTabProps ) {
 					'italy-cookie-choices'
 				) }
 			/>
-			<TextareaField
-				{ ...props }
-				name="content_message_text"
-				label={ __(
-					'Placeholder text of the blocked content',
-					'italy-cookie-choices'
-				) }
-				help={ __(
-					'Empty for a text with the category name.',
-					'italy-cookie-choices'
-				) }
-			/>
-			<TextField
-				{ ...props }
-				name="content_message_button_text"
-				label={ __(
-					'Placeholder button text',
-					'italy-cookie-choices'
-				) }
-			/>
+			<PlaceholderTextFields { ...props } />
 		</Fragment>
 	);
 }

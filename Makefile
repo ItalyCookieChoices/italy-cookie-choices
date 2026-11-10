@@ -54,6 +54,10 @@ build-tests: ## Generate the Codeception actor classes
 integration: ## Run the integration suite
 	$(EXEC) vendor/bin/codecept run integration $(ARGS)
 
+.PHONY: multisite
+multisite: ## Run the integration suite of a multisite network
+	$(EXEC) vendor/bin/codecept run multisite $(ARGS)
+
 .PHONY: e2e
 e2e: ## Run the e2e suite in Chrome, watch it at http://localhost:7900
 	$(EXEC) vendor/bin/codecept run e2e $(ARGS)

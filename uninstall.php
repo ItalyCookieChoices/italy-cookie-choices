@@ -33,6 +33,8 @@ if ( is_multisite() ) {
 
 	global $wpdb;
 
+	delete_site_option( 'italy_cookie_choices_network' );
+
 	$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
 
 	$icc_uninstall_site();

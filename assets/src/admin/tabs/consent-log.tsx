@@ -36,8 +36,21 @@ export function ConsentLogTab( props: SettingsProps & { exportUrl: string } ) {
 					),
 				} ) ) }
 			/>
-			{ props.exportUrl !== '' && (
-				<Button variant="secondary" href={ props.exportUrl }>
+			<ConsentLogRecords exportUrl={ props.exportUrl } />
+		</Fragment>
+	);
+}
+
+/**
+ * The export and the statistics of the records of the site, also on a site that uses the main site.
+ * @param props           The props.
+ * @param props.exportUrl The URL of the CSV export.
+ */
+export function ConsentLogRecords( { exportUrl }: { exportUrl: string } ) {
+	return (
+		<Fragment>
+			{ exportUrl !== '' && (
+				<Button variant="secondary" href={ exportUrl }>
 					{ __( 'Export the log as CSV', 'italy-cookie-choices' ) }
 				</Button>
 			) }

@@ -304,15 +304,15 @@ msgstr ""
 msgid "Also in the theme and in the plugins that do not use the WordPress functions. It buffers the page, turn it on only when needed."
 msgstr ""
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:1
 msgid "Placeholder text of the blocked content"
 msgstr ""
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:1
 msgid "Empty for a text with the category name."
 msgstr ""
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:1
 msgid "Placeholder button text"
 msgstr ""
 
@@ -542,6 +542,7 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
+#: templates/network-settings.php:20
 #: assets/build/settings.js:7
 msgid "Settings saved."
 msgstr ""
@@ -619,8 +620,11 @@ msgid "The file has no settings of Cookie Choices."
 msgstr ""
 
 #: src/Settings/UI/Abilities.php:29
-#: src/Settings/UI/SettingsPage.php:76
-#: src/Settings/UI/SettingsPage.php:77
+#: src/Settings/UI/NetworkSettingsPage.php:42
+#: src/Settings/UI/NetworkSettingsPage.php:43
+#: src/Settings/UI/NetworkSettingsPage.php:55
+#: src/Settings/UI/SettingsPage.php:78
+#: src/Settings/UI/SettingsPage.php:79
 msgid "Cookie Choices"
 msgstr ""
 
@@ -1060,28 +1064,28 @@ msgstr ""
 msgid "Box in the bottom right corner"
 msgstr ""
 
-#: src/Blocking/Application/VendorSettings.php:88
+#: src/Blocking/Application/VendorSettings.php:93
 msgid "The vendor needs a name."
 msgstr ""
 
-#: src/Blocking/Application/VendorSettings.php:97
+#: src/Blocking/Application/VendorSettings.php:102
 msgid "The vendor needs at least a pattern to block."
 msgstr ""
 
 #. translators: %s: the id of the vendor.
-#: src/Blocking/Application/VendorSettings.php:121
+#: src/Blocking/Application/VendorSettings.php:140
 #, php-format
 msgid "There is no common vendor with the id \"%s\"."
 msgstr ""
 
 #. translators: %s: the id of the vendor.
-#: src/Blocking/Application/VendorSettings.php:135
+#: src/Blocking/Application/VendorSettings.php:154
 #, php-format
 msgid "A vendor with the id \"%s\" already exists."
 msgstr ""
 
 #. translators: 1: the id of the category, 2: the ids of the categories, separated by commas.
-#: src/Blocking/Application/VendorSettings.php:149
+#: src/Blocking/Application/VendorSettings.php:168
 #, php-format
 msgid "The category \"%1$s\" is not one the visitors can refuse: %2$s."
 msgstr ""
@@ -1140,4 +1144,32 @@ msgstr ""
 
 #: assets/build/settings.js:1
 msgid "When the browser of the visitor asks not to share the data, accept all leaves out the marketing cookies. The visitor can still choose them in the preferences."
+msgstr ""
+
+#: src/Blocking/Application/VendorSettings.php:126
+msgid "The vendors of this site come from the main site of the network."
+msgstr ""
+
+#: src/Settings/UI/NetworkSettingsPage.php:68
+msgid "You cannot change the network settings."
+msgstr ""
+
+#: templates/network-settings.php:27
+msgid "Settings of the sites"
+msgstr ""
+
+#: templates/network-settings.php:38
+msgid "Use the settings of the main site on every site"
+msgstr ""
+
+#: templates/network-settings.php:41
+msgid "Each site keeps its own texts, for its language, and its own consent log."
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "This site uses the settings of the main site of the network: here you change only its texts, for its language."
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Texts"
 msgstr ""
