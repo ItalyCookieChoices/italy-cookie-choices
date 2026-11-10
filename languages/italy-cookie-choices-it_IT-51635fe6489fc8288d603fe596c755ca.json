@@ -447,6 +447,12 @@
             ],
             "Box in the bottom right corner": [
                 "Riquadro nell'angolo in basso a destra"
+            ],
+            "Respect the Global Privacy Control of the browser": [
+                "Rispetta il Global Privacy Control del browser"
+            ],
+            "When the browser of the visitor asks not to share the data, accept all leaves out the marketing cookies. The visitor can still choose them in the preferences.": [
+                "Quando il browser del visitatore chiede di non condividere i dati, accetta tutti esclude i cookie di marketing. Il visitatore pu\u00f2 comunque sceglierli nelle preferenze."
             ]
         }
     }

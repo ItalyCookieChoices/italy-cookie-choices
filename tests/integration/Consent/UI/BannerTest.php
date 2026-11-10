@@ -223,6 +223,43 @@ final class BannerTest extends WPTestCase
         $this->assertSame('', $this->makeSut()->data()['logo']);
     }
 
+    public function testTheBannerRespectsTheGlobalPrivacyControlWhenItIsOn(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'global_privacy_control' => '1']);
+        $sut = $this->makeSut();
+
+        $this->assertTrue($sut->data()['globalPrivacyControl']);
+        $processor = new \WP_HTML_Tag_Processor($sut->html());
+        $this->assertTrue($processor->next_tag(['tag_name' => 'div']));
+        $this->assertSame('icc-banner', $processor->get_attribute('id'));
+        $this->assertSame('1', $processor->get_attribute('data-global-privacy-control'));
+        $notes = 0;
+        while ($processor->next_tag(['class_name' => 'icc-banner__gpc'])) {
+            $this->assertTrue($processor->get_attribute('data-icc-gpc-note'));
+            $this->assertTrue($processor->get_attribute('hidden'));
+            $notes++;
+        }
+
+        $this->assertSame(2, $notes);
+        $this->assertStringContainsString(
+            'Your browser asks not to share your data: accepting all leaves out the marketing cookies',
+            $sut->html()
+        );
+    }
+
+    public function testTheBannerIgnoresTheGlobalPrivacyControlWhenItIsOff(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1']);
+        $sut = $this->makeSut();
+
+        $this->assertFalse($sut->data()['globalPrivacyControl']);
+        $processor = new \WP_HTML_Tag_Processor($sut->html());
+        $this->assertTrue($processor->next_tag(['tag_name' => 'div']));
+        $this->assertSame('icc-banner', $processor->get_attribute('id'));
+        $this->assertSame('0', $processor->get_attribute('data-global-privacy-control'));
+        $this->assertStringNotContainsString('data-icc-gpc-note', $sut->html());
+    }
+
     public function testTheFloatingButtonIsOffByDefault(): void
     {
         $sut = $this->makeSut();

@@ -16,7 +16,8 @@ export type Checkbox =
 	| 'youtube_nocookie'
 	| 'uet_consent_mode'
 	| 'clarity_consent_mode'
-	| 'floating_button';
+	| 'floating_button'
+	| 'global_privacy_control';
 
 export type Text =
 	| 'text'
@@ -107,7 +108,7 @@ export interface AdminData {
 }
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
-export const SCHEMA_VERSION = 9;
+export const SCHEMA_VERSION = 10;
 
 function isRecord( value: unknown ): value is Record< string, unknown > {
 	return (

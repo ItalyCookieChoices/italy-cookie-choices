@@ -16,7 +16,7 @@ final readonly class Schema
     public const OPTION = 'italy_cookie_choices';
     public const GROUP = 'italy_cl_options_group';
     public const VERSION_OPTION = 'italy_cookie_choices_version';
-    public const VERSION = 9;
+    public const VERSION = 10;
 
     public const COOKIE_NAME = 'displayCookieConsent';
     public const COOKIE_VALUE = 'y';
@@ -35,6 +35,7 @@ final readonly class Schema
         'uet_consent_mode',
         'clarity_consent_mode',
         'floating_button',
+        'global_privacy_control',
     ];
 
     private const ENUMS = [
@@ -101,6 +102,13 @@ final readonly class Schema
         'clarity_consent_mode' => '1',
     ];
 
+    /**
+     * Accept all leaves out the marketing category when the browser sends the Global Privacy Control signal.
+     */
+    public const GLOBAL_PRIVACY_CONTROL_DEFAULTS = [
+        'global_privacy_control' => '1',
+    ];
+
     public const CONSENT_LOG_DEFAULTS = [
         'consent_log' => '1',
         'consent_log_retention' => '12',
@@ -134,6 +142,7 @@ final readonly class Schema
             'youtube_nocookie' => '1',
             ...self::MICROSOFT_CONSENT_DEFAULTS,
             'disabled_vendors' => self::VENDORS_OFF_BY_DEFAULT,
+            ...self::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
         ];
     }
 

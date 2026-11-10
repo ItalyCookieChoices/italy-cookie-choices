@@ -447,6 +447,12 @@
             ],
             "Box in the bottom right corner": [
                 ""
+            ],
+            "Respect the Global Privacy Control of the browser": [
+                ""
+            ],
+            "When the browser of the visitor asks not to share the data, accept all leaves out the marketing cookies. The visitor can still choose them in the preferences.": [
+                ""
             ]
         }
     }

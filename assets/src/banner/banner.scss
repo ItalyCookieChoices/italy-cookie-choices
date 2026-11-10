@@ -129,6 +129,12 @@
 	}
 }
 
+// Shown when the browser sends the Global Privacy Control signal.
+.icc-banner__gpc {
+	margin: 0 0 1em;
+	font-size: 0.875em;
+}
+
 // Accept, reject and preferences have the same weight.
 .icc-banner__actions,
 .icc-preferences__actions {

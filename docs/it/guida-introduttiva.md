@@ -16,6 +16,7 @@ Le impostazioni sono divise in schede. L'anteprima a destra mostra il banner, o 
 * **Testo del pulsante di accettazione**: il testo del pulsante che accetta tutte le categorie.
 * **Pagine dove il banner non si apre da solo**: ID o slug delle pagine, separati da virgole.
 * **Ricarica la pagina dopo la scelta**: per i temi che hanno bisogno di ricaricare la pagina per mostrare i contenuti accettati.
+* **Rispetta il Global Privacy Control del browser**: attivo di default. Alcuni browser, come Brave e DuckDuckGo, o Firefox con un'opzione, inviano il segnale [Global Privacy Control](https://globalprivacycontrol.org/) per chiedere ai siti di non condividere i dati del visitatore. Con il segnale, accetta tutti esclude i cookie di marketing e il banner spiega il perché; il visitatore può comunque sceglierli nelle preferenze. Il banner chiede comunque il consenso.
 * **Mostra un pulsante fluttuante per cambiare il consenso**: dopo la scelta, un piccolo pulsante rotondo nell'angolo in basso a sinistra o a destra apre le preferenze, così i visitatori possono cambiare o revocare il consenso senza il blocco o il link. La sua etichetta viene letta dagli screen reader, *Preferenze cookie* quando è vuota.
 
 Il banner ha sempre tre pulsanti con la stessa importanza: accetta tutti, rifiuta tutti e preferenze. Chiuderlo con la X mantiene solo i cookie necessari.

@@ -3,6 +3,8 @@ import { focusableIn, trapTab } from './focus';
 
 export const OPEN_PREFERENCES = 'italy-cookie-choices:open-preferences';
 const HTML_OPEN_CLASS = 'icc-banner-is-open';
+/** The category left out by accept all when the browser sends the Global Privacy Control signal. */
+const MARKETING = 'marketing';
 
 export interface BannerElements {
 	banner: HTMLElement;
@@ -15,6 +17,8 @@ export interface BannerElements {
  * The consent banner and the preferences dialog printed by ItalyCookieChoices\Consent\UI\Banner.
  *
  * Accept all, reject all and preferences have the same weight, closing the banner keeps only the necessary cookies.
+ * When the site respects the Global Privacy Control signal and the browser sends it, accept all leaves out
+ * the marketing category: the visitor can still choose it in the preferences.
  */
 export class Banner {
 	private preferencesTrigger: HTMLElement | null = null;
@@ -22,7 +26,9 @@ export class Banner {
 	public constructor(
 		private readonly elements: BannerElements,
 		private readonly api: ConsentApi,
-		private readonly reload: () => void
+		private readonly reload: () => void,
+		private readonly browserSendsGlobalPrivacyControl: () => boolean = () =>
+			false
 	) {}
 
 	public start(): void {
@@ -50,6 +56,7 @@ export class Banner {
 			this.onOpenPreferencesLink( event )
 		);
 		this.api.onChange( ( change ) => this.onConsentChange( change ) );
+		this.showGlobalPrivacyControlNotes();
 
 		if (
 			this.api.getConsent() === null &&
@@ -119,7 +126,7 @@ export class Banner {
 
 		const action = button.dataset.iccAction;
 		if ( action === 'accept-all' ) {
-			this.api.acceptAll();
+			this.acceptAll();
 		}
 
 		if ( action === 'reject-all' || action === 'close' ) {
@@ -184,6 +191,42 @@ export class Banner {
 		) {
 			this.reload();
 		}
+	}
+
+	private acceptAll(): void {
+		if ( ! this.respectsGlobalPrivacyControl() ) {
+			this.api.acceptAll();
+			return;
+		}
+
+		this.api.setConsent(
+			this.api
+				.categories()
+				.map( ( category ) => category.id )
+				.filter( ( id ) => id !== MARKETING )
+		);
+	}
+
+	private respectsGlobalPrivacyControl(): boolean {
+		return (
+			this.elements.banner.dataset.globalPrivacyControl === '1' &&
+			this.browserSendsGlobalPrivacyControl()
+		);
+	}
+
+	private showGlobalPrivacyControlNotes(): void {
+		if ( ! this.respectsGlobalPrivacyControl() ) {
+			return;
+		}
+
+		const { banner, preferences } = this.elements;
+		[ banner, preferences ].forEach( ( dialog ) =>
+			dialog
+				.querySelectorAll< HTMLElement >( '[data-icc-gpc-note]' )
+				.forEach( ( note ) => {
+					note.hidden = false;
+				} )
+		);
 	}
 
 	private checkboxes(): HTMLInputElement[] {

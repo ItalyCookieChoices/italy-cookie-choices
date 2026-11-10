@@ -24,6 +24,7 @@ final class BuildingBanner
     public const PREFERENCES_TITLE = 'preferencesTitle';
     public const SAVE = 'save';
     public const CLOSE_PREFERENCES = 'closePreferences';
+    public const GLOBAL_PRIVACY_CONTROL = 'globalPrivacyControl';
 
     /**
      * @param array<string, string> $texts The texts keyed by the constants of this class.

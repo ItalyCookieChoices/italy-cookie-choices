@@ -208,6 +208,8 @@ add_action( BuildingConsentPolicy::class, static function ( BuildingConsentPolic
 
 add_action( BuildingBanner::class, static function ( BuildingBanner $event ): void {
 	$event->changeCategoryLabel( 'social', 'Social networks', 'Share buttons and embedded posts.' );
+	// The note shown when the browser sends the Global Privacy Control signal.
+	$event->changeText( BuildingBanner::GLOBAL_PRIVACY_CONTROL, 'Your browser sends GPC: marketing stays off.' );
 } );
 ```
 

@@ -74,6 +74,7 @@ final class AdminCest
                 'uet_consent_mode' => '1',
                 'clarity_consent_mode' => '1',
                 'disabled_vendors' => ['google-recaptcha'],
+                'global_privacy_control' => '1',
             ],
             $I->grabOptionFromDatabase(E2eTester::OPTION_NAME)
         );

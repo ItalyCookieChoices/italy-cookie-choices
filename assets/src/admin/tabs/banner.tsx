@@ -93,6 +93,18 @@ export function BannerTab( props: SettingsProps ) {
 			/>
 			<ToggleField
 				{ ...props }
+				name="global_privacy_control"
+				label={ __(
+					'Respect the Global Privacy Control of the browser',
+					'italy-cookie-choices'
+				) }
+				help={ __(
+					'When the browser of the visitor asks not to share the data, accept all leaves out the marketing cookies. The visitor can still choose them in the preferences.',
+					'italy-cookie-choices'
+				) }
+			/>
+			<ToggleField
+				{ ...props }
 				name="floating_button"
 				label={ __(
 					'Show a floating button to change the consent',

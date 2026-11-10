@@ -86,6 +86,7 @@ final class SanitizerTest extends WPTestCase
             'clarity_consent_mode',
             'floating_button',
             'floating_button_position',
+            'global_privacy_control',
         ];
 
         foreach ($fields as $field) {
