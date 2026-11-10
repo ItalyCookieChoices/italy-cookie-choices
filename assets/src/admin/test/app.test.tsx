@@ -113,3 +113,40 @@ it( 'previews the settings not saved yet', async () => {
 		screen.getByTitle( 'Banner preview' ).getAttribute( 'srcdoc' )
 	).toBe( '<p>Preview</p>' );
 } );
+
+it( 'edits only the texts on a site that uses the main site', async () => {
+	mocked.saveSettings.mockImplementation( ( settings ) =>
+		Promise.resolve( settings )
+	);
+	render( <App data={ { ...data, textsOnly: true } } /> );
+
+	const text = await screen.findByLabelText( 'Banner text' );
+	expect(
+		screen.getByText(
+			'This site uses the settings of the main site of the network: here you change only its texts, for its language.',
+			NOTICE
+		)
+	).toBeTruthy();
+	expect( screen.getByRole( 'tab', { name: 'Texts' } ) ).toBeTruthy();
+	expect( screen.getByRole( 'tab', { name: 'Consent log' } ) ).toBeTruthy();
+	expect( screen.queryByRole( 'tab', { name: 'Style' } ) ).toBeNull();
+	expect(
+		screen.queryByRole( 'checkbox', { name: 'Show the banner' } )
+	).toBeNull();
+	expect( screen.getByLabelText( 'Policy link text' ) ).toBeTruthy();
+	expect(
+		screen.getByLabelText( 'Label of the floating button' )
+	).toBeTruthy();
+	expect(
+		screen.getByLabelText( 'Placeholder text of the blocked content' )
+	).toBeTruthy();
+
+	fireEvent.change( text, { target: { value: 'Testo del sito' } } );
+	fireEvent.click( saveButton() );
+
+	expect( await screen.findByText( 'Settings saved.', NOTICE ) ).toBeTruthy();
+	expect( mocked.saveSettings ).toHaveBeenCalledWith( {
+		active: '1',
+		text: 'Testo del sito',
+	} );
+} );

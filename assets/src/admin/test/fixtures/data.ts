@@ -28,4 +28,5 @@ export const data: AdminData = {
 	consentLogExportUrl:
 		'https://example.com/wp-admin/admin-post.php?action=export',
 	documentationUrl: 'https://example.com/docs',
+	textsOnly: false,
 };

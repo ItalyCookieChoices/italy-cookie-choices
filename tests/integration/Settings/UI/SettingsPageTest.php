@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Integration\Settings\UI;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyStrap\Asset\AssetLoader;
@@ -140,6 +141,7 @@ final class SettingsPageTest extends WPTestCase
         );
         $this->assertSame($this->service(ConsentLogExport::class)->url(), $data['consentLogExportUrl']);
         $this->assertSame(SettingsPage::DOCUMENTATION, $data['documentationUrl']);
+        $this->assertFalse($data['textsOnly']);
     }
 
     public function testThePageGetsTheDefaultLabelsNotTheSavedOnes(): void
@@ -158,6 +160,7 @@ final class SettingsPageTest extends WPTestCase
             $this->service(ConsentTexts::class),
             $this->service(VendorPresets::class),
             $this->service(ConsentLogExport::class),
+            new NetworkSettings(),
             $this->service(ViewInterface::class),
             new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,

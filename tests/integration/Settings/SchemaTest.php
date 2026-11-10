@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Settings;
 
+use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
@@ -54,6 +55,14 @@ final class SchemaTest extends WPTestCase
                 'global_privacy_control' => '1',
             ],
             (new Schema())->defaults()
+        );
+    }
+
+    public function testTheTextsOfASiteAreTheTranslatableTextsAndTheCategories(): void
+    {
+        $this->assertSame(
+            [...\array_keys(Options::TRANSLATABLE), 'categories'],
+            Schema::SITE_TEXTS
         );
     }
 

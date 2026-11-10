@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Settings;
 
 use ItalyCookieChoices\Settings\UI\Abilities;
 use ItalyCookieChoices\Settings\UI\ImportEndpoint;
+use ItalyCookieChoices\Settings\UI\NetworkSettingsPage;
 use ItalyCookieChoices\Settings\UI\PluginActionLinks;
 use ItalyCookieChoices\Settings\UI\SettingsAbility;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
@@ -49,12 +50,14 @@ final readonly class Module implements ModuleInterface
             SubscribersConfigExtension::SUBSCRIBERS => [
                 Migration::class,
                 Registration::class,
+                SharedSettings::class,
                 StringRegistration::class,
                 SettingsPage::class,
                 ImportEndpoint::class,
                 PluginActionLinks::class,
                 Abilities::class,
                 SettingsAbility::class,
+                NetworkSettingsPage::class,
             ],
         ];
     }

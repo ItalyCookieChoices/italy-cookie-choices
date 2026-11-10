@@ -70,6 +70,9 @@ jobs:
       - name: Run Integration tests
         run: make integration
 
+      - name: Run the multisite tests
+        run: make multisite
+
       - name: Wait for Selenium
         run: |
           timeout 180 sh -c 'until curl -sf http://localhost:4444/status | grep -q "\"ready\": *true"; do sleep 2; done'

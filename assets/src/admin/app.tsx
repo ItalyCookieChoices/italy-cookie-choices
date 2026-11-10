@@ -9,9 +9,10 @@ import type { AdminData, Settings } from './settings';
 import { BannerTab } from './tabs/banner';
 import { BlockingTab } from './tabs/blocking';
 import { CategoriesTab } from './tabs/categories';
-import { ConsentLogTab } from './tabs/consent-log';
+import { ConsentLogRecords, ConsentLogTab } from './tabs/consent-log';
 import { IntegrationsTab } from './tabs/integrations';
 import { StyleTab } from './tabs/style';
+import { TextsTab } from './tabs/texts';
 import { ToolsTab } from './tabs/tools';
 
 interface Message {
@@ -123,7 +124,14 @@ export function App( { data }: { data: AdminData } ) {
 	}
 
 	const props = { settings, onChange: setSettings };
-	const tabs = {
+	// A site that uses the settings of the main site of the network changes only its texts.
+	const textsOnlyTabs = {
+		texts: <TextsTab { ...props } categories={ data.categories } />,
+		'consent-log': (
+			<ConsentLogRecords exportUrl={ data.consentLogExportUrl } />
+		),
+	};
+	const allTabs = {
 		banner: <BannerTab { ...props } />,
 		style: <StyleTab { ...props } />,
 		categories: (
@@ -158,13 +166,29 @@ export function App( { data }: { data: AdminData } ) {
 		),
 	};
 
+	const tabs: Record< string, JSX.Element > = data.textsOnly
+		? textsOnlyTabs
+		: allTabs;
+
 	return (
 		<div className="icc-admin">
 			{ notice }
+			{ data.textsOnly && (
+				<Notice status="info" isDismissible={ false }>
+					{ __(
+						'This site uses the settings of the main site of the network: here you change only its texts, for its language.',
+						'italy-cookie-choices'
+					) }
+				</Notice>
+			) }
 			<div className="icc-admin__layout">
 				<TabPanel
 					className="icc-admin__tabs"
 					tabs={ [
+						{
+							name: 'texts',
+							title: __( 'Texts', 'italy-cookie-choices' ),
+						},
 						{
 							name: 'banner',
 							title: __( 'Banner', 'italy-cookie-choices' ),
@@ -193,11 +217,11 @@ export function App( { data }: { data: AdminData } ) {
 							name: 'tools',
 							title: __( 'Tools', 'italy-cookie-choices' ),
 						},
-					] }
+					].filter( ( tab ) => tab.name in tabs ) }
 				>
 					{ ( tab ) => (
 						<div className="icc-admin__panel">
-							{ tabs[ tab.name as keyof typeof tabs ] }
+							{ tabs[ tab.name ] }
 						</div>
 					) }
 				</TabPanel>

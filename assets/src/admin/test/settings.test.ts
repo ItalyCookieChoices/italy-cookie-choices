@@ -38,6 +38,7 @@ describe( 'parseAdminData', () => {
 				],
 				consentLogExportUrl: 'https://example.com/export',
 				documentationUrl: 42,
+				textsOnly: true,
 			} )
 		).toEqual( {
 			categories: [
@@ -59,6 +60,7 @@ describe( 'parseAdminData', () => {
 			],
 			consentLogExportUrl: 'https://example.com/export',
 			documentationUrl: '',
+			textsOnly: true,
 		} );
 	} );
 
@@ -68,6 +70,7 @@ describe( 'parseAdminData', () => {
 			vendors: [],
 			consentLogExportUrl: '',
 			documentationUrl: '',
+			textsOnly: false,
 		} );
 	} );
 } );

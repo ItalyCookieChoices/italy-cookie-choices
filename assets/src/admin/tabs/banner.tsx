@@ -4,13 +4,17 @@ import { createElement, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	SelectField,
-	TextareaField,
 	TextField,
 	ToggleField,
 	type SettingsProps,
 } from '../fields';
-import { PolicyPage } from '../policy-page';
 import { isChecked } from '../settings';
+import {
+	AcceptButtonTextField,
+	BannerTextField,
+	FloatingButtonLabelField,
+	PolicyLinkFields,
+} from '../texts';
 
 export function BannerTab( props: SettingsProps ) {
 	return (
@@ -24,31 +28,8 @@ export function BannerTab( props: SettingsProps ) {
 					'italy-cookie-choices'
 				) }
 			/>
-			<TextareaField
-				{ ...props }
-				name="text"
-				label={ __( 'Banner text', 'italy-cookie-choices' ) }
-				help={ __(
-					'Links and simple HTML are allowed.',
-					'italy-cookie-choices'
-				) }
-			/>
-			<PolicyPage { ...props } />
-			<TextField
-				{ ...props }
-				name="url"
-				type="url"
-				label={ __( 'Policy link', 'italy-cookie-choices' ) }
-			/>
-			<TextField
-				{ ...props }
-				name="anchor_text"
-				label={ __( 'Policy link text', 'italy-cookie-choices' ) }
-				help={ __(
-					'The link shows its address when it is empty.',
-					'italy-cookie-choices'
-				) }
-			/>
+			<BannerTextField { ...props } />
+			<PolicyLinkFields { ...props } />
 			<ToggleField
 				{ ...props }
 				name="target"
@@ -65,12 +46,7 @@ export function BannerTab( props: SettingsProps ) {
 					'italy-cookie-choices'
 				) }
 			/>
-			<TextField
-				{ ...props }
-				name="button_text"
-				label={ __( 'Accept button text', 'italy-cookie-choices' ) }
-				placeholder={ __( 'Accept all', 'italy-cookie-choices' ) }
-			/>
+			<AcceptButtonTextField { ...props } />
 			<TextField
 				{ ...props }
 				name="excluded_pages"
@@ -142,22 +118,7 @@ export function BannerTab( props: SettingsProps ) {
 						] }
 						defaultValue="left"
 					/>
-					<TextField
-						{ ...props }
-						name="floating_button_label"
-						label={ __(
-							'Label of the floating button',
-							'italy-cookie-choices'
-						) }
-						help={ __(
-							'Read by the screen readers and shown when the pointer is over the button.',
-							'italy-cookie-choices'
-						) }
-						placeholder={ __(
-							'Cookie preferences',
-							'italy-cookie-choices'
-						) }
-					/>
+					<FloatingButtonLabelField { ...props } />
 				</Fragment>
 			) }
 		</Fragment>
