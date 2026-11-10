@@ -35,7 +35,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Let the AI tools read the settings and turn the vendors on or off, with the Abilities API of WordPress 6.9
 * Print Google Analytics, Google Tag Manager and the Facebook pixel from their ids
 * Preview the banner while you change the settings
-* Translate the texts with WPML and Polylang, the plugin is translated in Italian
+* Translate the texts with WPML, Polylang, TranslatePress and Weglot, the plugin is translated in Italian
 * Import the settings of the 2.x versions
 
 = Documentation =
