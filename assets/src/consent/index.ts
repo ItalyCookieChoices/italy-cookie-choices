@@ -27,7 +27,8 @@ if ( window.italyCookieChoices === undefined ) {
 	const config = parseConfig( window.italyCookieChoicesConfig );
 	const cookies = new Cookies(
 		document,
-		window.location.protocol === 'https:'
+		window.location.protocol === 'https:',
+		config.cookieDomain
 	);
 	const api = createConsentApi( config, cookies, document );
 	window.italyCookieChoices = api;

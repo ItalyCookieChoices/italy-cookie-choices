@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
 use ItalyCookieChoices\Consent\Application\BuildingConsentPolicy;
+use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\PolicyVersion;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
@@ -88,9 +89,29 @@ final class ConsentScriptTest extends WPTestCase
                 'durationDays' => 182,
                 'legacyCookie' => ['name' => 'accepted', 'value' => 'yes'],
                 'renewalUrl' => \rest_url('italy-cookie-choices/v1/consent-cookie'),
+                'cookieDomain' => '',
             ],
             $this->makeSut()->config()
         );
+    }
+
+    public function testTheConsentCookieIsSharedWithTheSubdomainsOfTheCookieDomain(): void
+    {
+        \add_filter('home_url', static fn(): string => 'https://www.example.com');
+        \remove_all_filters('sanitize_option_' . Schema::OPTION);
+        \update_option(Schema::OPTION, ['active' => '1', 'cookie_domain' => 'example.com']);
+
+        $this->assertSame('example.com', $this->makeSut()->config()['cookieDomain']);
+    }
+
+    public function testACookieDomainOfAnotherSiteIsIgnored(): void
+    {
+        // A site of a network that uses the settings of a main site with another domain.
+        \add_filter('home_url', static fn(): string => 'https://www.example.com');
+        \remove_all_filters('sanitize_option_' . Schema::OPTION);
+        \update_option(Schema::OPTION, ['active' => '1', 'cookie_domain' => 'example.org']);
+
+        $this->assertSame('', $this->makeSut()->config()['cookieDomain']);
     }
 
     public function testTheConfigurationFollowsThePolicyListeners(): void
@@ -148,6 +169,7 @@ final class ConsentScriptTest extends WPTestCase
         return new ConsentScript(
             new ConsentPolicyFactory($this->dispatcher()),
             $this->options(),
+            new ConsentCookieDomain($this->options()),
             new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL

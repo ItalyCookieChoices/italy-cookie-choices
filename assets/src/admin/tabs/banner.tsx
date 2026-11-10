@@ -59,6 +59,16 @@ export function BannerTab( props: SettingsProps ) {
 					'italy-cookie-choices'
 				) }
 			/>
+			<TextField
+				{ ...props }
+				name="cookie_domain"
+				label={ __( 'Cookie domain', 'italy-cookie-choices' ) }
+				help={ __(
+					'Empty for the domain of the site only. Write the main domain, like example.com, to share the consent with its subdomains, like www.example.com and shop.example.com. A domain the site is not part of is not saved.',
+					'italy-cookie-choices'
+				) }
+				placeholder="example.com"
+			/>
 			<ToggleField
 				{ ...props }
 				name="reload"

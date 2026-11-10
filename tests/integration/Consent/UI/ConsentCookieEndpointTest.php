@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
+use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Application\RenewConsent;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
@@ -114,11 +115,15 @@ final class ConsentCookieEndpointTest extends WPTestCase
             new RenewConsent(
                 new ConsentPolicyFactory(new Dispatcher(new GlobalOrderedListenerProvider(), new GlobalState())),
                 new CookieConsentRepository($cookies),
-                new CookieConsentStorage($cookies, function (string $name): bool {
-                    $this->sent[] = $name;
+                new CookieConsentStorage(
+                    $cookies,
+                    new ConsentCookieDomain($this->options()),
+                    function (string $name): bool {
+                        $this->sent[] = $name;
 
-                    return true;
-                })
+                        return true;
+                    }
+                )
             ),
             $this->options()
         );

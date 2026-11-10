@@ -38,6 +38,7 @@ export type Text =
 	| 'content_message_text'
 	| 'content_message_button_text'
 	| 'excluded_pages'
+	| 'cookie_domain'
 	| 'banner'
 	| 'js_template'
 	| 'consent_log_retention'

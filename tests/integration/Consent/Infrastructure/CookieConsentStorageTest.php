@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Consent\Infrastructure;
 
+use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentStorage;
+use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class CookieConsentStorageTest extends WPTestCase
 {
+    use BuildsContainer;
+
     private const JSON = '{"id":"3f2504e0-4f89-41d3-9a0c-0305e82c3301","categories":["necessary"],"version":"1",'
         . '"date":"2026-11-01T10:00:00.000Z"}';
 
@@ -61,6 +66,13 @@ final class CookieConsentStorageTest extends WPTestCase
         $this->assertTrue($this->sent[0][2]['secure'] ?? null);
     }
 
+    public function testTheCookieIsSentForTheCookieDomain(): void
+    {
+        $this->makeSut(['icc_consent' => self::JSON], 'example.com')->renew(new \DateTimeImmutable('+1 day'));
+
+        $this->assertSame('example.com', $this->sent[0][2]['domain'] ?? null);
+    }
+
     public function testWithoutTheCookieNothingIsSent(): void
     {
         $this->makeSut([])->renew(new \DateTimeImmutable('+1 day'));
@@ -72,10 +84,14 @@ final class CookieConsentStorageTest extends WPTestCase
     /**
      * @param array<array-key, mixed> $cookies
      */
-    private function makeSut(array $cookies): CookieConsentStorage
+    private function makeSut(array $cookies, string $domain = ''): CookieConsentStorage
     {
+        \add_filter('home_url', static fn(): string => 'https://www.example.com');
+        \update_option(Schema::OPTION, ['active' => '1', 'cookie_domain' => $domain]);
+
         return new CookieConsentStorage(
             $cookies,
+            $this->service(ConsentCookieDomain::class),
             function (string $name, string $value, array $options): bool {
                 /** @var array<string, mixed> $options */
                 $this->sent[] = [$name, $value, $options];

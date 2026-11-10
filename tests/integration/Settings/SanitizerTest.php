@@ -288,6 +288,30 @@ final class SanitizerTest extends WPTestCase
     /**
      * @return iterable<string, array{mixed, string}>
      */
+    public function cookieDomains(): iterable
+    {
+        yield 'the parent domain of the site' => ['.Example.com', 'example.com'];
+        yield 'the host of the site' => ['www.example.com', 'www.example.com'];
+        yield 'empty' => ['', ''];
+        yield 'another domain' => ['example.org', ''];
+        yield 'not a string' => [['example.com'], ''];
+    }
+
+    /**
+     * @dataProvider cookieDomains
+     */
+    public function testTheCookieDomainIsTheHostOfTheSiteOrOneOfItsParents(mixed $value, string $expected): void
+    {
+        \add_filter('home_url', static fn(): string => 'https://www.example.com');
+
+        $sanitized = (new Sanitizer())(['cookie_domain' => $value]);
+
+        $this->assertSame($expected, $sanitized['cookie_domain']);
+    }
+
+    /**
+     * @return iterable<string, array{mixed, string}>
+     */
     public function logos(): iterable
     {
         yield 'attachment id' => ['42', '42'];

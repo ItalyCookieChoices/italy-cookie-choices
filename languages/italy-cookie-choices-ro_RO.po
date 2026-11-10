@@ -22,11 +22,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:153
+#: src/Settings/Sanitizer.php:158
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:154
+#: src/Settings/Sanitizer.php:159
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -1172,4 +1172,12 @@ msgstr ""
 
 #: assets/build/settings.js:7
 msgid "Texts"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Cookie domain"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Empty for the domain of the site only. Write the main domain, like example.com, to share the consent with its subdomains, like www.example.com and shop.example.com. A domain the site is not part of is not saved."
 msgstr ""

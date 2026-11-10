@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\Infrastructure;
 
+use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Domain\ConsentStorage;
 
 /**
@@ -26,6 +27,7 @@ final readonly class CookieConsentStorage implements ConsentStorage
      */
     public function __construct(
         private array $cookies,
+        private ConsentCookieDomain $domain,
         ?\Closure $sendCookie = null,
     ) {
         $this->sendCookie = $sendCookie ?? $this->setRawCookie(...);
@@ -36,7 +38,7 @@ final readonly class CookieConsentStorage implements ConsentStorage
      */
     private function setRawCookie(string $name, string $value, array $options): bool
     {
-        /** @var array{expires: int, path: string, secure: bool, httponly: bool, samesite: 'Lax'} $options */
+        /** @var array{expires: int, path: string, domain?: string, secure: bool, httponly: bool, samesite: 'Lax'} $options */
         return \setrawcookie($name, $value, $options);
     }
 
@@ -47,12 +49,14 @@ final readonly class CookieConsentStorage implements ConsentStorage
             return;
         }
 
+        $domain = $this->domain->forThisSite();
         ($this->sendCookie)(
             CookieConsentRepository::COOKIE_NAME,
             \rawurlencode(\wp_unslash($value)),
             [
                 'expires' => $expiresAt->getTimestamp(),
                 'path' => '/',
+                ...($domain !== '' ? ['domain' => $domain] : []),
                 'secure' => \is_ssl(),
                 'httponly' => false,
                 'samesite' => 'Lax',

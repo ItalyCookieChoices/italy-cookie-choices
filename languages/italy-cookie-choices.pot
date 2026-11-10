@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-10T09:16:44+00:00\n"
+"POT-Creation-Date: 2026-11-10T10:35:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -450,11 +450,11 @@ msgstr ""
 msgid "The bots are no longer detected, they do not run the consent scripts."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:153
+#: src/Settings/Sanitizer.php:158
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:154
+#: src/Settings/Sanitizer.php:159
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
@@ -625,6 +625,14 @@ msgstr ""
 
 #: assets/build/settings.js:1
 msgid "IDs or slugs, separated by commas. The visitors can still open the preferences there."
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Cookie domain"
+msgstr ""
+
+#: assets/build/settings.js:1
+msgid "Empty for the domain of the site only. Write the main domain, like example.com, to share the consent with its subdomains, like www.example.com and shop.example.com. A domain the site is not part of is not saved."
 msgstr ""
 
 #: assets/build/settings.js:1

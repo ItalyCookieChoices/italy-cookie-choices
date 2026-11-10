@@ -22,6 +22,8 @@ export interface ConsentConfig {
 	legacyCookie: LegacyCookie | null;
 	/** The endpoint that renews the consent cookie from the server, missing when it is not available. */
 	renewalUrl?: string;
+	/** The domain of the consent cookie, like example.com for its subdomains, missing for the host only. */
+	cookieDomain?: string;
 }
 
 export interface Consent {

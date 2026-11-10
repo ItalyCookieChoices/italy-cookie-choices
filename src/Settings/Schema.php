@@ -99,6 +99,13 @@ final readonly class Schema
         'banner_logo' => '^([1-9][0-9]*)?$',
     ];
 
+    /**
+     * The domain of the consent cookie, empty for the host of the site only.
+     */
+    public const DOMAINS = [
+        'cookie_domain' => '^(\\.?[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+)?$',
+    ];
+
     public const PATHS = [
         'google_tag_gateway_path' => '^(/[A-Za-z0-9._~-]+)*$',
     ];
@@ -187,6 +194,10 @@ final readonly class Schema
         }
 
         foreach (self::ATTACHMENTS as $name => $pattern) {
+            $properties[$name] = ['type' => 'string', 'pattern' => $pattern];
+        }
+
+        foreach (self::DOMAINS as $name => $pattern) {
             $properties[$name] = ['type' => 'string', 'pattern' => $pattern];
         }
 

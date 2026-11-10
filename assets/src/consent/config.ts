@@ -72,5 +72,8 @@ export function parseConfig( raw: unknown ): ConsentConfig {
 		...( typeof raw.renewalUrl === 'string' && raw.renewalUrl !== ''
 			? { renewalUrl: raw.renewalUrl }
 			: {} ),
+		...( typeof raw.cookieDomain === 'string' && raw.cookieDomain !== ''
+			? { cookieDomain: raw.cookieDomain }
+			: {} ),
 	};
 }
