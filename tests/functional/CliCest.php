@@ -67,7 +67,7 @@ final class CliCest
     {
         $I->assertSame(4, $I->cli(['cookie-choices', 'settings', 'import', '/tmp/icc-missing.json', '--yes']));
 
-        $I->assertStringContainsString('The file cannot be read.', $I->grabLastCliProcess()->getErrorOutput());
+        $I->assertStringContainsString('The file cannot be read.', $I->grabLastShellErrorOutput());
     }
 
     public function theLogIsExportedAndPurged(FunctionalTester $I): void
@@ -94,7 +94,7 @@ final class CliCest
 
         $I->assertStringContainsString(
             'The date is not valid, use the format YYYY-MM-DD.',
-            $I->grabLastCliProcess()->getErrorOutput()
+            $I->grabLastShellErrorOutput()
         );
     }
 

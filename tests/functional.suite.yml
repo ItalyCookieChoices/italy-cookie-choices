@@ -3,7 +3,7 @@ actor: FunctionalTester
 modules:
     enabled:
         - lucatume\WPBrowser\Module\WPDb
-        - lucatume\WPBrowser\Module\WPCLI
+        - \Helper\Cli
         - Asserts
     config:
         lucatume\WPBrowser\Module\WPDb:
@@ -15,7 +15,6 @@ modules:
             url: "%WP_URL%"
             urlReplacement: true
             tablePrefix: "%TABLE_PREFIX%"
-        lucatume\WPBrowser\Module\WPCLI:
+        \Helper\Cli:
             path: "%WP_ROOT_FOLDER%"
             bin: "/usr/local/bin/wp"
-            throw: false
