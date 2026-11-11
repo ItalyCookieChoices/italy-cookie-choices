@@ -11,6 +11,7 @@ use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\ScriptLoader;
 use ItalyStrap\Event\SubscriberInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
@@ -133,6 +134,7 @@ final class MicrosoftConsentScriptTest extends WPTestCase
             new IntegrationSettings($this->options()),
             $this->service(ConsentScript::class),
             new AssetLoader(),
+            new ScriptLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );

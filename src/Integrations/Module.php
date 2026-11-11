@@ -40,6 +40,7 @@ final readonly class Module implements ModuleInterface
             AurynConfig::DEFINITIONS => [
                 ConsentModeScript::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
+                    ':buildUrl' => $this->pluginUrl . self::BUILD,
                 ],
                 MicrosoftConsentScript::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
