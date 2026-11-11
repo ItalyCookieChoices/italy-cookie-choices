@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-10T11:11:47+00:00\n"
+"POT-Creation-Date: 2026-11-11T20:13:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -66,13 +66,13 @@ msgid "The category \"%1$s\" is not one the visitors can refuse: %2$s."
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:116
+#: src/Blocking/UI/Placeholders.php:119
 #, php-format
 msgid "This content is blocked until you accept the %s cookies."
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:121
+#: src/Blocking/UI/Placeholders.php:124
 #, php-format
 msgid "Accept the %s cookies"
 msgstr ""
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Accept all"
 msgstr ""
 
-#: src/Consent/UI/Banner.php:197
+#: src/Consent/UI/Banner.php:199
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -176,6 +176,30 @@ msgstr ""
 msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
 msgstr ""
 
+#. translators: %d: a number of records.
+#: src/ConsentLog/UI/Cli/Handlers/PurgeLog.php:41
+#, php-format
+msgid "%d record deleted."
+msgid_plural "%d records deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: a date and time.
+#: src/ConsentLog/UI/Cli/Handlers/PurgeLog.php:52
+#, php-format
+msgid "Delete the records of the consent log before %s?"
+msgstr ""
+
+#. translators: %s: the path of the file.
+#: src/ConsentLog/UI/Cli/Handlers/WriteConsentLog.php:45
+#, php-format
+msgid "The consent log is exported to %s."
+msgstr ""
+
+#: src/ConsentLog/UI/Cli/LogExitCode.php:23
+msgid "The date is not valid, use the format YYYY-MM-DD."
+msgstr ""
+
 #: src/ConsentLog/UI/ConsentLogExport.php:47
 msgid "You cannot export the consent log."
 msgstr ""
@@ -200,6 +224,26 @@ msgstr ""
 #: src/ConsentLog/UI/PrivacyPolicyText.php:50
 #, php-format
 msgid "To demonstrate your consent, the site keeps a log of your choices for %d months: a random id created by your browser, the accepted categories, the version of the cookie policy and the date. The log does not contain your IP address or any other data that identifies you."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:27
+msgid "Done."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:28
+msgid "The command failed."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:29
+msgid "Nothing changed."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:30
+msgid "The file cannot be written."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:31
+msgid "The file cannot be read."
 msgstr ""
 
 #: src/Cookies/Application/CookieDurations.php:14
@@ -458,6 +502,11 @@ msgstr ""
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
+#: src/Settings/SettingsFile.php:51
+#: src/Settings/UI/Cli/SettingsExitCode.php:23
+msgid "The file has no settings of Cookie Choices."
+msgstr ""
+
 #: src/Settings/UI/Abilities.php:29
 #: src/Settings/UI/NetworkSettingsPage.php:42
 #: src/Settings/UI/NetworkSettingsPage.php:43
@@ -471,8 +520,18 @@ msgstr ""
 msgid "The cookie banner, the blocked vendors and the consent log of the site."
 msgstr ""
 
-#: src/Settings/UI/ImportEndpoint.php:58
-msgid "The file has no settings of Cookie Choices."
+#: src/Settings/UI/Cli/Handlers/ImportSettings.php:29
+msgid "Replace the settings of Cookie Choices with the ones of the file?"
+msgstr ""
+
+#: src/Settings/UI/Cli/Handlers/ImportSettings.php:42
+msgid "The settings are imported."
+msgstr ""
+
+#. translators: %s: the path of the file.
+#: src/Settings/UI/Cli/Handlers/WriteSettingsFile.php:46
+#, php-format
+msgid "The settings are exported to %s."
 msgstr ""
 
 #: src/Settings/UI/NetworkSettingsPage.php:68

@@ -17,6 +17,7 @@ Cookie Choices, prima Italy Cookie Choices, chiede il consenso dei visitatori pr
 ## Per gli sviluppatori
 
 * [Integrazioni](integrazioni.md): Google Consent Mode v2, l'API del consenso, gli eventi per bloccare uno script, aggiungere un fornitore o cambiare i testi.
+* [Comandi WP-CLI](wp-cli.md): lo stato, l'esportazione e l'importazione delle impostazioni, l'esportazione e la pulizia del registro dei consensi.
 * [Abilità per gli strumenti di IA](abilita.md): leggere le impostazioni e le statistiche dei consensi, attivare o disattivare i fornitori, con l'API Abilities di WordPress.
 
 ## Requisiti

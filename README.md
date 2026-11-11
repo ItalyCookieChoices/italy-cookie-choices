@@ -39,6 +39,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Preview the banner while you change the settings
 * Translate the texts with WPML, Polylang, TranslatePress and Weglot, the plugin is translated in Italian
 * Import the settings of the 2.x versions
+* Manage the settings and the consent log with the `wp cookie-choices` commands of WP-CLI
 * Share the settings of the main site with every site of a multisite network, each site with its own texts
 
 ### Documentation ###
@@ -51,6 +52,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * [Multisite networks](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/multisite.md)
 * [Integrations, for the developers](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/integrations.md)
 * [Abilities for the AI tools](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/abilities.md)
+* [WP-CLI commands](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/wp-cli.md)
 * [Upgrading from 2.x](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/upgrade-3.0.md)
 * [Documentazione in italiano](https://github.com/ItalyCookieChoices/italy-cookie-choices/blob/master/docs/it/README.md)
 

@@ -1,0 +1,20 @@
+# The WP-CLI commands, run by the wp binary of the container on the site of the e2e suite.
+actor: FunctionalTester
+modules:
+    enabled:
+        - lucatume\WPBrowser\Module\WPDb
+        - \Helper\Cli
+        - Asserts
+    config:
+        lucatume\WPBrowser\Module\WPDb:
+            dbUrl: "mysql://%DB_USER%:%DB_PASSWORD%@%DB_HOST%/%DB_NAME%"
+            dump: "tests/_data/dump.sql"
+            populate: true
+            cleanup: true
+            waitlock: 10
+            url: "%WP_URL%"
+            urlReplacement: true
+            tablePrefix: "%TABLE_PREFIX%"
+        \Helper\Cli:
+            path: "%WP_ROOT_FOLDER%"
+            bin: "/usr/local/bin/wp"

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices;
 
+use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -27,7 +28,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
         ->addModule(new ConsentLog\Module($pluginPath, $pluginUrl))
         ->addModule(new Integrations\Module($pluginPath, $pluginUrl))
         ->addModule(new Cookies\Module($pluginPath, $pluginUrl))
-        ->extend(SubscribersConfigExtension::class)
+        ->addModule(new Cli\Module())
+        ->extend(SubscribersConfigExtension::class, CommandsConfigExtension::class)
         ->build();
 
     $dispatcher = $container->get(EventDispatcherInterface::class);

@@ -73,6 +73,9 @@ jobs:
       - name: Run the multisite tests
         run: make multisite
 
+      - name: Run the functional tests
+        run: make functional
+
       - name: Wait for Selenium
         run: |
           timeout 180 sh -c 'until curl -sf http://localhost:4444/status | grep -q "\"ready\": *true"; do sleep 2; done'

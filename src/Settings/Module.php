@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Settings;
 
 use ItalyCookieChoices\Settings\UI\Abilities;
+use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
+use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsExportCommand;
+use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsImportCommand;
+use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsNamespace;
 use ItalyCookieChoices\Settings\UI\ImportEndpoint;
 use ItalyCookieChoices\Settings\UI\NetworkSettingsPage;
 use ItalyCookieChoices\Settings\UI\PluginActionLinks;
@@ -58,6 +62,11 @@ final readonly class Module implements ModuleInterface
                 Abilities::class,
                 SettingsAbility::class,
                 NetworkSettingsPage::class,
+            ],
+            CommandsConfigExtension::COMMANDS => [
+                'cookie-choices settings' => SettingsNamespace::class,
+                SettingsExportCommand::class,
+                SettingsImportCommand::class,
             ],
         ];
     }

@@ -6,6 +6,10 @@ namespace ItalyCookieChoices\ConsentLog;
 
 use ItalyCookieChoices\ConsentLog\Domain\ConsentLog;
 use ItalyCookieChoices\ConsentLog\Infrastructure\DatabaseConsentLog;
+use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
+use ItalyCookieChoices\ConsentLog\UI\Cli\Commands\LogExportCommand;
+use ItalyCookieChoices\ConsentLog\UI\Cli\Commands\LogNamespace;
+use ItalyCookieChoices\ConsentLog\UI\Cli\Commands\LogPurgeCommand;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogEndpoint;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\ConsentLog\UI\ConsentStatisticsAbility;
@@ -64,6 +68,11 @@ final readonly class Module implements ModuleInterface
                 PrivacyPolicyText::class,
                 ConsentStatisticsEndpoint::class,
                 ConsentStatisticsAbility::class,
+            ],
+            CommandsConfigExtension::COMMANDS => [
+                'cookie-choices log' => LogNamespace::class,
+                LogExportCommand::class,
+                LogPurgeCommand::class,
             ],
         ];
     }

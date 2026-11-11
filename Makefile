@@ -58,6 +58,10 @@ integration: ## Run the integration suite
 multisite: ## Run the integration suite of a multisite network
 	$(EXEC) vendor/bin/codecept run multisite $(ARGS)
 
+.PHONY: functional
+functional: ## Run the WP-CLI commands with the wp binary of the container
+	$(EXEC) vendor/bin/codecept run functional $(ARGS)
+
 .PHONY: e2e
 e2e: ## Run the e2e suite in Chrome, watch it at http://localhost:7900
 	$(EXEC) vendor/bin/codecept run e2e $(ARGS)
