@@ -29,7 +29,10 @@ return [
             ->exclude(['doc', 'docs', 'test', 'tests', 'Tests', 'vendor-bin'])
             ->in('vendor'),
     ],
+    // WP-CLI loads its own classes, the commands of the plugin use them only on cli_init.
+    'exclude-namespaces' => ['WP_CLI', 'cli'],
     'exclude-classes' => \array_merge(
+        ['WP_CLI'],
         $wordpressSymbols('classes'),
         $wordpressSymbols('interfaces'),
         $wordpressSymbols('traits')

@@ -64,13 +64,13 @@ msgid "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 msgstr "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:116
+#: src/Blocking/UI/Placeholders.php:119
 #, php-format
 msgid "This content is blocked until you accept the %s cookies."
 msgstr "Questo contenuto è bloccato finché non accetti i cookie %s."
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:121
+#: src/Blocking/UI/Placeholders.php:124
 #, php-format
 msgid "Accept the %s cookies"
 msgstr "Accetta i cookie %s"
@@ -101,7 +101,7 @@ msgstr "Preferenze"
 msgid "Close and keep only the necessary cookies"
 msgstr "Chiudi e mantieni solo i cookie necessari"
 
-#: src/Consent/UI/Banner.php:197
+#: src/Consent/UI/Banner.php:199
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -616,7 +616,8 @@ msgstr "Cookie Choices (per la Cookie Law europea e il GDPR)"
 msgid "Asks the cookie consent by category and blocks the third party scripts, videos and maps until the consent."
 msgstr "Chiede il consenso ai cookie per categoria e blocca gli script, i video e le mappe di terze parti fino al consenso."
 
-#: src/Settings/UI/ImportEndpoint.php:58
+#: src/Settings/SettingsFile.php:51
+#: src/Settings/UI/Cli/SettingsExitCode.php:23
 msgid "The file has no settings of Cookie Choices."
 msgstr "Il file non contiene impostazioni di Cookie Choices."
 
@@ -1206,3 +1207,61 @@ msgstr "6 mesi"
 #: assets/build/settings.js:1
 msgid "12 months"
 msgstr "12 mesi"
+
+#: src/Console/Pipeline/StatusCode.php:27
+msgid "Done."
+msgstr "Fatto."
+
+#: src/Console/Pipeline/StatusCode.php:28
+msgid "The command failed."
+msgstr "Il comando non è riuscito."
+
+#: src/Console/Pipeline/StatusCode.php:29
+msgid "Nothing changed."
+msgstr "Nulla è cambiato."
+
+#: src/Console/Pipeline/StatusCode.php:30
+msgid "The file cannot be written."
+msgstr "Il file non può essere scritto."
+
+#: src/Console/Pipeline/StatusCode.php:31
+msgid "The file cannot be read."
+msgstr "Il file non può essere letto."
+
+#: src/ConsentLog/UI/Cli/LogExitCode.php:23
+msgid "The date is not valid, use the format YYYY-MM-DD."
+msgstr "La data non è valida, usa il formato AAAA-MM-GG."
+
+#. translators: %s: a date and time.
+#: src/ConsentLog/UI/Cli/Handlers/PurgeLog.php:52
+#, php-format
+msgid "Delete the records of the consent log before %s?"
+msgstr "Cancellare i record del registro dei consensi prima del %s?"
+
+#. translators: %d: a number of records.
+#: src/ConsentLog/UI/Cli/Handlers/PurgeLog.php:41
+#, php-format
+msgid "%d record deleted."
+msgid_plural "%d records deleted."
+msgstr[0] "%d record cancellato."
+msgstr[1] "%d record cancellati."
+
+#. translators: %s: the path of the file.
+#: src/ConsentLog/UI/Cli/Handlers/WriteConsentLog.php:45
+#, php-format
+msgid "The consent log is exported to %s."
+msgstr "Il registro dei consensi è esportato in %s."
+
+#: src/Settings/UI/Cli/Handlers/ImportSettings.php:42
+msgid "The settings are imported."
+msgstr "Le impostazioni sono importate."
+
+#: src/Settings/UI/Cli/Handlers/ImportSettings.php:29
+msgid "Replace the settings of Cookie Choices with the ones of the file?"
+msgstr "Sostituire le impostazioni di Cookie Choices con quelle del file?"
+
+#. translators: %s: the path of the file.
+#: src/Settings/UI/Cli/Handlers/WriteSettingsFile.php:46
+#, php-format
+msgid "The settings are exported to %s."
+msgstr "Le impostazioni sono esportate in %s."

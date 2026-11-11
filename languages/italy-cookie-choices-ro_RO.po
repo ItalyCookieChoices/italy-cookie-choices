@@ -42,13 +42,13 @@ msgid "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:116
+#: src/Blocking/UI/Placeholders.php:119
 #, php-format
 msgid "This content is blocked until you accept the %s cookies."
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:121
+#: src/Blocking/UI/Placeholders.php:124
 #, php-format
 msgid "Accept the %s cookies"
 msgstr ""
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Close and keep only the necessary cookies"
 msgstr ""
 
-#: src/Consent/UI/Banner.php:197
+#: src/Consent/UI/Banner.php:199
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -615,7 +615,8 @@ msgstr ""
 msgid "Asks the cookie consent by category and blocks the third party scripts, videos and maps until the consent."
 msgstr ""
 
-#: src/Settings/UI/ImportEndpoint.php:58
+#: src/Settings/SettingsFile.php:51
+#: src/Settings/UI/Cli/SettingsExitCode.php:23
 msgid "The file has no settings of Cookie Choices."
 msgstr ""
 
@@ -1204,4 +1205,62 @@ msgstr ""
 
 #: assets/build/settings.js:1
 msgid "12 months"
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:27
+msgid "Done."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:28
+msgid "The command failed."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:29
+msgid "Nothing changed."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:30
+msgid "The file cannot be written."
+msgstr ""
+
+#: src/Console/Pipeline/StatusCode.php:31
+msgid "The file cannot be read."
+msgstr ""
+
+#: src/ConsentLog/UI/Cli/LogExitCode.php:23
+msgid "The date is not valid, use the format YYYY-MM-DD."
+msgstr ""
+
+#. translators: %s: a date and time.
+#: src/ConsentLog/UI/Cli/Handlers/PurgeLog.php:52
+#, php-format
+msgid "Delete the records of the consent log before %s?"
+msgstr ""
+
+#. translators: %d: a number of records.
+#: src/ConsentLog/UI/Cli/Handlers/PurgeLog.php:41
+#, php-format
+msgid "%d record deleted."
+msgid_plural "%d records deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: the path of the file.
+#: src/ConsentLog/UI/Cli/Handlers/WriteConsentLog.php:45
+#, php-format
+msgid "The consent log is exported to %s."
+msgstr ""
+
+#: src/Settings/UI/Cli/Handlers/ImportSettings.php:42
+msgid "The settings are imported."
+msgstr ""
+
+#: src/Settings/UI/Cli/Handlers/ImportSettings.php:29
+msgid "Replace the settings of Cookie Choices with the ones of the file?"
+msgstr ""
+
+#. translators: %s: the path of the file.
+#: src/Settings/UI/Cli/Handlers/WriteSettingsFile.php:46
+#, php-format
+msgid "The settings are exported to %s."
 msgstr ""

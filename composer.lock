@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "823b7baf135c2a623028775157a914e4",
+    "content-hash": "269c0cd4010f502b2f7eac302fa22a54",
     "packages": [
         {
             "name": "italystrap/asset",
@@ -440,6 +440,62 @@
                 "source": "https://github.com/ItalyStrap/finder"
             },
             "time": "2025-10-29T06:55:41+00:00"
+        },
+        {
+            "name": "italystrap/pipeline",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ItalyStrap/pipeline.git",
+                "reference": "dd3b0ce386600c944222ddb965904c4d53d5dd8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ItalyStrap/pipeline/zipball/dd3b0ce386600c944222ddb965904c4d53d5dd8c",
+                "reference": "dd3b0ce386600c944222ddb965904c4d53d5dd8c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "^1.6",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11.0",
+                "rector/rector": "^2.0",
+                "symplify/easy-coding-standard": "^12.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ItalyStrap\\Pipeline\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enea Overclokk",
+                    "email": "info@overclokk.net",
+                    "homepage": "https://www.italystrap.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A lightweight middleware pipeline for PHP — chain handlers and middleware to process messages through a composable pipeline",
+            "keywords": [
+                "handler",
+                "middleware",
+                "pipeline",
+                "stack-handler"
+            ],
+            "support": {
+                "issues": "https://github.com/ItalyStrap/pipeline/issues",
+                "source": "https://github.com/ItalyStrap/pipeline"
+            },
+            "time": "2026-04-07T14:28:28+00:00",
+            "published-time": "2026-11-11T10:16:32+00:00"
         },
         {
             "name": "italystrap/storage",
