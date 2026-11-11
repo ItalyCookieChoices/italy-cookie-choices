@@ -5,7 +5,7 @@ Tags: cookie, gdpr, cookie consent, cookie banner, consent mode
 Requires at least: 6.5
 Requires PHP: 8.2
 Tested up to: 7.1
-Stable tag: 3.1.0
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,6 +117,21 @@ In JavaScript use `window.italyCookieChoices.hasConsent( 'statistics' )`, in PHP
 7. The placeholder of a blocked video
 
 == Changelog ==
+
+= 3.2.0 =
+
+* A cookie table for the cookie policy, with the Cookie table block or the `[cookie_table]` shortcode, and the cookies of the refused categories are deleted
+* More common vendors to block: Google Ads, AdSense, Microsoft Clarity and Advertising, Pinterest, Snapchat, Reddit, HubSpot, Matomo Cloud and Google reCAPTCHA, off by default
+* The consent is sent to Microsoft Advertising (UET) and Microsoft Clarity, on by default
+* A floating button to change or withdraw the consent
+* The banner in a box in the bottom left or right corner, with a logo from the media library
+* The statistics of the consent log, month by month
+* The Global Privacy Control of the browser is respected: accept all leaves out the marketing cookies, on by default
+* The consent lasts 1, 3, 6 or 12 months, and it can be shared with the subdomains with the cookie domain
+* On a multisite network every site can use the settings of the main site, with its own texts
+* The `wp cookie-choices` commands of WP-CLI and the abilities of the Abilities API of WordPress 6.9, for the AI tools
+* TranslatePress and Weglot translate the banner, documented
+* Only http and https addresses load in the blocked frames
 
 = 3.1.0 =
 
@@ -426,6 +441,9 @@ Dev time: 50h
 * First release.
 
 == Upgrade Notice ==
+
+= 3.2.0 =
+A cookie table, more vendors, the Microsoft consent signals, the Global Privacy Control, the multisite settings and the WP-CLI commands. The Microsoft signals and the Global Privacy Control are turned on, check them in the settings after the update.
 
 = 3.1.0 =
 Writes the consent to the WP Consent API, blocks the Google tags served by the Google tag gateway and keeps the consent for six months in Safari.
