@@ -8,6 +8,7 @@ use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Integrations\Application\WpConsentApiMapping;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\AssetStatus;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
 use ItalyStrap\Asset\Dependencies;
@@ -16,6 +17,7 @@ use ItalyStrap\Asset\Handle;
 use ItalyStrap\Asset\InlineScript;
 use ItalyStrap\Asset\Position;
 use ItalyStrap\Asset\Script;
+use ItalyStrap\Asset\ScriptLoader;
 use ItalyStrap\Asset\ScriptLoading;
 use ItalyStrap\Event\SubscriberInterface;
 use SplFileInfo;
@@ -49,6 +51,7 @@ final readonly class WpConsentApiScript implements SubscriberInterface
         private Options $options,
         private WpConsentApiMapping $mapping,
         private AssetLoader $assets,
+        private ScriptLoader $scripts,
         private string $buildPath,
         private string $buildUrl,
     ) {
@@ -65,7 +68,7 @@ final readonly class WpConsentApiScript implements SubscriberInterface
     public function enqueue(): void
     {
         $metadata = $this->metadata();
-        if ($metadata === null || !$this->options->isActive() || !\wp_script_is(self::WP_CONSENT_API, 'registered')) {
+        if ($metadata === null || !$this->options->isActive() || !$this->wpConsentApiIsRegistered()) {
             return;
         }
 
@@ -103,5 +106,10 @@ final readonly class WpConsentApiScript implements SubscriberInterface
         $file = new BuildMetadataFile(new SplFileInfo($this->buildPath . self::SCRIPT));
 
         return $file->exists() ? $file->read() : null;
+    }
+
+    private function wpConsentApiIsRegistered(): bool
+    {
+        return $this->scripts->is(new Handle(self::WP_CONSENT_API), AssetStatus::Registered);
     }
 }

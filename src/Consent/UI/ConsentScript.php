@@ -18,6 +18,7 @@ use ItalyStrap\Asset\InlineScript;
 use ItalyStrap\Asset\Position;
 use ItalyStrap\Asset\RegisterOnly;
 use ItalyStrap\Asset\Script;
+use ItalyStrap\Asset\ScriptLoader;
 use ItalyStrap\Event\SubscriberInterface;
 use SplFileInfo;
 
@@ -41,6 +42,7 @@ final readonly class ConsentScript implements SubscriberInterface
         private Options $options,
         private ConsentCookieDomain $cookieDomain,
         private AssetLoader $assets,
+        private ScriptLoader $scripts,
         private string $buildPath,
         private string $buildUrl,
     ) {
@@ -78,15 +80,11 @@ final readonly class ConsentScript implements SubscriberInterface
     }
 
     /**
-     * Prints the registered script, with its configuration.
+     * Prints the script with its configuration, when it is registered.
      */
     public function print(): void
     {
-        if (!\wp_script_is(self::HANDLE, 'registered')) {
-            return;
-        }
-
-        \wp_print_scripts([self::HANDLE]);
+        $this->scripts->print(new Handle(self::HANDLE));
     }
 
     /**

@@ -9,12 +9,14 @@ use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\AssetStatus;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
 use ItalyStrap\Asset\Dependencies;
 use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
 use ItalyStrap\Asset\Script;
+use ItalyStrap\Asset\ScriptLoader;
 use ItalyStrap\Asset\ScriptLoading;
 use ItalyStrap\Asset\Style;
 use ItalyStrap\Config\Config;
@@ -45,6 +47,7 @@ final readonly class Placeholders implements SubscriberInterface
         private BlockableRequest $request,
         private ViewInterface $view,
         private AssetLoader $assets,
+        private ScriptLoader $scripts,
         private string $buildPath,
         private string $buildUrl,
     ) {
@@ -82,7 +85,7 @@ final readonly class Placeholders implements SubscriberInterface
 
     public function render(): void
     {
-        if (!\wp_script_is(self::HANDLE, 'enqueued')) {
+        if (!$this->scripts->is(new Handle(self::HANDLE), AssetStatus::Enqueued)) {
             return;
         }
 

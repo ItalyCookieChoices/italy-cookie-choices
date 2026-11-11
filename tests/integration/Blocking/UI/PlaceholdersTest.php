@@ -13,6 +13,7 @@ use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\ScriptLoader;
 use ItalyStrap\Event\Dispatcher;
 use ItalyStrap\Event\GlobalOrderedListenerProvider;
 use ItalyStrap\Event\GlobalState;
@@ -195,6 +196,7 @@ final class PlaceholdersTest extends WPTestCase
             new BlockableRequest($options),
             new View($finder),
             new AssetLoader(),
+            new ScriptLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL
         );

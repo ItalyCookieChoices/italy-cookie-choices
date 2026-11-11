@@ -13,6 +13,7 @@ use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
 use ItalyStrap\Asset\RegisterOnly;
 use ItalyStrap\Asset\Script;
+use ItalyStrap\Asset\ScriptLoader;
 use ItalyStrap\Asset\ScriptLoading;
 use ItalyStrap\Asset\Style;
 use ItalyStrap\Config\Config;
@@ -48,6 +49,7 @@ final readonly class Banner implements SubscriberInterface
         private Options $options,
         private ViewInterface $view,
         private AssetLoader $assets,
+        private ScriptLoader $scripts,
         private string $buildPath,
         private string $buildUrl,
     ) {
@@ -100,7 +102,7 @@ final readonly class Banner implements SubscriberInterface
         }
 
         echo $this->html(); // phpcs:ignore -- Escaped in the template.
-        \wp_print_scripts([self::HANDLE]);
+        $this->scripts->print(new Handle(self::HANDLE));
     }
 
     /**
