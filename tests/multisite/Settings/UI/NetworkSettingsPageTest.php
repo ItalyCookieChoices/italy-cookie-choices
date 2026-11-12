@@ -7,31 +7,45 @@ namespace ItalyCookieChoices\Tests\Multisite\Settings\UI;
 use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyCookieChoices\Settings\UI\NetworkSettingsPage;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\View\ViewInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class NetworkSettingsPageTest extends WPTestCase
 {
     use BuildsContainer;
 
+    private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
+    private const LANGUAGES = '/plugin/languages';
+    private const HOOK = 'settings_page_italy-cookie-choices';
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $GLOBALS['wp_scripts'] = new \WP_Scripts();
+        $GLOBALS['wp_styles'] = new \WP_Styles();
+    }
+
     public function tearDown(): void
     {
         \delete_site_option(NetworkSettings::OPTION);
-        unset($_POST['shared'], $_POST['_wpnonce'], $_REQUEST['_wpnonce']);
+        unset($GLOBALS['wp_scripts'], $GLOBALS['wp_styles']);
+        \set_current_screen('front');
         parent::tearDown();
     }
 
-    public function testItAddsThePageToTheNetworkSettings(): void
+    public function testItAddsThePageAndItsAssetsToTheNetworkSettings(): void
     {
         $this->assertSame(
             [
                 'network_admin_menu' => 'addPage',
-                'network_admin_edit_' . NetworkSettingsPage::ACTION => 'save',
+                'admin_enqueue_scripts' => 'enqueue',
             ],
-            \iterator_to_array($this->sut()->getSubscribedEvents())
+            \iterator_to_array($this->makeSut()->getSubscribedEvents())
         );
 
         $this->logInAsSuperAdmin();
-        $this->sut()->addPage();
+        $this->makeSut()->addPage();
 
         global $submenu;
         $this->assertIsArray($submenu);
@@ -40,95 +54,83 @@ final class NetworkSettingsPageTest extends WPTestCase
         $this->assertContains(NetworkSettingsPage::SLUG, \array_column($settings, 2));
     }
 
-    public function testThePageShowsTheSwitch(): void
+    public function testItPrintsTheRootOfTheApp(): void
     {
-        (new NetworkSettings())->share(true);
-
         \ob_start();
-        $this->sut()->render();
+        $this->makeSut()->render();
         $html = (string) \ob_get_clean();
 
-        $processor = new \WP_HTML_Tag_Processor($html);
-        $this->assertTrue($processor->next_tag(['tag_name' => 'form']));
+        $this->assertStringContainsString('<h1>Cookie Choices</h1>', $html);
+        $this->assertStringContainsString('<div id="icc-network">', $html);
+    }
+
+    public function testItEnqueuesTheAppOnlyOnItsPageOfTheNetworkAdmin(): void
+    {
+        $sut = $this->makeSut();
+
+        \set_current_screen('dashboard-network');
+        $sut->enqueue('index.php');
+        $this->assertFalse(\wp_script_is(NetworkSettingsPage::HANDLE, 'registered'));
+
+        \set_current_screen('dashboard');
+        $sut->enqueue(self::HOOK);
+        $this->assertFalse(\wp_script_is(NetworkSettingsPage::HANDLE, 'registered'));
+
+        \set_current_screen('dashboard-network');
+        $sut->enqueue(self::HOOK);
+        $script = \wp_scripts()->registered[NetworkSettingsPage::HANDLE];
+        $this->assertSame(self::BUILD_URL . 'network-settings.js', $script->src);
+        $this->assertSame(['wp-api-fetch', 'wp-components', 'wp-element', 'wp-i18n'], $script->deps);
+        $this->assertSame('italy-cookie-choices', $script->textdomain);
+        $this->assertSame(self::LANGUAGES, $script->translations_path);
         $this->assertSame(
-            \network_admin_url('edit.php?action=' . NetworkSettingsPage::ACTION),
-            $processor->get_attribute('action')
+            ['window.italyCookieChoicesNetwork = ' . \wp_json_encode($sut->data()) . ';'],
+            \array_values(\array_filter((array) \wp_scripts()->get_data(NetworkSettingsPage::HANDLE, 'before')))
         );
-        $this->assertTrue($processor->next_tag(['tag_name' => 'input', 'class_name' => 'icc-network-shared']));
-        $this->assertSame('shared', $processor->get_attribute('name'));
-        $this->assertNotNull($processor->get_attribute('checked'));
-        $this->assertStringContainsString('name="_wpnonce"', $html);
-        $this->assertStringContainsString('Use the settings of the main site on every site', $html);
+        $this->assertTrue(\wp_style_is(NetworkSettingsPage::HANDLE, 'enqueued'));
+        $style = \wp_styles()->registered[NetworkSettingsPage::HANDLE];
+        $this->assertSame(self::BUILD_URL . 'network-settings.css', $style->src);
+        $this->assertSame(['wp-components'], $style->deps);
     }
 
-    public function testTheSuperAdminSharesTheSettings(): void
+    public function testNothingIsEnqueuedWhenTheAssetsAreNotBuilt(): void
     {
-        $this->logInAsSuperAdmin();
-        $_POST['shared'] = '1';
-        $_REQUEST['_wpnonce'] = \wp_create_nonce(NetworkSettingsPage::ACTION);
+        \set_current_screen('dashboard-network');
+        $this->makeSut('/not/built/')->enqueue(self::HOOK);
 
-        $this->assertSame(
-            \add_query_arg(
-                ['page' => NetworkSettingsPage::SLUG, 'updated' => 'true'],
-                \network_admin_url('settings.php')
-            ),
-            $this->redirectOfTheSave()
+        $this->assertFalse(\wp_script_is(NetworkSettingsPage::HANDLE, 'registered'));
+    }
+
+    public function testThePageGetsTheSwitchAndTheSites(): void
+    {
+        (new NetworkSettings())->share(true);
+        $siteId = self::factory()->blog->create(['title' => 'Italiano', 'path' => '/it/']);
+        $this->assertIsInt($siteId);
+
+        $data = $this->makeSut()->data();
+
+        $this->assertTrue($data['shared']);
+        $this->assertSame(\get_main_site_id(), $data['mainSiteId']);
+        $this->assertContains(
+            ['id' => $siteId, 'name' => 'Italiano', 'url' => \get_home_url($siteId, '/')],
+            $data['sites']
         );
-        $this->assertTrue((new NetworkSettings())->sharesTheMainSite());
-
-        unset($_POST['shared']);
-        $this->redirectOfTheSave();
-        $this->assertFalse((new NetworkSettings())->sharesTheMainSite());
+        $this->assertSame(\get_main_site_id(), $data['sites'][0]['id'] ?? null);
     }
 
-    public function testTheSaveNeedsTheNonce(): void
+    private function makeSut(string $buildPath = ''): NetworkSettingsPage
     {
-        $this->logInAsSuperAdmin();
-        $_POST['shared'] = '1';
-        $_REQUEST['_wpnonce'] = 'invalid';
+        $fixtures = \codecept_data_dir('consent-build/');
+        $this->assertIsString($fixtures);
 
-        $this->expectException(\WPDieException::class);
-
-        $this->sut()->save();
-    }
-
-    public function testOnlyTheSuperAdminsSave(): void
-    {
-        $userId = self::factory()->user->create(['role' => 'administrator']);
-        $this->assertIsInt($userId);
-        \wp_set_current_user($userId);
-        $_POST['shared'] = '1';
-        $_REQUEST['_wpnonce'] = \wp_create_nonce(NetworkSettingsPage::ACTION);
-
-        try {
-            $this->sut()->save();
-            $this->fail('The settings were saved.');
-        } catch (\WPDieException) {
-            $this->assertFalse((new NetworkSettings())->sharesTheMainSite());
-        }
-    }
-
-    private function redirectOfTheSave(): string
-    {
-        // Stops the save before its exit.
-        $filter = static function (string $location): string {
-            if ($location !== '') {
-                throw new \RuntimeException($location);
-            }
-
-            return $location;
-        };
-        \add_filter('wp_redirect', $filter);
-
-        try {
-            $this->sut()->save();
-        } catch (\RuntimeException $redirect) {
-            return $redirect->getMessage();
-        } finally {
-            \remove_filter('wp_redirect', $filter);
-        }
-
-        $this->fail('The save did not redirect.');
+        return new NetworkSettingsPage(
+            new NetworkSettings(),
+            $this->service(ViewInterface::class),
+            new AssetLoader(),
+            $buildPath === '' ? $fixtures : $buildPath,
+            self::BUILD_URL,
+            self::LANGUAGES
+        );
     }
 
     private function logInAsSuperAdmin(): void
@@ -137,10 +139,5 @@ final class NetworkSettingsPageTest extends WPTestCase
         $this->assertIsInt($userId);
         \grant_super_admin($userId);
         \wp_set_current_user($userId);
-    }
-
-    private function sut(): NetworkSettingsPage
-    {
-        return $this->service(NetworkSettingsPage::class);
     }
 }

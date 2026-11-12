@@ -9,7 +9,9 @@ use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
 use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsExportCommand;
 use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsImportCommand;
 use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsNamespace;
+use ItalyCookieChoices\Settings\UI\CopySettingsEndpoint;
 use ItalyCookieChoices\Settings\UI\ImportEndpoint;
+use ItalyCookieChoices\Settings\UI\NetworkSettingsEndpoint;
 use ItalyCookieChoices\Settings\UI\NetworkSettingsPage;
 use ItalyCookieChoices\Settings\UI\PluginActionLinks;
 use ItalyCookieChoices\Settings\UI\SettingsAbility;
@@ -47,6 +49,11 @@ final readonly class Module implements ModuleInterface
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
                     ':languagesPath' => $this->pluginPath . 'languages',
                 ],
+                NetworkSettingsPage::class => [
+                    ':buildPath' => $this->pluginPath . self::BUILD,
+                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':languagesPath' => $this->pluginPath . 'languages',
+                ],
                 PluginActionLinks::class => [
                     ':basename' => $this->basename,
                 ],
@@ -62,6 +69,8 @@ final readonly class Module implements ModuleInterface
                 Abilities::class,
                 SettingsAbility::class,
                 NetworkSettingsPage::class,
+                NetworkSettingsEndpoint::class,
+                CopySettingsEndpoint::class,
             ],
             CommandsConfigExtension::COMMANDS => [
                 'cookie-choices settings' => SettingsNamespace::class,

@@ -543,11 +543,12 @@ msgstr "Registro dei consensi"
 msgid "Tools"
 msgstr "Strumenti"
 
-#: templates/network-settings.php:20
+#: assets/build/network-settings.js:3
 #: assets/build/settings.js:7
 msgid "Settings saved."
 msgstr "Impostazioni salvate."
 
+#: assets/build/network-settings.js:3
 #: assets/build/settings.js:7
 msgid "The settings were not saved."
 msgstr "Le impostazioni non sono state salvate."
@@ -622,9 +623,9 @@ msgid "The file has no settings of Cookie Choices."
 msgstr "Il file non contiene impostazioni di Cookie Choices."
 
 #: src/Settings/UI/Abilities.php:29
-#: src/Settings/UI/NetworkSettingsPage.php:42
-#: src/Settings/UI/NetworkSettingsPage.php:43
-#: src/Settings/UI/NetworkSettingsPage.php:55
+#: src/Settings/UI/NetworkSettingsPage.php:67
+#: src/Settings/UI/NetworkSettingsPage.php:68
+#: src/Settings/UI/NetworkSettingsPage.php:79
 #: src/Settings/UI/SettingsPage.php:78
 #: src/Settings/UI/SettingsPage.php:79
 msgid "Cookie Choices"
@@ -1152,19 +1153,15 @@ msgstr "Quando il browser del visitatore chiede di non condividere i dati, accet
 msgid "The vendors of this site come from the main site of the network."
 msgstr "I fornitori di questo sito arrivano dal sito principale della rete."
 
-#: src/Settings/UI/NetworkSettingsPage.php:68
-msgid "You cannot change the network settings."
-msgstr "Non puoi cambiare le impostazioni della rete."
-
-#: templates/network-settings.php:27
+#: assets/build/network-settings.js:3
 msgid "Settings of the sites"
 msgstr "Impostazioni dei siti"
 
-#: templates/network-settings.php:38
+#: assets/build/network-settings.js:3
 msgid "Use the settings of the main site on every site"
 msgstr "Usa le impostazioni del sito principale su tutti i siti"
 
-#: templates/network-settings.php:41
+#: assets/build/network-settings.js:3
 msgid "Each site keeps its own texts, for its language, and its own consent log."
 msgstr "Ogni sito mantiene i suoi testi, per la sua lingua, e il suo registro dei consensi."
 
@@ -1265,3 +1262,76 @@ msgstr "Sostituire le impostazioni di Cookie Choices con quelle del file?"
 #, php-format
 msgid "The settings are exported to %s."
 msgstr "Le impostazioni sono esportate in %s."
+
+#: src/Settings/SettingsCopy.php:32
+msgid "The sites use the settings of the main site."
+msgstr "I siti usano le impostazioni del sito principale."
+
+#: src/Settings/SettingsCopy.php:39
+msgid "Choose a site to copy from and at least another site to copy to."
+msgstr "Scegli un sito da cui copiare e almeno un altro sito in cui copiare."
+
+#: templates/network-settings.php:19
+msgid "Loading…"
+msgstr "Caricamento…"
+
+#: assets/build/network-settings.js:1
+#: assets/build/network-settings.js:3
+msgid "Copy the settings"
+msgstr "Copia le impostazioni"
+
+#: assets/build/network-settings.js:1
+msgid "The sites use the settings of the main site, there is nothing to copy."
+msgstr "I siti usano le impostazioni del sito principale, non c'è niente da copiare."
+
+#: assets/build/network-settings.js:1
+msgid "Replaces the settings of the chosen sites with the ones of another site. The logo, the pages where the banner does not open, the cookie domain and the consent log of each site are never copied."
+msgstr "Sostituisce le impostazioni dei siti scelti con quelle di un altro sito. Il logo, le pagine dove il banner non si apre, il dominio dei cookie e il registro dei consensi di ogni sito non vengono mai copiati."
+
+#: assets/build/network-settings.js:1
+msgid "Copy from"
+msgstr "Copia da"
+
+#: assets/build/network-settings.js:1
+msgid "Copy to"
+msgstr "Copia in"
+
+#: assets/build/network-settings.js:1
+msgid "Copy the texts too"
+msgstr "Copia anche i testi"
+
+#: assets/build/network-settings.js:1
+msgid "Off: each site keeps its own texts, for its language."
+msgstr "Disattivato: ogni sito mantiene i suoi testi, per la sua lingua."
+
+#. translators: %d: the number of sites.
+#: assets/build/network-settings.js:2
+#, js-format
+msgid "The settings of %d site will be replaced."
+msgid_plural "The settings of %d sites will be replaced."
+msgstr[0] "Le impostazioni di %d sito verranno sostituite."
+msgstr[1] "Le impostazioni di %d siti verranno sostituite."
+
+#. translators: %d: the number of sites.
+#: assets/build/network-settings.js:3
+#, js-format
+msgid "The settings were copied to %d site."
+msgid_plural "The settings were copied to %d sites."
+msgstr[0] "Le impostazioni sono state copiate in %d sito."
+msgstr[1] "Le impostazioni sono state copiate in %d siti."
+
+#: assets/build/network-settings.js:3
+msgid "The settings were not copied."
+msgstr "Le impostazioni non sono state copiate."
+
+#: assets/build/network-settings.js:3
+msgid "Replace the settings"
+msgstr "Sostituisci le impostazioni"
+
+#: assets/build/network-settings.js:3
+msgid "Cancel"
+msgstr "Annulla"
+
+#: assets/build/network-settings.js:3
+msgid "Save"
+msgstr "Salva"

@@ -1,0 +1,69 @@
+{
+    "translation-revision-date": "2015-07-11 00:08+0100",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/build\/network-settings.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "ro_RO",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Settings saved.": [
+                ""
+            ],
+            "The settings were not saved.": [
+                ""
+            ],
+            "Settings of the sites": [
+                ""
+            ],
+            "Use the settings of the main site on every site": [
+                ""
+            ],
+            "Each site keeps its own texts, for its language, and its own consent log.": [
+                ""
+            ],
+            "Copy the settings": [
+                ""
+            ],
+            "The sites use the settings of the main site, there is nothing to copy.": [
+                ""
+            ],
+            "Replaces the settings of the chosen sites with the ones of another site. The logo, the pages where the banner does not open, the cookie domain and the consent log of each site are never copied.": [
+                ""
+            ],
+            "Copy from": [
+                ""
+            ],
+            "Copy to": [
+                ""
+            ],
+            "Copy the texts too": [
+                ""
+            ],
+            "Off: each site keeps its own texts, for its language.": [
+                ""
+            ],
+            "The settings of %d site will be replaced.": [
+                ""
+            ],
+            "The settings were copied to %d site.": [
+                ""
+            ],
+            "The settings were not copied.": [
+                ""
+            ],
+            "Replace the settings": [
+                ""
+            ],
+            "Cancel": [
+                ""
+            ],
+            "Save": [
+                ""
+            ]
+        }
+    }
+}

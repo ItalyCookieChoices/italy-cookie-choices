@@ -9,7 +9,9 @@ use ItalyCookieChoices\Settings\Module;
 use ItalyCookieChoices\Settings\Registration;
 use ItalyCookieChoices\Settings\SharedSettings;
 use ItalyCookieChoices\Settings\UI\Abilities;
+use ItalyCookieChoices\Settings\UI\CopySettingsEndpoint;
 use ItalyCookieChoices\Settings\UI\ImportEndpoint;
+use ItalyCookieChoices\Settings\UI\NetworkSettingsEndpoint;
 use ItalyCookieChoices\Settings\UI\NetworkSettingsPage;
 use ItalyCookieChoices\Settings\UI\PluginActionLinks;
 use ItalyCookieChoices\Settings\UI\SettingsAbility;
@@ -42,6 +44,8 @@ final class ModuleTest extends WPTestCase
                 Abilities::class,
                 SettingsAbility::class,
                 NetworkSettingsPage::class,
+                NetworkSettingsEndpoint::class,
+                CopySettingsEndpoint::class,
             ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );

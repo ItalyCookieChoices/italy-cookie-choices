@@ -82,6 +82,15 @@ final readonly class Schema
     ];
 
     /**
+     * The settings that point to the content or to the domain of a site, never copied to another site.
+     */
+    public const SITE_CONTENT = [
+        'banner_logo',
+        'excluded_pages',
+        'cookie_domain',
+    ];
+
+    /**
      * The ids of the Google and Facebook tags, empty when the tag is not printed.
      */
     public const TAG_IDS = [
