@@ -29,4 +29,5 @@ export const data: AdminData = {
 		'https://example.com/wp-admin/admin-post.php?action=export',
 	documentationUrl: 'https://example.com/docs',
 	textsOnly: false,
+	languages: { siteId: 1, language: '', sites: [] },
 };

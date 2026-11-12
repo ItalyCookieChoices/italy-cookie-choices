@@ -30,7 +30,7 @@ return [
             ->in('vendor'),
     ],
     // WP-CLI loads its own classes, the commands of the plugin use them only on cli_init.
-    'exclude-namespaces' => ['WP_CLI', 'cli'],
+    'exclude-namespaces' => ['WP_CLI', 'cli', 'Inpsyde\\MultilingualPress'],
     'exclude-classes' => \array_merge(
         ['WP_CLI'],
         $wordpressSymbols('classes'),

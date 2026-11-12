@@ -11,6 +11,7 @@ use ItalyCookieChoices\ConsentLog\Module as ConsentLogModule;
 use ItalyCookieChoices\Cookies\Module as CookiesModule;
 use ItalyCookieChoices\Integrations\Module as IntegrationsModule;
 use ItalyCookieChoices\Module;
+use ItalyCookieChoices\Multilingual\Module as MultilingualModule;
 use ItalyCookieChoices\Settings\Module as SettingsModule;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
@@ -38,6 +39,7 @@ trait BuildsContainer
             ->addModule(new ConsentLogModule($pluginPath, $pluginUrl))
             ->addModule(new IntegrationsModule($pluginPath, $pluginUrl))
             ->addModule(new CookiesModule($pluginPath, $pluginUrl))
+            ->addModule(new MultilingualModule())
             ->addModule(new CliModule())
             ->build();
     }

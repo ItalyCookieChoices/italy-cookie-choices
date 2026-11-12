@@ -99,4 +99,26 @@
 		align-items: center;
 		margin-top: 1.5em;
 	}
+
+	// The languages tab: the buttons that fill the texts
+	// and the proposed policy link.
+	&__buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em;
+	}
+
+	&__suggestion {
+		display: grid;
+		gap: 0.5em;
+		justify-items: start;
+		padding: 1em;
+		border-left: 4px solid #72aee6;
+		background: #f0f6fc;
+
+		p {
+			margin: 0;
+			overflow-wrap: anywhere;
+		}
+	}
 }

@@ -233,3 +233,71 @@ export function errorMessage( error: unknown, fallback: string ): string {
 		? error.message
 		: fallback;
 }
+
+export interface SiteTexts {
+	texts: Settings;
+	/** The translation of the policy page of a connected site, empty when there is none. */
+	policySuggestion: string;
+}
+
+function siteTextsFrom( response: unknown ): SiteTexts {
+	const data = isRecord( response ) ? response : {};
+
+	return {
+		texts: normalizeSettings( data.texts ),
+		policySuggestion:
+			typeof data.policySuggestion === 'string'
+				? data.policySuggestion
+				: '',
+	};
+}
+
+/**
+ * The texts of this site or of a connected site, the route checks that the user administers it.
+ * @param siteId The site.
+ */
+export async function loadSiteTexts( siteId: number ): Promise< SiteTexts > {
+	return siteTextsFrom(
+		await apiFetch( {
+			path: `/italy-cookie-choices/v1/sites/${ siteId }/texts`,
+		} )
+	);
+}
+
+/**
+ * Saves the texts of a connected site, its other settings stay.
+ * @param siteId The site.
+ * @param texts  The texts.
+ */
+export async function saveSiteTexts(
+	siteId: number,
+	texts: Settings
+): Promise< SiteTexts > {
+	return siteTextsFrom(
+		await apiFetch( {
+			path: `/italy-cookie-choices/v1/sites/${ siteId }/texts`,
+			method: 'POST',
+			data: { texts },
+		} )
+	);
+}
+
+/**
+ * The texts of a site with the empty ones filled from a connected site, not saved.
+ * @param siteId    The site to fill.
+ * @param source    The connected site the texts come from.
+ * @param translate Whether the texts are translated in the language of the site.
+ */
+export async function draftSiteTexts(
+	siteId: number,
+	source: number,
+	translate: boolean
+): Promise< SiteTexts > {
+	return siteTextsFrom(
+		await apiFetch( {
+			path: `/italy-cookie-choices/v1/sites/${ siteId }/texts/draft`,
+			method: 'POST',
+			data: { source, translate },
+		} )
+	);
+}

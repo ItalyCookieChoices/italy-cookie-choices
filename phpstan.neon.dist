@@ -15,6 +15,7 @@ parameters:
         - tests/_support/phpstan-bootstrap.php
     scanFiles:
         - tests/_support/stubs/multilingual.php
+        - tests/_support/stubs/multilingualpress.php
         - tests/_support/stubs/wp-cli.php
     scanDirectories:
         # WordPress core test classes, like the factories, used by WPTestCase
