@@ -31,6 +31,14 @@ The banner shows only before a choice: to translate it in the visual editor, ope
 
 Weglot translates the whole page too, the banner and the preferences included: its automatic translation adds their texts to the list of the translations of the Weglot dashboard, where you can change them. No setting of the plugin is needed.
 
+## MultilingualPress
+
+MultilingualPress keeps every language in its own site of a [multisite network](multisite.md), and every site has its own settings: no string translation is needed. On each language site, open **Settings > Cookie Choices** and write the texts in its language, with the link to its own policy page.
+
+* With the settings of the main site, each site still keeps its own texts.
+* The buttons and the category names come from the translation of the plugin in the language of each site.
+* On a network with subdirectories, like `example.com/de/`, the consent is shared by every language. With subdomains, like `de.example.com`, write the main domain in the **Cookie domain** of each site, see [Getting started](getting-started.md#banner). With a domain for each language, the visitor chooses again on each domain.
+
 ## Other plugins
 
 Other plugins, like qTranslate-XT, translate the texts with the `TranslatingText` event. See [Integrations](integrations.md#translate-the-texts-with-another-multilingual-plugin).

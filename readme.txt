@@ -37,7 +37,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Let the AI tools read the settings and turn the vendors on or off, with the Abilities API of WordPress 6.9
 * Print Google Analytics, Google Tag Manager and the Facebook pixel from their ids
 * Preview the banner while you change the settings
-* Translate the texts with WPML, Polylang, TranslatePress and Weglot, the plugin is translated in Italian
+* Translate the texts with WPML, Polylang, TranslatePress, Weglot and MultilingualPress, the plugin is translated in Italian
 * Import the settings of the 2.x versions
 * Manage the settings and the consent log with the `wp cookie-choices` commands of WP-CLI
 * Share the settings of the main site with every site of a multisite network, each site with its own texts
