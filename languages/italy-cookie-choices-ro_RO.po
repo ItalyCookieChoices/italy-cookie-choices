@@ -542,11 +542,12 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: templates/network-settings.php:20
+#: assets/build/network-settings.js:3
 #: assets/build/settings.js:7
 msgid "Settings saved."
 msgstr ""
 
+#: assets/build/network-settings.js:3
 #: assets/build/settings.js:7
 msgid "The settings were not saved."
 msgstr ""
@@ -621,9 +622,9 @@ msgid "The file has no settings of Cookie Choices."
 msgstr ""
 
 #: src/Settings/UI/Abilities.php:29
-#: src/Settings/UI/NetworkSettingsPage.php:42
-#: src/Settings/UI/NetworkSettingsPage.php:43
-#: src/Settings/UI/NetworkSettingsPage.php:55
+#: src/Settings/UI/NetworkSettingsPage.php:67
+#: src/Settings/UI/NetworkSettingsPage.php:68
+#: src/Settings/UI/NetworkSettingsPage.php:79
 #: src/Settings/UI/SettingsPage.php:78
 #: src/Settings/UI/SettingsPage.php:79
 msgid "Cookie Choices"
@@ -1151,19 +1152,15 @@ msgstr ""
 msgid "The vendors of this site come from the main site of the network."
 msgstr ""
 
-#: src/Settings/UI/NetworkSettingsPage.php:68
-msgid "You cannot change the network settings."
-msgstr ""
-
-#: templates/network-settings.php:27
+#: assets/build/network-settings.js:3
 msgid "Settings of the sites"
 msgstr ""
 
-#: templates/network-settings.php:38
+#: assets/build/network-settings.js:3
 msgid "Use the settings of the main site on every site"
 msgstr ""
 
-#: templates/network-settings.php:41
+#: assets/build/network-settings.js:3
 msgid "Each site keeps its own texts, for its language, and its own consent log."
 msgstr ""
 
@@ -1263,4 +1260,77 @@ msgstr ""
 #: src/Settings/UI/Cli/Handlers/WriteSettingsFile.php:46
 #, php-format
 msgid "The settings are exported to %s."
+msgstr ""
+
+#: src/Settings/SettingsCopy.php:32
+msgid "The sites use the settings of the main site."
+msgstr ""
+
+#: src/Settings/SettingsCopy.php:39
+msgid "Choose a site to copy from and at least another site to copy to."
+msgstr ""
+
+#: templates/network-settings.php:19
+msgid "Loading…"
+msgstr ""
+
+#: assets/build/network-settings.js:1
+#: assets/build/network-settings.js:3
+msgid "Copy the settings"
+msgstr ""
+
+#: assets/build/network-settings.js:1
+msgid "The sites use the settings of the main site, there is nothing to copy."
+msgstr ""
+
+#: assets/build/network-settings.js:1
+msgid "Replaces the settings of the chosen sites with the ones of another site. The logo, the pages where the banner does not open, the cookie domain and the consent log of each site are never copied."
+msgstr ""
+
+#: assets/build/network-settings.js:1
+msgid "Copy from"
+msgstr ""
+
+#: assets/build/network-settings.js:1
+msgid "Copy to"
+msgstr ""
+
+#: assets/build/network-settings.js:1
+msgid "Copy the texts too"
+msgstr ""
+
+#: assets/build/network-settings.js:1
+msgid "Off: each site keeps its own texts, for its language."
+msgstr ""
+
+#. translators: %d: the number of sites.
+#: assets/build/network-settings.js:2
+#, js-format
+msgid "The settings of %d site will be replaced."
+msgid_plural "The settings of %d sites will be replaced."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: the number of sites.
+#: assets/build/network-settings.js:3
+#, js-format
+msgid "The settings were copied to %d site."
+msgid_plural "The settings were copied to %d sites."
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/build/network-settings.js:3
+msgid "The settings were not copied."
+msgstr ""
+
+#: assets/build/network-settings.js:3
+msgid "Replace the settings"
+msgstr ""
+
+#: assets/build/network-settings.js:3
+msgid "Cancel"
+msgstr ""
+
+#: assets/build/network-settings.js:3
+msgid "Save"
 msgstr ""

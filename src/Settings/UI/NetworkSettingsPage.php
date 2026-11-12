@@ -5,34 +5,59 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Settings\UI;
 
 use ItalyCookieChoices\Settings\NetworkSettings;
+use ItalyStrap\Asset\AssetLoader;
+use ItalyStrap\Asset\BuildMetadata;
+use ItalyStrap\Asset\BuildMetadataFile;
+use ItalyStrap\Asset\Dependencies;
+use ItalyStrap\Asset\EventName;
+use ItalyStrap\Asset\Handle;
+use ItalyStrap\Asset\InlineScript;
+use ItalyStrap\Asset\Position;
+use ItalyStrap\Asset\Script;
+use ItalyStrap\Asset\ScriptLoading;
+use ItalyStrap\Asset\Style;
+use ItalyStrap\Asset\Translations;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
+use SplFileInfo;
 
 /**
  * Network Admin > Settings > Cookie Choices, on a multisite with the plugin active on the network:
- * the switch that gives the settings of the main site to every site.
+ * a React app with the switch that gives the settings of the main site to every site,
+ * and the copy of the settings of a site to other sites.
  */
 final readonly class NetworkSettingsPage implements SubscriberInterface
 {
     public const SLUG = 'italy-cookie-choices';
-    public const ACTION = 'italy_cookie_choices_network';
+    public const HANDLE = 'italy-cookie-choices-network';
+    public const CAPABILITY = 'manage_network_options';
 
-    private const CAPABILITY = 'manage_network_options';
     private const PARENT = 'settings.php';
+    private const EVENT_NAME_SUFFIX = 'settings_page_' . self::SLUG;
+    private const SCRIPT = 'network-settings.js';
+    private const STYLE = 'network-settings.css';
     private const TEMPLATE = 'network-settings';
-    private const SHARED = 'shared';
 
+    /**
+     * @param string $buildPath The assets/build folder, with the trailing slash.
+     * @param string $buildUrl The assets/build URL, with the trailing slash.
+     * @param string $languagesPath The folder of the translations bundled with the plugin.
+     */
     public function __construct(
         private NetworkSettings $network,
         private ViewInterface $view,
+        private AssetLoader $assets,
+        private string $buildPath,
+        private string $buildUrl,
+        private string $languagesPath,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
         yield 'network_admin_menu' => 'addPage';
-        yield 'network_admin_edit_' . self::ACTION => 'save';
+        yield EventName::ADMIN => 'enqueue';
     }
 
     public function addPage(): void
@@ -51,33 +76,101 @@ final readonly class NetworkSettingsPage implements SubscriberInterface
     {
         echo $this->view->render( // phpcs:ignore -- Escaped in the template.
             self::TEMPLATE,
-            new Config([
-                'title' => \__('Cookie Choices', 'italy-cookie-choices'),
-                'action' => \network_admin_url('edit.php?action=' . self::ACTION),
-                'nonceAction' => self::ACTION,
-                'shared' => $this->network->sharesTheMainSite(),
-                'updated' => ($_GET['updated'] ?? '') === 'true', // phpcs:ignore -- Only shows the notice.
-            ])
+            new Config(['title' => \__('Cookie Choices', 'italy-cookie-choices')])
         );
     }
 
-    public function save(): void
+    public function enqueue(mixed $eventNameSuffix = ''): void
     {
-        if (!\current_user_can(self::CAPABILITY)) {
-            \wp_die(
-                \esc_html__('You cannot change the network settings.', 'italy-cookie-choices'),
-                '',
-                ['response' => 403]
-            );
+        $metadata = $this->metadata();
+        if ($metadata === null || $eventNameSuffix !== self::EVENT_NAME_SUFFIX || !\is_network_admin()) {
+            return;
         }
 
-        \check_admin_referer(self::ACTION);
-        $this->network->share(\array_key_exists(self::SHARED, $_POST));
+        $this->assets->load(
+            new Script(
+                handle: new Handle(self::HANDLE),
+                source: $this->buildUrl . self::SCRIPT,
+                dependencies: $metadata->dependencies(),
+                version: $metadata->version(),
+                loading: new ScriptLoading(inFooter: true),
+                inlineScripts: [new InlineScript(
+                    \sprintf('window.italyCookieChoicesNetwork = %s;', (string) \wp_json_encode($this->data())),
+                    Position::Before
+                )],
+                translations: new Translations('italy-cookie-choices', new SplFileInfo($this->languagesPath)),
+            ),
+            new Style(
+                handle: new Handle(self::HANDLE),
+                source: $this->buildUrl . self::STYLE,
+                dependencies: new Dependencies('wp-components'),
+                version: $metadata->version(),
+                data: ['rtl' => 'replace'],
+            ),
+        );
+    }
 
-        \wp_safe_redirect(\add_query_arg(
-            ['page' => self::SLUG, 'updated' => 'true'],
-            \network_admin_url(self::PARENT)
+    /**
+     * The switch of the network and the sites to copy the settings between, the main site first.
+     *
+     * @return array{shared: bool, mainSiteId: int, sites: list<array{id: int, name: string, url: string}>}
+     */
+    public function data(): array
+    {
+        $mainSiteId = \get_main_site_id();
+        $sites = $this->sites();
+        $isMain = static fn(array $site): bool => $site['id'] === $mainSiteId;
+
+        return [
+            'shared' => $this->network->sharesTheMainSite(),
+            'mainSiteId' => $mainSiteId,
+            'sites' => [
+                ...\array_filter($sites, $isMain),
+                ...\array_filter($sites, static fn(array $site): bool => !$isMain($site)),
+            ],
+        ];
+    }
+
+    /**
+     * The public sites of this network.
+     *
+     * @return list<array{id: int, name: string, url: string}>
+     */
+    private function sites(): array
+    {
+        $query = [
+            'network_id' => \get_current_network_id(),
+            'number' => 0,
+            'archived' => 0,
+            'deleted' => 0,
+            'spam' => 0,
+            'fields' => 'ids',
+        ];
+
+        return \array_values(\array_map(
+            fn(int $siteId): array => [
+                'id' => $siteId,
+                'name' => $this->name($siteId),
+                'url' => \get_home_url($siteId, '/'),
+            ],
+            \array_map(\intval(...), \get_sites($query))
         ));
-        exit;
+    }
+
+    private function name(int $siteId): string
+    {
+        $name = \get_blog_option($siteId, 'blogname');
+
+        return \html_entity_decode(\is_string($name) ? $name : '', \ENT_QUOTES);
+    }
+
+    /**
+     * The dependencies and the version generated by the build, null when the assets are not built.
+     */
+    private function metadata(): ?BuildMetadata
+    {
+        $file = new BuildMetadataFile(new SplFileInfo($this->buildPath . self::SCRIPT));
+
+        return $file->exists() ? $file->read() : null;
     }
 }

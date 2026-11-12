@@ -1,0 +1,34 @@
+// The network page: the switch of the main site and the copy of the settings.
+.icc-network {
+	display: grid;
+	gap: 1.5em;
+	max-width: 800px;
+	margin-top: 1em;
+
+	&__group {
+		display: grid;
+		gap: 1em;
+		margin: 0;
+		padding: 1em 1.5em 1.5em;
+		border: 1px solid #dcdcde;
+		background: #fff;
+
+		legend {
+			padding: 0 0.5em;
+			font-weight: 600;
+		}
+
+		p {
+			margin: 0;
+		}
+	}
+
+	&__sites {
+		display: grid;
+		gap: 0.75em;
+	}
+
+	&__label {
+		font-weight: 500;
+	}
+}

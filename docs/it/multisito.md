@@ -8,7 +8,7 @@ In una rete multisito, ogni sito ha le sue impostazioni, i suoi testi e il suo r
 
 1. Attiva Cookie Choices sulla rete, in **Amministrazione network > Plugin**.
 2. Apri **Amministrazione network > Impostazioni > Cookie Choices**.
-3. Spunta **Usa le impostazioni del sito principale su tutti i siti** e salva.
+3. Attiva **Usa le impostazioni del sito principale su tutti i siti** e salva.
 
 Il sito principale mantiene la sua pagina delle impostazioni com'è. Negli altri siti:
 
@@ -21,4 +21,20 @@ Le abilità che cambiano i fornitori restituiscono un errore in questi siti, i f
 
 ## Tornare alle impostazioni di ogni sito
 
-Togli la spunta e salva: ogni sito usa di nuovo le impostazioni salvate su di esso, quelle che aveva prima, o le ultime salvate nella sua pagina delle impostazioni.
+Disattiva l'interruttore e salva: ogni sito usa di nuovo le impostazioni salvate su di esso, quelle che aveva prima, o le ultime salvate nella sua pagina delle impostazioni.
+
+## Copiare le impostazioni tra i siti
+
+Quando ogni sito ha le sue impostazioni, la stessa pagina copia le impostazioni di un sito in altri siti, senza esportare un file e importarlo in ogni sito.
+
+1. Apri **Amministrazione network > Impostazioni > Cookie Choices**.
+2. In **Copia le impostazioni**, scegli il sito in **Copia da** e i siti in **Copia in**.
+3. Attiva **Copia anche i testi** per copiare anche i testi. Disattivato, ogni sito mantiene i suoi testi, per la sua lingua.
+4. Fai clic su **Copia le impostazioni** e conferma.
+
+Le impostazioni dei siti scelti vengono sostituite. Ogni sito mantiene sempre:
+
+* il logo del banner, le pagine dove il banner non si apre e il dominio dei cookie, che appartengono ai suoi contenuti e al suo dominio;
+* il suo registro dei consensi, nella sua tabella.
+
+La copia avviene una volta: i siti non vengono collegati, una modifica successiva sul primo sito resta lì. La copia non è disponibile mentre i siti usano le impostazioni del sito principale.

@@ -1,0 +1,71 @@
+{
+    "translation-revision-date": "2026-10-28 08:00+0100",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/build\/network-settings.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "it_IT",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Settings saved.": [
+                "Impostazioni salvate."
+            ],
+            "The settings were not saved.": [
+                "Le impostazioni non sono state salvate."
+            ],
+            "Settings of the sites": [
+                "Impostazioni dei siti"
+            ],
+            "Use the settings of the main site on every site": [
+                "Usa le impostazioni del sito principale su tutti i siti"
+            ],
+            "Each site keeps its own texts, for its language, and its own consent log.": [
+                "Ogni sito mantiene i suoi testi, per la sua lingua, e il suo registro dei consensi."
+            ],
+            "Copy the settings": [
+                "Copia le impostazioni"
+            ],
+            "The sites use the settings of the main site, there is nothing to copy.": [
+                "I siti usano le impostazioni del sito principale, non c'\u00e8 niente da copiare."
+            ],
+            "Replaces the settings of the chosen sites with the ones of another site. The logo, the pages where the banner does not open, the cookie domain and the consent log of each site are never copied.": [
+                "Sostituisce le impostazioni dei siti scelti con quelle di un altro sito. Il logo, le pagine dove il banner non si apre, il dominio dei cookie e il registro dei consensi di ogni sito non vengono mai copiati."
+            ],
+            "Copy from": [
+                "Copia da"
+            ],
+            "Copy to": [
+                "Copia in"
+            ],
+            "Copy the texts too": [
+                "Copia anche i testi"
+            ],
+            "Off: each site keeps its own texts, for its language.": [
+                "Disattivato: ogni sito mantiene i suoi testi, per la sua lingua."
+            ],
+            "The settings of %d site will be replaced.": [
+                "Le impostazioni di %d sito verranno sostituite.",
+                "Le impostazioni di %d siti verranno sostituite."
+            ],
+            "The settings were copied to %d site.": [
+                "Le impostazioni sono state copiate in %d sito.",
+                "Le impostazioni sono state copiate in %d siti."
+            ],
+            "The settings were not copied.": [
+                "Le impostazioni non sono state copiate."
+            ],
+            "Replace the settings": [
+                "Sostituisci le impostazioni"
+            ],
+            "Cancel": [
+                "Annulla"
+            ],
+            "Save": [
+                "Salva"
+            ]
+        }
+    }
+}
