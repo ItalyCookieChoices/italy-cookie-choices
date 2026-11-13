@@ -483,6 +483,54 @@
             ],
             "12 months": [
                 ""
+            ],
+            "The texts were not filled.": [
+                ""
+            ],
+            "The policy page of a connected site has a translation for this site:": [
+                ""
+            ],
+            "Use this link": [
+                ""
+            ],
+            "The empty texts were filled: check them and save the changes.": [
+                ""
+            ],
+            "The texts of this site": [
+                ""
+            ],
+            "Fills only the empty texts, the texts already written stay. The policy link is never filled.": [
+                ""
+            ],
+            "Fill from": [
+                ""
+            ],
+            "Copy the empty texts": [
+                ""
+            ],
+            "Translate the empty texts": [
+                ""
+            ],
+            "Loading the texts\u2026": [
+                ""
+            ],
+            "Copy the empty texts from this site": [
+                ""
+            ],
+            "Translate the empty texts from this site": [
+                ""
+            ],
+            "The texts of %s were saved.": [
+                ""
+            ],
+            "The texts were not saved.": [
+                ""
+            ],
+            "Save the texts of %s": [
+                ""
+            ],
+            "Languages": [
+                ""
             ]
         }
     }

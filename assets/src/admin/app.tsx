@@ -4,6 +4,7 @@ import { Button, Notice, TabPanel } from '@wordpress/components';
 import { createElement, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { errorMessage, loadSettings, saveSettings } from './api';
+import type { Message } from './message';
 import { Preview } from './preview';
 import type { AdminData, Settings } from './settings';
 import { BannerTab } from './tabs/banner';
@@ -11,13 +12,18 @@ import { BlockingTab } from './tabs/blocking';
 import { CategoriesTab } from './tabs/categories';
 import { ConsentLogRecords, ConsentLogTab } from './tabs/consent-log';
 import { IntegrationsTab } from './tabs/integrations';
+import { LanguagesTab } from './tabs/languages';
 import { StyleTab } from './tabs/style';
 import { TextsTab } from './tabs/texts';
 import { ToolsTab } from './tabs/tools';
 
-interface Message {
-	status: 'success' | 'error';
-	text: string;
+/**
+ * The tab of the link, like the notice of the connected sites that opens the languages tab.
+ */
+function initialTab(): { initialTabName?: string } {
+	const tab = new URLSearchParams( window.location.search ).get( 'tab' );
+
+	return tab === null ? {} : { initialTabName: tab };
 }
 
 function hasChanges( settings: Settings, saved: Settings ): boolean {
@@ -124,9 +130,21 @@ export function App( { data }: { data: AdminData } ) {
 	}
 
 	const props = { settings, onChange: setSettings };
+	// The texts of the sites connected as translations by MultilingualPress.
+	const languagesTab = data.languages.sites.length > 0 && {
+		languages: (
+			<LanguagesTab
+				{ ...props }
+				languages={ data.languages }
+				categories={ data.categories }
+				onMessage={ setMessage }
+			/>
+		),
+	};
 	// A site that uses the settings of the main site of the network changes only its texts.
 	const textsOnlyTabs = {
 		texts: <TextsTab { ...props } categories={ data.categories } />,
+		...languagesTab,
 		'consent-log': (
 			<ConsentLogRecords exportUrl={ data.consentLogExportUrl } />
 		),
@@ -145,6 +163,7 @@ export function App( { data }: { data: AdminData } ) {
 			/>
 		),
 		integrations: <IntegrationsTab { ...props } />,
+		...languagesTab,
 		'consent-log': (
 			<ConsentLogTab
 				{ ...props }
@@ -184,6 +203,7 @@ export function App( { data }: { data: AdminData } ) {
 			<div className="icc-admin__layout">
 				<TabPanel
 					className="icc-admin__tabs"
+					{ ...initialTab() }
 					tabs={ [
 						{
 							name: 'texts',
@@ -208,6 +228,10 @@ export function App( { data }: { data: AdminData } ) {
 						{
 							name: 'integrations',
 							title: __( 'Integrations', 'italy-cookie-choices' ),
+						},
+						{
+							name: 'languages',
+							title: __( 'Languages', 'italy-cookie-choices' ),
 						},
 						{
 							name: 'consent-log',

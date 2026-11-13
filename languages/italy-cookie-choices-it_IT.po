@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
@@ -36,15 +36,15 @@ msgid "Settings"
 msgstr "Impostazioni"
 
 #: src/Settings/UI/PluginActionLinks.php:44
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Documentation"
 msgstr "Documentazione"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Export"
 msgstr "Esporta"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Import"
 msgstr "Importa"
 
@@ -177,7 +177,7 @@ msgid "Dialog to preview"
 msgstr "Finestra da mostrare in anteprima"
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Banner"
 msgstr "Banner"
 
@@ -211,10 +211,12 @@ msgstr "Sono ammessi link e HTML semplice."
 
 #: assets/build/settings.js:1
 #: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Policy link"
 msgstr "Link alla policy"
 
 #: assets/build/settings.js:1
+#: assets/build/settings.js:7
 msgid "Policy link text"
 msgstr "Testo del link alla policy"
 
@@ -252,7 +254,7 @@ msgstr "Nuovo fornitore"
 
 #: assets/build/settings.js:2
 #: assets/build/settings.js:5
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Name"
 msgstr "Nome"
 
@@ -403,157 +405,158 @@ msgstr "Usa la modalità privacy avanzata per i video di YouTube"
 msgid "The videos load from youtube-nocookie.com, they still wait for the marketing consent."
 msgstr "I video vengono caricati da youtube-nocookie.com e attendono comunque il consenso marketing."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Position"
 msgstr "Posizione"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Top bar"
 msgstr "Barra in alto"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Modal window"
 msgstr "Finestra modale"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Bottom bar"
 msgstr "Barra in basso"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Push the page down under the top bar"
 msgstr "Sposta la pagina sotto la barra in alto"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Template"
 msgstr "Modello"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The custom template has no styles, only the custom CSS."
 msgstr "Il modello personalizzato non ha stili, solo il CSS personalizzato."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Default"
 msgstr "Predefinito"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Big buttons"
 msgstr "Pulsanti grandi"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Small buttons"
 msgstr "Pulsanti piccoli"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Custom"
 msgstr "Personalizzato"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Background color"
 msgstr "Colore di sfondo"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Text color"
 msgstr "Colore del testo"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "CSS classes"
 msgstr "Classi CSS"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Content"
 msgstr "Contenuto"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Text"
 msgstr "Testo"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Buttons"
 msgstr "Pulsanti"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Cookie of the 2.x versions"
 msgstr "Cookie delle versioni 2.x"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Written while every category is accepted, for the code that still reads it."
 msgstr "Scritto quando tutte le categorie sono accettate, per il codice che lo legge ancora."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Value"
 msgstr "Valore"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Downloads the saved settings as a JSON file."
 msgstr "Scarica le impostazioni salvate in un file JSON."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Export the settings"
 msgstr "Esporta le impostazioni"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
 msgstr "Sostituisce le impostazioni salvate con quelle di un file esportato, anche dalle versioni 2.x."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Settings file"
 msgstr "File delle impostazioni"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The file is not a valid JSON file."
 msgstr "Il file non è un file JSON valido."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The settings were not imported."
 msgstr "Le impostazioni non sono state importate."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The settings were not loaded."
 msgstr "Le impostazioni non sono state caricate."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Loading the settings…"
 msgstr "Caricamento delle impostazioni…"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Settings imported."
 msgstr "Impostazioni importate."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Style"
 msgstr "Stile"
 
 #: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Categories"
 msgstr "Categorie"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Blocking"
 msgstr "Blocco"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Integrations"
 msgstr "Integrazioni"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Consent log"
 msgstr "Registro dei consensi"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Tools"
 msgstr "Strumenti"
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Settings saved."
 msgstr "Impostazioni salvate."
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The settings were not saved."
 msgstr "Le impostazioni non sono state salvate."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Save changes"
 msgstr "Salva le modifiche"
 
@@ -626,8 +629,8 @@ msgstr "Il file non contiene impostazioni di Cookie Choices."
 #: src/Settings/UI/NetworkSettingsPage.php:67
 #: src/Settings/UI/NetworkSettingsPage.php:68
 #: src/Settings/UI/NetworkSettingsPage.php:79
-#: src/Settings/UI/SettingsPage.php:78
-#: src/Settings/UI/SettingsPage.php:79
+#: src/Settings/UI/SettingsPage.php:80
+#: src/Settings/UI/SettingsPage.php:81
 msgid "Cookie Choices"
 msgstr "Cookie Choices"
 
@@ -1039,31 +1042,31 @@ msgstr "Revoche"
 msgid "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once."
 msgstr "Le scelte di ogni mese, dai record del registro: non viene raccolto nient'altro. Un visitatore può scegliere più di una volta."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Logo"
 msgstr "Logo"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "An image of the media library above the title of the banner."
 msgstr "Un'immagine della libreria media sopra il titolo del banner."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Replace the logo"
 msgstr "Sostituisci il logo"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Choose a logo"
 msgstr "Scegli un logo"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Remove the logo"
 msgstr "Rimuovi il logo"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Box in the bottom left corner"
 msgstr "Riquadro nell'angolo in basso a sinistra"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Box in the bottom right corner"
 msgstr "Riquadro nell'angolo in basso a destra"
 
@@ -1165,11 +1168,11 @@ msgstr "Usa le impostazioni del sito principale su tutti i siti"
 msgid "Each site keeps its own texts, for its language, and its own consent log."
 msgstr "Ogni sito mantiene i suoi testi, per la sua lingua, e il suo registro dei consensi."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "This site uses the settings of the main site of the network: here you change only its texts, for its language."
 msgstr "Questo sito usa le impostazioni del sito principale della rete: qui cambi solo i suoi testi, per la sua lingua."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Texts"
 msgstr "Testi"
 
@@ -1335,3 +1338,96 @@ msgstr "Annulla"
 #: assets/build/network-settings.js:3
 msgid "Save"
 msgstr "Salva"
+
+#: src/Multilingual/Application/SiteTexts.php:79
+msgid "The texts come only from a connected site."
+msgstr "I testi arrivano solo da un sito collegato."
+
+#: src/Multilingual/Application/SiteTexts.php:87
+#: src/Multilingual/Infrastructure/MultilingualPressTranslator.php:33
+msgid "No translation service translates between the languages of the sites."
+msgstr "Nessun servizio di traduzione traduce tra le lingue dei siti."
+
+#: templates/connection-notice.php:18
+msgid "This site is connected to other languages: fill its banner texts from a connected site."
+msgstr "Questo sito è collegato ad altre lingue: compila i testi del suo banner da un sito collegato."
+
+#: templates/connection-notice.php:25
+msgid "Fill the texts"
+msgstr "Compila i testi"
+
+#: templates/connection-notice.php:28
+msgid "Ignore"
+msgstr "Ignora"
+
+#: src/Multilingual/UI/ConnectionNotice.php:88
+msgid "You cannot change the settings."
+msgstr "Non puoi modificare le impostazioni."
+
+#: assets/build/settings.js:7
+msgid "The texts were not filled."
+msgstr "I testi non sono stati compilati."
+
+#: assets/build/settings.js:7
+msgid "The policy page of a connected site has a translation for this site:"
+msgstr "La pagina della policy di un sito collegato ha una traduzione per questo sito:"
+
+#: assets/build/settings.js:7
+msgid "Use this link"
+msgstr "Usa questo link"
+
+#: assets/build/settings.js:7
+msgid "The empty texts were filled: check them and save the changes."
+msgstr "I testi vuoti sono stati compilati: controllali e salva le modifiche."
+
+#: assets/build/settings.js:7
+msgid "The texts of this site"
+msgstr "I testi di questo sito"
+
+#: assets/build/settings.js:7
+msgid "Fills only the empty texts, the texts already written stay. The policy link is never filled."
+msgstr "Compila solo i testi vuoti, i testi già scritti restano. Il link alla policy non viene mai compilato."
+
+#: assets/build/settings.js:7
+msgid "Fill from"
+msgstr "Compila da"
+
+#: assets/build/settings.js:7
+msgid "Copy the empty texts"
+msgstr "Copia i testi vuoti"
+
+#: assets/build/settings.js:7
+msgid "Translate the empty texts"
+msgstr "Traduci i testi vuoti"
+
+#: assets/build/settings.js:7
+msgid "Loading the texts…"
+msgstr "Caricamento dei testi…"
+
+#: assets/build/settings.js:7
+msgid "Copy the empty texts from this site"
+msgstr "Copia i testi vuoti da questo sito"
+
+#: assets/build/settings.js:7
+msgid "Translate the empty texts from this site"
+msgstr "Traduci i testi vuoti da questo sito"
+
+#. translators: %s: the name of the site.
+#: assets/build/settings.js:8
+#, js-format
+msgid "The texts of %s were saved."
+msgstr "I testi di %s sono stati salvati."
+
+#: assets/build/settings.js:8
+msgid "The texts were not saved."
+msgstr "I testi non sono stati salvati."
+
+#. translators: %s: the name of the site.
+#: assets/build/settings.js:9
+#, js-format
+msgid "Save the texts of %s"
+msgstr "Salva i testi di %s"
+
+#: assets/build/settings.js:9
+msgid "Languages"
+msgstr "Lingue"

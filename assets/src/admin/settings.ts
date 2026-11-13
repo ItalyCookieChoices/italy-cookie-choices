@@ -102,6 +102,22 @@ export interface Vendor {
 	category: string;
 }
 
+/** A site connected as a translation by MultilingualPress, that the user administers. */
+export interface ConnectedSite {
+	id: number;
+	name: string;
+	url: string;
+	language: string;
+	/** Whether a translation service translates the texts of this site in the language of the other. */
+	canTranslate: boolean;
+}
+
+export interface Languages {
+	siteId: number;
+	language: string;
+	sites: ConnectedSite[];
+}
+
 export interface AdminData {
 	categories: Category[];
 	vendors: Vendor[];
@@ -109,6 +125,7 @@ export interface AdminData {
 	documentationUrl: string;
 	/** True on a site of a network that uses the settings of the main site, it edits only its texts. */
 	textsOnly: boolean;
+	languages: Languages;
 }
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
@@ -131,6 +148,39 @@ function categoryFrom( value: unknown ): Category | null {
 		label: typeof value.label === 'string' ? value.label : value.id,
 		description:
 			typeof value.description === 'string' ? value.description : '',
+	};
+}
+
+function connectedSiteFrom( value: unknown ): ConnectedSite | null {
+	if (
+		! isRecord( value ) ||
+		typeof value.id !== 'number' ||
+		typeof value.name !== 'string' ||
+		typeof value.url !== 'string'
+	) {
+		return null;
+	}
+
+	return {
+		id: value.id,
+		name: value.name,
+		url: value.url,
+		language: typeof value.language === 'string' ? value.language : '',
+		canTranslate: value.canTranslate === true,
+	};
+}
+
+function languagesFrom( value: unknown ): Languages {
+	const languages = isRecord( value ) ? value : {};
+	const sites = Array.isArray( languages.sites )
+		? languages.sites.map( connectedSiteFrom )
+		: [];
+
+	return {
+		siteId: typeof languages.siteId === 'number' ? languages.siteId : 0,
+		language:
+			typeof languages.language === 'string' ? languages.language : '',
+		sites: sites.filter( ( site ): site is ConnectedSite => site !== null ),
 	};
 }
 
@@ -179,6 +229,7 @@ export function parseAdminData( raw: unknown ): AdminData {
 				? data.documentationUrl
 				: '',
 		textsOnly: data.textsOnly === true,
+		languages: languagesFrom( data.languages ),
 	};
 }
 

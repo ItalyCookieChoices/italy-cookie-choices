@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Settings\UI;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\Multilingual\UI\LanguagesData;
 use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
@@ -57,6 +58,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private VendorPresets $presets,
         private ConsentLogExport $logExport,
         private NetworkSettings $network,
+        private LanguagesData $languages,
         private ViewInterface $view,
         private AssetLoader $assets,
         private string $buildPath,
@@ -159,7 +161,12 @@ final readonly class SettingsPage implements SubscriberInterface
      *     vendors: list<array{id: string, name: string, category: string}>,
      *     consentLogExportUrl: string,
      *     documentationUrl: string,
-     *     textsOnly: bool
+     *     textsOnly: bool,
+     *     languages: array{
+     *         siteId: int,
+     *         language: string,
+     *         sites: list<array{id: int, name: string, url: string, language: string, canTranslate: bool}>
+     *     }
      * }
      */
     public function data(): array
@@ -180,6 +187,8 @@ final readonly class SettingsPage implements SubscriberInterface
             'documentationUrl' => self::DOCUMENTATION,
             // The other settings come from the main site of the network.
             'textsOnly' => $this->network->usesTheMainSite(),
+            // The sites connected as translations, by MultilingualPress.
+            'languages' => $this->languages->forSite(\get_current_blog_id()),
         ];
     }
 

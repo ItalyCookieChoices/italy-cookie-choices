@@ -18,7 +18,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: .git\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Custom CSS"
 msgstr "CSS personal"
 
@@ -147,7 +147,7 @@ msgid "Settings"
 msgstr ""
 
 #: src/Settings/UI/PluginActionLinks.php:44
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Documentation"
 msgstr ""
 
@@ -164,7 +164,7 @@ msgid "Dialog to preview"
 msgstr ""
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Banner"
 msgstr ""
 
@@ -202,10 +202,12 @@ msgstr ""
 
 #: assets/build/settings.js:1
 #: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Policy link"
 msgstr ""
 
 #: assets/build/settings.js:1
+#: assets/build/settings.js:7
 msgid "Policy link text"
 msgstr ""
 
@@ -243,7 +245,7 @@ msgstr ""
 
 #: assets/build/settings.js:2
 #: assets/build/settings.js:5
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Name"
 msgstr ""
 
@@ -394,165 +396,166 @@ msgstr ""
 msgid "The videos load from youtube-nocookie.com, they still wait for the marketing consent."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Position"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Top bar"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Modal window"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Bottom bar"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Push the page down under the top bar"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Template"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The custom template has no styles, only the custom CSS."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Default"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Big buttons"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Small buttons"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Custom"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Background color"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Text color"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "CSS classes"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Content"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Text"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Buttons"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Cookie of the 2.x versions"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Written while every category is accepted, for the code that still reads it."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Value"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Export"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Downloads the saved settings as a JSON file."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Export the settings"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Import"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Settings file"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The file is not a valid JSON file."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The settings were not imported."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The settings were not loaded."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Loading the settings…"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Settings imported."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Style"
 msgstr ""
 
 #: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Categories"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Blocking"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Integrations"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Consent log"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Tools"
 msgstr ""
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Settings saved."
 msgstr ""
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "The settings were not saved."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Save changes"
 msgstr ""
 
@@ -625,8 +628,8 @@ msgstr ""
 #: src/Settings/UI/NetworkSettingsPage.php:67
 #: src/Settings/UI/NetworkSettingsPage.php:68
 #: src/Settings/UI/NetworkSettingsPage.php:79
-#: src/Settings/UI/SettingsPage.php:78
-#: src/Settings/UI/SettingsPage.php:79
+#: src/Settings/UI/SettingsPage.php:80
+#: src/Settings/UI/SettingsPage.php:81
 msgid "Cookie Choices"
 msgstr ""
 
@@ -1038,31 +1041,31 @@ msgstr ""
 msgid "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Logo"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "An image of the media library above the title of the banner."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Replace the logo"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Choose a logo"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Remove the logo"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Box in the bottom left corner"
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Box in the bottom right corner"
 msgstr ""
 
@@ -1164,11 +1167,11 @@ msgstr ""
 msgid "Each site keeps its own texts, for its language, and its own consent log."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "This site uses the settings of the main site of the network: here you change only its texts, for its language."
 msgstr ""
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:9
 msgid "Texts"
 msgstr ""
 
@@ -1333,4 +1336,97 @@ msgstr ""
 
 #: assets/build/network-settings.js:3
 msgid "Save"
+msgstr ""
+
+#: src/Multilingual/Application/SiteTexts.php:79
+msgid "The texts come only from a connected site."
+msgstr ""
+
+#: src/Multilingual/Application/SiteTexts.php:87
+#: src/Multilingual/Infrastructure/MultilingualPressTranslator.php:33
+msgid "No translation service translates between the languages of the sites."
+msgstr ""
+
+#: templates/connection-notice.php:18
+msgid "This site is connected to other languages: fill its banner texts from a connected site."
+msgstr ""
+
+#: templates/connection-notice.php:25
+msgid "Fill the texts"
+msgstr ""
+
+#: templates/connection-notice.php:28
+msgid "Ignore"
+msgstr ""
+
+#: src/Multilingual/UI/ConnectionNotice.php:88
+msgid "You cannot change the settings."
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "The texts were not filled."
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "The policy page of a connected site has a translation for this site:"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Use this link"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "The empty texts were filled: check them and save the changes."
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "The texts of this site"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Fills only the empty texts, the texts already written stay. The policy link is never filled."
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Fill from"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Copy the empty texts"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Translate the empty texts"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Loading the texts…"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Copy the empty texts from this site"
+msgstr ""
+
+#: assets/build/settings.js:7
+msgid "Translate the empty texts from this site"
+msgstr ""
+
+#. translators: %s: the name of the site.
+#: assets/build/settings.js:8
+#, js-format
+msgid "The texts of %s were saved."
+msgstr ""
+
+#: assets/build/settings.js:8
+msgid "The texts were not saved."
+msgstr ""
+
+#. translators: %s: the name of the site.
+#: assets/build/settings.js:9
+#, js-format
+msgid "Save the texts of %s"
+msgstr ""
+
+#: assets/build/settings.js:9
+msgid "Languages"
 msgstr ""

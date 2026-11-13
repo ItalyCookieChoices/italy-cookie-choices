@@ -483,6 +483,54 @@
             ],
             "12 months": [
                 "12 mesi"
+            ],
+            "The texts were not filled.": [
+                "I testi non sono stati compilati."
+            ],
+            "The policy page of a connected site has a translation for this site:": [
+                "La pagina della policy di un sito collegato ha una traduzione per questo sito:"
+            ],
+            "Use this link": [
+                "Usa questo link"
+            ],
+            "The empty texts were filled: check them and save the changes.": [
+                "I testi vuoti sono stati compilati: controllali e salva le modifiche."
+            ],
+            "The texts of this site": [
+                "I testi di questo sito"
+            ],
+            "Fills only the empty texts, the texts already written stay. The policy link is never filled.": [
+                "Compila solo i testi vuoti, i testi gi\u00e0 scritti restano. Il link alla policy non viene mai compilato."
+            ],
+            "Fill from": [
+                "Compila da"
+            ],
+            "Copy the empty texts": [
+                "Copia i testi vuoti"
+            ],
+            "Translate the empty texts": [
+                "Traduci i testi vuoti"
+            ],
+            "Loading the texts\u2026": [
+                "Caricamento dei testi\u2026"
+            ],
+            "Copy the empty texts from this site": [
+                "Copia i testi vuoti da questo sito"
+            ],
+            "Translate the empty texts from this site": [
+                "Traduci i testi vuoti da questo sito"
+            ],
+            "The texts of %s were saved.": [
+                "I testi di %s sono stati salvati."
+            ],
+            "The texts were not saved.": [
+                "I testi non sono stati salvati."
+            ],
+            "Save the texts of %s": [
+                "Salva i testi di %s"
+            ],
+            "Languages": [
+                "Lingue"
             ]
         }
     }

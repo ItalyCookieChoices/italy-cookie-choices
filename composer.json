@@ -72,6 +72,9 @@
     "classmap": [
       "tests/"
     ],
+    "exclude-from-classmap": [
+      "tests/_support/stubs/multilingualpress.php"
+    ],
     "psr-4": {
       "ItalyCookieChoices\\Tests\\": "tests/"
     }
