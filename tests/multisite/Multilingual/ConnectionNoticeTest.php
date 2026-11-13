@@ -7,12 +7,16 @@ namespace ItalyCookieChoices\Tests\Multisite\Multilingual;
 use ItalyCookieChoices\Multilingual\Application\SiteTexts;
 use ItalyCookieChoices\Multilingual\UI\ConnectionNotice;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\Multilingual\FakeConnectedSites;
 use ItalyCookieChoices\Tests\Support\Multilingual\FakeTranslator;
+use ItalyStrap\View\ViewInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConnectionNoticeTest extends WPTestCase
 {
+    use BuildsContainer;
+
     private int $italian = 0;
     private int $german = 0;
     private int $alone = 0;
@@ -25,7 +29,11 @@ final class ConnectionNoticeTest extends WPTestCase
         $this->german = $this->site(['banner' => '3']);
         $this->alone = $this->site(['banner' => '3']);
         $sites = new FakeConnectedSites([$this->italian => 'it-IT', $this->german => 'de-DE']);
-        $this->sut = new ConnectionNotice(new SiteTexts($sites, new FakeTranslator()), $sites);
+        $this->sut = new ConnectionNotice(
+            new SiteTexts($sites, new FakeTranslator()),
+            $sites,
+            $this->service(ViewInterface::class)
+        );
     }
 
     public function tearDown(): void

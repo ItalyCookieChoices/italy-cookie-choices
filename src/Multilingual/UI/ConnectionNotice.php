@@ -7,7 +7,9 @@ namespace ItalyCookieChoices\Multilingual\UI;
 use ItalyCookieChoices\Multilingual\Application\ConnectedSites;
 use ItalyCookieChoices\Multilingual\Application\SiteTexts;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscriberInterface;
+use ItalyStrap\View\ViewInterface;
 
 /**
  * When MultilingualPress creates a site or changes its connections, the connected sites without their own
@@ -24,10 +26,12 @@ final readonly class ConnectionNotice implements SubscriberInterface
     private const NEW_SITE = 'multilingualpress.define_initial_site_settings';
     private const UPDATED_SITE = 'multilingualpress.update_site_settings';
     private const SETTINGS_TAB = 'languages';
+    private const TEMPLATE = 'connection-notice';
 
     public function __construct(
         private SiteTexts $texts,
         private ConnectedSites $sites,
+        private ViewInterface $view,
     ) {
     }
 
@@ -67,17 +71,14 @@ final readonly class ConnectionNotice implements SubscriberInterface
             return;
         }
 
-        \printf(
-            '<div class="notice notice-info"><p>%s</p><p><a class="button button-primary" href="%s">%s</a> '
-            . '<a class="button" href="%s">%s</a></p></div>',
-            \esc_html__(
-                'This site is connected to other languages: fill its banner texts from a connected site.',
-                'italy-cookie-choices'
-            ),
-            \esc_url(\add_query_arg('tab', self::SETTINGS_TAB, \admin_url('admin.php?page=' . SettingsPage::SLUG))),
-            \esc_html__('Fill the texts', 'italy-cookie-choices'),
-            \esc_url(\wp_nonce_url(\admin_url('admin-post.php?action=' . self::ACTION), self::ACTION)),
-            \esc_html__('Ignore', 'italy-cookie-choices')
+        $settingsPage = \admin_url('admin.php?page=' . SettingsPage::SLUG);
+
+        echo $this->view->render( // phpcs:ignore -- Escaped in the template.
+            self::TEMPLATE,
+            new Config([
+                'fillUrl' => \add_query_arg('tab', self::SETTINGS_TAB, $settingsPage),
+                'ignoreUrl' => \wp_nonce_url(\admin_url('admin-post.php?action=' . self::ACTION), self::ACTION),
+            ])
         );
     }
 

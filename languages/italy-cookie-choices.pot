@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-12T19:32:27+00:00\n"
+"POT-Creation-Date: 2026-11-13T07:38:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -503,19 +503,7 @@ msgstr ""
 msgid "No translation service translates between the languages of the sites."
 msgstr ""
 
-#: src/Multilingual/UI/ConnectionNotice.php:73
-msgid "This site is connected to other languages: fill its banner texts from a connected site."
-msgstr ""
-
-#: src/Multilingual/UI/ConnectionNotice.php:78
-msgid "Fill the texts"
-msgstr ""
-
-#: src/Multilingual/UI/ConnectionNotice.php:80
-msgid "Ignore"
-msgstr ""
-
-#: src/Multilingual/UI/ConnectionNotice.php:87
+#: src/Multilingual/UI/ConnectionNotice.php:88
 msgid "You cannot change the settings."
 msgstr ""
 
@@ -582,6 +570,18 @@ msgstr ""
 
 #: src/Settings/UI/SettingsAbility.php:32
 msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
+msgstr ""
+
+#: templates/connection-notice.php:18
+msgid "This site is connected to other languages: fill its banner texts from a connected site."
+msgstr ""
+
+#: templates/connection-notice.php:25
+msgid "Fill the texts"
+msgstr ""
+
+#: templates/connection-notice.php:28
+msgid "Ignore"
 msgstr ""
 
 #: templates/network-settings.php:19

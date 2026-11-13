@@ -1348,19 +1348,19 @@ msgstr "I testi arrivano solo da un sito collegato."
 msgid "No translation service translates between the languages of the sites."
 msgstr "Nessun servizio di traduzione traduce tra le lingue dei siti."
 
-#: src/Multilingual/UI/ConnectionNotice.php:73
+#: templates/connection-notice.php:18
 msgid "This site is connected to other languages: fill its banner texts from a connected site."
 msgstr "Questo sito è collegato ad altre lingue: compila i testi del suo banner da un sito collegato."
 
-#: src/Multilingual/UI/ConnectionNotice.php:78
+#: templates/connection-notice.php:25
 msgid "Fill the texts"
 msgstr "Compila i testi"
 
-#: src/Multilingual/UI/ConnectionNotice.php:80
+#: templates/connection-notice.php:28
 msgid "Ignore"
 msgstr "Ignora"
 
-#: src/Multilingual/UI/ConnectionNotice.php:87
+#: src/Multilingual/UI/ConnectionNotice.php:88
 msgid "You cannot change the settings."
 msgstr "Non puoi modificare le impostazioni."
 
