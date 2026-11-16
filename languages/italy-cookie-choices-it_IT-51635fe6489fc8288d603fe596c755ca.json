@@ -531,6 +531,55 @@
             ],
             "Languages": [
                 "Lingue"
+            ],
+            "Home page": [
+                "Home page"
+            ],
+            "Scanned %1$d of %2$d pages.": [
+                "Scansionate %1$d pagine su %2$d."
+            ],
+            "There are no published pages to scan in the selection.": [
+                "Nella selezione non ci sono pagine pubblicate da scansionare."
+            ],
+            "%d page": [
+                "%d pagina",
+                "%d pagine"
+            ],
+            "Scan the site": [
+                "Scansiona il sito"
+            ],
+            "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. It does not see the cookies set by JavaScript, they come from the vendors.": [
+                "Legge le pagine scelte dal server e trova i fornitori dei loro script, frame e pixel di tracciamento. Non vede i cookie impostati da JavaScript, arrivano dai fornitori."
+            ],
+            "Posts and pages": [
+                "Articoli e pagine"
+            ],
+            "The scan failed.": [
+                "La scansione non \u00e8 riuscita."
+            ],
+            "The selection has more pages than the limit, only the first ones are scanned.": [
+                "La selezione ha pi\u00f9 pagine del limite, vengono scansionate solo le prime."
+            ],
+            "Vendors found": [
+                "Fornitori trovati"
+            ],
+            "Block %s": [
+                "Blocca %s"
+            ],
+            "%1$s, a custom vendor, blocked: %2$s": [
+                "%1$s, un fornitore personalizzato, bloccato: %2$s"
+            ],
+            "Unknown third parties": [
+                "Terze parti sconosciute"
+            ],
+            "Their scripts and frames are not blocked. Add them as custom vendors when they set cookies: some, like the libraries served by a CDN, do not.": [
+                "I loro script e frame non vengono bloccati. Aggiungili come fornitori personalizzati quando impostano cookie: alcuni, come le librerie servite da una CDN, non lo fanno."
+            ],
+            "Add %s as a custom vendor": [
+                "Aggiungi %s come fornitore personalizzato"
+            ],
+            "Add as a custom vendor": [
+                "Aggiungi come fornitore personalizzato"
             ]
         }
     }

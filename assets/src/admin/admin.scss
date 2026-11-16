@@ -108,6 +108,14 @@
 		gap: 0.5em;
 	}
 
+	// A third party found by the scan.
+	&__found {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5em 1em;
+		align-items: center;
+	}
+
 	&__suggestion {
 		display: grid;
 		gap: 0.5em;

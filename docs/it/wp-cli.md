@@ -11,6 +11,7 @@ Cookie Choices aggiunge i comandi `wp cookie-choices` a [WP-CLI](https://wp-cli.
 | `wp cookie-choices settings import <file>` | Importa le impostazioni di un file JSON |
 | `wp cookie-choices log export` | Esporta il registro dei consensi in CSV |
 | `wp cookie-choices log purge` | Cancella i record vecchi del registro dei consensi |
+| `wp cookie-choices scan` | Scansiona le pagine del sito ed elenca i fornitori trovati |
 
 ## status
 
@@ -43,6 +44,15 @@ Il CSV è lo stesso della scheda **Registro dei consensi**, vedi [Registro dei c
 
 `log purge` cancella i record più vecchi della conservazione delle impostazioni, il plugin lo fa già ogni giorno. Con `--before` cancella i record prima di una data, `AAAA-MM-GG` nel fuso orario del sito, con `--all` tutti. I record dimostrano i consensi: esporta il registro prima di cancellarlo. Chiede di confermare, `--yes` risponde per te.
 
+## scan
+
+```bash
+wp cookie-choices scan --home --post-type=page
+wp cookie-choices scan --category=3,7 --post=42 --format=json
+```
+
+La stessa scansione della scheda **Blocco**, vedi [Scansiona il sito](blocco.md#scansiona-il-sito): `--home` per la home page, `--post-type`, `--category` e `--post` per i tipi di contenuto, gli id delle categorie e gli id degli articoli, separati da virgole. L'elenco ha una riga per ogni fornitore trovato, con il nome, la categoria, se è bloccato (`on` o `off`) e il numero di pagine, poi una riga per ogni terza parte sconosciuta, con solo il suo host e le sue pagine. Le pagine che non si possono leggere vengono segnalate come errori. Non cambia nulla.
+
 ## Codici di uscita
 
 | Codice | Significato |
@@ -54,3 +64,4 @@ Il CSV è lo stesso della scheda **Registro dei consensi**, vedi [Registro dei c
 | 4 | Il file non può essere letto |
 | 5 | Il file non ha impostazioni di Cookie Choices, o sono di una versione più recente del plugin |
 | 6 | La data non è valida |
+| 7 | Nella selezione non ci sono pagine pubblicate da scansionare |

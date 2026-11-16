@@ -162,6 +162,7 @@ final readonly class SettingsPage implements SubscriberInterface
      *     consentLogExportUrl: string,
      *     documentationUrl: string,
      *     textsOnly: bool,
+     *     postTypes: list<array{slug: string, name: string}>,
      *     languages: array{
      *         siteId: int,
      *         language: string,
@@ -187,9 +188,30 @@ final readonly class SettingsPage implements SubscriberInterface
             'documentationUrl' => self::DOCUMENTATION,
             // The other settings come from the main site of the network.
             'textsOnly' => $this->network->usesTheMainSite(),
+            // The post types the scan of the site reads.
+            'postTypes' => $this->postTypes(),
             // The sites connected as translations, by MultilingualPress.
             'languages' => $this->languages->forSite(\get_current_blog_id()),
         ];
+    }
+
+    /**
+     * The post types the visitors see, without the attachments.
+     *
+     * @return list<array{slug: string, name: string}>
+     */
+    private function postTypes(): array
+    {
+        $postTypes = [];
+        foreach (\get_post_types(['public' => true], 'objects') as $postType) {
+            if ($postType->name === 'attachment' || !\is_post_type_viewable($postType)) {
+                continue;
+            }
+
+            $postTypes[] = ['slug' => $postType->name, 'name' => (string) $postType->label];
+        }
+
+        return $postTypes;
     }
 
     /**

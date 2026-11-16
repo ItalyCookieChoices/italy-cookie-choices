@@ -125,7 +125,14 @@ export interface AdminData {
 	documentationUrl: string;
 	/** True on a site of a network that uses the settings of the main site, it edits only its texts. */
 	textsOnly: boolean;
+	/** The post types the scan of the site reads. */
+	postTypes: PostType[];
 	languages: Languages;
+}
+
+export interface PostType {
+	slug: string;
+	name: string;
 }
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
@@ -149,6 +156,14 @@ function categoryFrom( value: unknown ): Category | null {
 		description:
 			typeof value.description === 'string' ? value.description : '',
 	};
+}
+
+function isPostType( value: unknown ): value is PostType {
+	return (
+		isRecord( value ) &&
+		typeof value.slug === 'string' &&
+		typeof value.name === 'string'
+	);
 }
 
 function connectedSiteFrom( value: unknown ): ConnectedSite | null {
@@ -229,6 +244,9 @@ export function parseAdminData( raw: unknown ): AdminData {
 				? data.documentationUrl
 				: '',
 		textsOnly: data.textsOnly === true,
+		postTypes: Array.isArray( data.postTypes )
+			? data.postTypes.filter( isPostType )
+			: [],
 		languages: languagesFrom( data.languages ),
 	};
 }

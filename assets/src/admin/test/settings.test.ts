@@ -61,6 +61,7 @@ describe( 'parseAdminData', () => {
 			consentLogExportUrl: 'https://example.com/export',
 			documentationUrl: '',
 			textsOnly: true,
+			postTypes: [],
 			languages: { siteId: 0, language: '', sites: [] },
 		} );
 	} );
@@ -72,6 +73,7 @@ describe( 'parseAdminData', () => {
 			consentLogExportUrl: '',
 			documentationUrl: '',
 			textsOnly: false,
+			postTypes: [],
 			languages: { siteId: 0, language: '', sites: [] },
 		} );
 	} );

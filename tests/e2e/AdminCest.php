@@ -188,7 +188,11 @@ final class AdminCest
         $I->click('Add a vendor');
         $I->fillField('Name', 'Ads');
         $I->fillField('Addresses and scripts to block', 'ads.example.com');
-        $I->pressKey('.icc-admin__group:nth-of-type(2) .components-form-token-field__input', WebDriverKeys::ENTER);
+        // The token field of the vendor named Ads.
+        $I->pressKey(
+            "//fieldset[.//input[@value='Ads']]//input[contains(@class, 'components-form-token-field__input')]",
+            WebDriverKeys::ENTER
+        );
         $this->save($I);
 
         $options = $this->savedOptions($I);

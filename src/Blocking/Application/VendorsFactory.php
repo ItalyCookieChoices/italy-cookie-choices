@@ -27,10 +27,27 @@ final readonly class VendorsFactory
 
     public function create(): Vendors
     {
-        $event = new BuildingVendors(
+        return $this->built(
             [...$this->presets(), ...$this->googleTagGateway(), ...$this->customVendors()],
             $this->options->values('allowed_patterns')
         );
+    }
+
+    /**
+     * Every vendor the plugin knows, the presets turned off and the allowed patterns too: the scan finds them all.
+     */
+    public function known(): Vendors
+    {
+        return $this->built([...$this->presets->all(), ...$this->googleTagGateway(), ...$this->customVendors()], []);
+    }
+
+    /**
+     * @param list<Vendor> $vendors
+     * @param list<string> $allowed
+     */
+    private function built(array $vendors, array $allowed): Vendors
+    {
+        $event = new BuildingVendors($vendors, $allowed);
         $this->dispatcher->dispatch($event);
 
         return $event->vendors();

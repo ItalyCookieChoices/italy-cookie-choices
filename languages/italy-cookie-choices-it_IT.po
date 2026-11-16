@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
@@ -36,15 +36,15 @@ msgid "Settings"
 msgstr "Impostazioni"
 
 #: src/Settings/UI/PluginActionLinks.php:44
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Documentation"
 msgstr "Documentazione"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Export"
 msgstr "Esporta"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Import"
 msgstr "Importa"
 
@@ -82,12 +82,12 @@ msgstr "Consenso ai cookie"
 #: src/Consent/UI/AcceptButtonShortcode.php:51
 #: src/Consent/UI/ConsentTexts.php:76
 #: assets/build/settings.js:1
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Accept all"
 msgstr "Accetta tutti"
 
 #: src/Consent/UI/ConsentTexts.php:78
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Reject all"
 msgstr "Rifiuta tutti"
 
@@ -130,7 +130,7 @@ msgid "Remember your choices, like the language or the region."
 msgstr "Ricordano le tue scelte, come la lingua o la regione."
 
 #: src/Consent/UI/ConsentTexts.php:128
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Statistics"
 msgstr "Statistiche"
 
@@ -177,7 +177,7 @@ msgid "Dialog to preview"
 msgstr "Finestra da mostrare in anteprima"
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Banner"
 msgstr "Banner"
 
@@ -210,13 +210,13 @@ msgid "Links and simple HTML are allowed."
 msgstr "Sono ammessi link e HTML semplice."
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:7
-#: assets/build/settings.js:9
+#: assets/build/settings.js:12
+#: assets/build/settings.js:14
 msgid "Policy link"
 msgstr "Link alla policy"
 
 #: assets/build/settings.js:1
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Policy link text"
 msgstr "Testo del link alla policy"
 
@@ -248,70 +248,70 @@ msgstr "ID o slug, separati da virgole. I visitatori possono comunque aprire le 
 msgid "Reload the page after the choice"
 msgstr "Ricarica la pagina dopo la scelta"
 
-#: assets/build/settings.js:2
+#: assets/build/settings.js:7
 msgid "New vendor"
 msgstr "Nuovo fornitore"
 
-#: assets/build/settings.js:2
-#: assets/build/settings.js:5
-#: assets/build/settings.js:9
+#: assets/build/settings.js:7
+#: assets/build/settings.js:10
+#: assets/build/settings.js:14
 msgid "Name"
 msgstr "Nome"
 
-#: assets/build/settings.js:2
+#: assets/build/settings.js:7
 msgid "Category"
 msgstr "Categoria"
 
-#: assets/build/settings.js:2
+#: assets/build/settings.js:7
 msgid "Addresses and scripts to block"
 msgstr "Indirizzi e script da bloccare"
 
-#: assets/build/settings.js:2
+#: assets/build/settings.js:7
 msgid "A part of the address, like tracker.example.com/script.js, or a text of the inline script. Press Enter after each one."
 msgstr "Una parte dell'indirizzo, come tracker.example.com/script.js, o un testo dello script inline. Premi Invio dopo ognuno."
 
 #. translators: %s: the vendor name.
-#: assets/build/settings.js:4
+#: assets/build/settings.js:9
 #, js-format
 msgid "Remove %s"
 msgstr "Rimuovi %s"
 
-#: assets/build/settings.js:3
-#: assets/build/settings.js:4
+#: assets/build/settings.js:8
+#: assets/build/settings.js:9
 msgid "the vendor"
 msgstr "il fornitore"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Common vendors"
 msgstr "Fornitori comuni"
 
 #. translators: %s: the category name.
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 #, js-format
 msgid "Waits for the %s consent."
 msgstr "Attende il consenso %s."
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Custom vendors"
 msgstr "Fornitori personalizzati"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Add a vendor"
 msgstr "Aggiungi un fornitore"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Never blocked"
 msgstr "Mai bloccati"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "The addresses and the scripts the site needs, even when a vendor matches them."
 msgstr "Gli indirizzi e gli script che servono al sito, anche quando corrispondono a un fornitore."
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Block the vendors in the whole page"
 msgstr "Blocca i fornitori in tutta la pagina"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Also in the theme and in the plugins that do not use the WordPress functions. It buffers the page, turn it on only when needed."
 msgstr "Anche nel tema e nei plugin che non usano le funzioni di WordPress. Mette la pagina in un buffer, attivalo solo quando serve."
 
@@ -327,236 +327,237 @@ msgstr "Vuoto per un testo con il nome della categoria."
 msgid "Placeholder button text"
 msgstr "Testo del pulsante del segnaposto"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Leave a field empty to use the default text, translated in the language of the site."
 msgstr "Lascia un campo vuoto per usare il testo predefinito, tradotto nella lingua del sito."
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Description"
 msgstr "Descrizione"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Log the consents"
 msgstr "Registra i consensi"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Each choice is stored with a random id, the categories, the policy version and the date. No IP address and no personal data."
 msgstr "Ogni scelta viene salvata con un id casuale, le categorie, la versione della policy e la data. Nessun indirizzo IP e nessun dato personale."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Keep the records for"
 msgstr "Conserva i record per"
 
 #. translators: %s: a number of months.
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 #, js-format
 msgid "%s months"
 msgstr "%s mesi"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Export the log as CSV"
 msgstr "Esporta il registro in CSV"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Google Consent Mode v2"
 msgstr "Google Consent Mode v2"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Send the Consent Mode signals"
 msgstr "Invia i segnali del Consent Mode"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The Google tags get the consent of the visitor: denied until the choice, then granted for the accepted categories."
 msgstr "I tag di Google ricevono il consenso del visitatore: negato fino alla scelta, poi concesso per le categorie accettate."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Load the Google tags before the consent (advanced mode)"
 msgstr "Carica i tag di Google prima del consenso (modalità avanzata)"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Google Analytics and Google Tag Manager are not blocked, they send cookieless pings until the consent. Check that it is allowed where your visitors are, the Italian Garante requires the consent before any tracking."
 msgstr "Google Analytics e Google Tag Manager non vengono bloccati, inviano ping senza cookie fino al consenso. Verifica che sia consentito dove si trovano i tuoi visitatori: il Garante italiano richiede il consenso prima di qualsiasi tracciamento."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Tags"
 msgstr "Tag"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The plugin prints the tags with the ids below, blocked until the consent. Leave a field empty when the tag is printed by the theme or by another plugin."
 msgstr "Il plugin stampa i tag con gli id qui sotto, bloccati fino al consenso. Lascia un campo vuoto quando il tag è stampato dal tema o da un altro plugin."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Google Analytics measurement ID"
 msgstr "ID di misurazione di Google Analytics"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Google Tag Manager container ID"
 msgstr "ID del contenitore di Google Tag Manager"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Facebook pixel ID"
 msgstr "ID del pixel di Facebook"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Use the privacy-enhanced mode of the YouTube embeds"
 msgstr "Usa la modalità privacy avanzata per i video di YouTube"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The videos load from youtube-nocookie.com, they still wait for the marketing consent."
 msgstr "I video vengono caricati da youtube-nocookie.com e attendono comunque il consenso marketing."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Position"
 msgstr "Posizione"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Top bar"
 msgstr "Barra in alto"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Modal window"
 msgstr "Finestra modale"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Bottom bar"
 msgstr "Barra in basso"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Push the page down under the top bar"
 msgstr "Sposta la pagina sotto la barra in alto"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Template"
 msgstr "Modello"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "The custom template has no styles, only the custom CSS."
 msgstr "Il modello personalizzato non ha stili, solo il CSS personalizzato."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Default"
 msgstr "Predefinito"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Big buttons"
 msgstr "Pulsanti grandi"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Small buttons"
 msgstr "Pulsanti piccoli"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Custom"
 msgstr "Personalizzato"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Background color"
 msgstr "Colore di sfondo"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Text color"
 msgstr "Colore del testo"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "CSS classes"
 msgstr "Classi CSS"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Content"
 msgstr "Contenuto"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Text"
 msgstr "Testo"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Buttons"
 msgstr "Pulsanti"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Cookie of the 2.x versions"
 msgstr "Cookie delle versioni 2.x"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Written while every category is accepted, for the code that still reads it."
 msgstr "Scritto quando tutte le categorie sono accettate, per il codice che lo legge ancora."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Value"
 msgstr "Valore"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Downloads the saved settings as a JSON file."
 msgstr "Scarica le impostazioni salvate in un file JSON."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Export the settings"
 msgstr "Esporta le impostazioni"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
 msgstr "Sostituisce le impostazioni salvate con quelle di un file esportato, anche dalle versioni 2.x."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Settings file"
 msgstr "File delle impostazioni"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "The file is not a valid JSON file."
 msgstr "Il file non è un file JSON valido."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "The settings were not imported."
 msgstr "Le impostazioni non sono state importate."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "The settings were not loaded."
 msgstr "Le impostazioni non sono state caricate."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Loading the settings…"
 msgstr "Caricamento delle impostazioni…"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Settings imported."
 msgstr "Impostazioni importate."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Style"
 msgstr "Stile"
 
-#: assets/build/settings.js:7
-#: assets/build/settings.js:9
+#: assets/build/settings.js:3
+#: assets/build/settings.js:12
+#: assets/build/settings.js:14
 msgid "Categories"
 msgstr "Categorie"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Blocking"
 msgstr "Blocco"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Integrations"
 msgstr "Integrazioni"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Consent log"
 msgstr "Registro dei consensi"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Tools"
 msgstr "Strumenti"
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Settings saved."
 msgstr "Impostazioni salvate."
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "The settings were not saved."
 msgstr "Le impostazioni non sono state salvate."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Save changes"
 msgstr "Salva le modifiche"
 
@@ -634,35 +635,35 @@ msgstr "Il file non contiene impostazioni di Cookie Choices."
 msgid "Cookie Choices"
 msgstr "Cookie Choices"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Google tag gateway path"
 msgstr "Percorso del Google tag gateway"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "When the Google tags load from a path of your site with the Google tag gateway, write the path: the scripts under it wait for the marketing consent. The tags with their id in the address, like G-XXXXXXXXXX, are blocked anyway."
 msgstr "Quando i tag di Google vengono caricati da un percorso del tuo sito con il Google tag gateway, scrivi il percorso: gli script sotto quel percorso aspettano il consenso al marketing. I tag con il loro id nell'indirizzo, come G-XXXXXXXXXX, vengono bloccati comunque."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Microsoft consent signals"
 msgstr "Segnali del consenso di Microsoft"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Send the consent to Microsoft Advertising (UET)"
 msgstr "Invia il consenso a Microsoft Advertising (UET)"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The UET tag gets the consent of the visitor: the ad storage is denied until the marketing category is accepted."
 msgstr "Il tag UET riceve il consenso del visitatore: l'archiviazione pubblicitaria è negata finché non viene accettata la categoria marketing."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Send the consent to Microsoft Clarity"
 msgstr "Invia il consenso a Microsoft Clarity"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
 msgstr "Clarity riceve il consenso del visitatore con la sua Consent API v2: l'archiviazione analitica segue la categoria statistiche, quella pubblicitaria la categoria marketing. Clarity lo richiede per i visitatori dello SEE, del Regno Unito e della Svizzera."
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "The forms that use it wait for the consent too, turn it on only when they can."
 msgstr "Anche i moduli che lo usano aspettano il consenso, attivalo solo quando possono aspettare."
 
@@ -941,20 +942,20 @@ msgid "Remove the cookie %s"
 msgstr "Rimuovi il cookie %s"
 
 #. translators: %s: the vendor name.
-#: assets/build/settings.js:3
+#: assets/build/settings.js:8
 #, js-format
 msgid "Add a cookie of %s"
 msgstr "Aggiungi un cookie di %s"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Site cookies"
 msgstr "Cookie del sito"
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors."
 msgstr "I cookie del sito stesso, come l'accesso di WordPress o il carrello del negozio, per la tabella dei cookie. La tabella elenca già il cookie del consenso e i cookie dei fornitori."
 
-#: assets/build/settings.js:5
+#: assets/build/settings.js:10
 msgid "Add a site cookie"
 msgstr "Aggiungi un cookie del sito"
 
@@ -1005,68 +1006,68 @@ msgid "Read by the screen readers and shown when the pointer is over the button.
 msgstr "Letta dagli screen reader e mostrata quando il puntatore è sopra il pulsante."
 
 #. translators: 1: a number of choices, 2: its percentage of the choices of the month.
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 #, js-format
 msgid "%1$d (%2$d%%)"
 msgstr "%1$d (%2$d%%)"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "The statistics were not loaded."
 msgstr "Le statistiche non sono state caricate."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Loading the statistics…"
 msgstr "Caricamento delle statistiche…"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "No choice logged yet."
 msgstr "Ancora nessuna scelta registrata."
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Month"
 msgstr "Mese"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Choices"
 msgstr "Scelte"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Partial"
 msgstr "Parziali"
 
-#: assets/build/settings.js:6
+#: assets/build/settings.js:11
 msgid "Withdrawals"
 msgstr "Revoche"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The choices of each month, from the records of the log: nothing else is collected. A visitor can choose more than once."
 msgstr "Le scelte di ogni mese, dai record del registro: non viene raccolto nient'altro. Un visitatore può scegliere più di una volta."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Logo"
 msgstr "Logo"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "An image of the media library above the title of the banner."
 msgstr "Un'immagine della libreria media sopra il titolo del banner."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Replace the logo"
 msgstr "Sostituisci il logo"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Choose a logo"
 msgstr "Scegli un logo"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Remove the logo"
 msgstr "Rimuovi il logo"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Box in the bottom left corner"
 msgstr "Riquadro nell'angolo in basso a sinistra"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Box in the bottom right corner"
 msgstr "Riquadro nell'angolo in basso a destra"
 
@@ -1168,11 +1169,11 @@ msgstr "Usa le impostazioni del sito principale su tutti i siti"
 msgid "Each site keeps its own texts, for its language, and its own consent log."
 msgstr "Ogni sito mantiene i suoi testi, per la sua lingua, e il suo registro dei consensi."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "This site uses the settings of the main site of the network: here you change only its texts, for its language."
 msgstr "Questo sito usa le impostazioni del sito principale della rete: qui cambi solo i suoi testi, per la sua lingua."
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Texts"
 msgstr "Testi"
 
@@ -1364,70 +1365,173 @@ msgstr "Ignora"
 msgid "You cannot change the settings."
 msgstr "Non puoi modificare le impostazioni."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The texts were not filled."
 msgstr "I testi non sono stati compilati."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The policy page of a connected site has a translation for this site:"
 msgstr "La pagina della policy di un sito collegato ha una traduzione per questo sito:"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Use this link"
 msgstr "Usa questo link"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The empty texts were filled: check them and save the changes."
 msgstr "I testi vuoti sono stati compilati: controllali e salva le modifiche."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "The texts of this site"
 msgstr "I testi di questo sito"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Fills only the empty texts, the texts already written stay. The policy link is never filled."
 msgstr "Compila solo i testi vuoti, i testi già scritti restano. Il link alla policy non viene mai compilato."
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Fill from"
 msgstr "Compila da"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Copy the empty texts"
 msgstr "Copia i testi vuoti"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Translate the empty texts"
 msgstr "Traduci i testi vuoti"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Loading the texts…"
 msgstr "Caricamento dei testi…"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Copy the empty texts from this site"
 msgstr "Copia i testi vuoti da questo sito"
 
-#: assets/build/settings.js:7
+#: assets/build/settings.js:12
 msgid "Translate the empty texts from this site"
 msgstr "Traduci i testi vuoti da questo sito"
 
 #. translators: %s: the name of the site.
-#: assets/build/settings.js:8
+#: assets/build/settings.js:13
 #, js-format
 msgid "The texts of %s were saved."
 msgstr "I testi di %s sono stati salvati."
 
-#: assets/build/settings.js:8
+#: assets/build/settings.js:13
 msgid "The texts were not saved."
 msgstr "I testi non sono stati salvati."
 
 #. translators: %s: the name of the site.
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 #, js-format
 msgid "Save the texts of %s"
 msgstr "Salva i testi di %s"
 
-#: assets/build/settings.js:9
+#: assets/build/settings.js:14
 msgid "Languages"
 msgstr "Lingue"
+
+#: src/Scan/Application/ScanTargets.php:62
+#: assets/build/settings.js:3
+msgid "Home page"
+msgstr "Home page"
+
+#. translators: %s: the error of the request.
+#: src/Scan/Infrastructure/LoopbackFetcher.php:35
+#, php-format
+msgid "The site did not answer to the scan: %s"
+msgstr "Il sito non ha risposto alla scansione: %s"
+
+#. translators: %d: the HTTP status code.
+#: src/Scan/Infrastructure/LoopbackFetcher.php:44
+#, php-format
+msgid "The page answered with the status %d."
+msgstr "La pagina ha risposto con lo stato %d."
+
+#. translators: 1: the pages scanned, 2: the pages to scan.
+#: src/Scan/UI/Cli/Handlers/ScanSite.php:50
+#: assets/build/settings.js:4
+#, php-format,js-format
+msgid "Scanned %1$d of %2$d pages."
+msgstr "Scansionate %1$d pagine su %2$d."
+
+#. translators: 1: the address of the page, 2: the reason.
+#: src/Scan/UI/Cli/Handlers/ScanSite.php:80
+#, php-format
+msgid "The page %1$s was not scanned: %2$s"
+msgstr "La pagina %1$s non è stata scansionata: %2$s"
+
+#. translators: %d: the number of pages.
+#: src/Scan/UI/Cli/Middlewares/ResolveTargets.php:45
+#, php-format
+msgid "The selection has more pages than the limit, the first %d are scanned."
+msgstr "La selezione ha più pagine del limite, vengono scansionate le prime %d."
+
+#: src/Scan/UI/Cli/ScanExitCode.php:23
+#: assets/build/settings.js:3
+msgid "There are no published pages to scan in the selection."
+msgstr "Nella selezione non ci sono pagine pubblicate da scansionare."
+
+#. translators: %d: the number of pages.
+#: assets/build/settings.js:3
+#, js-format
+msgid "%d page"
+msgid_plural "%d pages"
+msgstr[0] "%d pagina"
+msgstr[1] "%d pagine"
+
+#: assets/build/settings.js:3
+msgid "Scan the site"
+msgstr "Scansiona il sito"
+
+#: assets/build/settings.js:3
+msgid "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. It does not see the cookies set by JavaScript, they come from the vendors."
+msgstr "Legge le pagine scelte dal server e trova i fornitori dei loro script, frame e pixel di tracciamento. Non vede i cookie impostati da JavaScript, arrivano dai fornitori."
+
+#: assets/build/settings.js:3
+msgid "Posts and pages"
+msgstr "Articoli e pagine"
+
+#: assets/build/settings.js:3
+msgid "The scan failed."
+msgstr "La scansione non è riuscita."
+
+#: assets/build/settings.js:4
+msgid "The selection has more pages than the limit, only the first ones are scanned."
+msgstr "La selezione ha più pagine del limite, vengono scansionate solo le prime."
+
+#: assets/build/settings.js:4
+msgid "Vendors found"
+msgstr "Fornitori trovati"
+
+#. translators: %s: the name of the vendor.
+#: assets/build/settings.js:5
+#, js-format
+msgid "Block %s"
+msgstr "Blocca %s"
+
+#. translators: 1: the name of the vendor, 2: the number of pages.
+#: assets/build/settings.js:6
+#, js-format
+msgid "%1$s, a custom vendor, blocked: %2$s"
+msgstr "%1$s, un fornitore personalizzato, bloccato: %2$s"
+
+#: assets/build/settings.js:6
+msgid "Unknown third parties"
+msgstr "Terze parti sconosciute"
+
+#: assets/build/settings.js:6
+msgid "Their scripts and frames are not blocked. Add them as custom vendors when they set cookies: some, like the libraries served by a CDN, do not."
+msgstr "I loro script e frame non vengono bloccati. Aggiungili come fornitori personalizzati quando impostano cookie: alcuni, come le librerie servite da una CDN, non lo fanno."
+
+#. translators: %s: the host of the third party.
+#: assets/build/settings.js:7
+#, js-format
+msgid "Add %s as a custom vendor"
+msgstr "Aggiungi %s come fornitore personalizzato"
+
+#: assets/build/settings.js:7
+msgid "Add as a custom vendor"
+msgstr "Aggiungi come fornitore personalizzato"

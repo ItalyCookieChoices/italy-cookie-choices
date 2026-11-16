@@ -17,14 +17,18 @@ import {
 	withCustomVendor,
 	withVendorBlocked,
 	type Category,
+	type PostType,
 	type CustomVendor,
 	type Vendor,
 } from '../settings';
 import { PlaceholderTextFields } from '../texts';
+import { ScanPanel } from '../scan-panel';
 
 interface BlockingTabProps extends SettingsProps {
 	categories: readonly Category[];
 	vendors: readonly Vendor[];
+	/** The post types the scan of the site reads. */
+	postTypes?: readonly PostType[];
 }
 
 function tokens(
@@ -156,6 +160,13 @@ export function BlockingTab( props: BlockingTabProps ) {
 
 	return (
 		<Fragment>
+			<ScanPanel
+				settings={ settings }
+				onChange={ onChange }
+				vendors={ vendors }
+				postTypes={ props.postTypes ?? [] }
+				customCategory={ categories[ categories.length - 1 ]?.id ?? '' }
+			/>
 			<fieldset className="icc-admin__group">
 				<legend>
 					{ __( 'Common vendors', 'italy-cookie-choices' ) }

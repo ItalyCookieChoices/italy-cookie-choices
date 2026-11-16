@@ -33,6 +33,7 @@ final class CliCest
         $I->cli(['cookie-choices']);
 
         $I->seeInShellOutput('wp cookie-choices log <command>');
+        $I->seeInShellOutput('wp cookie-choices scan');
         $I->seeInShellOutput('wp cookie-choices settings <command>');
         $I->seeInShellOutput('wp cookie-choices status');
     }
@@ -109,5 +110,15 @@ final class CliCest
             'policy_version' => '1',
             'recorded_at' => (new \DateTimeImmutable($date, new \DateTimeZone('UTC')))->format('Y-m-d H:i:s'),
         ];
+    }
+
+    public function aScanWithoutPagesExitsWithItsCode(FunctionalTester $I): void
+    {
+        $I->assertSame(7, $I->cli(['cookie-choices', 'scan']));
+
+        $I->assertStringContainsString(
+            'There are no published pages to scan in the selection.',
+            $I->grabLastShellErrorOutput()
+        );
     }
 }
