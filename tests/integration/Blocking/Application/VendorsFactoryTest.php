@@ -140,6 +140,27 @@ final class VendorsFactoryTest extends WPTestCase
         $this->assertSame('matomo', $vendors->loading('https://matomo.example.com/matomo.js')?->id());
     }
 
+    public function testTheScanKnowsTheVendorsTurnedOffAndAllowedToo(): void
+    {
+        \update_option(Schema::OPTION, [
+            'disabled_vendors' => ['youtube'],
+            'allowed_patterns' => ['youtube.com'],
+            'custom_vendors' => [
+                [
+                    'id' => 'matomo',
+                    'name' => 'Matomo',
+                    'category' => 'statistics',
+                    'patterns' => ['matomo.example.com'],
+                ],
+            ],
+        ]);
+
+        $vendors = $this->makeSut()->known();
+
+        $this->assertSame('youtube', $vendors->loading('https://www.youtube.com/embed/abc')?->id());
+        $this->assertSame('matomo', $vendors->loading('https://matomo.example.com/matomo.js')?->id());
+    }
+
     /**
      * @return list<string>
      */

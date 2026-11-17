@@ -1,4 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
+import type { ScannedPage, ScanSelection, ScanTarget } from './scan';
 import { normalizeSettings, type Settings } from './settings';
 
 /**
@@ -300,4 +301,93 @@ export async function draftSiteTexts(
 			data: { source, translate },
 		} )
 	);
+}
+
+export interface Term {
+	id: number;
+	name: string;
+}
+
+function termsFrom( response: unknown, name: string ): Term[] {
+	return Array.isArray( response )
+		? response
+				.filter( isRecord )
+				.filter( ( term ) => typeof term.id === 'number' )
+				.map( ( term ) => ( {
+					id: Number( term.id ),
+					name:
+						typeof term[ name ] === 'string'
+							? String( term[ name ] )
+							: '',
+				} ) )
+		: [];
+}
+
+/**
+ * The categories whose name contains the search.
+ * @param search The text typed by the site owner.
+ */
+export async function searchCategories( search: string ): Promise< Term[] > {
+	return termsFrom(
+		await apiFetch( {
+			path: `/wp/v2/categories?per_page=20&_fields=id,name&search=${ encodeURIComponent(
+				search
+			) }`,
+		} ),
+		'name'
+	);
+}
+
+/**
+ * The posts and pages whose title contains the search.
+ * @param search The text typed by the site owner.
+ */
+export async function searchPosts( search: string ): Promise< Term[] > {
+	return termsFrom(
+		await apiFetch( {
+			path: `/wp/v2/search?type=post&per_page=20&search=${ encodeURIComponent(
+				search
+			) }`,
+		} ),
+		'title'
+	);
+}
+
+/**
+ * The published pages of a selection, the home page has the id 0.
+ * @param selection What the site owner chose to scan.
+ */
+export async function scanTargets(
+	selection: ScanSelection
+): Promise< { targets: ScanTarget[]; truncated: boolean } > {
+	const response: unknown = await apiFetch( {
+		path: '/italy-cookie-choices/v1/scan/targets',
+		method: 'POST',
+		data: selection,
+	} );
+	const data = isRecord( response ) ? response : {};
+
+	return {
+		targets: Array.isArray( data.targets )
+			? ( data.targets.filter( isRecord ) as unknown as ScanTarget[] )
+			: [],
+		truncated: data.truncated === true,
+	};
+}
+
+/**
+ * Scans a batch of pages from the server.
+ * @param ids The pages of the batch.
+ */
+export async function scanPages( ids: number[] ): Promise< ScannedPage[] > {
+	const response: unknown = await apiFetch( {
+		path: '/italy-cookie-choices/v1/scan/pages',
+		method: 'POST',
+		data: { ids },
+	} );
+	const data = isRecord( response ) ? response : {};
+
+	return Array.isArray( data.pages )
+		? ( data.pages.filter( isRecord ) as unknown as ScannedPage[] )
+		: [];
 }

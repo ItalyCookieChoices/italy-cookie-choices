@@ -143,6 +143,8 @@ final class SettingsPageTest extends WPTestCase
         $this->assertSame($this->service(ConsentLogExport::class)->url(), $data['consentLogExportUrl']);
         $this->assertSame(SettingsPage::DOCUMENTATION, $data['documentationUrl']);
         $this->assertFalse($data['textsOnly']);
+        $this->assertContains(['slug' => 'page', 'name' => 'Pages'], $data['postTypes']);
+        $this->assertNotContains('attachment', \array_column($data['postTypes'], 'slug'));
     }
 
     public function testThePageGetsTheDefaultLabelsNotTheSavedOnes(): void

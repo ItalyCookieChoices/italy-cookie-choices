@@ -531,6 +531,54 @@
             ],
             "Languages": [
                 ""
+            ],
+            "Home page": [
+                ""
+            ],
+            "Scanned %1$d of %2$d pages.": [
+                ""
+            ],
+            "There are no published pages to scan in the selection.": [
+                ""
+            ],
+            "%d page": [
+                ""
+            ],
+            "Scan the site": [
+                ""
+            ],
+            "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. It does not see the cookies set by JavaScript, they come from the vendors.": [
+                ""
+            ],
+            "Posts and pages": [
+                ""
+            ],
+            "The scan failed.": [
+                ""
+            ],
+            "The selection has more pages than the limit, only the first ones are scanned.": [
+                ""
+            ],
+            "Vendors found": [
+                ""
+            ],
+            "Block %s": [
+                ""
+            ],
+            "%1$s, a custom vendor, blocked: %2$s": [
+                ""
+            ],
+            "Unknown third parties": [
+                ""
+            ],
+            "Their scripts and frames are not blocked. Add them as custom vendors when they set cookies: some, like the libraries served by a CDN, do not.": [
+                ""
+            ],
+            "Add %s as a custom vendor": [
+                ""
+            ],
+            "Add as a custom vendor": [
+                ""
             ]
         }
     }

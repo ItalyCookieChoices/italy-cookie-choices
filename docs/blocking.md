@@ -38,6 +38,20 @@ In **Blocking > Common vendors** you can turn off a vendor the site does not nee
 
 Google reCAPTCHA starts turned off: the forms that use it would wait for the marketing consent. Turn it on when the forms can wait. HubSpot blocks the tracking and the chat, not the forms of `js.hsforms.net`. Matomo Cloud blocks only the Matomo served by `matomo.cloud`, Matomo on your site can be set up without cookies.
 
+## Scan the site
+
+**Scan the site**, at the top of the **Blocking** tab, finds the vendors of your pages.
+
+1. Choose what to scan: the home page, the post types, the categories, and single posts or pages searched by title.
+2. Click **Scan the site**. The pages are read from the server in batches of ten, like a visitor that has not chosen yet, and the progress shows the pages scanned.
+3. The list shows:
+   * **Vendors found**: the common vendors of the pages, with the number of pages. Check **Block** to block one that is turned off.
+   * **Unknown third parties**: the hosts of the scripts and frames that no vendor covers. **Add as a custom vendor** adds the host to the custom vendors, in the last category. Some hosts, like the libraries served by a CDN, set no cookies: add only the ones that do.
+   * The pages that could not be read, with the reason.
+4. Save the changes: the scan changes nothing by itself.
+
+The scan reads the HTML of the pages: it finds the scripts, the frames and the tracking pixels, not the cookies that JavaScript sets in the browser. The cookies of the vendors come from their presets, see the cookie table. A selection scans 500 pages at most. When the host blocks the requests of the site to itself, like the Site Health of WordPress reports, the scan shows the error of each page.
+
 ## Google tag gateway
 
 With the Google tag gateway the Google tags load from a path of your site, like `/metrics`, instead of `googletagmanager.com`. The plugin blocks them by the id in their address: `G-` and `GT-` wait for the statistics consent like Google Analytics, `AW-` and `DC-` wait for the marketing consent like Google Ads, `GTM-` waits for the marketing consent like Google Tag Manager. The inline loader of Google Tag Manager is blocked on any host too.

@@ -160,6 +160,7 @@ export function App( { data }: { data: AdminData } ) {
 				{ ...props }
 				categories={ data.categories }
 				vendors={ data.vendors }
+				postTypes={ data.postTypes }
 			/>
 		),
 		integrations: <IntegrationsTab { ...props } />,

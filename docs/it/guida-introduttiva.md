@@ -44,7 +44,7 @@ I cookie sono raggruppati in quattro categorie: **Necessari**, sempre attivi, **
 
 ![La scheda Blocco](../images/it_IT-3-settings-blocking.png)
 
-I fornitori comuni, come Google Analytics, YouTube, Google Maps e Facebook, sono bloccati finché non viene accettata la loro categoria. Puoi disattivare un fornitore, aggiungerne di tuoi e indicare gli indirizzi che non vengono mai bloccati. Vedi [Blocco delle terze parti](blocco.md).
+I fornitori comuni, come Google Analytics, YouTube, Google Maps e Facebook, sono bloccati finché non viene accettata la loro categoria. Puoi disattivare un fornitore, aggiungerne di tuoi e indicare gli indirizzi che non vengono mai bloccati. **Scansiona il sito** trova i fornitori delle tue pagine. Vedi [Blocco delle terze parti](blocco.md).
 
 ## Integrazioni
 

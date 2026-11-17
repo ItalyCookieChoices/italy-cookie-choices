@@ -38,6 +38,20 @@ In **Blocco > Fornitori comuni** puoi disattivare un fornitore che il sito non h
 
 Google reCAPTCHA parte disattivato: i moduli che lo usano aspetterebbero il consenso al marketing. Attivalo quando i moduli possono aspettare. HubSpot blocca il tracciamento e la chat, non i moduli di `js.hsforms.net`. Matomo Cloud blocca solo il Matomo servito da `matomo.cloud`, Matomo sul tuo sito può essere configurato senza cookie.
 
+## Scansiona il sito
+
+**Scansiona il sito**, in cima alla scheda **Blocco**, trova i fornitori delle tue pagine.
+
+1. Scegli cosa scansionare: la home page, i tipi di contenuto, le categorie, e singoli articoli o pagine cercati per titolo.
+2. Fai clic su **Scansiona il sito**. Le pagine vengono lette dal server a gruppi di dieci, come un visitatore che non ha ancora scelto, e l'avanzamento mostra le pagine scansionate.
+3. L'elenco mostra:
+   * **Fornitori trovati**: i fornitori comuni delle pagine, con il numero di pagine. Spunta **Blocca** per bloccarne uno disattivato.
+   * **Terze parti sconosciute**: gli host degli script e dei frame che nessun fornitore copre. **Aggiungi come fornitore personalizzato** aggiunge l'host ai fornitori personalizzati, nell'ultima categoria. Alcuni host, come le librerie servite da una CDN, non impostano cookie: aggiungi solo quelli che lo fanno.
+   * Le pagine che non è stato possibile leggere, con il motivo.
+4. Salva le modifiche: la scansione non cambia nulla da sola.
+
+La scansione legge l'HTML delle pagine: trova gli script, i frame e i pixel di tracciamento, non i cookie che JavaScript imposta nel browser. I cookie dei fornitori arrivano dai loro preset, vedi la tabella dei cookie. Una selezione scansiona al massimo 500 pagine. Quando l'hosting blocca le richieste del sito a sé stesso, come segnala Salute del sito di WordPress, la scansione mostra l'errore di ogni pagina.
+
 ## Google tag gateway
 
 Con il Google tag gateway i tag di Google vengono caricati da un percorso del tuo sito, come `/metrics`, invece che da `googletagmanager.com`. Il plugin li blocca dall'id nel loro indirizzo: `G-` e `GT-` aspettano il consenso alle statistiche come Google Analytics, `AW-` e `DC-` aspettano il consenso al marketing come Google Ads, `GTM-` aspetta il consenso al marketing come Google Tag Manager. Anche lo script inline che carica Google Tag Manager viene bloccato su qualsiasi dominio.
