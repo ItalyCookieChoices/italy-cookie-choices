@@ -22,6 +22,7 @@ import {
 	type Vendor,
 } from '../settings';
 import { PlaceholderTextFields } from '../texts';
+import type { ScanSchedule } from '../scan';
 import { ScanPanel } from '../scan-panel';
 
 interface BlockingTabProps extends SettingsProps {
@@ -29,6 +30,7 @@ interface BlockingTabProps extends SettingsProps {
 	vendors: readonly Vendor[];
 	/** The post types the scan of the site reads. */
 	postTypes?: readonly PostType[];
+	scanSchedule?: ScanSchedule;
 }
 
 function tokens(
@@ -165,6 +167,9 @@ export function BlockingTab( props: BlockingTabProps ) {
 				onChange={ onChange }
 				vendors={ vendors }
 				postTypes={ props.postTypes ?? [] }
+				{ ...( props.scanSchedule === undefined
+					? {}
+					: { schedule: props.scanSchedule } ) }
 				customCategory={ categories[ categories.length - 1 ]?.id ?? '' }
 			/>
 			<fieldset className="icc-admin__group">

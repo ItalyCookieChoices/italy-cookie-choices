@@ -580,6 +580,39 @@
             ],
             "Add as a custom vendor": [
                 "Aggiungi come fornitore personalizzato"
+            ],
+            "Scheduled scan": [
+                "Scansione programmata"
+            ],
+            "Scan the chosen pages": [
+                "Scansiona le pagine scelte"
+            ],
+            "Never": [
+                "Mai"
+            ],
+            "Every day": [
+                "Ogni giorno"
+            ],
+            "Every week": [
+                "Ogni settimana"
+            ],
+            "Every month": [
+                "Ogni mese"
+            ],
+            "Email the new findings to %s": [
+                "Invia i nuovi risultati via email a %s"
+            ],
+            "The schedule is saved.": [
+                "La programmazione \u00e8 stata salvata."
+            ],
+            "The schedule was not saved.": [
+                "La programmazione non \u00e8 stata salvata."
+            ],
+            "Save the schedule": [
+                "Salva la programmazione"
+            ],
+            "Last scheduled scan: %1$s, %2$d pages. Vendors not blocked: %3$s. Unknown third parties: %4$s.": [
+                "Ultima scansione programmata: %1$s, %2$d pagine. Fornitori non bloccati: %3$s. Terze parti sconosciute: %4$s."
             ]
         }
     }

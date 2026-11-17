@@ -8,6 +8,7 @@ use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\Multilingual\UI\LanguagesData;
+use ItalyCookieChoices\Scan\UI\ScheduleData;
 use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
@@ -59,6 +60,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private ConsentLogExport $logExport,
         private NetworkSettings $network,
         private LanguagesData $languages,
+        private ScheduleData $scanSchedule,
         private ViewInterface $view,
         private AssetLoader $assets,
         private string $buildPath,
@@ -163,6 +165,7 @@ final readonly class SettingsPage implements SubscriberInterface
      *     documentationUrl: string,
      *     textsOnly: bool,
      *     postTypes: list<array{slug: string, name: string}>,
+     *     scanSchedule: array<string, mixed>,
      *     languages: array{
      *         siteId: int,
      *         language: string,
@@ -190,6 +193,8 @@ final readonly class SettingsPage implements SubscriberInterface
             'textsOnly' => $this->network->usesTheMainSite(),
             // The post types the scan of the site reads.
             'postTypes' => $this->postTypes(),
+            // The schedule of the scan and its last report.
+            'scanSchedule' => $this->scanSchedule->data(),
             // The sites connected as translations, by MultilingualPress.
             'languages' => $this->languages->forSite(\get_current_blog_id()),
         ];

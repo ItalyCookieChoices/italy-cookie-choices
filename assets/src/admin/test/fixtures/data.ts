@@ -30,5 +30,15 @@ export const data: AdminData = {
 	documentationUrl: 'https://example.com/docs',
 	textsOnly: false,
 	postTypes: [ { slug: 'page', name: 'Pages' } ],
+	scanSchedule: {
+		frequency: 'off',
+		home: false,
+		postTypes: [],
+		categories: [],
+		posts: [],
+		email: false,
+		adminEmail: 'owner@example.com',
+		report: null,
+	},
 	languages: { siteId: 1, language: '', sites: [] },
 };

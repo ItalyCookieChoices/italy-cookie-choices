@@ -26,8 +26,13 @@ $icc_uninstall_site = static function (): void {
 	delete_option( 'italy_cookie_choices_version' );
 	delete_option( 'italy_cookie_choices_log_table_version' );
 	delete_option( 'italy_cookie_choices_connection_notice' );
+	delete_option( 'italy_cookie_choices_scan_schedule' );
+	delete_option( 'italy_cookie_choices_scan_report' );
+	delete_option( 'italy_cookie_choices_scan_run' );
 	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}icc_consent_log" ); // phpcs:ignore
 	wp_clear_scheduled_hook( 'italy_cookie_choices_consent_log_cleanup' );
+	wp_clear_scheduled_hook( 'italy_cookie_choices_scan' );
+	wp_clear_scheduled_hook( 'italy_cookie_choices_scan_batch' );
 };
 
 if ( is_multisite() ) {

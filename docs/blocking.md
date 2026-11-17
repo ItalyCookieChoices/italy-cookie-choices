@@ -52,6 +52,17 @@ Google reCAPTCHA starts turned off: the forms that use it would wait for the mar
 
 The scan reads the HTML of the pages: it finds the scripts, the frames and the tracking pixels, not the cookies that JavaScript sets in the browser. The cookies of the vendors come from their presets, see the cookie table. A selection scans 500 pages at most. When the host blocks the requests of the site to itself, like the Site Health of WordPress reports, the scan shows the error of each page.
 
+### Scheduled scan
+
+The same pages can be scanned by themselves, with WP-Cron. In **Scheduled scan**, choose how often in **Scan the chosen pages**: never, every day, every week or every month, and click **Save the schedule**. The schedule is saved apart from the other settings, it is not in the exported file.
+
+* The first scan runs one hour after the save, each run reads ten pages and plans the next ten, until the selection is done.
+* The scan reports what needs an action: the vendors found and not blocked, and the unknown third parties. Only what the scan before did not report is new.
+* The new findings show a notice to the administrators: **Check them** opens the Blocking tab, **Ignore** hides the notice until the next findings. Check **Email the new findings** to receive them at the admin email of the site too.
+* The tab shows the date and the findings of the last scheduled scan.
+
+WP-Cron runs when the site gets visits: on a site with few visits, or with `DISABLE_WP_CRON`, use a real cron job of the server.
+
 ## Google tag gateway
 
 With the Google tag gateway the Google tags load from a path of your site, like `/metrics`, instead of `googletagmanager.com`. The plugin blocks them by the id in their address: `G-` and `GT-` wait for the statistics consent like Google Analytics, `AW-` and `DC-` wait for the marketing consent like Google Ads, `GTM-` waits for the marketing consent like Google Tag Manager. The inline loader of Google Tag Manager is blocked on any host too.

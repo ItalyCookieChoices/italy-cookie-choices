@@ -1,5 +1,15 @@
 import apiFetch from '@wordpress/api-fetch';
-import type { ScannedPage, ScanSelection, ScanTarget } from './scan';
+import {
+	parseScanSchedule,
+	type Frequency,
+	type ScannedPage,
+	type ScanSchedule,
+	type ScanSelection,
+	type ScanTarget,
+	type Term,
+} from './scan';
+
+export type { Term } from './scan';
 import { normalizeSettings, type Settings } from './settings';
 
 /**
@@ -303,11 +313,6 @@ export async function draftSiteTexts(
 	);
 }
 
-export interface Term {
-	id: number;
-	name: string;
-}
-
 function termsFrom( response: unknown, name: string ): Term[] {
 	return Array.isArray( response )
 		? response
@@ -390,4 +395,20 @@ export async function scanPages( ids: number[] ): Promise< ScannedPage[] > {
 	return Array.isArray( data.pages )
 		? ( data.pages.filter( isRecord ) as unknown as ScannedPage[] )
 		: [];
+}
+
+/**
+ * Saves the schedule of the scan, the server schedules its cron event.
+ * @param schedule The frequency, the selection and the email choice.
+ */
+export async function saveScanSchedule(
+	schedule: ScanSelection & { frequency: Frequency; email: boolean }
+): Promise< ScanSchedule > {
+	return parseScanSchedule(
+		await apiFetch( {
+			path: '/italy-cookie-choices/v1/scan/schedule',
+			method: 'POST',
+			data: schedule,
+		} )
+	);
 }
