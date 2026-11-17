@@ -52,6 +52,17 @@ Google reCAPTCHA parte disattivato: i moduli che lo usano aspetterebbero il cons
 
 La scansione legge l'HTML delle pagine: trova gli script, i frame e i pixel di tracciamento, non i cookie che JavaScript imposta nel browser. I cookie dei fornitori arrivano dai loro preset, vedi la tabella dei cookie. Una selezione scansiona al massimo 500 pagine. Quando l'hosting blocca le richieste del sito a sé stesso, come segnala Salute del sito di WordPress, la scansione mostra l'errore di ogni pagina.
 
+### Scansione programmata
+
+Le stesse pagine possono essere scansionate da sole, con WP-Cron. In **Scansione programmata**, scegli ogni quanto in **Scansiona le pagine scelte**: mai, ogni giorno, ogni settimana o ogni mese, e fai clic su **Salva la programmazione**. La programmazione viene salvata a parte dalle altre impostazioni, non è nel file esportato.
+
+* La prima scansione parte un'ora dopo il salvataggio, ogni esecuzione legge dieci pagine e programma le dieci successive, fino alla fine della selezione.
+* La scansione segnala cosa richiede un'azione: i fornitori trovati e non bloccati, e le terze parti sconosciute. È nuovo solo quello che la scansione precedente non aveva segnalato.
+* I nuovi risultati mostrano un avviso agli amministratori: **Controllali** apre la scheda Blocco, **Ignora** nasconde l'avviso fino ai prossimi risultati. Spunta **Invia i nuovi risultati via email** per riceverli anche all'email dell'amministratore del sito.
+* La scheda mostra la data e i risultati dell'ultima scansione programmata.
+
+WP-Cron parte quando il sito riceve visite: su un sito con poche visite, o con `DISABLE_WP_CRON`, usa un vero cron job del server.
+
 ## Google tag gateway
 
 Con il Google tag gateway i tag di Google vengono caricati da un percorso del tuo sito, come `/metrics`, invece che da `googletagmanager.com`. Il plugin li blocca dall'id nel loro indirizzo: `G-` e `GT-` aspettano il consenso alle statistiche come Google Analytics, `AW-` e `DC-` aspettano il consenso al marketing come Google Ads, `GTM-` aspetta il consenso al marketing come Google Tag Manager. Anche lo script inline che carica Google Tag Manager viene bloccato su qualsiasi dominio.

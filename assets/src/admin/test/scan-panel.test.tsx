@@ -11,6 +11,7 @@ jest.mock( '../api', () => ( {
 	searchPosts: jest.fn(),
 	scanTargets: jest.fn(),
 	scanPages: jest.fn(),
+	saveScanSchedule: jest.fn(),
 } ) );
 
 const mocked = jest.mocked( api );
@@ -159,4 +160,90 @@ it( 'tells why the scan failed', async () => {
 			} )
 		).toBeTruthy()
 	);
+} );
+
+it( 'starts from the pages of the schedule and shows its last report', () => {
+	render(
+		<ScanPanel
+			settings={ {} }
+			onChange={ jest.fn() }
+			vendors={ VENDORS }
+			postTypes={ [ { slug: 'page', name: 'Pages' } ] }
+			customCategory="marketing"
+			schedule={ {
+				frequency: 'weekly',
+				home: true,
+				postTypes: [ 'page' ],
+				categories: [],
+				posts: [],
+				email: true,
+				adminEmail: 'owner@example.com',
+				report: {
+					date: 'November 1, 2026',
+					pages: 3,
+					errors: 0,
+					vendors: [ 'Hotjar' ],
+					hosts: [],
+				},
+			} }
+		/>
+	);
+
+	expect(
+		( screen.getByLabelText( 'Home page' ) as HTMLInputElement ).checked
+	).toBe( true );
+	expect(
+		( screen.getByLabelText( 'Pages' ) as HTMLInputElement ).checked
+	).toBe( true );
+	expect(
+		(
+			screen.getByLabelText(
+				'Scan the chosen pages'
+			) as HTMLSelectElement
+		 ).value
+	).toBe( 'weekly' );
+	expect(
+		screen.getByText(
+			'Last scheduled scan: November 1, 2026, 3 pages. Vendors not blocked: Hotjar. Unknown third parties: -.'
+		)
+	).toBeTruthy();
+} );
+
+it( 'saves the schedule with the chosen pages', async () => {
+	mocked.saveScanSchedule.mockResolvedValue( {
+		frequency: 'daily',
+		home: true,
+		postTypes: [],
+		categories: [],
+		posts: [],
+		email: true,
+		adminEmail: 'owner@example.com',
+		report: null,
+	} );
+	renderPanel();
+
+	fireEvent.click( screen.getByLabelText( 'Home page' ) );
+	fireEvent.change( screen.getByLabelText( 'Scan the chosen pages' ), {
+		target: { value: 'daily' },
+	} );
+	fireEvent.click( screen.getByLabelText( /Email the new findings to/ ) );
+	fireEvent.click(
+		screen.getByRole( 'button', { name: 'Save the schedule' } )
+	);
+
+	await waitFor( () =>
+		expect( mocked.saveScanSchedule ).toHaveBeenCalledWith( {
+			home: true,
+			postTypes: [],
+			categories: [],
+			posts: [],
+			frequency: 'daily',
+			email: true,
+		} )
+	);
+	expect(
+		await screen.findByText( 'The schedule is saved.', {
+			selector: '.components-notice__content',
+		} )
+	).toBeTruthy();
 } );

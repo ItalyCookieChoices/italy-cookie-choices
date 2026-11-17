@@ -1,3 +1,5 @@
+import { parseScanSchedule, type ScanSchedule } from './scan';
+
 /**
  * The shape of the option saved through /wp/v2/settings, see ItalyCookieChoices\Settings\Schema.
  *
@@ -127,6 +129,7 @@ export interface AdminData {
 	textsOnly: boolean;
 	/** The post types the scan of the site reads. */
 	postTypes: PostType[];
+	scanSchedule: ScanSchedule;
 	languages: Languages;
 }
 
@@ -247,6 +250,7 @@ export function parseAdminData( raw: unknown ): AdminData {
 		postTypes: Array.isArray( data.postTypes )
 			? data.postTypes.filter( isPostType )
 			: [],
+		scanSchedule: parseScanSchedule( data.scanSchedule ),
 		languages: languagesFrom( data.languages ),
 	};
 }

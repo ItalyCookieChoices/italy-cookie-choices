@@ -579,6 +579,39 @@
             ],
             "Add as a custom vendor": [
                 ""
+            ],
+            "Scheduled scan": [
+                ""
+            ],
+            "Scan the chosen pages": [
+                ""
+            ],
+            "Never": [
+                ""
+            ],
+            "Every day": [
+                ""
+            ],
+            "Every week": [
+                ""
+            ],
+            "Every month": [
+                ""
+            ],
+            "Email the new findings to %s": [
+                ""
+            ],
+            "The schedule is saved.": [
+                ""
+            ],
+            "The schedule was not saved.": [
+                ""
+            ],
+            "Save the schedule": [
+                ""
+            ],
+            "Last scheduled scan: %1$s, %2$d pages. Vendors not blocked: %3$s. Unknown third parties: %4$s.": [
+                ""
             ]
         }
     }

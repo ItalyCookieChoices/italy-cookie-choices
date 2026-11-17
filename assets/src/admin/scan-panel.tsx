@@ -22,7 +22,15 @@ import {
 	type Term,
 } from './api';
 import type { SettingsProps } from './fields';
-import { batches, emptyReport, mergeScan, type ScanReport } from './scan';
+import {
+	batches,
+	emptyReport,
+	mergeScan,
+	parseScanSchedule,
+	type ScanReport,
+	type ScanSchedule,
+} from './scan';
+import { ScanScheduleFields } from './scan-schedule';
 import {
 	isVendorBlocked,
 	newCustomVendor,
@@ -38,6 +46,8 @@ interface ScanPanelProps extends SettingsProps {
 	postTypes: readonly PostType[];
 	/** The category of the custom vendors added from the scan. */
 	customCategory: string;
+	/** The schedule of the scan, its pages are the first selection of the panel. */
+	schedule?: ScanSchedule;
 }
 
 function pagesCount( pages: readonly string[] ): string {
@@ -128,10 +138,15 @@ function SearchField( {
 export function ScanPanel( props: ScanPanelProps ) {
 	const { settings, onChange, vendors, customCategory } = props;
 	const availableTypes = props.postTypes;
-	const [ home, setHome ] = useState( false );
-	const [ postTypes, setPostTypes ] = useState< string[] >( [] );
-	const [ categories, setCategories ] = useState< Term[] >( [] );
-	const [ posts, setPosts ] = useState< Term[] >( [] );
+	const schedule = props.schedule ?? parseScanSchedule( undefined );
+	const [ home, setHome ] = useState( schedule.home );
+	const [ postTypes, setPostTypes ] = useState< string[] >(
+		schedule.postTypes
+	);
+	const [ categories, setCategories ] = useState< Term[] >(
+		schedule.categories
+	);
+	const [ posts, setPosts ] = useState< Term[] >( schedule.posts );
 	const [ report, setReport ] = useState< ScanReport | null >( null );
 	const [ total, setTotal ] = useState( 0 );
 	const [ isTruncated, setTruncated ] = useState( false );
@@ -262,6 +277,16 @@ export function ScanPanel( props: ScanPanelProps ) {
 					{ __( 'Scan the site', 'italy-cookie-choices' ) }
 				</Button>
 			</div>
+			<ScanScheduleFields
+				schedule={ schedule }
+				selection={ {
+					home,
+					postTypes,
+					categories: categories.map( ( category ) => category.id ),
+					posts: posts.map( ( post ) => post.id ),
+				} }
+				isEmpty={ isEmpty }
+			/>
 			{ error !== '' && (
 				<Notice status="error" isDismissible={ false }>
 					{ error }

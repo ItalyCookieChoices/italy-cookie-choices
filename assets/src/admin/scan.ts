@@ -91,3 +91,94 @@ export function batches( targets: readonly ScanTarget[] ): number[][] {
 
 	return result;
 }
+
+export interface Term {
+	id: number;
+	name: string;
+}
+
+export type Frequency = 'off' | 'daily' | 'weekly' | 'monthly';
+
+export interface ScheduleReport {
+	date: string;
+	pages: number;
+	errors: number;
+	vendors: string[];
+	hosts: string[];
+}
+
+/** The schedule of the scan, printed by ItalyCookieChoices\Scan\UI\ScheduleData. */
+export interface ScanSchedule {
+	frequency: Frequency;
+	home: boolean;
+	postTypes: string[];
+	categories: Term[];
+	posts: Term[];
+	email: boolean;
+	adminEmail: string;
+	report: ScheduleReport | null;
+}
+
+const FREQUENCIES: readonly Frequency[] = [
+	'off',
+	'daily',
+	'weekly',
+	'monthly',
+];
+
+function isRecord( value: unknown ): value is Record< string, unknown > {
+	return (
+		typeof value === 'object' && value !== null && ! Array.isArray( value )
+	);
+}
+
+function strings( value: unknown ): string[] {
+	return Array.isArray( value )
+		? value.filter( ( item ): item is string => typeof item === 'string' )
+		: [];
+}
+
+function terms( value: unknown ): Term[] {
+	return Array.isArray( value )
+		? value.filter(
+				( term ): term is Term =>
+					isRecord( term ) &&
+					typeof term.id === 'number' &&
+					typeof term.name === 'string'
+			)
+		: [];
+}
+
+function reportFrom( value: unknown ): ScheduleReport | null {
+	if ( ! isRecord( value ) || typeof value.date !== 'string' ) {
+		return null;
+	}
+
+	return {
+		date: value.date,
+		pages: typeof value.pages === 'number' ? value.pages : 0,
+		errors: typeof value.errors === 'number' ? value.errors : 0,
+		vendors: strings( value.vendors ),
+		hosts: strings( value.hosts ),
+	};
+}
+
+/**
+ * Reads the schedule, the invalid values are skipped.
+ * @param raw The schedule printed by the page or returned by the REST API.
+ */
+export function parseScanSchedule( raw: unknown ): ScanSchedule {
+	const data = isRecord( raw ) ? raw : {};
+	const frequency = FREQUENCIES.find( ( value ) => value === data.frequency );
+
+	return {
+		frequency: frequency ?? 'off',
+		home: data.home === true,
+		postTypes: strings( data.postTypes ),
+		categories: terms( data.categories ),
+		posts: terms( data.posts ),
+		email: data.email === true,
+		adminEmail: typeof data.adminEmail === 'string' ? data.adminEmail : '',
+		report: reportFrom( data.report ),
+	};
+}

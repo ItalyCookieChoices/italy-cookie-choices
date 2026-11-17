@@ -161,6 +161,7 @@ export function App( { data }: { data: AdminData } ) {
 				categories={ data.categories }
 				vendors={ data.vendors }
 				postTypes={ data.postTypes }
+				scanSchedule={ data.scanSchedule }
 			/>
 		),
 		integrations: <IntegrationsTab { ...props } />,

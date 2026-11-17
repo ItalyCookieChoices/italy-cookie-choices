@@ -62,6 +62,16 @@ describe( 'parseAdminData', () => {
 			documentationUrl: '',
 			textsOnly: true,
 			postTypes: [],
+			scanSchedule: {
+				frequency: 'off',
+				home: false,
+				postTypes: [],
+				categories: [],
+				posts: [],
+				email: false,
+				adminEmail: '',
+				report: null,
+			},
 			languages: { siteId: 0, language: '', sites: [] },
 		} );
 	} );
@@ -74,6 +84,16 @@ describe( 'parseAdminData', () => {
 			documentationUrl: '',
 			textsOnly: false,
 			postTypes: [],
+			scanSchedule: {
+				frequency: 'off',
+				home: false,
+				postTypes: [],
+				categories: [],
+				posts: [],
+				email: false,
+				adminEmail: '',
+				report: null,
+			},
 			languages: { siteId: 0, language: '', sites: [] },
 		} );
 	} );
