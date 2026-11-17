@@ -40,7 +40,10 @@ final readonly class SettingsPage implements SubscriberInterface
     public const DOCUMENTATION = 'https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki';
 
     private const EVENT_NAME_SUFFIX = 'toplevel_page_' . self::SLUG;
-    private const ICON = 'dashicons-privacy';
+    /**
+     * The icon of the menu when the SVG is missing.
+     */
+    private const DASHICON = 'dashicons-privacy';
     /**
      * Below the Settings menu.
      */
@@ -53,6 +56,7 @@ final readonly class SettingsPage implements SubscriberInterface
      * @param string $buildPath The assets/build folder, with the trailing slash.
      * @param string $buildUrl The assets/build URL, with the trailing slash.
      * @param string $languagesPath The folder of the translations bundled with the plugin.
+     * @param string $menuIcon The SVG of the menu, in one color: WordPress paints it in the colors of the admin.
      */
     public function __construct(
         private ConsentTexts $texts,
@@ -66,6 +70,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private string $buildPath,
         private string $buildUrl,
         private string $languagesPath,
+        private string $menuIcon,
     ) {
     }
 
@@ -84,9 +89,19 @@ final readonly class SettingsPage implements SubscriberInterface
             self::CAPABILITY,
             self::SLUG,
             $this->render(...),
-            self::ICON,
+            $this->icon(),
             self::POSITION
         );
+    }
+
+    /**
+     * The SVG of the menu as a data URI, the icon of wordpress.org in one color.
+     */
+    private function icon(): string
+    {
+        $svg = \is_readable($this->menuIcon) ? \file_get_contents($this->menuIcon) : false;
+
+        return \is_string($svg) && $svg !== '' ? 'data:image/svg+xml;base64,' . \base64_encode($svg) : self::DASHICON;
     }
 
     public function url(): string

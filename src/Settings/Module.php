@@ -48,6 +48,7 @@ final readonly class Module implements ModuleInterface
                     ':buildPath' => $this->pluginPath . self::BUILD,
                     ':buildUrl' => $this->pluginUrl . self::BUILD,
                     ':languagesPath' => $this->pluginPath . 'languages',
+                    ':menuIcon' => $this->pluginPath . 'assets/images/menu-icon.svg',
                 ],
                 NetworkSettingsPage::class => [
                     ':buildPath' => $this->pluginPath . self::BUILD,
