@@ -56,8 +56,22 @@ final class SettingsPageTest extends WPTestCase
             ['Cookie Choices', 'manage_options', 'italy-cookie-choices', 'Cookie Choices'],
             \array_slice($menu[81] ?? [], 0, 4)
         );
-        $this->assertSame('dashicons-privacy', $menu[81][6] ?? null);
+        $icon = (string) \file_get_contents(\dirname(__DIR__, 4) . '/assets/images/menu-icon.svg');
+        $this->assertSame('data:image/svg+xml;base64,' . \base64_encode($icon), $menu[81][6] ?? null);
         $this->assertSame(\admin_url('admin.php?page=italy-cookie-choices'), $this->makeSut()->url());
+    }
+
+    public function testTheMenuHasTheDashiconWithoutTheIconFile(): void
+    {
+        $this->setCurrentUser('administrator');
+        // The menu of the test before.
+        $GLOBALS['menu'] = [];
+
+        $this->makeSut('', '/not/found/menu-icon.svg')->addPage();
+
+        /** @var array<int|string, array<int, string>> $menu */
+        global $menu;
+        $this->assertSame('dashicons-privacy', $menu[81][6] ?? null);
     }
 
     public function testTheOldUrlUnderTheSettingsIsRecognized(): void
@@ -156,7 +170,7 @@ final class SettingsPageTest extends WPTestCase
         $this->assertSame('Statistics', $this->makeSut()->data()['categories'][2]['label'] ?? null);
     }
 
-    private function makeSut(string $buildPath = ''): SettingsPage
+    private function makeSut(string $buildPath = '', string $menuIcon = ''): SettingsPage
     {
         $fixtures = \codecept_data_dir('consent-build/');
         $this->assertIsString($fixtures);
@@ -172,7 +186,8 @@ final class SettingsPageTest extends WPTestCase
             new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
             self::BUILD_URL,
-            self::LANGUAGES
+            self::LANGUAGES,
+            $menuIcon === '' ? \dirname(__DIR__, 4) . '/assets/images/menu-icon.svg' : $menuIcon
         );
     }
 
