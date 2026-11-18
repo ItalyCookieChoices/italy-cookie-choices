@@ -12,8 +12,9 @@ use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
 
 /**
- * When MultilingualPress creates a site or changes its connections, the connected sites without their own
- * texts ask the admin to fill them from a connected site. Nothing is filled without the admin.
+ * When MultilingualPress creates a site or changes its connections, or the settings of Multisite Language Switcher
+ * change, the connected sites without their own texts ask the admin to fill them from a connected site.
+ * Nothing is filled without the admin.
  */
 final readonly class ConnectionNotice implements SubscriberInterface
 {
@@ -25,6 +26,11 @@ final readonly class ConnectionNotice implements SubscriberInterface
      */
     private const NEW_SITE = 'multilingualpress.define_initial_site_settings';
     private const UPDATED_SITE = 'multilingualpress.update_site_settings';
+
+    /**
+     * The option of Multisite Language Switcher on each site, with its language and its connection.
+     */
+    private const MSLS_OPTION = 'msls';
     private const SETTINGS_TAB = 'languages';
     private const TEMPLATE = 'connection-notice';
 
@@ -41,6 +47,8 @@ final readonly class ConnectionNotice implements SubscriberInterface
 
         yield self::NEW_SITE => $remember;
         yield self::UPDATED_SITE => $remember;
+        yield 'add_option_' . self::MSLS_OPTION => 'rememberThisSite';
+        yield 'update_option_' . self::MSLS_OPTION => 'rememberThisSite';
         yield 'admin_notices' => 'show';
         yield 'admin_post_' . self::ACTION => 'ignore';
     }
@@ -58,6 +66,14 @@ final readonly class ConnectionNotice implements SubscriberInterface
 
             \update_blog_option($site, self::OPTION, '1');
         }
+    }
+
+    /**
+     * The site whose settings of Multisite Language Switcher changed.
+     */
+    public function rememberThisSite(): void
+    {
+        $this->remember(\get_current_blog_id());
     }
 
     public function show(): void
