@@ -55,10 +55,13 @@ function element< T extends Element = HTMLElement >( selector: string ): T {
 	return found;
 }
 
-function setUp( markup: string ): { api: ConsentApi; blocker: Blocker } {
+function setUp(
+	markup: string,
+	current: ConsentConfig = config
+): { api: ConsentApi; blocker: Blocker } {
 	document.body.innerHTML = markup + PLACEHOLDERS;
 	const api = createConsentApi(
-		config,
+		current,
 		new Cookies( document, false ),
 		new EventTarget()
 	);
@@ -286,5 +289,69 @@ describe( 'Blocker', () => {
 
 		expect( element< HTMLScriptElement >( '#async' ).async ).toBe( true );
 		expect( window.iccRuns ).toEqual( [ 'without waiting' ] );
+	} );
+} );
+
+describe( 'Blocker with the consent per vendor', () => {
+	beforeEach( clearCookies );
+
+	const vendorConfig: ConsentConfig = {
+		...config,
+		vendorConsent: true,
+		vendors: [
+			{ id: 'youtube', category: 'marketing' },
+			{ id: 'vimeo', category: 'marketing' },
+		],
+	};
+
+	it( 'keeps a frame of a refused vendor blocked inside an accepted category', async () => {
+		const { api, blocker } = setUp(
+			VIDEO.replace( '<iframe ', '<iframe data-icc-vendor="youtube" ' ) +
+				'<iframe id="vimeo" data-category="marketing" data-icc-vendor="vimeo" data-icc-src="https://player.vimeo.com/video/1"></iframe>',
+			vendorConfig
+		);
+		api.setConsent( [ 'marketing' ], [ 'youtube' ] );
+
+		await blocker.start();
+
+		expect( element( '#video' ).getAttribute( 'src' ) ).toBeNull();
+		expect( element( '#vimeo' ).getAttribute( 'src' ) ).toBe(
+			'https://player.vimeo.com/video/1'
+		);
+	} );
+
+	it( 'gives the placeholder the vendor of its frame', async () => {
+		const { blocker } = setUp(
+			VIDEO.replace( '<iframe ', '<iframe data-icc-vendor="youtube" ' ),
+			vendorConfig
+		);
+
+		await blocker.start();
+
+		expect(
+			element( '.icc-placeholder [data-icc-accept]' ).getAttribute(
+				'data-icc-vendor'
+			)
+		).toBe( 'youtube' );
+	} );
+
+	it( 'does not run the scripts of a refused vendor', async () => {
+		window.iccRuns = [];
+		const { api, blocker } = setUp(
+			inlineScript( 'marketing', 'refused' ).replace(
+				'<script ',
+				'<script data-icc-vendor="youtube" '
+			) +
+				inlineScript( 'marketing', 'accepted' ).replace(
+					'<script ',
+					'<script data-icc-vendor="vimeo" '
+				),
+			vendorConfig
+		);
+		api.setConsent( [ 'marketing' ], [ 'youtube' ] );
+
+		await blocker.start();
+
+		expect( window.iccRuns ).toEqual( [ 'accepted' ] );
 	} );
 } );

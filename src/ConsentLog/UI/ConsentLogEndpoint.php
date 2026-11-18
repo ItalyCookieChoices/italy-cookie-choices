@@ -50,6 +50,13 @@ final readonly class ConsentLogEndpoint implements SubscriberInterface
                     'required' => true,
                 ],
                 'version' => ['type' => 'string', 'minLength' => 1, 'maxLength' => 64, 'required' => true],
+                'refusedVendors' => [
+                    'type' => 'array',
+                    'items' => ['type' => 'string', 'pattern' => '^[a-z0-9_-]{1,64}$'],
+                    'maxItems' => 100,
+                    'uniqueItems' => true,
+                    'default' => [],
+                ],
             ],
         ]);
     }
@@ -57,13 +64,15 @@ final readonly class ConsentLogEndpoint implements SubscriberInterface
     public function create(\WP_REST_Request $request): \WP_REST_Response|\WP_Error
     {
         $categories = $request->get_param('categories');
+        $refusedVendors = $request->get_param('refusedVendors');
 
         try {
             ($this->record)(
                 $this->text($request->get_param('id')),
                 \is_array($categories) ? \array_values(\array_map($this->text(...), $categories)) : [],
                 $this->text($request->get_param('version')),
-                new \DateTimeImmutable('now', new \DateTimeZone('UTC'))
+                new \DateTimeImmutable('now', new \DateTimeZone('UTC')),
+                \is_array($refusedVendors) ? \array_values(\array_map($this->text(...), $refusedVendors)) : []
             );
         } catch (\InvalidArgumentException $exception) {
             return new \WP_Error('italy_cookie_choices_invalid_consent', $exception->getMessage(), ['status' => 400]);

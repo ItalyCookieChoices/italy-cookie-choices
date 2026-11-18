@@ -38,6 +38,17 @@ In **Blocco > Fornitori comuni** puoi disattivare un fornitore che il sito non h
 
 Google reCAPTCHA parte disattivato: i moduli che lo usano aspetterebbero il consenso al marketing. Attivalo quando i moduli possono aspettare. HubSpot blocca il tracciamento e la chat, non i moduli di `js.hsforms.net`. Matomo Cloud blocca solo il Matomo servito da `matomo.cloud`, Matomo sul tuo sito può essere configurato senza cookie.
 
+## Consenso per fornitore
+
+Di default i visitatori accettano o rifiutano una categoria, con tutti i suoi fornitori. Attiva **Fai scegliere ai visitatori i singoli fornitori** nella scheda **Blocco** per far scegliere anche i fornitori: le preferenze elencano i fornitori di ogni categoria, sotto **Fornitori**.
+
+* Accettare una categoria accetta tutti i suoi fornitori, poi il visitatore può disattivarne alcuni.
+* Attivare un singolo fornitore accetta la sua categoria, con solo quel fornitore.
+* Il segnaposto di un video o di una mappa bloccati accetta solo il suo fornitore.
+* Accetta tutto accetta tutti i fornitori, rifiuta tutto li rifiuta tutti.
+
+Le linee guida del Garante per la protezione dei dati personali chiedono che i visitatori possano scegliere in modo analitico le funzionalità, le terze parti e i cookie, anche raggruppati in categorie: la scelta dei fornitori è la lettura più sicura, attivala per i siti in Italia. L'elenco ha i fornitori comuni attivi e i fornitori personalizzati: disattiva i fornitori comuni che il sito non usa, **Scansiona il sito** li trova.
+
 ## Scansiona il sito
 
 **Scansiona il sito**, in cima alla scheda **Blocco**, trova i fornitori delle tue pagine.

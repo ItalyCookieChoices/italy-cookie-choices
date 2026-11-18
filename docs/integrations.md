@@ -164,7 +164,9 @@ The site owner can add the same vendors from the **Blocking** tab, without code.
 
 ```js
 window.italyCookieChoices.hasConsent( 'statistics' );
-window.italyCookieChoices.getConsent(); // { id, categories, version, date } or null
+// The category and, with the consent per vendor, the vendor not refused.
+window.italyCookieChoices.hasVendorConsent( 'youtube', 'marketing' );
+window.italyCookieChoices.getConsent(); // { id, categories, version, date, refusedVendors? } or null
 
 document.addEventListener( 'italy-cookie-choices:consent-changed', ( event ) => {
 	const consent = event.detail.consent; // null when it is withdrawn
@@ -175,10 +177,11 @@ document.addEventListener( 'italy-cookie-choices:ready', ( event ) => {
 } );
 ```
 
-A button can accept a category, or open the preferences:
+A button can accept a category, or a single vendor with `data-icc-vendor`, or open the preferences:
 
 ```html
 <button type="button" data-icc-accept="marketing">Show the video</button>
+<button type="button" data-icc-accept="marketing" data-icc-vendor="youtube">Show the YouTube video</button>
 <button type="button" data-icc-open-preferences>Cookie preferences</button>
 ```
 

@@ -21,12 +21,20 @@ final readonly class RecordConsent
     ) {
     }
 
+    private const VENDOR_ID = '/^[a-z0-9_-]{1,64}$/';
+
     /**
      * @param list<string> $categories The accepted categories, none when the consent is withdrawn.
+     * @param list<string> $refusedVendors The vendors refused inside the accepted categories.
      * @throws \InvalidArgumentException When the choice does not fit the current policy.
      */
-    public function __invoke(string $id, array $categories, string $version, \DateTimeImmutable $now): ConsentRecord
-    {
+    public function __invoke(
+        string $id,
+        array $categories,
+        string $version,
+        \DateTimeImmutable $now,
+        array $refusedVendors = [],
+    ): ConsentRecord {
         $policy = $this->policy->create();
         $policyVersion = new PolicyVersion($version);
         if (!$policyVersion->equals($policy->version())) {
@@ -39,11 +47,20 @@ final readonly class RecordConsent
             throw new \InvalidArgumentException(\sprintf('Unknown categories: %s', \implode(', ', $unknown)));
         }
 
+        $invalid = \array_filter(
+            $refusedVendors,
+            static fn(string $vendor): bool => \preg_match(self::VENDOR_ID, $vendor) !== 1
+        );
+        if ($invalid !== []) {
+            throw new \InvalidArgumentException('The refused vendors are not valid');
+        }
+
         $record = new ConsentRecord(
             new ConsentId($id),
             \array_values(\array_intersect($known, $categories)),
             $policyVersion,
-            $now
+            $now,
+            \array_values(\array_unique($refusedVendors))
         );
         $this->log->add($record);
 

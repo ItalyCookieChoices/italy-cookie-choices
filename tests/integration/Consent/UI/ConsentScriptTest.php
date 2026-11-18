@@ -9,7 +9,9 @@ use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\PolicyVersion;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
+use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\ScriptLoader;
@@ -21,6 +23,7 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConsentScriptTest extends WPTestCase
 {
+    use BuildsContainer;
     use BuildsOptions;
 
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
@@ -91,9 +94,21 @@ final class ConsentScriptTest extends WPTestCase
                 'legacyCookie' => ['name' => 'accepted', 'value' => 'yes'],
                 'renewalUrl' => \rest_url('italy-cookie-choices/v1/consent-cookie'),
                 'cookieDomain' => '',
+                'vendorConsent' => false,
+                'vendors' => [],
             ],
             $this->makeSut()->config()
         );
+    }
+
+    public function testTheConfigurationListsTheVendorsWhenTheConsentIsPerVendor(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'vendor_consent' => '1']);
+
+        $config = $this->makeSut()->config();
+
+        $this->assertTrue($config['vendorConsent']);
+        $this->assertContains(['id' => 'youtube', 'category' => 'marketing'], $config['vendors']);
     }
 
     public function testTheConsentCookieIsSharedWithTheSubdomainsOfTheCookieDomain(): void
@@ -171,6 +186,7 @@ final class ConsentScriptTest extends WPTestCase
             new ConsentPolicyFactory($this->dispatcher(), $this->options()),
             $this->options(),
             new ConsentCookieDomain($this->options()),
+            $this->service(VendorChoices::class),
             new AssetLoader(),
             new ScriptLoader(),
             $buildPath === '' ? $fixtures : $buildPath,

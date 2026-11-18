@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\BannerPreviewEndpoint;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
+use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Settings\Sanitizer;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
@@ -173,6 +174,7 @@ final class BannerPreviewEndpointTest extends WPTestCase
             new Banner(
                 $this->service(ConsentTexts::class),
                 $this->options(),
+                $this->service(VendorChoices::class),
                 $this->service(ViewInterface::class),
                 new AssetLoader(),
                 new ScriptLoader(),

@@ -21,7 +21,7 @@ The records are sent by the browser to `/wp-json/italy-cookie-choices/v1/consent
 
 ## Export
 
-**Export the log as CSV** downloads every record, with the `consent_id`, `recorded_at`, `policy_version`, `categories` and `withdrawn` columns. Only the administrators can export it.
+**Export the log as CSV** downloads every record, with the `consent_id`, `recorded_at`, `policy_version`, `categories`, `withdrawn` and `refused_vendors` columns. `refused_vendors` lists the vendors refused inside the accepted categories, with the [consent per vendor](blocking.md#consent-per-vendor). Only the administrators can export it.
 
 ## Statistics
 

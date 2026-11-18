@@ -24,6 +24,15 @@ export interface ConsentConfig {
 	renewalUrl?: string;
 	/** The domain of the consent cookie, like example.com for its subdomains, missing for the host only. */
 	cookieDomain?: string;
+	/** Whether the visitors choose the single vendors inside the categories. */
+	vendorConsent?: boolean;
+	/** The vendors blocked by the plugin, with the consent per vendor. */
+	vendors?: Vendor[];
+}
+
+export interface Vendor {
+	id: string;
+	category: string;
 }
 
 export interface Consent {
@@ -33,6 +42,8 @@ export interface Consent {
 	version: string;
 	/** ISO 8601 date, when the consent was given. */
 	date: string;
+	/** The vendors refused inside the accepted categories, with the consent per vendor. */
+	refusedVendors?: string[];
 }
 
 export interface ConsentChange {
@@ -49,8 +60,14 @@ export interface ConsentApi {
 	/** The consent, null when it is missing, given for another policy version or expired. */
 	getConsent: () => Consent | null;
 	hasConsent: ( category: string ) => boolean;
-	/** Saves the accepted categories, the required ones are always included. */
-	setConsent: ( categories: string[] ) => Consent;
+	/** The consent to a vendor: its category is accepted and, with the consent per vendor, the vendor is not refused. */
+	hasVendorConsent: ( vendor: string, category: string ) => boolean;
+	/**
+	 * Saves the accepted categories, the required ones are always included, and the vendors refused inside them.
+	 */
+	setConsent: ( categories: string[], refusedVendors?: string[] ) => Consent;
+	/** Accepts a single vendor and its category, the other vendors of a category not accepted yet are refused. */
+	acceptVendor: ( vendor: string, category: string ) => Consent;
 	acceptAll: () => Consent;
 	rejectAll: () => Consent;
 	withdraw: () => void;

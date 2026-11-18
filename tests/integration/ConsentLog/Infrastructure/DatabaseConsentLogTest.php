@@ -25,7 +25,7 @@ final class DatabaseConsentLogTest extends WPTestCase
         $this->assertTrue($table->isCurrent());
         $this->assertSame($wpdb->prefix . 'icc_consent_log', $table->name());
         $this->assertSame(
-            ['id', 'consent_id', 'categories', 'policy_version', 'recorded_at'],
+            ['id', 'consent_id', 'categories', 'policy_version', 'recorded_at', 'refused_vendors'],
             $wpdb->get_col('DESCRIBE ' . $table->name())
         );
     }

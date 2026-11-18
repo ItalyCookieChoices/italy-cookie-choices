@@ -634,6 +634,12 @@
             ],
             "The policy link was not saved.": [
                 "Il link alla policy non \u00e8 stato salvato."
+            ],
+            "Let the visitors choose the single vendors": [
+                "Fai scegliere ai visitatori i singoli fornitori"
+            ],
+            "The preferences list the vendors of each category: a visitor can accept only some of them. The guidelines of the Italian Data Protection Authority ask to choose the third parties too.": [
+                "Le preferenze elencano i fornitori di ogni categoria: un visitatore pu\u00f2 accettarne solo alcuni. Le linee guida del Garante per la protezione dei dati personali chiedono di poter scegliere anche le terze parti."
             ]
         }
     }

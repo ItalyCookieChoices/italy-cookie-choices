@@ -123,6 +123,35 @@ $globalPrivacyControlNote = (string) $this->get(['texts', 'globalPrivacyControl'
                                 <?php echo \esc_html($description); ?>
                             </p>
                         <?php endif; ?>
+                        <?php
+                        $categoryId = (string) $category->get('id');
+                        $vendors = (array) $this->get(['vendors', $categoryId], []);
+                        ?>
+                        <?php if ($vendors !== []) : ?>
+                            <details class="icc-preferences__vendors">
+                                <summary>
+                                    <?php echo \esc_html((string) $this->get(['texts', 'vendors'])); ?>
+                                </summary>
+                                <?php foreach ($vendors as $vendorData) : ?>
+                                    <?php
+                                    $vendor = new Config((array) $vendorData);
+                                    $vendorId = 'icc-vendor-' . (string) $vendor->get('id');
+                                    ?>
+                                    <div class="icc-preferences__vendor">
+                                        <input
+                                            type="checkbox"
+                                            id="<?php echo \esc_attr($vendorId); ?>"
+                                            name="icc-vendor"
+                                            value="<?php echo \esc_attr((string) $vendor->get('id')); ?>"
+                                            data-icc-category="<?php echo \esc_attr($categoryId); ?>"
+                                        >
+                                        <label for="<?php echo \esc_attr($vendorId); ?>">
+                                            <?php echo \esc_html((string) $vendor->get('name')); ?>
+                                        </label>
+                                    </div>
+                                <?php endforeach; ?>
+                            </details>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </fieldset>

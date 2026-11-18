@@ -49,7 +49,8 @@ final class PageBufferTest extends WPTestCase
         \ob_end_flush();
 
         $this->expectOutputString(
-            '<!DOCTYPE html><html><head><script data-category="statistics" type="text/plain" async '
+            '<!DOCTYPE html><html><head><script data-category="statistics" data-icc-vendor="google-analytics" '
+                . 'type="text/plain" async '
             . 'src="https://www.googletagmanager.com/gtag/js?id=G-1"></script></head><body><p>Text</p></body></html>'
         );
     }

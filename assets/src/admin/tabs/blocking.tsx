@@ -198,6 +198,18 @@ export function BlockingTab( props: BlockingTabProps ) {
 					/>
 				) ) }
 			</fieldset>
+			<ToggleField
+				{ ...props }
+				name="vendor_consent"
+				label={ __(
+					'Let the visitors choose the single vendors',
+					'italy-cookie-choices'
+				) }
+				help={ __(
+					'The preferences list the vendors of each category: a visitor can accept only some of them. The guidelines of the Italian Data Protection Authority ask to choose the third parties too.',
+					'italy-cookie-choices'
+				) }
+			/>
 			<h3>{ __( 'Custom vendors', 'italy-cookie-choices' ) }</h3>
 			{ customVendors.map( ( vendor, index ) => (
 				<CustomVendorFields

@@ -78,7 +78,10 @@ final class ConsentLogCest
         ));
 
         $I->assertIsString($csv);
-        $I->assertStringStartsWith("consent_id,recorded_at,policy_version,categories,withdrawn\n", $csv);
+        $I->assertStringStartsWith(
+            "consent_id,recorded_at,policy_version,categories,withdrawn,refused_vendors\n",
+            $csv
+        );
         $I->assertStringContainsString($id . ',', $csv);
     }
 

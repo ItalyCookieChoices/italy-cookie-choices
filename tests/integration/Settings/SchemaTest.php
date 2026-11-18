@@ -26,7 +26,7 @@ final class SchemaTest extends WPTestCase
         'floating_button', 'floating_button_label', 'floating_button_position', 'ga_measurement_id',
         'global_privacy_control', 'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass',
         'js_template', 'nofollow', 'reload', 'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url',
-        'youtube_nocookie',
+        'vendor_consent', 'youtube_nocookie',
     ];
 
     public function testTheSchemaIsAtVersion10(): void

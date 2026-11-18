@@ -19,7 +19,8 @@ export type Checkbox =
 	| 'uet_consent_mode'
 	| 'clarity_consent_mode'
 	| 'floating_button'
-	| 'global_privacy_control';
+	| 'global_privacy_control'
+	| 'vendor_consent';
 
 export type Text =
 	| 'text'

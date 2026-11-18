@@ -62,17 +62,37 @@ function element< T extends HTMLElement = HTMLElement >( selector: string ): T {
 	return found;
 }
 
+const VENDORS_MARKUP = `
+	<input type="checkbox" name="icc-vendor" value="youtube" data-icc-category="marketing">
+	<input type="checkbox" name="icc-vendor" value="vimeo" data-icc-category="marketing">
+`;
+
+const vendorConfig: ConsentConfig = {
+	...config,
+	vendorConsent: true,
+	vendors: [
+		{ id: 'youtube', category: 'marketing' },
+		{ id: 'vimeo', category: 'marketing' },
+	],
+};
+
 function setUp(
 	dataset: Record< string, string > = {},
-	globalPrivacyControl = false
+	globalPrivacyControl = false,
+	withVendors = false
 ) {
-	document.body.innerHTML = MARKUP;
+	document.body.innerHTML = withVendors
+		? MARKUP.replace(
+				'<button type="submit">Save</button>',
+				`${ VENDORS_MARKUP }<button type="submit">Save</button>`
+			)
+		: MARKUP;
 	const banner = element( '#icc-banner' );
 	Object.assign( banner.dataset, dataset );
 	const preferences = element( '#icc-preferences' );
 	const events = new EventTarget();
 	const api: ConsentApi = createConsentApi(
-		config,
+		withVendors ? vendorConfig : config,
 		new Cookies( document, false ),
 		events
 	);
@@ -445,4 +465,72 @@ describe( 'the Global Privacy Control signal of the browser', () => {
 			expect( notes().every( ( note ) => note.hidden ) ).toBe( true );
 		}
 	);
+} );
+
+describe( 'Banner with the consent per vendor', () => {
+	beforeEach( clearCookies );
+
+	function checkbox( value: string ): HTMLInputElement {
+		return element< HTMLInputElement >( `input[value="${ value }"]` );
+	}
+
+	function submit(): void {
+		element< HTMLFormElement >( '#icc-preferences form' ).dispatchEvent(
+			new Event( 'submit', { bubbles: true, cancelable: true } )
+		);
+	}
+
+	it( 'saves the vendors refused inside the accepted categories', () => {
+		const { api, start } = setUp( {}, false, true );
+		start();
+		element( '[data-icc-action="preferences"]' ).click();
+
+		checkbox( 'marketing' ).click();
+		checkbox( 'vimeo' ).click();
+		submit();
+
+		expect( api.getConsent()?.categories ).toEqual( [
+			'necessary',
+			'marketing',
+		] );
+		expect( api.getConsent()?.refusedVendors ).toEqual( [ 'vimeo' ] );
+	} );
+
+	it( 'accepts the category of a vendor chosen alone', () => {
+		const { api, start } = setUp( {}, false, true );
+		start();
+		element( '[data-icc-action="preferences"]' ).click();
+
+		checkbox( 'youtube' ).click();
+
+		expect( checkbox( 'marketing' ).checked ).toBe( true );
+		expect( checkbox( 'vimeo' ).checked ).toBe( false );
+		submit();
+		expect( api.hasVendorConsent( 'youtube', 'marketing' ) ).toBe( true );
+		expect( api.hasVendorConsent( 'vimeo', 'marketing' ) ).toBe( false );
+	} );
+
+	it( 'turns the vendors of a category on and off with it', () => {
+		const { start } = setUp( {}, false, true );
+		start();
+		element( '[data-icc-action="preferences"]' ).click();
+
+		checkbox( 'marketing' ).click();
+		expect( checkbox( 'youtube' ).checked ).toBe( true );
+		expect( checkbox( 'vimeo' ).checked ).toBe( true );
+
+		checkbox( 'marketing' ).click();
+		expect( checkbox( 'youtube' ).checked ).toBe( false );
+	} );
+
+	it( 'shows the refused vendors when the preferences open again', () => {
+		const { api, start } = setUp( {}, false, true );
+		api.setConsent( [ 'marketing' ], [ 'vimeo' ] );
+		start();
+
+		element( '#reopen' ).click();
+
+		expect( checkbox( 'youtube' ).checked ).toBe( true );
+		expect( checkbox( 'vimeo' ).checked ).toBe( false );
+	} );
 } );

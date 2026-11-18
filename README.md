@@ -27,6 +27,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Block Google Analytics, Google Tag Manager, Google Ads, AdSense, Microsoft Clarity and Advertising, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, Snapchat, Reddit, HubSpot, Spotify, SoundCloud, Hotjar and Matomo Cloud until the consent, and add your own vendors
 * Scan the pages of the site to find the vendors to block and the unknown third parties
 * Show a placeholder with a button to accept the category of the blocked videos and maps
+* Let the visitors choose the single vendors inside each category, as the Italian guidelines ask
 * Let the visitors change or withdraw the consent with a block, a shortcode, a link or a floating button
 * List the cookies of the site in a table for the cookie policy, with the Cookie table block or the `[cookie_table]` shortcode
 * Delete the cookies of a category when the visitor refuses or withdraws it

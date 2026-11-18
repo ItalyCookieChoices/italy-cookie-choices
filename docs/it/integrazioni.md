@@ -162,7 +162,9 @@ Chi gestisce il sito può aggiungere gli stessi fornitori dalla scheda **Blocco*
 
 ```js
 window.italyCookieChoices.hasConsent( 'statistics' );
-window.italyCookieChoices.getConsent(); // { id, categories, version, date } o null
+// La categoria e, con il consenso per fornitore, il fornitore non rifiutato.
+window.italyCookieChoices.hasVendorConsent( 'youtube', 'marketing' );
+window.italyCookieChoices.getConsent(); // { id, categories, version, date, refusedVendors? } o null
 
 document.addEventListener( 'italy-cookie-choices:consent-changed', ( event ) => {
 	const consent = event.detail.consent; // null quando viene revocato
@@ -173,10 +175,11 @@ document.addEventListener( 'italy-cookie-choices:ready', ( event ) => {
 } );
 ```
 
-Un pulsante può accettare una categoria, o aprire le preferenze:
+Un pulsante può accettare una categoria, o un solo fornitore con `data-icc-vendor`, o aprire le preferenze:
 
 ```html
 <button type="button" data-icc-accept="marketing">Mostra il video</button>
+<button type="button" data-icc-accept="marketing" data-icc-vendor="youtube">Mostra il video di YouTube</button>
 <button type="button" data-icc-open-preferences>Preferenze cookie</button>
 ```
 

@@ -85,6 +85,7 @@ final readonly class ConsentTexts
                 'Your browser asks not to share your data: accepting all leaves out the marketing cookies.',
                 'italy-cookie-choices'
             ),
+            BuildingBanner::VENDORS => \__('Vendors', 'italy-cookie-choices'),
         ];
     }
 

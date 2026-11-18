@@ -72,6 +72,20 @@ final class RecordConsentTest extends WPTestCase
         $this->assertSame($now, $record->recordedAt());
     }
 
+    public function testItLogsTheVendorsRefusedInsideTheAcceptedCategories(): void
+    {
+        $record = ($this->makeSut())(self::ID, ['necessary', 'marketing'], '1', new \DateTimeImmutable(), ['youtube']);
+
+        $this->assertSame(['youtube'], $record->refusedVendors());
+    }
+
+    public function testAVendorIdThatIsNotValidIsRefused(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        ($this->makeSut())(self::ID, ['necessary'], '1', new \DateTimeImmutable(), ['<script>']);
+    }
+
     public function testItLogsAWithdrawal(): void
     {
         $record = ($this->makeSut())(self::ID, [], '1', new \DateTimeImmutable());

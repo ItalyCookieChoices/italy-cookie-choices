@@ -18,37 +18,39 @@ final class HtmlBlockerTest extends WPTestCase
     {
         yield 'script file' => [
             '<script src="https://www.google-analytics.com/analytics.js" async></script>',
-            '<script data-category="statistics" type="text/plain" '
+            '<script data-category="statistics" data-icc-vendor="analytics" type="text/plain" '
                 . 'src="https://www.google-analytics.com/analytics.js" async></script>',
         ];
         yield 'script with a JavaScript type' => [
             '<script type="text/javascript" src="https://www.google-analytics.com/analytics.js"></script>',
-            '<script data-category="statistics" type="text/plain" '
+            '<script data-category="statistics" data-icc-vendor="analytics" type="text/plain" '
                 . 'src="https://www.google-analytics.com/analytics.js"></script>',
         ];
         yield 'module' => [
             '<script type="module" src="https://www.google-analytics.com/module.js"></script>',
-            '<script data-category="statistics" data-icc-type="module" type="text/plain" '
+            '<script data-category="statistics" data-icc-type="module" data-icc-vendor="analytics" type="text/plain" '
                 . 'src="https://www.google-analytics.com/module.js"></script>',
         ];
         yield 'inline script' => [
             "<script>ga('create', 'UA-1');</script>",
-            "<script data-category=\"statistics\" type=\"text/plain\">ga('create', 'UA-1');</script>",
+            "<script data-category=\"statistics\" data-icc-vendor=\"analytics\" type=\"text/plain\">"
+                . "ga('create', 'UA-1');</script>",
         ];
         yield 'frame' => [
             '<iframe width="560" height="315" src="https://www.youtube.com/embed/a?b=1&amp;c=2" allowfullscreen>'
                 . '</iframe>',
             '<iframe data-category="marketing" data-icc-src="https://www.youtube.com/embed/a?b=1&amp;c=2" '
-                . 'width="560" height="315"  allowfullscreen></iframe>',
+                . 'data-icc-vendor="youtube" width="560" height="315"  allowfullscreen></iframe>',
         ];
         yield 'embed' => [
             '<embed src="https://www.youtube.com/v/a" type="application/x-shockwave-flash">',
-            '<embed data-category="marketing" data-icc-src="https://www.youtube.com/v/a"  '
+            '<embed data-category="marketing" data-icc-src="https://www.youtube.com/v/a" data-icc-vendor="youtube"  '
                 . 'type="application/x-shockwave-flash">',
         ];
         yield 'uppercase tags' => [
             '<IFRAME SRC="https://www.youtube.com/embed/a"></IFRAME>',
-            '<IFRAME data-category="marketing" data-icc-src="https://www.youtube.com/embed/a" ></IFRAME>',
+            '<IFRAME data-category="marketing" data-icc-src="https://www.youtube.com/embed/a" '
+                . 'data-icc-vendor="youtube" ></IFRAME>',
         ];
     }
 
@@ -109,7 +111,7 @@ final class HtmlBlockerTest extends WPTestCase
             . '<iframe data-category="statistics" src="https://example.com/embed/1"></iframe>';
 
         $this->assertSame(
-            '<script type="text/plain" data-category="preferences" '
+            '<script data-icc-vendor="analytics" type="text/plain" data-category="preferences" '
                 . 'src="https://www.google-analytics.com/analytics.js"></script>'
             . '<iframe data-icc-src="https://example.com/embed/1" data-category="statistics" ></iframe>',
             $this->makeSut()->block($html, $this->vendors())
@@ -127,6 +129,36 @@ final class HtmlBlockerTest extends WPTestCase
         );
     }
 
+    public function testTheBlockedElementsTellTheirVendor(): void
+    {
+        $html = '<script src="https://www.google-analytics.com/analytics.js"></script>'
+            . "<script>ga('create', 'UA-1');</script>"
+            . '<iframe src="https://www.youtube.com/embed/a"></iframe>'
+            . '<iframe data-category="statistics" src="https://example.com/embed/1"></iframe>';
+
+        $processor = new \WP_HTML_Tag_Processor($this->makeSut()->block($html, $this->vendors()));
+
+        $vendors = [];
+        while ($processor->next_tag()) {
+            $vendors[] = $processor->get_attribute(HtmlBlocker::VENDOR);
+        }
+
+        $this->assertSame(['analytics', 'analytics', 'youtube', null], $vendors);
+    }
+
+    public function testTheCallerVendorWaitsWithTheScriptsOfTheSameTag(): void
+    {
+        $html = '<script>var settings = {};</script>'
+            . '<script src="https://www.google-analytics.com/analytics.js"></script>';
+
+        $processor = new \WP_HTML_Tag_Processor(
+            $this->makeSut()->block($html, $this->vendors(), 'statistics', 'analytics')
+        );
+
+        $this->assertTrue($processor->next_tag(['tag_name' => 'script']));
+        $this->assertSame('analytics', $processor->get_attribute(HtmlBlocker::VENDOR));
+    }
+
     public function testItBlocksAWholePageAndKeepsTheRest(): void
     {
         $html = '<!DOCTYPE html><html><head><script src="https://www.google-analytics.com/analytics.js"></script>'
@@ -135,9 +167,12 @@ final class HtmlBlockerTest extends WPTestCase
 
         $blocked = $this->makeSut()->block($html, $this->vendors());
 
-        $this->assertStringContainsString('<script data-category="statistics" type="text/plain"', $blocked);
+        $this->assertStringContainsString(
+            '<script data-category="statistics" data-icc-vendor="analytics" type="text/plain"',
+            $blocked
+        );
         $this->assertStringContainsString('<iframe data-category="marketing" '
-            . 'data-icc-src="https://www.youtube.com/embed/a" >', $blocked);
+            . 'data-icc-src="https://www.youtube.com/embed/a" data-icc-vendor="youtube" >', $blocked);
         $this->assertStringContainsString('<title>Page</title></head><body><p>Text</p>', $blocked);
         $this->assertStringEndsWith('<footer>Footer</footer></body></html>', $blocked);
     }

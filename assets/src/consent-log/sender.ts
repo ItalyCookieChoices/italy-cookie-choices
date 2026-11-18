@@ -7,6 +7,8 @@ export interface LogEntry {
 	id: string;
 	categories: string[];
 	version: string;
+	/** The vendors refused inside the accepted categories, with the consent per vendor. */
+	refusedVendors?: string[];
 }
 
 export type Send = ( url: string, entry: LogEntry ) => void;
@@ -26,6 +28,10 @@ export function entryOf( change: ConsentChange ): LogEntry | null {
 			id: consent.id,
 			categories: [ ...consent.categories ],
 			version: consent.version,
+			...( consent.refusedVendors === undefined ||
+			consent.refusedVendors.length === 0
+				? {}
+				: { refusedVendors: [ ...consent.refusedVendors ] } ),
 		};
 	}
 

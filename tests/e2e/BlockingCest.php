@@ -44,6 +44,30 @@ final class BlockingCest
         $I->assertSame(['necessary', 'marketing'], $this->consentCategories($I));
     }
 
+    public function theVisitorRefusesASingleVendorInsideAnAcceptedCategory(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['vendor_consent' => '1']);
+        $this->havePost($I, '<p>Video</p>' . self::IFRAME);
+        $I->amOnPage('/blocked-post/');
+        $I->waitForElementVisible('#icc-banner');
+        $I->click('#icc-banner [data-icc-action="preferences"]');
+        $I->waitForElementVisible('#icc-preferences');
+
+        $I->checkOption('#icc-category-marketing');
+        $I->click('#icc-category-marketing ~ .icc-preferences__vendors summary');
+        $I->uncheckOption('#icc-vendor-youtube');
+        $I->click('#icc-preferences button[type="submit"]');
+
+        $I->waitForElementNotVisible('#icc-preferences');
+        $I->seeElementInDOM(self::BLOCKED_IFRAME . '[data-icc-vendor="youtube"]');
+        $I->dontSeeElement(self::LOADED_IFRAME);
+        $I->assertSame(['necessary', 'marketing'], $this->consentCategories($I));
+
+        $I->click(self::PLACEHOLDER . ' [data-icc-vendor="youtube"]');
+
+        $I->waitForElementVisible(self::LOADED_IFRAME);
+    }
+
     public function thePlaceholderOpensThePreferences(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);

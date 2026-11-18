@@ -39,8 +39,14 @@ export class Banner {
 		);
 		preferences.addEventListener( 'submit', ( event ) => {
 			event.preventDefault();
-			this.api.setConsent( this.checkedCategories() );
+			this.api.setConsent(
+				this.checkedCategories(),
+				this.uncheckedVendors()
+			);
 		} );
+		preferences.addEventListener( 'change', ( event ) =>
+			this.onChoiceChange( event )
+		);
 		banner.addEventListener( 'keydown', ( event ) =>
 			this.onBannerKey( event )
 		);
@@ -243,6 +249,52 @@ export class Banner {
 			.map( ( checkbox ) => checkbox.value );
 	}
 
+	/**
+	 * The switches of the vendors, with the consent per vendor.
+	 * @param category Only the vendors of this category, all of them when it is empty.
+	 */
+	private vendorCheckboxes( category = '' ): HTMLInputElement[] {
+		return Array.from(
+			this.elements.preferences.querySelectorAll< HTMLInputElement >(
+				'input[name="icc-vendor"]'
+			)
+		).filter(
+			( checkbox ) =>
+				category === '' || checkbox.dataset.iccCategory === category
+		);
+	}
+
+	private uncheckedVendors(): string[] {
+		return this.vendorCheckboxes()
+			.filter( ( checkbox ) => ! checkbox.checked )
+			.map( ( checkbox ) => checkbox.value );
+	}
+
+	/**
+	 * A category turns its vendors on and off, a vendor turned on turns its category on.
+	 * @param event The change of a switch.
+	 */
+	private onChoiceChange( event: Event ): void {
+		const input = event.target;
+		if ( ! ( input instanceof HTMLInputElement ) ) {
+			return;
+		}
+
+		if ( input.name === 'icc-category' ) {
+			this.vendorCheckboxes( input.value ).forEach( ( checkbox ) => {
+				checkbox.checked = input.checked;
+			} );
+			return;
+		}
+
+		const category = this.checkboxes().find(
+			( checkbox ) => checkbox.value === input.dataset.iccCategory
+		);
+		if ( input.name === 'icc-vendor' && input.checked && category ) {
+			category.checked = true;
+		}
+	}
+
 	private fillCategories(): void {
 		const consent = this.api.getConsent();
 		this.checkboxes().forEach( ( checkbox ) => {
@@ -252,6 +304,12 @@ export class Banner {
 
 			checkbox.checked =
 				consent?.categories.includes( checkbox.value ) ?? false;
+		} );
+		this.vendorCheckboxes().forEach( ( checkbox ) => {
+			checkbox.checked = this.api.hasVendorConsent(
+				checkbox.value,
+				checkbox.dataset.iccCategory ?? ''
+			);
 		} );
 	}
 

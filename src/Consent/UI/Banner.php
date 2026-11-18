@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
@@ -47,6 +48,7 @@ final readonly class Banner implements SubscriberInterface
     public function __construct(
         private ConsentTexts $texts,
         private Options $options,
+        private VendorChoices $vendors,
         private ViewInterface $view,
         private AssetLoader $assets,
         private ScriptLoader $scripts,
@@ -127,6 +129,21 @@ final readonly class Banner implements SubscriberInterface
     }
 
     /**
+     * The vendors of each category, for the consent per vendor, empty when the consent is by category.
+     *
+     * @return array<string, list<array{id: string, name: string}>>
+     */
+    private function vendorsByCategory(): array
+    {
+        $vendors = [];
+        foreach ($this->vendors->all() as $vendor) {
+            $vendors[$vendor['category']][] = ['id' => $vendor['id'], 'name' => $vendor['name']];
+        }
+
+        return $vendors;
+    }
+
+    /**
      * The data the template prints, not escaped yet.
      *
      * @return array<string, mixed>
@@ -158,6 +175,7 @@ final readonly class Banner implements SubscriberInterface
             'link' => $this->link(),
             'floatingButton' => $this->floatingButton(),
             'logo' => $this->logo(),
+            'vendors' => $this->vendorsByCategory(),
             ...$this->texts->all(),
         ];
     }
