@@ -10,7 +10,12 @@ import {
 } from './scan';
 
 export type { Term } from './scan';
-import { normalizeSettings, type Settings } from './settings';
+import {
+	normalizeSettings,
+	policyTranslationsFrom,
+	type PolicyTranslation,
+	type Settings,
+} from './settings';
 
 /**
  * The REST requests of the settings page, the routes check the manage_options capability.
@@ -410,5 +415,23 @@ export async function saveScanSchedule(
 			method: 'POST',
 			data: schedule,
 		} )
+	);
+}
+
+/**
+ * Uses the translation of the policy page as the policy link of a language, saved in WPML or Polylang.
+ * @param language The code of the language.
+ */
+export async function savePolicyTranslation(
+	language: string
+): Promise< PolicyTranslation[] > {
+	const response: unknown = await apiFetch( {
+		path: '/italy-cookie-choices/v1/policy-translations',
+		method: 'POST',
+		data: { language },
+	} );
+
+	return policyTranslationsFrom(
+		isRecord( response ) ? response.rows : null
 	);
 }

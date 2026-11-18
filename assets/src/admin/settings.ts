@@ -130,7 +130,18 @@ export interface AdminData {
 	/** The post types the scan of the site reads. */
 	postTypes: PostType[];
 	scanSchedule: ScanSchedule;
+	/** The policy link in each language of WPML or Polylang, empty without them. */
+	policyTranslations: PolicyTranslation[];
 	languages: Languages;
+}
+
+export interface PolicyTranslation {
+	language: string;
+	name: string;
+	/** The translation of the policy link, empty when it is not translated. */
+	current: string;
+	/** The translation of the policy page, empty when there is none. */
+	proposal: string;
 }
 
 export interface PostType {
@@ -159,6 +170,19 @@ function categoryFrom( value: unknown ): Category | null {
 		description:
 			typeof value.description === 'string' ? value.description : '',
 	};
+}
+
+export function policyTranslationsFrom( value: unknown ): PolicyTranslation[] {
+	return Array.isArray( value )
+		? value.filter(
+				( row ): row is PolicyTranslation =>
+					isRecord( row ) &&
+					typeof row.language === 'string' &&
+					typeof row.name === 'string' &&
+					typeof row.current === 'string' &&
+					typeof row.proposal === 'string'
+			)
+		: [];
 }
 
 function isPostType( value: unknown ): value is PostType {
@@ -251,6 +275,7 @@ export function parseAdminData( raw: unknown ): AdminData {
 			? data.postTypes.filter( isPostType )
 			: [],
 		scanSchedule: parseScanSchedule( data.scanSchedule ),
+		policyTranslations: policyTranslationsFrom( data.policyTranslations ),
 		languages: languagesFrom( data.languages ),
 	};
 }

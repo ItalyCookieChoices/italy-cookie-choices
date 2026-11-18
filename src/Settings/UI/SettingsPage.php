@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Settings\UI;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\Multilingual\Application\PolicyTranslations;
 use ItalyCookieChoices\Multilingual\UI\LanguagesData;
 use ItalyCookieChoices\Scan\UI\ScheduleData;
 use ItalyCookieChoices\Settings\NetworkSettings;
@@ -65,6 +66,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private NetworkSettings $network,
         private LanguagesData $languages,
         private ScheduleData $scanSchedule,
+        private PolicyTranslations $policyTranslations,
         private ViewInterface $view,
         private AssetLoader $assets,
         private string $buildPath,
@@ -181,6 +183,7 @@ final readonly class SettingsPage implements SubscriberInterface
      *     textsOnly: bool,
      *     postTypes: list<array{slug: string, name: string}>,
      *     scanSchedule: array<string, mixed>,
+     *     policyTranslations: list<array{language: string, name: string, current: string, proposal: string}>,
      *     languages: array{
      *         siteId: int,
      *         language: string,
@@ -210,6 +213,8 @@ final readonly class SettingsPage implements SubscriberInterface
             'postTypes' => $this->postTypes(),
             // The schedule of the scan and its last report.
             'scanSchedule' => $this->scanSchedule->data(),
+            // The policy link in each language of WPML or Polylang.
+            'policyTranslations' => $this->policyTranslations->rows(),
             // The sites connected as translations, by MultilingualPress.
             'languages' => $this->languages->forSite(\get_current_blog_id()),
         ];

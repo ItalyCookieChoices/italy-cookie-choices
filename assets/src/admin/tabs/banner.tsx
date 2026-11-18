@@ -15,8 +15,12 @@ import {
 	FloatingButtonLabelField,
 	PolicyLinkFields,
 } from '../texts';
+import { PolicyTranslations } from '../policy-translations';
+import type { PolicyTranslation } from '../settings';
 
-export function BannerTab( props: SettingsProps ) {
+export function BannerTab(
+	props: SettingsProps & { policyTranslations?: PolicyTranslation[] }
+) {
 	return (
 		<Fragment>
 			<ToggleField
@@ -30,6 +34,7 @@ export function BannerTab( props: SettingsProps ) {
 			/>
 			<BannerTextField { ...props } />
 			<PolicyLinkFields { ...props } />
+			<PolicyTranslations rows={ props.policyTranslations ?? [] } />
 			<ToggleField
 				{ ...props }
 				name="target"

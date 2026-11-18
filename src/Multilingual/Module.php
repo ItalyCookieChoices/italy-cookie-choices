@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Multilingual;
 
 use ItalyCookieChoices\Multilingual\Application\ConnectedSites;
+use ItalyCookieChoices\Multilingual\Application\LanguageTranslations;
 use ItalyCookieChoices\Multilingual\Application\Translator;
 use ItalyCookieChoices\Multilingual\Infrastructure\ActiveConnectedSites;
+use ItalyCookieChoices\Multilingual\Infrastructure\ActiveLanguageTranslations;
 use ItalyCookieChoices\Multilingual\Infrastructure\MultilingualPressTranslator;
 use ItalyCookieChoices\Multilingual\UI\ConnectionNotice;
+use ItalyCookieChoices\Multilingual\UI\PolicyTranslationsEndpoint;
 use ItalyCookieChoices\Multilingual\UI\SiteTextsEndpoint;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
@@ -27,10 +30,12 @@ final readonly class Module implements ModuleInterface
             AurynConfig::ALIASES => [
                 ConnectedSites::class => ActiveConnectedSites::class,
                 Translator::class => MultilingualPressTranslator::class,
+                LanguageTranslations::class => ActiveLanguageTranslations::class,
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 SiteTextsEndpoint::class,
                 ConnectionNotice::class,
+                PolicyTranslationsEndpoint::class,
             ],
         ];
     }

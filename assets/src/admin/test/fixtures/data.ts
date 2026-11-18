@@ -40,5 +40,6 @@ export const data: AdminData = {
 		adminEmail: 'owner@example.com',
 		report: null,
 	},
+	policyTranslations: [],
 	languages: { siteId: 1, language: '', sites: [] },
 };

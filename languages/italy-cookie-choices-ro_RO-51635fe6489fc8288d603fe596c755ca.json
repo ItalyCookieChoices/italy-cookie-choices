@@ -612,6 +612,27 @@
             ],
             "Last scheduled scan: %1$s, %2$d pages. Vendors not blocked: %3$s. Unknown third parties: %4$s.": [
                 ""
+            ],
+            "Policy link in each language": [
+                ""
+            ],
+            "The translation of the policy page in each language, from the multilingual plugin. The policy can change between countries: use a link only when it fits.": [
+                ""
+            ],
+            "Not translated: the banner links the page of the main language.": [
+                ""
+            ],
+            "Translation of the policy page:": [
+                ""
+            ],
+            "Use this link for %s": [
+                ""
+            ],
+            "The policy link of %s is saved.": [
+                ""
+            ],
+            "The policy link was not saved.": [
+                ""
             ]
         }
     }

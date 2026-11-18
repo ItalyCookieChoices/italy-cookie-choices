@@ -17,6 +17,10 @@ Apri **WPML > Traduzione stringhe** e scegli il dominio **Italy Cookie Choices**
 * Floating button label
 * Category *id* label e Category *id* description, per i testi delle categorie che hai cambiato
 
+### Il link alla policy in ogni lingua
+
+La scheda Banner mostra, per ogni lingua di WPML o Polylang, la traduzione attuale del link alla policy e la traduzione della pagina della policy, trovata dal plugin multilingua. **Usa questo link** la salva come traduzione del link alla policy, la stessa di **Banner url** in Traduzione stringhe. La policy può cambiare tra i paesi: usa un link solo quando è adatto. Con WPML, salvare il link richiede WPML String Translation.
+
 ## Polylang
 
 Apri **Lingue > Traduzioni** e filtra il gruppo **Italy Cookie Choices**. Le stringhe sono le stesse di WPML.
