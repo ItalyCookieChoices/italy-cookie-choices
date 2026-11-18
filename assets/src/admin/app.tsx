@@ -150,7 +150,12 @@ export function App( { data }: { data: AdminData } ) {
 		),
 	};
 	const allTabs = {
-		banner: <BannerTab { ...props } />,
+		banner: (
+			<BannerTab
+				{ ...props }
+				policyTranslations={ data.policyTranslations }
+			/>
+		),
 		style: <StyleTab { ...props } />,
 		categories: (
 			<CategoriesTab { ...props } categories={ data.categories } />

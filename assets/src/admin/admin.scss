@@ -108,6 +108,13 @@
 		gap: 0.5em;
 	}
 
+	// The policy link of a language of WPML or Polylang.
+	&__policy-language {
+		display: grid;
+		gap: 0.5em;
+		overflow-wrap: anywhere;
+	}
+
 	// A third party found by the scan.
 	&__found {
 		display: flex;

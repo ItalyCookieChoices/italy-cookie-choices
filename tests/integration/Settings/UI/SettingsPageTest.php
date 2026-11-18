@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Integration\Settings\UI;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\Multilingual\Application\PolicyTranslations;
 use ItalyCookieChoices\Multilingual\UI\LanguagesData;
 use ItalyCookieChoices\Scan\UI\ScheduleData;
 use ItalyCookieChoices\Settings\NetworkSettings;
@@ -161,6 +162,7 @@ final class SettingsPageTest extends WPTestCase
         $this->assertContains(['slug' => 'page', 'name' => 'Pages'], $data['postTypes']);
         $this->assertNotContains('attachment', \array_column($data['postTypes'], 'slug'));
         $this->assertSame('off', $data['scanSchedule']['frequency'] ?? null);
+        $this->assertSame([], $data['policyTranslations']);
     }
 
     public function testThePageGetsTheDefaultLabelsNotTheSavedOnes(): void
@@ -182,6 +184,7 @@ final class SettingsPageTest extends WPTestCase
             new NetworkSettings(),
             $this->service(LanguagesData::class),
             $this->service(ScheduleData::class),
+            $this->service(PolicyTranslations::class),
             $this->service(ViewInterface::class),
             new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
