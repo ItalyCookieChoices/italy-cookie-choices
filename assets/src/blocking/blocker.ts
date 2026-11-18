@@ -7,6 +7,8 @@ const BLOCKED_FRAMES =
 const SOURCE = 'data-icc-src';
 const TYPE = 'data-icc-type';
 const HIDDEN = 'data-icc-hidden';
+const VENDOR = 'data-icc-vendor';
+const ACCEPT_BUTTON = '[data-icc-accept]';
 const PLACEHOLDERS = 'template[data-icc-placeholder]';
 const PREFERENCES_LINK = '.icc-placeholder__preferences';
 const WEB_PROTOCOLS = [ 'http:', 'https:' ];
@@ -61,11 +63,23 @@ export class Blocker {
 		return this.scripts;
 	}
 
+	/**
+	 * The consent to the category of an element and, with the consent per vendor, to its vendor.
+	 * @param element A blocked script or frame.
+	 */
+	private allows( element: Element ): boolean {
+		const category = element.getAttribute( 'data-category' ) ?? '';
+		const vendor = element.getAttribute( VENDOR ) ?? '';
+
+		return vendor === ''
+			? this.api.hasConsent( category )
+			: this.api.hasVendorConsent( vendor, category );
+	}
+
 	private updateFrame( frame: Element ): void {
-		const category = frame.getAttribute( 'data-category' ) ?? '';
-		if ( ! this.api.hasConsent( category ) ) {
+		if ( ! this.allows( frame ) ) {
 			frame.removeAttribute( 'src' );
-			this.showPlaceholder( frame, category );
+			this.showPlaceholder( frame );
 			return;
 		}
 
@@ -82,14 +96,24 @@ export class Blocker {
 		}
 	}
 
-	private showPlaceholder( frame: Element, category: string ): void {
+	private showPlaceholder( frame: Element ): void {
 		if ( this.placeholders.has( frame ) ) {
 			return;
 		}
 
-		const placeholder = this.placeholderOf( category );
+		const placeholder = this.placeholderOf(
+			frame.getAttribute( 'data-category' ) ?? ''
+		);
 		if ( placeholder === null ) {
 			return;
+		}
+
+		// The button accepts the vendor of the frame, with the consent per vendor.
+		const vendor = frame.getAttribute( VENDOR ) ?? '';
+		if ( vendor !== '' ) {
+			placeholder
+				.querySelector( ACCEPT_BUTTON )
+				?.setAttribute( VENDOR, vendor );
 		}
 
 		const width = frame.getAttribute( 'width' ) ?? '';
@@ -131,9 +155,7 @@ export class Blocker {
 			this.document.querySelectorAll< HTMLScriptElement >(
 				BLOCKED_SCRIPTS
 			)
-		).filter( ( script ) =>
-			this.api.hasConsent( script.dataset.category ?? '' )
-		);
+		).filter( ( script ) => this.allows( script ) );
 
 		for ( const script of scripts ) {
 			await this.run( script );

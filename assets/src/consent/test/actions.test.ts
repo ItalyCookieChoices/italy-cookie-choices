@@ -91,3 +91,41 @@ describe( 'listenToConsentButtons', () => {
 		expect( api.getConsent() ).toBeNull();
 	} );
 } );
+
+describe( 'listenToConsentButtons with the consent per vendor', () => {
+	it( 'accepts the vendor of the button and keeps the other refusals', () => {
+		document.cookie.split( '; ' ).forEach( ( cookie ) => {
+			const name = cookie.split( '=' )[ 0 ];
+			document.cookie = `${ name }=; expires=${ new Date( 0 ).toUTCString() }; path=/`;
+		} );
+		const api = createConsentApi(
+			{
+				...config,
+				vendorConsent: true,
+				vendors: [
+					{ id: 'youtube', category: 'marketing' },
+					{ id: 'vimeo', category: 'marketing' },
+					{ id: 'hotjar', category: 'statistics' },
+				],
+			},
+			new Cookies( document, false ),
+			new EventTarget()
+		);
+		api.setConsent( [ 'statistics' ], [ 'hotjar' ] );
+		const page = document.implementation.createHTMLDocument();
+		page.body.innerHTML =
+			'<button data-icc-accept="marketing" data-icc-vendor="youtube">Accept</button>' +
+			'<button data-icc-accept="statistics" id="statistics">Accept</button>';
+		listenToConsentButtons( page, api );
+
+		page.querySelector< HTMLElement >( '[data-icc-vendor]' )?.click();
+
+		expect( api.hasVendorConsent( 'youtube', 'marketing' ) ).toBe( true );
+		expect( api.hasVendorConsent( 'vimeo', 'marketing' ) ).toBe( false );
+		expect( api.hasVendorConsent( 'hotjar', 'statistics' ) ).toBe( false );
+
+		page.querySelector< HTMLElement >( '#statistics' )?.click();
+
+		expect( api.hasVendorConsent( 'hotjar', 'statistics' ) ).toBe( false );
+	} );
+} );

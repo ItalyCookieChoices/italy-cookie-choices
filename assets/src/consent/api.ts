@@ -26,7 +26,12 @@ function isConsent( value: unknown ): value is Consent {
 			( category ) => typeof category === 'string'
 		) &&
 		typeof consent.version === 'string' &&
-		typeof consent.date === 'string'
+		typeof consent.date === 'string' &&
+		( consent.refusedVendors === undefined ||
+			( Array.isArray( consent.refusedVendors ) &&
+				consent.refusedVendors.every(
+					( vendor ) => typeof vendor === 'string'
+				) ) )
 	);
 }
 
@@ -78,7 +83,13 @@ export function createConsentApi(
 			return null;
 		}
 
-		return { ...consent, categories: [ ...consent.categories ] };
+		return {
+			...consent,
+			categories: [ ...consent.categories ],
+			...( consent.refusedVendors === undefined
+				? {}
+				: { refusedVendors: [ ...consent.refusedVendors ] } ),
+		};
 	}
 
 	function dispatch( change: ConsentChange ): void {
@@ -89,18 +100,40 @@ export function createConsentApi(
 		);
 	}
 
-	function setConsent( accepted: string[] ): Consent {
+	const vendors =
+		config.vendorConsent === true ? ( config.vendors ?? [] ) : [];
+
+	/**
+	 * The refused vendors that belong to an accepted category, the others are refused with their category.
+	 * @param categories The accepted categories.
+	 * @param refused    The vendors the visitor refused.
+	 */
+	function refusedOf( categories: string[], refused: string[] ): string[] {
+		return vendors
+			.filter(
+				( vendor ) =>
+					refused.includes( vendor.id ) &&
+					categories.includes( vendor.category )
+			)
+			.map( ( vendor ) => vendor.id );
+	}
+
+	function setConsent( accepted: string[], refused: string[] = [] ): Consent {
 		const chosen = new Set( [ ...requiredIds, ...accepted ] );
 		const previous = getConsent();
 		const givenAt = now();
+		const categories = categoryIds.filter( ( category ) =>
+			chosen.has( category )
+		);
 		const consent: Consent = {
 			// The same browser keeps its id, also for another policy version.
 			id: storedConsent()?.id ?? newId(),
-			categories: categoryIds.filter( ( category ) =>
-				chosen.has( category )
-			),
+			categories,
 			version: config.version,
 			date: givenAt.toISOString(),
+			...( config.vendorConsent === true
+				? { refusedVendors: refusedOf( categories, refused ) }
+				: {} ),
 		};
 
 		cookies.write(
@@ -113,18 +146,47 @@ export function createConsentApi(
 		return consent;
 	}
 
+	function hasConsent( category: string ): boolean {
+		if ( requiredIds.includes( category ) ) {
+			return true;
+		}
+
+		return getConsent()?.categories.includes( category ) ?? false;
+	}
+
 	return {
 		categories: () =>
 			config.categories.map( ( category ) => ( { ...category } ) ),
 		getConsent,
-		hasConsent( category: string ): boolean {
-			if ( requiredIds.includes( category ) ) {
-				return true;
+		hasConsent,
+		hasVendorConsent( vendor: string, category: string ): boolean {
+			if ( ! hasConsent( category ) ) {
+				return false;
 			}
 
-			return getConsent()?.categories.includes( category ) ?? false;
+			return (
+				config.vendorConsent !== true ||
+				! ( getConsent()?.refusedVendors ?? [] ).includes( vendor )
+			);
 		},
 		setConsent,
+		acceptVendor( vendor: string, category: string ): Consent {
+			const consent = getConsent();
+			const accepted = consent?.categories ?? [];
+			// The other vendors of a category accepted now stay refused, the refusals of the others stay.
+			const others = accepted.includes( category )
+				? []
+				: vendors
+						.filter( ( other ) => other.category === category )
+						.map( ( other ) => other.id );
+			const refused = [ ...( consent?.refusedVendors ?? [] ), ...others ];
+
+			return setConsent(
+				[ ...accepted, category ],
+				refused.filter( ( id ) => id !== vendor )
+			);
+		},
+
 		acceptAll: () => setConsent( categoryIds ),
 		rejectAll: () => setConsent( [] ),
 		withdraw(): void {

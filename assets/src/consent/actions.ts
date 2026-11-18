@@ -2,10 +2,12 @@ import type { ConsentApi } from './types';
 
 export const ACCEPT = 'data-icc-accept';
 export const ACCEPT_ALL = 'data-icc-accept-all';
+export const VENDOR = 'data-icc-vendor';
 
 /**
  * Buttons anywhere in the page give the consent:
  * <button data-icc-accept="marketing"> adds a category, <button data-icc-accept-all> accepts every category.
+ * With data-icc-vendor too, like the placeholder of a frame, the button accepts only that vendor.
  *
  * @param document The page.
  * @param api      The consent API.
@@ -27,7 +29,17 @@ export function listenToConsentButtons(
 			return;
 		}
 
-		const accepted = api.getConsent()?.categories ?? [];
-		api.setConsent( [ ...accepted, button.getAttribute( ACCEPT ) ?? '' ] );
+		const category = button.getAttribute( ACCEPT ) ?? '';
+		const vendor = button.getAttribute( VENDOR ) ?? '';
+		if ( vendor !== '' ) {
+			api.acceptVendor( vendor, category );
+			return;
+		}
+
+		const consent = api.getConsent();
+		api.setConsent(
+			[ ...( consent?.categories ?? [] ), category ],
+			consent?.refusedVendors ?? []
+		);
 	} );
 }

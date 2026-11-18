@@ -17,7 +17,14 @@ final readonly class ConsentLogExport implements SubscriberInterface
     public const ACTION = 'italy_cookie_choices_export_consent_log';
 
     private const CAPABILITY = 'manage_options';
-    private const COLUMNS = ['consent_id', 'recorded_at', 'policy_version', 'categories', 'withdrawn'];
+    private const COLUMNS = [
+        'consent_id',
+        'recorded_at',
+        'policy_version',
+        'categories',
+        'withdrawn',
+        'refused_vendors',
+    ];
 
     public function __construct(
         private ConsentLog $log,
@@ -78,6 +85,7 @@ final readonly class ConsentLogExport implements SubscriberInterface
                 $record->version()->toString(),
                 \implode(' ', $record->categories()),
                 $record->isWithdrawal() ? '1' : '0',
+                \implode(' ', $record->refusedVendors()),
             ], ',', '"', '');
         }
     }

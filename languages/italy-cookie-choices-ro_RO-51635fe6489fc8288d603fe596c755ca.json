@@ -633,6 +633,12 @@
             ],
             "The policy link was not saved.": [
                 ""
+            ],
+            "Let the visitors choose the single vendors": [
+                ""
+            ],
+            "The preferences list the vendors of each category: a visitor can accept only some of them. The guidelines of the Italian Data Protection Authority ask to choose the third parties too.": [
+                ""
             ]
         }
     }

@@ -36,6 +36,7 @@ final readonly class Schema
         'clarity_consent_mode',
         'floating_button',
         'global_privacy_control',
+        'vendor_consent',
     ];
 
     private const ENUMS = [

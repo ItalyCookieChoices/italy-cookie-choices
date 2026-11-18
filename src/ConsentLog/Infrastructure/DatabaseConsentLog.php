@@ -31,10 +31,11 @@ final readonly class DatabaseConsentLog implements ConsentLog
             [
                 'consent_id' => $record->id()->toString(),
                 'categories' => \implode(' ', $record->categories()),
+                'refused_vendors' => \implode(' ', $record->refusedVendors()),
                 'policy_version' => $record->version()->toString(),
                 'recorded_at' => $this->utc($record->recordedAt()),
             ],
-            ['%s', '%s', '%s', '%s']
+            ['%s', '%s', '%s', '%s', '%s']
         );
     }
 
@@ -59,7 +60,7 @@ final readonly class DatabaseConsentLog implements ConsentLog
         $lastId = 0;
         do {
             $rows = $this->database->get_results($this->database->prepare(
-                'SELECT id, consent_id, categories, policy_version, recorded_at FROM %i'
+                'SELECT id, consent_id, categories, refused_vendors, policy_version, recorded_at FROM %i'
                 . ' WHERE id > %d ORDER BY id LIMIT %d',
                 $this->table->name(),
                 $lastId,
@@ -111,12 +112,14 @@ final readonly class DatabaseConsentLog implements ConsentLog
     private function recordFrom(array $row): ConsentRecord
     {
         $categories = $this->field($row, 'categories');
+        $refusedVendors = $this->field($row, 'refused_vendors');
 
         return new ConsentRecord(
             new ConsentId($this->field($row, 'consent_id')),
             $categories === '' ? [] : \explode(' ', $categories),
             new PolicyVersion($this->field($row, 'policy_version')),
-            new \DateTimeImmutable($this->field($row, 'recorded_at'), new \DateTimeZone('UTC'))
+            new \DateTimeImmutable($this->field($row, 'recorded_at'), new \DateTimeZone('UTC')),
+            $refusedVendors === '' ? [] : \explode(' ', $refusedVendors)
         );
     }
 

@@ -80,7 +80,7 @@ final class CliCest
         $I->haveInDatabase(self::LOG_TABLE, $this->record('3f2504e0-4f89-41d3-9a0c-0305e82c3302', '-1 day'));
 
         $I->assertSame(0, $I->cli(['cookie-choices', 'log', 'export']));
-        $I->seeInShellOutput('consent_id,recorded_at,policy_version,categories,withdrawn');
+        $I->seeInShellOutput('consent_id,recorded_at,policy_version,categories,withdrawn,refused_vendors');
         $I->seeInShellOutput('3f2504e0-4f89-41d3-9a0c-0305e82c3301');
 
         $I->assertSame(0, $I->cli(['cookie-choices', 'log', 'purge', '--yes']));

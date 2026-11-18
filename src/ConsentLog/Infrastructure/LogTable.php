@@ -9,7 +9,10 @@ namespace ItalyCookieChoices\ConsentLog\Infrastructure;
  */
 final readonly class LogTable
 {
-    public const VERSION = 1;
+    /**
+     * 2: the vendors refused inside the accepted categories.
+     */
+    public const VERSION = 2;
     public const VERSION_OPTION = 'italy_cookie_choices_log_table_version';
 
     private const NAME = 'icc_consent_log';
@@ -50,6 +53,7 @@ final readonly class LogTable
     private function createTable(): void
     {
         // dbDelta() wants two spaces after PRIMARY KEY and one field per line.
+        // The columns added later go last, where dbDelta() adds them to the tables of the older versions.
         \dbDelta(\sprintf(
             "CREATE TABLE %s (
 id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -57,6 +61,7 @@ consent_id char(36) NOT NULL,
 categories varchar(255) NOT NULL DEFAULT '',
 policy_version varchar(64) NOT NULL,
 recorded_at datetime NOT NULL,
+refused_vendors varchar(1000) NOT NULL DEFAULT '',
 PRIMARY KEY  (id),
 KEY consent_id (consent_id),
 KEY recorded_at (recorded_at)

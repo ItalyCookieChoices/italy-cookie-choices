@@ -11,7 +11,9 @@ use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\BuildingBanner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
+use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\ScriptLoader;
@@ -25,6 +27,7 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class BannerTest extends WPTestCase
 {
+    use BuildsContainer;
     use BuildsOptions;
 
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
@@ -190,6 +193,30 @@ final class BannerTest extends WPTestCase
         $this->assertSame('', $view['text']);
         $this->assertNull($view['link']);
         $this->assertSame('Accept all', $this->texts($view)['acceptAll']);
+        $this->assertSame([], $view['vendors']);
+    }
+
+    public function testThePreferencesListTheVendorsOfEachCategoryWhenTheConsentIsPerVendor(): void
+    {
+        $this->saveOptions(['vendor_consent' => '1', 'banner' => '1']);
+
+        $view = $this->makeSut()->data();
+        $output = $this->render($this->makeSut());
+
+        $this->assertIsArray($view['vendors']);
+        $marketing = $view['vendors']['marketing'] ?? [];
+        $this->assertIsArray($marketing);
+        $this->assertContains(['id' => 'youtube', 'name' => 'YouTube'], $marketing);
+        $this->assertStringContainsString('name="icc-vendor"', $output);
+        $this->assertStringContainsString('id="icc-vendor-youtube"', $output);
+        $this->assertStringContainsString('data-icc-category="marketing"', $output);
+    }
+
+    public function testThePreferencesHaveNoVendorsWhenTheConsentIsByCategory(): void
+    {
+        $this->saveOptions(['banner' => '1']);
+
+        $this->assertStringNotContainsString('name="icc-vendor"', $this->render($this->makeSut()));
     }
 
     public function testTheBannerHasNoLogoByDefault(): void
@@ -579,6 +606,7 @@ final class BannerTest extends WPTestCase
                 $this->options()
             ),
             $this->options(),
+            $this->service(VendorChoices::class),
             new View($finder),
             new AssetLoader(),
             new ScriptLoader(),

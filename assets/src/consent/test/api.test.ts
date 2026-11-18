@@ -229,3 +229,91 @@ describe( 'consent API', () => {
 		expect( api.getConsent()?.categories ).not.toContain( 'other' );
 	} );
 } );
+
+describe( 'consent per vendor', () => {
+	beforeEach( clearCookies );
+
+	const vendorConfig: ConsentConfig = {
+		...config,
+		vendorConsent: true,
+		vendors: [
+			{ id: 'youtube', category: 'marketing' },
+			{ id: 'vimeo', category: 'marketing' },
+			{ id: 'hotjar', category: 'statistics' },
+		],
+	};
+
+	function makeVendorApi( current: ConsentConfig = vendorConfig ) {
+		return createConsentApi(
+			current,
+			new Cookies( document, false ),
+			document,
+			() => NOW,
+			() => ID
+		);
+	}
+
+	it( 'allows a vendor of an accepted category until it is refused', () => {
+		const api = makeVendorApi();
+
+		api.setConsent( [ 'marketing' ], [ 'vimeo' ] );
+
+		expect( api.hasVendorConsent( 'youtube', 'marketing' ) ).toBe( true );
+		expect( api.hasVendorConsent( 'vimeo', 'marketing' ) ).toBe( false );
+		expect( api.hasVendorConsent( 'hotjar', 'statistics' ) ).toBe( false );
+		expect( api.getConsent()?.refusedVendors ).toEqual( [ 'vimeo' ] );
+	} );
+
+	it( 'keeps only the refused vendors of the accepted categories', () => {
+		const api = makeVendorApi();
+
+		api.setConsent( [ 'marketing' ], [ 'vimeo', 'hotjar', 'unknown' ] );
+
+		expect( api.getConsent()?.refusedVendors ).toEqual( [ 'vimeo' ] );
+	} );
+
+	it( 'accepts a single vendor with its category', () => {
+		const api = makeVendorApi();
+		api.rejectAll();
+
+		api.acceptVendor( 'youtube', 'marketing' );
+
+		expect( api.getConsent()?.categories ).toEqual( [
+			'necessary',
+			'marketing',
+		] );
+		expect( api.hasVendorConsent( 'youtube', 'marketing' ) ).toBe( true );
+		expect( api.hasVendorConsent( 'vimeo', 'marketing' ) ).toBe( false );
+	} );
+
+	it( 'accepts every vendor with accept all', () => {
+		const api = makeVendorApi();
+		api.setConsent( [ 'marketing' ], [ 'vimeo' ] );
+
+		api.acceptAll();
+
+		expect( api.hasVendorConsent( 'vimeo', 'marketing' ) ).toBe( true );
+	} );
+
+	it( 'follows the category when the consent is by category', () => {
+		const api = makeVendorApi( config );
+
+		api.setConsent( [ 'marketing' ], [ 'vimeo' ] );
+
+		expect( api.hasVendorConsent( 'vimeo', 'marketing' ) ).toBe( true );
+		expect( api.getConsent()?.refusedVendors ).toBeUndefined();
+	} );
+
+	it( 'reads a consent saved before the consent per vendor', () => {
+		storeConsent( {
+			id: ID,
+			categories: [ 'necessary', 'marketing' ],
+			version: '1',
+			date: NOW.toISOString(),
+		} );
+
+		expect(
+			makeVendorApi().hasVendorConsent( 'youtube', 'marketing' )
+		).toBe( true );
+	} );
+} );

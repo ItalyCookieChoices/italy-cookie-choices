@@ -38,6 +38,17 @@ In **Blocking > Common vendors** you can turn off a vendor the site does not nee
 
 Google reCAPTCHA starts turned off: the forms that use it would wait for the marketing consent. Turn it on when the forms can wait. HubSpot blocks the tracking and the chat, not the forms of `js.hsforms.net`. Matomo Cloud blocks only the Matomo served by `matomo.cloud`, Matomo on your site can be set up without cookies.
 
+## Consent per vendor
+
+By default the visitors accept or refuse a category, with all its vendors. Turn on **Let the visitors choose the single vendors** in the **Blocking** tab to let them choose the vendors too: the preferences list the vendors of each category, under **Vendors**.
+
+* Accepting a category accepts all its vendors, then the visitor can turn some of them off.
+* Turning on a single vendor accepts its category, with only that vendor.
+* The placeholder of a blocked video or map accepts only its vendor.
+* Accept all accepts every vendor, reject all refuses them all.
+
+The guidelines of the Italian Data Protection Authority ask that the visitors can choose analytically the functions, the third parties and the cookies, also grouped in categories: the choice of the vendors is the safest reading, turn it on for the sites in Italy. The list has the common vendors turned on and the custom vendors: turn off the common vendors the site does not use, **Scan the site** finds them.
+
 ## Scan the site
 
 **Scan the site**, at the top of the **Blocking** tab, finds the vendors of your pages.

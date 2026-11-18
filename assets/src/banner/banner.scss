@@ -242,6 +242,27 @@
 	}
 }
 
+// The vendors of a category, with the consent per vendor.
+.icc-preferences__vendors {
+	grid-column: 2;
+	margin-top: 0.5em;
+
+	summary {
+		cursor: pointer;
+	}
+}
+
+.icc-preferences__vendor {
+	display: flex;
+	gap: 0.5em;
+	align-items: center;
+	padding: 0.25em 0;
+
+	label {
+		font-weight: 400;
+	}
+}
+
 .icc-visually-hidden {
 	position: absolute !important;
 	width: 1px;

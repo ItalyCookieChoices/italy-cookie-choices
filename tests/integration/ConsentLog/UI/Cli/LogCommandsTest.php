@@ -68,7 +68,10 @@ final class LogCommandsTest extends WPTestCase
         $lines = \file($file, \FILE_IGNORE_NEW_LINES) ?: [];
         \unlink($file);
         $this->assertSame(0, $factory->io()->exit);
-        $this->assertSame('consent_id,recorded_at,policy_version,categories,withdrawn', $lines[0] ?? null);
+        $this->assertSame(
+            'consent_id,recorded_at,policy_version,categories,withdrawn,refused_vendors',
+            $lines[0] ?? null
+        );
         $this->assertCount(4, $lines);
         $this->assertSame(['The consent log is exported to ' . $file . '.'], $factory->io()->successes);
     }

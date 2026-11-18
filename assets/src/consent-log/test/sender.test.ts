@@ -29,6 +29,21 @@ describe( 'entryOf', () => {
 		} );
 	} );
 
+	it( 'sends the vendors refused with the consent per vendor', () => {
+		expect(
+			entryOf( {
+				consent: { ...consent, refusedVendors: [ 'hotjar' ] },
+				previous: null,
+				fromAnotherTab: false,
+			} )
+		).toEqual( {
+			id: consent.id,
+			categories: [ 'necessary', 'statistics' ],
+			version: '1',
+			refusedVendors: [ 'hotjar' ],
+		} );
+	} );
+
 	it( 'sends a withdrawal without categories', () => {
 		expect(
 			entryOf( {

@@ -39,7 +39,7 @@ final class ConsentLogExportTest extends WPTestCase
         global $wpdb;
         /** @var \wpdb $wpdb */
         $log = new DatabaseConsentLog($wpdb, new LogTable($wpdb));
-        $log->add($this->record(['necessary', 'statistics'], '2026-10-01T10:00:00+00:00'));
+        $log->add($this->record(['necessary', 'statistics'], '2026-10-01T10:00:00+00:00', ['hotjar']));
         $log->add($this->record([], '2026-10-02T10:00:00+00:00'));
         $stream = \fopen('php://memory', 'w+b');
         $this->assertIsResource($stream);
@@ -48,9 +48,9 @@ final class ConsentLogExportTest extends WPTestCase
 
         \rewind($stream);
         $this->assertSame(
-            "consent_id,recorded_at,policy_version,categories,withdrawn\n"
-            . "3f2504e0-4f89-41d3-9a0c-0305e82c3301,2026-10-01T10:00:00+00:00,1,\"necessary statistics\",0\n"
-            . "3f2504e0-4f89-41d3-9a0c-0305e82c3301,2026-10-02T10:00:00+00:00,1,,1\n",
+            "consent_id,recorded_at,policy_version,categories,withdrawn,refused_vendors\n"
+            . "3f2504e0-4f89-41d3-9a0c-0305e82c3301,2026-10-01T10:00:00+00:00,1,\"necessary statistics\",0,hotjar\n"
+            . "3f2504e0-4f89-41d3-9a0c-0305e82c3301,2026-10-02T10:00:00+00:00,1,,1,\n",
             \stream_get_contents($stream)
         );
     }
@@ -83,14 +83,16 @@ final class ConsentLogExportTest extends WPTestCase
 
     /**
      * @param list<string> $categories
+     * @param list<string> $refusedVendors
      */
-    private function record(array $categories, string $date): ConsentRecord
+    private function record(array $categories, string $date, array $refusedVendors = []): ConsentRecord
     {
         return new ConsentRecord(
             new ConsentId('3f2504e0-4f89-41d3-9a0c-0305e82c3301'),
             $categories,
             new PolicyVersion('1'),
-            new \DateTimeImmutable($date)
+            new \DateTimeImmutable($date),
+            $refusedVendors
         );
     }
 

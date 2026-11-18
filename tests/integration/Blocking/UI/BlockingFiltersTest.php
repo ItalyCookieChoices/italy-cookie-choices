@@ -22,7 +22,8 @@ final class BlockingFiltersTest extends WPTestCase
     use BuildsOptions;
 
     private const VIDEO = '<iframe src="https://www.youtube.com/embed/a"></iframe>';
-    private const BLOCKED_VIDEO = '<iframe data-category="marketing" data-icc-src="https://www.youtube.com/embed/a" >'
+    private const BLOCKED_VIDEO = '<iframe data-category="marketing" data-icc-src="https://www.youtube.com/embed/a" '
+        . 'data-icc-vendor="youtube" >'
         . '</iframe>';
 
     public function setUp(): void
@@ -93,7 +94,7 @@ final class BlockingFiltersTest extends WPTestCase
         $output = $this->printScripts();
 
         $this->assertStringContainsString(
-            '<script data-category="statistics" type="text/plain" id="analytics-js" '
+            '<script data-category="statistics" data-icc-vendor="google-analytics" type="text/plain" id="analytics-js" '
                 . 'src="https://www.googletagmanager.com/gtag/js?id=G-1"></script>',
             $output
         );
@@ -106,7 +107,8 @@ final class BlockingFiltersTest extends WPTestCase
         \wp_add_inline_script('analytics', 'gtag("config", "G-1");');
 
         $this->assertMatchesRegularExpression(
-            '#<script data-category="statistics" type="text/plain" id="analytics-js-after">'
+            '#<script data-category="statistics" data-icc-vendor="google-analytics" type="text/plain" '
+            . 'id="analytics-js-after">'
             . '\s*gtag\("config", "G-1"\);#',
             $this->printScripts()
         );

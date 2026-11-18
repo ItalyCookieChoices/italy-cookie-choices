@@ -23,11 +23,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: src/Settings/Sanitizer.php:159
+#: src/Settings/Sanitizer.php:160
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
 
-#: src/Settings/Sanitizer.php:160
+#: src/Settings/Sanitizer.php:161
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
 
@@ -92,7 +92,7 @@ msgid "Reject all"
 msgstr "Rifiuta tutti"
 
 #: src/Consent/UI/ConsentTexts.php:79
-#: src/Consent/UI/ConsentTexts.php:124
+#: src/Consent/UI/ConsentTexts.php:125
 #: assets/build/settings.js:1
 msgid "Preferences"
 msgstr "Preferenze"
@@ -101,7 +101,7 @@ msgstr "Preferenze"
 msgid "Close and keep only the necessary cookies"
 msgstr "Chiudi e mantieni solo i cookie necessari"
 
-#: src/Consent/UI/Banner.php:199
+#: src/Consent/UI/Banner.php:217
 #: src/Consent/UI/ConsentTexts.php:81
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -117,32 +117,32 @@ msgstr "Salva le preferenze"
 msgid "Close the preferences"
 msgstr "Chiudi le preferenze"
 
-#: src/Consent/UI/ConsentTexts.php:117
+#: src/Consent/UI/ConsentTexts.php:118
 msgid "Necessary"
 msgstr "Necessari"
 
-#: src/Consent/UI/ConsentTexts.php:118
+#: src/Consent/UI/ConsentTexts.php:119
 msgid "Needed for the site to work, like the cookie that stores this choice. Always active."
 msgstr "Servono al funzionamento del sito, come il cookie che memorizza questa scelta. Sempre attivi."
 
-#: src/Consent/UI/ConsentTexts.php:125
+#: src/Consent/UI/ConsentTexts.php:126
 msgid "Remember your choices, like the language or the region."
 msgstr "Ricordano le tue scelte, come la lingua o la regione."
 
-#: src/Consent/UI/ConsentTexts.php:128
+#: src/Consent/UI/ConsentTexts.php:129
 #: assets/build/settings.js:16
 msgid "Statistics"
 msgstr "Statistiche"
 
-#: src/Consent/UI/ConsentTexts.php:129
+#: src/Consent/UI/ConsentTexts.php:130
 msgid "Help to understand how the site is used, collecting anonymous data."
 msgstr "Aiutano a capire come viene usato il sito, raccogliendo dati anonimi."
 
-#: src/Consent/UI/ConsentTexts.php:135
+#: src/Consent/UI/ConsentTexts.php:136
 msgid "Marketing"
 msgstr "Marketing"
 
-#: src/Consent/UI/ConsentTexts.php:136
+#: src/Consent/UI/ConsentTexts.php:137
 msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
 msgstr "Usati da terze parti, come video, mappe e social network, per mostrare contenuti e pubblicità."
 
@@ -1633,7 +1633,7 @@ msgstr "In questa lingua non c'è una traduzione della pagina della policy."
 msgid "There is no multilingual plugin active."
 msgstr "Non c'è nessun plugin multilingua attivo."
 
-#: src/Multilingual/Infrastructure/PolylangTranslations.php:50
+#: src/Multilingual/Infrastructure/PolylangTranslations.php:48
 msgid "Polylang does not know this language."
 msgstr "Polylang non conosce questa lingua."
 
@@ -1676,3 +1676,15 @@ msgstr "Il link alla policy di %s è stato salvato."
 #: assets/build/settings.js:3
 msgid "The policy link was not saved."
 msgstr "Il link alla policy non è stato salvato."
+
+#: src/Consent/UI/ConsentTexts.php:88
+msgid "Vendors"
+msgstr "Fornitori"
+
+#: assets/build/settings.js:14
+msgid "Let the visitors choose the single vendors"
+msgstr "Fai scegliere ai visitatori i singoli fornitori"
+
+#: assets/build/settings.js:14
+msgid "The preferences list the vendors of each category: a visitor can accept only some of them. The guidelines of the Italian Data Protection Authority ask to choose the third parties too."
+msgstr "Le preferenze elencano i fornitori di ogni categoria: un visitatore può accettarne solo alcuni. Le linee guida del Garante per la protezione dei dati personali chiedono di poter scegliere anche le terze parti."

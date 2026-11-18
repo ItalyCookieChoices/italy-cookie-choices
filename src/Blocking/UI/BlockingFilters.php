@@ -72,11 +72,13 @@ final readonly class BlockingFilters implements SubscriberInterface
         }
 
         $vendors = $this->vendors->create();
+        $vendor = \is_string($source) ? $vendors->loading($source) : null;
         $category = \wp_scripts()->get_data($handle, self::SCRIPT_CATEGORY);
         if (!\is_string($category) || $category === '') {
-            $category = \is_string($source) ? $vendors->loading($source)?->category() ?? '' : '';
+            $category = $vendor?->category() ?? '';
         }
 
-        return $this->blocker->block($tag, $vendors, $category);
+        // The inline scripts of the tag wait for the vendor of the script too.
+        return $this->blocker->block($tag, $vendors, $category, $vendor?->id() ?? '');
     }
 }

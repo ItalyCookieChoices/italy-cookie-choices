@@ -1,4 +1,4 @@
-import type { Category, ConsentConfig, LegacyCookie } from './types';
+import type { Category, ConsentConfig, LegacyCookie, Vendor } from './types';
 
 const DEFAULTS: ConsentConfig = {
 	cookieName: 'icc_consent',
@@ -22,6 +22,19 @@ function categoryFrom( value: unknown ): Category | null {
 	}
 
 	return { id: value.id, required: value.required === true };
+}
+
+function vendorFrom( value: unknown ): Vendor | null {
+	if (
+		! isRecord( value ) ||
+		typeof value.id !== 'string' ||
+		typeof value.category !== 'string' ||
+		value.id === ''
+	) {
+		return null;
+	}
+
+	return { id: value.id, category: value.category };
 }
 
 function legacyCookieFrom( value: unknown ): LegacyCookie | null {
@@ -74,6 +87,19 @@ export function parseConfig( raw: unknown ): ConsentConfig {
 			: {} ),
 		...( typeof raw.cookieDomain === 'string' && raw.cookieDomain !== ''
 			? { cookieDomain: raw.cookieDomain }
+			: {} ),
+		...( raw.vendorConsent === true
+			? {
+					vendorConsent: true,
+					vendors: Array.isArray( raw.vendors )
+						? raw.vendors
+								.map( vendorFrom )
+								.filter(
+									( vendor ): vendor is Vendor =>
+										vendor !== null
+								)
+						: [],
+				}
 			: {} ),
 	};
 }
