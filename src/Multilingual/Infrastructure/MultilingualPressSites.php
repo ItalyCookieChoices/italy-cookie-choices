@@ -5,16 +5,20 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Multilingual\Infrastructure;
 
 use Inpsyde\MultilingualPress\Framework\Api\SiteRelations;
-use ItalyCookieChoices\Multilingual\Application\ConnectedSites;
 
 /**
  * The sites connected by MultilingualPress, through its public API. Without MultilingualPress no site is connected.
  */
-final readonly class MultilingualPressSites implements ConnectedSites
+final readonly class MultilingualPressSites implements PluginConnectedSites
 {
     private const LANGUAGE = 'Inpsyde\\MultilingualPress\\siteLanguageTag';
     private const TRANSLATIONS = 'Inpsyde\\MultilingualPress\\translationIds';
     private const RESOLVE = 'Inpsyde\\MultilingualPress\\resolve';
+
+    public function isActive(): bool
+    {
+        return \function_exists(self::RESOLVE);
+    }
 
     public function of(int $siteId): array
     {

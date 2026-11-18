@@ -630,8 +630,8 @@ msgstr "Il file non contiene impostazioni di Cookie Choices."
 #: src/Settings/UI/NetworkSettingsPage.php:67
 #: src/Settings/UI/NetworkSettingsPage.php:68
 #: src/Settings/UI/NetworkSettingsPage.php:79
-#: src/Settings/UI/SettingsPage.php:82
-#: src/Settings/UI/SettingsPage.php:83
+#: src/Settings/UI/SettingsPage.php:87
+#: src/Settings/UI/SettingsPage.php:88
 msgid "Cookie Choices"
 msgstr "Cookie Choices"
 
@@ -1362,7 +1362,7 @@ msgstr "Compila i testi"
 msgid "Ignore"
 msgstr "Ignora"
 
-#: src/Multilingual/UI/ConnectionNotice.php:88
+#: src/Multilingual/UI/ConnectionNotice.php:104
 #: src/Scan/UI/ScanNotice.php:62
 msgid "You cannot change the settings."
 msgstr "Non puoi modificare le impostazioni."

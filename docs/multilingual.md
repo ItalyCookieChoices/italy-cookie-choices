@@ -50,6 +50,14 @@ With MultilingualPress active, the settings page has a **Languages** tab, with t
 
 When MultilingualPress creates a site or changes its connections, a connected site without its own texts shows a notice to its administrators: **Fill the texts** opens the Languages tab, **Ignore** hides the notice. Nothing changes without the administrator.
 
+## Multisite Language Switcher
+
+Multisite Language Switcher keeps every language in its own site of a multisite network, like MultilingualPress: each site has its own settings and texts, see [MultilingualPress](#multilingualpress) for the texts, the buttons and the consent.
+
+With Multisite Language Switcher active, the **Languages** tab works the same way, with the sites of its network and their languages, and it proposes the translation of the policy page linked by the plugin. It has no automatic translation: **Translate** stays off, use **Copy** and translate the texts by hand. When the settings of Multisite Language Switcher of a site change, the site without its own texts shows the notice to fill them.
+
+When both plugins are active, MultilingualPress is used.
+
 ## Other plugins
 
 Other plugins, like qTranslate-XT, translate the texts with the `TranslatingText` event. See [Integrations](integrations.md#translate-the-texts-with-another-multilingual-plugin).

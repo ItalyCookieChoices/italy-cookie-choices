@@ -50,6 +50,14 @@ Con MultilingualPress attivo, la pagina delle impostazioni ha una scheda **Lingu
 
 Quando MultilingualPress crea un sito o cambia i suoi collegamenti, un sito collegato senza i suoi testi mostra un avviso ai suoi amministratori: **Compila i testi** apre la scheda Lingue, **Ignora** nasconde l'avviso. Niente cambia senza l'amministratore.
 
+## Multisite Language Switcher
+
+Multisite Language Switcher tiene ogni lingua in un suo sito di una rete multisito, come MultilingualPress: ogni sito ha le sue impostazioni e i suoi testi, vedi [MultilingualPress](#multilingualpress) per i testi, i pulsanti e il consenso.
+
+Con Multisite Language Switcher attivo, la scheda **Lingue** funziona allo stesso modo, con i siti della sua rete e le loro lingue, e propone la traduzione della pagina della policy collegata dal plugin. Non ha la traduzione automatica: **Traduci** resta disattivato, usa **Copia** e traduci i testi a mano. Quando cambiano le impostazioni di Multisite Language Switcher di un sito, il sito senza i suoi testi mostra l'avviso per compilarli.
+
+Quando sono attivi entrambi i plugin, viene usato MultilingualPress.
+
 ## Altri plugin
 
 Altri plugin, come qTranslate-XT, traducono i testi con l'evento `TranslatingText`. Vedi [Integrazioni](integrazioni.md#tradurre-i-testi-con-un-altro-plugin-multilingua).

@@ -50,6 +50,8 @@ final class ConnectionNoticeTest extends WPTestCase
             [
                 'multilingualpress.define_initial_site_settings' => $remember,
                 'multilingualpress.update_site_settings' => $remember,
+                'add_option_msls' => 'rememberThisSite',
+                'update_option_msls' => 'rememberThisSite',
                 'admin_notices' => 'show',
                 'admin_post_' . ConnectionNotice::ACTION => 'ignore',
             ],
@@ -65,6 +67,16 @@ final class ConnectionNoticeTest extends WPTestCase
         $this->assertSame('1', \get_blog_option($this->german, ConnectionNotice::OPTION));
         $this->assertFalse(\get_blog_option($this->italian, ConnectionNotice::OPTION));
         $this->assertFalse(\get_blog_option($this->alone, ConnectionNotice::OPTION));
+    }
+
+    public function testItRemembersThisSiteWhenTheSettingsOfMultisiteLanguageSwitcherChange(): void
+    {
+        \switch_to_blog($this->german);
+        $this->sut->rememberThisSite();
+        \restore_current_blog();
+
+        $this->assertSame('1', \get_blog_option($this->german, ConnectionNotice::OPTION));
+        $this->assertFalse(\get_blog_option($this->italian, ConnectionNotice::OPTION));
     }
 
     public function testItAsksTheAdminToFillTheTexts(): void
