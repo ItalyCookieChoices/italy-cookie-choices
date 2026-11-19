@@ -10,6 +10,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * CookieYes, version 3 and the versions 2, named GDPR Cookie Consent
 * Cookie Notice & Compliance, the banner of the plugin and what the Compliance app keeps on the site
 * GDPR Cookie Compliance, by Moove Agency, the free version
+* Borlabs Cookie, version 3
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -108,6 +109,24 @@ Not imported: the consent on scroll or on click, the conditional display rules, 
 | Google Ads | The Google Ads common vendor, its tag is not imported |
 
 The texts are read in the default language of WPML or Polylang. Not imported: the Google Ads tag, the translations, and the premium features.
+
+## From Borlabs Cookie
+
+| Borlabs Cookie | Cookie Choices |
+| --- | --- |
+| The texts of the dialog and its buttons | The banner text and the button texts |
+| The privacy and imprint links, a page or an address | The policy and legal notice links |
+| The pages where the dialog is hidden | The pages where the banner does not open by itself |
+| The layout and position, the logo, the colors and the custom CSS of the dialog | The **Style** tab, the custom CSS in a comment |
+| The cookie lifetime, the cookie domain, the reload after the opt-in | The same settings |
+| The widget | The floating button |
+| The hostnames excluded from the content blockers | The addresses never blocked |
+| The service groups | The texts of the categories: Essential becomes Necessary, External Media becomes Marketing |
+| The services of a common vendor, like Google Analytics or YouTube | That common vendor, turned on, with its Google and Facebook tag ids and Consent Mode |
+| The other services with a location | Custom vendors with their cookies, their opt-in code as a script after the consent |
+| The cookies of the essential services | The site cookies |
+
+The texts are read in the language of the site. Not imported: the services without a location whose code needs Borlabs Cookie, the opt-out code, the geo-targeting, the IAB TCF, the translations. Borlabs Cookie is a paid plugin: the import reads its settings in the database, it does not use its code.
 
 ## Add a plugin
 

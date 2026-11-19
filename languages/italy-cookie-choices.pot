@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-19T15:51:43+00:00\n"
+"POT-Creation-Date: 2026-11-19T16:27:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -509,6 +509,20 @@ msgstr ""
 #: src/Migration/Application/MigrationSources.php:45
 #: src/Migration/UI/Cli/MigrationExitCode.php:23
 msgid "There are no settings of this plugin to import."
+msgstr ""
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/Borlabs/BorlabsServices.php:127
+#, php-format
+msgid "These services are not imported, they have no location or their code needs Borlabs Cookie: %s."
+msgstr ""
+
+#: src/Migration/Infrastructure/Borlabs/BorlabsSource.php:94
+msgid "The geo-targeting, the IAB TCF and the translations are not imported."
+msgstr ""
+
+#: src/Migration/Infrastructure/Borlabs/BorlabsSource.php:98
+msgid "Deactivate Borlabs Cookie after the import, or the site shows two banners. Its settings stay."
 msgstr ""
 
 #: src/Migration/Infrastructure/Complianz/ComplianzBanner.php:85

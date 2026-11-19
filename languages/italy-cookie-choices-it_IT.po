@@ -2037,3 +2037,17 @@ msgstr "Il tag di Google Ads %s non viene importato: aggiungilo al tema, Google 
 #: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:331
 msgid "Deactivate GDPR Cookie Compliance after the import, or the site shows two banners. Its settings stay."
 msgstr "Disattiva GDPR Cookie Compliance dopo l'importazione, o il sito mostra due banner. Le sue impostazioni restano."
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/Borlabs/BorlabsServices.php:127
+#, php-format
+msgid "These services are not imported, they have no location or their code needs Borlabs Cookie: %s."
+msgstr "Questi servizi non vengono importati, non hanno una posizione o il loro codice richiede Borlabs Cookie: %s."
+
+#: src/Migration/Infrastructure/Borlabs/BorlabsSource.php:94
+msgid "The geo-targeting, the IAB TCF and the translations are not imported."
+msgstr "Il geo-targeting, IAB TCF e le traduzioni non vengono importati."
+
+#: src/Migration/Infrastructure/Borlabs/BorlabsSource.php:98
+msgid "Deactivate Borlabs Cookie after the import, or the site shows two banners. Its settings stay."
+msgstr "Disattiva Borlabs Cookie dopo l'importazione, o il sito mostra due banner. Le sue impostazioni restano."

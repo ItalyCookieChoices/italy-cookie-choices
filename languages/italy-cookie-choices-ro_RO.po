@@ -2036,3 +2036,17 @@ msgstr ""
 #: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:331
 msgid "Deactivate GDPR Cookie Compliance after the import, or the site shows two banners. Its settings stay."
 msgstr ""
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/Borlabs/BorlabsServices.php:127
+#, php-format
+msgid "These services are not imported, they have no location or their code needs Borlabs Cookie: %s."
+msgstr ""
+
+#: src/Migration/Infrastructure/Borlabs/BorlabsSource.php:94
+msgid "The geo-targeting, the IAB TCF and the translations are not imported."
+msgstr ""
+
+#: src/Migration/Infrastructure/Borlabs/BorlabsSource.php:98
+msgid "Deactivate Borlabs Cookie after the import, or the site shows two banners. Its settings stay."
+msgstr ""
