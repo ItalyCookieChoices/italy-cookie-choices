@@ -714,6 +714,27 @@
             ],
             "Add rel=\"nofollow\" to the links": [
                 ""
+            ],
+            "The import changes:": [
+                ""
+            ],
+            "To check:": [
+                ""
+            ],
+            "Import from another plugin": [
+                ""
+            ],
+            "The settings of these plugins are in the database. The import replaces the settings it brings, the others stay; the visitors are asked for the consent again.": [
+                ""
+            ],
+            "Preview the import of %s": [
+                ""
+            ],
+            "Import the settings of %s": [
+                ""
+            ],
+            "Imported:": [
+                ""
             ]
         }
     }

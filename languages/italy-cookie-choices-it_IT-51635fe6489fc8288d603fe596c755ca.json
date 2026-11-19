@@ -715,6 +715,27 @@
             ],
             "Add rel=\"nofollow\" to the links": [
                 "Aggiungi rel=\"nofollow\" ai link"
+            ],
+            "The import changes:": [
+                "L'importazione cambia:"
+            ],
+            "To check:": [
+                "Da controllare:"
+            ],
+            "Import from another plugin": [
+                "Importa da un altro plugin"
+            ],
+            "The settings of these plugins are in the database. The import replaces the settings it brings, the others stay; the visitors are asked for the consent again.": [
+                "Le impostazioni di questi plugin sono nel database. L'importazione sostituisce le impostazioni che porta, le altre restano; ai visitatori viene chiesto di nuovo il consenso."
+            ],
+            "Preview the import of %s": [
+                "Anteprima dell'importazione di %s"
+            ],
+            "Import the settings of %s": [
+                "Importa le impostazioni di %s"
+            ],
+            "Imported:": [
+                "Importato:"
             ]
         }
     }

@@ -12,6 +12,7 @@ use ItalyCookieChoices\Cookies\Module as CookiesModule;
 use ItalyCookieChoices\Integrations\Module as IntegrationsModule;
 use ItalyCookieChoices\Module;
 use ItalyCookieChoices\Multilingual\Module as MultilingualModule;
+use ItalyCookieChoices\Migration\Module as MigrationModule;
 use ItalyCookieChoices\Scan\Module as ScanModule;
 use ItalyCookieChoices\Settings\Module as SettingsModule;
 use ItalyStrap\Empress\ContainerBuilder;
@@ -42,6 +43,7 @@ trait BuildsContainer
             ->addModule(new CookiesModule($pluginPath, $pluginUrl))
             ->addModule(new MultilingualModule())
             ->addModule(new ScanModule())
+            ->addModule(new MigrationModule())
             ->addModule(new CliModule())
             ->build();
     }

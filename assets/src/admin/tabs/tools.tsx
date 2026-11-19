@@ -5,11 +5,14 @@ import { createElement, Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { errorMessage, importSettings } from '../api';
 import { TextField, type SettingsProps } from '../fields';
-import type { Settings } from '../settings';
+import { MigrationPanel } from '../migration';
+import type { MigrationSource, Settings } from '../settings';
 import { downloadSettings, readJsonFile } from '../transfer';
 
 interface ToolsTabProps extends SettingsProps {
 	saved: Settings;
+	/** The other consent plugins whose settings can be imported. */
+	migrationSources?: MigrationSource[];
 	onImported: ( settings: Settings ) => void;
 	onError: ( message: string ) => void;
 }
@@ -19,7 +22,7 @@ interface ToolsTabProps extends SettingsProps {
  * @param props The tab props.
  */
 export function ToolsTab( props: ToolsTabProps ) {
-	const { saved, onImported, onError } = props;
+	const { saved, migrationSources, onImported, onError } = props;
 	const [ isImporting, setImporting ] = useState( false );
 
 	async function importFile( file: File | undefined ): Promise< void > {
@@ -58,6 +61,11 @@ export function ToolsTab( props: ToolsTabProps ) {
 
 	return (
 		<Fragment>
+			<MigrationPanel
+				sources={ migrationSources ?? [] }
+				onImported={ onImported }
+				onError={ onError }
+			/>
 			<fieldset className="icc-admin__group">
 				<legend>
 					{ __(

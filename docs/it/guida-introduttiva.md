@@ -63,6 +63,7 @@ Il registro dimostra i consensi, vedi [Registro dei consensi](registro-consensi.
 
 ## Strumenti
 
+* **Importa da un altro plugin**: le impostazioni di un altro plugin per il consenso trovate nel database, vedi [Importare da un altro plugin](migrazione.md).
 * **Cookie delle versioni 2.x**: il nome e il valore del cookie che le versioni 2.x scrivevano all'accettazione. Il plugin lo scrive ancora quando tutte le categorie sono accettate, per il codice che lo legge.
 * **Esporta le impostazioni**: scarica le impostazioni salvate in un file JSON.
 * **Importa**: sostituisce le impostazioni salvate con quelle di un file esportato, anche dalle versioni 2.x.

@@ -40,6 +40,10 @@ describe( 'parseAdminData', () => {
 				documentationUrl: 42,
 				textsOnly: true,
 				canEditScripts: true,
+				migrationSources: [
+					{ id: 'complianz', name: 'Complianz' },
+					{ id: 1 },
+				],
 			} )
 		).toEqual( {
 			categories: [
@@ -76,6 +80,7 @@ describe( 'parseAdminData', () => {
 			linkTranslations: { policy: [], 'legal-notice': [] },
 			languages: { siteId: 0, language: '', sites: [] },
 			canEditScripts: true,
+			migrationSources: [ { id: 'complianz', name: 'Complianz' } ],
 		} );
 	} );
 
@@ -100,6 +105,7 @@ describe( 'parseAdminData', () => {
 			linkTranslations: { policy: [], 'legal-notice': [] },
 			languages: { siteId: 0, language: '', sites: [] },
 			canEditScripts: false,
+			migrationSources: [],
 		} );
 	} );
 } );

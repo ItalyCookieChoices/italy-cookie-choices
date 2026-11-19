@@ -12,6 +12,7 @@ Cookie Choices adds the `wp cookie-choices` commands to [WP-CLI](https://wp-cli.
 | `wp cookie-choices log export` | Exports the consent log as CSV |
 | `wp cookie-choices log purge` | Deletes the old records of the consent log |
 | `wp cookie-choices scan` | Scans the pages of the site and lists the vendors found |
+| `wp cookie-choices migrate` | Imports the settings of another consent plugin |
 
 ## status
 
@@ -53,6 +54,16 @@ wp cookie-choices scan --category=3,7 --post=42 --format=json
 
 The same scan of the **Blocking** tab, see [Scan the site](blocking.md#scan-the-site): `--home` for the home page, `--post-type`, `--category` and `--post` for the post types, the ids of the categories and the ids of the posts, separated by commas. The list has a row for each vendor found, with its name, category, whether it is blocked (`on` or `off`) and the number of pages, then a row for each unknown third party, with only its host and its pages. The pages that cannot be read are reported as errors. It changes nothing.
 
+## migrate
+
+```bash
+wp cookie-choices migrate
+wp cookie-choices migrate complianz --dry-run
+wp cookie-choices migrate complianz --yes
+```
+
+Without a plugin it lists the plugins whose settings are in the database. With one, it shows what the import changes and what to check, then imports after the confirmation; `--dry-run` stops before. See [Import from another plugin](migration.md).
+
 ## Exit codes
 
 | Code | Meaning |
@@ -65,3 +76,4 @@ The same scan of the **Blocking** tab, see [Scan the site](blocking.md#scan-the-
 | 5 | The file has no settings of Cookie Choices, or they are of a newer version of the plugin |
 | 6 | The date is not valid |
 | 7 | There are no published pages to scan in the selection |
+| 8 | There are no settings of this plugin to import |

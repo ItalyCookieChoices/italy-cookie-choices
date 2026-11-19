@@ -153,6 +153,13 @@ export interface AdminData {
 	languages: Languages;
 	/** True when the user can save unfiltered HTML, so the custom scripts. */
 	canEditScripts: boolean;
+	/** The other consent plugins whose settings can be imported. */
+	migrationSources: MigrationSource[];
+}
+
+export interface MigrationSource {
+	id: string;
+	name: string;
 }
 
 /** A link of the banner to a page of the site, as BannerLink in src/Consent/Domain/BannerLink.php. */
@@ -232,6 +239,14 @@ function linkTranslationsFrom(
 		policy: linkTranslationRowsFrom( rows.policy ),
 		'legal-notice': linkTranslationRowsFrom( rows[ 'legal-notice' ] ),
 	};
+}
+
+function isMigrationSource( value: unknown ): value is MigrationSource {
+	return (
+		isRecord( value ) &&
+		typeof value.id === 'string' &&
+		typeof value.name === 'string'
+	);
 }
 
 function isPostType( value: unknown ): value is PostType {
@@ -327,6 +342,9 @@ export function parseAdminData( raw: unknown ): AdminData {
 		linkTranslations: linkTranslationsFrom( data.linkTranslations ),
 		languages: languagesFrom( data.languages ),
 		canEditScripts: data.canEditScripts === true,
+		migrationSources: Array.isArray( data.migrationSources )
+			? data.migrationSources.filter( isMigrationSource )
+			: [],
 	};
 }
 

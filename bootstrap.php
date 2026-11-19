@@ -30,6 +30,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
         ->addModule(new Cookies\Module($pluginPath, $pluginUrl))
         ->addModule(new Multilingual\Module())
         ->addModule(new Scan\Module())
+        ->addModule(new Migration\Module())
         ->addModule(new Cli\Module())
         ->extend(SubscribersConfigExtension::class, CommandsConfigExtension::class)
         ->build();
