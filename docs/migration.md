@@ -7,6 +7,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 ## The plugins
 
 * Complianz, the free version 7 and the versions before
+* CookieYes, version 3 and the versions 2, named GDPR Cookie Consent
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -51,6 +52,27 @@ When the settings of a plugin are in the database, the dashboard shows a notice.
 | The cookies of a blocked script | The cookies of its custom vendor |
 
 Not imported: the consent on scroll or after a time, it is not a valid consent; the regions and the banner for the United States; TCF; the documents Complianz generates, the link to the page is kept; the translations. The preview lists the ones the site uses.
+
+## From CookieYes
+
+| CookieYes | Cookie Choices |
+| --- | --- |
+| The texts and the buttons of the active banner, in the default language | The banner text and the button texts |
+| The privacy link and its Read more button | The policy link, its new tab and nofollow |
+| The type, the position, the logo and the colors of the banner | The **Style** tab, the popup becomes the modal |
+| The custom CSS | The custom CSS, in a comment: its selectors are the ones of CookieYes |
+| The categories | The texts of the categories: Functional becomes Preferences, Analytics and Performance become Statistics, Advertisement becomes Marketing |
+| The consent expiration, the reload on accept and Global Privacy Control | The same settings |
+| The revisit consent button | The floating button |
+| The title of the video placeholder | The placeholder text of the blocked content |
+| Google Consent Mode | The **Integrations** tab |
+| The cookies with a script pattern of a common vendor | That common vendor, turned on |
+| The cookies with another script pattern | A custom vendor for each pattern, with its cookies |
+| The cookies without a script pattern | The site cookies |
+
+The versions 2 import the texts, the Read more link, the position, the colors, the revisit button and the cookies, as site cookies.
+
+Not imported: the banner for the United States with the opt-out, the geo-targeting, the consent on scroll, the translations. When the site uses the CookieYes web app, its settings in WordPress can be older than the ones of the web app: check them after the import.
 
 ## Add a plugin
 

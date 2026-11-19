@@ -59,6 +59,50 @@ final readonly class Conversions
     }
 
     /**
+     * The page of an address of the site, null when the address is not a published page.
+     *
+     * @return array{slug: string, url: string, title: string}|null
+     */
+    public function pageOfUrl(string $url): ?array
+    {
+        return $url === '' ? null : $this->page(\url_to_postid($url));
+    }
+
+    /**
+     * The id of an image of the media library from its address, empty when it is not one.
+     */
+    public function attachmentOfUrl(string $url): string
+    {
+        $id = $url === '' || $url === '#' ? 0 : \attachment_url_to_postid($url);
+
+        return $id > 0 ? (string) $id : '';
+    }
+
+    /**
+     * A color like #fff or #ffffff, empty when it is not one.
+     */
+    public function color(mixed $color): string
+    {
+        return \is_string($color) ? (string) \sanitize_hex_color(\trim($color)) : '';
+    }
+
+    /**
+     * A value of another plugin as a text, trimmed, empty when it is not a scalar.
+     */
+    public function text(mixed $value): string
+    {
+        return \is_scalar($value) ? \trim((string) $value) : '';
+    }
+
+    /**
+     * Whether a value of another plugin turns a feature on: true, 1, "1", "yes" or "true".
+     */
+    public function isOn(mixed $value): bool
+    {
+        return \in_array($value, [true, 1, '1', 'yes', 'true'], true);
+    }
+
+    /**
      * An id of the settings from a name, like "my-chat" from "My chat".
      */
     public function id(string $name): string

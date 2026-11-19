@@ -184,9 +184,7 @@ final readonly class ComplianzBanner
 
     private function color(mixed $palette): string
     {
-        $color = \is_array($palette) ? $palette['color'] ?? '' : '';
-
-        return \is_string($color) ? (string) \sanitize_hex_color($color) : '';
+        return $this->conversions->color(\is_array($palette) ? $palette['color'] ?? '' : '');
     }
 
     /**
