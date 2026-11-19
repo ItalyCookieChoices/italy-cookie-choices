@@ -222,6 +222,44 @@ describe( 'Blocker', () => {
 		).toHaveLength( 1 );
 	} );
 
+	it( 'adds the code of a template once its category is accepted, then runs its scripts', async () => {
+		const { api, blocker } = setUp(
+			'<template data-icc-code data-category="statistics">' +
+				'<img id="pixel" src="https://tracker.example.com/pixel.gif" alt="">' +
+				inlineScript( 'statistics', 'code' ) +
+				'</template>' +
+				inlineScript( 'statistics', 'after' )
+		);
+		await blocker.start();
+		expect( document.querySelector( '#pixel' ) ).toBeNull();
+		expect( window.iccRuns ).toEqual( [] );
+
+		api.setConsent( [ 'statistics' ] );
+		await blocker.update();
+
+		expect( document.querySelector( '#pixel' ) ).not.toBeNull();
+		expect(
+			document.querySelector( 'template[data-icc-code]' )
+		).toBeNull();
+		expect( window.iccRuns ).toEqual( [ 'code', 'after' ] );
+	} );
+
+	it( 'keeps the template of a category without the consent', async () => {
+		const { api, blocker } = setUp(
+			'<template data-icc-code data-category="marketing">' +
+				inlineScript( 'marketing', 'code' ) +
+				'</template>'
+		);
+		api.setConsent( [ 'statistics' ] );
+
+		await blocker.start();
+
+		expect(
+			document.querySelector( 'template[data-icc-code]' )
+		).not.toBeNull();
+		expect( window.iccRuns ).toEqual( [] );
+	} );
+
 	it( 'runs a script only once', async () => {
 		const { api, blocker } = setUp( inlineScript( 'statistics', 'once' ) );
 		api.acceptAll();

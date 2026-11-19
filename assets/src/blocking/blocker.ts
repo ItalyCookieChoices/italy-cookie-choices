@@ -4,6 +4,8 @@ import type { ConsentApi } from '../consent/types';
 const BLOCKED_SCRIPTS = 'script[type="text/plain"][data-category]';
 const BLOCKED_FRAMES =
 	'iframe[data-icc-src][data-category], embed[data-icc-src][data-category]';
+/** Printed by ItalyCookieChoices\Blocking\UI\CustomScriptsPrinter: code added to the page after the consent. */
+const BLOCKED_CODE = 'template[data-icc-code][data-category]';
 const SOURCE = 'data-icc-src';
 const TYPE = 'data-icc-type';
 const HIDDEN = 'data-icc-hidden';
@@ -30,6 +32,7 @@ export function isWebAddress( address: string, base: string ): boolean {
 
 /**
  * Runs the blocked scripts and loads the blocked frames once their category has the consent.
+ * A blocked code template is added to the page in its place, its blocked scripts run with the others.
  *
  * The scripts run in the page order, each one after the previous script file is loaded.
  * A frame shows the placeholder of its category until the consent, and again if the consent is withdrawn.
@@ -58,7 +61,11 @@ export class Blocker {
 		this.document
 			.querySelectorAll( BLOCKED_FRAMES )
 			.forEach( ( frame ) => this.updateFrame( frame ) );
-		this.scripts = this.scripts.then( () => this.runScripts() );
+		this.scripts = this.scripts.then( () => {
+			this.addCode();
+
+			return this.runScripts();
+		} );
 
 		return this.scripts;
 	}
@@ -148,6 +155,18 @@ export class Blocker {
 		}
 
 		return placeholder;
+	}
+
+	private addCode(): void {
+		this.document
+			.querySelectorAll< HTMLTemplateElement >( BLOCKED_CODE )
+			.forEach( ( template ) => {
+				if ( this.allows( template ) ) {
+					template.replaceWith(
+						this.document.importNode( template.content, true )
+					);
+				}
+			} );
 	}
 
 	private async runScripts(): Promise< void > {

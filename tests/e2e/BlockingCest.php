@@ -189,6 +189,36 @@ final class BlockingCest
         $I->assertNull($I->executeJS('return window.iccTagged;'));
     }
 
+    public function theCustomScriptsRunAfterTheConsentToTheirCategory(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['custom_scripts' => [
+            [
+                'name' => 'Site',
+                'category' => 'necessary',
+                'position' => 'head',
+                'code' => '<script>window.iccCustom = ["site"];</script>',
+            ],
+            [
+                'name' => 'Chat',
+                'category' => 'statistics',
+                'position' => 'body',
+                'code' => '<script>window.iccCustom.push("chat");</script>'
+                    . '<img id="icc-e2e-pixel" src="/wp-includes/images/blank.gif" alt="">',
+            ],
+        ]]);
+        $I->amOnPage('/');
+
+        $I->seeElementInDOM('template[data-icc-code][data-category="statistics"]');
+        $I->dontSeeElementInDOM('#icc-e2e-pixel');
+        $I->assertSame(['site'], $I->executeJS('return window.iccCustom;'));
+
+        $I->executeJS('window.italyCookieChoices.setConsent(["statistics"]);');
+
+        $I->waitForJS('return window.iccCustom.length === 2;');
+        $I->assertSame(['site', 'chat'], $I->executeJS('return window.iccCustom;'));
+        $I->seeElementInDOM('#icc-e2e-pixel');
+    }
+
     public function theGoogleTagsServedFromTheSiteWaitForTheConsent(E2eTester $I): void
     {
         $I->haveOptionInDatabase('icc_e2e_gateway', '1');

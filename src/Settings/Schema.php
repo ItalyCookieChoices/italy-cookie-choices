@@ -289,6 +289,20 @@ final readonly class Schema
                 ],
             ],
             'allowed_patterns' => $texts,
+            'custom_scripts' => [
+                'type' => 'array',
+                'items' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'name' => ['type' => 'string'],
+                        'category' => $id,
+                        'position' => ['type' => 'string', 'enum' => ['head', 'body']],
+                        'code' => ['type' => 'string', 'minLength' => 1],
+                    ],
+                    'required' => ['category', 'position', 'code'],
+                    'additionalProperties' => false,
+                ],
+            ],
         ];
     }
 }

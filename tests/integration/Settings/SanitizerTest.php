@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration\Settings;
 
 use ItalyCookieChoices\Settings\Sanitizer;
+use ItalyCookieChoices\Settings\Schema;
+use ItalyCookieChoices\Tests\Support\LogsIn;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class SanitizerTest extends WPTestCase
 {
+    use LogsIn;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -219,6 +223,68 @@ final class SanitizerTest extends WPTestCase
             ],
             $result['site_cookies']
         );
+    }
+
+    public function testTheCustomScriptsNeedCodeAndACategory(): void
+    {
+        $this->logInAs('administrator');
+
+        $result = (new Sanitizer())([
+            'custom_scripts' => [
+                [
+                    'name' => ' <b>Chat</b> ',
+                    'category' => 'preferences',
+                    'position' => 'head',
+                    'code' => " <script>chat( '<b>' );</script>\n",
+                ],
+                ['name' => 'Ads', 'category' => 'marketing', 'position' => 'footer', 'code' => '<img src="a.gif">'],
+                ['name' => 'Empty', 'category' => 'marketing', 'position' => 'body', 'code' => ' '],
+                ['name' => 'No category', 'position' => 'body', 'code' => '<script></script>'],
+                'not a script',
+            ],
+        ]);
+
+        $this->assertSame(
+            [
+                [
+                    'name' => 'Chat',
+                    'category' => 'preferences',
+                    'position' => 'head',
+                    'code' => "<script>chat( '<b>' );</script>",
+                ],
+                ['name' => 'Ads', 'category' => 'marketing', 'position' => 'body', 'code' => '<img src="a.gif">'],
+            ],
+            $result['custom_scripts']
+        );
+    }
+
+    public function testOnlyTheUsersWithUnfilteredHtmlChangeTheCustomScripts(): void
+    {
+        $saved = [['name' => 'Chat', 'category' => 'preferences', 'position' => 'body', 'code' => '<script></script>']];
+        $this->logInAs('administrator');
+        \update_option(Schema::OPTION, ['custom_scripts' => $saved]);
+        $this->logInAs('author');
+
+        $result = (new Sanitizer())([
+            'custom_scripts' => [
+                ['name' => 'Evil', 'category' => 'necessary', 'position' => 'head', 'code' => '<script>e()</script>'],
+            ],
+        ]);
+
+        $this->assertSame($saved, $result['custom_scripts']);
+    }
+
+    public function testWithoutUnfilteredHtmlNoCustomScriptIsAdded(): void
+    {
+        \update_option(Schema::OPTION, []);
+
+        $result = (new Sanitizer())([
+            'custom_scripts' => [
+                ['name' => 'Evil', 'category' => 'necessary', 'position' => 'head', 'code' => '<script>e()</script>'],
+            ],
+        ]);
+
+        $this->assertArrayNotHasKey('custom_scripts', $result);
     }
 
     public function testTheCustomVendorsGetAUniqueIdFromTheirName(): void

@@ -188,7 +188,8 @@ final readonly class SettingsPage implements SubscriberInterface
      *         siteId: int,
      *         language: string,
      *         sites: list<array{id: int, name: string, url: string, language: string, canTranslate: bool}>
-     *     }
+     *     },
+     *     canEditScripts: bool
      * }
      */
     public function data(): array
@@ -217,6 +218,8 @@ final readonly class SettingsPage implements SubscriberInterface
             'policyTranslations' => $this->policyTranslations->rows(),
             // The sites connected as translations, by MultilingualPress.
             'languages' => $this->languages->forSite(\get_current_blog_id()),
+            // Only these users change the custom scripts, like the Custom HTML block.
+            'canEditScripts' => \current_user_can('unfiltered_html'),
         ];
     }
 

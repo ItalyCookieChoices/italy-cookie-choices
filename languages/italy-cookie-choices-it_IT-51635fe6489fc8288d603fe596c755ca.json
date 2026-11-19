@@ -640,6 +640,39 @@
             ],
             "The preferences list the vendors of each category: a visitor can accept only some of them. The guidelines of the Italian Data Protection Authority ask to choose the third parties too.": [
                 "Le preferenze elencano i fornitori di ogni categoria: un visitatore pu\u00f2 accettarne solo alcuni. Le linee guida del Garante per la protezione dei dati personali chiedono di poter scegliere anche le terze parti."
+            ],
+            "Script name": [
+                "Nome dello script"
+            ],
+            "The code runs after the consent to this category, the necessary one runs on every page.": [
+                "Il codice viene eseguito dopo il consenso a questa categoria, quello della categoria necessaria in ogni pagina."
+            ],
+            "In the head": [
+                "Nell'head"
+            ],
+            "At the end of the body": [
+                "Alla fine del body"
+            ],
+            "Code": [
+                "Codice"
+            ],
+            "HTML: the scripts and the elements they need, like the image of a pixel. Nothing of it loads before the consent.": [
+                "HTML: gli script e gli elementi di cui hanno bisogno, come l'immagine di un pixel. Niente viene caricato prima del consenso."
+            ],
+            "Remove the script %s": [
+                "Rimuovi lo script %s"
+            ],
+            "Add a script": [
+                "Aggiungi uno script"
+            ],
+            "Only the administrators who can save unfiltered HTML change the scripts.": [
+                "Solo gli amministratori che possono salvare HTML non filtrato modificano gli script."
+            ],
+            "Scripts after the consent": [
+                "Script dopo il consenso"
+            ],
+            "Code the plugin adds to the pages after the consent to its category, like a chat or a tracking snippet that no vendor covers.": [
+                "Codice che il plugin aggiunge alle pagine dopo il consenso alla sua categoria, come una chat o uno snippet di tracciamento che nessun fornitore copre."
             ]
         }
     }

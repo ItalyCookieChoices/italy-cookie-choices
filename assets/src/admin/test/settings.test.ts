@@ -39,6 +39,7 @@ describe( 'parseAdminData', () => {
 				consentLogExportUrl: 'https://example.com/export',
 				documentationUrl: 42,
 				textsOnly: true,
+				canEditScripts: true,
 			} )
 		).toEqual( {
 			categories: [
@@ -74,6 +75,7 @@ describe( 'parseAdminData', () => {
 			},
 			policyTranslations: [],
 			languages: { siteId: 0, language: '', sites: [] },
+			canEditScripts: true,
 		} );
 	} );
 
@@ -97,6 +99,7 @@ describe( 'parseAdminData', () => {
 			},
 			policyTranslations: [],
 			languages: { siteId: 0, language: '', sites: [] },
+			canEditScripts: false,
 		} );
 	} );
 } );

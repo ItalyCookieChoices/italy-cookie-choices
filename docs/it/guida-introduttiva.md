@@ -53,6 +53,7 @@ I fornitori comuni, come Google Analytics, YouTube, Google Maps e Facebook, sono
 * **Invia i segnali del Consent Mode**: Google Consent Mode v2, attivo per impostazione predefinita.
 * **Carica i tag di Google prima del consenso (modalità avanzata)**: leggi [Integrazioni](integrazioni.md#modalità-base-e-avanzata) prima di attivarla.
 * **ID di misurazione di Google Analytics**, **ID del contenitore di Google Tag Manager** e **ID del pixel di Facebook**: il plugin stampa questi tag, bloccati fino al consenso. Lasciali vuoti quando i tag sono stampati dal tema o da un altro plugin.
+* **Script dopo il consenso**: codice che il plugin aggiunge alle pagine dopo il consenso alla sua categoria, vedi [Integrazioni](integrazioni.md#script-dopo-il-consenso).
 * **Usa la modalità privacy avanzata per i video di YouTube**: i video vengono caricati da youtube-nocookie.com.
 
 ## Registro dei consensi

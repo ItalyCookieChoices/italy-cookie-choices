@@ -116,6 +116,20 @@ Lascia un campo vuoto quando il tag è stampato dal tema o da un altro plugin. I
 
 I video di YouTube usano `youtube-nocookie.com` con **Usa la modalità privacy avanzata per i video di YouTube**, e attendono comunque il consenso marketing.
 
+## Script dopo il consenso
+
+**Script dopo il consenso**, nella scheda **Integrazioni**, aggiunge codice alle pagine dopo il consenso alla sua categoria: una chat, uno snippet di tracciamento che nessun fornitore copre, il codice di un servizio che fornisce uno snippet HTML. Ogni script ha un nome, una categoria, una posizione, nell'head o alla fine del body, e il suo codice.
+
+* Il codice è HTML: gli script e gli elementi di cui hanno bisogno, come l'immagine di un pixel di tracciamento. Niente viene caricato prima del consenso, nemmeno l'immagine.
+* Gli script vengono eseguiti nel loro ordine, ogni file di script viene caricato prima che venga eseguito lo script successivo. Quando il consenso arriva dopo, vengono eseguiti senza ricaricare la pagina.
+* Il codice della categoria necessaria viene stampato così com'è, in ogni pagina.
+* Uno script che corrisponde a un fornitore della scheda **Blocco** segue anche il consenso a quel fornitore, con il [consenso per fornitore](blocco.md#consenso-per-fornitore).
+* Dopo una revoca il codice non viene più eseguito dalla pagina successiva, la [pulizia dei cookie](tabella-cookie.md#i-cookie-senza-consenso-vengono-cancellati) cancella i cookie della categoria.
+
+Solo gli utenti che possono salvare HTML non filtrato modificano gli script, come per il blocco HTML personalizzato: gli amministratori di un sito, i super amministratori di un network, e WP-CLI. Gli altri utenti vedono solo i loro nomi, e salvare le impostazioni lascia gli script come sono.
+
+Il codice viene stampato con il plugin attivo, anche senza un fornitore nella scheda **Blocco**. Scrivi qui il codice di un fornitore, oppure bloccalo dove lo stampa il tema: non entrambi.
+
 ## Bloccare uno script
 
 ### Uno script accodato

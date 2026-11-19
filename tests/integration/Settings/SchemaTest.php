@@ -15,14 +15,16 @@ final class SchemaTest extends WPTestCase
      * plus the consent log of version 4, the vendors of version 5 that replaced the script lists
      * the integrations of version 6 and the Microsoft consent signals of version 7.
      * Version 8 adds no key, it turns off the reCAPTCHA preset, version 9 adds the site cookies,
-     * version 10 the Global Privacy Control. The cookie domain needs no step, it is empty by default.
+     * version 10 the Global Privacy Control. The cookie domain and the custom scripts need no step, they are empty
+     * by default.
      */
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg', 'banner_logo',
         'banner_text_color', 'button_text', 'categories', 'clarity_consent_mode', 'closeClass', 'consentText',
         'consent_duration', 'consent_log', 'consent_log_retention', 'consent_mode', 'consent_mode_advanced',
         'contentStyle', 'content_message_button_text', 'content_message_text', 'cookie_domain', 'cookie_name',
-        'cookie_value', 'customCSS', 'custom_vendors', 'disabled_vendors', 'excluded_pages', 'facebook_pixel_id',
+        'cookie_value', 'customCSS', 'custom_scripts', 'custom_vendors', 'disabled_vendors', 'excluded_pages',
+        'facebook_pixel_id',
         'floating_button', 'floating_button_label', 'floating_button_position', 'ga_measurement_id',
         'global_privacy_control', 'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass',
         'js_template', 'nofollow', 'reload', 'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url',
@@ -109,6 +111,9 @@ final class SchemaTest extends WPTestCase
                 ['name' => 'wp_lang', 'category' => 'preferences', 'duration' => 'Session', 'purpose' => 'Language'],
             ],
             'allowed_patterns' => ['youtube.com/embed/public'],
+            'custom_scripts' => [
+                ['name' => 'Chat', 'category' => 'preferences', 'position' => 'head', 'code' => '<script></script>'],
+            ],
             'consent_mode' => '1',
             'ga_measurement_id' => 'G-ABC123',
             'gtm_container_id' => '',
@@ -181,6 +186,12 @@ final class SchemaTest extends WPTestCase
             ['site_cookies' => [
                 ['name' => 'a', 'category' => 'necessary', 'duration' => '', 'purpose' => '', 'x' => '1'],
             ]],
+        ];
+        yield 'custom script without code' => [
+            ['custom_scripts' => [['name' => 'A', 'category' => 'marketing', 'position' => 'body', 'code' => '']]],
+        ];
+        yield 'custom script in the footer' => [
+            ['custom_scripts' => [['name' => 'A', 'category' => 'marketing', 'position' => 'footer', 'code' => 'a']]],
         ];
         yield 'gateway path with the host' => [['google_tag_gateway_path' => 'https://example.com/metrics']];
         yield 'gateway path with a query' => [['google_tag_gateway_path' => '/metrics?a=1']];

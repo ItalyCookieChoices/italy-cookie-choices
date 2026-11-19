@@ -42,4 +42,5 @@ export const data: AdminData = {
 	},
 	policyTranslations: [],
 	languages: { siteId: 1, language: '', sites: [] },
+	canEditScripts: true,
 };
