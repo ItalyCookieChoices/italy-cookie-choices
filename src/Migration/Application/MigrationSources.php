@@ -18,7 +18,7 @@ final readonly class MigrationSources
     }
 
     /**
-     * The sources whose settings are in the database.
+     * The sources whose settings are in the database, with something to import.
      *
      * @return list<MigrationSource>
      */
@@ -26,7 +26,7 @@ final readonly class MigrationSources
     {
         return \array_values(\array_filter(
             $this->all(),
-            static fn(MigrationSource $source): bool => $source->isFound()
+            static fn(MigrationSource $source): bool => $source->isFound() && !$source->read()->isEmpty()
         ));
     }
 

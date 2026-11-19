@@ -22,7 +22,7 @@ final class MigrationNoticeTest extends WPTestCase
     {
         parent::setUp();
         \add_action(BuildingMigrationSources::class, static function (BuildingMigrationSources $event): void {
-            $event->addSource(new FakeMigrationSource('other', new ImportedSettings([])));
+            $event->addSource(new FakeMigrationSource('other', new ImportedSettings(['text' => 'Imported'])));
         });
     }
 

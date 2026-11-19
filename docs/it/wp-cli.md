@@ -62,7 +62,7 @@ wp cookie-choices migrate complianz --dry-run
 wp cookie-choices migrate complianz --yes
 ```
 
-Senza un plugin elenca i plugin le cui impostazioni sono nel database. Con un plugin, mostra cosa cambia l'importazione e cosa controllare, poi importa dopo la conferma; `--dry-run` si ferma prima ed esce con il codice 0. Vedi [Importare da un altro plugin](migrazione.md).
+Senza un plugin elenca i plugin le cui impostazioni sono nel database, con qualcosa da importare. Con un plugin, mostra cosa cambia l'importazione e cosa controllare, poi importa dopo la conferma; `--dry-run` si ferma prima ed esce con il codice 0. Vedi [Importare da un altro plugin](migrazione.md).
 
 ## Codici di uscita
 
