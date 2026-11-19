@@ -19,6 +19,7 @@ final readonly class Cookie
      * @param string $category The consent category, like "statistics".
      * @param string $purpose What it is used for.
      * @param string $duration How long it is kept, like "2 years" or "Session".
+     * @param string $vendor The id of the vendor that sets it, empty for the cookies of the site.
      */
     public function __construct(
         string $name,
@@ -26,6 +27,7 @@ final readonly class Cookie
         private string $category,
         private string $purpose,
         private string $duration,
+        private string $vendor = '',
     ) {
         $this->name = \trim($name);
         if ($this->name === '') {
@@ -59,5 +61,10 @@ final readonly class Cookie
     public function duration(): string
     {
         return $this->duration;
+    }
+
+    public function vendor(): string
+    {
+        return $this->vendor;
     }
 }

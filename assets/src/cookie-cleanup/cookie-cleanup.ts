@@ -6,6 +6,65 @@ import type { ConsentApi } from '../consent/types';
 export interface CookieCleanupConfig {
 	/** The names of the cookies of each optional category, a name ending with * is a prefix. */
 	categories: Record< string, string[] >;
+	/** The cookies of each vendor, with the consent per vendor, empty with the consent by category. */
+	vendors: VendorCookies[];
+}
+
+export interface VendorCookies {
+	id: string;
+	category: string;
+	/** The names of the cookies, a name ending with * is a prefix. */
+	cookies: string[];
+}
+
+/**
+ * The choice of the visitor the cleanup follows.
+ */
+export interface CleanupChoice {
+	categories: readonly string[];
+	/** The vendors refused inside the accepted categories. */
+	refusedVendors?: readonly string[];
+}
+
+function names( value: unknown ): string[] {
+	return Array.isArray( value )
+		? value.filter(
+				( name ): name is string =>
+					typeof name === 'string' && name !== ''
+			)
+		: [];
+}
+
+function parseCategories( raw: unknown ): Record< string, string[] > {
+	const categories: Record< string, string[] > = {};
+	if ( typeof raw !== 'object' || raw === null ) {
+		return categories;
+	}
+
+	for ( const [ category, list ] of Object.entries( raw ) ) {
+		if ( Array.isArray( list ) ) {
+			categories[ category ] = names( list );
+		}
+	}
+
+	return categories;
+}
+
+function parseVendor( value: unknown ): VendorCookies | null {
+	if ( typeof value !== 'object' || value === null ) {
+		return null;
+	}
+
+	const { id, category, cookies } = value as Record< string, unknown >;
+	if (
+		typeof id !== 'string' ||
+		typeof category !== 'string' ||
+		! Array.isArray( cookies )
+	) {
+		return null;
+	}
+
+	return { id, category, cookies: names( cookies ) };
 }
 
 /**
@@ -17,24 +76,15 @@ export function parseCookieCleanupConfig(
 ): CookieCleanupConfig {
 	const raw =
 		typeof value === 'object' && value !== null
-			? ( value as Record< string, unknown > ).categories
-			: null;
-	const categories: Record< string, string[] > = {};
-	if ( typeof raw !== 'object' || raw === null ) {
-		return { categories };
-	}
+			? ( value as Record< string, unknown > )
+			: {};
 
-	for ( const [ category, names ] of Object.entries( raw ) ) {
-		if ( ! Array.isArray( names ) ) {
-			continue;
-		}
-
-		categories[ category ] = names.filter(
-			( name ): name is string => typeof name === 'string' && name !== ''
-		);
-	}
-
-	return { categories };
+	return {
+		categories: parseCategories( raw.categories ),
+		vendors: ( Array.isArray( raw.vendors ) ? raw.vendors : [] )
+			.map( parseVendor )
+			.filter( ( vendor ): vendor is VendorCookies => vendor !== null ),
+	};
 }
 
 function matches( pattern: string, name: string ): boolean {
@@ -43,23 +93,56 @@ function matches( pattern: string, name: string ): boolean {
 		: name === pattern;
 }
 
+function matchesAny( patterns: readonly string[], name: string ): boolean {
+	return patterns.some( ( pattern ) => matches( pattern, name ) );
+}
+
 /**
- * The cookies of the browser that belong to a category without the consent.
- * @param config   The names of the cookies of each category.
- * @param accepted The accepted categories.
+ * The names of the cookies of the refused vendors and of the vendors still accepted: a name they share is kept.
+ * @param config The cookies of each vendor.
+ * @param choice The choice of the visitor.
+ */
+function vendorPatterns(
+	config: CookieCleanupConfig,
+	choice: CleanupChoice
+): { refused: string[]; kept: string[] } {
+	const refusedVendors = choice.refusedVendors ?? [];
+	const isRefused = ( vendor: VendorCookies ): boolean =>
+		refusedVendors.includes( vendor.id );
+	const isKept = ( vendor: VendorCookies ): boolean =>
+		choice.categories.includes( vendor.category ) && ! isRefused( vendor );
+
+	return {
+		refused: config.vendors
+			.filter( isRefused )
+			.flatMap( ( vendor ) => vendor.cookies ),
+		kept: config.vendors
+			.filter( isKept )
+			.flatMap( ( vendor ) => vendor.cookies ),
+	};
+}
+
+/**
+ * The cookies of the browser that belong to a category without the consent or to a refused vendor.
+ * @param config   The names of the cookies of each category and vendor.
+ * @param choice   The accepted categories and the refused vendors.
  * @param existing The names of the cookies of the browser.
  */
 export function cookiesToDelete(
 	config: CookieCleanupConfig,
-	accepted: readonly string[],
+	choice: CleanupChoice,
 	existing: readonly string[]
 ): string[] {
-	const patterns = Object.entries( config.categories )
-		.filter( ( [ category ] ) => ! accepted.includes( category ) )
-		.flatMap( ( [ , names ] ) => names );
+	const categories = Object.entries( config.categories )
+		.filter( ( [ category ] ) => ! choice.categories.includes( category ) )
+		.flatMap( ( [ , list ] ) => list );
+	const vendors = vendorPatterns( config, choice );
 
-	return existing.filter( ( name ) =>
-		patterns.some( ( pattern ) => matches( pattern, name ) )
+	return existing.filter(
+		( name ) =>
+			matchesAny( categories, name ) ||
+			( matchesAny( vendors.refused, name ) &&
+				! matchesAny( vendors.kept, name ) )
 	);
 }
 
@@ -101,10 +184,11 @@ function deleteCookie(
 }
 
 /**
- * Deletes the cookies of the categories without the consent, on load and after each choice.
+ * Deletes the cookies of the categories without the consent and of the refused vendors, on load and after
+ * each choice, the ones made in another tab too.
  *
  * Only the cookies the script can see: the HttpOnly ones and the ones of the other sites are not reachable.
- * @param config   The names of the cookies of each category.
+ * @param config   The names of the cookies of each category and vendor.
  * @param consent  The consent API of the plugin.
  * @param document The document of the page.
  * @param hostname The host of the page.
@@ -120,14 +204,16 @@ export function startCookieCleanup(
 		.filter( ( category ) => category.required )
 		.map( ( category ) => category.id );
 
-	const clean = ( accepted: readonly string[] ): void => {
-		cookiesToDelete( config, accepted, cookieNames( document ) ).forEach(
-			( name ) => deleteCookie( document, name, hostname )
-		);
+	const clean = ( choice: CleanupChoice | null ): void => {
+		cookiesToDelete(
+			config,
+			choice ?? { categories: required },
+			cookieNames( document )
+		).forEach( ( name ) => deleteCookie( document, name, hostname ) );
 	};
 
-	clean( consent.getConsent()?.categories ?? required );
+	clean( consent.getConsent() );
 	consent.onChange( ( change ) => {
-		clean( change.consent?.categories ?? required );
+		clean( change.consent );
 	} );
 }

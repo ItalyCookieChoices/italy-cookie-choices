@@ -110,7 +110,8 @@ final readonly class CookieTableFactory
                 $provider !== '' ? $provider : $vendor->id(),
                 $vendor->category(),
                 $record['purpose'],
-                $record['duration']
+                $record['duration'],
+                $vendor->id()
             );
         } catch (\InvalidArgumentException) {
             return null;

@@ -46,6 +46,7 @@ By default the visitors accept or refuse a category, with all its vendors. Turn 
 * Turning on a single vendor accepts its category, with only that vendor.
 * The placeholder of a blocked video or map accepts only its vendor.
 * Accept all accepts every vendor, reject all refuses them all.
+* Refusing a vendor deletes the cookies it set, as the [cookie table](cookie-table.md#the-cookies-without-the-consent-are-deleted) explains.
 
 The guidelines of the Italian Data Protection Authority ask that the visitors can choose analytically the functions, the third parties and the cookies, also grouped in categories: the choice of the vendors is the safest reading, turn it on for the sites in Italy. The list has the common vendors turned on and the custom vendors: turn off the common vendors the site does not use, **Scan the site** finds them.
 

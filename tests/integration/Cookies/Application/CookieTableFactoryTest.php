@@ -44,6 +44,7 @@ final class CookieTableFactoryTest extends WPTestCase
         $this->assertSame('statistics', $cookie->category());
         $this->assertSame('Google Analytics', $cookie->provider());
         $this->assertSame('2 years', $cookie->duration());
+        $this->assertSame('google-analytics', $cookie->vendor());
     }
 
     public function testThePresetsTurnedOffAreNotListed(): void
@@ -73,6 +74,7 @@ final class CookieTableFactoryTest extends WPTestCase
         $this->assertSame('statistics', $cookie->category());
         $this->assertSame('1 year', $cookie->duration());
         $this->assertSame('Counts the visits', $cookie->purpose());
+        $this->assertSame('tracker', $cookie->vendor());
     }
 
     public function testTheSiteCookiesAreListed(): void
@@ -89,6 +91,7 @@ final class CookieTableFactoryTest extends WPTestCase
         $this->assertNotNull($cookie);
         $this->assertSame('My site', $cookie->provider());
         $this->assertSame('preferences', $cookie->category());
+        $this->assertSame('', $cookie->vendor());
     }
 
     public function testTheListenersChangeTheCookies(): void

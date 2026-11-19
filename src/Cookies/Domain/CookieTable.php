@@ -14,19 +14,19 @@ final readonly class CookieTable
     /**
      * @var array<string, Cookie>
      */
-    private array $cookies;
+    private array $unique;
 
     /**
      * @param list<Cookie> $cookies
      */
-    public function __construct(array $cookies)
+    public function __construct(private array $cookies)
     {
         $unique = [];
         foreach ($cookies as $cookie) {
             $unique[$cookie->name()] ??= $cookie;
         }
 
-        $this->cookies = $unique;
+        $this->unique = $unique;
     }
 
     /**
@@ -35,13 +35,32 @@ final readonly class CookieTable
     public function inCategory(string $category): array
     {
         return \array_values(\array_filter(
-            $this->cookies,
+            $this->unique,
             static fn(Cookie $cookie): bool => $cookie->category() === $category
         ));
     }
 
+    /**
+     * The cookies of each vendor, a name two vendors share is listed for both, the cookies of the site are left out.
+     *
+     * @return array<string, non-empty-list<Cookie>>
+     */
+    public function byVendor(): array
+    {
+        $vendors = [];
+        foreach ($this->cookies as $cookie) {
+            if ($cookie->vendor() === '') {
+                continue;
+            }
+
+            $vendors[$cookie->vendor()][] = $cookie;
+        }
+
+        return $vendors;
+    }
+
     public function isEmpty(): bool
     {
-        return $this->cookies === [];
+        return $this->unique === [];
     }
 }
