@@ -53,7 +53,7 @@ final readonly class MigrateSettings implements HandlerInterface
 
         $this->show($io, $imported);
         if ($io->flag(self::DRY_RUN)) {
-            return StatusCode::Cancelled;
+            return StatusCode::Success;
         }
 
         $question = \__('Import these settings into Cookie Choices?', 'italy-cookie-choices');

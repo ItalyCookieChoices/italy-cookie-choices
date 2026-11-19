@@ -62,7 +62,7 @@ wp cookie-choices migrate complianz --dry-run
 wp cookie-choices migrate complianz --yes
 ```
 
-Without a plugin it lists the plugins whose settings are in the database. With one, it shows what the import changes and what to check, then imports after the confirmation; `--dry-run` stops before. See [Import from another plugin](migration.md).
+Without a plugin it lists the plugins whose settings are in the database. With one, it shows what the import changes and what to check, then imports after the confirmation; `--dry-run` stops before and exits with code 0. See [Import from another plugin](migration.md).
 
 ## Exit codes
 

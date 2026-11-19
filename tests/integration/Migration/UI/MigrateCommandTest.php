@@ -59,6 +59,17 @@ final class MigrateCommandTest extends WPTestCase
 
         $this->assertContains('* The texts of the banner and of the buttons', $io->lines);
         $this->assertContains('* Check the colors.', $io->lines);
+        $this->assertSame(0, $io->exit);
+        $this->assertSame([], $io->errors);
+        $this->assertSame([], $io->questions);
+        $this->assertNotSame('Imported', $this->savedText());
+    }
+
+    public function testWithoutTheConfirmationNothingIsImported(): void
+    {
+        $io = $this->migrate(['other'], [], false);
+
+        $this->assertSame(['Nothing changed.'], $io->errors);
         $this->assertSame(2, $io->exit);
         $this->assertNotSame('Imported', $this->savedText());
     }
@@ -82,9 +93,9 @@ final class MigrateCommandTest extends WPTestCase
      * @param list<string> $arguments
      * @param array<string, mixed> $options
      */
-    private function migrate(array $arguments, array $options): FakeIO
+    private function migrate(array $arguments, array $options, bool $confirms = true): FakeIO
     {
-        $factory = new FakeIOFactory();
+        $factory = new FakeIOFactory($confirms);
         $command = new MigrateCommand(new CommandRunner(), $factory, $this->service(MigrateSettings::class));
         $command($arguments, $options);
 
