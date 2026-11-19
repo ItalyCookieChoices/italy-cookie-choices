@@ -16,7 +16,7 @@ The other plugins come in the next versions. A developer adds one with the `Buil
 
 ## Import
 
-When the settings of a plugin are in the database, the dashboard shows a notice. **Import the settings** opens the **Tools** tab, under **Import from another plugin**:
+When the settings of a plugin are in the database and there is something to import, the dashboard shows a notice. **Import the settings** opens the **Tools** tab, under **Import from another plugin**:
 
 1. **Preview** lists what the import changes, and what to check after it. Nothing is saved.
 2. **Import** saves the settings.
@@ -130,7 +130,7 @@ The texts are read in the language of the site. Not imported: the services witho
 
 ## Add a plugin
 
-A source implements `ItalyCookieChoices\Migration\Domain\MigrationSource`: an id, a name, whether its settings are in the database and the settings in the shape of the option of Cookie Choices, with the names of the `*Setting` classes.
+A source implements `ItalyCookieChoices\Migration\Domain\MigrationSource`: an id, a name, whether its settings are in the database and the settings in the shape of the option of Cookie Choices, with the names of the `*Setting` classes. A source that reads no setting and no vendor is not listed.
 
 ```php
 add_action(

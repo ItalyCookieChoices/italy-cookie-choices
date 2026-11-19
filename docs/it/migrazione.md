@@ -16,7 +16,7 @@ Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge 
 
 ## Importare
 
-Quando le impostazioni di un plugin sono nel database, la bacheca mostra un avviso. **Importa le impostazioni** apre la scheda **Strumenti**, sotto **Importa da un altro plugin**:
+Quando le impostazioni di un plugin sono nel database e c'è qualcosa da importare, la bacheca mostra un avviso. **Importa le impostazioni** apre la scheda **Strumenti**, sotto **Importa da un altro plugin**:
 
 1. **Anteprima** elenca cosa cambia l'importazione, e cosa controllare dopo. Non viene salvato nulla.
 2. **Importa** salva le impostazioni.
@@ -130,7 +130,7 @@ I testi vengono letti nella lingua del sito. Non vengono importati: i servizi se
 
 ## Aggiungere un plugin
 
-Una sorgente implementa `ItalyCookieChoices\Migration\Domain\MigrationSource`: un id, un nome, se le sue impostazioni sono nel database e le impostazioni nella forma dell'opzione di Cookie Choices, con i nomi delle classi `*Setting`.
+Una sorgente implementa `ItalyCookieChoices\Migration\Domain\MigrationSource`: un id, un nome, se le sue impostazioni sono nel database e le impostazioni nella forma dell'opzione di Cookie Choices, con i nomi delle classi `*Setting`. Una sorgente che non legge impostazioni né fornitori non viene elencata.
 
 ```php
 add_action(

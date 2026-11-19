@@ -41,6 +41,7 @@ final class MigrateTest extends WPTestCase
         \add_action(BuildingMigrationSources::class, function (BuildingMigrationSources $event): void {
             $event->addSource(new FakeMigrationSource('other', $this->imported));
             $event->addSource(new FakeMigrationSource('missing', $this->imported, false));
+            $event->addSource(new FakeMigrationSource('empty', new ImportedSettings([], [], ['A note.'])));
         });
     }
 
@@ -53,6 +54,18 @@ final class MigrateTest extends WPTestCase
 
         $this->assertContains('other', $ids);
         $this->assertNotContains('missing', $ids);
+    }
+
+    public function testASourceWithNothingToImportIsNotFound(): void
+    {
+        $ids = \array_map(
+            static fn($source): string => $source->id(),
+            $this->service(MigrationSources::class)->found()
+        );
+
+        $this->assertNotContains('empty', $ids);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service(Migrate::class)->import('empty');
     }
 
     public function testThePreviewChangesNothing(): void

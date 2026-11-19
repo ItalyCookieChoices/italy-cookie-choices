@@ -44,4 +44,12 @@ final readonly class ImportedSettings
     {
         return $this->notes;
     }
+
+    /**
+     * True when the import changes nothing: the notes alone are not something to import.
+     */
+    public function isEmpty(): bool
+    {
+        return $this->settings === [] && $this->vendorsInUse === [];
+    }
 }

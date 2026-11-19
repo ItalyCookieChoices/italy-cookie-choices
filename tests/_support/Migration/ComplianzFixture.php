@@ -55,6 +55,16 @@ final class ComplianzFixture
         )");
     }
 
+    /**
+     * Complianz before the wizard: the tables are there, the banner is not.
+     */
+    public static function removeBanners(): void
+    {
+        global $wpdb;
+        /** @var \wpdb $wpdb */
+        $wpdb->query("DELETE FROM {$wpdb->prefix}cmplz_cookiebanners");
+    }
+
     public static function addService(string $name): int
     {
         global $wpdb;

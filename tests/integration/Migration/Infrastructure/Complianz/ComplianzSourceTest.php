@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Migration\Infrastructure\Complianz;
 
+use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Migration\Infrastructure\Complianz\ComplianzSource;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\Migration\ComplianzFixture;
@@ -70,6 +71,20 @@ final class ComplianzSourceTest extends WPTestCase
         $this->assertTrue($this->sut()->isFound());
         $this->assertSame('complianz', $this->sut()->id());
         $this->assertSame('Complianz', $this->sut()->name());
+    }
+
+    public function testBeforeTheWizardThereIsNothingToImport(): void
+    {
+        ComplianzFixture::install(['use_cdb_api' => 'yes']);
+        ComplianzFixture::removeBanners();
+
+        $ids = \array_map(
+            static fn($source): string => $source->id(),
+            $this->service(MigrationSources::class)->found()
+        );
+
+        $this->assertTrue($this->sut()->read()->isEmpty());
+        $this->assertNotContains('complianz', $ids);
     }
 
     public function testItImportsTheBannerOfTheDefaultBanner(): void
