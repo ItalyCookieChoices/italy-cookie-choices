@@ -7,6 +7,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 ## I plugin
 
 * Complianz, la versione gratuita 7 e le versioni precedenti
+* CookieYes, la versione 3 e le versioni 2, chiamate GDPR Cookie Consent
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -51,6 +52,27 @@ Quando le impostazioni di un plugin sono nel database, la bacheca mostra un avvi
 | I cookie di uno script bloccato | I cookie del suo fornitore personalizzato |
 
 Non vengono importati: il consenso allo scorrimento o dopo un tempo, non è un consenso valido; le regioni e il banner per gli Stati Uniti; TCF; i documenti che Complianz genera, il link alla pagina viene mantenuto; le traduzioni. L'anteprima elenca quelli che il sito usa.
+
+## Da CookieYes
+
+| CookieYes | Cookie Choices |
+| --- | --- |
+| I testi e i pulsanti del banner attivo, nella lingua predefinita | Il testo del banner e i testi dei pulsanti |
+| Il link alla privacy e il suo pulsante Leggi di più | Il link alla policy, la nuova scheda e il nofollow |
+| Il tipo, la posizione, il logo e i colori del banner | La scheda **Stile**, il popup diventa la finestra modale |
+| Il CSS personalizzato | Il CSS personalizzato, in un commento: i suoi selettori sono quelli di CookieYes |
+| Le categorie | I testi delle categorie: Funzionali diventa Preferenze, Analitici e Prestazioni diventano Statistiche, Pubblicità diventa Marketing |
+| La scadenza del consenso, il ricaricamento dopo l'accettazione e Global Privacy Control | Le stesse impostazioni |
+| Il pulsante per rivedere il consenso | Il pulsante flottante |
+| Il titolo del segnaposto dei video | Il testo segnaposto dei contenuti bloccati |
+| Google Consent Mode | La scheda **Integrazioni** |
+| I cookie con il pattern dello script di un fornitore comune | Quel fornitore comune, attivato |
+| I cookie con un altro pattern dello script | Un fornitore personalizzato per ogni pattern, con i suoi cookie |
+| I cookie senza pattern dello script | I cookie del sito |
+
+Le versioni 2 importano i testi, il link Leggi di più, la posizione, i colori, il pulsante per rivedere il consenso e i cookie, come cookie del sito.
+
+Non vengono importati: il banner per gli Stati Uniti con l'opt-out, il geo-targeting, il consenso allo scorrimento, le traduzioni. Quando il sito usa la web app di CookieYes, le sue impostazioni in WordPress possono essere più vecchie di quelle della web app: controllale dopo l'importazione.
 
 ## Aggiungere un plugin
 
