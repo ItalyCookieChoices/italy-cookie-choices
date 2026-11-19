@@ -9,8 +9,8 @@ use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Cookies\Application\CookieSetting;
-use ItalyCookieChoices\Migration\Application\ArrayReader;
 use ItalyCookieChoices\Migration\Application\Conversions;
+use ItalyStrap\Config\Config;
 
 /**
  * The categories and the cookies of CookieYes 3.
@@ -42,7 +42,6 @@ final readonly class CookieYesCookies
         private CookieYesStorage $storage,
         private Conversions $conversions,
         private VendorsFactory $vendors,
-        private ArrayReader $reader,
     ) {
     }
 
@@ -175,10 +174,11 @@ final readonly class CookieYesCookies
      */
     private function localized(array $texts): string
     {
-        $text = $texts[$this->reader->text($this->storage->settings(), 'languages', 'default')]
+        $language = $this->conversions->text((new Config($this->storage->settings()))->get(['languages', 'default']));
+        $text = $texts[$language]
             ?? $texts[self::DEFAULT_LANGUAGE]
             ?? \reset($texts);
 
-        return \is_scalar($text) ? \trim((string) $text) : '';
+        return $this->conversions->text($text);
     }
 }

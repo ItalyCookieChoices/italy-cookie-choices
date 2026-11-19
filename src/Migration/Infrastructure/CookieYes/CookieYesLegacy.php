@@ -8,12 +8,14 @@ use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Cookies\Application\CookieSetting;
-use ItalyCookieChoices\Migration\Application\ArrayReader;
 use ItalyCookieChoices\Migration\Application\Conversions;
 use ItalyCookieChoices\Settings\PluginSetting;
+use ItalyStrap\Config\Config;
 
 /**
  * The settings of the versions 2 of CookieYes, still named GDPR Cookie Consent, not upgraded to version 3.
+ *
+ * @phpstan-type Data Config<array-key, mixed>
  */
 final readonly class CookieYesLegacy
 {
@@ -30,7 +32,6 @@ final readonly class CookieYesLegacy
     public function __construct(
         private CookieYesStorage $storage,
         private Conversions $conversions,
-        private ArrayReader $reader,
     ) {
     }
 
@@ -39,27 +40,27 @@ final readonly class CookieYesLegacy
      */
     public function settings(): array
     {
-        $options = $this->storage->legacyOptions();
-        $hasButton = $this->reader->isOn($options, 'showagain_tab');
+        $options = new Config($this->storage->legacyOptions());
+        $hasButton = $this->isOn($options, 'showagain_tab');
 
         return \array_filter(
             [
-                PluginSetting::ACTIVE => $this->reader->isOn($options, 'is_on') ? '1' : '',
+                PluginSetting::ACTIVE => $this->isOn($options, 'is_on') ? '1' : '',
                 ConsentSetting::TEXT => $this->message($options),
                 ConsentSetting::ACCEPT_BUTTON_TEXT => $this->firstText($options, 'button_7_text', 'button_1_text'),
-                ConsentSetting::REJECT_BUTTON_TEXT => $this->reader->text($options, 'button_3_text'),
-                ConsentSetting::PREFERENCES_BUTTON_TEXT => $this->reader->text($options, 'button_4_text'),
+                ConsentSetting::REJECT_BUTTON_TEXT => $this->text($options, 'button_3_text'),
+                ConsentSetting::PREFERENCES_BUTTON_TEXT => $this->text($options, 'button_4_text'),
                 ...$this->link($options),
                 ConsentSetting::POSITION => $this->position($options),
-                ConsentSetting::BACKGROUND_COLOR => $this->conversions->color($options['background'] ?? ''),
-                ConsentSetting::TEXT_COLOR => $this->conversions->color($options['text'] ?? ''),
-                ConsentSetting::RELOAD => $this->reader->isOn($options, 'accept_close_reload') ? '1' : '',
+                ConsentSetting::BACKGROUND_COLOR => $this->conversions->color($options->get('background')),
+                ConsentSetting::TEXT_COLOR => $this->conversions->color($options->get('text')),
+                ConsentSetting::RELOAD => $this->isOn($options, 'accept_close_reload') ? '1' : '',
                 ConsentSetting::FLOATING_BUTTON => $hasButton ? '1' : '',
                 ConsentSetting::FLOATING_BUTTON_LABEL => $hasButton
-                    ? \stripslashes($this->reader->text($options, 'showagain_text'))
+                    ? \stripslashes($this->text($options, 'showagain_text'))
                     : '',
                 ConsentSetting::FLOATING_BUTTON_POSITION => $hasButton
-                    ? ($this->reader->text($options, 'notify_position_horizontal') === 'left' ? 'left' : 'right')
+                    ? ($this->text($options, 'notify_position_horizontal') === 'left' ? 'left' : 'right')
                     : '',
                 CookieSetting::SITE_COOKIES => $this->cookies(),
             ],
@@ -72,9 +73,9 @@ final readonly class CookieYesLegacy
      */
     public function notes(): array
     {
-        $options = $this->storage->legacyOptions();
+        $options = new Config($this->storage->legacyOptions());
 
-        return $this->reader->isOn($options, 'scroll_close')
+        return $this->isOn($options, 'scroll_close')
             ? [\__(
                 'The consent on scroll is not imported: it is not a valid consent.',
                 'italy-cookie-choices'
@@ -85,23 +86,23 @@ final readonly class CookieYesLegacy
     /**
      * The message without the shortcodes of the buttons, like [cookie_accept_all]: the banner has its buttons.
      *
-     * @param array<array-key, mixed> $options
+     * @param Data $options
      */
-    private function message(array $options): string
+    private function message(Config $options): string
     {
-        $message = \stripslashes($this->reader->text($options, 'notify_message'));
+        $message = \stripslashes($this->text($options, 'notify_message'));
         $message = (string) \preg_replace(self::SHORTCODES, '', $message);
 
         return \trim((string) \preg_replace('/\s+/', ' ', \wp_kses_post($message)));
     }
 
     /**
-     * @param array<array-key, mixed> $options
+     * @param Data $options
      */
-    private function firstText(array $options, string ...$names): string
+    private function firstText(Config $options, string ...$names): string
     {
         foreach ($names as $name) {
-            $text = $this->reader->text($options, $name);
+            $text = $this->text($options, $name);
             if ($text !== '') {
                 return $text;
             }
@@ -113,16 +114,16 @@ final readonly class CookieYesLegacy
     /**
      * The "Read more" button: a page of the site, or an address.
      *
-     * @param array<array-key, mixed> $options
+     * @param Data $options
      * @return array<string, string>
      */
-    private function link(array $options): array
+    private function link(Config $options): array
     {
         $link = BannerLink::Policy;
-        $page = $this->reader->text($options, 'button_2_url_type') === 'page'
-            ? $this->conversions->page((int) $this->reader->text($options, 'button_2_page'))
-            : $this->conversions->pageOfUrl($this->reader->text($options, 'button_2_url'));
-        $url = $page['url'] ?? $this->reader->text($options, 'button_2_url');
+        $page = $this->text($options, 'button_2_url_type') === 'page'
+            ? $this->conversions->page((int) $this->text($options, 'button_2_page'))
+            : $this->conversions->pageOfUrl($this->text($options, 'button_2_url'));
+        $url = $page['url'] ?? $this->text($options, 'button_2_url');
         if ($url === '' || $url === '#') {
             return [];
         }
@@ -130,21 +131,37 @@ final readonly class CookieYesLegacy
         return [
             $link->pageSetting() => $page['slug'] ?? '',
             $link->urlSetting() => \esc_url_raw($url),
-            $link->textSetting() => $this->reader->text($options, 'button_2_text'),
-            ConsentSetting::LINKS_IN_NEW_TAB => $this->reader->isOn($options, 'button_2_new_win') ? '1' : '',
+            $link->textSetting() => $this->text($options, 'button_2_text'),
+            ConsentSetting::LINKS_IN_NEW_TAB => $this->isOn($options, 'button_2_new_win') ? '1' : '',
         ];
     }
 
     /**
-     * @param array<array-key, mixed> $options
+     * @param Data $options
      */
-    private function position(array $options): string
+    private function position(Config $options): string
     {
-        return match ($this->reader->text($options, 'cookie_bar_as')) {
+        return match ($this->text($options, 'cookie_bar_as')) {
             'popup' => self::MODAL,
-            'widget' => self::WIDGET_POSITIONS[$this->reader->text($options, 'widget_position')] ?? '',
-            default => self::POSITIONS[$this->reader->text($options, 'notify_position_vertical')] ?? '',
+            'widget' => self::WIDGET_POSITIONS[$this->text($options, 'widget_position')] ?? '',
+            default => self::POSITIONS[$this->text($options, 'notify_position_vertical')] ?? '',
         };
+    }
+
+    /**
+     * @param Data $options
+     */
+    private function text(Config $options, string $name): string
+    {
+        return $this->conversions->text($options->get($name));
+    }
+
+    /**
+     * @param Data $options
+     */
+    private function isOn(Config $options, string $name): bool
+    {
+        return $this->conversions->isOn($options->get($name));
     }
 
     /**

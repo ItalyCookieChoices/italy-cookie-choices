@@ -87,6 +87,22 @@ final readonly class Conversions
     }
 
     /**
+     * A value of another plugin as a text, trimmed, empty when it is not a scalar.
+     */
+    public function text(mixed $value): string
+    {
+        return \is_scalar($value) ? \trim((string) $value) : '';
+    }
+
+    /**
+     * Whether a value of another plugin turns a feature on: true, 1, "1", "yes" or "true".
+     */
+    public function isOn(mixed $value): bool
+    {
+        return \in_array($value, [true, 1, '1', 'yes', 'true'], true);
+    }
+
+    /**
      * An id of the settings from a name, like "my-chat" from "My chat".
      */
     public function id(string $name): string
