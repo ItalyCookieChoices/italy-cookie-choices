@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\Integration\Blocking;
 
 use ItalyCookieChoices\Blocking\Module;
 use ItalyCookieChoices\Blocking\UI\BlockingFilters;
+use ItalyCookieChoices\Blocking\UI\CustomScriptsPrinter;
 use ItalyCookieChoices\Blocking\UI\PageBuffer;
 use ItalyCookieChoices\Blocking\UI\Placeholders;
 use ItalyCookieChoices\Blocking\UI\VendorAbilities;
@@ -24,7 +25,13 @@ final class ModuleTest extends WPTestCase
 
         $this->assertIsArray($config);
         $this->assertSame(
-            [BlockingFilters::class, PageBuffer::class, Placeholders::class, VendorAbilities::class],
+            [
+                BlockingFilters::class,
+                CustomScriptsPrinter::class,
+                PageBuffer::class,
+                Placeholders::class,
+                VendorAbilities::class,
+            ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]
         );
     }

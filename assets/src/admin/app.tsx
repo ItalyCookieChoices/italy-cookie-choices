@@ -169,7 +169,13 @@ export function App( { data }: { data: AdminData } ) {
 				scanSchedule={ data.scanSchedule }
 			/>
 		),
-		integrations: <IntegrationsTab { ...props } />,
+		integrations: (
+			<IntegrationsTab
+				{ ...props }
+				categories={ data.categories }
+				canEditScripts={ data.canEditScripts }
+			/>
+		),
 		...languagesTab,
 		'consent-log': (
 			<ConsentLogTab

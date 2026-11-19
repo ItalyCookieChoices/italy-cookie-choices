@@ -79,6 +79,15 @@ export interface CustomVendor {
 	cookies?: VendorCookie[];
 }
 
+/** Code the plugin adds to the pages after the consent to its category. */
+export interface CustomScript {
+	name: string;
+	category: string;
+	position: 'head' | 'body';
+	/** HTML, saved only by the users who can save unfiltered HTML. */
+	code: string;
+}
+
 export type Settings = Partial< Record< Checkbox, '1' > > &
 	Partial< Record< Text, string > > & {
 		categories?: Record< string, CategoryTexts >;
@@ -86,6 +95,7 @@ export type Settings = Partial< Record< Checkbox, '1' > > &
 		custom_vendors?: CustomVendor[];
 		allowed_patterns?: string[];
 		site_cookies?: SiteCookie[];
+		custom_scripts?: CustomScript[];
 	};
 
 /**
@@ -134,6 +144,8 @@ export interface AdminData {
 	/** The policy link in each language of WPML or Polylang, empty without them. */
 	policyTranslations: PolicyTranslation[];
 	languages: Languages;
+	/** True when the user can save unfiltered HTML, so the custom scripts. */
+	canEditScripts: boolean;
 }
 
 export interface PolicyTranslation {
@@ -278,6 +290,7 @@ export function parseAdminData( raw: unknown ): AdminData {
 		scanSchedule: parseScanSchedule( data.scanSchedule ),
 		policyTranslations: policyTranslationsFrom( data.policyTranslations ),
 		languages: languagesFrom( data.languages ),
+		canEditScripts: data.canEditScripts === true,
 	};
 }
 

@@ -639,6 +639,39 @@
             ],
             "The preferences list the vendors of each category: a visitor can accept only some of them. The guidelines of the Italian Data Protection Authority ask to choose the third parties too.": [
                 ""
+            ],
+            "Script name": [
+                ""
+            ],
+            "The code runs after the consent to this category, the necessary one runs on every page.": [
+                ""
+            ],
+            "In the head": [
+                ""
+            ],
+            "At the end of the body": [
+                ""
+            ],
+            "Code": [
+                ""
+            ],
+            "HTML: the scripts and the elements they need, like the image of a pixel. Nothing of it loads before the consent.": [
+                ""
+            ],
+            "Remove the script %s": [
+                ""
+            ],
+            "Add a script": [
+                ""
+            ],
+            "Only the administrators who can save unfiltered HTML change the scripts.": [
+                ""
+            ],
+            "Scripts after the consent": [
+                ""
+            ],
+            "Code the plugin adds to the pages after the consent to its category, like a chat or a tracking snippet that no vendor covers.": [
+                ""
             ]
         }
     }

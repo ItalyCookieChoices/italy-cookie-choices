@@ -2,15 +2,23 @@
 /* @jsx createElement */
 import { createElement, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { CustomScriptList } from '../custom-scripts';
 import { TextField, ToggleField, type SettingsProps } from '../fields';
-import { isChecked } from '../settings';
+import { isChecked, type Category } from '../settings';
+
+interface IntegrationsTabProps extends SettingsProps {
+	categories: readonly Category[];
+	/** Whether the user can save unfiltered HTML, so the custom scripts. */
+	canEditScripts: boolean;
+}
 
 /**
- * Google Consent Mode v2, the Microsoft consent signals, the Google and Facebook tags printed by the plugin
- * and the YouTube embeds.
- * @param props The settings props.
+ * Google Consent Mode v2, the Microsoft consent signals, the Google and Facebook tags printed by the plugin,
+ * the custom scripts and the YouTube embeds.
+ * @param props The settings props, the categories and whether the user can edit the scripts.
  */
-export function IntegrationsTab( props: SettingsProps ) {
+export function IntegrationsTab( props: IntegrationsTabProps ) {
+	const { categories, canEditScripts, ...settingsProps } = props;
 	return (
 		<Fragment>
 			<fieldset className="icc-admin__group">
@@ -18,7 +26,7 @@ export function IntegrationsTab( props: SettingsProps ) {
 					{ __( 'Google Consent Mode v2', 'italy-cookie-choices' ) }
 				</legend>
 				<ToggleField
-					{ ...props }
+					{ ...settingsProps }
 					name="consent_mode"
 					label={ __(
 						'Send the Consent Mode signals',
@@ -29,9 +37,9 @@ export function IntegrationsTab( props: SettingsProps ) {
 						'italy-cookie-choices'
 					) }
 				/>
-				{ isChecked( props.settings, 'consent_mode' ) && (
+				{ isChecked( settingsProps.settings, 'consent_mode' ) && (
 					<ToggleField
-						{ ...props }
+						{ ...settingsProps }
 						name="consent_mode_advanced"
 						label={ __(
 							'Load the Google tags before the consent (advanced mode)',
@@ -52,7 +60,7 @@ export function IntegrationsTab( props: SettingsProps ) {
 					) }
 				</legend>
 				<ToggleField
-					{ ...props }
+					{ ...settingsProps }
 					name="uet_consent_mode"
 					label={ __(
 						'Send the consent to Microsoft Advertising (UET)',
@@ -64,7 +72,7 @@ export function IntegrationsTab( props: SettingsProps ) {
 					) }
 				/>
 				<ToggleField
-					{ ...props }
+					{ ...settingsProps }
 					name="clarity_consent_mode"
 					label={ __(
 						'Send the consent to Microsoft Clarity',
@@ -85,7 +93,7 @@ export function IntegrationsTab( props: SettingsProps ) {
 					) }
 				</p>
 				<TextField
-					{ ...props }
+					{ ...settingsProps }
 					name="ga_measurement_id"
 					label={ __(
 						'Google Analytics measurement ID',
@@ -94,7 +102,7 @@ export function IntegrationsTab( props: SettingsProps ) {
 					placeholder="G-XXXXXXXXXX"
 				/>
 				<TextField
-					{ ...props }
+					{ ...settingsProps }
 					name="gtm_container_id"
 					label={ __(
 						'Google Tag Manager container ID',
@@ -103,13 +111,13 @@ export function IntegrationsTab( props: SettingsProps ) {
 					placeholder="GTM-XXXXXXX"
 				/>
 				<TextField
-					{ ...props }
+					{ ...settingsProps }
 					name="facebook_pixel_id"
 					label={ __( 'Facebook pixel ID', 'italy-cookie-choices' ) }
 					placeholder="123456789012345"
 				/>
 				<TextField
-					{ ...props }
+					{ ...settingsProps }
 					name="google_tag_gateway_path"
 					label={ __(
 						'Google tag gateway path',
@@ -122,8 +130,33 @@ export function IntegrationsTab( props: SettingsProps ) {
 					placeholder="/metrics"
 				/>
 			</fieldset>
+			<fieldset className="icc-admin__group">
+				<legend>
+					{ __(
+						'Scripts after the consent',
+						'italy-cookie-choices'
+					) }
+				</legend>
+				<p>
+					{ __(
+						'Code the plugin adds to the pages after the consent to its category, like a chat or a tracking snippet that no vendor covers.',
+						'italy-cookie-choices'
+					) }
+				</p>
+				<CustomScriptList
+					scripts={ settingsProps.settings.custom_scripts ?? [] }
+					categories={ categories }
+					canEdit={ canEditScripts }
+					onChange={ ( scripts ) =>
+						settingsProps.onChange( {
+							...settingsProps.settings,
+							custom_scripts: scripts,
+						} )
+					}
+				/>
+			</fieldset>
 			<ToggleField
-				{ ...props }
+				{ ...settingsProps }
 				name="youtube_nocookie"
 				label={ __(
 					'Use the privacy-enhanced mode of the YouTube embeds',

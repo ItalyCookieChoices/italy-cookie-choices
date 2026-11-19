@@ -13,6 +13,7 @@ use ItalyCookieChoices\Scan\UI\ScheduleData;
 use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyCookieChoices\Tests\Support\LogsIn;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\View\ViewInterface;
 use lucatume\WPBrowser\TestCase\WPTestCase;
@@ -20,6 +21,7 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 final class SettingsPageTest extends WPTestCase
 {
     use BuildsContainer;
+    use LogsIn;
 
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
     private const LANGUAGES = '/plugin/languages';
@@ -163,6 +165,15 @@ final class SettingsPageTest extends WPTestCase
         $this->assertNotContains('attachment', \array_column($data['postTypes'], 'slug'));
         $this->assertSame('off', $data['scanSchedule']['frequency'] ?? null);
         $this->assertSame([], $data['policyTranslations']);
+    }
+
+    public function testOnlyTheUsersWithUnfilteredHtmlEditTheCustomScripts(): void
+    {
+        $this->logInAs('author');
+        $this->assertFalse($this->makeSut()->data()['canEditScripts']);
+
+        $this->logInAs('administrator');
+        $this->assertTrue($this->makeSut()->data()['canEditScripts']);
     }
 
     public function testThePageGetsTheDefaultLabelsNotTheSavedOnes(): void

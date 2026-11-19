@@ -53,6 +53,7 @@ The common vendors, like Google Analytics, YouTube, Google Maps and Facebook, ar
 * **Send the Consent Mode signals**: Google Consent Mode v2, on by default.
 * **Load the Google tags before the consent (advanced mode)**: see [Integrations](integrations.md#basic-and-advanced-mode) before you turn it on.
 * **Google Analytics measurement ID**, **Google Tag Manager container ID** and **Facebook pixel ID**: the plugin prints these tags, blocked until the consent. Leave them empty when the tags are printed by your theme or by another plugin.
+* **Scripts after the consent**: code the plugin adds to the pages after the consent to its category, see [Integrations](integrations.md#scripts-after-the-consent).
 * **Use the privacy-enhanced mode of the YouTube embeds**: the videos load from youtube-nocookie.com.
 
 ## Consent log

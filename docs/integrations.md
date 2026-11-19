@@ -118,6 +118,20 @@ Leave a field empty when the tag is printed by the theme or by another plugin. T
 
 The YouTube embeds use `youtube-nocookie.com` with **Use the privacy-enhanced mode of the YouTube embeds**, they still wait for the marketing consent.
 
+## Scripts after the consent
+
+**Scripts after the consent**, in the **Integrations** tab, adds code to the pages after the consent to its category: a chat, a tracking snippet that no vendor covers, the code of a service that gives you an HTML snippet. Each script has a name, a category, a position, in the head or at the end of the body, and its code.
+
+* The code is HTML: the scripts and the elements they need, like the image of a tracking pixel. Nothing of it loads before the consent, the image neither.
+* The scripts run in their order, each script file is loaded before the next script runs. When the consent arrives later, they run without a reload.
+* The code of the necessary category is printed as it is, on every page.
+* A script that matches a vendor of the **Blocking** tab follows the consent to that vendor too, with the [consent per vendor](blocking.md#consent-per-vendor).
+* After a withdrawal the code no longer runs from the next page, the [cookie cleanup](cookie-table.md#the-cookies-without-the-consent-are-deleted) deletes the cookies of the category.
+
+Only the users who can save unfiltered HTML change the scripts, like the Custom HTML block: the administrators of a site, the super admins of a network, and WP-CLI. The other users see only their names, and saving the settings keeps the scripts as they are.
+
+The code is printed with the plugin active, also without a vendor in the **Blocking** tab. Write the code of a vendor here, or block it where the theme prints it: not both.
+
 ## Block a script
 
 ### An enqueued script

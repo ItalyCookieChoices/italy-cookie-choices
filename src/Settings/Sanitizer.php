@@ -25,6 +25,8 @@ final readonly class Sanitizer
     private const ATTACHMENT = 'attachment';
     private const DOMAIN = 'domain';
     private const SITE_COOKIES = 'site_cookies';
+    private const SCRIPTS = 'scripts';
+    private const SCRIPT_POSITIONS = ['head', 'body'];
 
     /**
      * The fields in the order they are saved.
@@ -77,6 +79,7 @@ final readonly class Sanitizer
         'custom_vendors' => self::VENDORS,
         'allowed_patterns' => self::PATTERNS,
         'site_cookies' => self::SITE_COOKIES,
+        'custom_scripts' => self::SCRIPTS,
         'content_message_text' => self::HTML,
         'content_message_button_text' => self::TEXT,
         'excluded_pages' => self::TEXT,
@@ -105,7 +108,7 @@ final readonly class Sanitizer
         $sanitized = [];
 
         foreach (self::FIELDS as $name => $rule) {
-            $value = $input[$name] ?? null;
+            $value = $rule === self::SCRIPTS && !$this->canSaveScripts() ? $this->saved($name) : $input[$name] ?? null;
             if ($value === null && !$this->hasDefault($rule)) {
                 continue;
             }
@@ -137,6 +140,7 @@ final readonly class Sanitizer
             self::ATTACHMENT => $this->attachment($value),
             self::DOMAIN => $this->domain($value),
             self::SITE_COOKIES => $this->siteCookies($value),
+            self::SCRIPTS => $this->scripts($value),
             default => $this->required($name, $value),
         };
     }
@@ -327,6 +331,53 @@ final readonly class Sanitizer
         }
 
         return $cookies;
+    }
+
+    /**
+     * The custom scripts with a category and their code, kept as it is: only the users who can save
+     * unfiltered HTML change them.
+     *
+     * @return list<array{name: string, category: string, position: string, code: string}>
+     */
+    private function scripts(mixed $value): array
+    {
+        $scripts = [];
+        foreach ($this->list($value) as $script) {
+            $script = \is_array($script) ? $script : [];
+            $category = \sanitize_key($this->toString($script['category'] ?? ''));
+            $code = \trim(\wp_check_invalid_utf8($this->toString($script['code'] ?? '')));
+            if ($category === '' || $code === '') {
+                continue;
+            }
+
+            $position = $this->toString($script['position'] ?? '');
+            $scripts[] = [
+                'name' => \sanitize_text_field($this->toString($script['name'] ?? '')),
+                'category' => $category,
+                'position' => \in_array($position, self::SCRIPT_POSITIONS, true) ? $position : 'body',
+                'code' => $code,
+            ];
+        }
+
+        return $scripts;
+    }
+
+    /**
+     * Like the Custom HTML block: the administrators of a site, the super admins of a network, and WP-CLI.
+     */
+    private function canSaveScripts(): bool
+    {
+        return \current_user_can('unfiltered_html') || (\defined('WP_CLI') && \WP_CLI);
+    }
+
+    /**
+     * The saved value of a field, null when it is not saved.
+     */
+    private function saved(string $name): mixed
+    {
+        $saved = \get_option(Schema::OPTION);
+
+        return \is_array($saved) ? $saved[$name] ?? null : null;
     }
 
     /**
