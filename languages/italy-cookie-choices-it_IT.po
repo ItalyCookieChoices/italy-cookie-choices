@@ -1840,6 +1840,7 @@ msgstr "I cookie di questi servizi non vengono importati, aggiungili a un fornit
 #: src/Migration/Infrastructure/Complianz/ComplianzSource.php:49
 #: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:291
 #: src/Migration/Infrastructure/CookieYes/CookieYesSource.php:45
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:327
 msgid "Translations are not imported: write the texts again in WPML or Polylang."
 msgstr "Le traduzioni non vengono importate: scrivi di nuovo i testi in WPML o Polylang."
 
@@ -1984,7 +1985,9 @@ msgid "Deactivate CookieYes after the import, or the site shows two banners. Its
 msgstr "Disattiva CookieYes dopo l'importazione, o il sito mostra due banner. Le sue impostazioni restano."
 
 #. translators: %s: the name of the other plugin.
+#. translators: %s: the name of the tab of the other plugin.
 #: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:177
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:223
 #, php-format
 msgid "%s (head)"
 msgstr "%s (head)"
@@ -2008,3 +2011,29 @@ msgstr "Gli script eseguiti dopo l'accettazione attendono il consenso marketing:
 #: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:295
 msgid "Deactivate Cookie Notice after the import, or the site shows two banners. Its settings stay."
 msgstr "Disattiva Cookie Notice dopo l'importazione, o il sito mostra due banner. Le sue impostazioni restano."
+
+#. translators: %s: the name of the tab of the other plugin.
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:225
+#, php-format
+msgid "%s (footer)"
+msgstr "%s (footer)"
+
+#. translators: %s: the name of the tab of the other plugin.
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:227
+#, php-format
+msgid "%s (body)"
+msgstr "%s (body)"
+
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:306
+msgid "The scripts of the tabs are scripts after the consent: check them in Integrations."
+msgstr "Gli script delle schede sono script dopo il consenso: controllali in Integrazioni."
+
+#. translators: %s: the id of the Google Ads tag, like AW-123.
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:316
+#, php-format
+msgid "The Google Ads tag %s is not imported: add it to the theme, Google Ads is blocked until the marketing consent."
+msgstr "Il tag di Google Ads %s non viene importato: aggiungilo al tema, Google Ads viene bloccato fino al consenso marketing."
+
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:331
+msgid "Deactivate GDPR Cookie Compliance after the import, or the site shows two banners. Its settings stay."
+msgstr "Disattiva GDPR Cookie Compliance dopo l'importazione, o il sito mostra due banner. Le sue impostazioni restano."

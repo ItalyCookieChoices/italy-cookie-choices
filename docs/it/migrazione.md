@@ -9,6 +9,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 * Complianz, la versione gratuita 7 e le versioni precedenti
 * CookieYes, la versione 3 e le versioni 2, chiamate GDPR Cookie Consent
 * Cookie Notice & Compliance, il banner del plugin e quello che l'app Compliance tiene sul sito
+* GDPR Cookie Compliance, di Moove Agency, la versione gratuita
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -90,6 +91,23 @@ Non vengono importati: il banner per gli Stati Uniti con l'opt-out, il geo-targe
 Cookie Notice chiede un solo consenso per tutto: i suoi script attendono il consenso marketing, cambia la loro categoria in **Integrazioni > Script dopo il consenso** quando sono statistiche. Con l'app Compliance, il banner, i suoi testi e le sue categorie sono nell'app: l'importazione porta la posizione, il colore, il link alla policy, Global Privacy Control, Google Consent Mode e i provider personalizzati, come fornitori personalizzati.
 
 Non vengono importati: il consenso allo scorrimento o al clic, le regole di visualizzazione condizionale, le traduzioni.
+
+## Da GDPR Cookie Compliance
+
+| GDPR Cookie Compliance | Cookie Choices |
+| --- | --- |
+| Il testo del banner e le etichette dei suoi pulsanti, il pulsante di salvataggio delle impostazioni | Il testo del banner e i testi dei pulsanti |
+| La posizione del banner, lo schema di colori e il logo dell'azienda | La scheda **Stile** |
+| La scadenza del consenso | La durata del consenso più vicina |
+| Il ricaricamento forzato | Ricarica la pagina dopo la scelta |
+| Il pulsante flottante e la sua etichetta | Il pulsante flottante, a sinistra |
+| Le schede: cookie strettamente necessari, di terze parti e aggiuntivi | I testi delle categorie Necessari, Statistiche e Marketing |
+| Gli script di ogni scheda, nell'head, nel body e nel footer | Gli script dopo il consenso, nella categoria della scheda |
+| Gli id di Google Analytics 4, Tag Manager e del pixel di Facebook delle integrazioni | La scheda **Integrazioni** |
+| Google Tag Manager con Consent Mode | Google Consent Mode |
+| Google Ads | Il fornitore comune Google Ads, il suo tag non viene importato |
+
+I testi vengono letti nella lingua predefinita di WPML o Polylang. Non vengono importati: il tag di Google Ads, le traduzioni e le funzioni premium.
 
 ## Aggiungere un plugin
 

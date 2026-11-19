@@ -9,6 +9,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * Complianz, the free version 7 and the versions before
 * CookieYes, version 3 and the versions 2, named GDPR Cookie Consent
 * Cookie Notice & Compliance, the banner of the plugin and what the Compliance app keeps on the site
+* GDPR Cookie Compliance, by Moove Agency, the free version
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -90,6 +91,23 @@ Not imported: the banner for the United States with the opt-out, the geo-targeti
 Cookie Notice asks one consent for everything: its scripts wait for the marketing consent, change their category in **Integrations > Scripts after the consent** when they are statistics. With the Compliance app, the banner, its texts and its categories are in the app: the import brings the position, the color, the policy link, Global Privacy Control, Google Consent Mode and the custom providers, as custom vendors.
 
 Not imported: the consent on scroll or on click, the conditional display rules, the translations.
+
+## From GDPR Cookie Compliance
+
+| GDPR Cookie Compliance | Cookie Choices |
+| --- | --- |
+| The text of the cookie banner and its button labels, the save button of the settings | The banner text and the button texts |
+| The banner position, the color scheme and the company logo | The **Style** tab |
+| The consent expiry | The closest duration of the consent |
+| The force reload | Reload the page after the choice |
+| The floating button and its label | The floating button, on the left |
+| The tabs: strictly necessary, third party and additional cookies | The texts of the Necessary, Statistics and Marketing categories |
+| The scripts of each tab, in the head, the body and the footer | The scripts after the consent, in the category of the tab |
+| The Google Analytics 4, Tag Manager and Facebook pixel ids of the integrations | The **Integrations** tab |
+| Google Tag Manager with Consent Mode | Google Consent Mode |
+| Google Ads | The Google Ads common vendor, its tag is not imported |
+
+The texts are read in the default language of WPML or Polylang. Not imported: the Google Ads tag, the translations, and the premium features.
 
 ## Add a plugin
 
