@@ -42,7 +42,10 @@ final readonly class Migrate
      */
     public function preview(string $source): ImportedSettings
     {
-        return $this->sources->get($source)->read();
+        $imported = $this->sources->get($source)->read();
+        $disabled = $this->disabled($this->options->all()[BlockingSetting::DISABLED_VENDORS] ?? []);
+
+        return $imported->withVendorsInUse(\array_values(\array_intersect($imported->vendorsInUse(), $disabled)));
     }
 
     /**
@@ -115,8 +118,14 @@ final readonly class Migrate
      */
     private function disabledVendors(mixed $disabled, array $inUse): array
     {
-        $disabled = \array_filter(\is_array($disabled) ? $disabled : [], \is_string(...));
+        return \array_values(\array_diff($this->disabled($disabled), $inUse));
+    }
 
-        return \array_values(\array_diff($disabled, $inUse));
+    /**
+     * @return list<string>
+     */
+    private function disabled(mixed $disabled): array
+    {
+        return \array_values(\array_filter(\is_array($disabled) ? $disabled : [], \is_string(...)));
     }
 }
