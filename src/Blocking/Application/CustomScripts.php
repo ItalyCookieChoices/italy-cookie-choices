@@ -12,8 +12,6 @@ use ItalyCookieChoices\Settings\Options;
  */
 final readonly class CustomScripts
 {
-    public const SETTING = 'custom_scripts';
-
     public function __construct(
         private Options $options,
     ) {
@@ -26,7 +24,7 @@ final readonly class CustomScripts
     public function in(string $position): array
     {
         $scripts = [];
-        foreach ($this->options->records(self::SETTING) as $record) {
+        foreach ($this->options->records(BlockingSetting::CUSTOM_SCRIPTS) as $record) {
             $script = $this->script($record);
             if ($script === null || $script->position() !== $position) {
                 continue;

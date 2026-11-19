@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -47,7 +48,7 @@ final readonly class AcceptButtonShortcode implements SubscriberInterface
             '<button type="button" class="%s" data-icc-accept-all>%s</button>',
             self::CLASS_NAME,
             \esc_html($text !== '' ? $text : $this->options->translated(
-                'button_text',
+                ConsentSetting::ACCEPT_BUTTON_TEXT,
                 \__('Accept all', 'italy-cookie-choices')
             ))
         );

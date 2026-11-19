@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\ConsentLog\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -29,7 +30,7 @@ final readonly class ConsentStatisticsEndpoint implements SubscriberInterface
 
     public function register(): void
     {
-        \register_rest_route(ConsentLogEndpoint::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::READABLE,
             'callback' => fn(): \WP_REST_Response => new \WP_REST_Response($this->report->toArray()),
             'permission_callback' => static fn(): bool => \current_user_can(self::CAPABILITY),

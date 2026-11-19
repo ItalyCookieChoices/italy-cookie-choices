@@ -14,9 +14,6 @@ use ItalyCookieChoices\Settings\Options;
  */
 final readonly class VendorSettings
 {
-    private const DISABLED = 'disabled_vendors';
-    private const CUSTOM = 'custom_vendors';
-
     public function __construct(
         private VendorPresets $presets,
         private Options $options,
@@ -32,7 +29,7 @@ final readonly class VendorSettings
      */
     public function all(): array
     {
-        $disabled = $this->options->values(self::DISABLED);
+        $disabled = $this->options->values(BlockingSetting::DISABLED_VENDORS);
         $vendors = [];
         foreach ($this->presets->all() as $vendor) {
             $vendors[] = [
@@ -64,7 +61,7 @@ final readonly class VendorSettings
     {
         $this->assertTheSiteHasItsOwnVendors();
         $this->assertIsAPreset($id);
-        $this->options->save([self::DISABLED => $this->disabledWithout($id)]);
+        $this->options->save([BlockingSetting::DISABLED_VENDORS => $this->disabledWithout($id)]);
     }
 
     /**
@@ -74,7 +71,7 @@ final readonly class VendorSettings
     {
         $this->assertTheSiteHasItsOwnVendors();
         $this->assertIsAPreset($id);
-        $this->options->save([self::DISABLED => [...$this->disabledWithout($id), $id]]);
+        $this->options->save([BlockingSetting::DISABLED_VENDORS => [...$this->disabledWithout($id), $id]]);
     }
 
     /**
@@ -106,11 +103,11 @@ final readonly class VendorSettings
         // Throws when the id is not valid.
         new Vendor($id, $category, $patterns, $patterns);
 
-        $custom = $this->options->records(self::CUSTOM);
+        $custom = $this->options->records(BlockingSetting::CUSTOM_VENDORS);
         $custom[] = ['id' => $id, 'name' => $name, 'category' => $category, 'patterns' => $patterns];
-        $this->options->save([self::CUSTOM => $custom]);
+        $this->options->save([BlockingSetting::CUSTOM_VENDORS => $custom]);
 
-        return $this->options->records(self::CUSTOM)[\count($custom) - 1] ?? [];
+        return $this->options->records(BlockingSetting::CUSTOM_VENDORS)[\count($custom) - 1] ?? [];
     }
 
     /**
@@ -176,7 +173,7 @@ final readonly class VendorSettings
      */
     private function disabledWithout(string $id): array
     {
-        return \array_values(\array_diff($this->options->values(self::DISABLED), [$id]));
+        return \array_values(\array_diff($this->options->values(BlockingSetting::DISABLED_VENDORS), [$id]));
     }
 
     /**
@@ -185,7 +182,7 @@ final readonly class VendorSettings
     private function customVendors(): array
     {
         $vendors = [];
-        foreach ($this->options->records(self::CUSTOM) as $record) {
+        foreach ($this->options->records(BlockingSetting::CUSTOM_VENDORS) as $record) {
             $vendors[] = [
                 'id' => \is_string($record['id'] ?? null) ? $record['id'] : '',
                 'name' => \is_string($record['name'] ?? null) ? $record['name'] : '',

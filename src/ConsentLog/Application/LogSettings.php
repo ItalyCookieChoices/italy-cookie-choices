@@ -12,9 +12,6 @@ use ItalyCookieChoices\Settings\Options;
  */
 final readonly class LogSettings
 {
-    public const ENABLED = 'consent_log';
-    public const RETENTION = 'consent_log_retention';
-
     public function __construct(
         private Options $options,
     ) {
@@ -22,12 +19,12 @@ final readonly class LogSettings
 
     public function isEnabled(): bool
     {
-        return $this->options->isActive() && $this->options->isChecked(self::ENABLED);
+        return $this->options->isActive() && $this->options->isChecked(LogSetting::ACTIVE);
     }
 
     public function retention(): Retention
     {
-        $months = (int) $this->options->text(self::RETENTION);
+        $months = (int) $this->options->text(LogSetting::RETENTION);
 
         return \in_array($months, Retention::MONTHS, true) ? new Retention($months) : new Retention();
     }

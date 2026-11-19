@@ -9,6 +9,12 @@ namespace ItalyCookieChoices\Scan\Domain;
  */
 final readonly class Selection
 {
+    /** The names of the choices, in the REST API, in the saved schedule and in the page data. */
+    public const HOME = 'home';
+    public const POST_TYPES = 'postTypes';
+    public const CATEGORIES = 'categories';
+    public const POSTS = 'posts';
+
     /**
      * @param list<string> $postTypes
      * @param list<int> $categories

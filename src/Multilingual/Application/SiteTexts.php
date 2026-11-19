@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Multilingual\Application;
 
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Settings\Schema;
 
 /**
@@ -14,7 +15,6 @@ use ItalyCookieChoices\Settings\Schema;
  */
 final readonly class SiteTexts
 {
-    private const POLICY_LINK = 'url';
     private const CATEGORIES = 'categories';
     private const CATEGORY_TEXTS = ['label', 'description'];
 
@@ -60,7 +60,7 @@ final readonly class SiteTexts
     public function hasOwnTexts(int $siteId): bool
     {
         $texts = $this->of($siteId);
-        unset($texts[self::POLICY_LINK]);
+        unset($texts[ConsentSetting::POLICY_URL]);
 
         return \array_filter($texts, static fn(mixed $text): bool => $text !== '' && $text !== []) !== [];
     }
@@ -105,7 +105,7 @@ final readonly class SiteTexts
      */
     private function filled(string $name, mixed $own, mixed $source, \Closure $convert): mixed
     {
-        if ($name === self::POLICY_LINK) {
+        if ($name === ConsentSetting::POLICY_URL) {
             return $own;
         }
 

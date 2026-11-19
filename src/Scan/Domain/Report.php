@@ -9,6 +9,15 @@ namespace ItalyCookieChoices\Scan\Domain;
  */
 final readonly class Report
 {
+    /** The names of the fields, in the saved report and in the page data. */
+    public const DATE = 'date';
+    public const PAGES = 'pages';
+    public const ERRORS = 'errors';
+    public const VENDORS = 'vendors';
+    public const HOSTS = 'hosts';
+    public const NEW_VENDORS = 'newVendors';
+    public const NEW_HOSTS = 'newHosts';
+
     /**
      * @param list<string> $vendors The vendors found and not blocked.
      * @param list<string> $hosts The unknown third parties found.

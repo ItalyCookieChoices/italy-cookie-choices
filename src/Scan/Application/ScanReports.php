@@ -19,37 +19,37 @@ final readonly class ScanReports
     public function last(): ?Report
     {
         $option = \get_option(self::OPTION);
-        if (!\is_array($option) || !\is_string($option['date'] ?? null)) {
+        if (!\is_array($option) || !\is_string($option[Report::DATE] ?? null)) {
             return null;
         }
 
         try {
-            $date = new \DateTimeImmutable($option['date']);
+            $date = new \DateTimeImmutable($option[Report::DATE]);
         } catch (\Exception) {
             return null;
         }
 
         return new Report(
             $date,
-            \is_int($option['pages'] ?? null) ? $option['pages'] : 0,
-            \is_int($option['errors'] ?? null) ? $option['errors'] : 0,
-            $this->strings($option['vendors'] ?? null),
-            $this->strings($option['hosts'] ?? null),
-            $this->strings($option['newVendors'] ?? null),
-            $this->strings($option['newHosts'] ?? null),
+            \is_int($option[Report::PAGES] ?? null) ? $option[Report::PAGES] : 0,
+            \is_int($option[Report::ERRORS] ?? null) ? $option[Report::ERRORS] : 0,
+            $this->strings($option[Report::VENDORS] ?? null),
+            $this->strings($option[Report::HOSTS] ?? null),
+            $this->strings($option[Report::NEW_VENDORS] ?? null),
+            $this->strings($option[Report::NEW_HOSTS] ?? null),
         );
     }
 
     public function save(Report $report): void
     {
         \update_option(self::OPTION, [
-            'date' => $report->date->format(\DATE_ATOM),
-            'pages' => $report->pages,
-            'errors' => $report->errors,
-            'vendors' => $report->vendors,
-            'hosts' => $report->hosts,
-            'newVendors' => $report->newVendors,
-            'newHosts' => $report->newHosts,
+            Report::DATE => $report->date->format(\DATE_ATOM),
+            Report::PAGES => $report->pages,
+            Report::ERRORS => $report->errors,
+            Report::VENDORS => $report->vendors,
+            Report::HOSTS => $report->hosts,
+            Report::NEW_VENDORS => $report->newVendors,
+            Report::NEW_HOSTS => $report->newHosts,
         ], false);
     }
 

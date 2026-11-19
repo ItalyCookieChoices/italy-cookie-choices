@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Multilingual\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
-use ItalyCookieChoices\Settings\UI\ImportEndpoint;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -31,7 +31,7 @@ final readonly class LinkTranslationsEndpoint implements SubscriberInterface
 
     public function register(): void
     {
-        \register_rest_route(ImportEndpoint::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->use(...),
             'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),

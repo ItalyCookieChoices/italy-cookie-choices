@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Integrations\UI;
 
+use ItalyCookieChoices\Blocking\Domain\VendorId;
 use ItalyCookieChoices\Blocking\Application\BuildingVendors;
 use ItalyCookieChoices\Integrations\Application\IntegrationSettings;
 use ItalyStrap\Event\SubscriberInterface;
@@ -13,7 +14,7 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class AdvancedConsentMode implements SubscriberInterface
 {
-    public const GOOGLE_VENDORS = ['google-analytics', 'google-tag-manager'];
+    public const GOOGLE_VENDORS = [VendorId::GOOGLE_ANALYTICS, VendorId::GOOGLE_TAG_MANAGER];
 
     public function __construct(
         private IntegrationSettings $settings,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Cli\Handlers;
 
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Blocking\Application\VendorSettings;
 use ItalyCookieChoices\Console\Pipeline\Message;
 use ItalyCookieChoices\Console\Pipeline\StatusCode;
@@ -52,7 +53,7 @@ final readonly class ShowStatus implements HandlerInterface
             'consent_mode' => $this->consentMode(),
             'microsoft_uet' => $this->onOff($this->integrations->sendsUetConsent()),
             'microsoft_clarity' => $this->onOff($this->integrations->sendsClarityConsent()),
-            'global_privacy_control' => $this->onOff($this->options->isChecked('global_privacy_control')),
+            'global_privacy_control' => $this->onOff($this->options->isChecked(ConsentSetting::GLOBAL_PRIVACY_CONTROL)),
             'consent_duration_days' => (string) $this->policy->create()->duration()->days(),
             'cookie_domain' => $this->cookieDomain->forThisSite(),
             'consent_log' => $this->onOff($this->log->isEnabled()),

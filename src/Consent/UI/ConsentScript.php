@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
@@ -117,7 +118,7 @@ final readonly class ConsentScript implements SubscriberInterface
             'version' => $policy->version()->toString(),
             'durationDays' => $policy->duration()->days(),
             'legacyCookie' => $this->options->legacyCookie(),
-            'renewalUrl' => \rest_url(ConsentCookieEndpoint::NAMESPACE . ConsentCookieEndpoint::ROUTE),
+            'renewalUrl' => \rest_url(RestApi::NAMESPACE . ConsentCookieEndpoint::ROUTE),
             'cookieDomain' => $this->cookieDomain->forThisSite(),
             // The consent per vendor, inside the accepted categories.
             'vendorConsent' => $this->vendors->isEnabled(),

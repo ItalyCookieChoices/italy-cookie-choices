@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Consent\Application\RenewConsent;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Event\SubscriberInterface;
@@ -17,9 +18,8 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class ConsentCookieEndpoint implements SubscriberInterface
 {
-    public const NAMESPACE = 'italy-cookie-choices/v1';
     public const ROUTE = '/consent-cookie';
-    public const PATH = '/' . self::NAMESPACE . self::ROUTE;
+    public const PATH = '/' . RestApi::NAMESPACE . self::ROUTE;
 
     public function __construct(
         private RenewConsent $renew,
@@ -38,7 +38,7 @@ final readonly class ConsentCookieEndpoint implements SubscriberInterface
             return;
         }
 
-        \register_rest_route(self::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->renewTheCookie(...),
             'permission_callback' => '__return_true',

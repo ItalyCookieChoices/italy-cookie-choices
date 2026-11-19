@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Scan\UI;
 
+use ItalyCookieChoices\Scan\Domain\Report;
+use ItalyCookieChoices\Scan\Domain\Schedule;
+use ItalyCookieChoices\Scan\Domain\Selection;
 use ItalyCookieChoices\Blocking\Application\VendorSettings;
 use ItalyCookieChoices\Scan\Application\ScanReports;
 use ItalyCookieChoices\Scan\Application\ScanSchedule;
@@ -38,12 +41,12 @@ final readonly class ScheduleData
         $schedule = $this->schedule->get();
 
         return [
-            'frequency' => $schedule->frequency->value,
-            'home' => $schedule->selection->home,
-            'postTypes' => $schedule->selection->postTypes,
-            'categories' => $this->terms($schedule->selection->categories, $this->categoryName(...)),
-            'posts' => $this->terms($schedule->selection->posts, $this->postName(...)),
-            'email' => $schedule->email,
+            Schedule::FREQUENCY => $schedule->frequency->value,
+            Selection::HOME => $schedule->selection->home,
+            Selection::POST_TYPES => $schedule->selection->postTypes,
+            Selection::CATEGORIES => $this->terms($schedule->selection->categories, $this->categoryName(...)),
+            Selection::POSTS => $this->terms($schedule->selection->posts, $this->postName(...)),
+            Schedule::EMAIL => $schedule->email,
             'adminEmail' => $this->option('admin_email'),
             'report' => $this->report(),
         ];
@@ -63,11 +66,11 @@ final readonly class ScheduleData
         $date = \wp_date($this->option('date_format'), $report->date->getTimestamp());
 
         return [
-            'date' => \is_string($date) ? $date : '',
-            'pages' => $report->pages,
-            'errors' => $report->errors,
-            'vendors' => \array_map(static fn(string $id): string => $names[$id] ?? $id, $report->vendors),
-            'hosts' => $report->hosts,
+            Report::DATE => \is_string($date) ? $date : '',
+            Report::PAGES => $report->pages,
+            Report::ERRORS => $report->errors,
+            Report::VENDORS => \array_map(static fn(string $id): string => $names[$id] ?? $id, $report->vendors),
+            Report::HOSTS => $report->hosts,
         ];
     }
 

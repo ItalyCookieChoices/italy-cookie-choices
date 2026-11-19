@@ -40,7 +40,7 @@ final class PageBufferTest extends WPTestCase
 
     public function testItBlocksTheWholePageInTheCompatibilityMode(): void
     {
-        \update_option(Schema::OPTION, ['active' => '1', PageBuffer::OPTION => '1']);
+        \update_option(Schema::OPTION, ['active' => '1', 'all_block' => '1']);
         $level = \ob_get_level();
 
         $this->makeSut()->start();
@@ -67,7 +67,7 @@ final class PageBufferTest extends WPTestCase
 
     public function testItDoesNotBufferTheFeeds(): void
     {
-        \update_option(Schema::OPTION, ['active' => '1', PageBuffer::OPTION => '1']);
+        \update_option(Schema::OPTION, ['active' => '1', 'all_block' => '1']);
         $this->go_to(\get_feed_link());
         $level = \ob_get_level();
 

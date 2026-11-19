@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
+use ItalyCookieChoices\Blocking\Application\BlockingSetting;
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
+
 /**
  * Reads the saved settings when they are needed.
  */
@@ -13,24 +16,24 @@ final readonly class Options
      * The texts translated with WPML and Polylang, with the name of their string.
      */
     public const TRANSLATABLE = [
-        'text' => 'Banner text',
-        'url' => 'Banner url',
-        'anchor_text' => 'Banner anchor text',
-        'button_text' => 'Banner button text',
-        'reject_button_text' => 'Banner reject button text',
-        'preferences_button_text' => 'Banner preferences button text',
-        'save_button_text' => 'Preferences save button text',
-        'legal_notice_url' => 'Banner legal notice url',
-        'legal_notice_text' => 'Banner legal notice text',
-        'content_message_text' => 'Content message text',
-        'content_message_button_text' => 'Content message button text',
-        'floating_button_label' => 'Floating button label',
+        ConsentSetting::TEXT => 'Banner text',
+        ConsentSetting::POLICY_URL => 'Banner url',
+        ConsentSetting::POLICY_TEXT => 'Banner anchor text',
+        ConsentSetting::ACCEPT_BUTTON_TEXT => 'Banner button text',
+        ConsentSetting::REJECT_BUTTON_TEXT => 'Banner reject button text',
+        ConsentSetting::PREFERENCES_BUTTON_TEXT => 'Banner preferences button text',
+        ConsentSetting::SAVE_BUTTON_TEXT => 'Preferences save button text',
+        ConsentSetting::LEGAL_NOTICE_URL => 'Banner legal notice url',
+        ConsentSetting::LEGAL_NOTICE_TEXT => 'Banner legal notice text',
+        BlockingSetting::PLACEHOLDER_TEXT => 'Content message text',
+        BlockingSetting::PLACEHOLDER_BUTTON_TEXT => 'Content message button text',
+        ConsentSetting::FLOATING_BUTTON_LABEL => 'Floating button label',
     ];
 
     /**
      * The translatable texts with more lines, they get a textarea in the multilingual plugins.
      */
-    public const MULTILINE = ['text', 'content_message_text'];
+    public const MULTILINE = [ConsentSetting::TEXT, BlockingSetting::PLACEHOLDER_TEXT];
 
     public function __construct(
         private StringTranslations $translations,
@@ -39,7 +42,7 @@ final readonly class Options
 
     public function isActive(): bool
     {
-        return $this->isChecked('active');
+        return $this->isChecked(PluginSetting::ACTIVE);
     }
 
     /**
@@ -174,8 +177,14 @@ final readonly class Options
         $options = $this->all();
 
         return [
-            'name' => $this->nonEmptyString($options['cookie_name'] ?? null, Schema::COOKIE_NAME),
-            'value' => $this->nonEmptyString($options['cookie_value'] ?? null, Schema::COOKIE_VALUE),
+            'name' => $this->nonEmptyString(
+                $options[PluginSetting::LEGACY_COOKIE_NAME] ?? null,
+                Schema::COOKIE_NAME
+            ),
+            'value' => $this->nonEmptyString(
+                $options[PluginSetting::LEGACY_COOKIE_VALUE] ?? null,
+                Schema::COOKIE_VALUE
+            ),
         ];
     }
 

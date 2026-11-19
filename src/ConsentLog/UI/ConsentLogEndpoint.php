@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\ConsentLog\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\Application\RecordConsent;
 use ItalyStrap\Event\SubscriberInterface;
@@ -16,7 +17,6 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class ConsentLogEndpoint implements SubscriberInterface
 {
-    public const NAMESPACE = 'italy-cookie-choices/v1';
     public const ROUTE = '/consents';
 
     public function __construct(
@@ -36,7 +36,7 @@ final readonly class ConsentLogEndpoint implements SubscriberInterface
             return;
         }
 
-        \register_rest_route(self::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->create(...),
             'permission_callback' => '__return_true',

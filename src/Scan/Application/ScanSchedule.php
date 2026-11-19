@@ -19,29 +19,29 @@ final readonly class ScanSchedule
     {
         $option = \get_option(self::OPTION);
         $option = \is_array($option) ? $option : [];
-        $frequency = $option['frequency'] ?? null;
+        $frequency = $option[Schedule::FREQUENCY] ?? null;
 
         return new Schedule(
             Frequency::tryFrom(\is_string($frequency) ? $frequency : '') ?? Frequency::Off,
             new Selection(
-                ($option['home'] ?? false) === true,
-                \array_values(\array_filter($this->listOf($option['postTypes'] ?? null), \is_string(...))),
-                \array_values(\array_filter($this->listOf($option['categories'] ?? null), \is_int(...))),
-                \array_values(\array_filter($this->listOf($option['posts'] ?? null), \is_int(...))),
+                ($option[Selection::HOME] ?? false) === true,
+                \array_values(\array_filter($this->listOf($option[Selection::POST_TYPES] ?? null), \is_string(...))),
+                \array_values(\array_filter($this->listOf($option[Selection::CATEGORIES] ?? null), \is_int(...))),
+                \array_values(\array_filter($this->listOf($option[Selection::POSTS] ?? null), \is_int(...))),
             ),
-            ($option['email'] ?? false) === true
+            ($option[Schedule::EMAIL] ?? false) === true
         );
     }
 
     public function save(Schedule $schedule): void
     {
         \update_option(self::OPTION, [
-            'frequency' => $schedule->frequency->value,
-            'home' => $schedule->selection->home,
-            'postTypes' => $schedule->selection->postTypes,
-            'categories' => $schedule->selection->categories,
-            'posts' => $schedule->selection->posts,
-            'email' => $schedule->email,
+            Schedule::FREQUENCY => $schedule->frequency->value,
+            Selection::HOME => $schedule->selection->home,
+            Selection::POST_TYPES => $schedule->selection->postTypes,
+            Selection::CATEGORIES => $schedule->selection->categories,
+            Selection::POSTS => $schedule->selection->posts,
+            Schedule::EMAIL => $schedule->email,
         ], false);
     }
 

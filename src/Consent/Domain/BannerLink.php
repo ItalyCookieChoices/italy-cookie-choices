@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\Domain;
 
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
+
 /**
  * A link of the banner to a page of the site: the cookie policy, and the legal notice the sites of Germany
  * and Austria show. On its page the banner does not open by itself, so the visitor can read it.
@@ -20,8 +22,8 @@ enum BannerLink: string
     {
         // phpcs:ignore PHPCompatibility.Variables.ForbiddenThisUseContexts -- An enum case.
         return match ($this) {
-            self::Policy => 'slug',
-            self::LegalNotice => 'legal_notice_page',
+            self::Policy => ConsentSetting::POLICY_PAGE,
+            self::LegalNotice => ConsentSetting::LEGAL_NOTICE_PAGE,
         };
     }
 
@@ -32,8 +34,8 @@ enum BannerLink: string
     {
         // phpcs:ignore PHPCompatibility.Variables.ForbiddenThisUseContexts -- An enum case.
         return match ($this) {
-            self::Policy => 'url',
-            self::LegalNotice => 'legal_notice_url',
+            self::Policy => ConsentSetting::POLICY_URL,
+            self::LegalNotice => ConsentSetting::LEGAL_NOTICE_URL,
         };
     }
 
@@ -44,8 +46,8 @@ enum BannerLink: string
     {
         // phpcs:ignore PHPCompatibility.Variables.ForbiddenThisUseContexts -- An enum case.
         return match ($this) {
-            self::Policy => 'anchor_text',
-            self::LegalNotice => 'legal_notice_text',
+            self::Policy => ConsentSetting::POLICY_TEXT,
+            self::LegalNotice => ConsentSetting::LEGAL_NOTICE_TEXT,
         };
     }
 }

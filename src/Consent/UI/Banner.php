@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Settings\Options;
@@ -76,7 +77,7 @@ final readonly class Banner implements SubscriberInterface
         }
 
         // The custom template has only the custom CSS, without the plugin styles.
-        $isCustom = $this->options->text('js_template') === self::CUSTOM_TEMPLATE;
+        $isCustom = $this->options->text(ConsentSetting::TEMPLATE) === self::CUSTOM_TEMPLATE;
 
         $this->assets->load(
             // Only registered, render() prints it after the markup
@@ -122,7 +123,7 @@ final readonly class Banner implements SubscriberInterface
     public function stylesheet(): ?string
     {
         $metadata = $this->metadata();
-        if ($metadata === null || $this->options->text('js_template') === self::CUSTOM_TEMPLATE) {
+        if ($metadata === null || $this->options->text(ConsentSetting::TEMPLATE) === self::CUSTOM_TEMPLATE) {
             return null;
         }
 
@@ -151,8 +152,8 @@ final readonly class Banner implements SubscriberInterface
      */
     public function data(): array
     {
-        $position = self::POSITIONS[$this->options->text('banner', '1')] ?? self::POSITIONS['1'];
-        $template = $this->options->text('js_template', 'default');
+        $position = self::POSITIONS[$this->options->text(ConsentSetting::POSITION, '1')] ?? self::POSITIONS['1'];
+        $template = $this->options->text(ConsentSetting::TEMPLATE, 'default');
 
         return [
             'classes' => [
@@ -160,19 +161,20 @@ final readonly class Banner implements SubscriberInterface
                     'icc-banner icc-banner--%s icc-banner--%s %s',
                     $position,
                     $template,
-                    $this->options->text('bannerStyle')
+                    $this->options->text(ConsentSetting::BANNER_CLASS)
                 )),
-                'content' => \trim('icc-banner__content ' . $this->options->text('contentStyle')),
-                'text' => \trim('icc-banner__text ' . $this->options->text('consentText')),
-                'link' => $this->options->text('infoClass'),
-                'button' => \trim('icc-banner__button ' . $this->options->text('closeClass')),
+                'content' => \trim('icc-banner__content ' . $this->options->text(ConsentSetting::CONTENT_CLASS)),
+                'text' => \trim('icc-banner__text ' . $this->options->text(ConsentSetting::TEXT_CLASS)),
+                'link' => $this->options->text(ConsentSetting::LINK_CLASS),
+                'button' => \trim('icc-banner__button ' . $this->options->text(ConsentSetting::BUTTON_CLASS)),
             ],
             'modal' => $position === self::POSITIONS['2'],
             'opensByItself' => $this->opensByItself(),
-            'reload' => $this->options->isChecked('reload'),
-            'globalPrivacyControl' => $this->options->isChecked('global_privacy_control'),
-            'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
-            'text' => \wp_kses_post($this->options->translated('text')),
+            'reload' => $this->options->isChecked(ConsentSetting::RELOAD),
+            'globalPrivacyControl' => $this->options->isChecked(ConsentSetting::GLOBAL_PRIVACY_CONTROL),
+            'htmlMargin' => $position === self::POSITIONS['1']
+                && $this->options->isChecked(ConsentSetting::HTML_MARGIN),
+            'text' => \wp_kses_post($this->options->translated(ConsentSetting::TEXT)),
             'link' => $this->link(BannerLink::Policy),
             'legalNoticeLink' => $this->link(BannerLink::LegalNotice),
             'floatingButton' => $this->floatingButton(),
@@ -187,7 +189,7 @@ final readonly class Banner implements SubscriberInterface
      */
     private function logo(): string
     {
-        $id = (int) $this->options->text('banner_logo');
+        $id = (int) $this->options->text(ConsentSetting::LOGO);
         if ($id <= 0) {
             return '';
         }
@@ -206,16 +208,16 @@ final readonly class Banner implements SubscriberInterface
      */
     private function floatingButton(): ?array
     {
-        if (!$this->options->isChecked('floating_button')) {
+        if (!$this->options->isChecked(ConsentSetting::FLOATING_BUTTON)) {
             return null;
         }
 
-        $position = $this->options->text('floating_button_position');
+        $position = $this->options->text(ConsentSetting::FLOATING_BUTTON_POSITION);
 
         return [
             'position' => \in_array($position, self::FLOATING_BUTTON_POSITIONS, true) ? $position : 'left',
             'label' => $this->options->translated(
-                'floating_button_label',
+                ConsentSetting::FLOATING_BUTTON_LABEL,
                 \__('Cookie preferences', 'italy-cookie-choices')
             ),
         ];
@@ -245,7 +247,7 @@ final readonly class Banner implements SubscriberInterface
     private function excludedPages(): array
     {
         $pages = [];
-        foreach (\explode(',', $this->options->text('excluded_pages')) as $page) {
+        foreach (\explode(',', $this->options->text(ConsentSetting::EXCLUDED_PAGES)) as $page) {
             $page = \trim($page);
             if ($page === '') {
                 continue;
@@ -279,10 +281,10 @@ final readonly class Banner implements SubscriberInterface
             return null;
         }
 
-        $newTab = $this->options->isChecked('target');
+        $newTab = $this->options->isChecked(ConsentSetting::LINKS_IN_NEW_TAB);
         $rel = \array_filter([
             $newTab ? 'noopener' : '',
-            $this->options->isChecked('nofollow') ? 'nofollow' : '',
+            $this->options->isChecked(ConsentSetting::LINKS_NOFOLLOW) ? 'nofollow' : '',
         ]);
 
         return [
@@ -298,14 +300,14 @@ final readonly class Banner implements SubscriberInterface
      */
     public function inlineStyle(): string
     {
-        $background = \sanitize_hex_color($this->options->text('banner_bg')) ?? '#ffffff';
-        $color = \sanitize_hex_color($this->options->text('banner_text_color')) ?? '#000000';
+        $background = \sanitize_hex_color($this->options->text(ConsentSetting::BACKGROUND_COLOR)) ?? '#ffffff';
+        $color = \sanitize_hex_color($this->options->text(ConsentSetting::TEXT_COLOR)) ?? '#000000';
 
         return \sprintf(
             '.icc-banner,.icc-preferences,.icc-floating-button{--icc-background:%s;--icc-color:%s;}%s',
             $background,
             $color,
-            \wp_strip_all_tags($this->options->text('customCSS'))
+            \wp_strip_all_tags($this->options->text(ConsentSetting::CUSTOM_CSS))
         );
     }
 

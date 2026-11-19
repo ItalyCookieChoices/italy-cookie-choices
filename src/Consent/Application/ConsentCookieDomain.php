@@ -21,7 +21,7 @@ final readonly class ConsentCookieDomain
 
     public function forThisSite(): string
     {
-        return (new CookieDomain($this->options->text('cookie_domain')))
+        return (new CookieDomain($this->options->text(ConsentSetting::COOKIE_DOMAIN)))
             ->forHost((string) \wp_parse_url(\home_url(), \PHP_URL_HOST));
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Settings\SettingsCopy;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -30,7 +31,7 @@ final readonly class CopySettingsEndpoint implements SubscriberInterface
             return;
         }
 
-        \register_rest_route(ImportEndpoint::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->copy(...),
             'permission_callback' => static fn(): bool => \current_user_can(NetworkSettingsPage::CAPABILITY),

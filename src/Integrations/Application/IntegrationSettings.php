@@ -18,7 +18,7 @@ final readonly class IntegrationSettings
 
     public function sendsConsentMode(): bool
     {
-        return $this->options->isActive() && $this->options->isChecked('consent_mode');
+        return $this->options->isActive() && $this->options->isChecked(IntegrationSetting::CONSENT_MODE);
     }
 
     /**
@@ -26,7 +26,7 @@ final readonly class IntegrationSettings
      */
     public function isConsentModeAdvanced(): bool
     {
-        return $this->sendsConsentMode() && $this->options->isChecked('consent_mode_advanced');
+        return $this->sendsConsentMode() && $this->options->isChecked(IntegrationSetting::CONSENT_MODE_ADVANCED);
     }
 
     /**
@@ -34,7 +34,7 @@ final readonly class IntegrationSettings
      */
     public function sendsUetConsent(): bool
     {
-        return $this->options->isActive() && $this->options->isChecked('uet_consent_mode');
+        return $this->options->isActive() && $this->options->isChecked(IntegrationSetting::UET_CONSENT_MODE);
     }
 
     /**
@@ -42,27 +42,27 @@ final readonly class IntegrationSettings
      */
     public function sendsClarityConsent(): bool
     {
-        return $this->options->isActive() && $this->options->isChecked('clarity_consent_mode');
+        return $this->options->isActive() && $this->options->isChecked(IntegrationSetting::CLARITY_CONSENT_MODE);
     }
 
     public function measurementId(): string
     {
-        return $this->tagId('ga_measurement_id');
+        return $this->tagId(IntegrationSetting::GA_MEASUREMENT_ID);
     }
 
     public function containerId(): string
     {
-        return $this->tagId('gtm_container_id');
+        return $this->tagId(IntegrationSetting::GTM_CONTAINER_ID);
     }
 
     public function pixelId(): string
     {
-        return $this->tagId('facebook_pixel_id');
+        return $this->tagId(IntegrationSetting::FACEBOOK_PIXEL_ID);
     }
 
     public function usesYouTubeNoCookie(): bool
     {
-        return $this->options->isActive() && $this->options->isChecked('youtube_nocookie');
+        return $this->options->isActive() && $this->options->isChecked(IntegrationSetting::YOUTUBE_NOCOOKIE);
     }
 
     /**
