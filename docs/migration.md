@@ -8,6 +8,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 
 * Complianz, the free version 7 and the versions before
 * CookieYes, version 3 and the versions 2, named GDPR Cookie Consent
+* Cookie Notice & Compliance, the banner of the plugin and what the Compliance app keeps on the site
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -73,6 +74,22 @@ Not imported: the consent on scroll or after a time, it is not a valid consent; 
 The versions 2 import the texts, the Read more link, the position, the colors, the revisit button and the cookies, as site cookies.
 
 Not imported: the banner for the United States with the opt-out, the geo-targeting, the consent on scroll, the translations. When the site uses the CookieYes web app, its settings in WordPress can be older than the ones of the web app: check them after the import.
+
+## From Cookie Notice & Compliance
+
+| Cookie Notice | Cookie Choices |
+| --- | --- |
+| The message, the accept and refuse button texts | The banner text and the button texts |
+| The privacy policy link, a page or an address, and its target | The policy link and its new tab |
+| The position and the colors of the bar | The **Style** tab |
+| The cookie expiry | The closest duration of the consent |
+| The reload after the accept | Reload the page after the choice |
+| The revoke button | The floating button |
+| The script blocking code, in the head and in the body | The scripts after the consent, in the marketing category |
+
+Cookie Notice asks one consent for everything: its scripts wait for the marketing consent, change their category in **Integrations > Scripts after the consent** when they are statistics. With the Compliance app, the banner, its texts and its categories are in the app: the import brings the position, the color, the policy link, Global Privacy Control, Google Consent Mode and the custom providers, as custom vendors.
+
+Not imported: the consent on scroll or on click, the conditional display rules, the translations.
 
 ## Add a plugin
 

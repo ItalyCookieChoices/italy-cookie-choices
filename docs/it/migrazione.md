@@ -8,6 +8,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 
 * Complianz, la versione gratuita 7 e le versioni precedenti
 * CookieYes, la versione 3 e le versioni 2, chiamate GDPR Cookie Consent
+* Cookie Notice & Compliance, il banner del plugin e quello che l'app Compliance tiene sul sito
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -73,6 +74,22 @@ Non vengono importati: il consenso allo scorrimento o dopo un tempo, non è un c
 Le versioni 2 importano i testi, il link Leggi di più, la posizione, i colori, il pulsante per rivedere il consenso e i cookie, come cookie del sito.
 
 Non vengono importati: il banner per gli Stati Uniti con l'opt-out, il geo-targeting, il consenso allo scorrimento, le traduzioni. Quando il sito usa la web app di CookieYes, le sue impostazioni in WordPress possono essere più vecchie di quelle della web app: controllale dopo l'importazione.
+
+## Da Cookie Notice & Compliance
+
+| Cookie Notice | Cookie Choices |
+| --- | --- |
+| Il messaggio, i testi dei pulsanti di accettazione e di rifiuto | Il testo del banner e i testi dei pulsanti |
+| Il link alla privacy policy, una pagina o un indirizzo, e la sua destinazione | Il link alla policy e la nuova scheda |
+| La posizione e i colori della barra | La scheda **Stile** |
+| La scadenza del cookie | La durata del consenso più vicina |
+| Il ricaricamento dopo l'accettazione | Ricarica la pagina dopo la scelta |
+| Il pulsante di revoca | Il pulsante flottante |
+| Il codice dello script blocking, nell'head e nel body | Gli script dopo il consenso, nella categoria marketing |
+
+Cookie Notice chiede un solo consenso per tutto: i suoi script attendono il consenso marketing, cambia la loro categoria in **Integrazioni > Script dopo il consenso** quando sono statistiche. Con l'app Compliance, il banner, i suoi testi e le sue categorie sono nell'app: l'importazione porta la posizione, il colore, il link alla policy, Global Privacy Control, Google Consent Mode e i provider personalizzati, come fornitori personalizzati.
+
+Non vengono importati: il consenso allo scorrimento o al clic, le regole di visualizzazione condizionale, le traduzioni.
 
 ## Aggiungere un plugin
 

@@ -1797,7 +1797,7 @@ msgid "Add rel=\"nofollow\" to the links"
 msgstr ""
 
 #. translators: %s: the name of the other plugin.
-#: src/Migration/Application/Conversions.php:106
+#: src/Migration/Application/Conversions.php:122
 #, php-format
 msgid "The custom CSS of %s: rewrite it for the classes of Cookie Choices."
 msgstr ""
@@ -1816,7 +1816,7 @@ msgid "The regions and the banner for the United States are not imported: Cookie
 msgstr ""
 
 #: src/Migration/Infrastructure/Complianz/ComplianzBanner.php:100
-#: src/Migration/Infrastructure/CookieYes/CookieYesBanner.php:95
+#: src/Migration/Infrastructure/CookieYes/CookieYesBanner.php:102
 msgid "The custom CSS is imported in a comment: rewrite it for Cookie Choices."
 msgstr ""
 
@@ -1837,6 +1837,7 @@ msgid "The cookies of these services are not imported, add them to a custom vend
 msgstr ""
 
 #: src/Migration/Infrastructure/Complianz/ComplianzSource.php:49
+#: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:291
 #: src/Migration/Infrastructure/CookieYes/CookieYesSource.php:45
 msgid "Translations are not imported: write the texts again in WPML or Polylang."
 msgstr ""
@@ -1965,18 +1966,44 @@ msgstr ""
 msgid "Imported:"
 msgstr ""
 
-#: src/Migration/Infrastructure/CookieYes/CookieYesBanner.php:80
+#: src/Migration/Infrastructure/CookieYes/CookieYesBanner.php:87
 msgid "The site uses the CookieYes web app: its settings in WordPress can be older than the ones of the web app."
 msgstr ""
 
-#: src/Migration/Infrastructure/CookieYes/CookieYesBanner.php:88
+#: src/Migration/Infrastructure/CookieYes/CookieYesBanner.php:95
 msgid "The banner for the United States, with the opt-out, is not imported: Cookie Choices asks the consent."
 msgstr ""
 
-#: src/Migration/Infrastructure/CookieYes/CookieYesLegacy.php:78
+#: src/Migration/Infrastructure/CookieYes/CookieYesLegacy.php:79
 msgid "The consent on scroll is not imported: it is not a valid consent."
 msgstr ""
 
 #: src/Migration/Infrastructure/CookieYes/CookieYesSource.php:49
 msgid "Deactivate CookieYes after the import, or the site shows two banners. Its settings stay."
+msgstr ""
+
+#. translators: %s: the name of the other plugin.
+#: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:177
+#, php-format
+msgid "%s (head)"
+msgstr ""
+
+#: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:259
+msgid "The site uses the Compliance app: its texts and its categories are in the app, write the texts again in Cookie Choices."
+msgstr ""
+
+#: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:267
+msgid "The consent on scroll or on click is not imported: it is not a valid consent."
+msgstr ""
+
+#: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:274
+msgid "The conditional display rules are not imported: list the pages in \"Pages where the banner does not open by itself\"."
+msgstr ""
+
+#: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:282
+msgid "The scripts run after the accept wait for the marketing consent: change their category if they are of another one."
+msgstr ""
+
+#: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:295
+msgid "Deactivate Cookie Notice after the import, or the site shows two banners. Its settings stay."
 msgstr ""
