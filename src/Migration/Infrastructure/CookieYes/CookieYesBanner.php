@@ -98,11 +98,8 @@ final readonly class CookieYesBanner
             );
         }
 
-        if ($this->text($config, ['meta', 'customCSS']) !== '') {
-            $notes[] = \__(
-                'The custom CSS is imported in a comment: rewrite it for Cookie Choices.',
-                'italy-cookie-choices'
-            );
+        if ($this->customCss($config) !== '') {
+            $notes[] = $this->conversions->customCssNote();
         }
 
         return $notes;
@@ -174,8 +171,6 @@ final readonly class CookieYesBanner
     {
         $type = $this->text($config, ['settings', 'type']);
         $position = $this->text($config, ['settings', 'position']);
-        $css = $this->text($config, ['meta', 'customCSS']);
-
         return [
             ConsentSetting::POSITION => $type === 'popup' ? self::MODAL : self::POSITIONS[$type][$position] ?? '',
             ConsentSetting::LOGO => $this->isOn($config, [...self::LOGO, 'status'])
@@ -187,7 +182,7 @@ final readonly class CookieYesBanner
             ConsentSetting::TEXT_COLOR => $this->conversions->color(
                 $config->get([...self::NOTICE, 'elements', 'description', 'styles', 'color'])
             ),
-            ConsentSetting::CUSTOM_CSS => $css !== '' ? $this->conversions->commentedCss(self::NAME, $css) : '',
+            ConsentSetting::CUSTOM_CSS => $this->customCss($config),
         ];
     }
 
@@ -235,5 +230,13 @@ final readonly class CookieYesBanner
     private function isOn(Config $data, array $path): bool
     {
         return $this->conversions->isOn($data->get($path));
+    }
+
+    /**
+     * @param Data $config
+     */
+    private function customCss(Config $config): string
+    {
+        return $this->conversions->commentedCss(self::NAME, $this->text($config, ['meta', 'customCSS']));
     }
 }

@@ -112,9 +112,14 @@ final readonly class Conversions
 
     /**
      * Custom CSS of another plugin, kept in a comment: its selectors do not match the banner of Cookie Choices.
+     * Empty when it has no declarations, like the templates of empty rules some plugins save by default.
      */
     public function commentedCss(string $plugin, string $css): string
     {
+        if (!$this->hasDeclarations($css)) {
+            return '';
+        }
+
         return \sprintf(
             "/* %s */\n/*\n%s\n*/",
             \sprintf(
@@ -124,5 +129,27 @@ final readonly class Conversions
             ),
             \str_replace('*/', '* /', \trim($css))
         );
+    }
+
+    /**
+     * The note of the custom CSS imported by commentedCss().
+     */
+    public function customCssNote(): string
+    {
+        return \__('The custom CSS is imported in a comment: rewrite it for Cookie Choices.', 'italy-cookie-choices');
+    }
+
+    /**
+     * Without the comments, then without the empty blocks, inner ones first, something is left.
+     */
+    private function hasDeclarations(string $css): bool
+    {
+        $css = (string) \preg_replace('#/\*.*?(\*/|$)#s', '', $css);
+        do {
+            $before = $css;
+            $css = (string) \preg_replace('/[^{};]*\{\s*\}/', '', $css);
+        } while ($css !== $before);
+
+        return \trim($css) !== '';
     }
 }
