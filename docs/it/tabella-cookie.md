@@ -20,6 +20,8 @@ Un nome che finisce con `*` è un prefisso: `_ga_*` è il cookie `_ga_` seguito 
 
 A ogni pagina e dopo ogni scelta, il plugin cancella i cookie della tabella la cui categoria non ha il consenso: un rifiuto o una revoca rimuovono, per esempio, `_ga` e `_fbp` impostati prima dai fornitori. I cookie necessari non vengono mai cancellati.
 
+Con il [consenso per fornitore](blocco.md#consenso-per-fornitore), cancella anche i cookie di un fornitore rifiutato dentro una categoria accettata: rifiutare Google Analytics accettando le statistiche rimuove `_ga` e `_ga_*`. Un cookie che un fornitore ancora accettato condivide con quello rifiutato resta. I cookie di un fornitore sono quelli elencati sopra: del fornitore comune, o aggiunti al fornitore personalizzato con **Aggiungi un cookie**.
+
 Cancella i cookie sul dominio del sito e sui suoi domini superiori, dove i fornitori di solito li impostano, come `.example.com` per `www.example.com`. Il browser non permette a uno script di raggiungere i cookie HttpOnly e i cookie degli altri siti, come quelli di YouTube su `youtube.com`: restano fino alla scadenza, o finché il visitatore non li cancella.
 
 ## I cookie dei fornitori comuni

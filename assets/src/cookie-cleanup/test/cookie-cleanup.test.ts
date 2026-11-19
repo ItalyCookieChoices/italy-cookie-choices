@@ -1,6 +1,11 @@
 import { createConsentApi } from '../../consent/api';
 import { Cookies } from '../../consent/cookies';
-import type { ConsentApi, ConsentConfig } from '../../consent/types';
+import {
+	CONSENT_CHANGED,
+	type ConsentApi,
+	type ConsentChange,
+	type ConsentConfig,
+} from '../../consent/types';
 import {
 	cookiesToDelete,
 	domainsOf,
@@ -26,11 +31,40 @@ const config: CookieCleanupConfig = {
 		statistics: [ '_ga', '_ga_*' ],
 		marketing: [ '_fbp', '_gcl_*' ],
 	},
+	vendors: [],
 };
 
-function consentApi(): ConsentApi {
+const vendorConfig: CookieCleanupConfig = {
+	categories: {
+		statistics: [ '_ga', '_ga_*', '_trk' ],
+		marketing: [ '_fbp', '_gcl_*' ],
+	},
+	vendors: [
+		{
+			id: 'google-analytics',
+			category: 'statistics',
+			cookies: [ '_ga', '_ga_*' ],
+		},
+		{ id: 'tracker', category: 'statistics', cookies: [ '_trk', '_ga' ] },
+		{ id: 'facebook', category: 'marketing', cookies: [ '_fbp' ] },
+		{ id: 'google-ads', category: 'marketing', cookies: [ '_gcl_*' ] },
+	],
+};
+
+function consentApi( vendorConsent = false ): ConsentApi {
 	return createConsentApi(
-		consentConfig,
+		vendorConsent
+			? {
+					...consentConfig,
+					vendorConsent,
+					vendors: vendorConfig.vendors.map(
+						( { id, category } ) => ( {
+							id,
+							category,
+						} )
+					),
+				}
+			: consentConfig,
 		new Cookies( document, false ),
 		document
 	);
@@ -66,9 +100,30 @@ describe( 'parseCookieCleanupConfig', () => {
 			parseCookieCleanupConfig( {
 				categories: { statistics: [ '_ga', 1 ], marketing: 'x' },
 			} )
-		).toEqual( { categories: { statistics: [ '_ga' ] } } );
+		).toEqual( { categories: { statistics: [ '_ga' ] }, vendors: [] } );
 		expect( parseCookieCleanupConfig( null ) ).toEqual( {
 			categories: {},
+			vendors: [],
+		} );
+	} );
+
+	it( 'reads the cookies of each vendor, the invalid vendors are skipped', () => {
+		expect( parseCookieCleanupConfig( vendorConfig ) ).toEqual(
+			vendorConfig
+		);
+		expect(
+			parseCookieCleanupConfig( {
+				categories: {},
+				vendors: [
+					{ id: 'a', category: 'statistics', cookies: [ '_a', 2 ] },
+					{ id: 'b', category: 'statistics' },
+					{ id: 3, category: 'statistics', cookies: [] },
+					'c',
+				],
+			} )
+		).toEqual( {
+			categories: {},
+			vendors: [ { id: 'a', category: 'statistics', cookies: [ '_a' ] } ],
 		} );
 	} );
 } );
@@ -78,7 +133,7 @@ describe( 'cookiesToDelete', () => {
 		expect(
 			cookiesToDelete(
 				config,
-				[ 'necessary', 'marketing' ],
+				{ categories: [ 'necessary', 'marketing' ] },
 				[ '_ga', '_ga_ABC', '_gid', '_fbp', 'icc_consent' ]
 			)
 		).toEqual( [ '_ga', '_ga_ABC' ] );
@@ -88,10 +143,55 @@ describe( 'cookiesToDelete', () => {
 		expect(
 			cookiesToDelete(
 				config,
-				[ 'necessary', 'statistics', 'marketing' ],
+				{ categories: [ 'necessary', 'statistics', 'marketing' ] },
 				[ '_ga', '_fbp' ]
 			)
 		).toEqual( [] );
+	} );
+
+	it( 'finds the cookies of the vendors refused inside an accepted category', () => {
+		expect(
+			cookiesToDelete(
+				vendorConfig,
+				{
+					categories: [ 'necessary', 'statistics', 'marketing' ],
+					refusedVendors: [ 'google-analytics', 'google-ads' ],
+				},
+				[ '_ga_ABC', '_gcl_au', '_fbp', '_trk' ]
+			)
+		).toEqual( [ '_ga_ABC', '_gcl_au' ] );
+	} );
+
+	it( 'keeps a cookie a vendor still accepted shares with a refused one', () => {
+		expect(
+			cookiesToDelete(
+				vendorConfig,
+				{
+					categories: [ 'necessary', 'statistics' ],
+					refusedVendors: [ 'google-analytics' ],
+				},
+				[ '_ga', '_ga_ABC', '_trk' ]
+			)
+		).toEqual( [ '_ga_ABC' ] );
+	} );
+
+	it( 'deletes a shared cookie when its other vendor is in a refused category', () => {
+		expect(
+			cookiesToDelete(
+				{
+					categories: { statistics: [ '_x' ], marketing: [] },
+					vendors: [
+						{ id: 'a', category: 'statistics', cookies: [ '_x' ] },
+						{ id: 'b', category: 'marketing', cookies: [ '_x' ] },
+					],
+				},
+				{
+					categories: [ 'necessary', 'statistics' ],
+					refusedVendors: [ 'a' ],
+				},
+				[ '_x' ]
+			)
+		).toEqual( [ '_x' ] );
 	} );
 } );
 
@@ -138,6 +238,41 @@ describe( 'startCookieCleanup', () => {
 		api.setConsent( [ 'marketing' ] );
 
 		expect( cookieNames() ).toEqual( [ '_gcl_au', 'icc_consent' ] );
+	} );
+
+	it( 'deletes the cookies of a vendor refused later', () => {
+		const api = consentApi( true );
+		api.acceptAll();
+		startCookieCleanup( vendorConfig, api, document, 'localhost' );
+		setCookies( '_ga', '_ga_ABC', '_trk' );
+
+		api.setConsent( [ 'statistics' ], [ 'tracker' ] );
+
+		expect( cookieNames() ).toEqual( [ '_ga', '_ga_ABC', 'icc_consent' ] );
+	} );
+
+	it( 'deletes the cookies of a vendor refused in another tab', () => {
+		const api = consentApi( true );
+		api.acceptAll();
+		startCookieCleanup( vendorConfig, api, document, 'localhost' );
+		setCookies( '_trk' );
+		const previous = api.getConsent();
+
+		document.dispatchEvent(
+			new CustomEvent< ConsentChange >( CONSENT_CHANGED, {
+				detail: {
+					consent: previous && {
+						...previous,
+						categories: [ 'necessary', 'statistics' ],
+						refusedVendors: [ 'tracker' ],
+					},
+					previous,
+					fromAnotherTab: true,
+				},
+			} )
+		);
+
+		expect( cookieNames() ).toEqual( [ 'icc_consent' ] );
 	} );
 
 	it( 'deletes the cookies of every category on a withdrawal', () => {

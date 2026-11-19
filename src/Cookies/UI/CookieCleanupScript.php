@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Cookies\UI;
 
+use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Blocking\UI\BlockableRequest;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Cookies\Application\CookieTableFactory;
 use ItalyCookieChoices\Cookies\Domain\Cookie;
+use ItalyCookieChoices\Cookies\Domain\CookieTable;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
@@ -25,7 +27,8 @@ use SplFileInfo;
 /**
  * Loads the script that deletes the cookies of the categories without the consent, on load and after each choice.
  *
- * The names come from the cookie table, the necessary cookies are never deleted.
+ * The names come from the cookie table, the necessary cookies are never deleted. With the consent per vendor,
+ * the script deletes the cookies of the vendors refused inside the accepted categories too.
  * The script is built from assets/src/cookie-cleanup.
  */
 final readonly class CookieCleanupScript implements SubscriberInterface
@@ -41,6 +44,7 @@ final readonly class CookieCleanupScript implements SubscriberInterface
     public function __construct(
         private CookieTableFactory $table,
         private ConsentTexts $texts,
+        private VendorChoices $vendorChoices,
         private BlockableRequest $request,
         private AssetLoader $assets,
         private string $buildPath,
@@ -74,14 +78,26 @@ final readonly class CookieCleanupScript implements SubscriberInterface
     }
 
     /**
-     * The names of the cookies of each optional category, a name ending with * is a prefix.
+     * The names of the cookies of each optional category and, with the consent per vendor, of each vendor.
+     * A name ending with * is a prefix.
      *
-     * @return array{categories: array<string, list<string>>}
+     * @return array{
+     *     categories: array<string, list<string>>,
+     *     vendors: list<array{id: string, category: string, cookies: list<string>}>
+     * }
      */
     public function config(): array
     {
         $table = $this->table->create();
 
+        return ['categories' => $this->categories($table), 'vendors' => $this->vendors($table)];
+    }
+
+    /**
+     * @return array<string, list<string>>
+     */
+    private function categories(CookieTable $table): array
+    {
         $categories = [];
         foreach ($this->texts->all()['categories'] as $category) {
             $names = \array_map(
@@ -95,7 +111,28 @@ final readonly class CookieCleanupScript implements SubscriberInterface
             $categories[$category['id']] = $names;
         }
 
-        return ['categories' => $categories];
+        return $categories;
+    }
+
+    /**
+     * @return list<array{id: string, category: string, cookies: list<string>}>
+     */
+    private function vendors(CookieTable $table): array
+    {
+        if (!$this->vendorChoices->isEnabled()) {
+            return [];
+        }
+
+        $vendors = [];
+        foreach ($table->byVendor() as $id => $cookies) {
+            $vendors[] = [
+                'id' => $id,
+                'category' => $cookies[0]->category(),
+                'cookies' => \array_map(static fn(Cookie $cookie): string => $cookie->name(), $cookies),
+            ];
+        }
+
+        return $vendors;
     }
 
     /**

@@ -20,6 +20,8 @@ A name ending with `*` is a prefix: `_ga_*` is the cookie `_ga_` followed by the
 
 On each page and after each choice, the plugin deletes the cookies of the table whose category has no consent: a rejection or a withdrawal removes, for example, `_ga` and `_fbp` the vendors set before. The necessary cookies are never deleted.
 
+With the [consent per vendor](blocking.md#consent-per-vendor), it deletes the cookies of a vendor refused inside an accepted category too: refusing Google Analytics while accepting the statistics removes `_ga` and `_ga_*`. A cookie that a vendor still accepted shares with the refused one stays. The cookies of a vendor are the ones listed above: of the common vendor, or added to the custom vendor with **Add a cookie**.
+
 It deletes the cookies on the domain of the site and on its parent domains, where the vendors usually set them, like `.example.com` for `www.example.com`. The browser does not let a script reach the HttpOnly cookies and the cookies of the other sites, like the ones of YouTube on `youtube.com`: they stay until they expire, or until the visitor deletes them.
 
 ## The cookies of the common vendors

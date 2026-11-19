@@ -46,6 +46,7 @@ Di default i visitatori accettano o rifiutano una categoria, con tutti i suoi fo
 * Attivare un singolo fornitore accetta la sua categoria, con solo quel fornitore.
 * Il segnaposto di un video o di una mappa bloccati accetta solo il suo fornitore.
 * Accetta tutto accetta tutti i fornitori, rifiuta tutto li rifiuta tutti.
+* Rifiutare un fornitore cancella i cookie che ha impostato, come spiega la [tabella dei cookie](tabella-cookie.md#i-cookie-senza-consenso-vengono-cancellati).
 
 Le linee guida del Garante per la protezione dei dati personali chiedono che i visitatori possano scegliere in modo analitico le funzionalità, le terze parti e i cookie, anche raggruppati in categorie: la scelta dei fornitori è la lettura più sicura, attivala per i siti in Italia. L'elenco ha i fornitori comuni attivi e i fornitori personalizzati: disattiva i fornitori comuni che il sito non usa, **Scansiona il sito** li trova.
 

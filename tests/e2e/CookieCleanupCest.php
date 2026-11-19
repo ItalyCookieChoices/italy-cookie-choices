@@ -7,7 +7,7 @@ namespace ItalyCookieChoices\Tests\E2e;
 use E2eTester;
 
 /**
- * The cookies of the categories without the consent are deleted.
+ * The cookies of the categories without the consent and of the refused vendors are deleted.
  */
 final class CookieCleanupCest
 {
@@ -45,6 +45,20 @@ final class CookieCleanupCest
         $I->amOnPage('/');
 
         $I->assertSame([], $this->cookieNames($I));
+    }
+
+    public function refusingAVendorDeletesItsCookies(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['vendor_consent' => '1']);
+        $I->amOnPage('/');
+        $I->executeJS('window.italyCookieChoices.acceptAll();');
+        $this->setCookies($I, '_ga', '_ga_ICC', '_fbp');
+
+        $I->executeJS(
+            'window.italyCookieChoices.setConsent( [ "statistics", "marketing" ], [ "google-analytics" ] );'
+        );
+
+        $I->assertSame(['_fbp', 'icc_consent'], $this->cookieNames($I));
     }
 
     private function setCookies(E2eTester $I, string ...$names): void

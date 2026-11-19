@@ -19,6 +19,14 @@ final class CookieTableTest extends WPTestCase
         $this->assertSame('statistics', $cookie->category());
         $this->assertSame('Tells the visitors apart.', $cookie->purpose());
         $this->assertSame('2 years', $cookie->duration());
+        $this->assertSame('', $cookie->vendor());
+    }
+
+    public function testACookieKnowsTheVendorThatSetsIt(): void
+    {
+        $cookie = new Cookie('_ga', 'Google Analytics', 'statistics', '', '2 years', 'google-analytics');
+
+        $this->assertSame('google-analytics', $cookie->vendor());
     }
 
     public function testACookieNeedsAName(): void
@@ -58,6 +66,21 @@ final class CookieTableTest extends WPTestCase
 
         $this->assertSame([$first], $table->inCategory('statistics'));
         $this->assertSame([], $table->inCategory('marketing'));
+    }
+
+    public function testTheTableGroupsTheCookiesByVendorEvenWhenTheyShareAName(): void
+    {
+        $analytics = new Cookie('_ga', 'Google Analytics', 'statistics', '', '2 years', 'google-analytics');
+        $session = new Cookie('_ga_*', 'Google Analytics', 'statistics', '', '2 years', 'google-analytics');
+        $tagManager = new Cookie('_ga', 'Google Tag Manager', 'statistics', '', '2 years', 'google-tag-manager');
+        $site = new Cookie('wp_lang', 'Site', 'preferences', '', 'Session');
+
+        $table = new CookieTable([$analytics, $session, $tagManager, $site]);
+
+        $this->assertSame(
+            ['google-analytics' => [$analytics, $session], 'google-tag-manager' => [$tagManager]],
+            $table->byVendor()
+        );
     }
 
     public function testATableWithoutCookiesIsEmpty(): void

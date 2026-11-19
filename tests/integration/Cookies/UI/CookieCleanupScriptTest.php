@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Integration\Cookies\UI;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Cookies\Application\CookieTableFactory;
 use ItalyCookieChoices\Cookies\UI\CookieCleanupScript;
+use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Blocking\UI\BlockableRequest;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Settings\Schema;
@@ -71,6 +72,35 @@ final class CookieCleanupScriptTest extends WPTestCase
         $this->assertArrayNotHasKey('necessary', $categories);
     }
 
+    public function testTheConsentByCategoryListsNoVendor(): void
+    {
+        $this->assertSame([], $this->makeSut()->config()['vendors']);
+    }
+
+    public function testTheConsentPerVendorListsTheCookiesOfEachVendor(): void
+    {
+        \update_option(Schema::OPTION, [
+            'active' => '1',
+            'vendor_consent' => '1',
+            'custom_vendors' => [[
+                'id' => 'tracker',
+                'name' => 'Tracker',
+                'category' => 'statistics',
+                'patterns' => ['tracker.example.com'],
+                'cookies' => [['name' => '_trk', 'duration' => '1 year', 'purpose' => 'Counts the visits']],
+            ]],
+        ]);
+
+        $vendors = \array_column($this->makeSut()->config()['vendors'], null, 'id');
+
+        $this->assertSame(
+            ['id' => 'tracker', 'category' => 'statistics', 'cookies' => ['_trk']],
+            $vendors['tracker'] ?? null
+        );
+        $this->assertContains('_ga_*', $vendors['google-analytics']['cookies'] ?? []);
+        $this->assertArrayNotHasKey('google-tag-manager', $vendors);
+    }
+
     public function testNothingIsEnqueuedWhenThePluginIsNotActive(): void
     {
         \update_option(Schema::OPTION, []);
@@ -95,6 +125,7 @@ final class CookieCleanupScriptTest extends WPTestCase
         return new CookieCleanupScript(
             $this->service(CookieTableFactory::class),
             $this->service(ConsentTexts::class),
+            $this->service(VendorChoices::class),
             $this->service(BlockableRequest::class),
             new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,
