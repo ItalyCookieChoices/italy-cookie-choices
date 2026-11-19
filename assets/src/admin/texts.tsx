@@ -47,14 +47,45 @@ export function PolicyLinkFields( props: SettingsProps ) {
 	);
 }
 
-export function AcceptButtonTextField( props: SettingsProps ) {
+/**
+ * The texts of the buttons of the banner and of the preferences, empty for the default text in the placeholder.
+ * @param props The settings props.
+ */
+export function ButtonTextFields( props: SettingsProps ) {
 	return (
-		<TextField
-			{ ...props }
-			name="button_text"
-			label={ __( 'Accept button text', 'italy-cookie-choices' ) }
-			placeholder={ __( 'Accept all', 'italy-cookie-choices' ) }
-		/>
+		<Fragment>
+			<TextField
+				{ ...props }
+				name="button_text"
+				label={ __( 'Accept button text', 'italy-cookie-choices' ) }
+				placeholder={ __( 'Accept all', 'italy-cookie-choices' ) }
+			/>
+			<TextField
+				{ ...props }
+				name="reject_button_text"
+				label={ __( 'Reject button text', 'italy-cookie-choices' ) }
+				placeholder={ __( 'Reject all', 'italy-cookie-choices' ) }
+			/>
+			<TextField
+				{ ...props }
+				name="preferences_button_text"
+				label={ __(
+					'Preferences button text',
+					'italy-cookie-choices'
+				) }
+				placeholder={ __( 'Preferences', 'italy-cookie-choices' ) }
+			/>
+			<TextField
+				{ ...props }
+				name="save_button_text"
+				label={ __( 'Save button text', 'italy-cookie-choices' ) }
+				help={ __(
+					'The button of the preferences that saves the choice.',
+					'italy-cookie-choices'
+				) }
+				placeholder={ __( 'Save preferences', 'italy-cookie-choices' ) }
+			/>
+		</Fragment>
 	);
 }
 

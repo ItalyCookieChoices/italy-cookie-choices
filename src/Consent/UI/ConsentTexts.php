@@ -75,11 +75,20 @@ final readonly class ConsentTexts
                 'button_text',
                 \__('Accept all', 'italy-cookie-choices')
             ),
-            BuildingBanner::REJECT_ALL => \__('Reject all', 'italy-cookie-choices'),
-            BuildingBanner::PREFERENCES => \__('Preferences', 'italy-cookie-choices'),
+            BuildingBanner::REJECT_ALL => $this->options->translated(
+                'reject_button_text',
+                \__('Reject all', 'italy-cookie-choices')
+            ),
+            BuildingBanner::PREFERENCES => $this->options->translated(
+                'preferences_button_text',
+                \__('Preferences', 'italy-cookie-choices')
+            ),
             BuildingBanner::CLOSE => \__('Close and keep only the necessary cookies', 'italy-cookie-choices'),
             BuildingBanner::PREFERENCES_TITLE => \__('Cookie preferences', 'italy-cookie-choices'),
-            BuildingBanner::SAVE => \__('Save preferences', 'italy-cookie-choices'),
+            BuildingBanner::SAVE => $this->options->translated(
+                'save_button_text',
+                \__('Save preferences', 'italy-cookie-choices')
+            ),
             BuildingBanner::CLOSE_PREFERENCES => \__('Close the preferences', 'italy-cookie-choices'),
             BuildingBanner::GLOBAL_PRIVACY_CONTROL => \__(
                 'Your browser asks not to share your data: accepting all leaves out the marketing cookies.',
