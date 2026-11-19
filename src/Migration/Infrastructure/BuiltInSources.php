@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Migration\Infrastructure;
 
 use ItalyCookieChoices\Migration\Application\BuildingMigrationSources;
 use ItalyCookieChoices\Migration\Infrastructure\Complianz\ComplianzSource;
+use ItalyCookieChoices\Migration\Infrastructure\CookieNotice\CookieNoticeSource;
 use ItalyCookieChoices\Migration\Infrastructure\CookieYes\CookieYesSource;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -17,6 +18,7 @@ final readonly class BuiltInSources implements SubscriberInterface
     public function __construct(
         private ComplianzSource $complianz,
         private CookieYesSource $cookieYes,
+        private CookieNoticeSource $cookieNotice,
     ) {
     }
 
@@ -29,5 +31,6 @@ final readonly class BuiltInSources implements SubscriberInterface
     {
         $event->addSource($this->complianz);
         $event->addSource($this->cookieYes);
+        $event->addSource($this->cookieNotice);
     }
 }
