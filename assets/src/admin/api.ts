@@ -69,6 +69,58 @@ export async function importSettings( file: unknown ): Promise< Settings > {
 	return normalizeSettings( response );
 }
 
+/** What the import of another plugin changes, and what to check after it. */
+export interface MigrationResult {
+	summary: string[];
+	notes: string[];
+}
+
+function strings( value: unknown ): string[] {
+	return Array.isArray( value )
+		? value.filter( ( item ): item is string => typeof item === 'string' )
+		: [];
+}
+
+function migrationResultFrom( response: unknown ): MigrationResult {
+	const data = isRecord( response ) ? response : {};
+
+	return { summary: strings( data.summary ), notes: strings( data.notes ) };
+}
+
+/**
+ * What the import of the settings of another plugin changes, nothing is saved.
+ * @param source The id of the plugin, like complianz.
+ */
+export async function previewMigration(
+	source: string
+): Promise< MigrationResult > {
+	return migrationResultFrom(
+		await apiFetch( {
+			path: `/italy-cookie-choices/v1/migration/${ source }`,
+		} )
+	);
+}
+
+/**
+ * Imports the settings of another plugin, the saved settings come back.
+ * @param source The id of the plugin, like complianz.
+ */
+export async function importMigration(
+	source: string
+): Promise< MigrationResult & { settings: Settings } > {
+	const response: unknown = await apiFetch( {
+		path: `/italy-cookie-choices/v1/migration/${ source }`,
+		method: 'POST',
+	} );
+
+	return {
+		...migrationResultFrom( response ),
+		settings: normalizeSettings(
+			isRecord( response ) ? response.settings : null
+		),
+	};
+}
+
 /**
  * The page that shows the banner of the settings not saved yet.
  * @param settings The settings to preview.

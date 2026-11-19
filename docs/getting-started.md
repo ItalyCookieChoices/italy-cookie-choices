@@ -63,6 +63,7 @@ The log demonstrates the consents, see [Consent log](consent-log.md).
 
 ## Tools
 
+* **Import from another plugin**: the settings of another consent plugin found in the database, see [Import from another plugin](migration.md).
 * **Cookie of the 2.x versions**: the name and the value of the cookie the 2.x versions wrote on accept. The plugin still writes it while every category is accepted, for the code that reads it.
 * **Export the settings**: downloads the saved settings as a JSON file.
 * **Import**: replaces the saved settings with the ones of an exported file, also of the 2.x versions.

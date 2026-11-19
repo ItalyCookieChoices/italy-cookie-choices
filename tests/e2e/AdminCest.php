@@ -396,6 +396,34 @@ final class AdminCest
         $I->seeInField('Banner text', 'Imported text');
     }
 
+    public function itImportsTheSettingsOfComplianz(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions([]);
+        $I->haveOptionInDatabase('cmplz_options', [
+            'cookie_expiry' => 30,
+            'consent_per_service' => 'yes',
+            'thirdparty_services_on_site' => ['google-recaptcha'],
+        ]);
+        $I->loginAsAdmin();
+        $I->amOnAdminPage('/index.php');
+        $I->see('Cookie Choices can import the settings of Complianz.');
+        $I->click('Import the settings');
+        $I->waitForElement('.icc-admin__tabs', 10);
+
+        $I->click('Preview');
+        $I->waitForText('The consent per vendor and the placeholder texts', 10);
+        $I->see('The import changes:');
+        $I->click(['xpath' => "//button[@aria-label='Import the settings of Complianz']"]);
+
+        $I->waitForText('Settings imported.', 10, self::NOTICE);
+        $I->see('Deactivate Complianz after the import');
+        $options = $this->savedOptions($I);
+        $I->assertSame('30', $options['consent_duration']);
+        $I->assertSame('1', $options['vendor_consent']);
+        $I->assertIsArray($options['disabled_vendors']);
+        $I->assertNotContains('google-recaptcha', $options['disabled_vendors']);
+    }
+
     public function itRejectsImportsThatAreNotJson(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);

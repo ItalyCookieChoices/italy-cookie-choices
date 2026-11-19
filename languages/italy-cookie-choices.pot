@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-19T10:20:43+00:00\n"
+"POT-Creation-Date: 2026-11-19T12:13:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -35,44 +35,44 @@ msgstr ""
 msgid "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 msgstr ""
 
-#: src/Blocking/Application/VendorSettings.php:93
+#: src/Blocking/Application/VendorSettings.php:90
 msgid "The vendor needs a name."
 msgstr ""
 
-#: src/Blocking/Application/VendorSettings.php:102
+#: src/Blocking/Application/VendorSettings.php:99
 msgid "The vendor needs at least a pattern to block."
 msgstr ""
 
-#: src/Blocking/Application/VendorSettings.php:126
+#: src/Blocking/Application/VendorSettings.php:123
 msgid "The vendors of this site come from the main site of the network."
 msgstr ""
 
 #. translators: %s: the id of the vendor.
-#: src/Blocking/Application/VendorSettings.php:140
+#: src/Blocking/Application/VendorSettings.php:137
 #, php-format
 msgid "There is no common vendor with the id \"%s\"."
 msgstr ""
 
 #. translators: %s: the id of the vendor.
-#: src/Blocking/Application/VendorSettings.php:154
+#: src/Blocking/Application/VendorSettings.php:151
 #, php-format
 msgid "A vendor with the id \"%s\" already exists."
 msgstr ""
 
 #. translators: 1: the id of the category, 2: the ids of the categories, separated by commas.
-#: src/Blocking/Application/VendorSettings.php:168
+#: src/Blocking/Application/VendorSettings.php:165
 #, php-format
 msgid "The category \"%1$s\" is not one the visitors can refuse: %2$s."
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:119
+#: src/Blocking/UI/Placeholders.php:120
 #, php-format
 msgid "This content is blocked until you accept the %s cookies."
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:124
+#: src/Blocking/UI/Placeholders.php:125
 #, php-format
 msgid "Accept the %s cookies"
 msgstr ""
@@ -101,84 +101,84 @@ msgstr ""
 msgid "Adds a vendor blocked until the consent to its category, by texts of its addresses or scripts."
 msgstr ""
 
-#: src/Consent/UI/AcceptButtonShortcode.php:51
-#: src/Consent/UI/ConsentTexts.php:76
+#: src/Consent/UI/AcceptButtonShortcode.php:52
+#: src/Consent/UI/ConsentTexts.php:77
 #: assets/build/settings.js:1
 #: assets/build/settings.js:16
 msgid "Accept all"
 msgstr ""
 
-#: src/Consent/UI/Banner.php:219
-#: src/Consent/UI/ConsentTexts.php:87
+#: src/Consent/UI/Banner.php:221
+#: src/Consent/UI/ConsentTexts.php:88
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
 #: assets/build/settings.js:1
 msgid "Cookie preferences"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:73
+#: src/Consent/UI/ConsentTexts.php:74
 msgid "Cookie consent"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:80
+#: src/Consent/UI/ConsentTexts.php:81
 #: assets/build/settings.js:1
 #: assets/build/settings.js:16
 msgid "Reject all"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:84
-#: src/Consent/UI/ConsentTexts.php:134
+#: src/Consent/UI/ConsentTexts.php:85
+#: src/Consent/UI/ConsentTexts.php:135
 #: assets/build/settings.js:1
 msgid "Preferences"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:86
+#: src/Consent/UI/ConsentTexts.php:87
 msgid "Close and keep only the necessary cookies"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:90
+#: src/Consent/UI/ConsentTexts.php:91
 #: assets/build/settings.js:1
 msgid "Save preferences"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:92
+#: src/Consent/UI/ConsentTexts.php:93
 msgid "Close the preferences"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:93
+#: src/Consent/UI/ConsentTexts.php:94
 msgid "Your browser asks not to share your data: accepting all leaves out the marketing cookies."
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:97
+#: src/Consent/UI/ConsentTexts.php:98
 msgid "Vendors"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:127
+#: src/Consent/UI/ConsentTexts.php:128
 msgid "Necessary"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:128
+#: src/Consent/UI/ConsentTexts.php:129
 msgid "Needed for the site to work, like the cookie that stores this choice. Always active."
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:135
+#: src/Consent/UI/ConsentTexts.php:136
 msgid "Remember your choices, like the language or the region."
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:138
+#: src/Consent/UI/ConsentTexts.php:139
 #: assets/build/settings.js:17
 msgid "Statistics"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:139
+#: src/Consent/UI/ConsentTexts.php:140
 msgid "Help to understand how the site is used, collecting anonymous data."
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:145
+#: src/Consent/UI/ConsentTexts.php:146
 msgid "Marketing"
 msgstr ""
 
-#: src/Consent/UI/ConsentTexts.php:146
+#: src/Consent/UI/ConsentTexts.php:147
 msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
 msgstr ""
 
@@ -288,193 +288,193 @@ msgid_plural "%d years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Cookies/Application/CookieTableFactory.php:53
+#: src/Cookies/Application/CookieTableFactory.php:54
 msgid "Stores the consent of the visitor to the cookie categories."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:50
+#: src/Cookies/Application/PresetCookies.php:52
 msgid "Stores the conversions of the Google ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:55
+#: src/Cookies/Application/PresetCookies.php:57
 msgid "Stores the click on a Google ad, to attribute the conversions."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:60
-#: src/Cookies/Application/PresetCookies.php:213
+#: src/Cookies/Application/PresetCookies.php:62
+#: src/Cookies/Application/PresetCookies.php:215
 msgid "Shows and personalizes the Google ads on other sites."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:65
+#: src/Cookies/Application/PresetCookies.php:67
 msgid "Checks if the browser accepts cookies."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:72
+#: src/Cookies/Application/PresetCookies.php:74
 msgid "Tells the visitors apart, for the statistics of the visits."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:77
+#: src/Cookies/Application/PresetCookies.php:79
 msgid "Keeps the state of the session, for the statistics of the visits."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:84
+#: src/Cookies/Application/PresetCookies.php:86
 msgid "Keeps the id of the visitor for the site."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:89
+#: src/Cookies/Application/PresetCookies.php:91
 msgid "Keeps the data of the current session."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:96
+#: src/Cookies/Application/PresetCookies.php:98
 msgid "Checks that the requests of a session come from the same visitor."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:101
+#: src/Cookies/Application/PresetCookies.php:103
 msgid "Measures the views and suggests videos and ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:106
-#: src/Cookies/Application/PresetCookies.php:118
+#: src/Cookies/Application/PresetCookies.php:108
+#: src/Cookies/Application/PresetCookies.php:120
 msgid "Stores the preferences of the video player."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:113
+#: src/Cookies/Application/PresetCookies.php:115
 msgid "Measures the views of the videos for their owner."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:123
+#: src/Cookies/Application/PresetCookies.php:125
 msgid "Tells the bots apart from the visitors."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:130
+#: src/Cookies/Application/PresetCookies.php:132
 msgid "Stores the preferences and shows ads to the visitors not signed in to Google."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:140
+#: src/Cookies/Application/PresetCookies.php:142
 msgid "Tells the visitors apart, to measure and show the Meta ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:145
+#: src/Cookies/Application/PresetCookies.php:147
 msgid "Stores the click on a Meta ad."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:150
+#: src/Cookies/Application/PresetCookies.php:152
 msgid "Shows and measures the Meta ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:157
+#: src/Cookies/Application/PresetCookies.php:159
 msgid "Stores the LinkedIn member id, for the conversions and the ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:162
+#: src/Cookies/Application/PresetCookies.php:164
 msgid "Identifies the browser, to detect abuse."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:167
+#: src/Cookies/Application/PresetCookies.php:169
 msgid "Chooses the data center."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:172
+#: src/Cookies/Application/PresetCookies.php:174
 msgid "Syncs the id of the LinkedIn ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:179
+#: src/Cookies/Application/PresetCookies.php:181
 msgid "Measures the ad campaigns and personalizes the ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:184
+#: src/Cookies/Application/PresetCookies.php:186
 msgid "Stores the click on a TikTok ad, for the conversions."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:191
+#: src/Cookies/Application/PresetCookies.php:193
 msgid "Recognizes the browser across the pages."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:198
+#: src/Cookies/Application/PresetCookies.php:200
 msgid "Lets the site show the Google ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:203
+#: src/Cookies/Application/PresetCookies.php:205
 msgid "Shows the Google ads and protects them."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:208
+#: src/Cookies/Application/PresetCookies.php:210
 msgid "Protects the ads from fraud."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:220
+#: src/Cookies/Application/PresetCookies.php:222
 msgid "Keeps the id of the visitor for Clarity."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:225
+#: src/Cookies/Application/PresetCookies.php:227
 msgid "Joins the pages viewed into one session recording."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:232
+#: src/Cookies/Application/PresetCookies.php:234
 msgid "Keeps the session, for the ad conversions."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:237
+#: src/Cookies/Application/PresetCookies.php:239
 msgid "Tells the visitors apart, for the Microsoft ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:242
+#: src/Cookies/Application/PresetCookies.php:244
 msgid "Stores the click on a Microsoft ad."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:249
+#: src/Cookies/Application/PresetCookies.php:251
 msgid "Groups the actions of the visitors not matched to a Pinterest account."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:257
+#: src/Cookies/Application/PresetCookies.php:259
 msgid "Stores the click on a Pinterest ad."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:262
+#: src/Cookies/Application/PresetCookies.php:264
 msgid "Stores the matches made without cookies."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:269
+#: src/Cookies/Application/PresetCookies.php:271
 msgid "Identifies the visitor, to measure the Snapchat ads."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:276
+#: src/Cookies/Application/PresetCookies.php:278
 msgid "Tells the visitors apart, for the Reddit ad conversions."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:281
+#: src/Cookies/Application/PresetCookies.php:283
 msgid "Stores the click on a Reddit ad."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:288
+#: src/Cookies/Application/PresetCookies.php:290
 msgid "Tracks the visitor and the times of the visits."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:293
+#: src/Cookies/Application/PresetCookies.php:295
 msgid "Identifies the visitor and links the forms sent."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:298
+#: src/Cookies/Application/PresetCookies.php:300
 msgid "Tracks the session."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:303
+#: src/Cookies/Application/PresetCookies.php:305
 msgid "Detects a new session after a restart of the browser."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:310
+#: src/Cookies/Application/PresetCookies.php:312
 msgid "Stores the id of the visitor."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:315
+#: src/Cookies/Application/PresetCookies.php:317
 msgid "Keeps the data of the current visit."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:320
+#: src/Cookies/Application/PresetCookies.php:322
 msgid "Stores the site that brought the visitor."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:327
+#: src/Cookies/Application/PresetCookies.php:329
 msgid "Analyzes the risk, to protect the forms from spam and bots."
 msgstr ""
 
@@ -498,6 +498,146 @@ msgstr ""
 
 #: src/Legacy/DeprecatedEventNames.php:27
 msgid "The bots are no longer detected, they do not run the consent scripts."
+msgstr ""
+
+#. translators: %s: the name of the other plugin.
+#: src/Migration/Application/Conversions.php:78
+#, php-format
+msgid "The custom CSS of %s: rewrite it for the classes of Cookie Choices."
+msgstr ""
+
+#: src/Migration/Application/MigrationSources.php:45
+#: src/Migration/UI/Cli/MigrationExitCode.php:23
+msgid "There are no settings of this plugin to import."
+msgstr ""
+
+#: src/Migration/Infrastructure/Complianz/ComplianzBanner.php:80
+msgid "The consent on scroll or after a time is not imported: it is not a valid consent."
+msgstr ""
+
+#: src/Migration/Infrastructure/Complianz/ComplianzBanner.php:87
+msgid "The regions and the banner for the United States are not imported: Cookie Choices asks the consent everywhere."
+msgstr ""
+
+#: src/Migration/Infrastructure/Complianz/ComplianzBanner.php:94
+msgid "The custom CSS is imported in a comment: rewrite it for Cookie Choices."
+msgstr ""
+
+#: src/Migration/Infrastructure/Complianz/ComplianzBanner.php:99
+msgid "A document generated by Complianz is linked as it is: its content stops working without Complianz."
+msgstr ""
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/Complianz/ComplianzServices.php:122
+#, php-format
+msgid "These services have no preset: add them as custom vendors if they set cookies: %s."
+msgstr ""
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/Complianz/ComplianzServices.php:134
+#, php-format
+msgid "The cookies of these services are not imported, add them to a custom vendor: %s."
+msgstr ""
+
+#: src/Migration/Infrastructure/Complianz/ComplianzSource.php:49
+msgid "Translations are not imported: write the texts again in WPML or Polylang."
+msgstr ""
+
+#: src/Migration/Infrastructure/Complianz/ComplianzSource.php:53
+msgid "Deactivate Complianz after the import, or the site shows two banners. Its settings stay."
+msgstr ""
+
+#: src/Migration/UI/Cli/Handlers/MigrateSettings.php:59
+msgid "Import these settings into Cookie Choices?"
+msgstr ""
+
+#: src/Migration/UI/Cli/Handlers/MigrateSettings.php:66
+#: src/Settings/UI/Cli/Handlers/ImportSettings.php:42
+msgid "The settings are imported."
+msgstr ""
+
+#: src/Migration/UI/Cli/Handlers/MigrateSettings.php:84
+#: assets/build/settings.js:22
+msgid "The import changes:"
+msgstr ""
+
+#: src/Migration/UI/Cli/Handlers/MigrateSettings.php:93
+#: assets/build/settings.js:22
+msgid "To check:"
+msgstr ""
+
+#. translators: %d: the number of vendors.
+#: src/Migration/UI/ImportSummary.php:43
+#, php-format
+msgid "%d common vendor turned on"
+msgid_plural "%d common vendors turned on"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Migration/UI/ImportSummary.php:57
+msgid "The banner turned on"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:58
+msgid "The texts of the banner and of the buttons"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:65
+msgid "The policy and legal notice links"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:69
+msgid "The texts of the categories"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:70
+msgid "The position, the logo, the colors and the custom CSS"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:77
+msgid "The duration of the consent, the cookie domain and the pages without the banner"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:83
+msgid "The button to change the consent"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:84
+msgid "The consent per vendor and the placeholder texts"
+msgstr ""
+
+#: src/Migration/UI/ImportSummary.php:89
+msgid "Google Consent Mode and the Google tags"
+msgstr ""
+
+#. translators: %d: the number of vendors.
+#: src/Migration/UI/ImportSummary.php:104
+#, php-format
+msgid "Custom vendors: %d"
+msgstr ""
+
+#. translators: %d: the number of scripts.
+#: src/Migration/UI/ImportSummary.php:106
+#, php-format
+msgid "Scripts after the consent: %d"
+msgstr ""
+
+#. translators: %d: the number of addresses.
+#: src/Migration/UI/ImportSummary.php:108
+#, php-format
+msgid "Addresses never blocked: %d"
+msgstr ""
+
+#. translators: %d: the number of cookies.
+#: src/Migration/UI/ImportSummary.php:110
+#, php-format
+msgid "Site cookies: %d"
+msgstr ""
+
+#: src/Migration/UI/MigrationNotice.php:73
+#: src/Multilingual/UI/ConnectionNotice.php:104
+#: src/Scan/UI/ScanNotice.php:62
+msgid "You cannot change the settings."
 msgstr ""
 
 #: src/Multilingual/Application/LinkTranslations.php:71
@@ -527,11 +667,6 @@ msgstr ""
 
 #: src/Multilingual/Infrastructure/WpmlTranslations.php:82
 msgid "The policy link is not registered in WPML yet, open the dashboard and try again."
-msgstr ""
-
-#: src/Multilingual/UI/ConnectionNotice.php:104
-#: src/Scan/UI/ScanNotice.php:62
-msgid "You cannot change the settings."
 msgstr ""
 
 #: src/Scan/Application/ScanTargets.php:62
@@ -605,11 +740,11 @@ msgstr ""
 msgid "Check them in the Blocking tab: %s"
 msgstr ""
 
-#: src/Settings/Sanitizer.php:170
+#: src/Settings/Sanitizer.php:175
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:171
+#: src/Settings/Sanitizer.php:176
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
@@ -630,8 +765,8 @@ msgstr ""
 #: src/Settings/UI/NetworkSettingsPage.php:67
 #: src/Settings/UI/NetworkSettingsPage.php:68
 #: src/Settings/UI/NetworkSettingsPage.php:79
-#: src/Settings/UI/SettingsPage.php:90
-#: src/Settings/UI/SettingsPage.php:91
+#: src/Settings/UI/SettingsPage.php:93
+#: src/Settings/UI/SettingsPage.php:94
 msgid "Cookie Choices"
 msgstr ""
 
@@ -641,10 +776,6 @@ msgstr ""
 
 #: src/Settings/UI/Cli/Handlers/ImportSettings.php:29
 msgid "Replace the settings of Cookie Choices with the ones of the file?"
-msgstr ""
-
-#: src/Settings/UI/Cli/Handlers/ImportSettings.php:42
-msgid "The settings are imported."
 msgstr ""
 
 #. translators: %s: the path of the file.
@@ -658,7 +789,7 @@ msgid "Settings"
 msgstr ""
 
 #: src/Settings/UI/PluginActionLinks.php:44
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Documentation"
 msgstr ""
 
@@ -681,6 +812,20 @@ msgstr ""
 #: templates/connection-notice.php:28
 #: templates/scan-notice.php:37
 msgid "Ignore"
+msgstr ""
+
+#. translators: %s: the names of the plugins, separated by commas.
+#: templates/migration-notice.php:20
+#, php-format
+msgid "Cookie Choices can import the settings of %s."
+msgstr ""
+
+#: templates/migration-notice.php:26
+msgid "Import the settings"
+msgstr ""
+
+#: templates/migration-notice.php:29
+msgid "Dismiss"
 msgstr ""
 
 #: templates/network-settings.php:19
@@ -777,12 +922,12 @@ msgid "Each site keeps its own texts, for its language, and its own consent log.
 msgstr ""
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Settings saved."
 msgstr ""
 
 #: assets/build/network-settings.js:3
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "The settings were not saved."
 msgstr ""
 
@@ -795,6 +940,7 @@ msgid "Button label"
 msgstr ""
 
 #: assets/build/settings.js:1
+#: assets/build/settings.js:21
 msgid "Preview"
 msgstr ""
 
@@ -804,6 +950,7 @@ msgstr ""
 
 #: assets/build/settings.js:1
 #: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Banner"
 msgstr ""
 
@@ -1136,6 +1283,7 @@ msgstr ""
 #: assets/build/settings.js:8
 #: assets/build/settings.js:18
 #: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Categories"
 msgstr ""
 
@@ -1191,7 +1339,7 @@ msgstr ""
 
 #: assets/build/settings.js:12
 #: assets/build/settings.js:15
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Name"
 msgstr ""
 
@@ -1635,94 +1783,119 @@ msgid "Buttons"
 msgstr ""
 
 #: assets/build/settings.js:20
-msgid "Cookie of the 2.x versions"
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Written while every category is accepted, for the code that still reads it."
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Value"
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Export"
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Downloads the saved settings as a JSON file."
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Export the settings"
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Import"
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "Settings file"
-msgstr ""
-
-#: assets/build/settings.js:20
-msgid "The file is not a valid JSON file."
-msgstr ""
-
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "The settings were not imported."
 msgstr ""
 
 #: assets/build/settings.js:20
+msgid "Import from another plugin"
+msgstr ""
+
+#: assets/build/settings.js:20
+msgid "The settings of these plugins are in the database. The import replaces the settings it brings, the others stay; the visitors are asked for the consent again."
+msgstr ""
+
+#. translators: %s: the name of the plugin.
+#: assets/build/settings.js:21
+#, js-format
+msgid "Preview the import of %s"
+msgstr ""
+
+#. translators: %s: the name of the plugin.
+#: assets/build/settings.js:22
+#, js-format
+msgid "Import the settings of %s"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Import"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Imported:"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Cookie of the 2.x versions"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Written while every category is accepted, for the code that still reads it."
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Value"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Export"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Downloads the saved settings as a JSON file."
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Export the settings"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Replaces the saved settings with the ones of an exported file, also of the 2.x versions."
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "Settings file"
+msgstr ""
+
+#: assets/build/settings.js:22
+msgid "The file is not a valid JSON file."
+msgstr ""
+
+#: assets/build/settings.js:22
 msgid "The settings were not loaded."
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Loading the settings…"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Settings imported."
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "This site uses the settings of the main site of the network: here you change only its texts, for its language."
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Texts"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Style"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Blocking"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Integrations"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Languages"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Consent log"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Tools"
 msgstr ""
 
-#: assets/build/settings.js:20
+#: assets/build/settings.js:22
 msgid "Save changes"
 msgstr ""
 

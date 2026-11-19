@@ -8,6 +8,8 @@ use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
+use ItalyCookieChoices\Migration\Application\MigrationSources;
+use ItalyCookieChoices\Migration\Domain\MigrationSource;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
 use ItalyCookieChoices\Multilingual\UI\LanguagesData;
 use ItalyCookieChoices\Scan\UI\ScheduleData;
@@ -68,6 +70,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private LanguagesData $languages,
         private ScheduleData $scanSchedule,
         private LinkTranslations $linkTranslations,
+        private MigrationSources $migrationSources,
         private ViewInterface $view,
         private AssetLoader $assets,
         private string $buildPath,
@@ -208,7 +211,8 @@ final readonly class SettingsPage implements SubscriberInterface
      *         language: string,
      *         sites: list<array{id: int, name: string, url: string, language: string, canTranslate: bool}>
      *     },
-     *     canEditScripts: bool
+     *     canEditScripts: bool,
+     *     migrationSources: list<array{id: string, name: string}>
      * }
      */
     public function data(): array
@@ -239,6 +243,11 @@ final readonly class SettingsPage implements SubscriberInterface
             'languages' => $this->languages->forSite(\get_current_blog_id()),
             // Only these users change the custom scripts, like the Custom HTML block.
             'canEditScripts' => \current_user_can('unfiltered_html'),
+            // The other consent plugins whose settings can be imported.
+            'migrationSources' => \array_map(
+                static fn(MigrationSource $source): array => ['id' => $source->id(), 'name' => $source->name()],
+                $this->migrationSources->found()
+            ),
         ];
     }
 

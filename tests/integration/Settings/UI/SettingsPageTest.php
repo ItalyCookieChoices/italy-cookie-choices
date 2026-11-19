@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Integration\Settings\UI;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
 use ItalyCookieChoices\Multilingual\UI\LanguagesData;
 use ItalyCookieChoices\Scan\UI\ScheduleData;
@@ -165,6 +166,7 @@ final class SettingsPageTest extends WPTestCase
         $this->assertNotContains('attachment', \array_column($data['postTypes'], 'slug'));
         $this->assertSame('off', $data['scanSchedule']['frequency'] ?? null);
         $this->assertSame(['policy' => [], 'legal-notice' => []], $data['linkTranslations']);
+        $this->assertSame([], $data['migrationSources']);
     }
 
     public function testOnlyTheUsersWithUnfilteredHtmlEditTheCustomScripts(): void
@@ -196,6 +198,7 @@ final class SettingsPageTest extends WPTestCase
             $this->service(LanguagesData::class),
             $this->service(ScheduleData::class),
             $this->service(LinkTranslations::class),
+            $this->service(MigrationSources::class),
             $this->service(ViewInterface::class),
             new AssetLoader(),
             $buildPath === '' ? $fixtures : $buildPath,

@@ -12,6 +12,7 @@ Cookie Choices aggiunge i comandi `wp cookie-choices` a [WP-CLI](https://wp-cli.
 | `wp cookie-choices log export` | Esporta il registro dei consensi in CSV |
 | `wp cookie-choices log purge` | Cancella i record vecchi del registro dei consensi |
 | `wp cookie-choices scan` | Scansiona le pagine del sito ed elenca i fornitori trovati |
+| `wp cookie-choices migrate` | Importa le impostazioni di un altro plugin per il consenso |
 
 ## status
 
@@ -53,6 +54,16 @@ wp cookie-choices scan --category=3,7 --post=42 --format=json
 
 La stessa scansione della scheda **Blocco**, vedi [Scansiona il sito](blocco.md#scansiona-il-sito): `--home` per la home page, `--post-type`, `--category` e `--post` per i tipi di contenuto, gli id delle categorie e gli id degli articoli, separati da virgole. L'elenco ha una riga per ogni fornitore trovato, con il nome, la categoria, se è bloccato (`on` o `off`) e il numero di pagine, poi una riga per ogni terza parte sconosciuta, con solo il suo host e le sue pagine. Le pagine che non si possono leggere vengono segnalate come errori. Non cambia nulla.
 
+## migrate
+
+```bash
+wp cookie-choices migrate
+wp cookie-choices migrate complianz --dry-run
+wp cookie-choices migrate complianz --yes
+```
+
+Senza un plugin elenca i plugin le cui impostazioni sono nel database. Con un plugin, mostra cosa cambia l'importazione e cosa controllare, poi importa dopo la conferma; `--dry-run` si ferma prima. Vedi [Importare da un altro plugin](migrazione.md).
+
 ## Codici di uscita
 
 | Codice | Significato |
@@ -65,3 +76,4 @@ La stessa scansione della scheda **Blocco**, vedi [Scansiona il sito](blocco.md#
 | 5 | Il file non ha impostazioni di Cookie Choices, o sono di una versione più recente del plugin |
 | 6 | La data non è valida |
 | 7 | Nella selezione non ci sono pagine pubblicate da scansionare |
+| 8 | Non ci sono impostazioni di questo plugin da importare |

@@ -43,4 +43,5 @@ export const data: AdminData = {
 	linkTranslations: { policy: [], 'legal-notice': [] },
 	languages: { siteId: 1, language: '', sites: [] },
 	canEditScripts: true,
+	migrationSources: [],
 };

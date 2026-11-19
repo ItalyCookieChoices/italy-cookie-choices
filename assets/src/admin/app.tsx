@@ -187,6 +187,7 @@ export function App( { data }: { data: AdminData } ) {
 			<ToolsTab
 				{ ...props }
 				saved={ saved }
+				migrationSources={ data.migrationSources }
 				onImported={ ( imported ) =>
 					replaceSaved(
 						imported,
