@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
+use ItalyCookieChoices\Blocking\Domain\VendorId;
+use ItalyCookieChoices\Blocking\Application\BlockingSetting;
+use ItalyCookieChoices\ConsentLog\Application\LogSetting;
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
+use ItalyCookieChoices\Cookies\Application\CookieSetting;
+use ItalyCookieChoices\Integrations\Application\IntegrationSetting;
+
 /**
  * The shape of the plugin option.
  *
@@ -22,55 +29,55 @@ final readonly class Schema
     public const COOKIE_VALUE = 'y';
 
     private const CHECKBOXES = [
-        'active',
-        'reload',
-        'html_margin',
-        'target',
-        'nofollow',
-        'all_block',
-        'consent_log',
-        'consent_mode',
-        'consent_mode_advanced',
-        'youtube_nocookie',
-        'uet_consent_mode',
-        'clarity_consent_mode',
-        'floating_button',
-        'global_privacy_control',
-        'vendor_consent',
+        PluginSetting::ACTIVE,
+        ConsentSetting::RELOAD,
+        ConsentSetting::HTML_MARGIN,
+        ConsentSetting::LINKS_IN_NEW_TAB,
+        ConsentSetting::LINKS_NOFOLLOW,
+        BlockingSetting::WHOLE_PAGE,
+        LogSetting::ACTIVE,
+        IntegrationSetting::CONSENT_MODE,
+        IntegrationSetting::CONSENT_MODE_ADVANCED,
+        IntegrationSetting::YOUTUBE_NOCOOKIE,
+        IntegrationSetting::UET_CONSENT_MODE,
+        IntegrationSetting::CLARITY_CONSENT_MODE,
+        ConsentSetting::FLOATING_BUTTON,
+        ConsentSetting::GLOBAL_PRIVACY_CONTROL,
+        BlockingSetting::VENDOR_CONSENT,
     ];
 
     private const ENUMS = [
-        'banner' => ['1', '2', '3', '4', '5'],
-        'js_template' => ['default', 'bigbutton', 'smallbutton', 'custom'],
-        'consent_log_retention' => ['3', '6', '12', '24', '36'],
-        'consent_duration' => ['30', '90', '182', '365'],
-        'floating_button_position' => ['left', 'right'],
+        ConsentSetting::POSITION => ['1', '2', '3', '4', '5'],
+        ConsentSetting::TEMPLATE => ['default', 'bigbutton', 'smallbutton', 'custom'],
+        LogSetting::RETENTION => ['3', '6', '12', '24', '36'],
+        ConsentSetting::CONSENT_DURATION => ['30', '90', '182', '365'],
+        ConsentSetting::FLOATING_BUTTON_POSITION => ['left', 'right'],
     ];
 
     private const STRINGS = [
-        'text',
-        'url',
-        'slug',
-        'anchor_text',
-        'button_text',
-        'reject_button_text',
-        'preferences_button_text',
-        'save_button_text',
-        'legal_notice_page',
-        'legal_notice_url',
-        'legal_notice_text',
-        'banner_bg',
-        'banner_text_color',
-        'customCSS',
-        'bannerStyle',
-        'contentStyle',
-        'consentText',
-        'infoClass',
-        'closeClass',
-        'content_message_text',
-        'content_message_button_text',
-        'excluded_pages',
-        'floating_button_label',
+        ConsentSetting::TEXT,
+        ConsentSetting::POLICY_URL,
+        ConsentSetting::POLICY_PAGE,
+        ConsentSetting::POLICY_TEXT,
+        ConsentSetting::ACCEPT_BUTTON_TEXT,
+        ConsentSetting::REJECT_BUTTON_TEXT,
+        ConsentSetting::PREFERENCES_BUTTON_TEXT,
+        ConsentSetting::SAVE_BUTTON_TEXT,
+        ConsentSetting::LEGAL_NOTICE_PAGE,
+        ConsentSetting::LEGAL_NOTICE_URL,
+        ConsentSetting::LEGAL_NOTICE_TEXT,
+        ConsentSetting::BACKGROUND_COLOR,
+        ConsentSetting::TEXT_COLOR,
+        ConsentSetting::CUSTOM_CSS,
+        ConsentSetting::BANNER_CLASS,
+        ConsentSetting::CONTENT_CLASS,
+        ConsentSetting::TEXT_CLASS,
+        ConsentSetting::LINK_CLASS,
+        ConsentSetting::BUTTON_CLASS,
+        BlockingSetting::PLACEHOLDER_TEXT,
+        BlockingSetting::PLACEHOLDER_BUTTON_TEXT,
+        ConsentSetting::EXCLUDED_PAGES,
+        ConsentSetting::FLOATING_BUTTON_LABEL,
     ];
 
     /**
@@ -78,37 +85,37 @@ final readonly class Schema
      * the TRANSLATABLE texts of Options and the texts of the categories.
      */
     public const SITE_TEXTS = [
-        'text',
-        'url',
-        'anchor_text',
-        'button_text',
-        'reject_button_text',
-        'preferences_button_text',
-        'save_button_text',
-        'legal_notice_url',
-        'legal_notice_text',
-        'content_message_text',
-        'content_message_button_text',
-        'floating_button_label',
-        'categories',
+        ConsentSetting::TEXT,
+        ConsentSetting::POLICY_URL,
+        ConsentSetting::POLICY_TEXT,
+        ConsentSetting::ACCEPT_BUTTON_TEXT,
+        ConsentSetting::REJECT_BUTTON_TEXT,
+        ConsentSetting::PREFERENCES_BUTTON_TEXT,
+        ConsentSetting::SAVE_BUTTON_TEXT,
+        ConsentSetting::LEGAL_NOTICE_URL,
+        ConsentSetting::LEGAL_NOTICE_TEXT,
+        BlockingSetting::PLACEHOLDER_TEXT,
+        BlockingSetting::PLACEHOLDER_BUTTON_TEXT,
+        ConsentSetting::FLOATING_BUTTON_LABEL,
+        ConsentSetting::CATEGORIES,
     ];
 
     /**
      * The settings that point to the content or to the domain of a site, never copied to another site.
      */
     public const SITE_CONTENT = [
-        'banner_logo',
-        'excluded_pages',
-        'cookie_domain',
+        ConsentSetting::LOGO,
+        ConsentSetting::EXCLUDED_PAGES,
+        ConsentSetting::COOKIE_DOMAIN,
     ];
 
     /**
      * The ids of the Google and Facebook tags, empty when the tag is not printed.
      */
     public const TAG_IDS = [
-        'ga_measurement_id' => '^(G-[A-Z0-9]+)?$',
-        'gtm_container_id' => '^(GTM-[A-Z0-9]+)?$',
-        'facebook_pixel_id' => '^([0-9]+)?$',
+        IntegrationSetting::GA_MEASUREMENT_ID => '^(G-[A-Z0-9]+)?$',
+        IntegrationSetting::GTM_CONTAINER_ID => '^(GTM-[A-Z0-9]+)?$',
+        IntegrationSetting::FACEBOOK_PIXEL_ID => '^([0-9]+)?$',
     ];
 
     /**
@@ -118,49 +125,49 @@ final readonly class Schema
      * The attachments of the media library, by their id, empty when there is none.
      */
     public const ATTACHMENTS = [
-        'banner_logo' => '^([1-9][0-9]*)?$',
+        ConsentSetting::LOGO => '^([1-9][0-9]*)?$',
     ];
 
     /**
      * The domain of the consent cookie, empty for the host of the site only.
      */
     public const DOMAINS = [
-        'cookie_domain' => '^(\\.?[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+)?$',
+        ConsentSetting::COOKIE_DOMAIN => '^(\\.?[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+)?$',
     ];
 
     public const PATHS = [
-        'google_tag_gateway_path' => '^(/[A-Za-z0-9._~-]+)*$',
+        BlockingSetting::GOOGLE_TAG_GATEWAY_PATH => '^(/[A-Za-z0-9._~-]+)*$',
     ];
 
     public const CONSENT_MODE_DEFAULTS = [
-        'consent_mode' => '1',
+        IntegrationSetting::CONSENT_MODE => '1',
     ];
 
     /**
      * The presets of the vendors turned off on a new installation, the site owner turns them on.
      */
-    public const VENDORS_OFF_BY_DEFAULT = ['google-recaptcha'];
+    public const VENDORS_OFF_BY_DEFAULT = [VendorId::GOOGLE_RECAPTCHA];
 
     public const MICROSOFT_CONSENT_DEFAULTS = [
-        'uet_consent_mode' => '1',
-        'clarity_consent_mode' => '1',
+        IntegrationSetting::UET_CONSENT_MODE => '1',
+        IntegrationSetting::CLARITY_CONSENT_MODE => '1',
     ];
 
     /**
      * Accept all leaves out the marketing category when the browser sends the Global Privacy Control signal.
      */
     public const GLOBAL_PRIVACY_CONTROL_DEFAULTS = [
-        'global_privacy_control' => '1',
+        ConsentSetting::GLOBAL_PRIVACY_CONTROL => '1',
     ];
 
     public const CONSENT_LOG_DEFAULTS = [
-        'consent_log' => '1',
-        'consent_log_retention' => '12',
+        LogSetting::ACTIVE => '1',
+        LogSetting::RETENTION => '12',
     ];
 
     private const REQUIRED_STRINGS = [
-        'cookie_name',
-        'cookie_value',
+        PluginSetting::LEGACY_COOKIE_NAME,
+        PluginSetting::LEGACY_COOKIE_VALUE,
     ];
 
     private const ID_PATTERN = '^[a-z0-9_-]+$';
@@ -173,19 +180,19 @@ final readonly class Schema
     public function defaults(): array
     {
         return [
-            'text' => '',
-            'url' => '',
-            'anchor_text' => '',
-            'button_text' => '',
-            'cookie_name' => self::COOKIE_NAME,
-            'cookie_value' => self::COOKIE_VALUE,
-            'content_message_text' => '',
-            'content_message_button_text' => '',
+            ConsentSetting::TEXT => '',
+            ConsentSetting::POLICY_URL => '',
+            ConsentSetting::POLICY_TEXT => '',
+            ConsentSetting::ACCEPT_BUTTON_TEXT => '',
+            PluginSetting::LEGACY_COOKIE_NAME => self::COOKIE_NAME,
+            PluginSetting::LEGACY_COOKIE_VALUE => self::COOKIE_VALUE,
+            BlockingSetting::PLACEHOLDER_TEXT => '',
+            BlockingSetting::PLACEHOLDER_BUTTON_TEXT => '',
             ...self::CONSENT_LOG_DEFAULTS,
             ...self::CONSENT_MODE_DEFAULTS,
-            'youtube_nocookie' => '1',
+            IntegrationSetting::YOUTUBE_NOCOOKIE => '1',
             ...self::MICROSOFT_CONSENT_DEFAULTS,
-            'disabled_vendors' => self::VENDORS_OFF_BY_DEFAULT,
+            BlockingSetting::DISABLED_VENDORS => self::VENDORS_OFF_BY_DEFAULT,
             ...self::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
         ];
     }
@@ -252,7 +259,7 @@ final readonly class Schema
         ];
 
         return [
-            'categories' => [
+            ConsentSetting::CATEGORIES => [
                 'type' => 'object',
                 'patternProperties' => [
                     self::ID_PATTERN => [
@@ -266,8 +273,8 @@ final readonly class Schema
                 ],
                 'additionalProperties' => false,
             ],
-            'disabled_vendors' => ['type' => 'array', 'items' => $id],
-            'custom_vendors' => [
+            BlockingSetting::DISABLED_VENDORS => ['type' => 'array', 'items' => $id],
+            BlockingSetting::CUSTOM_VENDORS => [
                 'type' => 'array',
                 'items' => [
                     'type' => 'object',
@@ -290,7 +297,7 @@ final readonly class Schema
                     'additionalProperties' => false,
                 ],
             ],
-            'site_cookies' => [
+            CookieSetting::SITE_COOKIES => [
                 'type' => 'array',
                 'items' => [
                     'type' => 'object',
@@ -299,8 +306,8 @@ final readonly class Schema
                     'additionalProperties' => false,
                 ],
             ],
-            'allowed_patterns' => $texts,
-            'custom_scripts' => [
+            BlockingSetting::ALLOWED_PATTERNS => $texts,
+            BlockingSetting::CUSTOM_SCRIPTS => [
                 'type' => 'array',
                 'items' => [
                     'type' => 'object',

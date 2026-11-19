@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Blocking\Application;
 
+use ItalyCookieChoices\Blocking\Domain\VendorId;
 use ItalyCookieChoices\Blocking\Domain\Vendor;
 use ItalyCookieChoices\Consent\Domain\Category;
 
@@ -13,29 +14,29 @@ use ItalyCookieChoices\Consent\Domain\Category;
 final readonly class VendorPresets
 {
     private const NAMES = [
-        'google-ads' => 'Google Ads',
-        'google-analytics' => 'Google Analytics',
-        'google-tag-manager' => 'Google Tag Manager',
-        'hotjar' => 'Hotjar',
-        'youtube' => 'YouTube',
-        'vimeo' => 'Vimeo',
-        'google-maps' => 'Google Maps',
-        'facebook' => 'Facebook',
-        'instagram' => 'Instagram',
-        'x' => 'X (Twitter)',
-        'linkedin' => 'LinkedIn',
-        'tiktok' => 'TikTok',
-        'spotify' => 'Spotify',
-        'soundcloud' => 'SoundCloud',
-        'google-adsense' => 'Google AdSense',
-        'microsoft-clarity' => 'Microsoft Clarity',
-        'microsoft-advertising' => 'Microsoft Advertising',
-        'pinterest' => 'Pinterest',
-        'snapchat' => 'Snapchat',
-        'reddit' => 'Reddit',
-        'hubspot' => 'HubSpot',
-        'matomo-cloud' => 'Matomo Cloud',
-        'google-recaptcha' => 'Google reCAPTCHA',
+        VendorId::GOOGLE_ADS => 'Google Ads',
+        VendorId::GOOGLE_ANALYTICS => 'Google Analytics',
+        VendorId::GOOGLE_TAG_MANAGER => 'Google Tag Manager',
+        VendorId::HOTJAR => 'Hotjar',
+        VendorId::YOUTUBE => 'YouTube',
+        VendorId::VIMEO => 'Vimeo',
+        VendorId::GOOGLE_MAPS => 'Google Maps',
+        VendorId::FACEBOOK => 'Facebook',
+        VendorId::INSTAGRAM => 'Instagram',
+        VendorId::X => 'X (Twitter)',
+        VendorId::LINKEDIN => 'LinkedIn',
+        VendorId::TIKTOK => 'TikTok',
+        VendorId::SPOTIFY => 'Spotify',
+        VendorId::SOUNDCLOUD => 'SoundCloud',
+        VendorId::GOOGLE_ADSENSE => 'Google AdSense',
+        VendorId::MICROSOFT_CLARITY => 'Microsoft Clarity',
+        VendorId::MICROSOFT_ADVERTISING => 'Microsoft Advertising',
+        VendorId::PINTEREST => 'Pinterest',
+        VendorId::SNAPCHAT => 'Snapchat',
+        VendorId::REDDIT => 'Reddit',
+        VendorId::HUBSPOT => 'HubSpot',
+        VendorId::MATOMO_CLOUD => 'Matomo Cloud',
+        VendorId::GOOGLE_RECAPTCHA => 'Google reCAPTCHA',
     ];
 
     /**
@@ -68,100 +69,100 @@ final readonly class VendorPresets
     {
         return [
             new Vendor(
-                'google-ads',
+                VendorId::GOOGLE_ADS,
                 Category::MARKETING,
                 ['googleadservices.com', 'googleads.g.doubleclick.net'],
                 ['googleadservices.com/pagead/conversion'],
                 self::GOOGLE_ADS_IDS
             ),
             new Vendor(
-                'google-analytics',
+                VendorId::GOOGLE_ANALYTICS,
                 Category::STATISTICS,
                 ['google-analytics.com', 'googletagmanager.com/gtag/js'],
                 ['google-analytics.com/analytics.js', 'googletagmanager.com/gtag/js'],
                 self::GOOGLE_TAG_IDS
             ),
             new Vendor(
-                'google-tag-manager',
+                VendorId::GOOGLE_TAG_MANAGER,
                 Category::MARKETING,
                 ['googletagmanager.com/gtm.js', 'googletagmanager.com/ns.html'],
                 ['googletagmanager.com/gtm.js', "'gtm.start'"],
                 self::GOOGLE_TAG_MANAGER_IDS
             ),
-            new Vendor('hotjar', Category::STATISTICS, ['hotjar.com'], ['static.hotjar.com']),
+            new Vendor(VendorId::HOTJAR, Category::STATISTICS, ['hotjar.com'], ['static.hotjar.com']),
             new Vendor(
-                'youtube',
+                VendorId::YOUTUBE,
                 Category::MARKETING,
                 ['youtube.com', 'youtube-nocookie.com', 'youtu.be'],
                 ['youtube.com/iframe_api']
             ),
-            new Vendor('vimeo', Category::MARKETING, ['player.vimeo.com'], ['player.vimeo.com/api']),
+            new Vendor(VendorId::VIMEO, Category::MARKETING, ['player.vimeo.com'], ['player.vimeo.com/api']),
             new Vendor(
-                'google-maps',
+                VendorId::GOOGLE_MAPS,
                 Category::MARKETING,
                 ['google.com/maps', 'maps.google.com', 'maps.googleapis.com']
             ),
             new Vendor(
-                'facebook',
+                VendorId::FACEBOOK,
                 Category::MARKETING,
                 ['connect.facebook.net', 'facebook.com/plugins', 'facebook.com/tr'],
                 ['connect.facebook.net']
             ),
             new Vendor(
-                'instagram',
+                VendorId::INSTAGRAM,
                 Category::MARKETING,
                 ['instagram.com/embed.js', 'instagram.com/p/'],
                 ['instagram.com/embed.js']
             ),
             new Vendor(
-                'x',
+                VendorId::X,
                 Category::MARKETING,
                 ['platform.twitter.com', 'platform.x.com'],
                 ['platform.twitter.com/widgets.js']
             ),
             new Vendor(
-                'linkedin',
+                VendorId::LINKEDIN,
                 Category::MARKETING,
                 ['snap.licdn.com', 'platform.linkedin.com'],
                 ['snap.licdn.com']
             ),
             new Vendor(
-                'tiktok',
+                VendorId::TIKTOK,
                 Category::MARKETING,
                 ['tiktok.com/embed', 'analytics.tiktok.com'],
                 ['analytics.tiktok.com']
             ),
-            new Vendor('spotify', Category::MARKETING, ['open.spotify.com/embed']),
-            new Vendor('soundcloud', Category::MARKETING, ['w.soundcloud.com']),
+            new Vendor(VendorId::SPOTIFY, Category::MARKETING, ['open.spotify.com/embed']),
+            new Vendor(VendorId::SOUNDCLOUD, Category::MARKETING, ['w.soundcloud.com']),
             new Vendor(
-                'google-adsense',
+                VendorId::GOOGLE_ADSENSE,
                 Category::MARKETING,
                 ['googlesyndication.com', 'adservice.google.com'],
                 ['adsbygoogle']
             ),
-            new Vendor('microsoft-clarity', Category::STATISTICS, ['clarity.ms'], ['clarity.ms/tag']),
-            new Vendor('microsoft-advertising', Category::MARKETING, ['bat.bing.com'], ['bat.bing.com/bat.js']),
+            new Vendor(VendorId::MICROSOFT_CLARITY, Category::STATISTICS, ['clarity.ms'], ['clarity.ms/tag']),
+            new Vendor(VendorId::MICROSOFT_ADVERTISING, Category::MARKETING, ['bat.bing.com'], ['bat.bing.com/bat.js']),
             new Vendor(
-                'pinterest',
+                VendorId::PINTEREST,
                 Category::MARKETING,
                 ['s.pinimg.com/ct', 'ct.pinterest.com', 'assets.pinterest.com'],
                 ['s.pinimg.com/ct/core.js']
             ),
             new Vendor(
-                'snapchat',
+                VendorId::SNAPCHAT,
                 Category::MARKETING,
                 ['sc-static.net', 'tr.snapchat.com'],
                 ['sc-static.net/scevent']
             ),
             new Vendor(
-                'reddit',
+                VendorId::REDDIT,
                 Category::MARKETING,
                 ['redditstatic.com/ads', 'alb.reddit.com'],
                 ['redditstatic.com/ads/pixel.js']
             ),
             // The tracking and the chat, not the forms of js.hsforms.net.
             new Vendor(
-                'hubspot',
+                VendorId::HUBSPOT,
                 Category::MARKETING,
                 [
                     'js.hs-scripts.com',
@@ -174,10 +175,10 @@ final readonly class VendorPresets
                 ['js.hs-scripts.com']
             ),
             // Only the cloud: Matomo on the site can be set up without cookies.
-            new Vendor('matomo-cloud', Category::STATISTICS, ['matomo.cloud'], ['matomo.cloud']),
+            new Vendor(VendorId::MATOMO_CLOUD, Category::STATISTICS, ['matomo.cloud'], ['matomo.cloud']),
             // Turned off by default, the forms that need it do not wait for the consent.
             new Vendor(
-                'google-recaptcha',
+                VendorId::GOOGLE_RECAPTCHA,
                 Category::MARKETING,
                 ['google.com/recaptcha', 'gstatic.com/recaptcha', 'recaptcha.net']
             ),

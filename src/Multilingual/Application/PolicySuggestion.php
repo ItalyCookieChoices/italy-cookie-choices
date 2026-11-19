@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Multilingual\Application;
 
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Settings\Schema;
 
 /**
@@ -41,7 +42,8 @@ final readonly class PolicySuggestion
     {
         \switch_to_blog($siteId);
         $option = \get_option(Schema::OPTION);
-        $url = \is_array($option) && \is_string($option['url'] ?? null) ? $option['url'] : '';
+        $url = \is_array($option) ? $option[ConsentSetting::POLICY_URL] ?? '' : '';
+        $url = \is_string($url) ? $url : '';
         $pageId = $url === '' ? 0 : \url_to_postid($url);
         $privacyPage = \get_option(self::PRIVACY_PAGE);
         \restore_current_blog();

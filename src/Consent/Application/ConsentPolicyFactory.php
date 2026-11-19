@@ -49,7 +49,7 @@ final readonly class ConsentPolicyFactory
      */
     private function duration(): ConsentDuration
     {
-        $days = (int) $this->options->text('consent_duration');
+        $days = (int) $this->options->text(ConsentSetting::CONSENT_DURATION);
 
         return $days > 0 ? new ConsentDuration($days) : new ConsentDuration();
     }

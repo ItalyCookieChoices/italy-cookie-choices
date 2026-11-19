@@ -12,8 +12,6 @@ use ItalyCookieChoices\Settings\Options;
  */
 final readonly class VendorChoices
 {
-    public const SETTING = 'vendor_consent';
-
     public function __construct(
         private VendorsFactory $factory,
         private VendorSettings $settings,
@@ -23,7 +21,7 @@ final readonly class VendorChoices
 
     public function isEnabled(): bool
     {
-        return $this->options->isChecked(self::SETTING);
+        return $this->options->isChecked(BlockingSetting::VENDOR_CONSENT);
     }
 
     /**

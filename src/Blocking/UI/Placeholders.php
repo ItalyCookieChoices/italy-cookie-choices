@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Blocking\UI;
 
+use ItalyCookieChoices\Blocking\Application\BlockingSetting;
 use ItalyCookieChoices\Consent\UI\BuildingBanner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
@@ -103,8 +104,8 @@ final readonly class Placeholders implements SubscriberInterface
     public function data(): array
     {
         $texts = $this->texts->all();
-        $message = \wp_kses_post($this->options->translated('content_message_text'));
-        $button = $this->options->translated('content_message_button_text');
+        $message = \wp_kses_post($this->options->translated(BlockingSetting::PLACEHOLDER_TEXT));
+        $button = $this->options->translated(BlockingSetting::PLACEHOLDER_BUTTON_TEXT);
 
         $categories = [];
         foreach ($texts['categories'] as $category) {

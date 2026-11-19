@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Settings\SettingsFile;
 use ItalyStrap\Event\SubscriberInterface;
@@ -15,7 +16,6 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class ImportEndpoint implements SubscriberInterface
 {
-    public const NAMESPACE = 'italy-cookie-choices/v1';
     public const ROUTE = '/settings/import';
 
     public function __construct(
@@ -30,7 +30,7 @@ final readonly class ImportEndpoint implements SubscriberInterface
 
     public function register(): void
     {
-        \register_rest_route(self::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->import(...),
             'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),

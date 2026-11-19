@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Blocking\Application;
 
+use ItalyCookieChoices\Blocking\Domain\VendorId;
 use ItalyCookieChoices\Blocking\Domain\Vendor;
 use ItalyCookieChoices\Blocking\Domain\Vendors;
 use ItalyCookieChoices\Consent\Domain\Category;
@@ -16,8 +17,6 @@ use Psr\EventDispatcher\EventDispatcherInterface;
  */
 final readonly class VendorsFactory
 {
-    private const GOOGLE_TAG_GATEWAY = 'google-tag-gateway';
-
     public function __construct(
         private VendorPresets $presets,
         private EventDispatcherInterface $dispatcher,
@@ -29,7 +28,7 @@ final readonly class VendorsFactory
     {
         return $this->built(
             [...$this->presets(), ...$this->googleTagGateway(), ...$this->customVendors()],
-            $this->options->values('allowed_patterns')
+            $this->options->values(BlockingSetting::ALLOWED_PATTERNS)
         );
     }
 
@@ -58,7 +57,7 @@ final readonly class VendorsFactory
      */
     private function presets(): array
     {
-        $disabled = $this->options->values('disabled_vendors');
+        $disabled = $this->options->values(BlockingSetting::DISABLED_VENDORS);
 
         return \array_values(\array_filter(
             $this->presets->all(),
@@ -74,14 +73,14 @@ final readonly class VendorsFactory
      */
     private function googleTagGateway(): array
     {
-        $path = $this->options->text('google_tag_gateway_path');
+        $path = $this->options->text(BlockingSetting::GOOGLE_TAG_GATEWAY_PATH);
         if ($path === '') {
             return [];
         }
 
         $host = (string) \wp_parse_url(\home_url(), \PHP_URL_HOST);
 
-        return [new Vendor(self::GOOGLE_TAG_GATEWAY, Category::MARKETING, [$host . $path, $path])];
+        return [new Vendor(VendorId::GOOGLE_TAG_GATEWAY, Category::MARKETING, [$host . $path, $path])];
     }
 
     /**
@@ -92,7 +91,7 @@ final readonly class VendorsFactory
     private function customVendors(): array
     {
         $vendors = [];
-        foreach ($this->options->records('custom_vendors') as $record) {
+        foreach ($this->options->records(BlockingSetting::CUSTOM_VENDORS) as $record) {
             $vendor = $this->customVendor($record);
             if ($vendor === null) {
                 continue;

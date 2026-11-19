@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Blocking\UI;
 
+use ItalyCookieChoices\Blocking\Application\BlockingSetting;
 use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Blocking\Infrastructure\HtmlBlocker;
 use ItalyCookieChoices\Settings\Options;
@@ -17,8 +18,6 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class PageBuffer implements SubscriberInterface
 {
-    public const OPTION = 'all_block';
-
     public function __construct(
         private HtmlBlocker $blocker,
         private VendorsFactory $vendors,
@@ -38,7 +37,7 @@ final readonly class PageBuffer implements SubscriberInterface
 
     public function start(): void
     {
-        if (!$this->options->isChecked(self::OPTION) || !$this->request->isBlockable()) {
+        if (!$this->options->isChecked(BlockingSetting::WHOLE_PAGE) || !$this->request->isBlockable()) {
             return;
         }
 

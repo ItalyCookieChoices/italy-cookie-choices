@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Scan\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Scan\Application\ScanTargets;
 use ItalyCookieChoices\Scan\Application\SiteScanner;
 use ItalyCookieChoices\Scan\Domain\Selection;
-use ItalyCookieChoices\Settings\UI\ImportEndpoint;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -38,18 +38,18 @@ final readonly class ScanEndpoint implements SubscriberInterface
         $permission = static fn(): bool => \current_user_can(SettingsPage::CAPABILITY);
         $ids = ['type' => 'array', 'items' => ['type' => 'integer', 'minimum' => 0]];
 
-        \register_rest_route(ImportEndpoint::NAMESPACE, self::ROUTE . '/targets', [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE . '/targets', [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->listTargets(...),
             'permission_callback' => $permission,
             'args' => [
-                'home' => ['type' => 'boolean', 'default' => false],
-                'postTypes' => ['type' => 'array', 'items' => ['type' => 'string'], 'default' => []],
-                'categories' => [...$ids, 'default' => []],
-                'posts' => [...$ids, 'default' => []],
+                Selection::HOME => ['type' => 'boolean', 'default' => false],
+                Selection::POST_TYPES => ['type' => 'array', 'items' => ['type' => 'string'], 'default' => []],
+                Selection::CATEGORIES => [...$ids, 'default' => []],
+                Selection::POSTS => [...$ids, 'default' => []],
             ],
         ]);
-        \register_rest_route(ImportEndpoint::NAMESPACE, self::ROUTE . '/pages', [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE . '/pages', [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->scanPages(...),
             'permission_callback' => $permission,
@@ -62,10 +62,10 @@ final readonly class ScanEndpoint implements SubscriberInterface
     public function listTargets(\WP_REST_Request $request): \WP_REST_Response
     {
         $targets = $this->targets->of(new Selection(
-            (bool) $request->get_param('home'),
-            $this->strings($request->get_param('postTypes')),
-            $this->integers($request->get_param('categories')),
-            $this->integers($request->get_param('posts')),
+            (bool) $request->get_param(Selection::HOME),
+            $this->strings($request->get_param(Selection::POST_TYPES)),
+            $this->integers($request->get_param(Selection::CATEGORIES)),
+            $this->integers($request->get_param(Selection::POSTS)),
         ));
 
         return new \WP_REST_Response(['targets' => $targets->targets(), 'truncated' => $targets->isTruncated()]);

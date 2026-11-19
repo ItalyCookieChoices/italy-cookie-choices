@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Cookies\Application;
 
+use ItalyCookieChoices\Blocking\Application\BlockingSetting;
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Blocking\Domain\Vendor;
@@ -60,7 +61,7 @@ final readonly class CookieTableFactory
      */
     private function vendorCookies(): array
     {
-        $customVendors = \array_column($this->options->records('custom_vendors'), null, 'id');
+        $customVendors = \array_column($this->options->records(BlockingSetting::CUSTOM_VENDORS), null, 'id');
 
         $cookies = [];
         foreach ($this->vendors->create() as $vendor) {
@@ -124,7 +125,7 @@ final readonly class CookieTableFactory
     private function siteCookies(): array
     {
         $cookies = [];
-        foreach ($this->options->records('site_cookies') as $record) {
+        foreach ($this->options->records(CookieSetting::SITE_COOKIES) as $record) {
             $cookie = $this->siteCookie($record);
             if ($cookie === null) {
                 continue;

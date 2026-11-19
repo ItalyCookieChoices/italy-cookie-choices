@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
+use ItalyCookieChoices\Blocking\Application\BlockingSetting;
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -22,7 +24,6 @@ final readonly class Migration implements SubscriberInterface
     /**
      * The text of the 2.x button that closed the banner, like "Close" or "OK".
      */
-    private const LEGACY_BUTTON_TEXT = 'button_text';
     private const ALWAYS_ON = ['block', 'widget_block'];
     private const SNIPPET_LISTS = [
         'custom_script_block' => 'block_script',
@@ -124,12 +125,12 @@ final readonly class Migration implements SubscriberInterface
     private function removeTheImplicitConsents(array $option): array
     {
         $migrated = \array_diff_key($option, \array_flip(self::IMPLICIT_CONSENTS));
-        if (!\array_key_exists(self::LEGACY_BUTTON_TEXT, $migrated)) {
+        if (!\array_key_exists(ConsentSetting::ACCEPT_BUTTON_TEXT, $migrated)) {
             return $migrated;
         }
 
         // The empty text of the defaults, so the upgrade of the defaults does not change them (#300).
-        $migrated[self::LEGACY_BUTTON_TEXT] = '';
+        $migrated[ConsentSetting::ACCEPT_BUTTON_TEXT] = '';
 
         return $migrated;
     }
@@ -184,7 +185,7 @@ final readonly class Migration implements SubscriberInterface
 
         if ($blocked !== []) {
             // The 2.x lists have no category, the marketing one needs the most explicit choice.
-            $migrated['custom_vendors'] = [[
+            $migrated[BlockingSetting::CUSTOM_VENDORS] = [[
                 'id' => self::CUSTOM_VENDOR,
                 'name' => 'Custom',
                 'category' => Category::MARKETING,
@@ -193,7 +194,7 @@ final readonly class Migration implements SubscriberInterface
         }
 
         if ($allowed !== []) {
-            $migrated['allowed_patterns'] = $allowed;
+            $migrated[BlockingSetting::ALLOWED_PATTERNS] = $allowed;
         }
 
         return $this->validValues($migrated);
@@ -229,9 +230,11 @@ final readonly class Migration implements SubscriberInterface
      */
     private function turnOffTheNewPresets(array $option): array
     {
-        $disabled = \is_array($option['disabled_vendors'] ?? null) ? $option['disabled_vendors'] : [];
-        $disabled = \array_filter($disabled, \is_string(...));
-        $option['disabled_vendors'] = \array_values(\array_unique([...$disabled, ...Schema::VENDORS_OFF_BY_DEFAULT]));
+        $disabled = $option[BlockingSetting::DISABLED_VENDORS] ?? null;
+        $disabled = \array_filter(\is_array($disabled) ? $disabled : [], \is_string(...));
+        $option[BlockingSetting::DISABLED_VENDORS] = \array_values(
+            \array_unique([...$disabled, ...Schema::VENDORS_OFF_BY_DEFAULT])
+        );
 
         return $option;
     }
@@ -255,13 +258,13 @@ final readonly class Migration implements SubscriberInterface
      */
     private function addTheCookiesOfTheCustomVendors(array $option): array
     {
-        if (!\is_array($option['custom_vendors'] ?? null)) {
+        if (!\is_array($option[BlockingSetting::CUSTOM_VENDORS] ?? null)) {
             return $option;
         }
 
-        $option['custom_vendors'] = \array_map(
+        $option[BlockingSetting::CUSTOM_VENDORS] = \array_map(
             static fn(mixed $vendor): mixed => \is_array($vendor) ? $vendor + ['cookies' => []] : $vendor,
-            $option['custom_vendors']
+            $option[BlockingSetting::CUSTOM_VENDORS]
         );
 
         return $option;

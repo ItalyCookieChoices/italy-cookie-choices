@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Cookies\Application;
 
+use ItalyCookieChoices\Blocking\Domain\VendorId;
+
 /**
  * The cookies the common vendors set, from their documentation or, when it lacks the durations, their scripts
  * and cookiedatabase.org: a vendor can change them.
@@ -43,7 +45,7 @@ final readonly class PresetCookies
         $d = $this->durations;
 
         return [
-            'google-ads' => [
+            VendorId::GOOGLE_ADS => [
                 $this->cookie(
                     '_gcl_au',
                     $d->days(90),
@@ -65,7 +67,7 @@ final readonly class PresetCookies
                     \__('Checks if the browser accepts cookies.', 'italy-cookie-choices')
                 ),
             ],
-            'google-analytics' => [
+            VendorId::GOOGLE_ANALYTICS => [
                 $this->cookie(
                     '_ga',
                     $d->years(2),
@@ -77,7 +79,7 @@ final readonly class PresetCookies
                     \__('Keeps the state of the session, for the statistics of the visits.', 'italy-cookie-choices')
                 ),
             ],
-            'hotjar' => [
+            VendorId::HOTJAR => [
                 $this->cookie(
                     '_hjSessionUser_*',
                     $d->years(1),
@@ -89,7 +91,7 @@ final readonly class PresetCookies
                     \__('Keeps the data of the current session.', 'italy-cookie-choices')
                 ),
             ],
-            'youtube' => [
+            VendorId::YOUTUBE => [
                 $this->cookie(
                     'YSC',
                     $d->session(),
@@ -106,7 +108,7 @@ final readonly class PresetCookies
                     \__('Stores the preferences of the video player.', 'italy-cookie-choices')
                 ),
             ],
-            'vimeo' => [
+            VendorId::VIMEO => [
                 $this->cookie(
                     'vuid',
                     $d->years(2),
@@ -123,7 +125,7 @@ final readonly class PresetCookies
                     \__('Tells the bots apart from the visitors.', 'italy-cookie-choices')
                 ),
             ],
-            'google-maps' => [
+            VendorId::GOOGLE_MAPS => [
                 $this->cookie(
                     'NID',
                     $d->months(6),
@@ -133,7 +135,7 @@ final readonly class PresetCookies
                     )
                 ),
             ],
-            'facebook' => [
+            VendorId::FACEBOOK => [
                 $this->cookie(
                     '_fbp',
                     $d->months(3),
@@ -150,7 +152,7 @@ final readonly class PresetCookies
                     \__('Shows and measures the Meta ads.', 'italy-cookie-choices')
                 ),
             ],
-            'linkedin' => [
+            VendorId::LINKEDIN => [
                 $this->cookie(
                     'li_fat_id',
                     $d->days(30),
@@ -172,7 +174,7 @@ final readonly class PresetCookies
                     \__('Syncs the id of the LinkedIn ads.', 'italy-cookie-choices')
                 ),
             ],
-            'tiktok' => [
+            VendorId::TIKTOK => [
                 $this->cookie(
                     '_ttp',
                     $d->months(13),
@@ -184,14 +186,14 @@ final readonly class PresetCookies
                     \__('Stores the click on a TikTok ad, for the conversions.', 'italy-cookie-choices')
                 ),
             ],
-            'spotify' => [
+            VendorId::SPOTIFY => [
                 $this->cookie(
                     'sp_t',
                     $d->years(1),
                     \__('Recognizes the browser across the pages.', 'italy-cookie-choices')
                 ),
             ],
-            'google-adsense' => [
+            VendorId::GOOGLE_ADSENSE => [
                 $this->cookie(
                     '__gads',
                     $d->months(13),
@@ -213,7 +215,7 @@ final readonly class PresetCookies
                     \__('Shows and personalizes the Google ads on other sites.', 'italy-cookie-choices')
                 ),
             ],
-            'microsoft-clarity' => [
+            VendorId::MICROSOFT_CLARITY => [
                 $this->cookie(
                     '_clck',
                     $d->years(1),
@@ -225,7 +227,7 @@ final readonly class PresetCookies
                     \__('Joins the pages viewed into one session recording.', 'italy-cookie-choices')
                 ),
             ],
-            'microsoft-advertising' => [
+            VendorId::MICROSOFT_ADVERTISING => [
                 $this->cookie(
                     '_uetsid',
                     $d->days(1),
@@ -242,7 +244,7 @@ final readonly class PresetCookies
                     \__('Stores the click on a Microsoft ad.', 'italy-cookie-choices')
                 ),
             ],
-            'pinterest' => [
+            VendorId::PINTEREST => [
                 $this->cookie(
                     '_pin_unauth',
                     $d->years(1),
@@ -262,14 +264,14 @@ final readonly class PresetCookies
                     \__('Stores the matches made without cookies.', 'italy-cookie-choices')
                 ),
             ],
-            'snapchat' => [
+            VendorId::SNAPCHAT => [
                 $this->cookie(
                     '_scid',
                     $d->months(13),
                     \__('Identifies the visitor, to measure the Snapchat ads.', 'italy-cookie-choices')
                 ),
             ],
-            'reddit' => [
+            VendorId::REDDIT => [
                 $this->cookie(
                     '_rdt_uuid',
                     $d->days(90),
@@ -281,7 +283,7 @@ final readonly class PresetCookies
                     \__('Stores the click on a Reddit ad.', 'italy-cookie-choices')
                 ),
             ],
-            'hubspot' => [
+            VendorId::HUBSPOT => [
                 $this->cookie(
                     '__hstc',
                     $d->months(6),
@@ -303,7 +305,7 @@ final readonly class PresetCookies
                     \__('Detects a new session after a restart of the browser.', 'italy-cookie-choices')
                 ),
             ],
-            'matomo-cloud' => [
+            VendorId::MATOMO_CLOUD => [
                 $this->cookie(
                     '_pk_id.*',
                     $d->months(13),
@@ -320,7 +322,7 @@ final readonly class PresetCookies
                     \__('Stores the site that brought the visitor.', 'italy-cookie-choices')
                 ),
             ],
-            'google-recaptcha' => [
+            VendorId::GOOGLE_RECAPTCHA => [
                 $this->cookie(
                     '_GRECAPTCHA',
                     $d->months(6),

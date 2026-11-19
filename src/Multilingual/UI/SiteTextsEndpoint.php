@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Multilingual\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Multilingual\Application\ConnectedSites;
 use ItalyCookieChoices\Multilingual\Application\PolicySuggestion;
 use ItalyCookieChoices\Multilingual\Application\SiteTexts;
-use ItalyCookieChoices\Settings\UI\ImportEndpoint;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -43,7 +43,7 @@ final readonly class SiteTextsEndpoint implements SubscriberInterface
         }
 
         $site = ['site' => ['type' => 'integer', 'required' => true]];
-        \register_rest_route(ImportEndpoint::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             [
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => $this->read(...),
@@ -57,7 +57,7 @@ final readonly class SiteTextsEndpoint implements SubscriberInterface
                 'args' => [...$site, 'texts' => ['type' => 'object', 'required' => true]],
             ],
         ]);
-        \register_rest_route(ImportEndpoint::NAMESPACE, self::ROUTE . '/draft', [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE . '/draft', [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->draft(...),
             'permission_callback' => $this->canEdit(...),

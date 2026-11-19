@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Settings\Sanitizer;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
@@ -17,7 +18,6 @@ use ItalyStrap\Event\SubscriberInterface;
  */
 final readonly class BannerPreviewEndpoint implements SubscriberInterface
 {
-    public const NAMESPACE = 'italy-cookie-choices/v1';
     public const ROUTE = '/preview';
 
     private const FLOATING_BUTTON = 'icc-floating-button';
@@ -37,7 +37,7 @@ final readonly class BannerPreviewEndpoint implements SubscriberInterface
 
     public function register(): void
     {
-        \register_rest_route(self::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             'methods' => \WP_REST_Server::CREATABLE,
             'callback' => $this->preview(...),
             'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),

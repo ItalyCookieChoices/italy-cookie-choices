@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings\UI;
 
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -32,7 +33,7 @@ final readonly class NetworkSettingsEndpoint implements SubscriberInterface
 
         $permission = static fn(): bool => \current_user_can(NetworkSettingsPage::CAPABILITY);
 
-        \register_rest_route(ImportEndpoint::NAMESPACE, self::ROUTE, [
+        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
             [
                 'methods' => \WP_REST_Server::READABLE,
                 'callback' => $this->read(...),
