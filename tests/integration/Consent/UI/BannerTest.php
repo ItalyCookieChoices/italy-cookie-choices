@@ -365,6 +365,26 @@ final class BannerTest extends WPTestCase
         $this->assertFalse($this->makeSut()->data()['htmlMargin']);
     }
 
+    public function testTheButtonsUseTheSavedTextsOrTheDefaultOnes(): void
+    {
+        $this->saveOptions([]);
+        $texts = $this->texts($this->makeSut()->data());
+        $this->assertSame('Reject all', $texts['rejectAll']);
+        $this->assertSame('Preferences', $texts['preferences']);
+        $this->assertSame('Save preferences', $texts['save']);
+
+        $this->saveOptions([
+            'reject_button_text' => 'No thanks',
+            'preferences_button_text' => 'Choose',
+            'save_button_text' => 'Save my choice',
+        ]);
+        $texts = $this->texts($this->makeSut()->data());
+
+        $this->assertSame('No thanks', $texts['rejectAll']);
+        $this->assertSame('Choose', $texts['preferences']);
+        $this->assertSame('Save my choice', $texts['save']);
+    }
+
     public function testTheViewUsesTheSavedTextsAndClasses(): void
     {
         $this->saveOptions([

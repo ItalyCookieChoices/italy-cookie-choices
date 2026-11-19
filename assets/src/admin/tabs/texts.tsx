@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import type { SettingsProps } from '../fields';
 import type { Category } from '../settings';
 import {
-	AcceptButtonTextField,
+	ButtonTextFields,
 	BannerTextField,
 	FloatingButtonLabelField,
 	PlaceholderTextFields,
@@ -24,7 +24,7 @@ export function TextsTab(
 		<Fragment>
 			<BannerTextField { ...props } />
 			<PolicyLinkFields { ...props } />
-			<AcceptButtonTextField { ...props } />
+			<ButtonTextFields { ...props } />
 			<FloatingButtonLabelField { ...props } />
 			<PlaceholderTextFields { ...props } />
 			<h3>{ __( 'Categories', 'italy-cookie-choices' ) }</h3>

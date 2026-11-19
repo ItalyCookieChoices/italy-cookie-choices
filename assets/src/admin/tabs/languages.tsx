@@ -19,7 +19,7 @@ import { fillEmptyTexts } from '../languages';
 import type { Message } from '../message';
 import type { Category, ConnectedSite, Languages, Settings } from '../settings';
 import {
-	AcceptButtonTextField,
+	ButtonTextFields,
 	BannerTextField,
 	FloatingButtonLabelField,
 	PlaceholderTextFields,
@@ -101,7 +101,7 @@ function SiteTextFields(
 				name="anchor_text"
 				label={ __( 'Policy link text', 'italy-cookie-choices' ) }
 			/>
-			<AcceptButtonTextField { ...props } />
+			<ButtonTextFields { ...props } />
 			<FloatingButtonLabelField { ...props } />
 			<PlaceholderTextFields { ...props } />
 			<h3>{ __( 'Categories', 'italy-cookie-choices' ) }</h3>

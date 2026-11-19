@@ -23,11 +23,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personalizzato"
 
-#: src/Settings/Sanitizer.php:164
+#: src/Settings/Sanitizer.php:167
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Il campo del nome del Cookie non può essere vuoto. Ripristinato il nome di default."
 
-#: src/Settings/Sanitizer.php:165
+#: src/Settings/Sanitizer.php:168
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Il campo del valore del Cookie non può essere vuoto. Ripristinato il valore di default."
 
@@ -86,63 +86,65 @@ msgstr "Consenso ai cookie"
 msgid "Accept all"
 msgstr "Accetta tutti"
 
-#: src/Consent/UI/ConsentTexts.php:78
+#: src/Consent/UI/ConsentTexts.php:80
+#: assets/build/settings.js:1
 #: assets/build/settings.js:15
 msgid "Reject all"
 msgstr "Rifiuta tutti"
 
-#: src/Consent/UI/ConsentTexts.php:79
-#: src/Consent/UI/ConsentTexts.php:125
+#: src/Consent/UI/ConsentTexts.php:84
+#: src/Consent/UI/ConsentTexts.php:134
 #: assets/build/settings.js:1
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: src/Consent/UI/ConsentTexts.php:80
+#: src/Consent/UI/ConsentTexts.php:86
 msgid "Close and keep only the necessary cookies"
 msgstr "Chiudi e mantieni solo i cookie necessari"
 
 #: src/Consent/UI/Banner.php:217
-#: src/Consent/UI/ConsentTexts.php:81
+#: src/Consent/UI/ConsentTexts.php:87
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
 #: assets/build/settings.js:1
 msgid "Cookie preferences"
 msgstr "Preferenze cookie"
 
-#: src/Consent/UI/ConsentTexts.php:82
+#: src/Consent/UI/ConsentTexts.php:90
+#: assets/build/settings.js:1
 msgid "Save preferences"
 msgstr "Salva le preferenze"
 
-#: src/Consent/UI/ConsentTexts.php:83
+#: src/Consent/UI/ConsentTexts.php:92
 msgid "Close the preferences"
 msgstr "Chiudi le preferenze"
 
-#: src/Consent/UI/ConsentTexts.php:118
+#: src/Consent/UI/ConsentTexts.php:127
 msgid "Necessary"
 msgstr "Necessari"
 
-#: src/Consent/UI/ConsentTexts.php:119
+#: src/Consent/UI/ConsentTexts.php:128
 msgid "Needed for the site to work, like the cookie that stores this choice. Always active."
 msgstr "Servono al funzionamento del sito, come il cookie che memorizza questa scelta. Sempre attivi."
 
-#: src/Consent/UI/ConsentTexts.php:126
+#: src/Consent/UI/ConsentTexts.php:135
 msgid "Remember your choices, like the language or the region."
 msgstr "Ricordano le tue scelte, come la lingua o la regione."
 
-#: src/Consent/UI/ConsentTexts.php:129
+#: src/Consent/UI/ConsentTexts.php:138
 #: assets/build/settings.js:16
 msgid "Statistics"
 msgstr "Statistiche"
 
-#: src/Consent/UI/ConsentTexts.php:130
+#: src/Consent/UI/ConsentTexts.php:139
 msgid "Help to understand how the site is used, collecting anonymous data."
 msgstr "Aiutano a capire come viene usato il sito, raccogliendo dati anonimi."
 
-#: src/Consent/UI/ConsentTexts.php:136
+#: src/Consent/UI/ConsentTexts.php:145
 msgid "Marketing"
 msgstr "Marketing"
 
-#: src/Consent/UI/ConsentTexts.php:137
+#: src/Consent/UI/ConsentTexts.php:146
 msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
 msgstr "Usati da terze parti, come video, mappe e social network, per mostrare contenuti e pubblicità."
 
@@ -1143,7 +1145,7 @@ msgstr "Leggi le impostazioni dei cookie"
 msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
 msgstr "Restituisce le impostazioni del banner dei cookie, del blocco dei fornitori e del registro dei consensi."
 
-#: src/Consent/UI/ConsentTexts.php:84
+#: src/Consent/UI/ConsentTexts.php:93
 msgid "Your browser asks not to share your data: accepting all leaves out the marketing cookies."
 msgstr "Il tuo browser chiede di non condividere i tuoi dati: accettare tutti esclude i cookie di marketing."
 
@@ -1679,7 +1681,7 @@ msgstr "Il link alla policy di %s è stato salvato."
 msgid "The policy link was not saved."
 msgstr "Il link alla policy non è stato salvato."
 
-#: src/Consent/UI/ConsentTexts.php:88
+#: src/Consent/UI/ConsentTexts.php:97
 msgid "Vendors"
 msgstr "Fornitori"
 
@@ -1736,3 +1738,19 @@ msgstr "Script dopo il consenso"
 #: assets/build/settings.js:17
 msgid "Code the plugin adds to the pages after the consent to its category, like a chat or a tracking snippet that no vendor covers."
 msgstr "Codice che il plugin aggiunge alle pagine dopo il consenso alla sua categoria, come una chat o uno snippet di tracciamento che nessun fornitore copre."
+
+#: assets/build/settings.js:1
+msgid "Reject button text"
+msgstr "Testo del pulsante di rifiuto"
+
+#: assets/build/settings.js:1
+msgid "Preferences button text"
+msgstr "Testo del pulsante delle preferenze"
+
+#: assets/build/settings.js:1
+msgid "Save button text"
+msgstr "Testo del pulsante di salvataggio"
+
+#: assets/build/settings.js:1
+msgid "The button of the preferences that saves the choice."
+msgstr "Il pulsante delle preferenze che salva la scelta."

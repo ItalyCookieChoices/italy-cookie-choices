@@ -12,6 +12,9 @@ Apri **WPML > Traduzione stringhe** e scegli il dominio **Italy Cookie Choices**
 * Banner url
 * Banner anchor text
 * Banner button text
+* Banner reject button text
+* Banner preferences button text
+* Preferences save button text
 * Content message text
 * Content message button text
 * Floating button label

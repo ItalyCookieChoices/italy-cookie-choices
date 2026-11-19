@@ -37,6 +37,9 @@
             "Cookie preferences": [
                 "Preferenze cookie"
             ],
+            "Save preferences": [
+                "Salva le preferenze"
+            ],
             "Statistics": [
                 "Statistiche"
             ],
@@ -673,6 +676,18 @@
             ],
             "Code the plugin adds to the pages after the consent to its category, like a chat or a tracking snippet that no vendor covers.": [
                 "Codice che il plugin aggiunge alle pagine dopo il consenso alla sua categoria, come una chat o uno snippet di tracciamento che nessun fornitore copre."
+            ],
+            "Reject button text": [
+                "Testo del pulsante di rifiuto"
+            ],
+            "Preferences button text": [
+                "Testo del pulsante delle preferenze"
+            ],
+            "Save button text": [
+                "Testo del pulsante di salvataggio"
+            ],
+            "The button of the preferences that saves the choice.": [
+                "Il pulsante delle preferenze che salva la scelta."
             ]
         }
     }

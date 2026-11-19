@@ -10,7 +10,7 @@ import {
 } from '../fields';
 import { isChecked } from '../settings';
 import {
-	AcceptButtonTextField,
+	ButtonTextFields,
 	BannerTextField,
 	FloatingButtonLabelField,
 	PolicyLinkFields,
@@ -51,7 +51,7 @@ export function BannerTab(
 					'italy-cookie-choices'
 				) }
 			/>
-			<AcceptButtonTextField { ...props } />
+			<ButtonTextFields { ...props } />
 			<TextField
 				{ ...props }
 				name="excluded_pages"
