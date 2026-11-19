@@ -16,8 +16,9 @@ use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
 
 $buttonClass = (string) $this->get(['classes', 'button']);
-$linkUrl = (string) $this->get(['link', 'url']);
-$linkRel = (string) $this->get(['link', 'rel']);
+$linkClass = (string) $this->get(['classes', 'link']);
+// The policy link, then the legal notice link.
+$links = \array_filter([$this->get('link'), $this->get('legalNoticeLink')], \is_array(...));
 $globalPrivacyControl = (bool) $this->get('globalPrivacyControl');
 $globalPrivacyControlNote = (string) $this->get(['texts', 'globalPrivacyControl']);
 ?>
@@ -42,14 +43,15 @@ $globalPrivacyControlNote = (string) $this->get(['texts', 'globalPrivacyControl'
         </h2>
         <div id="icc-banner-text" class="<?php echo \esc_attr((string) $this->get(['classes', 'text'])); ?>">
             <?php echo (string) $this->get('text'); // Sanitized with wp_kses_post(). ?>
-            <?php if ($linkUrl !== '') : ?>
+            <?php foreach ($links as $link) : ?>
+                <?php $linkRel = (string) ($link['rel'] ?? ''); ?>
                 <a
-                    href="<?php echo \esc_url($linkUrl); ?>"
-                    class="icc-banner__link <?php echo \esc_attr((string) $this->get(['classes', 'link'])); ?>"
-                    <?php echo (bool) $this->get(['link', 'newTab']) ? 'target="_blank"' : ''; ?>
+                    href="<?php echo \esc_url((string) ($link['url'] ?? '')); ?>"
+                    class="icc-banner__link <?php echo \esc_attr($linkClass); ?>"
+                    <?php echo (bool) ($link['newTab'] ?? false) ? 'target="_blank"' : ''; ?>
                     <?php echo $linkRel !== '' ? 'rel="' . \esc_attr($linkRel) . '"' : ''; ?>
-                ><?php echo \esc_html((string) $this->get(['link', 'text'])); ?></a>
-            <?php endif; ?>
+                ><?php echo \esc_html((string) ($link['text'] ?? '')); ?></a>
+            <?php endforeach; ?>
         </div>
         <?php if ($globalPrivacyControl) : ?>
             <p class="icc-banner__gpc" data-icc-gpc-note hidden><?php echo \esc_html($globalPrivacyControlNote); ?></p>

@@ -13,14 +13,18 @@ import {
 	ButtonTextFields,
 	BannerTextField,
 	FloatingButtonLabelField,
-	PolicyLinkFields,
+	LinkFields,
 } from '../texts';
-import { PolicyTranslations } from '../policy-translations';
-import type { PolicyTranslation } from '../settings';
+import { LinkTranslations } from '../link-translations';
+import type { BannerLink, LinkTranslation } from '../settings';
 
 export function BannerTab(
-	props: SettingsProps & { policyTranslations?: PolicyTranslation[] }
+	props: SettingsProps & {
+		linkTranslations?: Record< BannerLink, LinkTranslation[] >;
+	}
 ) {
+	const { linkTranslations, ...settingsProps } = props;
+
 	return (
 		<Fragment>
 			<ToggleField
@@ -33,13 +37,21 @@ export function BannerTab(
 				) }
 			/>
 			<BannerTextField { ...props } />
-			<PolicyLinkFields { ...props } />
-			<PolicyTranslations rows={ props.policyTranslations ?? [] } />
+			<LinkFields { ...settingsProps } link="policy" />
+			<LinkTranslations
+				link="policy"
+				rows={ linkTranslations?.policy ?? [] }
+			/>
+			<LinkFields { ...settingsProps } link="legal-notice" />
+			<LinkTranslations
+				link="legal-notice"
+				rows={ linkTranslations?.[ 'legal-notice' ] ?? [] }
+			/>
 			<ToggleField
 				{ ...props }
 				name="target"
 				label={ __(
-					'Open the policy in a new tab',
+					'Open the links in a new tab',
 					'italy-cookie-choices'
 				) }
 			/>
@@ -47,7 +59,7 @@ export function BannerTab(
 				{ ...props }
 				name="nofollow"
 				label={ __(
-					'Add rel="nofollow" to the policy link',
+					'Add rel="nofollow" to the links',
 					'italy-cookie-choices'
 				) }
 			/>

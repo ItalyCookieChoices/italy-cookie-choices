@@ -14,7 +14,7 @@ import {
 	loadSiteTexts,
 	saveSiteTexts,
 } from '../api';
-import { TextField, type SettingsProps } from '../fields';
+import type { SettingsProps } from '../fields';
 import { fillEmptyTexts } from '../languages';
 import type { Message } from '../message';
 import type { Category, ConnectedSite, Languages, Settings } from '../settings';
@@ -22,6 +22,7 @@ import {
 	ButtonTextFields,
 	BannerTextField,
 	FloatingButtonLabelField,
+	LinkAddressFields,
 	PlaceholderTextFields,
 } from '../texts';
 import { CategoriesTab } from './categories';
@@ -90,17 +91,8 @@ function SiteTextFields(
 	return (
 		<Fragment>
 			<BannerTextField { ...props } />
-			<TextField
-				{ ...props }
-				name="url"
-				type="url"
-				label={ __( 'Policy link', 'italy-cookie-choices' ) }
-			/>
-			<TextField
-				{ ...props }
-				name="anchor_text"
-				label={ __( 'Policy link text', 'italy-cookie-choices' ) }
-			/>
+			<LinkAddressFields { ...props } link="policy" />
+			<LinkAddressFields { ...props } link="legal-notice" />
 			<ButtonTextFields { ...props } />
 			<FloatingButtonLabelField { ...props } />
 			<PlaceholderTextFields { ...props } />

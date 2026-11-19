@@ -12,8 +12,9 @@ import {
 export type { Term } from './scan';
 import {
 	normalizeSettings,
-	policyTranslationsFrom,
-	type PolicyTranslation,
+	linkTranslationRowsFrom,
+	type BannerLink,
+	type LinkTranslation,
 	type Settings,
 } from './settings';
 
@@ -419,19 +420,21 @@ export async function saveScanSchedule(
 }
 
 /**
- * Uses the translation of the policy page as the policy link of a language, saved in WPML or Polylang.
+ * Uses the translation of the page of a link as the link of a language, saved in WPML or Polylang.
+ * @param link     The link of the banner.
  * @param language The code of the language.
  */
-export async function savePolicyTranslation(
+export async function saveLinkTranslation(
+	link: BannerLink,
 	language: string
-): Promise< PolicyTranslation[] > {
+): Promise< LinkTranslation[] > {
 	const response: unknown = await apiFetch( {
-		path: '/italy-cookie-choices/v1/policy-translations',
+		path: '/italy-cookie-choices/v1/link-translations',
 		method: 'POST',
-		data: { language },
+		data: { language, link },
 	} );
 
-	return policyTranslationsFrom(
+	return linkTranslationRowsFrom(
 		isRecord( response ) ? response.rows : null
 	);
 }

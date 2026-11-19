@@ -5,7 +5,7 @@ import { createElement, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { searchPages, type Page } from './api';
 import type { SettingsProps } from './fields';
-import { textOf } from './settings';
+import { LINK_SETTINGS, textOf, type BannerLink } from './settings';
 
 const SEARCH_DELAY = 300;
 
@@ -29,14 +29,39 @@ export function pageOptions(
 	return [ { value: slug, label: slug }, ...options ];
 }
 
+function labelsOf( link: BannerLink ): { label: string; help: string } {
+	if ( link === 'legal-notice' ) {
+		return {
+			label: __( 'Legal notice page', 'italy-cookie-choices' ),
+			help: __(
+				'Type to search the page of the legal notice, the banner links to it next to the policy and does not open by itself there.',
+				'italy-cookie-choices'
+			),
+		};
+	}
+
+	return {
+		label: __( 'Policy page', 'italy-cookie-choices' ),
+		help: __(
+			'Type to search the page, the banner links to it and does not open by itself there.',
+			'italy-cookie-choices'
+		),
+	};
+}
+
 /**
- * The policy page, searched only when the site owner types (#154).
- * Choosing it fills the link of the banner, the banner does not open by itself on that page.
- * @param props          The settings props.
+ * The page of a link of the banner, searched only when the site owner types (#154).
+ * Choosing it fills the link, the banner does not open by itself on that page.
+ * @param props          The settings props and the link.
  * @param props.settings The settings.
  * @param props.onChange Changes the settings.
+ * @param props.link     The link of the banner.
  */
-export function PolicyPage( { settings, onChange }: SettingsProps ) {
+export function LinkPage( {
+	settings,
+	onChange,
+	link,
+}: SettingsProps & { link: BannerLink } ) {
 	const [ search, setSearch ] = useState( '' );
 	const [ pages, setPages ] = useState< Page[] >( [] );
 
@@ -58,17 +83,16 @@ export function PolicyPage( { settings, onChange }: SettingsProps ) {
 		};
 	}, [ search ] );
 
-	const slug = textOf( settings, 'slug' );
+	const names = LINK_SETTINGS[ link ];
+	const slug = textOf( settings, names.page );
+	const { label, help } = labelsOf( link );
 
 	return (
 		<ComboboxControl
 			__nextHasNoMarginBottom
 			__next40pxDefaultSize
-			label={ __( 'Policy page', 'italy-cookie-choices' ) }
-			help={ __(
-				'Type to search the page, the banner links to it and does not open by itself there.',
-				'italy-cookie-choices'
-			) }
+			label={ label }
+			help={ help }
 			value={ slug !== '' ? slug : null }
 			options={ pageOptions( pages, slug ) }
 			onFilterValueChange={ setSearch }
@@ -80,8 +104,12 @@ export function PolicyPage( { settings, onChange }: SettingsProps ) {
 				const page = pages.find( ( found ) => found.slug === value );
 				onChange(
 					page
-						? { ...settings, slug: page.slug, url: page.link }
-						: { ...settings, slug: '' }
+						? {
+								...settings,
+								[ names.page ]: page.slug,
+								[ names.url ]: page.link,
+							}
+						: { ...settings, [ names.page ]: '' }
 				);
 			} }
 		/>

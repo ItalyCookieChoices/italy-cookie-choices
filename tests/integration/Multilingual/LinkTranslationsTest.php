@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Multilingual;
 
-use ItalyCookieChoices\Multilingual\Application\PolicyTranslations;
+use ItalyCookieChoices\Consent\Domain\BannerLink;
+use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\Multilingual\FakeLanguageTranslations;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
-final class PolicyTranslationsTest extends WPTestCase
+final class LinkTranslationsTest extends WPTestCase
 {
     private FakeLanguageTranslations $translations;
     private int $policy = 0;
@@ -43,7 +44,7 @@ final class PolicyTranslationsTest extends WPTestCase
                     'proposal' => '',
                 ],
             ],
-            $this->sut()->rows()
+            $this->sut()->rows(BannerLink::Policy)
         );
     }
 
@@ -54,14 +55,17 @@ final class PolicyTranslationsTest extends WPTestCase
         $german = $this->page('Datenschutz');
         $this->translations->translatePost($this->policy, 'de', $german);
 
-        $this->assertSame((string) \get_permalink($german), $this->sut()->rows()[0]['proposal'] ?? null);
+        $this->assertSame(
+            (string) \get_permalink($german),
+            $this->sut()->rows(BannerLink::Policy)[0]['proposal'] ?? null
+        );
     }
 
     public function testADraftTranslationIsNotProposed(): void
     {
         $this->translations->translatePost($this->policy, 'de', $this->page('Entwurf', 'draft'));
 
-        $this->assertSame('', $this->sut()->rows()[0]['proposal'] ?? null);
+        $this->assertSame('', $this->sut()->rows(BannerLink::Policy)[0]['proposal'] ?? null);
     }
 
     public function testTheAdminUsesTheProposal(): void
@@ -69,7 +73,7 @@ final class PolicyTranslationsTest extends WPTestCase
         $german = $this->page('Cookie-Richtlinie');
         $this->translations->translatePost($this->policy, 'de', $german);
 
-        $rows = $this->sut()->use('de');
+        $rows = $this->sut()->use(BannerLink::Policy, 'de');
 
         $this->assertSame((string) \get_permalink($german), $this->translations->strings['Banner url:de'] ?? null);
         $this->assertSame((string) \get_permalink($german), $rows[0]['current'] ?? null);
@@ -79,17 +83,41 @@ final class PolicyTranslationsTest extends WPTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->sut()->use('es');
+        $this->sut()->use(BannerLink::Policy, 'es');
     }
 
     public function testWithoutAMultilingualPluginThereAreNoRows(): void
     {
-        $this->assertSame([], (new PolicyTranslations(new FakeLanguageTranslations()))->rows());
+        $this->assertSame([], (new LinkTranslations(new FakeLanguageTranslations()))->rows(BannerLink::Policy));
     }
 
-    private function sut(): PolicyTranslations
+    public function testItProposesTheTranslationOfTheLegalNoticePage(): void
     {
-        return new PolicyTranslations($this->translations);
+        $notice = $this->page('Legal notice');
+        $german = $this->page('Impressum');
+        $this->translations->translatePost($notice, 'de', $german);
+        \update_option(Schema::OPTION, ['legal_notice_url' => (string) \get_permalink($notice)]);
+
+        $rows = $this->sut()->use(BannerLink::LegalNotice, 'de');
+
+        $this->assertSame(
+            (string) \get_permalink($german),
+            $this->translations->strings['Banner legal notice url:de'] ?? null
+        );
+        $this->assertSame((string) \get_permalink($german), $rows[0]['current'] ?? null);
+    }
+
+    public function testTheLegalNoticeHasNoPageWithoutItsLink(): void
+    {
+        \update_option('wp_page_for_privacy_policy', $this->policy);
+        $this->translations->translatePost($this->policy, 'de', $this->page('Datenschutz'));
+
+        $this->assertSame('', $this->sut()->rows(BannerLink::LegalNotice)[0]['proposal'] ?? null);
+    }
+
+    private function sut(): LinkTranslations
+    {
+        return new LinkTranslations($this->translations);
     }
 
     private function page(string $title, string $status = 'publish'): int

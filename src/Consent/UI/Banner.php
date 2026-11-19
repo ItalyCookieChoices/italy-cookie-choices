@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Consent\UI;
 
 use ItalyCookieChoices\Blocking\Application\VendorChoices;
+use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
@@ -172,7 +173,8 @@ final readonly class Banner implements SubscriberInterface
             'globalPrivacyControl' => $this->options->isChecked('global_privacy_control'),
             'htmlMargin' => $position === self::POSITIONS['1'] && $this->options->isChecked('html_margin'),
             'text' => \wp_kses_post($this->options->translated('text')),
-            'link' => $this->link(),
+            'link' => $this->link(BannerLink::Policy),
+            'legalNoticeLink' => $this->link(BannerLink::LegalNotice),
             'floatingButton' => $this->floatingButton(),
             'logo' => $this->logo(),
             'vendors' => $this->vendorsByCategory(),
@@ -226,9 +228,10 @@ final readonly class Banner implements SubscriberInterface
 
     private function opensByItself(): bool
     {
-        $policyPage = $this->options->text('slug');
-        if ($policyPage !== '' && (\is_page($policyPage) || \is_single($policyPage))) {
-            return false;
+        foreach (BannerLink::cases() as $link) {
+            if ($this->isOnThePageOf($link)) {
+                return false;
+            }
         }
 
         $excludedPages = $this->excludedPages();
@@ -255,11 +258,23 @@ final readonly class Banner implements SubscriberInterface
     }
 
     /**
+     * On the page of a link the banner does not open by itself, so the visitor can read it.
+     */
+    private function isOnThePageOf(BannerLink $link): bool
+    {
+        $page = $this->options->text($link->pageSetting());
+
+        return $page !== '' && (\is_page($page) || \is_single($page));
+    }
+
+    /**
+     * The policy and the legal notice links share the new tab and the nofollow settings.
+     *
      * @return array{url: string, text: string, newTab: bool, rel: string}|null
      */
-    private function link(): ?array
+    private function link(BannerLink $link): ?array
     {
-        $url = $this->options->translated('url');
+        $url = $this->options->translated($link->urlSetting());
         if ($url === '') {
             return null;
         }
@@ -272,7 +287,7 @@ final readonly class Banner implements SubscriberInterface
 
         return [
             'url' => $url,
-            'text' => $this->options->translated('anchor_text', $url),
+            'text' => $this->options->translated($link->textSetting(), $url),
             'newTab' => $newTab,
             'rel' => \implode(' ', $rel),
         ];

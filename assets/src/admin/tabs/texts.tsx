@@ -9,7 +9,7 @@ import {
 	BannerTextField,
 	FloatingButtonLabelField,
 	PlaceholderTextFields,
-	PolicyLinkFields,
+	LinkFields,
 } from '../texts';
 import { CategoriesTab } from './categories';
 
@@ -23,7 +23,8 @@ export function TextsTab(
 	return (
 		<Fragment>
 			<BannerTextField { ...props } />
-			<PolicyLinkFields { ...props } />
+			<LinkFields { ...props } link="policy" />
+			<LinkFields { ...props } link="legal-notice" />
 			<ButtonTextFields { ...props } />
 			<FloatingButtonLabelField { ...props } />
 			<PlaceholderTextFields { ...props } />

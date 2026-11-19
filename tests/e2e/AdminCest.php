@@ -449,6 +449,9 @@ final class AdminCest
 
     private function openTab(E2eTester $I, string $tab): void
     {
+        // A long tab scrolls the page, the admin bar would cover the tabs.
+        $I->scrollTo(self::TABS);
+        $I->executeJS('window.scrollBy(0, -50);');
         $I->click($tab, self::TABS);
     }
 

@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Multilingual;
 
-use ItalyCookieChoices\Multilingual\Application\PolicyTranslations;
-use ItalyCookieChoices\Multilingual\UI\PolicyTranslationsEndpoint;
+use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
+use ItalyCookieChoices\Multilingual\UI\LinkTranslationsEndpoint;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\Multilingual\FakeLanguageTranslations;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
-final class PolicyTranslationsEndpointTest extends WPTestCase
+final class LinkTranslationsEndpointTest extends WPTestCase
 {
     private FakeLanguageTranslations $translations;
     private int $german = 0;
+    private int $germanNotice = 0;
 
     public function setUp(): void
     {
@@ -22,9 +23,15 @@ final class PolicyTranslationsEndpointTest extends WPTestCase
         $policy = $this->page();
         $this->german = $this->page();
         $this->translations->translatePost($policy, 'de', $this->german);
-        \update_option(Schema::OPTION, ['url' => (string) \get_permalink($policy)]);
+        $notice = $this->page();
+        $this->germanNotice = $this->page();
+        $this->translations->translatePost($notice, 'de', $this->germanNotice);
+        \update_option(Schema::OPTION, [
+            'url' => (string) \get_permalink($policy),
+            'legal_notice_url' => (string) \get_permalink($notice),
+        ]);
 
-        $sut = new PolicyTranslationsEndpoint(new PolicyTranslations($this->translations));
+        $sut = new LinkTranslationsEndpoint(new LinkTranslations($this->translations));
         global $wp_rest_server;
         $wp_rest_server = new \WP_REST_Server();
         \remove_all_actions('rest_api_init');
@@ -41,7 +48,7 @@ final class PolicyTranslationsEndpointTest extends WPTestCase
 
     public function testItRegistersOnTheRestApi(): void
     {
-        $sut = new PolicyTranslationsEndpoint(new PolicyTranslations($this->translations));
+        $sut = new LinkTranslationsEndpoint(new LinkTranslations($this->translations));
 
         $this->assertSame(['rest_api_init' => 'register'], \iterator_to_array($sut->getSubscribedEvents()));
     }
@@ -62,6 +69,27 @@ final class PolicyTranslationsEndpointTest extends WPTestCase
         $this->assertSame((string) \get_permalink($this->german), $row['current'] ?? null);
     }
 
+    public function testTheAdminUsesTheProposalOfTheLegalNotice(): void
+    {
+        $this->logInAs('administrator');
+
+        $response = $this->request('de', 'legal-notice');
+
+        $this->assertSame(200, $response->get_status());
+        $this->assertSame(
+            (string) \get_permalink($this->germanNotice),
+            $this->translations->strings['Banner legal notice url:de'] ?? null
+        );
+        $this->assertArrayNotHasKey('Banner url:de', $this->translations->strings);
+    }
+
+    public function testAnUnknownLinkIsRefused(): void
+    {
+        $this->logInAs('administrator');
+
+        $this->assertSame(400, $this->request('de', 'imprint')->get_status());
+    }
+
     public function testALanguageWithoutAProposalIsRefused(): void
     {
         $this->logInAs('administrator');
@@ -77,11 +105,11 @@ final class PolicyTranslationsEndpointTest extends WPTestCase
         $this->assertSame([], $this->translations->strings);
     }
 
-    private function request(string $language): \WP_REST_Response
+    private function request(string $language, string $link = 'policy'): \WP_REST_Response
     {
-        $request = new \WP_REST_Request('POST', '/italy-cookie-choices/v1' . PolicyTranslationsEndpoint::ROUTE);
+        $request = new \WP_REST_Request('POST', '/italy-cookie-choices/v1' . LinkTranslationsEndpoint::ROUTE);
         $request->set_header('Content-Type', 'application/json');
-        $request->set_body((string) \wp_json_encode(['language' => $language]));
+        $request->set_body((string) \wp_json_encode(['language' => $language, 'link' => $link]));
 
         return \rest_do_request($request);
     }

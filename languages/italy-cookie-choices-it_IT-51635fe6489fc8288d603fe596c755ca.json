@@ -82,12 +82,6 @@
             "The link shows its address when it is empty.": [
                 "Se \u00e8 vuoto, il link mostra il suo indirizzo."
             ],
-            "Open the policy in a new tab": [
-                "Apri la policy in una nuova scheda"
-            ],
-            "Add rel=\"nofollow\" to the policy link": [
-                "Aggiungi rel=\"nofollow\" al link alla policy"
-            ],
             "Accept button text": [
                 "Testo del pulsante di accettazione"
             ],
@@ -688,6 +682,39 @@
             ],
             "The button of the preferences that saves the choice.": [
                 "Il pulsante delle preferenze che salva la scelta."
+            ],
+            "Legal notice page": [
+                "Pagina delle note legali"
+            ],
+            "Type to search the page of the legal notice, the banner links to it next to the policy and does not open by itself there.": [
+                "Scrivi per cercare la pagina delle note legali, il banner la collega accanto alla policy e l\u00ec non si apre da solo."
+            ],
+            "Legal notice link": [
+                "Link alle note legali"
+            ],
+            "Legal notice link text": [
+                "Testo del link alle note legali"
+            ],
+            "Legal notice link in each language": [
+                "Link alle note legali in ogni lingua"
+            ],
+            "The translation of the legal notice page in each language, from the multilingual plugin.": [
+                "La traduzione della pagina delle note legali in ogni lingua, dal plugin multilingua."
+            ],
+            "The legal notice link of %s is saved.": [
+                "Il link alle note legali di %s \u00e8 salvato."
+            ],
+            "The legal notice link was not saved.": [
+                "Il link alle note legali non \u00e8 stato salvato."
+            ],
+            "Translation of the legal notice page:": [
+                "Traduzione della pagina delle note legali:"
+            ],
+            "Open the links in a new tab": [
+                "Apri i link in una nuova scheda"
+            ],
+            "Add rel=\"nofollow\" to the links": [
+                "Aggiungi rel=\"nofollow\" ai link"
             ]
         }
     }

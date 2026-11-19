@@ -31,6 +31,9 @@ export type Text =
 	| 'reject_button_text'
 	| 'preferences_button_text'
 	| 'save_button_text'
+	| 'legal_notice_page'
+	| 'legal_notice_url'
+	| 'legal_notice_text'
 	| 'banner_bg'
 	| 'banner_text_color'
 	| 'customCSS'
@@ -145,18 +148,37 @@ export interface AdminData {
 	postTypes: PostType[];
 	scanSchedule: ScanSchedule;
 	/** The policy link in each language of WPML or Polylang, empty without them. */
-	policyTranslations: PolicyTranslation[];
+	/** The links of the banner in each language of WPML or Polylang, empty without them. */
+	linkTranslations: Record< BannerLink, LinkTranslation[] >;
 	languages: Languages;
 	/** True when the user can save unfiltered HTML, so the custom scripts. */
 	canEditScripts: boolean;
 }
 
-export interface PolicyTranslation {
+/** A link of the banner to a page of the site, as BannerLink in src/Consent/Domain/BannerLink.php. */
+export type BannerLink = 'policy' | 'legal-notice';
+
+export const BANNER_LINKS: readonly BannerLink[] = [ 'policy', 'legal-notice' ];
+
+/** The settings of a link: its page, its address and its text. */
+export const LINK_SETTINGS: Record<
+	BannerLink,
+	{ page: Text; url: Text; text: Text }
+> = {
+	policy: { page: 'slug', url: 'url', text: 'anchor_text' },
+	'legal-notice': {
+		page: 'legal_notice_page',
+		url: 'legal_notice_url',
+		text: 'legal_notice_text',
+	},
+};
+
+export interface LinkTranslation {
 	language: string;
 	name: string;
-	/** The translation of the policy link, empty when it is not translated. */
+	/** The translation of the link, empty when it is not translated. */
 	current: string;
-	/** The translation of the policy page, empty when there is none. */
+	/** The translation of the page of the link, empty when there is none. */
 	proposal: string;
 }
 
@@ -188,10 +210,10 @@ function categoryFrom( value: unknown ): Category | null {
 	};
 }
 
-export function policyTranslationsFrom( value: unknown ): PolicyTranslation[] {
+export function linkTranslationRowsFrom( value: unknown ): LinkTranslation[] {
 	return Array.isArray( value )
 		? value.filter(
-				( row ): row is PolicyTranslation =>
+				( row ): row is LinkTranslation =>
 					isRecord( row ) &&
 					typeof row.language === 'string' &&
 					typeof row.name === 'string' &&
@@ -199,6 +221,17 @@ export function policyTranslationsFrom( value: unknown ): PolicyTranslation[] {
 					typeof row.proposal === 'string'
 			)
 		: [];
+}
+
+function linkTranslationsFrom(
+	value: unknown
+): Record< BannerLink, LinkTranslation[] > {
+	const rows = isRecord( value ) ? value : {};
+
+	return {
+		policy: linkTranslationRowsFrom( rows.policy ),
+		'legal-notice': linkTranslationRowsFrom( rows[ 'legal-notice' ] ),
+	};
 }
 
 function isPostType( value: unknown ): value is PostType {
@@ -291,7 +324,7 @@ export function parseAdminData( raw: unknown ): AdminData {
 			? data.postTypes.filter( isPostType )
 			: [],
 		scanSchedule: parseScanSchedule( data.scanSchedule ),
-		policyTranslations: policyTranslationsFrom( data.policyTranslations ),
+		linkTranslations: linkTranslationsFrom( data.linkTranslations ),
 		languages: languagesFrom( data.languages ),
 		canEditScripts: data.canEditScripts === true,
 	};
