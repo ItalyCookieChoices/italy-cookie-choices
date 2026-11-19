@@ -12,7 +12,7 @@ Cookie Choices, formerly Italy Cookie Choices, asks the consent of your visitors
 * [Cookie table](cookie-table.md): the cookies of the site for the cookie policy.
 * [Multilingual sites](multilingual.md): WPML, Polylang and the other plugins.
 * [Multisite networks](multisite.md): the settings of the main site on every site.
-* [Import from another plugin](migration.md): the settings of Complianz, CookieYes and Cookie Notice.
+* [Import from another plugin](migration.md): the settings of Complianz, CookieYes, Cookie Notice and GDPR Cookie Compliance.
 * [Upgrading from 2.x](upgrade-3.0.md): what changes with the version 3.0.
 
 ## For the developers

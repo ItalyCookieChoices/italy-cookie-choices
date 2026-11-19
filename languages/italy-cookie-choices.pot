@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-19T15:11:52+00:00\n"
+"POT-Creation-Date: 2026-11-19T15:51:43+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -543,6 +543,7 @@ msgstr ""
 #: src/Migration/Infrastructure/Complianz/ComplianzSource.php:49
 #: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:291
 #: src/Migration/Infrastructure/CookieYes/CookieYesSource.php:45
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:327
 msgid "Translations are not imported: write the texts again in WPML or Polylang."
 msgstr ""
 
@@ -551,7 +552,9 @@ msgid "Deactivate Complianz after the import, or the site shows two banners. Its
 msgstr ""
 
 #. translators: %s: the name of the other plugin.
+#. translators: %s: the name of the tab of the other plugin.
 #: src/Migration/Infrastructure/CookieNotice/CookieNoticeSource.php:177
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:223
 #, php-format
 msgid "%s (head)"
 msgstr ""
@@ -590,6 +593,32 @@ msgstr ""
 
 #: src/Migration/Infrastructure/CookieYes/CookieYesSource.php:49
 msgid "Deactivate CookieYes after the import, or the site shows two banners. Its settings stay."
+msgstr ""
+
+#. translators: %s: the name of the tab of the other plugin.
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:225
+#, php-format
+msgid "%s (footer)"
+msgstr ""
+
+#. translators: %s: the name of the tab of the other plugin.
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:227
+#, php-format
+msgid "%s (body)"
+msgstr ""
+
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:306
+msgid "The scripts of the tabs are scripts after the consent: check them in Integrations."
+msgstr ""
+
+#. translators: %s: the id of the Google Ads tag, like AW-123.
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:316
+#, php-format
+msgid "The Google Ads tag %s is not imported: add it to the theme, Google Ads is blocked until the marketing consent."
+msgstr ""
+
+#: src/Migration/Infrastructure/GdprCookieCompliance/GdprCookieComplianceSource.php:331
+msgid "Deactivate GDPR Cookie Compliance after the import, or the site shows two banners. Its settings stay."
 msgstr ""
 
 #: src/Migration/UI/Cli/Handlers/MigrateSettings.php:59

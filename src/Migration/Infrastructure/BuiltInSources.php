@@ -8,6 +8,7 @@ use ItalyCookieChoices\Migration\Application\BuildingMigrationSources;
 use ItalyCookieChoices\Migration\Infrastructure\Complianz\ComplianzSource;
 use ItalyCookieChoices\Migration\Infrastructure\CookieNotice\CookieNoticeSource;
 use ItalyCookieChoices\Migration\Infrastructure\CookieYes\CookieYesSource;
+use ItalyCookieChoices\Migration\Infrastructure\GdprCookieCompliance\GdprCookieComplianceSource;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -19,6 +20,7 @@ final readonly class BuiltInSources implements SubscriberInterface
         private ComplianzSource $complianz,
         private CookieYesSource $cookieYes,
         private CookieNoticeSource $cookieNotice,
+        private GdprCookieComplianceSource $gdprCookieCompliance,
     ) {
     }
 
@@ -32,5 +34,6 @@ final readonly class BuiltInSources implements SubscriberInterface
         $event->addSource($this->complianz);
         $event->addSource($this->cookieYes);
         $event->addSource($this->cookieNotice);
+        $event->addSource($this->gdprCookieCompliance);
     }
 }
