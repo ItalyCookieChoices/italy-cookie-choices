@@ -153,7 +153,7 @@ export function App( { data }: { data: AdminData } ) {
 		banner: (
 			<BannerTab
 				{ ...props }
-				policyTranslations={ data.policyTranslations }
+				linkTranslations={ data.linkTranslations }
 			/>
 		),
 		style: <StyleTab { ...props } />,

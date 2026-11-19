@@ -15,14 +15,18 @@ Apri **WPML > Traduzione stringhe** e scegli il dominio **Italy Cookie Choices**
 * Banner reject button text
 * Banner preferences button text
 * Preferences save button text
+* Banner legal notice url
+* Banner legal notice text
 * Content message text
 * Content message button text
 * Floating button label
 * Category *id* label e Category *id* description, per i testi delle categorie che hai cambiato
 
-### Il link alla policy in ogni lingua
+### I link alla policy e alle note legali in ogni lingua
 
 La scheda Banner mostra, per ogni lingua di WPML o Polylang, la traduzione attuale del link alla policy e la traduzione della pagina della policy, trovata dal plugin multilingua. **Usa questo link** la salva come traduzione del link alla policy, la stessa di **Banner url** in Traduzione stringhe. La policy può cambiare tra i paesi: usa un link solo quando è adatto. Con WPML, salvare il link richiede WPML String Translation.
+
+Il link alle note legali funziona allo stesso modo, con la traduzione della pagina delle note legali e la stringa **Banner legal notice url**.
 
 ## Polylang
 

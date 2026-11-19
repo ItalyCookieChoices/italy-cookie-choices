@@ -73,7 +73,7 @@ describe( 'parseAdminData', () => {
 				adminEmail: '',
 				report: null,
 			},
-			policyTranslations: [],
+			linkTranslations: { policy: [], 'legal-notice': [] },
 			languages: { siteId: 0, language: '', sites: [] },
 			canEditScripts: true,
 		} );
@@ -97,7 +97,7 @@ describe( 'parseAdminData', () => {
 				adminEmail: '',
 				report: null,
 			},
-			policyTranslations: [],
+			linkTranslations: { policy: [], 'legal-notice': [] },
 			languages: { siteId: 0, language: '', sites: [] },
 			canEditScripts: false,
 		} );

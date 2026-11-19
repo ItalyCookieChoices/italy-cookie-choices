@@ -12,7 +12,8 @@ The settings are grouped in tabs. The preview on the right shows the banner, or 
 * **Banner text**: the message, links and simple HTML are allowed.
 * **Policy page**: type to search the page of your cookie policy. The banner links to it, and on that page the banner does not open by itself, so the visitor can read the policy.
 * **Policy link** and **Policy link text**: the address and the text of the link, filled by the policy page or written by hand.
-* **Open the policy in a new tab** and **Add rel="nofollow"**: the attributes of the link.
+* **Legal notice page**, **Legal notice link** and **Legal notice link text**: the legal notice (Impressum) the sites of Germany and Austria show, linked next to the policy. Like the policy page, the banner does not open by itself there. Leave the link empty when the site has no legal notice.
+* **Open the links in a new tab** and **Add rel="nofollow" to the links**: the attributes of the policy and legal notice links.
 * **Accept button text**, **Reject button text** and **Preferences button text**: the texts of the three buttons of the banner, **Save button text** the text of the button of the preferences that saves the choice. Leave a field empty for the default text, translated in the language of the site.
 * **Pages where the banner does not open by itself**: page IDs or slugs, separated by commas.
 * **Ask the consent again after**: 1, 3, 6 or 12 months, 6 by default, as the Italian Data Protection Authority recommends. After this time the banner asks the visitor again. The change applies to the consents already given, from their date.

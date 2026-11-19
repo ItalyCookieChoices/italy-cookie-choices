@@ -42,6 +42,8 @@ final class SiteTextsTest extends WPTestCase
                 'reject_button_text' => '',
                 'preferences_button_text' => '',
                 'save_button_text' => '',
+                'legal_notice_url' => '',
+                'legal_notice_text' => '',
                 'content_message_text' => '',
                 'content_message_button_text' => '',
                 'floating_button_label' => '',

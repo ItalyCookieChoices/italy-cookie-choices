@@ -76,12 +76,6 @@
             "The link shows its address when it is empty.": [
                 ""
             ],
-            "Open the policy in a new tab": [
-                ""
-            ],
-            "Add rel=\"nofollow\" to the policy link": [
-                ""
-            ],
             "Accept button text": [
                 ""
             ],
@@ -686,6 +680,39 @@
                 ""
             ],
             "The button of the preferences that saves the choice.": [
+                ""
+            ],
+            "Legal notice page": [
+                ""
+            ],
+            "Type to search the page of the legal notice, the banner links to it next to the policy and does not open by itself there.": [
+                ""
+            ],
+            "Legal notice link": [
+                ""
+            ],
+            "Legal notice link text": [
+                ""
+            ],
+            "Legal notice link in each language": [
+                ""
+            ],
+            "The translation of the legal notice page in each language, from the multilingual plugin.": [
+                ""
+            ],
+            "The legal notice link of %s is saved.": [
+                ""
+            ],
+            "The legal notice link was not saved.": [
+                ""
+            ],
+            "Translation of the legal notice page:": [
+                ""
+            ],
+            "Open the links in a new tab": [
+                ""
+            ],
+            "Add rel=\"nofollow\" to the links": [
                 ""
             ]
         }

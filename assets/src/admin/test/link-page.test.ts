@@ -1,4 +1,4 @@
-import { pageOptions } from '../policy-page';
+import { pageOptions } from '../link-page';
 
 const page = {
 	slug: 'cookie-policy',

@@ -3,12 +3,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createElement } from '@wordpress/element';
 import * as api from '../api';
-import { PolicyTranslations } from '../policy-translations';
+import { LinkTranslations } from '../link-translations';
 import { parseAdminData } from '../settings';
 
 jest.mock( '../api', () => ( {
 	...jest.requireActual( '../api' ),
-	savePolicyTranslation: jest.fn(),
+	saveLinkTranslation: jest.fn(),
 } ) );
 
 const mocked = jest.mocked( api );
@@ -31,7 +31,7 @@ const ROWS = [
 beforeEach( () => jest.resetAllMocks() );
 
 it( 'shows the policy link of each language and its proposal', () => {
-	render( <PolicyTranslations rows={ ROWS } /> );
+	render( <LinkTranslations link="policy" rows={ ROWS } /> );
 
 	expect(
 		screen.getByText(
@@ -50,18 +50,21 @@ it( 'shows the policy link of each language and its proposal', () => {
 } );
 
 it( 'uses the proposal of a language', async () => {
-	mocked.savePolicyTranslation.mockResolvedValue( [
+	mocked.saveLinkTranslation.mockResolvedValue( [
 		{ ...ROWS[ 0 ]!, current: ROWS[ 0 ]!.proposal },
 		ROWS[ 1 ]!,
 	] );
-	render( <PolicyTranslations rows={ ROWS } /> );
+	render( <LinkTranslations link="policy" rows={ ROWS } /> );
 
 	fireEvent.click(
 		screen.getByRole( 'button', { name: 'Use this link for Deutsch' } )
 	);
 
 	await waitFor( () =>
-		expect( mocked.savePolicyTranslation ).toHaveBeenCalledWith( 'de' )
+		expect( mocked.saveLinkTranslation ).toHaveBeenCalledWith(
+			'policy',
+			'de'
+		)
 	);
 	expect(
 		await screen.findByText( 'The policy link of Deutsch is saved.', {
@@ -74,14 +77,44 @@ it( 'uses the proposal of a language', async () => {
 } );
 
 it( 'shows nothing without a multilingual plugin', () => {
-	const { container } = render( <PolicyTranslations rows={ [] } /> );
+	const { container } = render(
+		<LinkTranslations link="policy" rows={ [] } />
+	);
 
 	expect( container.innerHTML ).toBe( '' );
 } );
 
-it( 'reads the rows printed by the page', () => {
+it( 'saves the legal notice link of a language', async () => {
+	mocked.saveLinkTranslation.mockResolvedValue( ROWS );
+	render( <LinkTranslations link="legal-notice" rows={ ROWS } /> );
+
 	expect(
-		parseAdminData( { policyTranslations: [ ROWS[ 0 ], { language: 1 } ] } )
-			.policyTranslations
-	).toEqual( [ ROWS[ 0 ] ] );
+		screen.getByText( 'Legal notice link in each language' )
+	).toBeTruthy();
+	fireEvent.click(
+		screen.getByRole( 'button', { name: 'Use this link for Deutsch' } )
+	);
+
+	await waitFor( () =>
+		expect( mocked.saveLinkTranslation ).toHaveBeenCalledWith(
+			'legal-notice',
+			'de'
+		)
+	);
+	expect(
+		await screen.findByText( 'The legal notice link of Deutsch is saved.', {
+			selector: '.components-notice__content',
+		} )
+	).toBeTruthy();
+} );
+
+it( 'reads the rows of each link printed by the page', () => {
+	expect(
+		parseAdminData( {
+			linkTranslations: {
+				policy: [ ROWS[ 0 ], { language: 1 } ],
+				'legal-notice': 'x',
+			},
+		} ).linkTranslations
+	).toEqual( { policy: [ ROWS[ 0 ] ], 'legal-notice': [] } );
 } );

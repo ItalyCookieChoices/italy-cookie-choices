@@ -20,6 +20,8 @@ final readonly class Options
         'reject_button_text' => 'Banner reject button text',
         'preferences_button_text' => 'Banner preferences button text',
         'save_button_text' => 'Preferences save button text',
+        'legal_notice_url' => 'Banner legal notice url',
+        'legal_notice_text' => 'Banner legal notice text',
         'content_message_text' => 'Content message text',
         'content_message_button_text' => 'Content message button text',
         'floating_button_label' => 'Floating button label',

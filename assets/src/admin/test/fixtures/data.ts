@@ -40,7 +40,7 @@ export const data: AdminData = {
 		adminEmail: 'owner@example.com',
 		report: null,
 	},
-	policyTranslations: [],
+	linkTranslations: { policy: [], 'legal-notice': [] },
 	languages: { siteId: 1, language: '', sites: [] },
 	canEditScripts: true,
 };

@@ -11,7 +11,7 @@ use ItalyCookieChoices\Multilingual\Infrastructure\ActiveConnectedSites;
 use ItalyCookieChoices\Multilingual\Infrastructure\ActiveLanguageTranslations;
 use ItalyCookieChoices\Multilingual\Infrastructure\MultilingualPressTranslator;
 use ItalyCookieChoices\Multilingual\UI\ConnectionNotice;
-use ItalyCookieChoices\Multilingual\UI\PolicyTranslationsEndpoint;
+use ItalyCookieChoices\Multilingual\UI\LinkTranslationsEndpoint;
 use ItalyCookieChoices\Multilingual\UI\SiteTextsEndpoint;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
@@ -35,7 +35,7 @@ final readonly class Module implements ModuleInterface
             SubscribersConfigExtension::SUBSCRIBERS => [
                 SiteTextsEndpoint::class,
                 ConnectionNotice::class,
-                PolicyTranslationsEndpoint::class,
+                LinkTranslationsEndpoint::class,
             ],
         ];
     }

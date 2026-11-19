@@ -15,8 +15,8 @@ final class SchemaTest extends WPTestCase
      * plus the consent log of version 4, the vendors of version 5 that replaced the script lists
      * the integrations of version 6 and the Microsoft consent signals of version 7.
      * Version 8 adds no key, it turns off the reCAPTCHA preset, version 9 adds the site cookies,
-     * version 10 the Global Privacy Control. The cookie domain, the custom scripts and the texts of the reject,
-     * preferences and save buttons need no step, they are empty by default.
+     * version 10 the Global Privacy Control. The cookie domain, the custom scripts, the texts of the reject,
+     * preferences and save buttons and the legal notice link need no step, they are empty by default.
      */
     private const KEYS = [
         'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg', 'banner_logo',
@@ -27,7 +27,8 @@ final class SchemaTest extends WPTestCase
         'facebook_pixel_id',
         'floating_button', 'floating_button_label', 'floating_button_position', 'ga_measurement_id',
         'global_privacy_control', 'google_tag_gateway_path', 'gtm_container_id', 'html_margin', 'infoClass',
-        'js_template', 'nofollow', 'preferences_button_text', 'reject_button_text', 'reload', 'save_button_text',
+        'js_template', 'legal_notice_page', 'legal_notice_text', 'legal_notice_url', 'nofollow',
+        'preferences_button_text', 'reject_button_text', 'reload', 'save_button_text',
         'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'vendor_consent', 'youtube_nocookie',
     ];
 

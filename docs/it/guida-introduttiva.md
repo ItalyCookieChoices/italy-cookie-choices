@@ -12,7 +12,8 @@ Le impostazioni sono divise in schede. L'anteprima a destra mostra il banner, o 
 * **Testo del banner**: il messaggio, sono ammessi link e HTML semplice.
 * **Pagina della policy**: scrivi per cercare la pagina della tua cookie policy. Il banner la collega e su quella pagina non si apre da solo, così il visitatore può leggerla.
 * **Link alla policy** e **Testo del link alla policy**: l'indirizzo e il testo del link, compilati dalla pagina della policy o scritti a mano.
-* **Apri la policy in una nuova scheda** e **Aggiungi rel="nofollow"**: gli attributi del link.
+* **Pagina delle note legali**, **Link alle note legali** e **Testo del link alle note legali**: le note legali (Impressum) che mostrano i siti di Germania e Austria, collegate accanto alla policy. Come sulla pagina della policy, lì il banner non si apre da solo. Lascia il link vuoto quando il sito non ha note legali.
+* **Apri i link in una nuova scheda** e **Aggiungi rel="nofollow" ai link**: gli attributi dei link alla policy e alle note legali.
 * **Testo del pulsante di accettazione**, **Testo del pulsante di rifiuto** e **Testo del pulsante delle preferenze**: i testi dei tre pulsanti del banner, **Testo del pulsante di salvataggio** il testo del pulsante delle preferenze che salva la scelta. Lascia un campo vuoto per il testo predefinito, tradotto nella lingua del sito.
 * **Pagine dove il banner non si apre da solo**: ID o slug delle pagine, separati da virgole.
 * **Chiedi di nuovo il consenso dopo**: 1, 3, 6 o 12 mesi, 6 di default, come raccomanda il Garante per la protezione dei dati personali. Passato questo tempo il banner chiede di nuovo il consenso al visitatore. La modifica vale anche per i consensi già dati, dalla loro data.

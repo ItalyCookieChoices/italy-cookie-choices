@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Multilingual\Application;
 
+use ItalyCookieChoices\Consent\Domain\BannerLink;
+use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
 
 /**
- * The policy link in each language of WPML or Polylang: its current translation, and the translation
- * of the policy page proposed to the admin. The admin chooses, the policy can change between countries.
+ * A link of the banner in each language of WPML or Polylang: its current translation, and the translation
+ * of its page proposed to the admin. The admin chooses, the policy can change between countries.
  *
- * The policy link is the "Banner url" string the plugin registers in WPML and Polylang.
+ * The link is the string of its address the plugin registers in WPML and Polylang, like "Banner url".
  */
-final readonly class PolicyTranslations
+final readonly class LinkTranslations
 {
-    public const STRING_NAME = 'Banner url';
+    /**
+     * The page of the privacy policy of WordPress, proposed when the banner has no policy link.
+     */
     private const PRIVACY_PAGE = 'wp_page_for_privacy_policy';
 
     public function __construct(
@@ -27,10 +31,10 @@ final readonly class PolicyTranslations
      *
      * @return list<array{language: string, name: string, current: string, proposal: string}>
      */
-    public function rows(): array
+    public function rows(BannerLink $link): array
     {
-        $url = $this->policyLink();
-        $page = $this->policyPage($url);
+        $url = $this->address($link);
+        $page = $this->page($link, $url);
         $rows = [];
         foreach ($this->translations->languages() as $language) {
             if ($language['default']) {
@@ -39,7 +43,7 @@ final readonly class PolicyTranslations
 
             $current = $url === ''
                 ? ''
-                : $this->translations->translatedString(self::STRING_NAME, $url, $language['code']);
+                : $this->translations->translatedString($this->stringName($link), $url, $language['code']);
             $rows[] = [
                 'language' => $language['code'],
                 'name' => $language['name'],
@@ -52,38 +56,47 @@ final readonly class PolicyTranslations
     }
 
     /**
-     * Saves the proposal as the translation of the policy link in the language.
+     * Saves the proposal as the translation of the link in the language.
      *
      * @return list<array{language: string, name: string, current: string, proposal: string}>
-     * @throws \InvalidArgumentException When the language has no proposal, or the banner has no policy link.
+     * @throws \InvalidArgumentException When the language has no proposal, or the banner has not the link.
      * @throws \RuntimeException When the multilingual plugin does not save the translation.
      */
-    public function use(string $language): array
+    public function use(BannerLink $link, string $language): array
     {
-        $proposal = \array_column($this->rows(), 'proposal', 'language')[$language] ?? '';
-        $url = $this->policyLink();
+        $proposal = \array_column($this->rows($link), 'proposal', 'language')[$language] ?? '';
+        $url = $this->address($link);
         if ($proposal === '' || $url === '') {
             throw new \InvalidArgumentException(
-                \__('There is no translation of the policy page in this language.', 'italy-cookie-choices')
+                \__('There is no translation of the page in this language.', 'italy-cookie-choices')
             );
         }
 
-        $this->translations->saveStringTranslation(self::STRING_NAME, $url, $language, $proposal);
+        $this->translations->saveStringTranslation($this->stringName($link), $url, $language, $proposal);
 
-        return $this->rows();
+        return $this->rows($link);
     }
 
-    private function policyLink(): string
+    private function stringName(BannerLink $link): string
+    {
+        return Options::TRANSLATABLE[$link->urlSetting()];
+    }
+
+    /**
+     * The saved address of the link, not translated.
+     */
+    private function address(BannerLink $link): string
     {
         $option = \get_option(Schema::OPTION);
+        $url = \is_array($option) ? $option[$link->urlSetting()] ?? '' : '';
 
-        return \is_array($option) && \is_string($option['url'] ?? null) ? $option['url'] : '';
+        return \is_string($url) ? $url : '';
     }
 
-    private function policyPage(string $url): int
+    private function page(BannerLink $link, string $url): int
     {
         $page = $url === '' ? 0 : \url_to_postid($url);
-        if ($page > 0) {
+        if ($page > 0 || $link !== BannerLink::Policy) {
             return $page;
         }
 

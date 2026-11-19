@@ -3,7 +3,8 @@
 import { createElement, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { TextareaField, TextField, type SettingsProps } from './fields';
-import { PolicyPage } from './policy-page';
+import { LinkPage } from './link-page';
+import { LINK_SETTINGS, type BannerLink } from './settings';
 
 /**
  * The texts each site of a network keeps when it uses the settings of the main site,
@@ -24,25 +25,55 @@ export function BannerTextField( props: SettingsProps ) {
 	);
 }
 
-export function PolicyLinkFields( props: SettingsProps ) {
+type LinkProps = SettingsProps & { link: BannerLink };
+
+/**
+ * The address and the text of a link of the banner, translated by each site and language.
+ * @param props The settings props and the link.
+ */
+export function LinkAddressFields( props: LinkProps ) {
+	const { link, ...settingsProps } = props;
+	const names = LINK_SETTINGS[ link ];
+	const isPolicy = link === 'policy';
+
 	return (
 		<Fragment>
-			<PolicyPage { ...props } />
 			<TextField
-				{ ...props }
-				name="url"
+				{ ...settingsProps }
+				name={ names.url }
 				type="url"
-				label={ __( 'Policy link', 'italy-cookie-choices' ) }
+				label={
+					isPolicy
+						? __( 'Policy link', 'italy-cookie-choices' )
+						: __( 'Legal notice link', 'italy-cookie-choices' )
+				}
 			/>
 			<TextField
-				{ ...props }
-				name="anchor_text"
-				label={ __( 'Policy link text', 'italy-cookie-choices' ) }
+				{ ...settingsProps }
+				name={ names.text }
+				label={
+					isPolicy
+						? __( 'Policy link text', 'italy-cookie-choices' )
+						: __( 'Legal notice link text', 'italy-cookie-choices' )
+				}
 				help={ __(
 					'The link shows its address when it is empty.',
 					'italy-cookie-choices'
 				) }
 			/>
+		</Fragment>
+	);
+}
+
+/**
+ * The page of a link of the banner, its address and its text.
+ * @param props The settings props and the link.
+ */
+export function LinkFields( props: LinkProps ) {
+	return (
+		<Fragment>
+			<LinkPage { ...props } />
+			<LinkAddressFields { ...props } />
 		</Fragment>
 	);
 }

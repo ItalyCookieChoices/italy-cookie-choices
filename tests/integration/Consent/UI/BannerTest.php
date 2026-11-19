@@ -155,6 +155,51 @@ final class BannerTest extends WPTestCase
         $this->assertStringContainsString('data-opens-by-itself="0"', $this->render($this->makeSut()));
     }
 
+    public function testTheBannerDoesNotOpenByItselfOnTheLegalNoticePage(): void
+    {
+        $id = $this->createPage('impressum');
+        $this->saveOptions(['legal_notice_page' => 'impressum']);
+        $this->go_to(\get_permalink($id));
+
+        $this->assertFalse($this->makeSut()->data()['opensByItself']);
+    }
+
+    public function testTheLegalNoticeLinkFollowsThePolicyLink(): void
+    {
+        $this->saveOptions([
+            'url' => 'https://example.com/policy/',
+            'anchor_text' => 'Cookie policy',
+            'legal_notice_url' => 'https://example.com/impressum/',
+            'legal_notice_text' => 'Impressum',
+            'target' => '1',
+            'nofollow' => '1',
+        ]);
+
+        $this->assertSame(
+            [
+                'url' => 'https://example.com/impressum/',
+                'text' => 'Impressum',
+                'newTab' => true,
+                'rel' => 'noopener nofollow',
+            ],
+            $this->makeSut()->data()['legalNoticeLink']
+        );
+        $html = $this->render($this->makeSut());
+        $policy = \strpos($html, 'href="https://example.com/policy/"');
+        $notice = \strpos($html, 'href="https://example.com/impressum/"');
+        $this->assertIsInt($policy);
+        $this->assertIsInt($notice);
+        $this->assertGreaterThan($policy, $notice);
+    }
+
+    public function testThereIsNoLegalNoticeLinkWithoutItsAddress(): void
+    {
+        $this->saveOptions(['legal_notice_text' => 'Impressum']);
+
+        $this->assertNull($this->makeSut()->data()['legalNoticeLink']);
+        $this->assertStringNotContainsString('Impressum', $this->render($this->makeSut()));
+    }
+
     public function testTheBannerDoesNotOpenByItselfOnTheExcludedPagesByIdOrSlug(): void
     {
         $byId = $this->createPage('contact');
