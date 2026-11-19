@@ -74,8 +74,22 @@ final class MigrateTest extends WPTestCase
 
         $imported = $this->service(Migrate::class)->preview('other');
 
-        $this->assertSame($this->imported, $imported);
+        $this->assertSame($this->imported->settings(), $imported->settings());
+        $this->assertSame($this->imported->notes(), $imported->notes());
         $this->assertSame('Mine', $this->option()['text'] ?? null);
+    }
+
+    public function testTheVendorsInUseAreOnlyTheOnesTheImportTurnsOn(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'disabled_vendors' => ['hotjar']]);
+
+        $this->assertSame([], $this->service(Migrate::class)->preview('other')->vendorsInUse());
+
+        \update_option(Schema::OPTION, ['active' => '1', 'disabled_vendors' => ['google-recaptcha', 'hotjar']]);
+
+        $this->assertSame(['google-recaptcha'], $this->service(Migrate::class)->preview('other')->vendorsInUse());
+        $this->assertSame(['google-recaptcha'], $this->service(Migrate::class)->import('other')->vendorsInUse());
+        $this->assertSame(['hotjar'], $this->option()['disabled_vendors'] ?? null);
     }
 
     public function testTheImportOverwritesTheImportedSettingsAndKeepsTheOthers(): void
