@@ -87,6 +87,23 @@ final class ComplianzSourceTest extends WPTestCase
         $this->assertNotContains('complianz', $ids);
     }
 
+    public function testTheDefaultCustomCssOfComplianzIsNotImported(): void
+    {
+        ComplianzFixture::install(self::OPTIONS, [
+            ...self::BANNER,
+            'custom_css' => "/* Container */\n.cmplz-cookiebanner{}\n/* Logo */\n.cmplz-cookiebanner .cmplz-logo{}\n"
+                . "@media (max-width: 768px) {\n/* Mobile */\n.cmplz-cookiebanner{}\n}",
+        ]);
+
+        $imported = $this->sut()->read();
+
+        $this->assertArrayNotHasKey('customCSS', $imported->settings());
+        $this->assertNotContains(
+            'The custom CSS is imported in a comment: rewrite it for Cookie Choices.',
+            $imported->notes()
+        );
+    }
+
     public function testItImportsTheBannerOfTheDefaultBanner(): void
     {
         ComplianzFixture::install(self::OPTIONS, self::BANNER);

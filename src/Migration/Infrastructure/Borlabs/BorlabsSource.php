@@ -149,8 +149,6 @@ final readonly class BorlabsSource implements MigrationSource
      */
     private function style(Config $dialog, Config $style): array
     {
-        $css = $this->text($style, 'customCss');
-
         return [
             ConsentSetting::POSITION => $this->position(
                 $this->text($dialog, 'layout'),
@@ -161,7 +159,10 @@ final readonly class BorlabsSource implements MigrationSource
                 : '',
             ConsentSetting::BACKGROUND_COLOR => $this->conversions->color($style->get('dialogBackgroundColor')),
             ConsentSetting::TEXT_COLOR => $this->conversions->color($style->get('dialogTextColor')),
-            ConsentSetting::CUSTOM_CSS => $css !== '' ? $this->conversions->commentedCss(self::NAME, $css) : '',
+            ConsentSetting::CUSTOM_CSS => $this->conversions->commentedCss(
+                self::NAME,
+                $this->text($style, 'customCss')
+            ),
         ];
     }
 

@@ -97,10 +97,7 @@ final readonly class ComplianzBanner
         }
 
         if ($this->customCss($banner) !== '') {
-            $notes[] = \__(
-                'The custom CSS is imported in a comment: rewrite it for Cookie Choices.',
-                'italy-cookie-choices'
-            );
+            $notes[] = $this->conversions->customCssNote();
         }
 
         foreach (\array_keys(self::DOCUMENTS) as $document) {
@@ -192,12 +189,11 @@ final readonly class ComplianzBanner
      */
     private function customCss(array $banner): string
     {
-        $css = $this->text($banner['custom_css'] ?? '');
-        if ($this->text($banner['use_custom_cookie_css'] ?? '') === '' || \trim($css) === '') {
+        if ($this->text($banner['use_custom_cookie_css'] ?? '') === '') {
             return '';
         }
 
-        return $this->conversions->commentedCss(self::NAME, $css);
+        return $this->conversions->commentedCss(self::NAME, $this->text($banner['custom_css'] ?? ''));
     }
 
     /**
