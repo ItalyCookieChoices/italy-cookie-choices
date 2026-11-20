@@ -68,6 +68,16 @@ The log demonstrates the consents, see [Consent log](consent-log.md).
 * **Export the settings**: downloads the saved settings as a JSON file.
 * **Import**: replaces the saved settings with the ones of an exported file, also of the 2.x versions.
 
+## Dashboard widget
+
+The **Cookie Choices** widget of the dashboard shows, to the users who can manage the settings, what makes the consent valid. Each line opens its tab:
+
+* The banner, the policy link and the number of blocked vendors.
+* Google Consent Mode, when a Google tag is set, and the Global Privacy Control.
+* The consent log and the last scan, with the vendors not blocked and the unknown third parties it found.
+
+A green icon is fine, a yellow one needs a check. With the consent log on, the widget also counts the choices of this month: accepted, refused and partial, the same numbers of the **Consent log** tab. Everything is computed on the site.
+
 ## What the visitors see
 
 ![The banner at the bottom of a page](images/en_US-5-banner.png)

@@ -283,6 +283,28 @@ final class AdminCest
         $I->see('1 (100%)', '.icc-admin__statistics tbody td');
     }
 
+    public function theDashboardWidgetShowsTheStatusAndTheConsents(E2eTester $I): void
+    {
+        $I->haveCookieChoicesOptions(['consent_log' => '1']);
+        $I->amOnPage('/');
+        $I->executeJS('window.italyCookieChoices.acceptAll();');
+        $I->waitForJS(
+            'return performance.getEntriesByType("resource")'
+            . '.some((entry) => entry.name.includes("/italy-cookie-choices/v1/consents"));',
+            5
+        );
+        $I->loginAsAdmin();
+
+        $I->amOnAdminPage('/');
+
+        $I->see('Cookie Choices', '#italy_cookie_choices_status h2');
+        $I->seeElement('#italy_cookie_choices_status .icc-dashboard__item--ok a[href*="tab=banner"]');
+        $I->seeElement('#italy_cookie_choices_status .icc-dashboard__item--warning a[href*="tab=blocking"]');
+        $I->see('Consents this month', '#italy_cookie_choices_status');
+        $I->see('1', '#italy_cookie_choices_status .icc-dashboard__consents li:first-child strong');
+        $I->seeElementInDOM('link#italy-cookie-choices-dashboard-css');
+    }
+
     public function itSavesASiteCookie(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions([]);

@@ -6,7 +6,7 @@ namespace ItalyCookieChoices\Scan\UI;
 
 use ItalyCookieChoices\Blocking\Application\VendorSettings;
 use ItalyCookieChoices\Scan\Domain\Report;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\Settings\UI\SettingsTab;
 
 /**
  * The email of the news of the scheduled scan, to the admin address of the site.
@@ -39,7 +39,7 @@ final readonly class ScanMailer
                 \sprintf(
                     /* translators: %s: the address of the settings page. */
                     \__('Check them in the Blocking tab: %s', 'italy-cookie-choices'),
-                    \add_query_arg('tab', 'blocking', \admin_url('admin.php?page=' . SettingsPage::SLUG))
+                    SettingsTab::Blocking->url()
                 ),
             ]))
         );

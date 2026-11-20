@@ -12,6 +12,7 @@ use ItalyCookieChoices\Cookies\Module as CookiesModule;
 use ItalyCookieChoices\Integrations\Module as IntegrationsModule;
 use ItalyCookieChoices\Module;
 use ItalyCookieChoices\Multilingual\Module as MultilingualModule;
+use ItalyCookieChoices\Dashboard\Module as DashboardModule;
 use ItalyCookieChoices\Migration\Module as MigrationModule;
 use ItalyCookieChoices\Scan\Module as ScanModule;
 use ItalyCookieChoices\Settings\Module as SettingsModule;
@@ -44,6 +45,7 @@ trait BuildsContainer
             ->addModule(new MultilingualModule())
             ->addModule(new ScanModule())
             ->addModule(new MigrationModule())
+            ->addModule(new DashboardModule($pluginPath, $pluginUrl))
             ->addModule(new CliModule())
             ->build();
     }
