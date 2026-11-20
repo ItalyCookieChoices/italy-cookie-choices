@@ -5,7 +5,7 @@ Tags: cookie, gdpr, cookie consent, cookie banner, consent mode
 Requires at least: 6.5
 Requires PHP: 8.2
 Tested up to: 7.1
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,13 +114,25 @@ In JavaScript use `window.italyCookieChoices.hasConsent( 'statistics' )`, in PHP
 
 1. The settings page, with the preview of the banner
 2. The names and descriptions of the categories, with the preview of the preferences
-3. The vendors blocked until the consent
+3. The scan of the site, before the vendors blocked until the consent
 4. Google Consent Mode v2, the Google and Facebook tags and the YouTube embeds
 5. The banner at the bottom of a page
 6. The preferences, to choose the categories
 7. The placeholder of a blocked video
 
 == Changelog ==
+
+= 3.3.0 =
+
+* Import the settings of Complianz, CookieYes, Cookie Notice & Compliance, GDPR Cookie Compliance and Borlabs Cookie, from the Tools tab, a notice or `wp cookie-choices migrate`
+* Scan the site for the vendors and the unknown third parties, now or on a schedule with an email
+* The consent per vendor, inside the accepted categories, and the cookies of a refused vendor are deleted
+* Scripts of the site owner that run after the consent of a category
+* The texts of the reject, preferences and save buttons, and a legal notice link in the banner
+* A dashboard widget with the status of the settings and the consents of the month
+* MultilingualPress and Multisite Language Switcher translate the banner, WPML and Polylang propose the translated policy page
+* Copy the settings between the sites of a network
+* The menu uses the icon of the plugin
 
 = 3.2.0 =
 
@@ -445,6 +457,9 @@ Dev time: 50h
 * First release.
 
 == Upgrade Notice ==
+
+= 3.3.0 =
+Imports the settings of five other consent plugins, scans the site for the vendors, asks the consent per vendor and adds a dashboard widget with the status of the settings.
 
 = 3.2.0 =
 A cookie table, more vendors, the Microsoft consent signals, the Global Privacy Control, the multisite settings and the WP-CLI commands. The Microsoft signals and the Global Privacy Control are turned on, check them in the settings after the update.
