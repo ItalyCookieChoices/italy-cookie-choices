@@ -1028,12 +1028,12 @@ msgstr ""
 msgid "Month"
 msgstr ""
 
-#: templates/dashboard-widget.php:39
+#: templates/dashboard-widget.php:41
 #: assets/build/settings.js:16
 msgid "Choices"
 msgstr ""
 
-#: templates/dashboard-widget.php:51
+#: templates/dashboard-widget.php:53
 #: assets/build/settings.js:16
 msgid "Partial"
 msgstr ""
@@ -1590,7 +1590,7 @@ msgstr ""
 msgid "Scan the chosen pages"
 msgstr ""
 
-#: src/Dashboard/UI/SiteStatus.php:170
+#: src/Dashboard/UI/SiteStatus.php:172
 #: assets/build/settings.js:5
 msgid "Never"
 msgstr ""
@@ -2081,12 +2081,12 @@ msgstr ""
 msgid "Global Privacy Control"
 msgstr ""
 
-#: src/Dashboard/UI/SiteStatus.php:168
+#: src/Dashboard/UI/SiteStatus.php:176
 msgid "Last scan"
 msgstr ""
 
 #. translators: %d: the number of vendors.
-#: src/Dashboard/UI/SiteStatus.php:197
+#: src/Dashboard/UI/SiteStatus.php:196
 #, php-format
 msgid "%d vendor not blocked"
 msgid_plural "%d vendors not blocked"
@@ -2094,33 +2094,33 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: the number of third parties.
-#: src/Dashboard/UI/SiteStatus.php:202
+#: src/Dashboard/UI/SiteStatus.php:201
 #, php-format
 msgid "%d unknown third party"
 msgid_plural "%d unknown third parties"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dashboard/UI/SiteStatus.php:218
+#: src/Dashboard/UI/SiteStatus.php:217
 msgid "On"
 msgstr ""
 
-#: src/Dashboard/UI/SiteStatus.php:218
+#: src/Dashboard/UI/SiteStatus.php:217
 msgid "Off"
 msgstr ""
 
-#: templates/dashboard-widget.php:35
+#: templates/dashboard-widget.php:37
 msgid "Consents this month"
 msgstr ""
 
-#: templates/dashboard-widget.php:43
+#: templates/dashboard-widget.php:45
 msgid "Accepted"
 msgstr ""
 
-#: templates/dashboard-widget.php:47
+#: templates/dashboard-widget.php:49
 msgid "Refused"
 msgstr ""
 
-#: templates/dashboard-widget.php:56
+#: templates/dashboard-widget.php:58
 msgid "See the consent log"
 msgstr ""

@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Cookie Choices (for EU Cookie Law & GDPR) 3.2.0\n"
+"Project-Id-Version: Cookie Choices (for EU Cookie Law & GDPR) 3.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ItalyCookieChoices/italy-cookie-choices/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-20T06:16:12+00:00\n"
+"POT-Creation-Date: 2026-11-20T09:00:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -548,17 +548,17 @@ msgstr ""
 msgid "Consent log"
 msgstr ""
 
-#: src/Dashboard/UI/SiteStatus.php:168
-msgid "Last scan"
-msgstr ""
-
-#: src/Dashboard/UI/SiteStatus.php:170
+#: src/Dashboard/UI/SiteStatus.php:172
 #: assets/build/settings.js:5
 msgid "Never"
 msgstr ""
 
+#: src/Dashboard/UI/SiteStatus.php:176
+msgid "Last scan"
+msgstr ""
+
 #. translators: %d: the number of vendors.
-#: src/Dashboard/UI/SiteStatus.php:197
+#: src/Dashboard/UI/SiteStatus.php:196
 #, php-format
 msgid "%d vendor not blocked"
 msgid_plural "%d vendors not blocked"
@@ -566,18 +566,18 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %d: the number of third parties.
-#: src/Dashboard/UI/SiteStatus.php:202
+#: src/Dashboard/UI/SiteStatus.php:201
 #, php-format
 msgid "%d unknown third party"
 msgid_plural "%d unknown third parties"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Dashboard/UI/SiteStatus.php:218
+#: src/Dashboard/UI/SiteStatus.php:217
 msgid "On"
 msgstr ""
 
-#: src/Dashboard/UI/SiteStatus.php:218
+#: src/Dashboard/UI/SiteStatus.php:217
 msgid "Off"
 msgstr ""
 
@@ -977,29 +977,29 @@ msgstr ""
 msgid "Ignore"
 msgstr ""
 
-#: templates/dashboard-widget.php:35
+#: templates/dashboard-widget.php:37
 msgid "Consents this month"
 msgstr ""
 
-#: templates/dashboard-widget.php:39
+#: templates/dashboard-widget.php:41
 #: assets/build/settings.js:16
 msgid "Choices"
 msgstr ""
 
-#: templates/dashboard-widget.php:43
+#: templates/dashboard-widget.php:45
 msgid "Accepted"
 msgstr ""
 
-#: templates/dashboard-widget.php:47
+#: templates/dashboard-widget.php:49
 msgid "Refused"
 msgstr ""
 
-#: templates/dashboard-widget.php:51
+#: templates/dashboard-widget.php:53
 #: assets/build/settings.js:16
 msgid "Partial"
 msgstr ""
 
-#: templates/dashboard-widget.php:56
+#: templates/dashboard-widget.php:58
 msgid "See the consent log"
 msgstr ""
 
