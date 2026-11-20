@@ -68,6 +68,16 @@ Il registro dimostra i consensi, vedi [Registro dei consensi](registro-consensi.
 * **Esporta le impostazioni**: scarica le impostazioni salvate in un file JSON.
 * **Importa**: sostituisce le impostazioni salvate con quelle di un file esportato, anche dalle versioni 2.x.
 
+## Widget della bacheca
+
+Il widget **Cookie Choices** della bacheca mostra, agli utenti che possono gestire le impostazioni, cosa rende valido il consenso. Ogni riga apre la sua scheda:
+
+* Il banner, il link alla policy e il numero di fornitori bloccati.
+* Google Consent Mode, quando è impostato un tag di Google, e il Global Privacy Control.
+* Il registro dei consensi e l'ultima scansione, con i fornitori non bloccati e le terze parti sconosciute che ha trovato.
+
+Un'icona verde va bene, una gialla va controllata. Con il registro dei consensi attivo, il widget conta anche le scelte di questo mese: accettate, rifiutate e parziali, gli stessi numeri della scheda **Registro dei consensi**. Tutto viene calcolato sul sito.
+
 ## Cosa vedono i visitatori
 
 ![Il banner in fondo alla pagina](../images/it_IT-5-banner.png)

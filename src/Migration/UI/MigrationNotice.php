@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Migration\UI;
 use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Migration\Domain\MigrationSource;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\Settings\UI\SettingsTab;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
@@ -19,7 +20,6 @@ final readonly class MigrationNotice implements SubscriberInterface
 {
     public const ACTION = 'italy_cookie_choices_dismiss_migration';
 
-    private const SETTINGS_TAB = 'tools';
     private const TEMPLATE = 'migration-notice';
 
     public function __construct(
@@ -57,11 +57,7 @@ final readonly class MigrationNotice implements SubscriberInterface
             self::TEMPLATE,
             new Config([
                 'plugins' => \implode(', ', $names),
-                'importUrl' => \add_query_arg(
-                    'tab',
-                    self::SETTINGS_TAB,
-                    \admin_url('admin.php?page=' . SettingsPage::SLUG)
-                ),
+                'importUrl' => SettingsTab::Tools->url(),
                 'dismissUrl' => \wp_nonce_url(\admin_url('admin-post.php?action=' . self::ACTION), self::ACTION),
             ])
         );

@@ -1,0 +1,41 @@
+.icc-dashboard__status,
+.icc-dashboard__consents {
+	margin: 0;
+}
+
+.icc-dashboard__item {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+	margin-bottom: 8px;
+
+	&--ok .dashicons {
+		color: #00a32a;
+	}
+
+	&--warning .dashicons {
+		color: #dba617;
+	}
+
+	&--info .dashicons {
+		color: #72aee6;
+	}
+}
+
+.icc-dashboard__title {
+	margin-top: 16px;
+	font-weight: 600;
+}
+
+.icc-dashboard__consents {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+	text-align: center;
+
+	strong {
+		display: block;
+		font-size: 1.5em;
+		line-height: 1.4;
+	}
+}

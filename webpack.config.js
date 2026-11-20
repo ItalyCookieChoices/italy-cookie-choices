@@ -15,6 +15,7 @@ const entries = {
 	'wp-consent-api': './assets/src/wp-consent-api/index.ts',
 	'microsoft-consent': './assets/src/microsoft-consent/index.ts',
 	'cookie-cleanup': './assets/src/cookie-cleanup/index.ts',
+	dashboard: './assets/src/dashboard/index.ts',
 };
 
 module.exports = {

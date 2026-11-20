@@ -31,6 +31,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
         ->addModule(new Multilingual\Module())
         ->addModule(new Scan\Module())
         ->addModule(new Migration\Module())
+        ->addModule(new Dashboard\Module($pluginPath, $pluginUrl))
         ->addModule(new Cli\Module())
         ->extend(SubscribersConfigExtension::class, CommandsConfigExtension::class)
         ->build();
