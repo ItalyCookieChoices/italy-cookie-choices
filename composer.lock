@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "269c0cd4010f502b2f7eac302fa22a54",
+    "content-hash": "c2f7bf09d85ffa0783decfbacd34de49",
     "packages": [
         {
             "name": "italystrap/asset",
@@ -125,20 +125,21 @@
                 "issues": "https://github.com/ItalyStrap/common/issues",
                 "source": "https://github.com/ItalyStrap/common"
             },
-            "time": "2024-10-09T16:46:25+00:00"
+            "time": "2024-10-09T16:46:25+00:00",
+            "published-time": "2024-10-09T16:53:17+00:00"
         },
         {
             "name": "italystrap/config",
-            "version": "2.11.2",
+            "version": "2.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItalyStrap/config.git",
-                "reference": "0de9ee385237d63a28a90d8965e484f3f98734f0"
+                "reference": "3a18177610be6fcdaf5c423cf02a210f22521192"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItalyStrap/config/zipball/0de9ee385237d63a28a90d8965e484f3f98734f0",
-                "reference": "0de9ee385237d63a28a90d8965e484f3f98734f0",
+                "url": "https://api.github.com/repos/ItalyStrap/config/zipball/3a18177610be6fcdaf5c423cf02a210f22521192",
+                "reference": "3a18177610be6fcdaf5c423cf02a210f22521192",
                 "shasum": ""
             },
             "require": {
@@ -195,63 +196,51 @@
                 "issues": "https://github.com/ItalyStrap/config/issues",
                 "source": "https://github.com/ItalyStrap/config"
             },
-            "time": "2026-10-21T08:40:41+00:00"
+            "time": "2026-11-21T14:12:26+00:00",
+            "published-time": "2026-11-21T14:12:46+00:00"
         },
         {
             "name": "italystrap/empress",
-            "version": "dev-modularized",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItalyStrap/empress.git",
-                "reference": "50884bc513daeaea93df37ada6d7230a3ef41f23"
+                "reference": "642a4c564a1c0e04f0057f2ab1787e810772895d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItalyStrap/empress/zipball/50884bc513daeaea93df37ada6d7230a3ef41f23",
-                "reference": "50884bc513daeaea93df37ada6d7230a3ef41f23",
+                "url": "https://api.github.com/repos/ItalyStrap/empress/zipball/642a4c564a1c0e04f0057f2ab1787e810772895d",
+                "reference": "642a4c564a1c0e04f0057f2ab1787e810772895d",
                 "shasum": ""
             },
             "require": {
-                "italystrap/config": "^2.11",
-                "overclokk/auryn": "dev-master",
-                "php": ">=7.4",
-                "psr/container": "^1.1 || ^2.0",
-                "webimpress/safe-writer": "^2.2"
+                "italystrap/config": "^2.12",
+                "overclokk/auryn": "^2.1",
+                "php": ">=8.2",
+                "psr/container": "^1.1 || ^2.0"
             },
             "require-dev": {
-                "behat/gherkin": ">=4.4 <4.11",
-                "brick/varexporter": "^0.3.8 || ^0.5",
-                "codeception/module-asserts": "^1.0",
-                "crellbar/prophecy-extensions": "^1.1",
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
                 "friendsofphp/proxy-manager-lts": "^1.0",
-                "infection/codeception-adapter": "^0.4.1",
-                "infection/infection": "^0.26.6",
+                "infection/infection": "^0.29 || ^0.35",
                 "italystrap/debug": "dev-master",
                 "italystrap/finder": "dev-master",
-                "laminas/laminas-config-aggregator": "^1.9",
-                "lucatume/function-mocker-le": "^1.0.1",
-                "lucatume/wp-browser": ">=3.2.3 <3.5",
                 "phpbench/phpbench": "^1.2",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "phpmetrics/phpmetrics": "^2.8",
-                "phpspec/prophecy-phpunit": "^2.0",
-                "phpstan/phpstan": "^1.12",
-                "rector/rector": "^1.2",
+                "phpspec/prophecy-phpunit": "^2.3",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11.5",
+                "rector/rector": "^2.0",
                 "rector/swiss-knife": "^2.3",
                 "squizlabs/php_codesniffer": "^3.7"
             },
             "suggest": {
-                "brick/varexporter": "Only if you want to write the providers cache with ProvidersCache (^0.3.8 || ^0.5)",
-                "elazar/auryn-container-interop": "Only if you want to add a psr/container adapter, not required for this package",
                 "friendsofphp/proxy-manager-lts": "Only if you want to add support for lazy loading classes",
-                "northwoods/container": "Only if you want to add a psr/container adapter, not required for this package"
+                "italystrap/empress-cache": "Only if you want to cache the aggregated providers configuration in a PHP file"
             },
             "type": "library",
             "autoload": {
-                "files": [
-                    "namespace-bc-aliases.php"
-                ],
                 "psr-4": {
                     "ItalyStrap\\Empress\\": [
                         "src/"
@@ -275,7 +264,8 @@
                 "issues": "https://github.com/ItalyStrap/empress/issues",
                 "source": "https://github.com/ItalyStrap/empress"
             },
-            "time": "2026-10-21T19:16:37+00:00"
+            "time": "2026-11-21T13:12:05+00:00",
+            "published-time": "2026-11-21T13:12:53+00:00"
         },
         {
             "name": "italystrap/event",
@@ -565,7 +555,8 @@
                 "issues": "https://github.com/ItalyStrap/storage/issues",
                 "source": "https://github.com/ItalyStrap/storage"
             },
-            "time": "2024-10-09T15:56:43+00:00"
+            "time": "2024-10-09T15:56:43+00:00",
+            "published-time": "2024-10-09T16:40:45+00:00"
         },
         {
             "name": "italystrap/view",
@@ -645,34 +636,36 @@
         },
         {
             "name": "overclokk/auryn",
-            "version": "dev-master",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overclokk/auryn.git",
-                "reference": "9f849d59eaf7e54e8b467aac7dd5a75f769877e4"
+                "reference": "062659cb6880144121f18fdfbf625cabdff3cbf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overclokk/auryn/zipball/9f849d59eaf7e54e8b467aac7dd5a75f769877e4",
-                "reference": "9f849d59eaf7e54e8b467aac7dd5a75f769877e4",
+                "url": "https://api.github.com/repos/overclokk/auryn/zipball/062659cb6880144121f18fdfbf625cabdff3cbf5",
+                "reference": "062659cb6880144121f18fdfbf625cabdff3cbf5",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=8.2"
             },
             "replace": {
                 "rdlowrey/auryn": "^1.4"
             },
             "require-dev": {
-                "athletic/athletic": "~0.1",
-                "friendsofphp/php-cs-fixer": "^2",
+                "friendsofphp/php-cs-fixer": "^3.64",
                 "friendsofphp/proxy-manager-lts": "^1.0",
-                "phpunit/phpunit": "^7 || ^8"
+                "phpbench/phpbench": "^1.4",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11.5",
+                "rector/rector": "^2.0"
             },
             "suggest": {
+                "ext-apcu": "Required by ReflectionCacheApc to share the reflection cache between requests.",
                 "friendsofphp/proxy-manager-lts": "Required for support for lazy-loading proxies."
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -720,7 +713,8 @@
                 "issues": "https://github.com/overclokk/auryn/issues",
                 "source": "https://github.com/overclokk/auryn"
             },
-            "time": "2025-10-27T09:21:32+00:00"
+            "time": "2026-11-21T07:53:02+00:00",
+            "published-time": "2026-11-21T08:45:27+00:00"
         },
         {
             "name": "psr/container",
@@ -773,7 +767,8 @@
                 "issues": "https://github.com/php-fig/container/issues",
                 "source": "https://github.com/php-fig/container/tree/2.0.2"
             },
-            "time": "2021-11-05T16:47:00+00:00"
+            "time": "2021-11-05T16:47:00+00:00",
+            "published-time": "2021-11-05T16:53:27+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -874,65 +869,6 @@
                 "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
             "time": "2021-05-03T11:20:27+00:00"
-        },
-        {
-            "name": "webimpress/safe-writer",
-            "version": "2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webimpress/safe-writer.git",
-                "reference": "9d37cc8bee20f7cb2f58f6e23e05097eab5072e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webimpress/safe-writer/zipball/9d37cc8bee20f7cb2f58f6e23e05097eab5072e6",
-                "reference": "9d37cc8bee20f7cb2f58f6e23e05097eab5072e6",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.3 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5.4",
-                "vimeo/psalm": "^4.7",
-                "webimpress/coding-standard": "^1.2.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2.x-dev",
-                    "dev-develop": "2.3.x-dev",
-                    "dev-release-1.0": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Webimpress\\SafeWriter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "Tool to write files safely, to avoid race conditions",
-            "keywords": [
-                "concurrent write",
-                "file writer",
-                "race condition",
-                "safe writer",
-                "webimpress"
-            ],
-            "support": {
-                "issues": "https://github.com/webimpress/safe-writer/issues",
-                "source": "https://github.com/webimpress/safe-writer/tree/2.2.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/michalbundyra",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-04-19T16:34:45+00:00"
         }
     ],
     "packages-dev": [
@@ -4475,11 +4411,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.3.1",
+            "version": "2.3.7",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6155239b488e95d26d1ebd95c6b4bb294d7f09db",
-                "reference": "6155239b488e95d26d1ebd95c6b4bb294d7f09db",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/90c91c2498849ab8cc4e873864bbf1cb2bf6ea12",
+                "reference": "90c91c2498849ab8cc4e873864bbf1cb2bf6ea12",
                 "shasum": ""
             },
             "require": {
@@ -4535,7 +4471,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-08T21:09:11+00:00"
+            "time": "2026-11-19T10:31:11+00:00",
+            "published-time": "2026-11-19T10:31:27+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5312,21 +5249,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "2.7.0",
+            "version": "2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "4d6a39b7fff302cac0ce90cd959a53c2f6a32776"
+                "reference": "bf2982e3e2b8dfbcb43e5589fa301431cb1e479e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/4d6a39b7fff302cac0ce90cd959a53c2f6a32776",
-                "reference": "4d6a39b7fff302cac0ce90cd959a53c2f6a32776",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/bf2982e3e2b8dfbcb43e5589fa301431cb1e479e",
+                "reference": "bf2982e3e2b8dfbcb43e5589fa301431cb1e479e",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4|^8.0",
-                "phpstan/phpstan": "^2.3.0"
+                "phpstan/phpstan": "^2.3.5"
             },
             "conflict": {
                 "rector/rector-doctrine": "*",
@@ -5357,7 +5294,7 @@
             ],
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/2.7.0"
+                "source": "https://github.com/rectorphp/rector/tree/2.8.5"
             },
             "funding": [
                 {
@@ -5365,7 +5302,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-06T08:46:45+00:00"
+            "time": "2026-11-14T23:24:35+00:00",
+            "published-time": "2026-11-14T23:24:41+00:00"
         },
         {
             "name": "sanmai/later",
@@ -6551,22 +6489,22 @@
         },
         {
             "name": "sniccowp/php-scoper-wordpress-excludes",
-            "version": "7.1.0",
+            "version": "7.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/snicco/php-scoper-wordpress-excludes.git",
-                "reference": "d8ad8aae8a051a4f332150f37a7bf96df1d11d0a"
+                "reference": "3dfa46a15362197a7ebc423d4dc80db2f5b3cd35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/snicco/php-scoper-wordpress-excludes/zipball/d8ad8aae8a051a4f332150f37a7bf96df1d11d0a",
-                "reference": "d8ad8aae8a051a4f332150f37a7bf96df1d11d0a",
+                "url": "https://api.github.com/repos/snicco/php-scoper-wordpress-excludes/zipball/3dfa46a15362197a7ebc423d4dc80db2f5b3cd35",
+                "reference": "3dfa46a15362197a7ebc423d4dc80db2f5b3cd35",
                 "shasum": ""
             },
             "require-dev": {
                 "php": "^7.4",
                 "php-stubs/wordpress-globals": "0.2.0",
-                "php-stubs/wordpress-stubs": "7.1.0",
+                "php-stubs/wordpress-stubs": "7.1.2",
                 "sniccowp/php-scoper-excludes": "dev-master"
             },
             "type": "library",
@@ -6592,9 +6530,10 @@
             ],
             "support": {
                 "issues": "https://github.com/snicco/php-scoper-wordpress-excludes/issues",
-                "source": "https://github.com/snicco/php-scoper-wordpress-excludes/tree/7.1.0"
+                "source": "https://github.com/snicco/php-scoper-wordpress-excludes/tree/7.1.2"
             },
-            "time": "2026-08-28T02:50:05+00:00"
+            "time": "2026-10-07T00:26:15+00:00",
+            "published-time": "2026-11-01T10:37:09+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -7277,16 +7216,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v7.4.21",
+            "version": "v7.4.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "fd0e3462be6d32a0d130e8423e4940a7688162d8"
+                "reference": "53d609da66578dad5a39fe290e8f924ec8f05e93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/fd0e3462be6d32a0d130e8423e4940a7688162d8",
-                "reference": "fd0e3462be6d32a0d130e8423e4940a7688162d8",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/53d609da66578dad5a39fe290e8f924ec8f05e93",
+                "reference": "53d609da66578dad5a39fe290e8f924ec8f05e93",
                 "shasum": ""
             },
             "require": {
@@ -7323,7 +7262,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v7.4.21"
+                "source": "https://github.com/symfony/filesystem/tree/v7.4.23"
             },
             "funding": [
                 {
@@ -7343,7 +7282,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-06T20:05:19+00:00"
+            "time": "2026-11-04T08:27:22+00:00",
+            "published-time": "2026-11-04T11:28:00+00:00"
         },
         {
             "name": "symfony/finder",
@@ -8241,16 +8181,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v7.4.21",
+            "version": "v7.4.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "044907929c7999814378be22da34722c7a86bad4"
+                "reference": "1e601207ffe627a2e621faa9d661f1d32dcf1cec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/044907929c7999814378be22da34722c7a86bad4",
-                "reference": "044907929c7999814378be22da34722c7a86bad4",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/1e601207ffe627a2e621faa9d661f1d32dcf1cec",
+                "reference": "1e601207ffe627a2e621faa9d661f1d32dcf1cec",
                 "shasum": ""
             },
             "require": {
@@ -8293,7 +8233,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v7.4.21"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.23"
             },
             "funding": [
                 {
@@ -8313,7 +8253,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-10-12T12:34:30+00:00"
+            "time": "2026-11-04T08:27:22+00:00",
+            "published-time": "2026-11-04T11:28:41+00:00"
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
@@ -8767,9 +8708,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "italystrap/debug": 20,
-        "italystrap/empress": 20,
-        "italystrap/finder": 20,
-        "overclokk/auryn": 20
+        "italystrap/finder": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
