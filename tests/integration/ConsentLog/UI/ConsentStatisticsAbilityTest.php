@@ -11,11 +11,15 @@ use ItalyCookieChoices\ConsentLog\Domain\ConsentRecord;
 use ItalyCookieChoices\ConsentLog\UI\ConsentStatisticsAbility;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyCookieChoices\Tests\Support\LogsIn;
+use ItalyCookieChoices\Tests\Support\RunsAbilities;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ConsentStatisticsAbilityTest extends WPTestCase
 {
     use BuildsContainer;
+    use LogsIn;
+    use RunsAbilities;
 
     private const NAME = 'italy-cookie-choices/get-consent-statistics';
 
@@ -35,11 +39,11 @@ final class ConsentStatisticsAbilityTest extends WPTestCase
 
     public function testTheAdministratorsReadTheStatisticsByMonth(): void
     {
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
         $log = $this->service(ConsentLog::class);
         $log->add($this->record(['necessary', 'preferences', 'statistics', 'marketing']));
         $log->add($this->record(['necessary', 'statistics']));
-        $ability = $this->ability();
+        $ability = $this->ability(self::NAME);
 
         $statistics = $ability->execute();
 
@@ -64,9 +68,9 @@ final class ConsentStatisticsAbilityTest extends WPTestCase
 
     public function testAnEmptyLogHasNoMonths(): void
     {
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
 
-        $statistics = $this->ability()->execute();
+        $statistics = $this->ability(self::NAME)->execute();
 
         $this->assertIsArray($statistics);
         $this->assertSame([], $statistics['months'] ?? null);
@@ -74,35 +78,9 @@ final class ConsentStatisticsAbilityTest extends WPTestCase
 
     public function testTheOtherUsersCannotReadThem(): void
     {
-        $this->logIn('editor');
+        $this->logInAs('editor');
 
-        $this->assertInstanceOf(\WP_Error::class, $this->ability()->execute());
-    }
-
-    private function ability(): \WP_Ability
-    {
-        $ability = \wp_get_ability(self::NAME);
-        $this->assertInstanceOf(\WP_Ability::class, $ability);
-
-        return $ability;
-    }
-
-    /**
-     * @return array<array-key, mixed>
-     */
-    private function annotations(\WP_Ability $ability): array
-    {
-        $annotations = $ability->get_meta_item('annotations');
-        $this->assertIsArray($annotations);
-
-        return $annotations;
-    }
-
-    private function logIn(string $role): void
-    {
-        $userId = self::factory()->user->create(['role' => $role]);
-        $this->assertIsInt($userId);
-        \wp_set_current_user($userId);
+        $this->assertInstanceOf(\WP_Error::class, $this->ability(self::NAME)->execute());
     }
 
     /**

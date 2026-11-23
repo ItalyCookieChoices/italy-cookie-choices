@@ -17,6 +17,16 @@ use ItalyCookieChoices\Settings\PluginSetting;
 final readonly class ImportSummary
 {
     /**
+     * The lines of the summary and the notes to check after the import, for the REST API and the abilities.
+     *
+     * @return array{summary: list<string>, notes: list<string>}
+     */
+    public function toArray(ImportedSettings $imported): array
+    {
+        return ['summary' => $this->lines($imported), 'notes' => $imported->notes()];
+    }
+
+    /**
      * @return list<string>
      */
     public function lines(ImportedSettings $imported): array

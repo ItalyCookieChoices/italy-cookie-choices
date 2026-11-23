@@ -8,11 +8,15 @@ use ItalyCookieChoices\Blocking\UI\VendorAbilities;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Settings\UI\Abilities;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyCookieChoices\Tests\Support\LogsIn;
+use ItalyCookieChoices\Tests\Support\RunsAbilities;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class VendorAbilitiesTest extends WPTestCase
 {
     use BuildsContainer;
+    use LogsIn;
+    use RunsAbilities;
 
     private const LIST = 'italy-cookie-choices/list-vendors';
     private const SWITCH = 'italy-cookie-choices/switch-vendor';
@@ -34,7 +38,7 @@ final class VendorAbilitiesTest extends WPTestCase
 
     public function testTheAdministratorsListTheVendors(): void
     {
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
         $ability = $this->ability(self::LIST);
 
         $vendors = $ability->execute();
@@ -50,7 +54,7 @@ final class VendorAbilitiesTest extends WPTestCase
 
     public function testTheAdministratorsTurnAPresetOffAndOn(): void
     {
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
         $ability = $this->ability(self::SWITCH);
 
         $this->assertSame(
@@ -70,7 +74,7 @@ final class VendorAbilitiesTest extends WPTestCase
 
     public function testAVendorThatIsNotAPresetIsAnError(): void
     {
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
 
         $error = $this->ability(self::SWITCH)->execute(['id' => 'tracker', 'enabled' => false]);
 
@@ -81,7 +85,7 @@ final class VendorAbilitiesTest extends WPTestCase
 
     public function testTheAdministratorsAddACustomVendor(): void
     {
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
         $ability = $this->ability(self::ADD);
 
         $vendor = $ability->execute([
@@ -106,7 +110,7 @@ final class VendorAbilitiesTest extends WPTestCase
 
     public function testAnInvalidCustomVendorIsAnError(): void
     {
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
 
         $error = $this->ability(self::ADD)->execute([
             'name' => 'YouTube',
@@ -120,7 +124,7 @@ final class VendorAbilitiesTest extends WPTestCase
 
     public function testTheOtherUsersCannotUseTheVendorAbilities(): void
     {
-        $this->logIn('editor');
+        $this->logInAs('editor');
 
         $this->assertInstanceOf(\WP_Error::class, $this->ability(self::LIST)->execute());
         $this->assertInstanceOf(
@@ -133,14 +137,6 @@ final class VendorAbilitiesTest extends WPTestCase
         );
         $this->assertArrayNotHasKey('disabled_vendors', $this->saved());
         $this->assertArrayNotHasKey('custom_vendors', $this->saved());
-    }
-
-    private function ability(string $name): \WP_Ability
-    {
-        $ability = \wp_get_ability($name);
-        $this->assertInstanceOf(\WP_Ability::class, $ability);
-
-        return $ability;
     }
 
     /**
@@ -164,23 +160,5 @@ final class VendorAbilitiesTest extends WPTestCase
         $this->assertIsArray($disabled);
 
         return $disabled;
-    }
-
-    /**
-     * @return array<array-key, mixed>
-     */
-    private function annotations(\WP_Ability $ability): array
-    {
-        $annotations = $ability->get_meta_item('annotations');
-        $this->assertIsArray($annotations);
-
-        return $annotations;
-    }
-
-    private function logIn(string $role): void
-    {
-        $userId = self::factory()->user->create(['role' => $role]);
-        $this->assertIsInt($userId);
-        \wp_set_current_user($userId);
     }
 }

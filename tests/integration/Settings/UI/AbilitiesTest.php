@@ -8,13 +8,18 @@ use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Settings\UI\Abilities;
 use ItalyCookieChoices\Settings\UI\SettingsAbility;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyCookieChoices\Tests\Support\LogsIn;
+use ItalyCookieChoices\Tests\Support\RunsAbilities;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class AbilitiesTest extends WPTestCase
 {
     use BuildsContainer;
+    use LogsIn;
+    use RunsAbilities;
 
     private const GET_SETTINGS = 'italy-cookie-choices/get-settings';
+    private const UPDATE_SETTINGS = 'italy-cookie-choices/update-settings';
 
     public function tearDown(): void
     {
@@ -56,7 +61,7 @@ final class AbilitiesTest extends WPTestCase
     public function testTheAdministratorsReadTheSettings(): void
     {
         \update_option(Schema::OPTION, ['active' => '1', 'text' => 'Hello']);
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
         $ability = $this->ability(self::GET_SETTINGS);
 
         $settings = $ability->execute();
@@ -71,7 +76,7 @@ final class AbilitiesTest extends WPTestCase
     {
         \remove_all_filters('sanitize_option_' . Schema::OPTION);
         \update_option(Schema::OPTION, ['active' => '1', 'unknown' => 'value']);
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
 
         $settings = $this->ability(self::GET_SETTINGS)->execute();
 
@@ -81,15 +86,59 @@ final class AbilitiesTest extends WPTestCase
 
     public function testTheOtherUsersCannotReadThem(): void
     {
-        $this->logIn('editor');
+        $this->logInAs('editor');
 
         $this->assertInstanceOf(\WP_Error::class, $this->ability(self::GET_SETTINGS)->execute());
+    }
+
+    public function testTheAdministratorsUpdateSomeSettings(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'text' => 'Hello', 'consent_log' => '1']);
+        $this->logInAs('administrator');
+        $ability = $this->ability(self::UPDATE_SETTINGS);
+
+        $settings = $ability->execute(['text' => 'Ciao', 'consent_log' => null, 'reload' => '1']);
+
+        $this->assertIsArray($settings);
+        $this->assertSame('1', $settings['active'] ?? null);
+        $this->assertSame('Ciao', $settings['text'] ?? null);
+        $this->assertSame('1', $settings['reload'] ?? null);
+        $this->assertArrayNotHasKey('consent_log', $settings);
+        $saved = \get_option(Schema::OPTION);
+        $this->assertIsArray($saved);
+        $this->assertSame('Ciao', $saved['text'] ?? null);
+        $this->assertArrayNotHasKey('consent_log', $saved);
+        $annotations = $this->annotations($ability);
+        $this->assertFalse($annotations['readonly'] ?? null);
+        $this->assertTrue($annotations['destructive'] ?? null);
+        $this->assertTrue($annotations['idempotent'] ?? null);
+    }
+
+    public function testTheUpdateIsCheckedLikeTheSettingsPage(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1']);
+        $this->logInAs('administrator');
+        $ability = $this->ability(self::UPDATE_SETTINGS);
+
+        $this->assertInstanceOf(\WP_Error::class, $ability->execute(['unknown' => 'value']));
+        $this->assertInstanceOf(\WP_Error::class, $ability->execute(['active' => 'yes']));
+        $this->assertInstanceOf(\WP_Error::class, $ability->execute([]));
+        $settings = $ability->execute(['text' => '<script>alert(1)</script>Hello']);
+        $this->assertIsArray($settings);
+        $this->assertSame('alert(1)Hello', $settings['text'] ?? null);
+    }
+
+    public function testTheOtherUsersCannotUpdateThem(): void
+    {
+        $this->logInAs('editor');
+
+        $this->assertInstanceOf(\WP_Error::class, $this->ability(self::UPDATE_SETTINGS)->execute(['text' => 'Hi']));
     }
 
     public function testTheRestApiRunsTheAbility(): void
     {
         \update_option(Schema::OPTION, ['active' => '1']);
-        $this->logIn('administrator');
+        $this->logInAs('administrator');
 
         $response = \rest_do_request(
             new \WP_REST_Request('GET', '/wp-abilities/v1/abilities/' . self::GET_SETTINGS . '/run')
@@ -99,31 +148,5 @@ final class AbilitiesTest extends WPTestCase
         $data = $response->get_data();
         $this->assertIsArray($data);
         $this->assertSame('1', $data['active'] ?? null);
-    }
-
-    private function ability(string $name): \WP_Ability
-    {
-        $ability = \wp_get_ability($name);
-        $this->assertInstanceOf(\WP_Ability::class, $ability);
-
-        return $ability;
-    }
-
-    /**
-     * @return array<array-key, mixed>
-     */
-    private function annotations(\WP_Ability $ability): array
-    {
-        $annotations = $ability->get_meta_item('annotations');
-        $this->assertIsArray($annotations);
-
-        return $annotations;
-    }
-
-    private function logIn(string $role): void
-    {
-        $userId = self::factory()->user->create(['role' => $role]);
-        $this->assertIsInt($userId);
-        \wp_set_current_user($userId);
     }
 }

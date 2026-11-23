@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Migration;
 use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
 use ItalyCookieChoices\Migration\Infrastructure\BuiltInSources;
 use ItalyCookieChoices\Migration\UI\Cli\Commands\MigrateCommand;
+use ItalyCookieChoices\Migration\UI\MigrationAbilities;
 use ItalyCookieChoices\Migration\UI\MigrationEndpoint;
 use ItalyCookieChoices\Migration\UI\MigrationNotice;
 use ItalyStrap\Empress\ModuleInterface;
@@ -25,6 +26,7 @@ final readonly class Module implements ModuleInterface
                 BuiltInSources::class,
                 MigrationEndpoint::class,
                 MigrationNotice::class,
+                MigrationAbilities::class,
             ],
             CommandsConfigExtension::COMMANDS => [
                 MigrateCommand::class,

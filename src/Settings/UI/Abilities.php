@@ -35,6 +35,16 @@ final readonly class Abilities implements SubscriberInterface
     }
 
     /**
+     * The error of an ability for an input the plugin refuses, with the reason for the user.
+     *
+     * @param non-empty-string $code
+     */
+    public function invalidInput(string $code, \InvalidArgumentException $exception): \WP_Error
+    {
+        return new \WP_Error($code, $exception->getMessage(), ['status' => 400]);
+    }
+
+    /**
      * Registers an ability of the plugin, called on wp_abilities_api_init.
      *
      * @param lowercase-string&non-empty-string $name The name after the prefix of the plugin, like "list-vendors".
