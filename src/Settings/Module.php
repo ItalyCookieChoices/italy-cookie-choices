@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
-use ItalyCookieChoices\Settings\UI\Abilities;
 use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
+use ItalyCookieChoices\Module as PluginModule;
+use ItalyCookieChoices\Settings\UI\Abilities;
 use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsExportCommand;
 use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsImportCommand;
 use ItalyCookieChoices\Settings\UI\Cli\Commands\SettingsNamespace;
@@ -26,8 +27,6 @@ use ItalyStrap\Event\SubscribersConfigExtension;
  */
 final readonly class Module implements ModuleInterface
 {
-    private const BUILD = 'assets/build/';
-
     /**
      * @param string $pluginPath The plugin folder, with the trailing slash.
      * @param string $pluginUrl The plugin URL, with the trailing slash.
@@ -45,14 +44,14 @@ final readonly class Module implements ModuleInterface
         return [
             AurynConfig::DEFINITIONS => [
                 SettingsPage::class => [
-                    ':buildPath' => $this->pluginPath . self::BUILD,
-                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':buildPath' => $this->pluginPath . PluginModule::BUILD,
+                    ':buildUrl' => $this->pluginUrl . PluginModule::BUILD,
                     ':languagesPath' => $this->pluginPath . 'languages',
                     ':menuIcon' => $this->pluginPath . 'assets/images/menu-icon.svg',
                 ],
                 NetworkSettingsPage::class => [
-                    ':buildPath' => $this->pluginPath . self::BUILD,
-                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':buildPath' => $this->pluginPath . PluginModule::BUILD,
+                    ':buildUrl' => $this->pluginUrl . PluginModule::BUILD,
                     ':languagesPath' => $this->pluginPath . 'languages',
                 ],
                 PluginActionLinks::class => [

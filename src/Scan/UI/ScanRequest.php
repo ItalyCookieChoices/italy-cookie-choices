@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Scan\UI;
 
 use ItalyCookieChoices\Scan\Application\ScanTokens;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -32,7 +33,7 @@ final class ScanRequest implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         // After redirect_canonical() and the other redirects, before PageBuffer.
-        yield 'template_redirect' => [
+        yield Hook::TEMPLATE_REDIRECT => [
             self::CALLBACK => 'start',
             self::PRIORITY => \PHP_INT_MAX - 1,
         ];

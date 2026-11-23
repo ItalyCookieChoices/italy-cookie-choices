@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Consent\UI;
 
 use ItalyCookieChoices\I18n\TextDomain;
 use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -33,7 +34,7 @@ final readonly class PreferencesButtonBlock implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'init' => 'register';
+        yield Hook::INIT => 'register';
     }
 
     public function register(): void

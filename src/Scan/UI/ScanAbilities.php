@@ -10,6 +10,7 @@ use ItalyCookieChoices\Scan\Application\SiteScanner;
 use ItalyCookieChoices\Scan\Domain\Report;
 use ItalyCookieChoices\Scan\Domain\Selection;
 use ItalyCookieChoices\Settings\UI\Abilities;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -32,7 +33,7 @@ final readonly class ScanAbilities implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'wp_abilities_api_init' => 'register';
+        yield Hook::ABILITIES_API_INIT => 'register';
     }
 
     public function register(): void

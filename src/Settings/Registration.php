@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings;
 
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -19,7 +20,7 @@ final readonly class Registration implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'init' => 'register';
+        yield Hook::INIT => 'register';
     }
 
     public function register(): void

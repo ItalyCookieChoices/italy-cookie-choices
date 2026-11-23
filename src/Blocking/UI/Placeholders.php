@@ -9,6 +9,7 @@ use ItalyCookieChoices\Consent\UI\BuildingBanner;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
 use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\AssetStatus;
 use ItalyStrap\Asset\BuildMetadata;
@@ -57,7 +58,7 @@ final readonly class Placeholders implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield EventName::FRONT_END => 'enqueue';
-        yield 'wp_footer' => 'render';
+        yield Hook::FOOTER => 'render';
     }
 
     public function enqueue(): void

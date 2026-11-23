@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Settings\UI;
 
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\StringTranslations;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -26,7 +27,7 @@ final readonly class StringRegistration implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'admin_init' => 'register';
+        yield Hook::ADMIN_INIT => 'register';
     }
 
     public function register(): void

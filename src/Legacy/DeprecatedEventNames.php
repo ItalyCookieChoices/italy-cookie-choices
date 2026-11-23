@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Legacy;
 
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -13,7 +14,7 @@ final readonly class DeprecatedEventNames implements SubscriberInterface
 {
     public function getSubscribedEvents(): iterable
     {
-        yield 'init' => 'warn';
+        yield Hook::INIT => 'warn';
     }
 
     public function warn(): void

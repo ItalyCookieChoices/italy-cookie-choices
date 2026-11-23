@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\SettingsCopy;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -17,12 +19,13 @@ final readonly class CopySettingsEndpoint implements SubscriberInterface
 
     public function __construct(
         private SettingsCopy $copy,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
@@ -31,16 +34,15 @@ final readonly class CopySettingsEndpoint implements SubscriberInterface
             return;
         }
 
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->copy(...),
-            'permission_callback' => static fn(): bool => \current_user_can(NetworkSettingsPage::CAPABILITY),
-            'args' => [
+        $this->routes->forUsersWho(
+            static fn(): bool => \current_user_can(NetworkSettingsPage::CAPABILITY),
+            self::ROUTE,
+            new RestHandler(\WP_REST_Server::CREATABLE, $this->copy(...), [
                 'source' => ['type' => 'integer', 'required' => true],
                 'targets' => ['type' => 'array', 'items' => ['type' => 'integer'], 'required' => true],
                 'texts' => ['type' => 'boolean', 'default' => false],
-            ],
-        ]);
+            ])
+        );
     }
 
     public function copy(\WP_REST_Request $request): \WP_REST_Response|\WP_Error

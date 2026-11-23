@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\ConsentLog\UI;
 
 use ItalyCookieChoices\ConsentLog\Infrastructure\LogTable;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -19,7 +20,7 @@ final readonly class LogTableInstaller implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'plugins_loaded' => 'install';
+        yield Hook::PLUGINS_LOADED => 'install';
     }
 
     public function install(): void

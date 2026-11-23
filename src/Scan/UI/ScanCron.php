@@ -8,6 +8,7 @@ use ItalyCookieChoices\Scan\Application\ScanReports;
 use ItalyCookieChoices\Scan\Application\ScanSchedule;
 use ItalyCookieChoices\Scan\Application\ScheduledScan;
 use ItalyCookieChoices\Scan\Domain\Frequency;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -37,7 +38,7 @@ final readonly class ScanCron implements SubscriberInterface
         yield 'cron_schedules' => 'addMonthly';
         yield self::RUN => 'start';
         yield self::BATCH => 'next';
-        yield 'init' => 'keepScheduled';
+        yield Hook::INIT => 'keepScheduled';
     }
 
     /**

@@ -10,6 +10,7 @@ use ItalyCookieChoices\Consent\Application\RenewConsent;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentStorage;
 use ItalyCookieChoices\Consent\UI\ConsentCookieEndpoint;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
@@ -128,7 +129,8 @@ final class ConsentCookieEndpointTest extends WPTestCase
                     }
                 )
             ),
-            $this->options()
+            $this->options(),
+            new RestRoutes()
         );
     }
 }

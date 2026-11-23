@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Consent\UI;
 
+use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\BannerPreviewEndpoint;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
-use ItalyCookieChoices\Blocking\Application\VendorChoices;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Sanitizer;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
@@ -181,7 +182,8 @@ final class BannerPreviewEndpointTest extends WPTestCase
                 $fixtures,
                 self::BUILD_URL
             ),
-            new Sanitizer()
+            new Sanitizer(),
+            new RestRoutes()
         );
     }
 

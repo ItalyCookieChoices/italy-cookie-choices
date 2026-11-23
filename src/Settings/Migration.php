@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Settings;
 use ItalyCookieChoices\Blocking\Application\BlockingSetting;
 use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\Category;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -40,7 +41,7 @@ final readonly class Migration implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'plugins_loaded' => 'migrate';
+        yield Hook::PLUGINS_LOADED => 'migrate';
     }
 
     public function migrate(): void

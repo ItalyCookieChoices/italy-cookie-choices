@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\ConsentLog\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
+use ItalyCookieChoices\WordPress\Capability;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -16,24 +19,23 @@ final readonly class ConsentStatisticsEndpoint implements SubscriberInterface
 {
     public const ROUTE = '/statistics';
 
-    private const CAPABILITY = 'manage_options';
 
     public function __construct(
         private StatisticsReport $report,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::READABLE,
-            'callback' => fn(): \WP_REST_Response => new \WP_REST_Response($this->report->toArray()),
-            'permission_callback' => static fn(): bool => \current_user_can(self::CAPABILITY),
-        ]);
+        $this->routes->forAdministrators(self::ROUTE, new RestHandler(
+            \WP_REST_Server::READABLE,
+            fn(): \WP_REST_Response => new \WP_REST_Response($this->report->toArray())
+        ));
     }
 }

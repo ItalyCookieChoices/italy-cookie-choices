@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
-use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
+use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Scan\UI\ScanRequest;
 use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
@@ -57,7 +58,7 @@ final readonly class ConsentScript implements SubscriberInterface
     {
         yield EventName::FRONT_END => 'enqueue';
         // At the end of the head, so the listeners of its events are already there.
-        yield 'wp_head' => [
+        yield Hook::HEAD => [
             self::CALLBACK => 'print',
             self::PRIORITY => 100000,
         ];

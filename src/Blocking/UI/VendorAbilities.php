@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Blocking\UI;
 
 use ItalyCookieChoices\Blocking\Application\VendorSettings;
 use ItalyCookieChoices\Settings\UI\Abilities;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -25,7 +26,7 @@ final readonly class VendorAbilities implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'wp_abilities_api_init' => 'register';
+        yield Hook::ABILITIES_API_INIT => 'register';
     }
 
     public function register(): void

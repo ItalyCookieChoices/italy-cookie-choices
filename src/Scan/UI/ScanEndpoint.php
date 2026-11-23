@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Scan\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Scan\Application\ScanTargets;
 use ItalyCookieChoices\Scan\Application\SiteScanner;
 use ItalyCookieChoices\Scan\Domain\Selection;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -25,38 +26,34 @@ final readonly class ScanEndpoint implements SubscriberInterface
     public function __construct(
         private ScanTargets $targets,
         private SiteScanner $scanner,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
-        $permission = static fn(): bool => \current_user_can(SettingsPage::CAPABILITY);
         $ids = ['type' => 'array', 'items' => ['type' => 'integer', 'minimum' => 0]];
 
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE . '/targets', [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->listTargets(...),
-            'permission_callback' => $permission,
-            'args' => [
+        $this->routes->forAdministrators(self::ROUTE . '/targets', new RestHandler(
+            \WP_REST_Server::CREATABLE,
+            $this->listTargets(...),
+            [
                 Selection::HOME => ['type' => 'boolean', 'default' => false],
                 Selection::POST_TYPES => ['type' => 'array', 'items' => ['type' => 'string'], 'default' => []],
                 Selection::CATEGORIES => [...$ids, 'default' => []],
                 Selection::POSTS => [...$ids, 'default' => []],
-            ],
-        ]);
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE . '/pages', [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->scanPages(...),
-            'permission_callback' => $permission,
-            'args' => [
-                'ids' => [...$ids, 'required' => true, 'maxItems' => self::BATCH],
-            ],
-        ]);
+            ]
+        ));
+        $this->routes->forAdministrators(self::ROUTE . '/pages', new RestHandler(
+            \WP_REST_Server::CREATABLE,
+            $this->scanPages(...),
+            ['ids' => [...$ids, 'required' => true, 'maxItems' => self::BATCH]]
+        ));
     }
 
     public function listTargets(\WP_REST_Request $request): \WP_REST_Response

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\ConsentLog\UI;
 
 use ItalyCookieChoices\ConsentLog\Domain\ConsentLog;
+use ItalyCookieChoices\WordPress\Capability;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -16,7 +18,6 @@ final readonly class ConsentLogExport implements SubscriberInterface
 {
     public const ACTION = 'italy_cookie_choices_export_consent_log';
 
-    private const CAPABILITY = 'manage_options';
     private const COLUMNS = [
         'consent_id',
         'recorded_at',
@@ -33,7 +34,7 @@ final readonly class ConsentLogExport implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'admin_post_' . self::ACTION => 'export';
+        yield Hook::ADMIN_POST . self::ACTION => 'export';
     }
 
     /**
@@ -50,7 +51,7 @@ final readonly class ConsentLogExport implements SubscriberInterface
 
     public function export(): void
     {
-        if (!\current_user_can(self::CAPABILITY)) {
+        if (!\current_user_can(Capability::MANAGE_OPTIONS)) {
             \wp_die(\esc_html__('You cannot export the consent log.', 'italy-cookie-choices'), '', ['response' => 403]);
         }
 

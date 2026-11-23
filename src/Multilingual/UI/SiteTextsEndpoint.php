@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Multilingual\UI;
 
-use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Multilingual\Application\ConnectedSites;
 use ItalyCookieChoices\Multilingual\Application\PolicySuggestion;
 use ItalyCookieChoices\Multilingual\Application\SiteTexts;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -28,12 +30,13 @@ final readonly class SiteTextsEndpoint implements SubscriberInterface
         private SiteTexts $texts,
         private PolicySuggestion $policy,
         private ConnectedSites $sites,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
@@ -43,30 +46,25 @@ final readonly class SiteTextsEndpoint implements SubscriberInterface
         }
 
         $site = ['site' => ['type' => 'integer', 'required' => true]];
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
+        $this->routes->forUsersWho(
+            $this->canEdit(...),
+            self::ROUTE,
+            new RestHandler(\WP_REST_Server::READABLE, $this->read(...), $site),
+            new RestHandler(
+                \WP_REST_Server::EDITABLE,
+                $this->save(...),
+                [...$site, 'texts' => ['type' => 'object', 'required' => true]]
+            )
+        );
+        $this->routes->forUsersWho($this->canEdit(...), self::ROUTE . '/draft', new RestHandler(
+            \WP_REST_Server::CREATABLE,
+            $this->draft(...),
             [
-                'methods' => \WP_REST_Server::READABLE,
-                'callback' => $this->read(...),
-                'permission_callback' => $this->canEdit(...),
-                'args' => $site,
-            ],
-            [
-                'methods' => \WP_REST_Server::EDITABLE,
-                'callback' => $this->save(...),
-                'permission_callback' => $this->canEdit(...),
-                'args' => [...$site, 'texts' => ['type' => 'object', 'required' => true]],
-            ],
-        ]);
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE . '/draft', [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->draft(...),
-            'permission_callback' => $this->canEdit(...),
-            'args' => [
                 ...$site,
                 'source' => ['type' => 'integer', 'required' => true],
                 'translate' => ['type' => 'boolean', 'default' => false],
-            ],
-        ]);
+            ]
+        ));
     }
 
     /**

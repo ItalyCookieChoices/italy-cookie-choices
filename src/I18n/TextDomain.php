@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\I18n;
 
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -23,7 +24,7 @@ final readonly class TextDomain implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'init' => [
+        yield Hook::INIT => [
             self::CALLBACK => 'load',
             self::PRIORITY => 100,
         ];

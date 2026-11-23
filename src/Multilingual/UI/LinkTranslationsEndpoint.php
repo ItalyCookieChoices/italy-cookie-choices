@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Multilingual\UI;
 
-use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -21,29 +22,25 @@ final readonly class LinkTranslationsEndpoint implements SubscriberInterface
 
     public function __construct(
         private LinkTranslations $translations,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->use(...),
-            'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),
-            'args' => [
-                'language' => ['type' => 'string', 'required' => true],
-                'link' => [
-                    'type' => 'string',
-                    'enum' => \array_column(BannerLink::cases(), 'value'),
-                    'default' => BannerLink::Policy->value,
-                ],
+        $this->routes->forAdministrators(self::ROUTE, new RestHandler(\WP_REST_Server::CREATABLE, $this->use(...), [
+            'language' => ['type' => 'string', 'required' => true],
+            'link' => [
+                'type' => 'string',
+                'enum' => \array_column(BannerLink::cases(), 'value'),
+                'default' => BannerLink::Policy->value,
             ],
-        ]);
+        ]));
     }
 
     public function use(\WP_REST_Request $request): \WP_REST_Response|\WP_Error

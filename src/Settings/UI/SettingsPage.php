@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Settings\UI;
 
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
-use ItalyCookieChoices\Consent\UI\ConsentTexts;
-use ItalyCookieChoices\Cookies\Application\PresetCookies;
-use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
+use ItalyCookieChoices\Consent\UI\ConsentTexts;
+use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
+use ItalyCookieChoices\Cookies\Application\PresetCookies;
 use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Migration\Domain\MigrationSource;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
@@ -16,6 +16,8 @@ use ItalyCookieChoices\Multilingual\UI\LanguagesData;
 use ItalyCookieChoices\Scan\Application\ScanAssistant;
 use ItalyCookieChoices\Scan\UI\ScheduleData;
 use ItalyCookieChoices\Settings\NetworkSettings;
+use ItalyCookieChoices\WordPress\Capability;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
@@ -42,7 +44,7 @@ final readonly class SettingsPage implements SubscriberInterface
 {
     public const SLUG = 'italy-cookie-choices';
     public const HANDLE = 'italy-cookie-choices-admin';
-    public const CAPABILITY = 'manage_options';
+    public const CAPABILITY = Capability::MANAGE_OPTIONS;
     public const DOCUMENTATION = 'https://github.com/ItalyCookieChoices/italy-cookie-choices/wiki';
 
     private const EVENT_NAME_SUFFIX = 'toplevel_page_' . self::SLUG;
@@ -87,7 +89,7 @@ final readonly class SettingsPage implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield 'admin_menu' => 'addPage';
-        yield 'admin_init' => 'redirectTheOldUrl';
+        yield Hook::ADMIN_INIT => 'redirectTheOldUrl';
         yield EventName::ADMIN => 'enqueue';
     }
 

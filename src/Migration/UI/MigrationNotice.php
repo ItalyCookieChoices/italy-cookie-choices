@@ -8,6 +8,7 @@ use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Migration\Domain\MigrationSource;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Settings\UI\SettingsTab;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
@@ -31,8 +32,8 @@ final readonly class MigrationNotice implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'admin_notices' => 'show';
-        yield 'admin_post_' . self::ACTION => 'dismiss';
+        yield Hook::ADMIN_NOTICES => 'show';
+        yield Hook::ADMIN_POST . self::ACTION => 'dismiss';
     }
 
     public function show(): void

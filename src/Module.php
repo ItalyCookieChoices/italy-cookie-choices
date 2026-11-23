@@ -25,6 +25,9 @@ use ItalyStrap\View\ViewInterface;
  */
 final readonly class Module implements ModuleInterface
 {
+    /** The folder of the built scripts and styles, from the plugin folder, with the trailing slash. */
+    public const BUILD = 'assets/build/';
+
     /**
      * @param string $languagesPath Relative to the plugins folder, as load_plugin_textdomain() expects it.
      * @param string $templatesPath The templates folder, with the trailing slash.

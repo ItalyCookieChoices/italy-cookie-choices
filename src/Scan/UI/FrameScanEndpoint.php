@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Scan\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Scan\Application\ScanTokens;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -19,24 +20,22 @@ final readonly class FrameScanEndpoint implements SubscriberInterface
 
     public function __construct(
         private ScanTokens $tokens,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->frameUrl(...),
-            'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),
-            'args' => [
-                'url' => ['type' => 'string', 'format' => 'uri', 'required' => true],
-            ],
-        ]);
+        $this->routes->forAdministrators(self::ROUTE, new RestHandler(
+            \WP_REST_Server::CREATABLE,
+            $this->frameUrl(...),
+            ['url' => ['type' => 'string', 'format' => 'uri', 'required' => true]]
+        ));
     }
 
     public function frameUrl(\WP_REST_Request $request): \WP_REST_Response|\WP_Error

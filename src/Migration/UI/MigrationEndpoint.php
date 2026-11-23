@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Migration\UI;
 
 use ItalyCookieChoices\Migration\Application\Migrate;
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Schema;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -24,29 +25,22 @@ final readonly class MigrationEndpoint implements SubscriberInterface
         private Migrate $migrate,
         private ImportSummary $summary,
         private DismissedSources $dismissed,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
-        $canManage = static fn(): bool => \current_user_can(SettingsPage::CAPABILITY);
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            [
-                'methods' => \WP_REST_Server::READABLE,
-                'callback' => $this->preview(...),
-                'permission_callback' => $canManage,
-            ],
-            [
-                'methods' => \WP_REST_Server::CREATABLE,
-                'callback' => $this->import(...),
-                'permission_callback' => $canManage,
-            ],
-        ]);
+        $this->routes->forAdministrators(
+            self::ROUTE,
+            new RestHandler(\WP_REST_Server::READABLE, $this->preview(...)),
+            new RestHandler(\WP_REST_Server::CREATABLE, $this->import(...))
+        );
     }
 
     public function preview(\WP_REST_Request $request): \WP_REST_Response|\WP_Error

@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Integrations\UI;
 use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Integrations\Application\ConsentModeMapping;
 use ItalyCookieChoices\Integrations\Application\IntegrationSettings;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
@@ -62,7 +63,7 @@ final readonly class ConsentModeScript implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield EventName::FRONT_END => 'enqueue';
-        yield 'wp_head' => [
+        yield Hook::HEAD => [
             self::CALLBACK => 'print',
             self::PRIORITY => self::START_OF_THE_HEAD,
         ];

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Scan\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Scan\Application\ScanSchedule;
 use ItalyCookieChoices\Scan\Domain\Frequency;
 use ItalyCookieChoices\Scan\Domain\Schedule;
 use ItalyCookieChoices\Scan\Domain\Selection;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -24,35 +25,31 @@ final readonly class ScheduleEndpoint implements SubscriberInterface
         private ScanSchedule $schedule,
         private ScanCron $cron,
         private ScheduleData $data,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
         $ids = ['type' => 'array', 'items' => ['type' => 'integer', 'minimum' => 1], 'default' => []];
 
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->save(...),
-            'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),
-            'args' => [
-                Schedule::FREQUENCY => [
-                    'type' => 'string',
-                    'enum' => \array_column(Frequency::cases(), 'value'),
-                    'required' => true,
-                ],
-                Selection::HOME => ['type' => 'boolean', 'default' => false],
-                Selection::POST_TYPES => ['type' => 'array', 'items' => ['type' => 'string'], 'default' => []],
-                Selection::CATEGORIES => $ids,
-                Selection::POSTS => $ids,
-                Schedule::EMAIL => ['type' => 'boolean', 'default' => false],
+        $this->routes->forAdministrators(self::ROUTE, new RestHandler(\WP_REST_Server::CREATABLE, $this->save(...), [
+            Schedule::FREQUENCY => [
+                'type' => 'string',
+                'enum' => \array_column(Frequency::cases(), 'value'),
+                'required' => true,
             ],
-        ]);
+            Selection::HOME => ['type' => 'boolean', 'default' => false],
+            Selection::POST_TYPES => ['type' => 'array', 'items' => ['type' => 'string'], 'default' => []],
+            Selection::CATEGORIES => $ids,
+            Selection::POSTS => $ids,
+            Schedule::EMAIL => ['type' => 'boolean', 'default' => false],
+        ]));
     }
 
     public function save(\WP_REST_Request $request): \WP_REST_Response

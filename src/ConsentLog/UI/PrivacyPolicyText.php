@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\ConsentLog\UI;
 
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\Scan\Application\AssistantUsage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -21,7 +22,7 @@ final readonly class PrivacyPolicyText implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'admin_init' => 'add';
+        yield Hook::ADMIN_INIT => 'add';
     }
 
     public function add(): void
