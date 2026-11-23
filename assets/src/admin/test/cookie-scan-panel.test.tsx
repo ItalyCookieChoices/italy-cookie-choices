@@ -161,11 +161,16 @@ it( 'reports the pages that refuse the frame', async () => {
 		} )
 	);
 
+	// The notice, and its copy announced to the screen readers.
+	const notices = await screen.findAllByText(
+		/https:\/\/example.com\/: The page refused to open in a frame/
+	);
 	expect(
-		await screen.findByText(
-			/https:\/\/example.com\/: The page refused to open in a frame/
+		notices.some(
+			( notice ) =>
+				notice.closest( '.components-notice__content' ) !== null
 		)
-	).not.toBeNull();
+	).toBe( true );
 	await waitFor( () =>
 		expect( screen.getByText( 'Scanned 2 of 2 pages.' ) ).not.toBeNull()
 	);
