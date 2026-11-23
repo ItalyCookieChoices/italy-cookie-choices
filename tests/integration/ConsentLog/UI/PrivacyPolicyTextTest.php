@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\Integration\ConsentLog\UI;
 
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\UI\PrivacyPolicyText;
+use ItalyCookieChoices\Scan\Application\AssistantUsage;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
 use lucatume\WPBrowser\TestCase\WPTestCase;
@@ -37,6 +38,19 @@ final class PrivacyPolicyTextTest extends WPTestCase
         $this->assertStringNotContainsString('log', $this->makeSut()->text());
     }
 
+    public function testTheTextSaysWhenTheScanAssistantWasUsed(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1']);
+        $this->assertStringNotContainsString('AI service', $this->makeSut()->text());
+
+        (new AssistantUsage())->record();
+
+        $this->assertStringContainsString(
+            'Only the names of the cookies and of the third-party sites were sent to it',
+            $this->makeSut()->text()
+        );
+    }
+
     public function testTheTextIsInThePolicyGuide(): void
     {
         \update_option(Schema::OPTION, ['active' => '1']);
@@ -55,6 +69,6 @@ final class PrivacyPolicyTextTest extends WPTestCase
 
     private function makeSut(): PrivacyPolicyText
     {
-        return new PrivacyPolicyText(new LogSettings($this->options()));
+        return new PrivacyPolicyText(new LogSettings($this->options()), new AssistantUsage());
     }
 }

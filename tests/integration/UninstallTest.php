@@ -15,6 +15,7 @@ final class UninstallTest extends WPTestCase
         \update_option('italy_cookie_choices_connection_notice', '1');
         \update_option('italy_cookie_choices_scan_schedule', ['frequency' => 'daily']);
         \update_option('italy_cookie_choices_scan_report', ['date' => '2026-11-01']);
+        \update_option('italy_cookie_choices_scan_assistant_used', '2026-11-01T10:00:00+00:00');
         \wp_schedule_event(\time(), 'daily', 'italy_cookie_choices_scan');
         \wp_schedule_event(\time(), 'daily', 'italy_cookie_choices_consent_log_cleanup');
         $queries = [];
@@ -39,6 +40,7 @@ final class UninstallTest extends WPTestCase
         $this->assertNull(\get_option('italy_cookie_choices_connection_notice', null));
         $this->assertNull(\get_option('italy_cookie_choices_scan_schedule', null));
         $this->assertNull(\get_option('italy_cookie_choices_scan_report', null));
+        $this->assertNull(\get_option('italy_cookie_choices_scan_assistant_used', null));
         $this->assertFalse(\wp_next_scheduled('italy_cookie_choices_scan'));
         $this->assertFalse(\wp_next_scheduled('italy_cookie_choices_consent_log_cleanup'));
         $this->assertContains('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'icc_consent_log', $queries);

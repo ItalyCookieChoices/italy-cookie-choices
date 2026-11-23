@@ -13,6 +13,7 @@ use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Migration\Domain\MigrationSource;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
 use ItalyCookieChoices\Multilingual\UI\LanguagesData;
+use ItalyCookieChoices\Scan\Application\ScanAssistant;
 use ItalyCookieChoices\Scan\UI\ScheduleData;
 use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyStrap\Asset\AssetLoader;
@@ -71,6 +72,7 @@ final readonly class SettingsPage implements SubscriberInterface
         private NetworkSettings $network,
         private LanguagesData $languages,
         private ScheduleData $scanSchedule,
+        private ScanAssistant $scanAssistant,
         private LinkTranslations $linkTranslations,
         private MigrationSources $migrationSources,
         private ViewInterface $view,
@@ -204,6 +206,7 @@ final readonly class SettingsPage implements SubscriberInterface
      *     textsOnly: bool,
      *     postTypes: list<array{slug: string, name: string}>,
      *     scanSchedule: array<string, mixed>,
+     *     scanAssistant: bool,
      *     linkTranslations: array<
      *         string,
      *         list<array{language: string, name: string, current: string, proposal: string}>
@@ -241,6 +244,8 @@ final readonly class SettingsPage implements SubscriberInterface
             'postTypes' => $this->postTypes(),
             // The schedule of the scan and its last report.
             'scanSchedule' => $this->scanSchedule->data(),
+            // The suggestions of the AI provider of the site, only with the AI Client of WordPress 7.0.
+            'scanAssistant' => $this->scanAssistant->isAvailable(),
             // The policy and legal notice links in each language of WPML or Polylang.
             'linkTranslations' => $this->linkTranslations(),
             // The sites connected as translations, by MultilingualPress.

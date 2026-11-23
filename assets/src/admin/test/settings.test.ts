@@ -44,6 +44,7 @@ describe( 'parseAdminData', () => {
 				consentLogExportUrl: 'https://example.com/export',
 				documentationUrl: 42,
 				textsOnly: true,
+				scanAssistant: true,
 				canEditScripts: true,
 				migrationSources: [
 					{ id: 'complianz', name: 'Complianz' },
@@ -87,6 +88,7 @@ describe( 'parseAdminData', () => {
 				adminEmail: '',
 				report: null,
 			},
+			scanAssistant: true,
 			linkTranslations: { policy: [], 'legal-notice': [] },
 			languages: { siteId: 0, language: '', sites: [] },
 			canEditScripts: true,
@@ -112,6 +114,7 @@ describe( 'parseAdminData', () => {
 				adminEmail: '',
 				report: null,
 			},
+			scanAssistant: false,
 			linkTranslations: { policy: [], 'legal-notice': [] },
 			languages: { siteId: 0, language: '', sites: [] },
 			canEditScripts: false,

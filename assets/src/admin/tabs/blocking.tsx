@@ -31,6 +31,8 @@ interface BlockingTabProps extends SettingsProps {
 	/** The post types the scan of the site reads. */
 	postTypes?: readonly PostType[];
 	scanSchedule?: ScanSchedule;
+	/** True when the AI provider of the site suggests the vendors and the cookies of the scans. */
+	scanAssistant?: boolean;
 }
 
 function tokens(
@@ -172,6 +174,8 @@ export function BlockingTab( props: BlockingTabProps ) {
 					: { schedule: props.scanSchedule } ) }
 				customCategory={ categories[ categories.length - 1 ]?.id ?? '' }
 				siteCookieCategory={ props.categories[ 0 ]?.id ?? '' }
+				categories={ props.categories }
+				hasAssistant={ props.scanAssistant === true }
 			/>
 			<fieldset className="icc-admin__group">
 				<legend>

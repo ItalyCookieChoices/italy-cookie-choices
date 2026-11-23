@@ -38,9 +38,12 @@ import {
 	isVendorBlocked,
 	newCustomVendor,
 	withVendorBlocked,
+	type Category,
 	type PostType,
 	type Vendor,
 } from './settings';
+import { byKey, type HostSuggestion } from './assistant';
+import { AskAssistant, SuggestionNote } from './assistant-panel';
 
 const SEARCH_DELAY = 300;
 
@@ -53,6 +56,9 @@ interface ScanPanelProps extends SettingsProps {
 	siteCookieCategory: string;
 	/** The schedule of the scan, its pages are the first selection of the panel. */
 	schedule?: ScanSchedule;
+	categories: readonly Category[];
+	/** True when the AI provider of the site suggests the unknown third parties and cookies. */
+	hasAssistant: boolean;
 }
 
 interface SearchFieldProps {
@@ -149,6 +155,9 @@ export function ScanPanel( props: ScanPanelProps ) {
 	const [ isTruncated, setTruncated ] = useState( false );
 	const [ isScanning, setScanning ] = useState( false );
 	const [ error, setError ] = useState( '' );
+	const [ suggestions, setSuggestions ] = useState<
+		Record< string, HostSuggestion >
+	>( {} );
 
 	const isEmpty =
 		! home &&
@@ -208,17 +217,29 @@ export function ScanPanel( props: ScanPanelProps ) {
 	}
 
 	function addCustomVendor( host: string ): void {
+		const suggestion = suggestions[ host ];
 		onChange( {
 			...settings,
 			custom_vendors: [
 				...customVendors,
 				{
-					...newCustomVendor( customVendors, customCategory ),
-					name: host,
+					...newCustomVendor(
+						customVendors,
+						suggestion?.category ?? customCategory
+					),
+					name:
+						suggestion !== undefined && suggestion.name !== ''
+							? suggestion.name
+							: host,
 					patterns: [ host ],
 				},
 			],
 		} );
+	}
+
+	function discardSuggestion( host: string ): void {
+		const { [ host ]: _discarded, ...others } = suggestions;
+		setSuggestions( others );
 	}
 
 	return (
@@ -378,35 +399,61 @@ export function ScanPanel( props: ScanPanelProps ) {
 									'italy-cookie-choices'
 								) }
 							</p>
+							{ props.hasAssistant && (
+								<AskAssistant
+									hosts={ Object.keys( report.hosts ) }
+									onSuggestions={ ( found ) =>
+										setSuggestions(
+											byKey( found.hosts, 'host' )
+										)
+									}
+								/>
+							) }
 							{ Object.entries( report.hosts ).map(
 								( [ host, pages ] ) => (
-									<div
-										className="icc-admin__found"
-										key={ host }
-									>
-										<code>{ host }</code>
-										<span>{ pagesCount( pages ) }</span>
-										<Button
-											variant="secondary"
-											disabled={ isCustomPattern( host ) }
-											aria-label={ sprintf(
-												/* translators: %s: the host of the third party. */
-												__(
-													'Add %s as a custom vendor',
+									<Fragment key={ host }>
+										<div className="icc-admin__found">
+											<code>{ host }</code>
+											<span>{ pagesCount( pages ) }</span>
+											<Button
+												variant="secondary"
+												disabled={ isCustomPattern(
+													host
+												) }
+												aria-label={ sprintf(
+													/* translators: %s: the host of the third party. */
+													__(
+														'Add %s as a custom vendor',
+														'italy-cookie-choices'
+													),
+													host
+												) }
+												onClick={ () =>
+													addCustomVendor( host )
+												}
+											>
+												{ __(
+													'Add as a custom vendor',
 													'italy-cookie-choices'
-												),
-												host
-											) }
-											onClick={ () =>
-												addCustomVendor( host )
-											}
-										>
-											{ __(
-												'Add as a custom vendor',
-												'italy-cookie-choices'
-											) }
-										</Button>
-									</div>
+												) }
+											</Button>
+										</div>
+										{ suggestions[ host ] !== undefined && (
+											<SuggestionNote
+												who={ suggestions[ host ].name }
+												category={
+													suggestions[ host ].category
+												}
+												purpose={
+													suggestions[ host ].purpose
+												}
+												categories={ props.categories }
+												onDiscard={ () =>
+													discardSuggestion( host )
+												}
+											/>
+										) }
+									</Fragment>
 								)
 							) }
 						</Fragment>
@@ -430,6 +477,8 @@ export function ScanPanel( props: ScanPanelProps ) {
 					( await scanTargets( selection ) ).targets
 				}
 				siteCookieCategory={ props.siteCookieCategory }
+				categories={ props.categories }
+				hasAssistant={ props.hasAssistant }
 				disabled={ isScanning || isEmpty }
 			/>
 		</fieldset>

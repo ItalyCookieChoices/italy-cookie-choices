@@ -795,6 +795,21 @@
             ],
             "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. The scan of the cookies below finds the cookies the pages set in the browser.": [
                 ""
+            ],
+            "The AI provider did not answer.": [
+                ""
+            ],
+            "Suggest with AI": [
+                ""
+            ],
+            "Sends only these names to the AI provider of the site, no data of the visitors. Check each suggestion before you add it.": [
+                ""
+            ],
+            "Suggested: %1$s, %2$s. %3$s": [
+                ""
+            ],
+            "Discard the suggestion": [
+                ""
             ]
         }
     }

@@ -12,6 +12,7 @@ jest.mock( '../api', () => ( {
 	scanTargets: jest.fn(),
 	scanPages: jest.fn(),
 	saveScanSchedule: jest.fn(),
+	suggestForScan: jest.fn(),
 } ) );
 
 const mocked = jest.mocked( api );
@@ -21,7 +22,17 @@ const VENDORS = [
 	{ id: 'hotjar', name: 'Hotjar', category: 'statistics' },
 ];
 
-function renderPanel( settings = {} ) {
+const CATEGORIES = [
+	{ id: 'necessary', required: true, label: 'Necessary', description: '' },
+	{
+		id: 'preferences',
+		required: false,
+		label: 'Preferences',
+		description: '',
+	},
+];
+
+function renderPanel( settings = {}, hasAssistant = false ) {
 	const onChange = jest.fn();
 	render(
 		<ScanPanel
@@ -33,6 +44,8 @@ function renderPanel( settings = {} ) {
 				{ slug: 'post', name: 'Posts' },
 			] }
 			siteCookieCategory="necessary"
+			categories={ CATEGORIES }
+			hasAssistant={ hasAssistant }
 			customCategory="marketing"
 		/>
 	);
@@ -171,6 +184,8 @@ it( 'starts from the pages of the schedule and shows its last report', () => {
 			vendors={ VENDORS }
 			postTypes={ [ { slug: 'page', name: 'Pages' } ] }
 			siteCookieCategory="necessary"
+			categories={ [] }
+			hasAssistant={ false }
 			customCategory="marketing"
 			schedule={ {
 				frequency: 'weekly',
@@ -248,4 +263,147 @@ it( 'saves the schedule with the chosen pages', async () => {
 			selector: '.components-notice__content',
 		} )
 	).toBeTruthy();
+} );
+
+it( 'adds an unknown third party with the suggestion of the AI provider, when asked', async () => {
+	mocked.scanTargets.mockResolvedValue( {
+		targets: [ { id: 0, title: 'Home page', url: 'https://example.com/' } ],
+		truncated: false,
+	} );
+	mocked.scanPages.mockResolvedValue( [
+		{
+			id: 0,
+			url: 'https://example.com/',
+			vendors: [],
+			hosts: [ 'widget.chat.example' ],
+			error: '',
+		},
+	] );
+	mocked.suggestForScan.mockResolvedValue( {
+		hosts: [
+			{
+				host: 'widget.chat.example',
+				name: 'Chat Widget',
+				category: 'preferences',
+				purpose: 'Shows the chat.',
+				vendor: '',
+			},
+		],
+		cookies: [],
+	} );
+	const onChange = renderPanel( {}, true );
+
+	fireEvent.click( screen.getByLabelText( 'Home page' ) );
+	fireEvent.click( screen.getByRole( 'button', { name: 'Scan the site' } ) );
+	fireEvent.click(
+		await screen.findByRole( 'button', { name: 'Suggest with AI' } )
+	);
+
+	expect(
+		await screen.findByText(
+			'Suggested: Chat Widget, Preferences. Shows the chat.'
+		)
+	).not.toBeNull();
+	expect( mocked.suggestForScan ).toHaveBeenCalledWith(
+		[ 'widget.chat.example' ],
+		[]
+	);
+	expect( onChange ).not.toHaveBeenCalled();
+
+	fireEvent.click(
+		screen.getByRole( 'button', {
+			name: 'Add widget.chat.example as a custom vendor',
+		} )
+	);
+
+	expect( onChange ).toHaveBeenLastCalledWith( {
+		custom_vendors: [
+			{
+				id: 'custom-1',
+				name: 'Chat Widget',
+				category: 'preferences',
+				patterns: [ 'widget.chat.example' ],
+			},
+		],
+	} );
+} );
+
+it( 'discards a suggestion of the AI provider', async () => {
+	mocked.scanTargets.mockResolvedValue( {
+		targets: [ { id: 0, title: 'Home page', url: 'https://example.com/' } ],
+		truncated: false,
+	} );
+	mocked.scanPages.mockResolvedValue( [
+		{
+			id: 0,
+			url: 'https://example.com/',
+			vendors: [],
+			hosts: [ 'cdn.example.org' ],
+			error: '',
+		},
+	] );
+	mocked.suggestForScan.mockResolvedValue( {
+		hosts: [
+			{
+				host: 'cdn.example.org',
+				name: 'CDN',
+				category: 'preferences',
+				purpose: 'Serves files.',
+				vendor: '',
+			},
+		],
+		cookies: [],
+	} );
+	const onChange = renderPanel( {}, true );
+
+	fireEvent.click( screen.getByLabelText( 'Home page' ) );
+	fireEvent.click( screen.getByRole( 'button', { name: 'Scan the site' } ) );
+	fireEvent.click(
+		await screen.findByRole( 'button', { name: 'Suggest with AI' } )
+	);
+	fireEvent.click(
+		await screen.findByRole( 'button', { name: 'Discard the suggestion' } )
+	);
+	fireEvent.click(
+		screen.getByRole( 'button', {
+			name: 'Add cdn.example.org as a custom vendor',
+		} )
+	);
+
+	expect( screen.queryByText( /Suggested:/ ) ).toBeNull();
+	expect( onChange ).toHaveBeenLastCalledWith( {
+		custom_vendors: [
+			{
+				id: 'custom-1',
+				name: 'cdn.example.org',
+				category: 'marketing',
+				patterns: [ 'cdn.example.org' ],
+			},
+		],
+	} );
+} );
+
+it( 'hides the AI suggestions without an AI provider', async () => {
+	mocked.scanTargets.mockResolvedValue( {
+		targets: [ { id: 0, title: 'Home page', url: 'https://example.com/' } ],
+		truncated: false,
+	} );
+	mocked.scanPages.mockResolvedValue( [
+		{
+			id: 0,
+			url: 'https://example.com/',
+			vendors: [],
+			hosts: [ 'cdn.example.org' ],
+			error: '',
+		},
+	] );
+	renderPanel();
+
+	fireEvent.click( screen.getByLabelText( 'Home page' ) );
+	fireEvent.click( screen.getByRole( 'button', { name: 'Scan the site' } ) );
+
+	expect( await screen.findByText( 'cdn.example.org' ) ).not.toBeNull();
+	expect(
+		screen.queryByRole( 'button', { name: 'Suggest with AI' } )
+	).toBeNull();
 } );

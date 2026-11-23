@@ -89,6 +89,16 @@ La pagina si apre con un indirizzo monouso, valido per cinque minuti, e non vien
 * I cookie impostati dai frame di altri siti, come un video di YouTube, e da un clic, uno scorrimento o un'azione del carrello non vengono trovati: i cookie dei fornitori arrivano dai loro preset.
 * Una pagina che rifiuta di aprirsi in un frame, come con l'header `X-Frame-Options` di un plugin di sicurezza, viene segnalata con il motivo. Viene segnalata anche una cache di pagina che serve l'indirizzo con `icc_scan`: escludi quel parametro dalla cache.
 
+### Assistente della scansione
+
+Da WordPress 7.0, con un fornitore di IA per il testo impostato in **Impostazioni > Connettori**, le scansioni possono suggerire cosa hanno trovato. Senza un fornitore, o con un WordPress più vecchio, l'assistente è nascosto.
+
+* **Suggerisci con l'IA**, sotto le terze parti sconosciute di **Scansiona il sito**, suggerisce il nome di ognuna, la categoria dei suoi script e la loro finalità. **Aggiungi come fornitore personalizzato** usa poi il nome e la categoria suggeriti.
+* **Suggerisci con l'IA**, sotto i cookie di **Scansiona i cookie nel browser**, suggerisce chi imposta ogni cookie sconosciuto, la sua categoria e la sua finalità. **Aggiungi come cookie del sito** usa poi la categoria e la finalità suggerite.
+* **Scarta il suggerimento** lo elimina, il pulsante per aggiungere torna ai valori predefiniti.
+
+L'assistente parte solo quando fai clic, e nulla viene salvato prima che tu aggiunga un suggerimento e salvi le impostazioni. Invia al fornitore di IA del sito solo i nomi degli host e dei cookie, le categorie e i fornitori comuni: mai i dati dei visitatori o il registro dei consensi. I suggerimenti possono essere sbagliati, controllali uno per uno. Dopo il primo uso, il testo suggerito per la privacy policy, in **Impostazioni > Privacy**, dice che il gestore del sito ha usato un servizio di IA in questo modo.
+
 ## Google tag gateway
 
 Con il Google tag gateway i tag di Google vengono caricati da un percorso del tuo sito, come `/metrics`, invece che da `googletagmanager.com`. Il plugin li blocca dall'id nel loro indirizzo: `G-` e `GT-` aspettano il consenso alle statistiche come Google Analytics, `AW-` e `DC-` aspettano il consenso al marketing come Google Ads, `GTM-` aspetta il consenso al marketing come Google Tag Manager. Anche lo script inline che carica Google Tag Manager viene bloccato su qualsiasi dominio.

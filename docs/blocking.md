@@ -89,6 +89,16 @@ The page opens with a one-time address that is valid for five minutes, and it is
 * The cookies set by the frames of other sites, like a YouTube video, and by a click, a scroll or a cart action are not found: the vendor cookies come from their presets.
 * A page that refuses to open in a frame, like with the `X-Frame-Options` header of a security plugin, is reported with the reason. A page cache that serves the address with `icc_scan` is reported too: exclude that parameter from the cache.
 
+### Scan assistant
+
+From WordPress 7.0, with an AI provider for text set in **Settings > Connectors**, the scans can suggest what they found. Without a provider, or on an older WordPress, the assistant is hidden.
+
+* **Suggest with AI**, below the unknown third parties of **Scan the site**, suggests the name of each one, the category of its scripts and their purpose. **Add as a custom vendor** then uses the suggested name and category.
+* **Suggest with AI**, below the cookies of **Scan the cookies in the browser**, suggests who sets each unknown cookie, its category and its purpose. **Add as a site cookie** then uses the suggested category and purpose.
+* **Discard the suggestion** drops it, the add button goes back to the defaults.
+
+The assistant runs only when you click, and nothing is saved before you add a suggestion and save the settings. It sends to the AI provider of the site only the names of the hosts and of the cookies, the categories and the common vendors: never the data of the visitors or the consent log. The suggestions can be wrong, check each one. After the first use, the suggested text of the privacy policy, in **Settings > Privacy**, says that the site owner used an AI service in this way.
+
 ## Google tag gateway
 
 With the Google tag gateway the Google tags load from a path of your site, like `/metrics`, instead of `googletagmanager.com`. The plugin blocks them by the id in their address: `G-` and `GT-` wait for the statistics consent like Google Analytics, `AW-` and `DC-` wait for the marketing consent like Google Ads, `GTM-` waits for the marketing consent like Google Tag Manager. The inline loader of Google Tag Manager is blocked on any host too.
