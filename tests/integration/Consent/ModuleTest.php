@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration\Consent;
 
 use ItalyCookieChoices\Consent\Domain\ConsentRepository;
-use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
+use ItalyCookieChoices\Consent\Infrastructure\ScanConsentRepository;
 use ItalyCookieChoices\Consent\Module;
 use ItalyCookieChoices\Consent\UI\AcceptButtonShortcode;
 use ItalyCookieChoices\Consent\UI\Banner;
@@ -15,6 +15,7 @@ use ItalyCookieChoices\Consent\UI\ConsentScript;
 use ItalyCookieChoices\Consent\UI\HasConsentFilter;
 use ItalyCookieChoices\Consent\UI\PreferencesButtonBlock;
 use ItalyCookieChoices\Consent\UI\PreferencesShortcode;
+use ItalyCookieChoices\Scan\Module as ScanModule;
 use ItalyStrap\Empress\ContainerBuilder;
 use ItalyStrap\Event\Module as EventModule;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -51,7 +52,7 @@ final class ModuleTest extends WPTestCase
 
         $repository = $this->container($cookies)->get(ConsentRepository::class);
 
-        $this->assertInstanceOf(CookieConsentRepository::class, $repository);
+        $this->assertInstanceOf(ScanConsentRepository::class, $repository);
         $this->assertSame(['necessary'], $repository->current()?->categories());
     }
 
@@ -71,6 +72,8 @@ final class ModuleTest extends WPTestCase
         return (new ContainerBuilder())
             ->addModule(new EventModule())
             ->addModule(new Module('/plugin/', 'https://example.com/plugin/', $cookies))
+            // The scan mode of the request.
+            ->addModule(new ScanModule('/plugin/', 'https://example.com/plugin/', []))
             ->build();
     }
 }

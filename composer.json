@@ -36,7 +36,8 @@
     "italystrap/finder": "dev-master",
     "italystrap/config": "^2.12.1",
     "italystrap/asset": "^2.0",
-    "italystrap/pipeline": "^1.0"
+    "italystrap/pipeline": "^1.0",
+    "italystrap/cache": "^2.0"
   },
   "require-dev": {
     "lucatume/wp-browser": "^4.5",

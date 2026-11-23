@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Settings\UI;
 
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
+use ItalyCookieChoices\Cookies\Application\PresetCookies;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Migration\Application\MigrationSources;
@@ -65,6 +66,7 @@ final readonly class SettingsPage implements SubscriberInterface
     public function __construct(
         private ConsentTexts $texts,
         private VendorPresets $presets,
+        private PresetCookies $presetCookies,
         private ConsentLogExport $logExport,
         private NetworkSettings $network,
         private LanguagesData $languages,
@@ -196,7 +198,7 @@ final readonly class SettingsPage implements SubscriberInterface
      *
      * @return array{
      *     categories: list<array{id: string, required: bool, label: string, description: string}>,
-     *     vendors: list<array{id: string, name: string, category: string}>,
+     *     vendors: list<array{id: string, name: string, category: string, cookies: list<string>}>,
      *     consentLogExportUrl: string,
      *     documentationUrl: string,
      *     textsOnly: bool,
@@ -223,6 +225,8 @@ final readonly class SettingsPage implements SubscriberInterface
                 'id' => $vendor->id(),
                 'name' => $this->presets->name($vendor->id()),
                 'category' => $vendor->category(),
+                // The names of its cookies, for the scan of the cookies in the browser.
+                'cookies' => \array_column($this->presetCookies->of($vendor->id()), 'name'),
             ];
         }
 

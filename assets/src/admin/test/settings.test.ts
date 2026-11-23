@@ -33,7 +33,12 @@ describe( 'parseAdminData', () => {
 					{ label: 'No id' },
 				],
 				vendors: [
-					{ id: 'youtube', name: 'YouTube', category: 'marketing' },
+					{
+						id: 'youtube',
+						name: 'YouTube',
+						category: 'marketing',
+						cookies: [ 'YSC', 3 ],
+					},
 					{ id: 'x' },
 				],
 				consentLogExportUrl: 'https://example.com/export',
@@ -61,7 +66,12 @@ describe( 'parseAdminData', () => {
 				},
 			],
 			vendors: [
-				{ id: 'youtube', name: 'YouTube', category: 'marketing' },
+				{
+					id: 'youtube',
+					name: 'YouTube',
+					category: 'marketing',
+					cookies: [ 'YSC' ],
+				},
 			],
 			consentLogExportUrl: 'https://example.com/export',
 			documentationUrl: '',

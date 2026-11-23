@@ -62,7 +62,7 @@ The guidelines of the Italian Data Protection Authority ask that the visitors ca
    * The pages that could not be read, with the reason.
 4. Save the changes: the scan changes nothing by itself.
 
-The scan reads the HTML of the pages: it finds the scripts, the frames and the tracking pixels, not the cookies that JavaScript sets in the browser. The cookies of the vendors come from their presets, see the cookie table. A selection scans 500 pages at most. When the host blocks the requests of the site to itself, like the Site Health of WordPress reports, the scan shows the error of each page.
+The scan reads the HTML of the pages: it finds the scripts, the frames and the tracking pixels, not the cookies that JavaScript sets in the browser, see [Cookies in the browser](#cookies-in-the-browser). The cookies of the vendors come from their presets, see the cookie table. A selection scans 500 pages at most. When the host blocks the requests of the site to itself, like the Site Health of WordPress reports, the scan shows the error of each page.
 
 ### Scheduled scan
 
@@ -74,6 +74,20 @@ The same pages can be scanned by themselves, with WP-Cron. In **Scheduled scan**
 * The tab shows the date and the findings of the last scheduled scan.
 
 WP-Cron runs when the site gets visits: on a site with few visits, or with `DISABLE_WP_CRON`, use a real cron job of the server.
+
+### Cookies in the browser
+
+**Scan the cookies in the browser**, below the results of the scan, finds the cookies your pages set while they load, with their duration: the first-party cookies of the scripts and the plugins, like the cart of the shop or the language, that the vendor presets do not cover.
+
+1. Choose the pages, like for **Scan the site**, and click **Scan the cookies in the browser**.
+2. Each page is loaded in a hidden frame, one at a time, with every category accepted in memory: the scripts that wait for the consent run, no consent cookie is saved, no consent is logged and the banner stays closed. The page gets a few seconds after the load for the scripts that start later.
+3. The list shows each cookie with its duration, the number of pages and who sets it: a vendor, a site cookie, or **Unknown**. **Add as a site cookie** adds an unknown cookie to the site cookies, with its duration filled in: choose its category, write its purpose and save.
+
+The page opens with a one-time address that is valid for five minutes, and it is never cached. The scan reads the cookies of the scripts, with their duration, and the cookies the server sends, HttpOnly included.
+
+* In Chrome and Edge the frame loads the pages as an anonymous visitor, with cookies of its own: the scan changes neither your cookies nor your login. Firefox and Safari load them as the logged-in administrator, and some plugins do not track the administrators: the panel shows a warning.
+* The cookies set by the frames of other sites, like a YouTube video, and by a click, a scroll or a cart action are not found: the vendor cookies come from their presets.
+* A page that refuses to open in a frame, like with the `X-Frame-Options` header of a security plugin, is reported with the reason. A page cache that serves the address with `icc_scan` is reported too: exclude that parameter from the cache.
 
 ## Google tag gateway
 

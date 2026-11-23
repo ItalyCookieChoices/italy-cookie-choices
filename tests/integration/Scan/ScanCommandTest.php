@@ -28,7 +28,7 @@ final class ScanCommandTest extends WPTestCase
 
     public function testTheModuleListsTheScanCommand(): void
     {
-        $config = (new Module())();
+        $config = (new Module('/plugin/', 'https://example.com/plugin/', []))();
 
         $this->assertIsArray($config);
         $this->assertSame([ScanCommand::class], $config[CommandsConfigExtension::COMMANDS]);

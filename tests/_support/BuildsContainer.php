@@ -43,7 +43,7 @@ trait BuildsContainer
             ->addModule(new IntegrationsModule($pluginPath, $pluginUrl))
             ->addModule(new CookiesModule($pluginPath, $pluginUrl))
             ->addModule(new MultilingualModule())
-            ->addModule(new ScanModule())
+            ->addModule(new ScanModule($pluginPath, $pluginUrl, []))
             ->addModule(new MigrationModule())
             ->addModule(new DashboardModule($pluginPath, $pluginUrl))
             ->addModule(new CliModule())

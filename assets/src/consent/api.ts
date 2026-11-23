@@ -1,4 +1,4 @@
-import type { Cookies } from './cookies';
+import type { CookieJar } from './cookies';
 import { randomId } from './id';
 import {
 	CONSENT_CHANGED,
@@ -45,7 +45,7 @@ function isConsent( value: unknown ): value is Consent {
  */
 export function createConsentApi(
 	config: ConsentConfig,
-	cookies: Cookies,
+	cookies: CookieJar,
 	events: EventTarget,
 	now: () => Date = () => new Date(),
 	newId: () => string = () => randomId()

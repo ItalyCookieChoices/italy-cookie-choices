@@ -13,6 +13,7 @@ use ItalyCookieChoices\Blocking\Application\VendorChoices;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyCookieChoices\Tests\Support\Scan\BuildsScanRequests;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\ScriptLoader;
 use ItalyStrap\Event\Dispatcher;
@@ -25,6 +26,7 @@ final class ConsentScriptTest extends WPTestCase
 {
     use BuildsContainer;
     use BuildsOptions;
+    use BuildsScanRequests;
 
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
 
@@ -177,7 +179,12 @@ final class ConsentScriptTest extends WPTestCase
         $this->assertFalse(\wp_script_is(ConsentScript::HANDLE, 'registered'));
     }
 
-    private function makeSut(string $buildPath = ''): ConsentScript
+    public function testAPageInScanModeAcceptsEveryCategoryInMemory(): void
+    {
+        $this->assertTrue($this->makeSut(isScan: true)->config()['scan'] ?? null);
+    }
+
+    private function makeSut(string $buildPath = '', bool $isScan = false): ConsentScript
     {
         $fixtures = \codecept_data_dir('consent-build/');
         $this->assertIsString($fixtures);
@@ -187,6 +194,7 @@ final class ConsentScriptTest extends WPTestCase
             $this->options(),
             new ConsentCookieDomain($this->options()),
             $this->service(VendorChoices::class),
+            $this->scanRequest($isScan),
             new AssetLoader(),
             new ScriptLoader(),
             $buildPath === '' ? $fixtures : $buildPath,

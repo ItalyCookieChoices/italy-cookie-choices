@@ -119,6 +119,8 @@ export interface Vendor {
 	id: string;
 	name: string;
 	category: string;
+	/** The names of the cookies it sets, like _ga_*, for the scan of the cookies. */
+	cookies?: string[];
 }
 
 /** A site connected as a translation by MultilingualPress, that the user administers. */
@@ -303,6 +305,11 @@ function vendorFrom( value: unknown ): Vendor | null {
 		id: value.id,
 		name: typeof value.name === 'string' ? value.name : value.id,
 		category: value.category,
+		cookies: Array.isArray( value.cookies )
+			? value.cookies.filter(
+					( cookie ): cookie is string => typeof cookie === 'string'
+				)
+			: [],
 	};
 }
 

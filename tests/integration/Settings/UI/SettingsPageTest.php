@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\Integration\Settings\UI;
 
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\UI\ConsentTexts;
+use ItalyCookieChoices\Cookies\Application\PresetCookies;
 use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
@@ -152,11 +153,21 @@ final class SettingsPageTest extends WPTestCase
         $this->assertSame('Statistics', $data['categories'][2]['label'] ?? null);
         $vendors = \array_column($data['vendors'], null, 'id');
         $this->assertSame(
-            ['id' => 'youtube', 'name' => 'YouTube', 'category' => 'marketing'],
+            [
+                'id' => 'youtube',
+                'name' => 'YouTube',
+                'category' => 'marketing',
+                'cookies' => ['YSC', '__Secure-YNID', 'PREF'],
+            ],
             $vendors['youtube'] ?? null
         );
         $this->assertSame(
-            ['id' => 'google-recaptcha', 'name' => 'Google reCAPTCHA', 'category' => 'marketing'],
+            [
+                'id' => 'google-recaptcha',
+                'name' => 'Google reCAPTCHA',
+                'category' => 'marketing',
+                'cookies' => ['_GRECAPTCHA'],
+            ],
             $vendors['google-recaptcha'] ?? null
         );
         $this->assertSame($this->service(ConsentLogExport::class)->url(), $data['consentLogExportUrl']);
@@ -193,6 +204,7 @@ final class SettingsPageTest extends WPTestCase
         return new SettingsPage(
             $this->service(ConsentTexts::class),
             $this->service(VendorPresets::class),
+            $this->service(PresetCookies::class),
             $this->service(ConsentLogExport::class),
             new NetworkSettings(),
             $this->service(LanguagesData::class),

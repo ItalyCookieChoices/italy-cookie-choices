@@ -32,6 +32,7 @@ function renderPanel( settings = {} ) {
 				{ slug: 'page', name: 'Pages' },
 				{ slug: 'post', name: 'Posts' },
 			] }
+			siteCookieCategory="necessary"
 			customCategory="marketing"
 		/>
 	);
@@ -169,6 +170,7 @@ it( 'starts from the pages of the schedule and shows its last report', () => {
 			onChange={ jest.fn() }
 			vendors={ VENDORS }
 			postTypes={ [ { slug: 'page', name: 'Pages' } ] }
+			siteCookieCategory="necessary"
 			customCategory="marketing"
 			schedule={ {
 				frequency: 'weekly',

@@ -45,7 +45,7 @@ The cookies are grouped in four categories: **Necessary**, always active, **Pref
 
 ![The Blocking tab](images/en_US-3-settings-blocking.png)
 
-The common vendors, like Google Analytics, YouTube, Google Maps and Facebook, are blocked until the consent to their category. You can turn a vendor off, add your own vendors and list the addresses that are never blocked. **Scan the site** finds the vendors of your pages. See [Blocking the third parties](blocking.md).
+The common vendors, like Google Analytics, YouTube, Google Maps and Facebook, are blocked until the consent to their category. You can turn a vendor off, add your own vendors and list the addresses that are never blocked. **Scan the site** finds the vendors of your pages, **Scan the cookies in the browser** finds the cookies they set. See [Blocking the third parties](blocking.md).
 
 ## Integrations
 

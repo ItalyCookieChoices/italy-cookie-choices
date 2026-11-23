@@ -456,6 +456,22 @@ export async function scanPages( ids: number[] ): Promise< ScannedPage[] > {
 }
 
 /**
+ * The address of a page of the site in scan mode, with a one-time token, for the scan of the cookies.
+ * @param url The address of the page.
+ */
+export async function frameScanUrl( url: string ): Promise< string > {
+	const response: unknown = await apiFetch( {
+		path: '/italy-cookie-choices/v1/scan/frame',
+		method: 'POST',
+		data: { url },
+	} );
+
+	return isRecord( response ) && typeof response.url === 'string'
+		? response.url
+		: '';
+}
+
+/**
  * Saves the schedule of the scan, the server schedules its cron event.
  * @param schedule The frequency, the selection and the email choice.
  */

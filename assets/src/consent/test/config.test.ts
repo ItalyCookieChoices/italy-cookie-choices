@@ -25,6 +25,11 @@ describe( 'parseConfig', () => {
 		} );
 	} );
 
+	it( 'reads a page in scan mode', () => {
+		expect( parseConfig( { scan: true } ).scan ).toBe( true );
+		expect( parseConfig( { scan: '1' } ) ).not.toHaveProperty( 'scan' );
+	} );
+
 	it( 'reads the address that renews the consent cookie', () => {
 		expect(
 			parseConfig( { renewalUrl: 'https://example.com/consent-cookie' } )
