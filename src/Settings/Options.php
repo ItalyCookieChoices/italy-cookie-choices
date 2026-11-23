@@ -201,6 +201,16 @@ final readonly class Options
     }
 
     /**
+     * Saves the settings in place of the saved ones, the Sanitizer of the option runs on them.
+     *
+     * @param array<array-key, mixed> $settings
+     */
+    public function replace(array $settings): void
+    {
+        \update_option(Schema::OPTION, $settings);
+    }
+
+    /**
      * Saves the values over the saved settings, the Sanitizer of the option runs on the whole option.
      *
      * @param array<string, mixed> $values

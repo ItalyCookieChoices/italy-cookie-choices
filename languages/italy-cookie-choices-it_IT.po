@@ -962,6 +962,7 @@ msgstr "Cookie del sito"
 msgid "The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors."
 msgstr "I cookie del sito stesso, come l'accesso di WordPress o il carrello del negozio, per la tabella dei cookie. La tabella elenca già il cookie del consenso e i cookie dei fornitori."
 
+#: src/Cookies/UI/SiteCookieAbility.php:39
 #: assets/build/settings.js:23
 msgid "Add a site cookie"
 msgstr "Aggiungi un cookie del sito"
@@ -1142,11 +1143,11 @@ msgstr "Conta le risposte al banner dei cookie per mese, dal registro dei consen
 msgid "The cookie banner, the blocked vendors and the consent log of the site."
 msgstr "Il banner dei cookie, i fornitori bloccati e il registro dei consensi del sito."
 
-#: src/Settings/UI/SettingsAbility.php:31
+#: src/Settings/UI/SettingsAbility.php:40
 msgid "Get the cookie settings"
 msgstr "Leggi le impostazioni dei cookie"
 
-#: src/Settings/UI/SettingsAbility.php:32
+#: src/Settings/UI/SettingsAbility.php:41
 msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
 msgstr "Restituisce le impostazioni del banner dei cookie, del blocco dei fornitori e del registro dei consensi."
 
@@ -1497,6 +1498,7 @@ msgid_plural "%d pages"
 msgstr[0] "%d pagina"
 msgstr[1] "%d pagine"
 
+#: src/Scan/UI/ScanAbilities.php:45
 #: assets/build/settings.js:16
 msgid "Scan the site"
 msgstr "Scansiona il sito"
@@ -1872,69 +1874,69 @@ msgid "To check:"
 msgstr "Da controllare:"
 
 #. translators: %d: the number of vendors.
-#: src/Migration/UI/ImportSummary.php:43
+#: src/Migration/UI/ImportSummary.php:53
 #, php-format
 msgid "%d common vendor turned on"
 msgid_plural "%d common vendors turned on"
 msgstr[0] "%d fornitore comune attivato"
 msgstr[1] "%d fornitori comuni attivati"
 
-#: src/Migration/UI/ImportSummary.php:57
+#: src/Migration/UI/ImportSummary.php:67
 msgid "The banner turned on"
 msgstr "Il banner attivato"
 
-#: src/Migration/UI/ImportSummary.php:58
+#: src/Migration/UI/ImportSummary.php:68
 msgid "The texts of the banner and of the buttons"
 msgstr "I testi del banner e dei pulsanti"
 
-#: src/Migration/UI/ImportSummary.php:65
+#: src/Migration/UI/ImportSummary.php:75
 msgid "The policy and legal notice links"
 msgstr "I link alla policy e alle note legali"
 
-#: src/Migration/UI/ImportSummary.php:69
+#: src/Migration/UI/ImportSummary.php:79
 msgid "The texts of the categories"
 msgstr "I testi delle categorie"
 
-#: src/Migration/UI/ImportSummary.php:70
+#: src/Migration/UI/ImportSummary.php:80
 msgid "The position, the logo, the colors and the custom CSS"
 msgstr "La posizione, il logo, i colori e il CSS personalizzato"
 
-#: src/Migration/UI/ImportSummary.php:77
+#: src/Migration/UI/ImportSummary.php:87
 msgid "The duration of the consent, the cookie domain and the pages without the banner"
 msgstr "La durata del consenso, il dominio del cookie e le pagine senza banner"
 
-#: src/Migration/UI/ImportSummary.php:86
+#: src/Migration/UI/ImportSummary.php:96
 msgid "The button to change the consent"
 msgstr "Il pulsante per cambiare il consenso"
 
-#: src/Migration/UI/ImportSummary.php:87
+#: src/Migration/UI/ImportSummary.php:97
 msgid "The consent per vendor and the placeholder texts"
 msgstr "Il consenso per fornitore e i testi dei segnaposto"
 
-#: src/Migration/UI/ImportSummary.php:92
+#: src/Migration/UI/ImportSummary.php:102
 msgid "Google Consent Mode and the Google tags"
 msgstr "Google Consent Mode e i tag di Google"
 
 #. translators: %d: the number of vendors.
-#: src/Migration/UI/ImportSummary.php:107
+#: src/Migration/UI/ImportSummary.php:117
 #, php-format
 msgid "Custom vendors: %d"
 msgstr "Fornitori personalizzati: %d"
 
 #. translators: %d: the number of scripts.
-#: src/Migration/UI/ImportSummary.php:109
+#: src/Migration/UI/ImportSummary.php:119
 #, php-format
 msgid "Scripts after the consent: %d"
 msgstr "Script dopo il consenso: %d"
 
 #. translators: %d: the number of addresses.
-#: src/Migration/UI/ImportSummary.php:111
+#: src/Migration/UI/ImportSummary.php:121
 #, php-format
 msgid "Addresses never blocked: %d"
 msgstr "Indirizzi mai bloccati: %d"
 
 #. translators: %d: the number of cookies.
-#: src/Migration/UI/ImportSummary.php:113
+#: src/Migration/UI/ImportSummary.php:123
 #, php-format
 msgid "Site cookies: %d"
 msgstr "Cookie del sito: %d"
@@ -2204,3 +2206,119 @@ msgstr "Le pagine non impostano cookie."
 #: assets/build/settings.js:16
 msgid "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. The scan of the cookies below finds the cookies the pages set in the browser."
 msgstr "Legge le pagine scelte dal server e trova i fornitori dei loro script, frame e pixel di tracciamento. La scansione dei cookie qui sotto trova i cookie che le pagine impostano nel browser."
+
+#: src/Cookies/Application/SiteCookies.php:32
+msgid "The cookie needs a name."
+msgstr "Il cookie ha bisogno di un nome."
+
+#: src/Cookies/Application/SiteCookies.php:52
+msgid "The cookies of this site come from the main site of the network."
+msgstr "I cookie di questo sito arrivano dal sito principale della rete."
+
+#. translators: %s: the name of the cookie.
+#: src/Cookies/Application/SiteCookies.php:65
+#, php-format
+msgid "The site cookie \"%s\" already exists."
+msgstr "Il cookie del sito \"%s\" esiste già."
+
+#. translators: 1: the id of the category, 2: the ids of the categories, separated by commas.
+#: src/Cookies/Application/SiteCookies.php:79
+#, php-format
+msgid "There is no category \"%1$s\": %2$s."
+msgstr "Non esiste la categoria \"%1$s\": %2$s."
+
+#: src/Dashboard/UI/StatusAbility.php:32
+msgid "Get the status of the cookie consent"
+msgstr "Ottieni lo stato del consenso ai cookie"
+
+#: src/Migration/UI/MigrationAbilities.php:50
+msgid "List the consent plugins to import"
+msgstr "Elenca i plugin per il consenso da importare"
+
+#: src/Migration/UI/MigrationAbilities.php:66
+msgid "Import the settings of a consent plugin"
+msgstr "Importa le impostazioni di un plugin per il consenso"
+
+#: src/Scan/UI/ScanAbilities.php:101
+msgid "Get the report of the last scan"
+msgstr "Ottieni il report dell'ultima scansione"
+
+#: src/Settings/UI/SettingsAbility.php:50
+msgid "Update the cookie settings"
+msgstr "Aggiorna le impostazioni dei cookie"
+
+#: src/Cookies/UI/SiteCookieAbility.php:41
+msgid "Adds a cookie of the site itself to the cookie table, like the login of WordPress or the cart."
+msgstr "Aggiunge un cookie del sito stesso alla tabella dei cookie, come l'accesso di WordPress o il carrello."
+
+#: src/Cookies/UI/SiteCookieAbility.php:45
+msgid "Its category is necessary, preferences, statistics or marketing."
+msgstr "La sua categoria è necessary, preferences, statistics o marketing."
+
+#: src/Dashboard/UI/StatusAbility.php:34
+msgid "Returns what makes the consent valid, like the banner, the policy link and the vendors."
+msgstr "Restituisce ciò che rende valido il consenso, come il banner, il link alla policy e i fornitori."
+
+#: src/Dashboard/UI/StatusAbility.php:38
+msgid "The state warning is what is missing, info is a suggestion."
+msgstr "Lo stato warning è ciò che manca, info è un suggerimento."
+
+#: src/Migration/UI/MigrationAbilities.php:52
+msgid "Lists the other consent plugins whose settings are in the database."
+msgstr "Elenca gli altri plugin per il consenso le cui impostazioni sono nel database."
+
+#: src/Migration/UI/MigrationAbilities.php:53
+msgid "Each one has what its import changes: a preview, nothing is saved."
+msgstr "Ognuno ha cosa cambia la sua importazione: un'anteprima, nulla viene salvato."
+
+#: src/Migration/UI/MigrationAbilities.php:68
+msgid "Imports the settings of another consent plugin, by its id from list-migration-sources."
+msgstr "Importa le impostazioni di un altro plugin per il consenso, dal suo id di list-migration-sources."
+
+#: src/Migration/UI/MigrationAbilities.php:72
+msgid "The texts replace the saved ones, the vendors, the cookies and the scripts are added."
+msgstr "I testi sostituiscono quelli salvati, i fornitori, i cookie e gli script vengono aggiunti."
+
+#. translators: %d: the number of pages of a batch.
+#: src/Scan/UI/ScanAbilities.php:49
+#, php-format
+msgid "Reads the chosen pages from the server, %d at a time."
+msgstr "Legge le pagine scelte dal server, %d alla volta."
+
+#: src/Scan/UI/ScanAbilities.php:52
+msgid "It finds the vendors of their scripts, frames and pixels, and the unknown third parties."
+msgstr "Trova i fornitori dei loro script, frame e pixel, e le terze parti sconosciute."
+
+#: src/Scan/UI/ScanAbilities.php:56
+msgid "Run it again with nextOffset until it is null."
+msgstr "Eseguila di nuovo con nextOffset finché è null."
+
+#: src/Scan/UI/ScanAbilities.php:57
+msgid "It changes nothing: block the vendors with switch-vendor, add the others with add-custom-vendor."
+msgstr "Non cambia nulla: blocca i fornitori con switch-vendor, aggiungi gli altri con add-custom-vendor."
+
+#: src/Scan/UI/ScanAbilities.php:103
+msgid "Returns the last scheduled scan: the vendors not blocked and the unknown third parties."
+msgstr "Restituisce l'ultima scansione programmata: i fornitori non bloccati e le terze parti sconosciute."
+
+#: src/Scan/UI/ScanAbilities.php:107
+msgid "Null when no scan has run."
+msgstr "Null quando nessuna scansione è stata eseguita."
+
+#. translators: 1: the names of the settings, 2: the names of the texts of the site, comma separated.
+#: src/Settings/SettingsUpdate.php:54
+#, php-format
+msgid "This site uses the main site settings, only its texts change, not: %1$s. Texts: %2$s."
+msgstr "Questo sito usa le impostazioni del sito principale, cambiano solo i suoi testi, non: %1$s. Testi: %2$s."
+
+#: src/Settings/UI/SettingsAbility.php:52
+msgid "Changes only the settings given, with the names of get-settings, and returns the saved settings."
+msgstr "Cambia solo le impostazioni indicate, con i nomi di get-settings, e restituisce le impostazioni salvate."
+
+#: src/Settings/UI/SettingsAbility.php:56
+msgid "A checkbox is on with 1, null removes a setting, like a checkbox turned off."
+msgstr "Una casella è attiva con 1, null rimuove un'impostazione, come una casella disattivata."
+
+#: src/Settings/UI/SettingsAbility.php:60
+msgid "A list replaces the saved list, the values not valid are not saved."
+msgstr "Un elenco sostituisce quello salvato, i valori non validi non vengono salvati."

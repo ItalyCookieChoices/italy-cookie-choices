@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Migration\UI;
 
 use ItalyCookieChoices\Migration\Application\Migrate;
-use ItalyCookieChoices\Migration\Domain\ImportedSettings;
 use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
@@ -18,6 +17,8 @@ use ItalyStrap\Event\SubscriberInterface;
 final readonly class MigrationEndpoint implements SubscriberInterface
 {
     public const ROUTE = '/migration/(?P<source>[a-z0-9_-]+)';
+    /** The error of a plugin without settings to import. */
+    public const NOT_FOUND = 'italy_cookie_choices_unknown_migration';
 
     public function __construct(
         private Migrate $migrate,
@@ -56,7 +57,7 @@ final readonly class MigrationEndpoint implements SubscriberInterface
             return $this->notFound($exception);
         }
 
-        return new \WP_REST_Response($this->data($imported));
+        return new \WP_REST_Response($this->summary->toArray($imported));
     }
 
     public function import(\WP_REST_Request $request): \WP_REST_Response|\WP_Error
@@ -70,15 +71,10 @@ final readonly class MigrationEndpoint implements SubscriberInterface
 
         $this->dismissed->add($source);
 
-        return new \WP_REST_Response([...$this->data($imported), 'settings' => \get_option(Schema::OPTION)]);
-    }
-
-    /**
-     * @return array{summary: list<string>, notes: list<string>}
-     */
-    private function data(ImportedSettings $imported): array
-    {
-        return ['summary' => $this->summary->lines($imported), 'notes' => $imported->notes()];
+        return new \WP_REST_Response([
+            ...$this->summary->toArray($imported),
+            'settings' => \get_option(Schema::OPTION),
+        ]);
     }
 
     private function source(\WP_REST_Request $request): string
@@ -90,6 +86,6 @@ final readonly class MigrationEndpoint implements SubscriberInterface
 
     private function notFound(\InvalidArgumentException $exception): \WP_Error
     {
-        return new \WP_Error('italy_cookie_choices_unknown_migration', $exception->getMessage(), ['status' => 404]);
+        return new \WP_Error(self::NOT_FOUND, $exception->getMessage(), ['status' => 404]);
     }
 }

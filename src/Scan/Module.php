@@ -10,6 +10,7 @@ use ItalyCookieChoices\Scan\Infrastructure\LoopbackFetcher;
 use ItalyCookieChoices\Scan\UI\Cli\Commands\ScanCommand;
 use ItalyCookieChoices\Scan\UI\CookieRecorder;
 use ItalyCookieChoices\Scan\UI\FrameScanEndpoint;
+use ItalyCookieChoices\Scan\UI\ScanAbilities;
 use ItalyCookieChoices\Scan\UI\ScanCron;
 use ItalyCookieChoices\Scan\UI\ScanEndpoint;
 use ItalyCookieChoices\Scan\UI\ScanNotice;
@@ -76,6 +77,7 @@ final readonly class Module implements ModuleInterface
                 ScanRequest::class,
                 FrameScanEndpoint::class,
                 CookieRecorder::class,
+                ScanAbilities::class,
             ],
             CommandsConfigExtension::COMMANDS => [
                 ScanCommand::class,

@@ -19,7 +19,8 @@ Cookie Choices, formerly Italy Cookie Choices, asks the consent of your visitors
 
 * [Integrations](integrations.md): Google Consent Mode v2, the consent API, the events to block a script, add a vendor or change the texts.
 * [WP-CLI commands](wp-cli.md): the status, the export and the import of the settings, the export and the purge of the consent log.
-* [Abilities for the AI tools](abilities.md): read the settings and the consent statistics, turn the vendors on or off, with the Abilities API of WordPress.
+* [Abilities for the AI tools](abilities.md): read the status and the settings, scan the site, change the settings and the vendors, with the Abilities API of WordPress.
+* [Configure Cookie Choices with an AI agent](ai-agent.md): connect an AI assistant with the MCP Adapter and let it set up the plugin.
 
 ## Requirements
 

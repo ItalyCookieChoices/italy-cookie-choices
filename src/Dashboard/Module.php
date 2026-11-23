@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Dashboard;
 
 use ItalyCookieChoices\Dashboard\UI\DashboardWidget;
+use ItalyCookieChoices\Dashboard\UI\StatusAbility;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -37,6 +38,7 @@ final readonly class Module implements ModuleInterface
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [
                 DashboardWidget::class,
+                StatusAbility::class,
             ],
         ];
     }

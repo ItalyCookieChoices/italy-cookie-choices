@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Cookies;
 use ItalyCookieChoices\Cookies\UI\CookieCleanupScript;
 use ItalyCookieChoices\Cookies\UI\CookieTableBlock;
 use ItalyCookieChoices\Cookies\UI\CookieTableShortcode;
+use ItalyCookieChoices\Cookies\UI\SiteCookieAbility;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -46,6 +47,7 @@ final readonly class Module implements ModuleInterface
                 CookieTableShortcode::class,
                 CookieTableBlock::class,
                 CookieCleanupScript::class,
+                SiteCookieAbility::class,
             ],
         ];
     }

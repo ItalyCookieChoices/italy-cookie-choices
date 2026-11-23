@@ -137,6 +137,6 @@ final readonly class VendorAbilities implements SubscriberInterface
 
     private function error(\InvalidArgumentException $exception): \WP_Error
     {
-        return new \WP_Error(self::ERROR, $exception->getMessage(), ['status' => 400]);
+        return $this->abilities->invalidInput(self::ERROR, $exception);
     }
 }
