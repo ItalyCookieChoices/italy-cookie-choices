@@ -8,6 +8,7 @@ use ItalyCookieChoices\Consent\Domain\ConsentRepository;
 use ItalyCookieChoices\Consent\Domain\ConsentStorage;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentStorage;
+use ItalyCookieChoices\Consent\Infrastructure\ScanConsentRepository;
 use ItalyCookieChoices\Consent\UI\AcceptButtonShortcode;
 use ItalyCookieChoices\Consent\UI\Banner;
 use ItalyCookieChoices\Consent\UI\BannerPreviewEndpoint;
@@ -43,7 +44,8 @@ final readonly class Module implements ModuleInterface
     {
         return [
             AurynConfig::ALIASES => [
-                ConsentRepository::class => CookieConsentRepository::class,
+                // The consent of the cookie, every category in scan mode.
+                ConsentRepository::class => ScanConsentRepository::class,
                 ConsentStorage::class => CookieConsentStorage::class,
             ],
             AurynConfig::DEFINITIONS => [

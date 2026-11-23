@@ -29,7 +29,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
         ->addModule(new Integrations\Module($pluginPath, $pluginUrl))
         ->addModule(new Cookies\Module($pluginPath, $pluginUrl))
         ->addModule(new Multilingual\Module())
-        ->addModule(new Scan\Module())
+        ->addModule(new Scan\Module($pluginPath, $pluginUrl, $_GET))
         ->addModule(new Migration\Module())
         ->addModule(new Dashboard\Module($pluginPath, $pluginUrl))
         ->addModule(new Cli\Module())

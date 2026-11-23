@@ -28,6 +28,8 @@ export interface ConsentConfig {
 	vendorConsent?: boolean;
 	/** The vendors blocked by the plugin, with the consent per vendor. */
 	vendors?: Vendor[];
+	/** A page in scan mode, for the scan of the cookies: every category accepted in memory. */
+	scan?: true;
 }
 
 export interface Vendor {

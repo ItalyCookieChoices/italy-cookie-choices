@@ -12,7 +12,7 @@ import {
 	useEffect,
 	useState,
 } from '@wordpress/element';
-import { __, _n, sprintf } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import {
 	errorMessage,
 	scanPages,
@@ -26,10 +26,13 @@ import {
 	batches,
 	emptyReport,
 	mergeScan,
+	pagesCount,
 	parseScanSchedule,
 	type ScanReport,
 	type ScanSchedule,
+	type ScanSelection,
 } from './scan';
+import { CookieScanPanel } from './cookie-scan-panel';
 import { ScanScheduleFields } from './scan-schedule';
 import {
 	isVendorBlocked,
@@ -46,16 +49,10 @@ interface ScanPanelProps extends SettingsProps {
 	postTypes: readonly PostType[];
 	/** The category of the custom vendors added from the scan. */
 	customCategory: string;
+	/** The category of the site cookies added from the scan of the cookies. */
+	siteCookieCategory: string;
 	/** The schedule of the scan, its pages are the first selection of the panel. */
 	schedule?: ScanSchedule;
-}
-
-function pagesCount( pages: readonly string[] ): string {
-	return sprintf(
-		/* translators: %d: the number of pages. */
-		_n( '%d page', '%d pages', pages.length, 'italy-cookie-choices' ),
-		pages.length
-	);
 }
 
 interface SearchFieldProps {
@@ -159,18 +156,19 @@ export function ScanPanel( props: ScanPanelProps ) {
 		categories.length === 0 &&
 		posts.length === 0;
 	const customVendors = settings.custom_vendors ?? [];
+	const selection: ScanSelection = {
+		home,
+		postTypes,
+		categories: categories.map( ( category ) => category.id ),
+		posts: posts.map( ( post ) => post.id ),
+	};
 
 	async function scan(): Promise< void > {
 		setScanning( true );
 		setError( '' );
 		setReport( null );
 		try {
-			const found = await scanTargets( {
-				home,
-				postTypes,
-				categories: categories.map( ( category ) => category.id ),
-				posts: posts.map( ( post ) => post.id ),
-			} );
+			const found = await scanTargets( selection );
 			setTotal( found.targets.length );
 			setTruncated( found.truncated );
 			let merged = emptyReport();
@@ -228,7 +226,7 @@ export function ScanPanel( props: ScanPanelProps ) {
 			<legend>{ __( 'Scan the site', 'italy-cookie-choices' ) }</legend>
 			<p>
 				{ __(
-					'Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. It does not see the cookies set by JavaScript, they come from the vendors.',
+					'Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. The scan of the cookies below finds the cookies the pages set in the browser.',
 					'italy-cookie-choices'
 				) }
 			</p>
@@ -279,12 +277,7 @@ export function ScanPanel( props: ScanPanelProps ) {
 			</div>
 			<ScanScheduleFields
 				schedule={ schedule }
-				selection={ {
-					home,
-					postTypes,
-					categories: categories.map( ( category ) => category.id ),
-					posts: posts.map( ( post ) => post.id ),
-				} }
+				selection={ selection }
 				isEmpty={ isEmpty }
 			/>
 			{ error !== '' && (
@@ -429,6 +422,16 @@ export function ScanPanel( props: ScanPanelProps ) {
 					) ) }
 				</Fragment>
 			) }
+			<CookieScanPanel
+				settings={ settings }
+				onChange={ onChange }
+				vendors={ vendors }
+				targets={ async () =>
+					( await scanTargets( selection ) ).targets
+				}
+				siteCookieCategory={ props.siteCookieCategory }
+				disabled={ isScanning || isEmpty }
+			/>
 		</fieldset>
 	);
 }

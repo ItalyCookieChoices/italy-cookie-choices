@@ -343,6 +343,25 @@
             "The forms that use it wait for the consent too, turn it on only when they can.": [
                 "Anche i moduli che lo usano aspettano il consenso, attivalo solo quando possono aspettare."
             ],
+            "Session": [
+                "Sessione"
+            ],
+            "%d minute": [
+                "%d minuto",
+                "%d minuti"
+            ],
+            "%d day": [
+                "%d giorno",
+                "%d giorni"
+            ],
+            "%d month": [
+                "%d mese",
+                "%d mesi"
+            ],
+            "%d year": [
+                "%d anno",
+                "%d anni"
+            ],
             "Purpose": [
                 "Scopo"
             ],
@@ -545,9 +564,6 @@
             "Scan the site": [
                 "Scansiona il sito"
             ],
-            "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. It does not see the cookies set by JavaScript, they come from the vendors.": [
-                "Legge le pagine scelte dal server e trova i fornitori dei loro script, frame e pixel di tracciamento. Non vede i cookie impostati da JavaScript, arrivano dai fornitori."
-            ],
             "Posts and pages": [
                 "Articoli e pagine"
             ],
@@ -736,6 +752,55 @@
             ],
             "Imported:": [
                 "Importato:"
+            ],
+            "%d hour": [
+                "%d ora",
+                "%d ore"
+            ],
+            "The scan of the page failed.": [
+                "La scansione della pagina non \u00e8 riuscita."
+            ],
+            "The page refused to open in a frame, a security plugin or the server may send X-Frame-Options.": [
+                "La pagina ha rifiutato di aprirsi in un frame, un plugin di sicurezza o il server potrebbero inviare X-Frame-Options."
+            ],
+            "The page did not open in scan mode, a cache may serve it: exclude the addresses with icc_scan from the cache.": [
+                "La pagina non si \u00e8 aperta in modalit\u00e0 scansione, potrebbe servirla una cache: escludi dalla cache gli indirizzi con icc_scan."
+            ],
+            "The page did not load in time.": [
+                "La pagina non si \u00e8 caricata in tempo."
+            ],
+            "Cookies in the browser": [
+                "Cookie nel browser"
+            ],
+            "Loads the chosen pages in a hidden frame with every category accepted, and lists the cookies they set while they load, with their duration. No consent is saved. The cookies set by the frames of other sites come from the vendors.": [
+                "Carica le pagine scelte in un frame nascosto con tutte le categorie accettate, ed elenca i cookie che impostano mentre si caricano, con la loro durata. Nessun consenso viene salvato. I cookie impostati dai frame di altri siti arrivano dai fornitori."
+            ],
+            "This browser loads the pages as the logged-in administrator, and some plugins do not track the administrators. Use Chrome or Edge to scan as an anonymous visitor.": [
+                "Questo browser carica le pagine come l'amministratore connesso, e alcuni plugin non tracciano gli amministratori. Usa Chrome o Edge per scansionare come un visitatore anonimo."
+            ],
+            "Scan the cookies in the browser": [
+                "Scansiona i cookie nel browser"
+            ],
+            "A cookie of %s": [
+                "Un cookie di %s"
+            ],
+            "A site cookie": [
+                "Un cookie del sito"
+            ],
+            "Unknown": [
+                "Sconosciuto"
+            ],
+            "Add %s as a site cookie": [
+                "Aggiungi %s come cookie del sito"
+            ],
+            "Add as a site cookie": [
+                "Aggiungi come cookie del sito"
+            ],
+            "The pages set no cookie.": [
+                "Le pagine non impostano cookie."
+            ],
+            "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. The scan of the cookies below finds the cookies the pages set in the browser.": [
+                "Legge le pagine scelte dal server e trova i fornitori dei loro script, frame e pixel di tracciamento. La scansione dei cookie qui sotto trova i cookie che le pagine impostano nel browser."
             ]
         }
     }

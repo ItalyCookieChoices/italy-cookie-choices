@@ -2,6 +2,7 @@
  * The scan of the site, see the Scan context in src/Scan: the pages are scanned in batches,
  * the results of the batches are merged in a report.
  */
+import { _n, sprintf } from '@wordpress/i18n';
 
 export interface ScanSelection {
 	home: boolean;
@@ -34,6 +35,18 @@ export interface ScanReport {
 }
 
 export const BATCH = 10;
+
+/**
+ * The number of pages where something is found.
+ * @param pages The addresses of the pages.
+ */
+export function pagesCount( pages: readonly string[] ): string {
+	return sprintf(
+		/* translators: %d: the number of pages. */
+		_n( '%d page', '%d pages', pages.length, 'italy-cookie-choices' ),
+		pages.length
+	);
+}
 
 export function emptyReport(): ScanReport {
 	return { vendors: {}, hosts: {}, errors: [], scanned: 0 };

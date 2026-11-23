@@ -101,5 +101,6 @@ export function parseConfig( raw: unknown ): ConsentConfig {
 						: [],
 				}
 			: {} ),
+		...( raw.scan === true ? { scan: true } : {} ),
 	};
 }

@@ -154,4 +154,14 @@
 			overflow-wrap: anywhere;
 		}
 	}
+
+	// The frame of the scan of the cookies, a visible page out of the screen.
+	&__scan-frame {
+		position: fixed;
+		top: 0;
+		left: -10000px;
+		width: 1280px;
+		height: 800px;
+		border: 0;
+	}
 }

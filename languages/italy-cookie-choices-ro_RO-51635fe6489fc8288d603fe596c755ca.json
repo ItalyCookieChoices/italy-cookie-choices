@@ -343,6 +343,21 @@
             "The forms that use it wait for the consent too, turn it on only when they can.": [
                 ""
             ],
+            "Session": [
+                ""
+            ],
+            "%d minute": [
+                ""
+            ],
+            "%d day": [
+                ""
+            ],
+            "%d month": [
+                ""
+            ],
+            "%d year": [
+                ""
+            ],
             "Purpose": [
                 ""
             ],
@@ -544,9 +559,6 @@
             "Scan the site": [
                 ""
             ],
-            "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. It does not see the cookies set by JavaScript, they come from the vendors.": [
-                ""
-            ],
             "Posts and pages": [
                 ""
             ],
@@ -734,6 +746,54 @@
                 ""
             ],
             "Imported:": [
+                ""
+            ],
+            "%d hour": [
+                ""
+            ],
+            "The scan of the page failed.": [
+                ""
+            ],
+            "The page refused to open in a frame, a security plugin or the server may send X-Frame-Options.": [
+                ""
+            ],
+            "The page did not open in scan mode, a cache may serve it: exclude the addresses with icc_scan from the cache.": [
+                ""
+            ],
+            "The page did not load in time.": [
+                ""
+            ],
+            "Cookies in the browser": [
+                ""
+            ],
+            "Loads the chosen pages in a hidden frame with every category accepted, and lists the cookies they set while they load, with their duration. No consent is saved. The cookies set by the frames of other sites come from the vendors.": [
+                ""
+            ],
+            "This browser loads the pages as the logged-in administrator, and some plugins do not track the administrators. Use Chrome or Edge to scan as an anonymous visitor.": [
+                ""
+            ],
+            "Scan the cookies in the browser": [
+                ""
+            ],
+            "A cookie of %s": [
+                ""
+            ],
+            "A site cookie": [
+                ""
+            ],
+            "Unknown": [
+                ""
+            ],
+            "Add %s as a site cookie": [
+                ""
+            ],
+            "Add as a site cookie": [
+                ""
+            ],
+            "The pages set no cookie.": [
+                ""
+            ],
+            "Reads the chosen pages from the server and finds the vendors of their scripts, frames and tracking pixels. The scan of the cookies below finds the cookies the pages set in the browser.": [
                 ""
             ]
         }

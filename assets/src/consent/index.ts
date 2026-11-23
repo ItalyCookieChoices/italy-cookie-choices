@@ -13,8 +13,9 @@ import { parseConfig } from './config';
 import { Cookies } from './cookies';
 import { syncLegacyCookie } from './legacy-cookie';
 import { renewConsentCookie, renewWithFetch } from './renewal';
+import { createScanApi } from './scan';
 import { CHANNEL, syncTabs } from './tab-sync';
-import { READY, type ConsentApi } from './types';
+import { READY, type ConsentApi, type ConsentConfig } from './types';
 
 declare global {
 	interface Window {
@@ -23,15 +24,17 @@ declare global {
 	}
 }
 
-if ( window.italyCookieChoices === undefined ) {
-	const config = parseConfig( window.italyCookieChoicesConfig );
+/**
+ * The consent API of the visitors, kept in the consent cookie and in sync with the other tabs.
+ * @param config The consent configuration.
+ */
+function createSiteApi( config: ConsentConfig ): ConsentApi {
 	const cookies = new Cookies(
 		document,
 		window.location.protocol === 'https:',
 		config.cookieDomain
 	);
 	const api = createConsentApi( config, cookies, document );
-	window.italyCookieChoices = api;
 	syncTabs(
 		api,
 		document,
@@ -46,6 +49,17 @@ if ( window.italyCookieChoices === undefined ) {
 			cookies.remove( config.cookieName )
 		);
 	}
+
+	return api;
+}
+
+if ( window.italyCookieChoices === undefined ) {
+	const config = parseConfig( window.italyCookieChoicesConfig );
+	const api =
+		config.scan === true
+			? createScanApi( config, document )
+			: createSiteApi( config );
+	window.italyCookieChoices = api;
 
 	listenToConsentButtons( document, api );
 

@@ -10,6 +10,7 @@ use ItalyCookieChoices\Consent\Application\ConsentCookieDomain;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Consent\Infrastructure\CookieConsentRepository;
+use ItalyCookieChoices\Scan\UI\ScanRequest;
 use ItalyCookieChoices\Settings\Options;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
@@ -44,6 +45,7 @@ final readonly class ConsentScript implements SubscriberInterface
         private Options $options,
         private ConsentCookieDomain $cookieDomain,
         private VendorChoices $vendors,
+        private ScanRequest $scan,
         private AssetLoader $assets,
         private ScriptLoader $scripts,
         private string $buildPath,
@@ -100,7 +102,8 @@ final readonly class ConsentScript implements SubscriberInterface
      *     renewalUrl: string,
      *     cookieDomain: string,
      *     vendorConsent: bool,
-     *     vendors: list<array{id: string, category: string}>
+     *     vendors: list<array{id: string, category: string}>,
+     *     scan?: true
      * }
      */
     public function config(): array
@@ -126,6 +129,8 @@ final readonly class ConsentScript implements SubscriberInterface
                 static fn(array $vendor): array => ['id' => $vendor['id'], 'category' => $vendor['category']],
                 $this->vendors->all()
             ),
+            // Every category accepted in memory, for the scan of the cookies in the browser.
+            ...($this->scan->isScan() ? ['scan' => true] : []),
         ];
     }
 

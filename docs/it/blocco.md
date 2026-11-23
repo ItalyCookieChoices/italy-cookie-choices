@@ -62,7 +62,7 @@ Le linee guida del Garante per la protezione dei dati personali chiedono che i v
    * Le pagine che non è stato possibile leggere, con il motivo.
 4. Salva le modifiche: la scansione non cambia nulla da sola.
 
-La scansione legge l'HTML delle pagine: trova gli script, i frame e i pixel di tracciamento, non i cookie che JavaScript imposta nel browser. I cookie dei fornitori arrivano dai loro preset, vedi la tabella dei cookie. Una selezione scansiona al massimo 500 pagine. Quando l'hosting blocca le richieste del sito a sé stesso, come segnala Salute del sito di WordPress, la scansione mostra l'errore di ogni pagina.
+La scansione legge l'HTML delle pagine: trova gli script, i frame e i pixel di tracciamento, non i cookie che JavaScript imposta nel browser, vedi [Cookie nel browser](#cookie-nel-browser). I cookie dei fornitori arrivano dai loro preset, vedi la tabella dei cookie. Una selezione scansiona al massimo 500 pagine. Quando l'hosting blocca le richieste del sito a sé stesso, come segnala Salute del sito di WordPress, la scansione mostra l'errore di ogni pagina.
 
 ### Scansione programmata
 
@@ -74,6 +74,20 @@ Le stesse pagine possono essere scansionate da sole, con WP-Cron. In **Scansione
 * La scheda mostra la data e i risultati dell'ultima scansione programmata.
 
 WP-Cron parte quando il sito riceve visite: su un sito con poche visite, o con `DISABLE_WP_CRON`, usa un vero cron job del server.
+
+### Cookie nel browser
+
+**Scansiona i cookie nel browser**, sotto i risultati della scansione, trova i cookie che le pagine impostano mentre si caricano, con la loro durata: i cookie di prima parte degli script e dei plugin, come il carrello del negozio o la lingua, che i preset dei fornitori non coprono.
+
+1. Scegli le pagine, come per **Scansiona il sito**, e fai clic su **Scansiona i cookie nel browser**.
+2. Ogni pagina viene caricata in un frame nascosto, una alla volta, con tutte le categorie accettate in memoria: gli script che aspettano il consenso partono, nessun cookie di consenso viene salvato, nessun consenso viene registrato e il banner resta chiuso. La pagina ha qualche secondo dopo il caricamento per gli script che partono più tardi.
+3. L'elenco mostra ogni cookie con la sua durata, il numero di pagine e chi lo imposta: un fornitore, un cookie del sito o **Sconosciuto**. **Aggiungi come cookie del sito** aggiunge un cookie sconosciuto ai cookie del sito, con la durata già compilata: scegli la sua categoria, scrivi la sua finalità e salva.
+
+La pagina si apre con un indirizzo monouso, valido per cinque minuti, e non viene mai messa in cache. La scansione legge i cookie degli script, con la loro durata, e i cookie che invia il server, anche HttpOnly.
+
+* In Chrome ed Edge il frame carica le pagine come un visitatore anonimo, con cookie propri: la scansione non cambia né i tuoi cookie né il tuo accesso. Firefox e Safari le caricano come l'amministratore connesso, e alcuni plugin non tracciano gli amministratori: il pannello mostra un avviso.
+* I cookie impostati dai frame di altri siti, come un video di YouTube, e da un clic, uno scorrimento o un'azione del carrello non vengono trovati: i cookie dei fornitori arrivano dai loro preset.
+* Una pagina che rifiuta di aprirsi in un frame, come con l'header `X-Frame-Options` di un plugin di sicurezza, viene segnalata con il motivo. Viene segnalata anche una cache di pagina che serve l'indirizzo con `icc_scan`: escludi quel parametro dalla cache.
 
 ## Google tag gateway
 

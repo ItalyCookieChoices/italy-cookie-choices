@@ -171,6 +171,7 @@ export function BlockingTab( props: BlockingTabProps ) {
 					? {}
 					: { schedule: props.scanSchedule } ) }
 				customCategory={ categories[ categories.length - 1 ]?.id ?? '' }
+				siteCookieCategory={ props.categories[ 0 ]?.id ?? '' }
 			/>
 			<fieldset className="icc-admin__group">
 				<legend>

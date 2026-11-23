@@ -324,6 +324,40 @@ final class AdminCest
         );
     }
 
+    public function itScansTheCookiesInTheBrowser(E2eTester $I): void
+    {
+        // A script that waits for the consent, the scan accepts every category in memory.
+        $I->haveCookieChoicesOptions(['custom_scripts' => [
+            [
+                'name' => 'Stats',
+                'category' => 'statistics',
+                'position' => 'body',
+                'code' => '<script>document.cookie = "icc_e2e_stats=1; max-age=86400; path=/";</script>',
+            ],
+        ]]);
+        $this->openTheSettings($I);
+        $this->openTab($I, 'Blocking');
+
+        $I->checkOption('Home page');
+        $I->click('Scan the cookies in the browser');
+        $I->waitForText('Scanned 1 of 1 pages.', 30);
+
+        $I->see('icc_e2e_stats', '.icc-admin__found');
+        $I->see('1 day', '.icc-admin__found');
+        $I->dontSeeElement('.icc-admin__scan-frame');
+        // The frame has its own cookies, the consent is not saved.
+        $I->dontSeeCookie('icc_e2e_stats');
+        $I->dontSeeCookie('icc_consent');
+        $I->click('[aria-label="Add icc_e2e_stats as a site cookie"]');
+        $this->save($I);
+
+        $I->see('Settings saved.', self::NOTICE);
+        $I->assertSame(
+            [['name' => 'icc_e2e_stats', 'category' => 'necessary', 'duration' => '1 day', 'purpose' => '']],
+            $this->savedOptions($I)['site_cookies'] ?? null
+        );
+    }
+
     public function itSavesTheMicrosoftConsentSignals(E2eTester $I): void
     {
         $I->haveCookieChoicesOptions(['uet_consent_mode' => '1', 'clarity_consent_mode' => '1']);

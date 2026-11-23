@@ -16,6 +16,7 @@ const entries = {
 	'microsoft-consent': './assets/src/microsoft-consent/index.ts',
 	'cookie-cleanup': './assets/src/cookie-cleanup/index.ts',
 	dashboard: './assets/src/dashboard/index.ts',
+	'cookie-recorder': './assets/src/cookie-recorder/index.ts',
 };
 
 module.exports = {
