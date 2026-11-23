@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Tests\Integration\Scan;
 
 use ItalyCookieChoices\Scan\Application\ScanTokens;
+use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyCookieChoices\Tests\Support\Scan\BuildsScanRequests;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ScanTokensTest extends WPTestCase
 {
+    use BuildsContainer;
+    use BuildsScanRequests;
+
     public function testATokenIsValidOnce(): void
     {
-        $sut = new ScanTokens();
+        $sut = $this->scanTokens();
         $token = $sut->issue();
 
         $this->assertTrue($sut->consume($token));
@@ -20,13 +25,13 @@ final class ScanTokensTest extends WPTestCase
 
     public function testAnUnknownTokenIsNotValid(): void
     {
-        $this->assertFalse((new ScanTokens())->consume('unknown'));
-        $this->assertFalse((new ScanTokens())->consume(''));
+        $this->assertFalse($this->scanTokens()->consume('unknown'));
+        $this->assertFalse($this->scanTokens()->consume(''));
     }
 
     public function testEachTokenIsDifferent(): void
     {
-        $sut = new ScanTokens();
+        $sut = $this->scanTokens();
 
         $this->assertNotSame($sut->issue(), $sut->issue());
     }
@@ -43,7 +48,7 @@ final class ScanTokensTest extends WPTestCase
             3
         );
 
-        $token = (new ScanTokens())->issue();
+        $token = $this->scanTokens()->issue();
 
         $this->assertSame(['icc_scan_token_' . \hash('sha256', $token) => ScanTokens::LIFETIME], $expirations);
     }

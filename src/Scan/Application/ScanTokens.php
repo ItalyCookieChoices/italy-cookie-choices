@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Scan\Application;
 
+use Psr\SimpleCache\CacheInterface;
+
 /**
  * The one-time tokens that open a page in scan mode, for the scan of the cookies in the browser.
  *
@@ -14,13 +16,19 @@ final readonly class ScanTokens
 {
     public const LIFETIME = 5 * \MINUTE_IN_SECONDS;
 
-    private const TRANSIENT = 'icc_scan_token_';
+    private const KEY = 'icc_scan_token_';
     private const LENGTH = 32;
+    private const VALID = 1;
+
+    public function __construct(
+        private CacheInterface $cache,
+    ) {
+    }
 
     public function issue(): string
     {
         $token = \wp_generate_password(self::LENGTH, false);
-        \set_transient($this->transient($token), 1, self::LIFETIME);
+        $this->cache->set($this->key($token), self::VALID, self::LIFETIME);
 
         return $token;
     }
@@ -34,18 +42,18 @@ final readonly class ScanTokens
             return false;
         }
 
-        $transient = $this->transient($token);
-        if (\get_transient($transient) === false) {
+        $key = $this->key($token);
+        if (!$this->cache->has($key)) {
             return false;
         }
 
-        \delete_transient($transient);
+        $this->cache->delete($key);
 
         return true;
     }
 
-    private function transient(string $token): string
+    private function key(string $token): string
     {
-        return self::TRANSIENT . \hash('sha256', $token);
+        return self::KEY . \hash('sha256', $token);
     }
 }

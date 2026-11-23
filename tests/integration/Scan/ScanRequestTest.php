@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Tests\Integration\Scan;
 
-use ItalyCookieChoices\Scan\Application\ScanTokens;
 use ItalyCookieChoices\Scan\UI\ScanRequest;
 use ItalyStrap\Event\SubscriberInterface;
+use ItalyCookieChoices\Tests\Support\BuildsContainer;
+use ItalyCookieChoices\Tests\Support\Scan\BuildsScanRequests;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class ScanRequestTest extends WPTestCase
 {
+    use BuildsContainer;
+    use BuildsScanRequests;
+
     public function testItStartsAfterTheRedirects(): void
     {
         $this->assertSame(
@@ -20,13 +24,13 @@ final class ScanRequestTest extends WPTestCase
                     SubscriberInterface::PRIORITY => \PHP_INT_MAX - 1,
                 ],
             ],
-            \iterator_to_array((new ScanRequest(new ScanTokens(), []))->getSubscribedEvents())
+            \iterator_to_array((new ScanRequest($this->scanTokens(), []))->getSubscribedEvents())
         );
     }
 
     public function testAPageWithAValidTokenIsScanned(): void
     {
-        $tokens = new ScanTokens();
+        $tokens = $this->scanTokens();
         $sut = new ScanRequest($tokens, [ScanRequest::QUERY_ARG => $tokens->issue()]);
 
         $sut->start();
@@ -36,14 +40,14 @@ final class ScanRequestTest extends WPTestCase
 
     public function testThePageIsNotScannedBeforeItStarts(): void
     {
-        $tokens = new ScanTokens();
+        $tokens = $this->scanTokens();
 
         $this->assertFalse((new ScanRequest($tokens, [ScanRequest::QUERY_ARG => $tokens->issue()]))->isScan());
     }
 
     public function testATokenScansOnePage(): void
     {
-        $tokens = new ScanTokens();
+        $tokens = $this->scanTokens();
         $query = [ScanRequest::QUERY_ARG => $tokens->issue()];
         (new ScanRequest($tokens, $query))->start();
         $second = new ScanRequest($tokens, $query);
@@ -56,7 +60,7 @@ final class ScanRequestTest extends WPTestCase
     public function testAPageWithoutAValidTokenIsNotScanned(): void
     {
         foreach ([[], [ScanRequest::QUERY_ARG => 'unknown'], [ScanRequest::QUERY_ARG => ['array']]] as $query) {
-            $sut = new ScanRequest(new ScanTokens(), $query);
+            $sut = new ScanRequest($this->scanTokens(), $query);
 
             $sut->start();
 

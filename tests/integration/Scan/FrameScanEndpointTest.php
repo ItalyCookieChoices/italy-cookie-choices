@@ -53,7 +53,7 @@ final class FrameScanEndpointTest extends WPTestCase
         \parse_str((string) \wp_parse_url($url, \PHP_URL_QUERY), $query);
         $token = $query[ScanRequest::QUERY_ARG] ?? null;
         $this->assertIsString($token);
-        $this->assertTrue((new ScanTokens())->consume($token));
+        $this->assertTrue($this->service(ScanTokens::class)->consume($token));
     }
 
     public function testThePagesOfOtherSitesAreNotScanned(): void

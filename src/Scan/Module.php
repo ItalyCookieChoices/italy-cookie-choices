@@ -15,9 +15,13 @@ use ItalyCookieChoices\Scan\UI\ScanEndpoint;
 use ItalyCookieChoices\Scan\UI\ScanNotice;
 use ItalyCookieChoices\Scan\UI\ScanRequest;
 use ItalyCookieChoices\Scan\UI\ScheduleEndpoint;
+use ItalyStrap\Cache\Expiration;
+use ItalyStrap\Cache\SimpleCache;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
+use ItalyStrap\Storage\Transient;
+use Psr\SimpleCache\CacheInterface;
 
 /**
  * The scan context: it reads the pages of the site and finds the vendors and the unknown third parties,
@@ -47,6 +51,13 @@ final readonly class Module implements ModuleInterface
             ],
             AurynConfig::ALIASES => [
                 PageFetcher::class => LoopbackFetcher::class,
+            ],
+            AurynConfig::DELEGATIONS => [
+                // The PSR-16 cache of the scan tokens, kept in the transients.
+                CacheInterface::class => static fn(): CacheInterface => new SimpleCache(
+                    new Transient(),
+                    new Expiration()
+                ),
             ],
             AurynConfig::DEFINITIONS => [
                 ScanRequest::class => [

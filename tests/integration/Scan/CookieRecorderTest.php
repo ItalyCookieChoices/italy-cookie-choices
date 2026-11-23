@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\Integration\Scan;
 
 use ItalyCookieChoices\Scan\Application\ServerCookies;
 use ItalyCookieChoices\Scan\UI\CookieRecorder;
+use ItalyCookieChoices\Tests\Support\BuildsContainer;
 use ItalyCookieChoices\Tests\Support\Scan\BuildsScanRequests;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\ScriptLoader;
@@ -14,6 +15,7 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class CookieRecorderTest extends WPTestCase
 {
+    use BuildsContainer;
     use BuildsScanRequests;
 
     private const BUILD_URL = 'https://example.com/wp-content/plugins/italy-cookie-choices/assets/build/';
