@@ -21,7 +21,9 @@ import {
 	scanInFrame,
 } from './frame-scan';
 import { pagesCount, type ScanTarget } from './scan';
-import type { Vendor } from './settings';
+import type { Category, Vendor } from './settings';
+import { byKey, type CookieSuggestion } from './assistant';
+import { AskAssistant, SuggestionNote } from './assistant-panel';
 
 interface CookieScanPanelProps extends SettingsProps {
 	vendors: readonly Vendor[];
@@ -30,6 +32,9 @@ interface CookieScanPanelProps extends SettingsProps {
 	/** The category of the site cookies added from the scan. */
 	siteCookieCategory: string;
 	disabled: boolean;
+	categories: readonly Category[];
+	/** True when the AI provider of the site suggests the unknown cookies. */
+	hasAssistant: boolean;
 }
 
 function failureMessage( failure: unknown ): string {
@@ -87,6 +92,9 @@ export function CookieScanPanel( props: CookieScanPanelProps ) {
 	const [ total, setTotal ] = useState( 0 );
 	const [ isScanning, setScanning ] = useState( false );
 	const [ error, setError ] = useState( '' );
+	const [ suggestions, setSuggestions ] = useState<
+		Record< string, CookieSuggestion >
+	>( {} );
 	const siteCookies = settings.site_cookies ?? [];
 
 	async function scanPage(
@@ -140,18 +148,24 @@ export function CookieScanPanel( props: CookieScanPanelProps ) {
 	}
 
 	function addSiteCookie( cookie: FoundCookie ): void {
+		const suggestion = suggestions[ cookie.name ];
 		onChange( {
 			...settings,
 			site_cookies: [
 				...siteCookies,
 				{
 					name: cookie.name,
-					category: siteCookieCategory,
+					category: suggestion?.category ?? siteCookieCategory,
 					duration: durationText( cookie.duration ),
-					purpose: '',
+					purpose: suggestion?.purpose ?? '',
 				},
 			],
 		} );
+	}
+
+	function discardSuggestion( name: string ): void {
+		const { [ name ]: _discarded, ...others } = suggestions;
+		setSuggestions( others );
 	}
 
 	const found = Object.values( report?.cookies ?? {} ).map( ( cookie ) => ( {
@@ -162,7 +176,11 @@ export function CookieScanPanel( props: CookieScanPanelProps ) {
 			settings.custom_vendors ?? [],
 			siteCookies
 		),
+		suggestion: suggestions[ cookie.name ],
 	} ) );
+	const unknown = found
+		.filter( ( { owner } ) => owner.kind === 'unknown' )
+		.map( ( { cookie } ) => cookie.name );
 
 	return (
 		<Fragment>
@@ -213,32 +231,58 @@ export function CookieScanPanel( props: CookieScanPanelProps ) {
 							total
 						) }
 					</p>
-					{ found.map( ( { cookie, owner } ) => (
-						<div className="icc-admin__found" key={ cookie.name }>
-							<code>{ cookie.name }</code>
-							<span>{ durationText( cookie.duration ) }</span>
-							<span>{ pagesCount( cookie.pages ) }</span>
-							<span>{ ownerText( owner ) }</span>
-							{ owner.kind === 'unknown' && (
-								<Button
-									variant="secondary"
-									aria-label={ sprintf(
-										/* translators: %s: the cookie name. */
-										__(
-											'Add %s as a site cookie',
+					{ props.hasAssistant && unknown.length > 0 && (
+						<AskAssistant
+							cookies={ unknown }
+							onSuggestions={ ( suggested ) =>
+								setSuggestions(
+									byKey( suggested.cookies, 'name' )
+								)
+							}
+						/>
+					) }
+					{ found.map( ( { cookie, owner, suggestion } ) => (
+						<Fragment key={ cookie.name }>
+							<div className="icc-admin__found">
+								<code>{ cookie.name }</code>
+								<span>{ durationText( cookie.duration ) }</span>
+								<span>{ pagesCount( cookie.pages ) }</span>
+								<span>{ ownerText( owner ) }</span>
+								{ owner.kind === 'unknown' && (
+									<Button
+										variant="secondary"
+										aria-label={ sprintf(
+											/* translators: %s: the cookie name. */
+											__(
+												'Add %s as a site cookie',
+												'italy-cookie-choices'
+											),
+											cookie.name
+										) }
+										onClick={ () =>
+											addSiteCookie( cookie )
+										}
+									>
+										{ __(
+											'Add as a site cookie',
 											'italy-cookie-choices'
-										),
-										cookie.name
-									) }
-									onClick={ () => addSiteCookie( cookie ) }
-								>
-									{ __(
-										'Add as a site cookie',
-										'italy-cookie-choices'
-									) }
-								</Button>
-							) }
-						</div>
+										) }
+									</Button>
+								) }
+							</div>
+							{ owner.kind === 'unknown' &&
+								suggestion !== undefined && (
+									<SuggestionNote
+										who={ suggestion.provider }
+										category={ suggestion.category }
+										purpose={ suggestion.purpose }
+										categories={ props.categories }
+										onDiscard={ () =>
+											discardSuggestion( cookie.name )
+										}
+									/>
+								) }
+						</Fragment>
 					) ) }
 					{ report.scanned > 0 && found.length === 0 && (
 						<p>

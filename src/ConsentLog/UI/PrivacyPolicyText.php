@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\ConsentLog\UI;
 
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
+use ItalyCookieChoices\Scan\Application\AssistantUsage;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -14,6 +15,7 @@ final readonly class PrivacyPolicyText implements SubscriberInterface
 {
     public function __construct(
         private LogSettings $settings,
+        private AssistantUsage $assistant,
     ) {
     }
 
@@ -54,6 +56,15 @@ final readonly class PrivacyPolicyText implements SubscriberInterface
                     'italy-cookie-choices'
                 ),
                 $this->settings->retention()->months()
+            );
+        }
+
+        if ($this->assistant->wasUsed()) {
+            $paragraphs[] = \__(
+                'To describe its cookies and third parties, the site owner used an AI service with the AI Client '
+                . 'of WordPress. Only the names of the cookies and of the third-party sites were sent to it, '
+                . 'never the data of the visitors or of their consents.',
+                'italy-cookie-choices'
             );
         }
 

@@ -10,6 +10,7 @@ import type { Settings } from '../settings';
 jest.mock( '../api', () => ( {
 	...jest.requireActual( '../api' ),
 	frameScanUrl: jest.fn(),
+	suggestForScan: jest.fn(),
 } ) );
 
 jest.mock( '../frame-scan', () => ( {
@@ -32,7 +33,17 @@ const VENDORS = [
 const HOME = { id: 0, title: 'Home', url: 'https://example.com/' };
 const SHOP = { id: 2, title: 'Shop', url: 'https://example.com/shop/' };
 
-function renderPanel( settings: Settings = {} ) {
+const CATEGORIES = [
+	{ id: 'necessary', required: true, label: 'Necessary', description: '' },
+	{
+		id: 'preferences',
+		required: false,
+		label: 'Preferences',
+		description: '',
+	},
+];
+
+function renderPanel( settings: Settings = {}, hasAssistant = false ) {
 	const onChange = jest.fn();
 	render(
 		<CookieScanPanel
@@ -41,6 +52,8 @@ function renderPanel( settings: Settings = {} ) {
 			vendors={ VENDORS }
 			targets={ () => Promise.resolve( [ HOME, SHOP ] ) }
 			siteCookieCategory="necessary"
+			categories={ CATEGORIES }
+			hasAssistant={ hasAssistant }
 			disabled={ false }
 		/>
 	);
@@ -184,5 +197,89 @@ it( 'warns when the browser loads the pages as the administrator', () => {
 
 	expect(
 		screen.getAllByText( /Use Chrome or Edge/ ).length
+	).toBeGreaterThan( 0 );
+} );
+
+it( 'adds an unknown cookie with the suggestion of the AI provider, when asked', async () => {
+	mockedFrames.scanInFrame.mockResolvedValue( [
+		{
+			name: 'pll_language',
+			path: '/',
+			duration: 31536000,
+			httpOnly: false,
+		},
+		{ name: '_ga', path: '/', duration: 63072000, httpOnly: false },
+	] );
+	mockedApi.suggestForScan.mockResolvedValue( {
+		hosts: [],
+		cookies: [
+			{
+				name: 'pll_language',
+				provider: 'Polylang',
+				category: 'preferences',
+				purpose: 'Keeps the language.',
+			},
+		],
+	} );
+	const onChange = renderPanel( {}, true );
+
+	fireEvent.click(
+		screen.getByRole( 'button', {
+			name: 'Scan the cookies in the browser',
+		} )
+	);
+	fireEvent.click(
+		await screen.findByRole( 'button', { name: 'Suggest with AI' } )
+	);
+
+	expect(
+		await screen.findByText(
+			'Suggested: Polylang, Preferences. Keeps the language.'
+		)
+	).not.toBeNull();
+	// Only the unknown cookies are sent.
+	expect( mockedApi.suggestForScan ).toHaveBeenCalledWith(
+		[],
+		[ 'pll_language' ]
+	);
+
+	fireEvent.click(
+		screen.getByRole( 'button', {
+			name: 'Add pll_language as a site cookie',
+		} )
+	);
+
+	expect( onChange ).toHaveBeenCalledWith( {
+		site_cookies: [
+			{
+				name: 'pll_language',
+				category: 'preferences',
+				duration: '1 year',
+				purpose: 'Keeps the language.',
+			},
+		],
+	} );
+} );
+
+it( 'reports when the AI provider does not answer', async () => {
+	mockedFrames.scanInFrame.mockResolvedValue( [
+		{ name: 'pll_language', path: '/', duration: null, httpOnly: false },
+	] );
+	mockedApi.suggestForScan.mockRejectedValue(
+		new Error( 'The provider is down.' )
+	);
+	renderPanel( {}, true );
+
+	fireEvent.click(
+		screen.getByRole( 'button', {
+			name: 'Scan the cookies in the browser',
+		} )
+	);
+	fireEvent.click(
+		await screen.findByRole( 'button', { name: 'Suggest with AI' } )
+	);
+
+	expect(
+		( await screen.findAllByText( 'The provider is down.' ) ).length
 	).toBeGreaterThan( 0 );
 } );

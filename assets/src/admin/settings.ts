@@ -149,6 +149,8 @@ export interface AdminData {
 	/** The post types the scan of the site reads. */
 	postTypes: PostType[];
 	scanSchedule: ScanSchedule;
+	/** True when the AI provider of the site suggests the vendors and the cookies of the scans. */
+	scanAssistant: boolean;
 	/** The policy link in each language of WPML or Polylang, empty without them. */
 	/** The links of the banner in each language of WPML or Polylang, empty without them. */
 	linkTranslations: Record< BannerLink, LinkTranslation[] >;
@@ -346,6 +348,7 @@ export function parseAdminData( raw: unknown ): AdminData {
 			? data.postTypes.filter( isPostType )
 			: [],
 		scanSchedule: parseScanSchedule( data.scanSchedule ),
+		scanAssistant: data.scanAssistant === true,
 		linkTranslations: linkTranslationsFrom( data.linkTranslations ),
 		languages: languagesFrom( data.languages ),
 		canEditScripts: data.canEditScripts === true,

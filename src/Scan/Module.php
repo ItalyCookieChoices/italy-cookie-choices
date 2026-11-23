@@ -6,7 +6,10 @@ namespace ItalyCookieChoices\Scan;
 
 use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
 use ItalyCookieChoices\Scan\Application\PageFetcher;
+use ItalyCookieChoices\Scan\Application\TextGenerator;
+use ItalyCookieChoices\Scan\Infrastructure\AiClientTextGenerator;
 use ItalyCookieChoices\Scan\Infrastructure\LoopbackFetcher;
+use ItalyCookieChoices\Scan\UI\AssistantEndpoint;
 use ItalyCookieChoices\Scan\UI\Cli\Commands\ScanCommand;
 use ItalyCookieChoices\Scan\UI\CookieRecorder;
 use ItalyCookieChoices\Scan\UI\FrameScanEndpoint;
@@ -52,6 +55,7 @@ final readonly class Module implements ModuleInterface
             ],
             AurynConfig::ALIASES => [
                 PageFetcher::class => LoopbackFetcher::class,
+                TextGenerator::class => AiClientTextGenerator::class,
             ],
             AurynConfig::DELEGATIONS => [
                 // The PSR-16 cache of the scan tokens, kept in the transients.
@@ -78,6 +82,7 @@ final readonly class Module implements ModuleInterface
                 FrameScanEndpoint::class,
                 CookieRecorder::class,
                 ScanAbilities::class,
+                AssistantEndpoint::class,
             ],
             CommandsConfigExtension::COMMANDS => [
                 ScanCommand::class,

@@ -11,6 +11,7 @@ use ItalyCookieChoices\ConsentLog\UI\ConsentLogExport;
 use ItalyCookieChoices\Migration\Application\MigrationSources;
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
 use ItalyCookieChoices\Multilingual\UI\LanguagesData;
+use ItalyCookieChoices\Scan\Application\ScanAssistant;
 use ItalyCookieChoices\Scan\UI\ScheduleData;
 use ItalyCookieChoices\Settings\NetworkSettings;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
@@ -173,6 +174,8 @@ final class SettingsPageTest extends WPTestCase
         $this->assertSame($this->service(ConsentLogExport::class)->url(), $data['consentLogExportUrl']);
         $this->assertSame(SettingsPage::DOCUMENTATION, $data['documentationUrl']);
         $this->assertFalse($data['textsOnly']);
+        // The test site has no AI connector.
+        $this->assertFalse($data['scanAssistant']);
         $this->assertContains(['slug' => 'page', 'name' => 'Pages'], $data['postTypes']);
         $this->assertNotContains('attachment', \array_column($data['postTypes'], 'slug'));
         $this->assertSame('off', $data['scanSchedule']['frequency'] ?? null);
@@ -209,6 +212,7 @@ final class SettingsPageTest extends WPTestCase
             new NetworkSettings(),
             $this->service(LanguagesData::class),
             $this->service(ScheduleData::class),
+            $this->service(ScanAssistant::class),
             $this->service(LinkTranslations::class),
             $this->service(MigrationSources::class),
             $this->service(ViewInterface::class),

@@ -10,6 +10,7 @@ import {
 } from './scan';
 
 export type { Term } from './scan';
+import { parseSuggestions, type ScanSuggestions } from './assistant';
 import {
 	normalizeSettings,
 	linkTranslationRowsFrom,
@@ -469,6 +470,24 @@ export async function frameScanUrl( url: string ): Promise< string > {
 	return isRecord( response ) && typeof response.url === 'string'
 		? response.url
 		: '';
+}
+
+/**
+ * The suggestions of the AI provider of the site for the unknown third parties and cookies.
+ * @param hosts   The unknown third parties.
+ * @param cookies The names of the unknown cookies.
+ */
+export async function suggestForScan(
+	hosts: readonly string[],
+	cookies: readonly string[]
+): Promise< ScanSuggestions > {
+	return parseSuggestions(
+		await apiFetch( {
+			path: '/italy-cookie-choices/v1/scan/suggestions',
+			method: 'POST',
+			data: { hosts, cookies },
+		} )
+	);
 }
 
 /**
