@@ -2409,3 +2409,17 @@ msgstr[1] ""
 #, js-format
 msgid "Google Fonts loaded from Google: %s. Google gets the IP address of the visitors before the consent. Serve the fonts from the site: with a block theme, install them in the Font Library of the Site Editor; otherwise use the local fonts option of the theme or of the page builder, or a plugin that hosts the fonts locally."
 msgstr ""
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/RealCookieBanner/RealCookieBannerSource.php:85
+#, php-format
+msgid "These services are not imported, they have no blocker rules or their code needs Real Cookie Banner: %s."
+msgstr ""
+
+#: src/Migration/Infrastructure/RealCookieBanner/RealCookieBannerSource.php:93
+msgid "The headline, the texts of the content blockers, the IAB TCF, the consent forwarding and the country bypass are not imported."
+msgstr ""
+
+#: src/Migration/Infrastructure/RealCookieBanner/RealCookieBannerSource.php:98
+msgid "Deactivate Real Cookie Banner after the import, or the site shows two banners. Its settings stay."
+msgstr ""

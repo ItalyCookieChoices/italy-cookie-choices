@@ -11,6 +11,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 * Cookie Notice & Compliance, il banner del plugin e quello che l'app Compliance tiene sul sito
 * GDPR Cookie Compliance, di Moove Agency, la versione gratuita
 * Borlabs Cookie, la versione 3
+* Real Cookie Banner, la versione gratuita 5
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -127,6 +128,23 @@ I testi vengono letti nella lingua predefinita di WPML o Polylang. Non vengono i
 | I cookie dei servizi essenziali | I cookie del sito |
 
 I testi vengono letti nella lingua del sito. Non vengono importati: i servizi senza posizione il cui codice richiede Borlabs Cookie, il codice di opt-out, il geo-targeting, IAB TCF, le traduzioni. Borlabs Cookie è un plugin a pagamento: l'importazione legge le sue impostazioni nel database, non usa il suo codice.
+
+## Da Real Cookie Banner
+
+| Real Cookie Banner | Cookie Choices |
+| --- | --- |
+| La descrizione del banner e i testi dei suoi pulsanti | Il testo del banner e i testi dei pulsanti |
+| I link legali alla privacy policy e alle note legali, una pagina o un indirizzo | I link alla policy e alle note legali |
+| Le pagine dei link legali che nascondono il banner | Le pagine dove il banner non si apre da solo |
+| Il layout e la posizione, il logo, i colori e il CSS personalizzato | La scheda **Stile**, il CSS personalizzato in un commento |
+| La durata del cookie del consenso | La durata del consenso |
+| I link fissi | Il pulsante flottante |
+| I gruppi di servizi | I testi delle categorie: Funzionali diventa Preferenze, i gruppi personalizzati Marketing |
+| I servizi di un fornitore comune, trovati dal loro modello, codice o dalle regole dei blocchi | Quel fornitore comune, attivato, con gli id dei tag di Google e Facebook; il codice degli altri fornitori come script dopo il consenso |
+| Gli altri servizi | Fornitori personalizzati con le regole degli indirizzi dei loro content blocker e i loro cookie, il loro codice di opt-in come script dopo il consenso |
+| I cookie dei servizi essenziali | I cookie del sito |
+
+I testi vengono letti nella lingua del sito, anche con WPML o Polylang. Vengono importati solo i servizi e i blocchi pubblicati, i campi del codice, come `{{measurementId}}`, vengono compilati. Non vengono importati: i servizi senza regole dei blocchi il cui codice richiede Real Cookie Banner, i selettori HTML dei blocchi, il codice di opt-out, il titolo, i testi dei content blocker, IAB TCF, l'inoltro del consenso e il bypass per paese.
 
 ## Aggiungere un plugin
 
