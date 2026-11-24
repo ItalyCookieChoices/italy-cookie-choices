@@ -38,5 +38,6 @@ final class VendorId
     public const DISQUS = 'disqus';
     public const DAILYMOTION = 'dailymotion';
     public const TWITCH = 'twitch';
+    public const AMAZON_ADS = 'amazon-ads';
     public const GOOGLE_TAG_GATEWAY = 'google-tag-gateway';
 }

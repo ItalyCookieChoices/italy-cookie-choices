@@ -19,7 +19,8 @@ final class SchemaTest extends WPTestCase
      * preferences and save buttons and the legal notice link need no step, they are empty by default.
      */
     private const KEYS = [
-        'active', 'all_block', 'allowed_patterns', 'anchor_text', 'banner', 'bannerStyle', 'banner_bg', 'banner_logo',
+        'active', 'all_block', 'allowed_patterns', 'amazon_consent_mode', 'amazon_country', 'anchor_text',
+        'banner', 'bannerStyle', 'banner_bg', 'banner_logo',
         'banner_text_color', 'button_text', 'categories', 'clarity_consent_mode', 'closeClass', 'consentText',
         'consent_duration', 'consent_log', 'consent_log_retention', 'consent_mode', 'consent_mode_advanced',
         'contentStyle', 'content_message_button_text', 'content_message_text', 'cookie_domain', 'cookie_name',

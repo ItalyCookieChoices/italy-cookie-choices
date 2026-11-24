@@ -22,11 +22,11 @@ msgstr ""
 msgid "Custom CSS"
 msgstr "CSS personal"
 
-#: src/Settings/Sanitizer.php:175
+#: src/Settings/Sanitizer.php:177
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr "Numele Cookie-ului nu poate fi lăsat gol. Resetat numele de default."
 
-#: src/Settings/Sanitizer.php:176
+#: src/Settings/Sanitizer.php:178
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr "Valoarea Cookie-ului nu poate fi lăsat gol. Resetată valoarea de default"
 
@@ -2372,10 +2372,26 @@ msgstr ""
 msgid "Tells the visitors apart, for the statistics and the ads of the videos."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:362
+#: src/Cookies/Application/PresetCookies.php:365
 msgid "Keeps the video playing without breaks."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:369
+#: src/Cookies/Application/PresetCookies.php:372
 msgid "Protects the session of the video player."
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "Send the consent to Amazon Ads"
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "The Amazon Ad Tag gets the Amazon Consent Signal after the marketing consent, before the tag loads. Turn it on only when the site uses the Amazon Ad Tag: the signal loads a script of Amazon."
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "Country of the visitors, for Amazon"
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "The two letters of the country, like IT. Empty: the country of the language of the site. The plugin does not locate the visitors."
 msgstr ""

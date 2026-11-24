@@ -83,6 +83,31 @@ export function IntegrationsTab( props: IntegrationsTabProps ) {
 						'italy-cookie-choices'
 					) }
 				/>
+				<ToggleField
+					{ ...settingsProps }
+					name="amazon_consent_mode"
+					label={ __(
+						'Send the consent to Amazon Ads',
+						'italy-cookie-choices'
+					) }
+					help={ __(
+						'The Amazon Ad Tag gets the Amazon Consent Signal after the marketing consent, before the tag loads. Turn it on only when the site uses the Amazon Ad Tag: the signal loads a script of Amazon.',
+						'italy-cookie-choices'
+					) }
+				/>
+				<TextField
+					{ ...settingsProps }
+					name="amazon_country"
+					label={ __(
+						'Country of the visitors, for Amazon',
+						'italy-cookie-choices'
+					) }
+					help={ __(
+						'The two letters of the country, like IT. Empty: the country of the language of the site. The plugin does not locate the visitors.',
+						'italy-cookie-choices'
+					) }
+					placeholder="IT"
+				/>
 			</fieldset>
 			<fieldset className="icc-admin__group">
 				<legend>{ __( 'Tags', 'italy-cookie-choices' ) }</legend>

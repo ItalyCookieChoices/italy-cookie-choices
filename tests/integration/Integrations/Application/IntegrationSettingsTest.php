@@ -57,14 +57,31 @@ final class IntegrationSettingsTest extends WPTestCase
             'youtube_nocookie' => '1',
             'uet_consent_mode' => '1',
             'clarity_consent_mode' => '1',
+            'amazon_consent_mode' => '1',
         ]);
 
         $sut = new IntegrationSettings($this->options());
 
+        $this->assertFalse($sut->sendsAmazonConsent());
         $this->assertFalse($sut->sendsUetConsent());
         $this->assertFalse($sut->sendsClarityConsent());
         $this->assertFalse($sut->sendsConsentMode());
         $this->assertSame('', $sut->measurementId());
         $this->assertFalse($sut->usesYouTubeNoCookie());
+    }
+
+    public function testTheAmazonCountryIsTheSavedOneOrTheCountryOfTheSiteLanguage(): void
+    {
+        \update_option(Schema::OPTION, ['active' => '1', 'amazon_consent_mode' => '1', 'amazon_country' => 'fr']);
+        $sut = new IntegrationSettings($this->options());
+        $this->assertTrue($sut->sendsAmazonConsent());
+        $this->assertSame('FR', $sut->amazonCountry());
+
+        \update_option(Schema::OPTION, ['active' => '1', 'amazon_country' => 'France']);
+        \add_filter('locale', static fn(): string => 'de_DE_formal');
+        $this->assertSame('DE', $sut->amazonCountry());
+
+        \add_filter('locale', static fn(): string => 'it', 20);
+        $this->assertSame('IT', $sut->amazonCountry());
     }
 }

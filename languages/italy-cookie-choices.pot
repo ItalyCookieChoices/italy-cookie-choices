@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-24T09:18:08+00:00\n"
+"POT-Creation-Date: 2026-11-24T10:16:46+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -503,11 +503,11 @@ msgstr ""
 msgid "Tells the visitors apart, for the statistics and the ads of the videos."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:362
+#: src/Cookies/Application/PresetCookies.php:365
 msgid "Keeps the video playing without breaks."
 msgstr ""
 
-#: src/Cookies/Application/PresetCookies.php:369
+#: src/Cookies/Application/PresetCookies.php:372
 msgid "Protects the session of the video player."
 msgstr ""
 
@@ -1062,11 +1062,11 @@ msgstr ""
 msgid "Check them in the Blocking tab: %s"
 msgstr ""
 
-#: src/Settings/Sanitizer.php:175
+#: src/Settings/Sanitizer.php:177
 msgid "Cookie name field it can't be empty. Restored default name."
 msgstr ""
 
-#: src/Settings/Sanitizer.php:176
+#: src/Settings/Sanitizer.php:178
 msgid "Cookie value field it can't be empty. Restored default value."
 msgstr ""
 
@@ -2001,6 +2001,22 @@ msgstr ""
 
 #: assets/build/settings.js:27
 msgid "Clarity gets the consent of the visitor with its Consent API v2: the analytics storage follows the statistics category, the ad storage the marketing category. Clarity requires it for the visitors from the EEA, the UK and Switzerland."
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "Send the consent to Amazon Ads"
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "The Amazon Ad Tag gets the Amazon Consent Signal after the marketing consent, before the tag loads. Turn it on only when the site uses the Amazon Ad Tag: the signal loads a script of Amazon."
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "Country of the visitors, for Amazon"
+msgstr ""
+
+#: assets/build/settings.js:27
+msgid "The two letters of the country, like IT. Empty: the country of the language of the site. The plugin does not locate the visitors."
 msgstr ""
 
 #: assets/build/settings.js:27

@@ -76,6 +76,12 @@ window.clarity( 'consentv2', { analytics_Storage: 'granted', ad_Storage: 'denied
 | `statistics` | | `analytics_Storage` |
 | `marketing` | `ad_storage` | `ad_Storage` |
 
+## Amazon Consent Signal
+
+From June 2026 Amazon Ads uses the data of the visitors from the EEA and the UK only with a consent signal. With **Integrations > Send the consent to Amazon Ads** on, the plugin prints at the start of the `<head>` the consent helper of Amazon, `amzn-consent.js`, and its `amznConsent()` call, blocked until the marketing consent. After the consent they run before the Amazon Ad Tag, `amzn.js`, with the ad storage and the user data granted. Without the consent nothing loads from Amazon: the **Amazon Ads** preset blocks the tag too.
+
+Amazon asks the country of the visitor. The plugin does not locate the visitors: write the two letters of the country of your visitors in **Country of the visitors, for Amazon**, like `IT`, or leave it empty for the country of the language of the site. Turn the signal on only when the site uses the Amazon Ad Tag, the helper is a script of Amazon. When the banner uses the IAB TCF, Amazon reads the TCF signal instead.
+
 ## WP Consent API
 
 When the [WP Consent API](https://wordpress.org/plugins/wp-consent-api/) plugin is active and the banner is on, Cookie Choices writes the consent to it, so the plugins that read it, like WooCommerce and Site Kit, respect the choice of the visitor. There is no setting.
