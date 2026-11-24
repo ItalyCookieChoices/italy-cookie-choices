@@ -68,8 +68,6 @@ final class MicrosoftConsentCest
 
     public function nothingIsSentWhenBothSignalsAreOff(E2eTester $I): void
     {
-        // At the current version, so the migration does not turn the signals on.
-        $I->haveOptionInDatabase('italy_cookie_choices_version', 7);
         $I->haveCookieChoicesOptions(['uet_consent_mode' => null, 'clarity_consent_mode' => null]);
 
         $I->amOnPage('/');

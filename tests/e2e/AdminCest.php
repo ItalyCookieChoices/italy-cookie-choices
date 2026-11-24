@@ -196,7 +196,7 @@ final class AdminCest
         $this->save($I);
 
         $options = $this->savedOptions($I);
-        // The migration of the first request turned off the reCAPTCHA preset.
+        // The reCAPTCHA preset starts turned off.
         $I->assertSame(['google-recaptcha', 'youtube'], $options['disabled_vendors']);
         $I->assertSame(
             [[

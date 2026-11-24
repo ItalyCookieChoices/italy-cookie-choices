@@ -437,8 +437,6 @@ final class BannerCest
 
     public function acceptAllAcceptsMarketingWhenTheSiteIgnoresTheGlobalPrivacyControl(E2eTester $I): void
     {
-        // At the current version, so the migration does not turn the Global Privacy Control on.
-        $I->haveOptionInDatabase('italy_cookie_choices_version', 10);
         $I->haveCookieChoicesOptions(['global_privacy_control' => null]);
         $I->haveOptionInDatabase('icc_e2e_gpc', '1');
 

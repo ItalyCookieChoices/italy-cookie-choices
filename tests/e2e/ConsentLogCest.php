@@ -42,8 +42,6 @@ final class ConsentLogCest
 
     public function nothingIsLoggedWhenTheLogIsOff(E2eTester $I): void
     {
-        // A current option, the migration would turn the log on.
-        $I->haveOptionInDatabase('italy_cookie_choices_version', 4);
         $I->haveCookieChoicesOptions([]);
         $I->amOnPage('/');
         $I->waitForElementVisible(self::BANNER);

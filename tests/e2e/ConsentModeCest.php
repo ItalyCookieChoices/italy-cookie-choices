@@ -109,7 +109,6 @@ final class ConsentModeCest
 
     public function nothingIsSentWhenTheConsentModeIsOff(E2eTester $I): void
     {
-        $I->haveOptionInDatabase('italy_cookie_choices_version', 6);
         $I->haveCookieChoicesOptions(['consent_mode' => null]);
 
         $I->amOnPage('/');
