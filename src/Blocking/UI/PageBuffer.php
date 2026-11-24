@@ -8,6 +8,7 @@ use ItalyCookieChoices\Blocking\Application\BlockingSetting;
 use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Blocking\Infrastructure\HtmlBlocker;
 use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -29,7 +30,7 @@ final readonly class PageBuffer implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         // After the redirects, right before the template is loaded.
-        yield 'template_redirect' => [
+        yield Hook::TEMPLATE_REDIRECT => [
             self::CALLBACK => 'start',
             self::PRIORITY => \PHP_INT_MAX,
         ];

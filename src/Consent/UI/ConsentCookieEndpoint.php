@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
-use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\Consent\Application\RenewConsent;
+use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -24,12 +27,13 @@ final readonly class ConsentCookieEndpoint implements SubscriberInterface
     public function __construct(
         private RenewConsent $renew,
         private Options $options,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
@@ -38,11 +42,10 @@ final readonly class ConsentCookieEndpoint implements SubscriberInterface
             return;
         }
 
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->renewTheCookie(...),
-            'permission_callback' => '__return_true',
-        ]);
+        $this->routes->forEveryone(
+            self::ROUTE,
+            new RestHandler(\WP_REST_Server::CREATABLE, $this->renewTheCookie(...))
+        );
     }
 
     private function renewTheCookie(): \WP_REST_Response

@@ -10,6 +10,7 @@ use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Settings\UI\SettingsTab;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadataFile;
+use ItalyStrap\Asset\EventName;
 use ItalyStrap\Asset\Handle;
 use ItalyStrap\Asset\Style;
 use ItalyStrap\Config\Config;
@@ -52,7 +53,7 @@ final readonly class DashboardWidget implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         yield 'wp_dashboard_setup' => 'register';
-        yield 'admin_enqueue_scripts' => 'enqueue';
+        yield EventName::ADMIN => 'enqueue';
     }
 
     public function register(): void

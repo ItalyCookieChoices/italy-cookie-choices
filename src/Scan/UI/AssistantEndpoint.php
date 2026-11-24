@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Scan\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Scan\Application\ScanAssistant;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -22,12 +23,13 @@ final readonly class AssistantEndpoint implements SubscriberInterface
 
     public function __construct(
         private ScanAssistant $assistant,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
@@ -39,12 +41,11 @@ final readonly class AssistantEndpoint implements SubscriberInterface
             'default' => [],
         ];
 
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->suggestions(...),
-            'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),
-            'args' => [self::HOSTS => $names, self::COOKIES => $names],
-        ]);
+        $this->routes->forAdministrators(self::ROUTE, new RestHandler(
+            \WP_REST_Server::CREATABLE,
+            $this->suggestions(...),
+            [self::HOSTS => $names, self::COOKIES => $names]
+        ));
     }
 
     public function suggestions(\WP_REST_Request $request): \WP_REST_Response|\WP_Error

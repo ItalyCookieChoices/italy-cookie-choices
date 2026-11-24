@@ -8,6 +8,7 @@ use ItalyCookieChoices\Multilingual\Application\ConnectedSites;
 use ItalyCookieChoices\Multilingual\Application\SiteTexts;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Settings\UI\SettingsTab;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
@@ -49,8 +50,8 @@ final readonly class ConnectionNotice implements SubscriberInterface
         yield self::UPDATED_SITE => $remember;
         yield 'add_option_' . self::MSLS_OPTION => 'rememberThisSite';
         yield 'update_option_' . self::MSLS_OPTION => 'rememberThisSite';
-        yield 'admin_notices' => 'show';
-        yield 'admin_post_' . self::ACTION => 'ignore';
+        yield Hook::ADMIN_NOTICES => 'show';
+        yield Hook::ADMIN_POST . self::ACTION => 'ignore';
     }
 
     public function remember(mixed $siteId): void

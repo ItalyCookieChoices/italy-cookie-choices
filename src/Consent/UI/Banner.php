@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
-use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Blocking\Application\VendorChoices;
+use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadata;
 use ItalyStrap\Asset\BuildMetadataFile;
@@ -63,7 +64,7 @@ final readonly class Banner implements SubscriberInterface
     {
         yield EventName::FRONT_END => 'enqueue';
         // Before the footer scripts, the banner is the first thing the keyboard reaches.
-        yield 'wp_footer' => [
+        yield Hook::FOOTER => [
             self::CALLBACK => 'render',
             self::PRIORITY => -99999,
         ];

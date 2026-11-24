@@ -9,6 +9,7 @@ use ItalyCookieChoices\Blocking\UI\CustomScriptsPrinter;
 use ItalyCookieChoices\Blocking\UI\PageBuffer;
 use ItalyCookieChoices\Blocking\UI\Placeholders;
 use ItalyCookieChoices\Blocking\UI\VendorAbilities;
+use ItalyCookieChoices\Module as PluginModule;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -19,8 +20,6 @@ use ItalyStrap\Event\SubscribersConfigExtension;
  */
 final readonly class Module implements ModuleInterface
 {
-    private const BUILD = 'assets/build/';
-
     /**
      * @param string $pluginPath The plugin folder, with the trailing slash.
      * @param string $pluginUrl The plugin URL, with the trailing slash.
@@ -36,8 +35,8 @@ final readonly class Module implements ModuleInterface
         return [
             AurynConfig::DEFINITIONS => [
                 Placeholders::class => [
-                    ':buildPath' => $this->pluginPath . self::BUILD,
-                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':buildPath' => $this->pluginPath . PluginModule::BUILD,
+                    ':buildUrl' => $this->pluginUrl . PluginModule::BUILD,
                 ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [

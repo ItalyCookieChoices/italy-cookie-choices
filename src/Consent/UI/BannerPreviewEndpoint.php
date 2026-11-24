@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Consent\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Sanitizer;
 use ItalyCookieChoices\Settings\Schema;
-use ItalyCookieChoices\Settings\UI\SettingsPage;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -27,25 +28,21 @@ final readonly class BannerPreviewEndpoint implements SubscriberInterface
     public function __construct(
         private Banner $banner,
         private Sanitizer $sanitizer,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->preview(...),
-            'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),
-            'args' => [
-                'settings' => ['type' => 'object', 'required' => true],
-                'dialog' => ['type' => 'string', 'enum' => \array_keys(self::DIALOGS), 'default' => 'banner'],
-            ],
-        ]);
+        $this->routes->forAdministrators(self::ROUTE, new RestHandler(\WP_REST_Server::CREATABLE, $this->preview(...), [
+            'settings' => ['type' => 'object', 'required' => true],
+            'dialog' => ['type' => 'string', 'enum' => \array_keys(self::DIALOGS), 'default' => 'banner'],
+        ]));
     }
 
     public function preview(\WP_REST_Request $request): \WP_REST_Response

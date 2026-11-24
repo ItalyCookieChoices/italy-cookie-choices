@@ -8,6 +8,7 @@ use ItalyCookieChoices\Blocking\Application\CustomScripts;
 use ItalyCookieChoices\Blocking\Application\VendorsFactory;
 use ItalyCookieChoices\Blocking\Domain\CustomScript;
 use ItalyCookieChoices\Blocking\Infrastructure\HtmlBlocker;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
@@ -34,8 +35,8 @@ final readonly class CustomScriptsPrinter implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'wp_head' => 'printHead';
-        yield 'wp_footer' => 'printBody';
+        yield Hook::HEAD => 'printHead';
+        yield Hook::FOOTER => 'printBody';
     }
 
     public function printHead(): void

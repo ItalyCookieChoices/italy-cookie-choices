@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Settings\SettingsFile;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -20,24 +22,20 @@ final readonly class ImportEndpoint implements SubscriberInterface
 
     public function __construct(
         private SettingsFile $file,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
     {
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->import(...),
-            'permission_callback' => static fn(): bool => \current_user_can(SettingsPage::CAPABILITY),
-            'args' => [
-                'file' => ['type' => ['object', 'array'], 'required' => true],
-            ],
-        ]);
+        $this->routes->forAdministrators(self::ROUTE, new RestHandler(\WP_REST_Server::CREATABLE, $this->import(...), [
+            'file' => ['type' => ['object', 'array'], 'required' => true],
+        ]));
     }
 
     public function import(\WP_REST_Request $request): \WP_REST_Response|\WP_Error

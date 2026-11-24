@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Tests\Multisite\Multilingual;
 use ItalyCookieChoices\Multilingual\Application\PolicySuggestion;
 use ItalyCookieChoices\Multilingual\Application\SiteTexts;
 use ItalyCookieChoices\Multilingual\UI\SiteTextsEndpoint;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\Multilingual\FakeConnectedSites;
 use ItalyCookieChoices\Tests\Support\Multilingual\FakeTranslator;
@@ -29,7 +30,8 @@ final class SiteTextsEndpointTest extends WPTestCase
         $this->sut = new SiteTextsEndpoint(
             new SiteTexts($sites, new FakeTranslator()),
             new PolicySuggestion($sites),
-            $sites
+            $sites,
+            new RestRoutes()
         );
 
         // Only the route of the test, the one of the plugin has no connected sites without MultilingualPress.

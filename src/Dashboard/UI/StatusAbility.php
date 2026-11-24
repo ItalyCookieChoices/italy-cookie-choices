@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Dashboard\UI;
 
 use ItalyCookieChoices\Settings\UI\Abilities;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -21,7 +22,7 @@ final readonly class StatusAbility implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'wp_abilities_api_init' => 'register';
+        yield Hook::ABILITIES_API_INIT => 'register';
     }
 
     public function register(): void

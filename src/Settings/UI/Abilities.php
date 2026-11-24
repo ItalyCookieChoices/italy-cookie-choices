@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings\UI;
 
+use ItalyCookieChoices\WordPress\Capability;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -16,7 +17,6 @@ final readonly class Abilities implements SubscriberInterface
 {
     public const CATEGORY = 'italy-cookie-choices';
 
-    private const CAPABILITY = 'manage_options';
 
     public function getSubscribedEvents(): iterable
     {
@@ -62,7 +62,7 @@ final readonly class Abilities implements SubscriberInterface
         \wp_register_ability(self::CATEGORY . '/' . $name, [
             ...$args,
             'category' => self::CATEGORY,
-            'permission_callback' => static fn(): bool => \current_user_can(self::CAPABILITY),
+            'permission_callback' => static fn(): bool => \current_user_can(Capability::MANAGE_OPTIONS),
             'meta' => [
                 'public' => true,
                 'show_in_rest' => true,

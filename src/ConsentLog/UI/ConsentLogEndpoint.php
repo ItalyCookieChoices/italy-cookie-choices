@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\ConsentLog\UI;
 
-use ItalyCookieChoices\RestApi;
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\Application\RecordConsent;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -22,12 +24,13 @@ final readonly class ConsentLogEndpoint implements SubscriberInterface
     public function __construct(
         private RecordConsent $record,
         private LogSettings $settings,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
@@ -36,29 +39,24 @@ final readonly class ConsentLogEndpoint implements SubscriberInterface
             return;
         }
 
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            'methods' => \WP_REST_Server::CREATABLE,
-            'callback' => $this->create(...),
-            'permission_callback' => '__return_true',
-            'args' => [
-                'id' => ['type' => 'string', 'format' => 'uuid', 'required' => true],
-                'categories' => [
-                    'type' => 'array',
-                    'items' => ['type' => 'string', 'maxLength' => 64],
-                    'maxItems' => 20,
-                    'uniqueItems' => true,
-                    'required' => true,
-                ],
-                'version' => ['type' => 'string', 'minLength' => 1, 'maxLength' => 64, 'required' => true],
-                'refusedVendors' => [
-                    'type' => 'array',
-                    'items' => ['type' => 'string', 'pattern' => '^[a-z0-9_-]{1,64}$'],
-                    'maxItems' => 100,
-                    'uniqueItems' => true,
-                    'default' => [],
-                ],
+        $this->routes->forEveryone(self::ROUTE, new RestHandler(\WP_REST_Server::CREATABLE, $this->create(...), [
+            'id' => ['type' => 'string', 'format' => 'uuid', 'required' => true],
+            'categories' => [
+                'type' => 'array',
+                'items' => ['type' => 'string', 'maxLength' => 64],
+                'maxItems' => 20,
+                'uniqueItems' => true,
+                'required' => true,
             ],
-        ]);
+            'version' => ['type' => 'string', 'minLength' => 1, 'maxLength' => 64, 'required' => true],
+            'refusedVendors' => [
+                'type' => 'array',
+                'items' => ['type' => 'string', 'pattern' => '^[a-z0-9_-]{1,64}$'],
+                'maxItems' => 100,
+                'uniqueItems' => true,
+                'default' => [],
+            ],
+        ]));
     }
 
     public function create(\WP_REST_Request $request): \WP_REST_Response|\WP_Error

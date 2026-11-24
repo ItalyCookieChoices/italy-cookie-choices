@@ -8,6 +8,7 @@ use ItalyCookieChoices\Cookies\UI\CookieCleanupScript;
 use ItalyCookieChoices\Cookies\UI\CookieTableBlock;
 use ItalyCookieChoices\Cookies\UI\CookieTableShortcode;
 use ItalyCookieChoices\Cookies\UI\SiteCookieAbility;
+use ItalyCookieChoices\Module as PluginModule;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -18,8 +19,6 @@ use ItalyStrap\Event\SubscribersConfigExtension;
  */
 final readonly class Module implements ModuleInterface
 {
-    private const BUILD = 'assets/build/';
-
     /**
      * @param string $pluginPath The plugin folder, with the trailing slash.
      * @param string $pluginUrl The plugin URL, with the trailing slash.
@@ -35,12 +34,12 @@ final readonly class Module implements ModuleInterface
         return [
             AurynConfig::DEFINITIONS => [
                 CookieTableBlock::class => [
-                    ':buildPath' => $this->pluginPath . self::BUILD,
+                    ':buildPath' => $this->pluginPath . PluginModule::BUILD,
                     ':languagesPath' => $this->pluginPath . 'languages',
                 ],
                 CookieCleanupScript::class => [
-                    ':buildPath' => $this->pluginPath . self::BUILD,
-                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':buildPath' => $this->pluginPath . PluginModule::BUILD,
+                    ':buildUrl' => $this->pluginUrl . PluginModule::BUILD,
                 ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [

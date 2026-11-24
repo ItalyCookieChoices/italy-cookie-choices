@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Consent\UI;
 
 use ItalyCookieChoices\Settings\Options;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -27,7 +28,7 @@ final readonly class PreferencesShortcode implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'init' => 'register';
+        yield Hook::INIT => 'register';
     }
 
     public function register(): void

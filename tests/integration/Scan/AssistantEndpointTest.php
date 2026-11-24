@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\Integration\Scan;
 
 use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Consent\Application\ConsentPolicyFactory;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Scan\Application\AssistantUsage;
 use ItalyCookieChoices\Scan\Application\ScanAssistant;
 use ItalyCookieChoices\Scan\UI\AssistantEndpoint;
@@ -89,7 +90,7 @@ final class AssistantEndpointTest extends WPTestCase
             $this->service(VendorPresets::class),
             $this->service(ConsentPolicyFactory::class),
             $this->service(AssistantUsage::class)
-        ));
+        ), new RestRoutes());
         global $wp_rest_server;
         $wp_rest_server = new \WP_REST_Server();
         \remove_all_actions('rest_api_init');

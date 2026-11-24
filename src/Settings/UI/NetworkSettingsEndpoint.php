@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Settings\UI;
 
-use ItalyCookieChoices\RestApi;
+use ItalyCookieChoices\RestHandler;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\NetworkSettings;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -17,12 +19,13 @@ final readonly class NetworkSettingsEndpoint implements SubscriberInterface
 
     public function __construct(
         private NetworkSettings $network,
+        private RestRoutes $routes,
     ) {
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'rest_api_init' => 'register';
+        yield Hook::REST_API_INIT => 'register';
     }
 
     public function register(): void
@@ -31,23 +34,14 @@ final readonly class NetworkSettingsEndpoint implements SubscriberInterface
             return;
         }
 
-        $permission = static fn(): bool => \current_user_can(NetworkSettingsPage::CAPABILITY);
-
-        \register_rest_route(RestApi::NAMESPACE, self::ROUTE, [
-            [
-                'methods' => \WP_REST_Server::READABLE,
-                'callback' => $this->read(...),
-                'permission_callback' => $permission,
-            ],
-            [
-                'methods' => \WP_REST_Server::EDITABLE,
-                'callback' => $this->save(...),
-                'permission_callback' => $permission,
-                'args' => [
-                    'shared' => ['type' => 'boolean', 'required' => true],
-                ],
-            ],
-        ]);
+        $this->routes->forUsersWho(
+            static fn(): bool => \current_user_can(NetworkSettingsPage::CAPABILITY),
+            self::ROUTE,
+            new RestHandler(\WP_REST_Server::READABLE, $this->read(...)),
+            new RestHandler(\WP_REST_Server::EDITABLE, $this->save(...), [
+                'shared' => ['type' => 'boolean', 'required' => true],
+            ])
+        );
     }
 
     public function read(): \WP_REST_Response

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Cookies\UI;
 
 use ItalyCookieChoices\I18n\TextDomain;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -31,7 +32,7 @@ final readonly class CookieTableBlock implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'init' => 'register';
+        yield Hook::INIT => 'register';
     }
 
     public function register(): void

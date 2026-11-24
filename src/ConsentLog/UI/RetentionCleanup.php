@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\ConsentLog\UI;
 
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\Domain\ConsentLog;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -23,7 +24,7 @@ final readonly class RetentionCleanup implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'init' => 'schedule';
+        yield Hook::INIT => 'schedule';
         yield self::EVENT_NAME => 'cleanup';
     }
 

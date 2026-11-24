@@ -8,6 +8,7 @@ use ItalyCookieChoices\Blocking\Application\VendorSettings;
 use ItalyCookieChoices\Scan\Application\ScanReports;
 use ItalyCookieChoices\Settings\UI\SettingsPage;
 use ItalyCookieChoices\Settings\UI\SettingsTab;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Event\SubscriberInterface;
 use ItalyStrap\View\ViewInterface;
@@ -31,8 +32,8 @@ final readonly class ScanNotice implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'admin_notices' => 'show';
-        yield 'admin_post_' . self::ACTION => 'ignore';
+        yield Hook::ADMIN_NOTICES => 'show';
+        yield Hook::ADMIN_POST . self::ACTION => 'ignore';
     }
 
     public function show(): void

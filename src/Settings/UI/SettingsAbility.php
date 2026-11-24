@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Settings\UI;
 use ItalyCookieChoices\Settings\Options;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Settings\SettingsUpdate;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -29,7 +30,7 @@ final readonly class SettingsAbility implements SubscriberInterface
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'wp_abilities_api_init' => 'register';
+        yield Hook::ABILITIES_API_INIT => 'register';
     }
 
     public function register(): void

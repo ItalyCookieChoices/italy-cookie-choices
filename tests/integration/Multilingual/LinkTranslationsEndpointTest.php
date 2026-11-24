@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\Integration\Multilingual;
 
 use ItalyCookieChoices\Multilingual\Application\LinkTranslations;
 use ItalyCookieChoices\Multilingual\UI\LinkTranslationsEndpoint;
+use ItalyCookieChoices\RestRoutes;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\Multilingual\FakeLanguageTranslations;
 use lucatume\WPBrowser\TestCase\WPTestCase;
@@ -31,7 +32,7 @@ final class LinkTranslationsEndpointTest extends WPTestCase
             'legal_notice_url' => (string) \get_permalink($notice),
         ]);
 
-        $sut = new LinkTranslationsEndpoint(new LinkTranslations($this->translations));
+        $sut = new LinkTranslationsEndpoint(new LinkTranslations($this->translations), new RestRoutes());
         global $wp_rest_server;
         $wp_rest_server = new \WP_REST_Server();
         \remove_all_actions('rest_api_init');
@@ -48,7 +49,7 @@ final class LinkTranslationsEndpointTest extends WPTestCase
 
     public function testItRegistersOnTheRestApi(): void
     {
-        $sut = new LinkTranslationsEndpoint(new LinkTranslations($this->translations));
+        $sut = new LinkTranslationsEndpoint(new LinkTranslations($this->translations), new RestRoutes());
 
         $this->assertSame(['rest_api_init' => 'register'], \iterator_to_array($sut->getSubscribedEvents()));
     }

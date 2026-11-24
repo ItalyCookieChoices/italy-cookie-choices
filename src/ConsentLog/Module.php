@@ -6,7 +6,6 @@ namespace ItalyCookieChoices\ConsentLog;
 
 use ItalyCookieChoices\ConsentLog\Domain\ConsentLog;
 use ItalyCookieChoices\ConsentLog\Infrastructure\DatabaseConsentLog;
-use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
 use ItalyCookieChoices\ConsentLog\UI\Cli\Commands\LogExportCommand;
 use ItalyCookieChoices\ConsentLog\UI\Cli\Commands\LogNamespace;
 use ItalyCookieChoices\ConsentLog\UI\Cli\Commands\LogPurgeCommand;
@@ -18,6 +17,8 @@ use ItalyCookieChoices\ConsentLog\UI\LogScript;
 use ItalyCookieChoices\ConsentLog\UI\LogTableInstaller;
 use ItalyCookieChoices\ConsentLog\UI\PrivacyPolicyText;
 use ItalyCookieChoices\ConsentLog\UI\RetentionCleanup;
+use ItalyCookieChoices\Console\Commands\CommandsConfigExtension;
+use ItalyCookieChoices\Module as PluginModule;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
@@ -27,8 +28,6 @@ use ItalyStrap\Event\SubscribersConfigExtension;
  */
 final readonly class Module implements ModuleInterface
 {
-    private const BUILD = 'assets/build/';
-
     /**
      * @param string $pluginPath The plugin folder, with the trailing slash.
      * @param string $pluginUrl The plugin URL, with the trailing slash.
@@ -55,8 +54,8 @@ final readonly class Module implements ModuleInterface
             ],
             AurynConfig::DEFINITIONS => [
                 LogScript::class => [
-                    ':buildPath' => $this->pluginPath . self::BUILD,
-                    ':buildUrl' => $this->pluginUrl . self::BUILD,
+                    ':buildPath' => $this->pluginPath . PluginModule::BUILD,
+                    ':buildUrl' => $this->pluginUrl . PluginModule::BUILD,
                 ],
             ],
             SubscribersConfigExtension::SUBSCRIBERS => [

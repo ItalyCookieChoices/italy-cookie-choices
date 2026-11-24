@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Scan\UI;
 
 use ItalyCookieChoices\Scan\Application\ServerCookies;
+use ItalyCookieChoices\WordPress\Hook;
 use ItalyStrap\Asset\AssetLoader;
 use ItalyStrap\Asset\BuildMetadataFile;
 use ItalyStrap\Asset\Handle;
@@ -55,12 +56,12 @@ final readonly class CookieRecorder implements SubscriberInterface
     public function getSubscribedEvents(): iterable
     {
         // Before every other script of the head.
-        yield 'wp_head' => [
+        yield Hook::HEAD => [
             self::CALLBACK => 'printRecorder',
             self::PRIORITY => \PHP_INT_MIN,
         ];
         // After the scripts of the footer, when the headers are set.
-        yield 'wp_footer' => [
+        yield Hook::FOOTER => [
             self::CALLBACK => 'printServerCookies',
             self::PRIORITY => \PHP_INT_MAX,
         ];
