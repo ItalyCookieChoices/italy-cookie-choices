@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Settings;
 
 use ItalyCookieChoices\Blocking\Application\BlockingSetting;
+use ItalyCookieChoices\Blocking\Domain\VendorId;
 use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\WordPress\Hook;
@@ -32,6 +33,14 @@ final readonly class Migration implements SubscriberInterface
     ];
     private const BLOCKED_LISTS = ['block_script', 'block_iframe', 'block_embed'];
     private const ALLOWED_LISTS = ['allow_script', 'allow_iframe', 'allow_embed'];
+    /** The presets added in version 11, turned off on the existing sites. */
+    private const EMBED_PRESETS = [
+        VendorId::CALENDLY,
+        VendorId::MAILCHIMP,
+        VendorId::DISQUS,
+        VendorId::DAILYMOTION,
+        VendorId::TWITCH,
+    ];
 
     public function __construct(
         private Schema $schema,
@@ -85,7 +94,8 @@ final readonly class Migration implements SubscriberInterface
             return;
         }
 
-        if (!\is_array($option)) {
+        // The defaults stored by another first request are already at the current version (#300).
+        if (!\is_array($option) || ($storedVersion < 1 && $option === $this->schema->defaults())) {
             return;
         }
 
@@ -112,6 +122,7 @@ final readonly class Migration implements SubscriberInterface
             8 => $this->turnOffTheNewPresets(...),
             9 => $this->addTheCookiesOfTheCustomVendors(...),
             10 => $this->respectTheGlobalPrivacyControl(...),
+            11 => $this->keepTheNewEmbedsShowing(...),
         ];
     }
 
@@ -231,13 +242,33 @@ final readonly class Migration implements SubscriberInterface
      */
     private function turnOffTheNewPresets(array $option): array
     {
+        return $this->withPresetsOff($option, Schema::VENDORS_OFF_BY_DEFAULT);
+    }
+
+    /**
+     * @param array<array-key, mixed> $option
+     * @param list<string> $presets
+     * @return array<array-key, mixed>
+     */
+    private function withPresetsOff(array $option, array $presets): array
+    {
         $disabled = $option[BlockingSetting::DISABLED_VENDORS] ?? null;
         $disabled = \array_filter(\is_array($disabled) ? $disabled : [], \is_string(...));
-        $option[BlockingSetting::DISABLED_VENDORS] = \array_values(
-            \array_unique([...$disabled, ...Schema::VENDORS_OFF_BY_DEFAULT])
-        );
+        $option[BlockingSetting::DISABLED_VENDORS] = \array_values(\array_unique([...$disabled, ...$presets]));
 
         return $option;
+    }
+
+    /**
+     * Version 11: the presets of Calendly, Mailchimp, Disqus, Dailymotion and Twitch block on the new sites,
+     * the existing sites keep showing them until the site owner turns them on.
+     *
+     * @param array<array-key, mixed> $option
+     * @return array<array-key, mixed>
+     */
+    private function keepTheNewEmbedsShowing(array $option): array
+    {
+        return $this->withPresetsOff($option, self::EMBED_PRESETS);
     }
 
     /**

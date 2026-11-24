@@ -23,6 +23,11 @@ final class PresetCookiesTest extends WPTestCase
         yield 'HubSpot' => ['hubspot', ['__hstc', 'hubspotutk', '__hssc', '__hssrc']];
         yield 'Matomo Cloud' => ['matomo-cloud', ['_pk_id.*', '_pk_ses.*', '_pk_ref.*']];
         yield 'reCAPTCHA' => ['google-recaptcha', ['_GRECAPTCHA']];
+        yield 'Calendly' => ['calendly', ['_calendly_session']];
+        yield 'Mailchimp' => ['mailchimp', ['MCPopupClosed']];
+        yield 'Disqus' => ['disqus', ['disqus_unique']];
+        yield 'Dailymotion' => ['dailymotion', ['v1st', 'dmvk']];
+        yield 'Twitch' => ['twitch', ['api_token']];
     }
 
     /**

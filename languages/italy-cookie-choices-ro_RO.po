@@ -42,13 +42,13 @@ msgid "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:120
+#: src/Blocking/UI/Placeholders.php:121
 #, php-format
 msgid "This content is blocked until you accept the %s cookies."
 msgstr ""
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:125
+#: src/Blocking/UI/Placeholders.php:126
 #, php-format
 msgid "Accept the %s cookies"
 msgstr ""
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Cookie consent"
 msgstr ""
 
-#: src/Consent/UI/AcceptButtonShortcode.php:52
+#: src/Consent/UI/AcceptButtonShortcode.php:53
 #: src/Consent/UI/ConsentTexts.php:77
 #: assets/build/settings.js:2
 #: assets/build/settings.js:25
@@ -80,7 +80,7 @@ msgstr ""
 msgid "Close and keep only the necessary cookies"
 msgstr ""
 
-#: src/Consent/UI/Banner.php:221
+#: src/Consent/UI/Banner.php:222
 #: src/Consent/UI/ConsentTexts.php:88
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -126,20 +126,20 @@ msgstr ""
 msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
 msgstr ""
 
-#: src/ConsentLog/UI/ConsentLogExport.php:54
+#: src/ConsentLog/UI/ConsentLogExport.php:55
 msgid "You cannot export the consent log."
 msgstr ""
 
-#: src/ConsentLog/UI/PrivacyPolicyText.php:35
+#: src/ConsentLog/UI/PrivacyPolicyText.php:36
 msgid "This site asks your consent before it uses cookies that are not necessary. The cookies are grouped in categories: necessary, preferences, statistics and marketing. The content of third parties, like videos and maps, is loaded only after you accept its category."
 msgstr ""
 
-#: src/ConsentLog/UI/PrivacyPolicyText.php:41
+#: src/ConsentLog/UI/PrivacyPolicyText.php:42
 msgid "Your choice is stored for six months in a cookie named icc_consent, with the accepted categories, the version of the cookie policy and the date. You can change or withdraw your consent at any time from the cookie preferences."
 msgstr ""
 
 #. translators: %d: how many months the consent log keeps a record.
-#: src/ConsentLog/UI/PrivacyPolicyText.php:52
+#: src/ConsentLog/UI/PrivacyPolicyText.php:53
 #, php-format
 msgid "To demonstrate your consent, the site keeps a log of your choices for %d months: a random id created by your browser, the accepted categories, the version of the cookie policy and the date. The log does not contain your IP address or any other data that identifies you."
 msgstr ""
@@ -607,7 +607,7 @@ msgctxt "block keyword"
 msgid "gdpr"
 msgstr ""
 
-#: src/Legacy/DeprecatedEventNames.php:27
+#: src/Legacy/DeprecatedEventNames.php:28
 msgid "The bots are no longer detected, they do not run the consent scripts."
 msgstr ""
 
@@ -626,13 +626,13 @@ msgstr ""
 msgid "The file has no settings of Cookie Choices."
 msgstr ""
 
-#: src/Dashboard/UI/DashboardWidget.php:64
+#: src/Dashboard/UI/DashboardWidget.php:65
 #: src/Settings/UI/Abilities.php:29
 #: src/Settings/UI/NetworkSettingsPage.php:67
 #: src/Settings/UI/NetworkSettingsPage.php:68
 #: src/Settings/UI/NetworkSettingsPage.php:79
-#: src/Settings/UI/SettingsPage.php:97
-#: src/Settings/UI/SettingsPage.php:98
+#: src/Settings/UI/SettingsPage.php:99
+#: src/Settings/UI/SettingsPage.php:100
 msgid "Cookie Choices"
 msgstr ""
 
@@ -961,7 +961,7 @@ msgstr ""
 msgid "The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors."
 msgstr ""
 
-#: src/Cookies/UI/SiteCookieAbility.php:39
+#: src/Cookies/UI/SiteCookieAbility.php:40
 #: assets/build/settings.js:24
 msgid "Add a site cookie"
 msgstr ""
@@ -1106,35 +1106,35 @@ msgstr ""
 msgid "The category \"%1$s\" is not one the visitors can refuse: %2$s."
 msgstr ""
 
-#: src/Blocking/UI/VendorAbilities.php:34
+#: src/Blocking/UI/VendorAbilities.php:35
 msgid "List the vendors"
 msgstr ""
 
-#: src/Blocking/UI/VendorAbilities.php:35
+#: src/Blocking/UI/VendorAbilities.php:36
 msgid "Lists the vendors, the consent category they wait for and whether their scripts are blocked."
 msgstr ""
 
-#: src/Blocking/UI/VendorAbilities.php:56
+#: src/Blocking/UI/VendorAbilities.php:57
 msgid "Turn a common vendor on or off"
 msgstr ""
 
-#: src/Blocking/UI/VendorAbilities.php:57
+#: src/Blocking/UI/VendorAbilities.php:58
 msgid "Turns the blocking of a common vendor on or off, by its id from list-vendors."
 msgstr ""
 
-#: src/Blocking/UI/VendorAbilities.php:81
+#: src/Blocking/UI/VendorAbilities.php:82
 msgid "Add a custom vendor"
 msgstr ""
 
-#: src/Blocking/UI/VendorAbilities.php:82
+#: src/Blocking/UI/VendorAbilities.php:83
 msgid "Adds a vendor blocked until the consent to its category, by texts of its addresses or scripts."
 msgstr ""
 
-#: src/ConsentLog/UI/ConsentStatisticsAbility.php:31
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:32
 msgid "Get the consent statistics"
 msgstr ""
 
-#: src/ConsentLog/UI/ConsentStatisticsAbility.php:32
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:33
 msgid "Counts the answers to the cookie banner by month, from the consent log, the newest month first."
 msgstr ""
 
@@ -1142,11 +1142,11 @@ msgstr ""
 msgid "The cookie banner, the blocked vendors and the consent log of the site."
 msgstr ""
 
-#: src/Settings/UI/SettingsAbility.php:40
+#: src/Settings/UI/SettingsAbility.php:41
 msgid "Get the cookie settings"
 msgstr ""
 
-#: src/Settings/UI/SettingsAbility.php:41
+#: src/Settings/UI/SettingsAbility.php:42
 msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
 msgstr ""
 
@@ -1372,9 +1372,9 @@ msgstr ""
 msgid "Ignore"
 msgstr ""
 
-#: src/Migration/UI/MigrationNotice.php:69
-#: src/Multilingual/UI/ConnectionNotice.php:103
-#: src/Scan/UI/ScanNotice.php:61
+#: src/Migration/UI/MigrationNotice.php:70
+#: src/Multilingual/UI/ConnectionNotice.php:104
+#: src/Scan/UI/ScanNotice.php:62
 msgid "You cannot change the settings."
 msgstr ""
 
@@ -1497,7 +1497,7 @@ msgid_plural "%d pages"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Scan/UI/ScanAbilities.php:45
+#: src/Scan/UI/ScanAbilities.php:46
 #: assets/build/settings.js:17
 msgid "Scan the site"
 msgstr ""
@@ -1549,7 +1549,7 @@ msgstr ""
 msgid "Add as a custom vendor"
 msgstr ""
 
-#: src/Scan/UI/ScanCron.php:52
+#: src/Scan/UI/ScanCron.php:53
 msgid "Once a month"
 msgstr ""
 
@@ -2130,7 +2130,7 @@ msgstr ""
 msgid "See the consent log"
 msgstr ""
 
-#: src/Scan/UI/FrameScanEndpoint.php:48
+#: src/Scan/UI/FrameScanEndpoint.php:47
 msgid "Only the pages of this site can be scanned."
 msgstr ""
 
@@ -2226,81 +2226,81 @@ msgstr ""
 msgid "There is no category \"%1$s\": %2$s."
 msgstr ""
 
-#: src/Dashboard/UI/StatusAbility.php:32
+#: src/Dashboard/UI/StatusAbility.php:33
 msgid "Get the status of the cookie consent"
 msgstr ""
 
-#: src/Migration/UI/MigrationAbilities.php:50
+#: src/Migration/UI/MigrationAbilities.php:51
 msgid "List the consent plugins to import"
 msgstr ""
 
-#: src/Migration/UI/MigrationAbilities.php:66
+#: src/Migration/UI/MigrationAbilities.php:67
 msgid "Import the settings of a consent plugin"
 msgstr ""
 
-#: src/Scan/UI/ScanAbilities.php:101
+#: src/Scan/UI/ScanAbilities.php:102
 msgid "Get the report of the last scan"
 msgstr ""
 
-#: src/Settings/UI/SettingsAbility.php:50
+#: src/Settings/UI/SettingsAbility.php:51
 msgid "Update the cookie settings"
 msgstr ""
 
-#: src/Cookies/UI/SiteCookieAbility.php:41
+#: src/Cookies/UI/SiteCookieAbility.php:42
 msgid "Adds a cookie of the site itself to the cookie table, like the login of WordPress or the cart."
 msgstr ""
 
-#: src/Cookies/UI/SiteCookieAbility.php:45
+#: src/Cookies/UI/SiteCookieAbility.php:46
 msgid "Its category is necessary, preferences, statistics or marketing."
 msgstr ""
 
-#: src/Dashboard/UI/StatusAbility.php:34
+#: src/Dashboard/UI/StatusAbility.php:35
 msgid "Returns what makes the consent valid, like the banner, the policy link and the vendors."
 msgstr ""
 
-#: src/Dashboard/UI/StatusAbility.php:38
+#: src/Dashboard/UI/StatusAbility.php:39
 msgid "The state warning is what is missing, info is a suggestion."
 msgstr ""
 
-#: src/Migration/UI/MigrationAbilities.php:52
+#: src/Migration/UI/MigrationAbilities.php:53
 msgid "Lists the other consent plugins whose settings are in the database."
 msgstr ""
 
-#: src/Migration/UI/MigrationAbilities.php:53
+#: src/Migration/UI/MigrationAbilities.php:54
 msgid "Each one has what its import changes: a preview, nothing is saved."
 msgstr ""
 
-#: src/Migration/UI/MigrationAbilities.php:68
+#: src/Migration/UI/MigrationAbilities.php:69
 msgid "Imports the settings of another consent plugin, by its id from list-migration-sources."
 msgstr ""
 
-#: src/Migration/UI/MigrationAbilities.php:72
+#: src/Migration/UI/MigrationAbilities.php:73
 msgid "The texts replace the saved ones, the vendors, the cookies and the scripts are added."
 msgstr ""
 
 #. translators: %d: the number of pages of a batch.
-#: src/Scan/UI/ScanAbilities.php:49
+#: src/Scan/UI/ScanAbilities.php:50
 #, php-format
 msgid "Reads the chosen pages from the server, %d at a time."
 msgstr ""
 
-#: src/Scan/UI/ScanAbilities.php:52
+#: src/Scan/UI/ScanAbilities.php:53
 msgid "It finds the vendors of their scripts, frames and pixels, and the unknown third parties."
 msgstr ""
 
-#: src/Scan/UI/ScanAbilities.php:56
+#: src/Scan/UI/ScanAbilities.php:57
 msgid "Run it again with nextOffset until it is null."
 msgstr ""
 
-#: src/Scan/UI/ScanAbilities.php:57
+#: src/Scan/UI/ScanAbilities.php:58
 msgid "It changes nothing: block the vendors with switch-vendor, add the others with add-custom-vendor."
 msgstr ""
 
-#: src/Scan/UI/ScanAbilities.php:103
+#: src/Scan/UI/ScanAbilities.php:104
 msgid "Returns the last scheduled scan: the vendors not blocked and the unknown third parties."
 msgstr ""
 
-#: src/Scan/UI/ScanAbilities.php:107
+#: src/Scan/UI/ScanAbilities.php:108
 msgid "Null when no scan has run."
 msgstr ""
 
@@ -2310,19 +2310,19 @@ msgstr ""
 msgid "This site uses the main site settings, only its texts change, not: %1$s. Texts: %2$s."
 msgstr ""
 
-#: src/Settings/UI/SettingsAbility.php:52
+#: src/Settings/UI/SettingsAbility.php:53
 msgid "Changes only the settings given, with the names of get-settings, and returns the saved settings."
 msgstr ""
 
-#: src/Settings/UI/SettingsAbility.php:56
+#: src/Settings/UI/SettingsAbility.php:57
 msgid "A checkbox is on with 1, null removes a setting, like a checkbox turned off."
 msgstr ""
 
-#: src/Settings/UI/SettingsAbility.php:60
+#: src/Settings/UI/SettingsAbility.php:61
 msgid "A list replaces the saved list, the values not valid are not saved."
 msgstr ""
 
-#: src/ConsentLog/UI/PrivacyPolicyText.php:63
+#: src/ConsentLog/UI/PrivacyPolicyText.php:64
 msgid "To describe its cookies and third parties, the site owner used an AI service with the AI Client of WordPress. Only the names of the cookies and of the third-party sites were sent to it, never the data of the visitors or of their consents."
 msgstr ""
 
@@ -2354,4 +2354,28 @@ msgstr ""
 
 #: assets/build/settings.js:12
 msgid "Discard the suggestion"
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:336
+msgid "Keeps the choices of the visitor while booking."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:343
+msgid "Remembers that the visitor closed the sign-up form."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:350
+msgid "Counts the visitors of the comments who are not logged in."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:357
+msgid "Tells the visitors apart, for the statistics and the ads of the videos."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:362
+msgid "Keeps the video playing without breaks."
+msgstr ""
+
+#: src/Cookies/Application/PresetCookies.php:369
+msgid "Protects the session of the video player."
 msgstr ""

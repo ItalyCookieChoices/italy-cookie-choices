@@ -329,6 +329,49 @@ final readonly class PresetCookies
                     \__('Analyzes the risk, to protect the forms from spam and bots.', 'italy-cookie-choices')
                 ),
             ],
+            VendorId::CALENDLY => [
+                $this->cookie(
+                    '_calendly_session',
+                    $d->session(),
+                    \__('Keeps the choices of the visitor while booking.', 'italy-cookie-choices')
+                ),
+            ],
+            VendorId::MAILCHIMP => [
+                $this->cookie(
+                    'MCPopupClosed',
+                    $d->years(1),
+                    \__('Remembers that the visitor closed the sign-up form.', 'italy-cookie-choices')
+                ),
+            ],
+            VendorId::DISQUS => [
+                $this->cookie(
+                    'disqus_unique',
+                    $d->session(),
+                    \__('Counts the visitors of the comments who are not logged in.', 'italy-cookie-choices')
+                ),
+            ],
+            VendorId::DAILYMOTION => [
+                $this->cookie(
+                    'v1st',
+                    $d->months(13),
+                    \__(
+                        'Tells the visitors apart, for the statistics and the ads of the videos.',
+                        'italy-cookie-choices'
+                    )
+                ),
+                $this->cookie(
+                    'dmvk',
+                    $d->session(),
+                    \__('Keeps the video playing without breaks.', 'italy-cookie-choices')
+                ),
+            ],
+            VendorId::TWITCH => [
+                $this->cookie(
+                    'api_token',
+                    $d->months(1),
+                    \__('Protects the session of the video player.', 'italy-cookie-choices')
+                ),
+            ],
         ];
     }
 }

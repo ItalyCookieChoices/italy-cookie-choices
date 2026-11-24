@@ -24,7 +24,7 @@ The banner asks the consent by category, with three buttons of the same importan
 * Share the consent with the subdomains of the site, with the cookie domain
 * Choose after how many months the banner asks the consent again, 6 by default
 * Respect the Global Privacy Control of the browser: accept all leaves out the marketing cookies
-* Block Google Analytics, Google Tag Manager, Google Ads, AdSense, Microsoft Clarity and Advertising, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, Snapchat, Reddit, HubSpot, Spotify, SoundCloud, Hotjar and Matomo Cloud until the consent, and add your own vendors
+* Block Google Analytics, Google Tag Manager, Google Ads, AdSense, Microsoft Clarity and Advertising, YouTube, Vimeo, Google Maps, Facebook, Instagram, X, LinkedIn, TikTok, Pinterest, Snapchat, Reddit, HubSpot, Spotify, SoundCloud, Calendly, Mailchimp, Disqus, Dailymotion, Twitch, Hotjar and Matomo Cloud until the consent, and add your own vendors
 * Scan the pages of the site to find the vendors to block and the unknown third parties
 * Add your own scripts, like a chat or a tracking snippet, that run after the consent to their category
 * Import the settings of Complianz, CookieYes, Cookie Notice, GDPR Cookie Compliance and Borlabs Cookie, from the settings page or WP-CLI

@@ -200,7 +200,7 @@ export interface PostType {
 }
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
-export const SCHEMA_VERSION = 10;
+export const SCHEMA_VERSION = 11;
 
 function categoryFrom( value: unknown ): Category | null {
 	if ( ! isRecord( value ) || typeof value.id !== 'string' ) {

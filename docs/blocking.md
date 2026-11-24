@@ -32,11 +32,16 @@ A vendor is a third party, like YouTube, with the addresses it loads from and th
 | HubSpot | Marketing |
 | Spotify | Marketing |
 | SoundCloud | Marketing |
+| Calendly | Marketing |
+| Mailchimp | Marketing |
+| Disqus | Marketing |
+| Dailymotion | Marketing |
+| Twitch | Marketing |
 | Google reCAPTCHA | Marketing, turned off |
 
 In **Blocking > Common vendors** you can turn off a vendor the site does not need to block.
 
-Google reCAPTCHA starts turned off: the forms that use it would wait for the marketing consent. Turn it on when the forms can wait. HubSpot blocks the tracking and the chat, not the forms of `js.hsforms.net`. Matomo Cloud blocks only the Matomo served by `matomo.cloud`, Matomo on your site can be set up without cookies.
+Google reCAPTCHA starts turned off: the forms that use it would wait for the marketing consent. Turn it on when the forms can wait. HubSpot blocks the tracking and the chat, not the forms of `js.hsforms.net`. Matomo Cloud blocks only the Matomo served by `matomo.cloud`, Matomo on your site can be set up without cookies. Mailchimp blocks the script of a connected site and the pop-up forms, not the forms that only send to Mailchimp. Calendly, Mailchimp, Disqus, Dailymotion and Twitch, added in 3.4.0, start turned off on the sites that existed before: turn them on when the site uses them.
 
 ## Consent per vendor
 
