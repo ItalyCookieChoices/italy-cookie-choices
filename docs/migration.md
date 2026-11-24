@@ -11,6 +11,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * Cookie Notice & Compliance, the banner of the plugin and what the Compliance app keeps on the site
 * GDPR Cookie Compliance, by Moove Agency, the free version
 * Borlabs Cookie, version 3
+* Real Cookie Banner, the free version 5
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -127,6 +128,23 @@ The texts are read in the default language of WPML or Polylang. Not imported: th
 | The cookies of the essential services | The site cookies |
 
 The texts are read in the language of the site. Not imported: the services without a location whose code needs Borlabs Cookie, the opt-out code, the geo-targeting, the IAB TCF, the translations. Borlabs Cookie is a paid plugin: the import reads its settings in the database, it does not use its code.
+
+## From Real Cookie Banner
+
+| Real Cookie Banner | Cookie Choices |
+| --- | --- |
+| The description of the banner and the texts of its buttons | The banner text and the button texts |
+| The legal links of the privacy policy and of the legal notice, a page or an address | The policy and legal notice links |
+| The pages of the legal links that hide the banner | The pages where the banner does not open by itself |
+| The layout and position, the logo, the colors and the custom CSS | The **Style** tab, the custom CSS in a comment |
+| The duration of the consent cookie | The duration of the consent |
+| The sticky links | The floating button |
+| The service groups | The texts of the categories: Functional becomes Preferences, the custom groups Marketing |
+| The services of a common vendor, found by their template, code or blocker rules | That common vendor, turned on, with its Google and Facebook tag ids; the code of the other vendors as a script after the consent |
+| The other services | Custom vendors with the address rules of their content blockers and their cookies, their opt-in code as a script after the consent |
+| The cookies of the essential services | The site cookies |
+
+The texts are read in the language of the site, with WPML or Polylang too. Only the published services and blockers are imported, the fields of the code, like `{{measurementId}}`, are filled. Not imported: the services without blocker rules whose code needs Real Cookie Banner, the HTML selectors of the blockers, the opt-out code, the headline, the texts of the content blockers, the IAB TCF, the consent forwarding and the country bypass.
 
 ## Add a plugin
 
