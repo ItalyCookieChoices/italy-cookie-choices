@@ -28,7 +28,7 @@ Cancella i cookie sul dominio del sito e sui suoi domini superiori, dove i forni
 
 I nomi, le durate e gli scopi vengono dalla documentazione di ogni fornitore, dai suoi script quando la documentazione non riporta le durate, o da cookiedatabase.org. I fornitori possono cambiarli: verifica i cookie del tuo sito con gli strumenti per sviluppatori del browser.
 
-Google Tag Manager non imposta cookie propri. Gli embed di Instagram, X e SoundCloud impostano i loro cookie sui propri domini e non li documentano, aggiungili come cookie del sito se ti servono.
+Google Tag Manager non imposta cookie propri. Gli embed di Instagram, X e SoundCloud impostano i loro cookie sui propri domini e non li documentano, aggiungili come cookie del sito se ti servono. Calendly, Mailchimp, Disqus e Twitch documentano pochi dei loro cookie: la tabella elenca quelli noti.
 
 ## Per gli sviluppatori
 

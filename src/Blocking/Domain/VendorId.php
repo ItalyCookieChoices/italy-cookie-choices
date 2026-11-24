@@ -33,5 +33,10 @@ final class VendorId
     public const HUBSPOT = 'hubspot';
     public const MATOMO_CLOUD = 'matomo-cloud';
     public const GOOGLE_RECAPTCHA = 'google-recaptcha';
+    public const CALENDLY = 'calendly';
+    public const MAILCHIMP = 'mailchimp';
+    public const DISQUS = 'disqus';
+    public const DAILYMOTION = 'dailymotion';
+    public const TWITCH = 'twitch';
     public const GOOGLE_TAG_GATEWAY = 'google-tag-gateway';
 }

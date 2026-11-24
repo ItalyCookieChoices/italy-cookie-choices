@@ -99,6 +99,33 @@ final class VendorPresetsTest extends WPTestCase
         yield 'TikTok' => ['https://www.tiktok.com/embed/v2/1', 'tiktok', 'marketing'];
         yield 'Spotify' => ['https://open.spotify.com/embed/track/1', 'spotify', 'marketing'];
         yield 'SoundCloud' => ['https://w.soundcloud.com/player/?url=a', 'soundcloud', 'marketing'];
+        yield 'Calendly widget' => [
+            'https://assets.calendly.com/assets/external/widget.js',
+            'calendly',
+            'marketing',
+        ];
+        yield 'Calendly inline frame' => [
+            'https://calendly.com/example/30min?embed_type=Inline',
+            'calendly',
+            'marketing',
+        ];
+        yield 'Mailchimp connected site' => [
+            'https://chimpstatic.com/mcjs-connected/js/users/1/2.js',
+            'mailchimp',
+            'marketing',
+        ];
+        yield 'Mailchimp pop-up form' => [
+            'https://downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js',
+            'mailchimp',
+            'marketing',
+        ];
+        yield 'Disqus' => ['https://example.disqus.com/embed.js', 'disqus', 'marketing'];
+        yield 'Disqus frame' => ['https://disqus.com/embed/comments/?base=default', 'disqus', 'marketing'];
+        yield 'Dailymotion' => ['https://www.dailymotion.com/embed/video/x1', 'dailymotion', 'marketing'];
+        yield 'Dailymotion player' => ['https://geo.dailymotion.com/player.html?video=x1', 'dailymotion', 'marketing'];
+        yield 'Twitch player' => ['https://player.twitch.tv/?channel=a&parent=example.com', 'twitch', 'marketing'];
+        yield 'Twitch clip' => ['https://clips.twitch.tv/embed?clip=a&parent=example.com', 'twitch', 'marketing'];
+        yield 'Twitch embed' => ['https://embed.twitch.tv/embed/v1.js', 'twitch', 'marketing'];
     }
 
     /**
@@ -162,6 +189,15 @@ final class VendorPresetsTest extends WPTestCase
         ];
         yield 'Hotjar' => ["(function(h,o,t,j,a,r){r.src=t+h._hjSettings.hjid+j})(window,document,"
             . "'https://static.hotjar.com/c/hotjar-','.js?sv=');", 'hotjar'];
+        yield 'Disqus' => [
+            "var d = document, s = d.createElement('script');s.src = 'https://example.disqus.com/embed.js';",
+            'disqus',
+        ];
+        yield 'Mailchimp connected site' => [
+            '!function(c,h,i,m,p){m=c.createElement(h),m.src=p}(document,"script",'
+                . '"https://chimpstatic.com/mcjs-connected/js/users/1/2.js");',
+            'mailchimp',
+        ];
     }
 
     /**
@@ -181,6 +217,7 @@ final class VendorPresetsTest extends WPTestCase
         yield 'HubSpot forms' => ['https://js.hsforms.net/forms/embed/v2.js'];
         yield 'Matomo on the site' => ['https://example.com/matomo/matomo.js'];
         yield 'Google Fonts' => ['https://fonts.googleapis.com/css2?family=Inter'];
+        yield 'Mailchimp form validation' => ['https://s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'];
     }
 
     /**

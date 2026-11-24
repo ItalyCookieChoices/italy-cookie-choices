@@ -28,7 +28,7 @@ It deletes the cookies on the domain of the site and on its parent domains, wher
 
 The names, the durations and the purposes come from the documentation of each vendor, from its scripts when the documentation lacks the durations, or from cookiedatabase.org. The vendors can change them: check the cookies of your site with the developer tools of the browser.
 
-Google Tag Manager sets no cookie of its own. The embeds of Instagram, X and SoundCloud set their cookies on their own domains and do not document them, add them as site cookies if you need them.
+Google Tag Manager sets no cookie of its own. The embeds of Instagram, X and SoundCloud set their cookies on their own domains and do not document them, add them as site cookies if you need them. Calendly, Mailchimp, Disqus and Twitch document few of their cookies: the table lists the known ones.
 
 ## For the developers
 

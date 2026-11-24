@@ -32,9 +32,9 @@ final class SchemaTest extends WPTestCase
         'site_cookies', 'slug', 'target', 'text', 'uet_consent_mode', 'url', 'vendor_consent', 'youtube_nocookie',
     ];
 
-    public function testTheSchemaIsAtVersion10(): void
+    public function testTheSchemaIsAtVersion11(): void
     {
-        $this->assertSame(10, Schema::VERSION);
+        $this->assertSame(11, Schema::VERSION);
     }
 
     public function testTheDefaultsAreTheOnesOfTheNewInstallations(): void

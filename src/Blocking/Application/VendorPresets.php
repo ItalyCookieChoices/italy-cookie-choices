@@ -37,6 +37,11 @@ final readonly class VendorPresets
         VendorId::HUBSPOT => 'HubSpot',
         VendorId::MATOMO_CLOUD => 'Matomo Cloud',
         VendorId::GOOGLE_RECAPTCHA => 'Google reCAPTCHA',
+        VendorId::CALENDLY => 'Calendly',
+        VendorId::MAILCHIMP => 'Mailchimp',
+        VendorId::DISQUS => 'Disqus',
+        VendorId::DAILYMOTION => 'Dailymotion',
+        VendorId::TWITCH => 'Twitch',
     ];
 
     /**
@@ -181,6 +186,36 @@ final readonly class VendorPresets
                 VendorId::GOOGLE_RECAPTCHA,
                 Category::MARKETING,
                 ['google.com/recaptcha', 'gstatic.com/recaptcha', 'recaptcha.net']
+            ),
+            new Vendor(
+                VendorId::CALENDLY,
+                Category::MARKETING,
+                ['calendly.com'],
+                ['assets.calendly.com/assets/external/widget.js']
+            ),
+            // The script of a connected site and the pop-up forms, not the forms that only send to list-manage.com.
+            new Vendor(
+                VendorId::MAILCHIMP,
+                Category::MARKETING,
+                ['chimpstatic.com/mcjs-connected', 'downloads.mailchimp.com/js/signup-forms'],
+                ['chimpstatic.com/mcjs-connected']
+            ),
+            new Vendor(
+                VendorId::DISQUS,
+                Category::MARKETING,
+                ['disqus.com/embed.js', 'disqus.com/embed/comments', 'disquscdn.com'],
+                ['.disqus.com/embed.js']
+            ),
+            new Vendor(
+                VendorId::DAILYMOTION,
+                Category::MARKETING,
+                ['dailymotion.com/embed', 'geo.dailymotion.com', 'dai.ly']
+            ),
+            new Vendor(
+                VendorId::TWITCH,
+                Category::MARKETING,
+                ['player.twitch.tv', 'clips.twitch.tv', 'embed.twitch.tv'],
+                ['embed.twitch.tv/embed/v1.js']
             ),
         ];
     }

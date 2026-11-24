@@ -11,6 +11,10 @@ use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class MigrationTest extends WPTestCase
 {
+    /** The presets of version 11, turned off on the existing sites. */
+    private const EMBEDS = ['calendly', 'mailchimp', 'disqus', 'dailymotion', 'twitch'];
+    private const UPGRADED_VENDORS = ['google-recaptcha', ...self::EMBEDS];
+
     public function setUp(): void
     {
         parent::setUp();
@@ -74,7 +78,7 @@ final class MigrationTest extends WPTestCase
                 'custom_vendors' => [$this->customVendor(['analytics.js'])],
                 ...Schema::CONSENT_MODE_DEFAULTS,
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -105,7 +109,7 @@ final class MigrationTest extends WPTestCase
                 'custom_vendors' => [$this->customVendor(['analytics.js'])],
                 ...Schema::CONSENT_MODE_DEFAULTS,
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -128,11 +132,17 @@ final class MigrationTest extends WPTestCase
         $this->assertSame('', $stored['button_text'] ?? null);
     }
 
+    /**
+     * The steps keep the defaults, only the presets added later are turned off on the existing sites.
+     */
     public function testTheUpgradeKeepsTheDefaults(): void
     {
         $defaults = (new Schema())->defaults();
 
-        $this->assertSame($defaults, (new Migration(new Schema(), new LegacySnippets()))->upgrade($defaults, 1));
+        $this->assertSame(
+            [...$defaults, 'disabled_vendors' => self::UPGRADED_VENDORS],
+            (new Migration(new Schema(), new LegacySnippets()))->upgrade($defaults, 1)
+        );
     }
 
     /**
@@ -157,7 +167,7 @@ final class MigrationTest extends WPTestCase
         $this->assertSame(
             ['text' => '<script>raw</script>'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
                 + Schema::MICROSOFT_CONSENT_DEFAULTS
-                + ['disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT]
+                + ['disabled_vendors' => self::UPGRADED_VENDORS]
                 + Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             \get_option(Schema::OPTION)
         );
@@ -173,7 +183,7 @@ final class MigrationTest extends WPTestCase
         $this->assertSame(
             ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
                 + Schema::MICROSOFT_CONSENT_DEFAULTS
-                + ['disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT]
+                + ['disabled_vendors' => self::UPGRADED_VENDORS]
                 + Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             \get_option(Schema::OPTION)
         );
@@ -211,7 +221,7 @@ final class MigrationTest extends WPTestCase
                 'allowed_patterns' => ['window.allowed'],
                 ...Schema::CONSENT_MODE_DEFAULTS,
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -232,7 +242,7 @@ final class MigrationTest extends WPTestCase
         $this->assertSame(
             ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
                 + Schema::MICROSOFT_CONSENT_DEFAULTS
-                + ['disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT]
+                + ['disabled_vendors' => self::UPGRADED_VENDORS]
                 + Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             \get_option(Schema::OPTION)
         );
@@ -248,7 +258,7 @@ final class MigrationTest extends WPTestCase
         $this->assertSame(
             ['active' => '1'] + Schema::CONSENT_LOG_DEFAULTS + Schema::CONSENT_MODE_DEFAULTS
                 + Schema::MICROSOFT_CONSENT_DEFAULTS
-                + ['disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT]
+                + ['disabled_vendors' => self::UPGRADED_VENDORS]
                 + Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             \get_option(Schema::OPTION)
         );
@@ -272,7 +282,7 @@ final class MigrationTest extends WPTestCase
                 'consent_log' => '1',
                 'consent_mode' => '1',
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -304,7 +314,7 @@ final class MigrationTest extends WPTestCase
                 'allowed_patterns' => ['window.allowed', 'youtube.com/embed/public'],
                 ...Schema::CONSENT_MODE_DEFAULTS,
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -354,7 +364,7 @@ final class MigrationTest extends WPTestCase
                 'text' => '<p>Kept</p>',
                 ...Schema::CONSENT_MODE_DEFAULTS,
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -380,7 +390,7 @@ final class MigrationTest extends WPTestCase
                 'active' => '1',
                 'consent_mode' => '1',
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -403,7 +413,7 @@ final class MigrationTest extends WPTestCase
                 'consent_mode' => '1',
                 'uet_consent_mode' => '1',
                 'clarity_consent_mode' => '1',
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -423,7 +433,7 @@ final class MigrationTest extends WPTestCase
         $this->assertSame(
             [
                 'active' => '1',
-                'disabled_vendors' => ['youtube', 'google-recaptcha'],
+                'disabled_vendors' => ['youtube', 'google-recaptcha', ...self::EMBEDS],
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             \get_option(Schema::OPTION)
@@ -435,11 +445,11 @@ final class MigrationTest extends WPTestCase
         $sut = new Migration(new Schema(), new LegacySnippets());
 
         $this->assertSame(
-            ['active' => '1', 'disabled_vendors' => ['google-recaptcha'], ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS],
+            ['active' => '1', 'disabled_vendors' => self::UPGRADED_VENDORS, ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS],
             $sut->upgrade(['active' => '1'], 7)
         );
         $this->assertSame(
-            ['disabled_vendors' => ['google-recaptcha'], ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS],
+            ['disabled_vendors' => self::UPGRADED_VENDORS, ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS],
             $sut->upgrade(['disabled_vendors' => ['google-recaptcha']], 7)
         );
     }
@@ -459,6 +469,7 @@ final class MigrationTest extends WPTestCase
                     ['id' => 'b', 'name' => 'B', 'category' => 'marketing', 'patterns' => ['b'], 'cookies' => $cookies],
                 ],
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
+                'disabled_vendors' => self::EMBEDS,
             ],
             $sut->upgrade([
                 'custom_vendors' => [
@@ -476,7 +487,24 @@ final class MigrationTest extends WPTestCase
     {
         $sut = new Migration(new Schema(), new LegacySnippets());
 
-        $this->assertSame(['active' => '1', 'global_privacy_control' => '1'], $sut->upgrade(['active' => '1'], 9));
+        $this->assertSame(
+            ['active' => '1', 'global_privacy_control' => '1', 'disabled_vendors' => self::EMBEDS],
+            $sut->upgrade(['active' => '1'], 9)
+        );
+    }
+
+    /**
+     * Version 11: the new embeds keep showing on the existing sites, the new sites block them.
+     */
+    public function testTheNewEmbedsKeepShowingOnTheExistingSites(): void
+    {
+        $sut = new Migration(new Schema(), new LegacySnippets());
+
+        $this->assertSame(
+            ['disabled_vendors' => ['youtube', 'twitch', 'calendly', 'mailchimp', 'disqus', 'dailymotion']],
+            $sut->upgrade(['disabled_vendors' => ['youtube', 'twitch']], 10)
+        );
+        $this->assertNotContains('calendly', Schema::VENDORS_OFF_BY_DEFAULT);
     }
 
     public function testTheImportedSettingsAreUpgradedFromTheirVersion(): void
@@ -490,7 +518,7 @@ final class MigrationTest extends WPTestCase
                 'allowed_patterns' => ['a.example.com'],
                 ...Schema::CONSENT_MODE_DEFAULTS,
                 ...Schema::MICROSOFT_CONSENT_DEFAULTS,
-                'disabled_vendors' => Schema::VENDORS_OFF_BY_DEFAULT,
+                'disabled_vendors' => self::UPGRADED_VENDORS,
                 ...Schema::GLOBAL_PRIVACY_CONTROL_DEFAULTS,
             ],
             $sut->upgrade(['active' => '1', 'scroll' => '1', 'allow_script' => ['a.example.com']], 1)

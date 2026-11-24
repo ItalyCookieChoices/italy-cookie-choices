@@ -32,11 +32,16 @@ Un fornitore è una terza parte, come YouTube, con gli indirizzi da cui carica i
 | HubSpot | Marketing |
 | Spotify | Marketing |
 | SoundCloud | Marketing |
+| Calendly | Marketing |
+| Mailchimp | Marketing |
+| Disqus | Marketing |
+| Dailymotion | Marketing |
+| Twitch | Marketing |
 | Google reCAPTCHA | Marketing, disattivato |
 
 In **Blocco > Fornitori comuni** puoi disattivare un fornitore che il sito non ha bisogno di bloccare.
 
-Google reCAPTCHA parte disattivato: i moduli che lo usano aspetterebbero il consenso al marketing. Attivalo quando i moduli possono aspettare. HubSpot blocca il tracciamento e la chat, non i moduli di `js.hsforms.net`. Matomo Cloud blocca solo il Matomo servito da `matomo.cloud`, Matomo sul tuo sito può essere configurato senza cookie.
+Google reCAPTCHA parte disattivato: i moduli che lo usano aspetterebbero il consenso al marketing. Attivalo quando i moduli possono aspettare. HubSpot blocca il tracciamento e la chat, non i moduli di `js.hsforms.net`. Matomo Cloud blocca solo il Matomo servito da `matomo.cloud`, Matomo sul tuo sito può essere configurato senza cookie. Mailchimp blocca lo script di un sito collegato e i moduli pop-up, non i moduli che inviano soltanto a Mailchimp. Calendly, Mailchimp, Disqus, Dailymotion e Twitch, aggiunti nella 3.4.0, partono disattivati sui siti che esistevano già: attivali quando il sito li usa.
 
 ## Consenso per fornitore
 

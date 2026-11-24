@@ -64,13 +64,13 @@ msgid "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 msgstr "Enea Overclokk, Andrea Pernici, Andrea Cardinale"
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:120
+#: src/Blocking/UI/Placeholders.php:121
 #, php-format
 msgid "This content is blocked until you accept the %s cookies."
 msgstr "Questo contenuto è bloccato finché non accetti i cookie %s."
 
 #. translators: %s: the category label, like Marketing.
-#: src/Blocking/UI/Placeholders.php:125
+#: src/Blocking/UI/Placeholders.php:126
 #, php-format
 msgid "Accept the %s cookies"
 msgstr "Accetta i cookie %s"
@@ -79,7 +79,7 @@ msgstr "Accetta i cookie %s"
 msgid "Cookie consent"
 msgstr "Consenso ai cookie"
 
-#: src/Consent/UI/AcceptButtonShortcode.php:52
+#: src/Consent/UI/AcceptButtonShortcode.php:53
 #: src/Consent/UI/ConsentTexts.php:77
 #: assets/build/settings.js:2
 #: assets/build/settings.js:25
@@ -102,7 +102,7 @@ msgstr "Preferenze"
 msgid "Close and keep only the necessary cookies"
 msgstr "Chiudi e mantieni solo i cookie necessari"
 
-#: src/Consent/UI/Banner.php:221
+#: src/Consent/UI/Banner.php:222
 #: src/Consent/UI/ConsentTexts.php:88
 #: src/Consent/UI/PreferencesButton.php:23
 #: assets/build/preferences-button/index.js:1
@@ -148,20 +148,20 @@ msgstr "Marketing"
 msgid "Used by third parties, like videos, maps and social networks, to show content and ads."
 msgstr "Usati da terze parti, come video, mappe e social network, per mostrare contenuti e pubblicità."
 
-#: src/ConsentLog/UI/ConsentLogExport.php:54
+#: src/ConsentLog/UI/ConsentLogExport.php:55
 msgid "You cannot export the consent log."
 msgstr "Non puoi esportare il registro dei consensi."
 
-#: src/ConsentLog/UI/PrivacyPolicyText.php:35
+#: src/ConsentLog/UI/PrivacyPolicyText.php:36
 msgid "This site asks your consent before it uses cookies that are not necessary. The cookies are grouped in categories: necessary, preferences, statistics and marketing. The content of third parties, like videos and maps, is loaded only after you accept its category."
 msgstr "Questo sito chiede il tuo consenso prima di usare i cookie non necessari. I cookie sono raggruppati in categorie: necessari, preferenze, statistiche e marketing. I contenuti di terze parti, come video e mappe, vengono caricati solo dopo che hai accettato la loro categoria."
 
-#: src/ConsentLog/UI/PrivacyPolicyText.php:41
+#: src/ConsentLog/UI/PrivacyPolicyText.php:42
 msgid "Your choice is stored for six months in a cookie named icc_consent, with the accepted categories, the version of the cookie policy and the date. You can change or withdraw your consent at any time from the cookie preferences."
 msgstr "La tua scelta viene memorizzata per sei mesi in un cookie chiamato icc_consent, con le categorie accettate, la versione della cookie policy e la data. Puoi modificare o revocare il consenso in qualsiasi momento dalle preferenze cookie."
 
 #. translators: %d: how many months the consent log keeps a record.
-#: src/ConsentLog/UI/PrivacyPolicyText.php:52
+#: src/ConsentLog/UI/PrivacyPolicyText.php:53
 #, php-format
 msgid "To demonstrate your consent, the site keeps a log of your choices for %d months: a random id created by your browser, the accepted categories, the version of the cookie policy and the date. The log does not contain your IP address or any other data that identifies you."
 msgstr "Per dimostrare il tuo consenso, il sito conserva un registro delle tue scelte per %d mesi: un id casuale creato dal tuo browser, le categorie accettate, la versione della cookie policy e la data. Il registro non contiene il tuo indirizzo IP né altri dati che ti identificano."
@@ -608,7 +608,7 @@ msgctxt "block keyword"
 msgid "gdpr"
 msgstr "gdpr"
 
-#: src/Legacy/DeprecatedEventNames.php:27
+#: src/Legacy/DeprecatedEventNames.php:28
 msgid "The bots are no longer detected, they do not run the consent scripts."
 msgstr "I bot non vengono più rilevati, non eseguono gli script del consenso."
 
@@ -627,13 +627,13 @@ msgstr "Chiede il consenso ai cookie per categoria e blocca gli script, i video 
 msgid "The file has no settings of Cookie Choices."
 msgstr "Il file non contiene impostazioni di Cookie Choices."
 
-#: src/Dashboard/UI/DashboardWidget.php:64
+#: src/Dashboard/UI/DashboardWidget.php:65
 #: src/Settings/UI/Abilities.php:29
 #: src/Settings/UI/NetworkSettingsPage.php:67
 #: src/Settings/UI/NetworkSettingsPage.php:68
 #: src/Settings/UI/NetworkSettingsPage.php:79
-#: src/Settings/UI/SettingsPage.php:97
-#: src/Settings/UI/SettingsPage.php:98
+#: src/Settings/UI/SettingsPage.php:99
+#: src/Settings/UI/SettingsPage.php:100
 msgid "Cookie Choices"
 msgstr "Cookie Choices"
 
@@ -962,7 +962,7 @@ msgstr "Cookie del sito"
 msgid "The cookies of the site itself, like the login of WordPress or the cart of the shop, for the cookie table. The table already lists the consent cookie and the cookies of the vendors."
 msgstr "I cookie del sito stesso, come l'accesso di WordPress o il carrello del negozio, per la tabella dei cookie. La tabella elenca già il cookie del consenso e i cookie dei fornitori."
 
-#: src/Cookies/UI/SiteCookieAbility.php:39
+#: src/Cookies/UI/SiteCookieAbility.php:40
 #: assets/build/settings.js:24
 msgid "Add a site cookie"
 msgstr "Aggiungi un cookie del sito"
@@ -1107,35 +1107,35 @@ msgstr "Esiste già un fornitore con l'id \"%s\"."
 msgid "The category \"%1$s\" is not one the visitors can refuse: %2$s."
 msgstr "La categoria \"%1$s\" non è tra quelle che i visitatori possono rifiutare: %2$s."
 
-#: src/Blocking/UI/VendorAbilities.php:34
+#: src/Blocking/UI/VendorAbilities.php:35
 msgid "List the vendors"
 msgstr "Elenca i fornitori"
 
-#: src/Blocking/UI/VendorAbilities.php:35
+#: src/Blocking/UI/VendorAbilities.php:36
 msgid "Lists the vendors, the consent category they wait for and whether their scripts are blocked."
 msgstr "Elenca i fornitori, la categoria di consenso che attendono e se i loro script sono bloccati."
 
-#: src/Blocking/UI/VendorAbilities.php:56
+#: src/Blocking/UI/VendorAbilities.php:57
 msgid "Turn a common vendor on or off"
 msgstr "Attiva o disattiva un fornitore comune"
 
-#: src/Blocking/UI/VendorAbilities.php:57
+#: src/Blocking/UI/VendorAbilities.php:58
 msgid "Turns the blocking of a common vendor on or off, by its id from list-vendors."
 msgstr "Attiva o disattiva il blocco di un fornitore comune, con il suo id da list-vendors."
 
-#: src/Blocking/UI/VendorAbilities.php:81
+#: src/Blocking/UI/VendorAbilities.php:82
 msgid "Add a custom vendor"
 msgstr "Aggiungi un fornitore personalizzato"
 
-#: src/Blocking/UI/VendorAbilities.php:82
+#: src/Blocking/UI/VendorAbilities.php:83
 msgid "Adds a vendor blocked until the consent to its category, by texts of its addresses or scripts."
 msgstr "Aggiunge un fornitore bloccato fino al consenso alla sua categoria, con testi dei suoi indirizzi o script."
 
-#: src/ConsentLog/UI/ConsentStatisticsAbility.php:31
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:32
 msgid "Get the consent statistics"
 msgstr "Leggi le statistiche dei consensi"
 
-#: src/ConsentLog/UI/ConsentStatisticsAbility.php:32
+#: src/ConsentLog/UI/ConsentStatisticsAbility.php:33
 msgid "Counts the answers to the cookie banner by month, from the consent log, the newest month first."
 msgstr "Conta le risposte al banner dei cookie per mese, dal registro dei consensi, dal mese più recente."
 
@@ -1143,11 +1143,11 @@ msgstr "Conta le risposte al banner dei cookie per mese, dal registro dei consen
 msgid "The cookie banner, the blocked vendors and the consent log of the site."
 msgstr "Il banner dei cookie, i fornitori bloccati e il registro dei consensi del sito."
 
-#: src/Settings/UI/SettingsAbility.php:40
+#: src/Settings/UI/SettingsAbility.php:41
 msgid "Get the cookie settings"
 msgstr "Leggi le impostazioni dei cookie"
 
-#: src/Settings/UI/SettingsAbility.php:41
+#: src/Settings/UI/SettingsAbility.php:42
 msgid "Returns the settings of the cookie banner, of the blocking of the vendors and of the consent log."
 msgstr "Restituisce le impostazioni del banner dei cookie, del blocco dei fornitori e del registro dei consensi."
 
@@ -1373,9 +1373,9 @@ msgstr "Compila i testi"
 msgid "Ignore"
 msgstr "Ignora"
 
-#: src/Migration/UI/MigrationNotice.php:69
-#: src/Multilingual/UI/ConnectionNotice.php:103
-#: src/Scan/UI/ScanNotice.php:61
+#: src/Migration/UI/MigrationNotice.php:70
+#: src/Multilingual/UI/ConnectionNotice.php:104
+#: src/Scan/UI/ScanNotice.php:62
 msgid "You cannot change the settings."
 msgstr "Non puoi modificare le impostazioni."
 
@@ -1498,7 +1498,7 @@ msgid_plural "%d pages"
 msgstr[0] "%d pagina"
 msgstr[1] "%d pagine"
 
-#: src/Scan/UI/ScanAbilities.php:45
+#: src/Scan/UI/ScanAbilities.php:46
 #: assets/build/settings.js:17
 msgid "Scan the site"
 msgstr "Scansiona il sito"
@@ -1550,7 +1550,7 @@ msgstr "Aggiungi %s come fornitore personalizzato"
 msgid "Add as a custom vendor"
 msgstr "Aggiungi come fornitore personalizzato"
 
-#: src/Scan/UI/ScanCron.php:52
+#: src/Scan/UI/ScanCron.php:53
 msgid "Once a month"
 msgstr "Una volta al mese"
 
@@ -2131,7 +2131,7 @@ msgstr "Rifiutati"
 msgid "See the consent log"
 msgstr "Vedi il registro dei consensi"
 
-#: src/Scan/UI/FrameScanEndpoint.php:48
+#: src/Scan/UI/FrameScanEndpoint.php:47
 msgid "Only the pages of this site can be scanned."
 msgstr "Si possono scansionare solo le pagine di questo sito."
 
@@ -2227,81 +2227,81 @@ msgstr "Il cookie del sito \"%s\" esiste già."
 msgid "There is no category \"%1$s\": %2$s."
 msgstr "Non esiste la categoria \"%1$s\": %2$s."
 
-#: src/Dashboard/UI/StatusAbility.php:32
+#: src/Dashboard/UI/StatusAbility.php:33
 msgid "Get the status of the cookie consent"
 msgstr "Ottieni lo stato del consenso ai cookie"
 
-#: src/Migration/UI/MigrationAbilities.php:50
+#: src/Migration/UI/MigrationAbilities.php:51
 msgid "List the consent plugins to import"
 msgstr "Elenca i plugin per il consenso da importare"
 
-#: src/Migration/UI/MigrationAbilities.php:66
+#: src/Migration/UI/MigrationAbilities.php:67
 msgid "Import the settings of a consent plugin"
 msgstr "Importa le impostazioni di un plugin per il consenso"
 
-#: src/Scan/UI/ScanAbilities.php:101
+#: src/Scan/UI/ScanAbilities.php:102
 msgid "Get the report of the last scan"
 msgstr "Ottieni il report dell'ultima scansione"
 
-#: src/Settings/UI/SettingsAbility.php:50
+#: src/Settings/UI/SettingsAbility.php:51
 msgid "Update the cookie settings"
 msgstr "Aggiorna le impostazioni dei cookie"
 
-#: src/Cookies/UI/SiteCookieAbility.php:41
+#: src/Cookies/UI/SiteCookieAbility.php:42
 msgid "Adds a cookie of the site itself to the cookie table, like the login of WordPress or the cart."
 msgstr "Aggiunge un cookie del sito stesso alla tabella dei cookie, come l'accesso di WordPress o il carrello."
 
-#: src/Cookies/UI/SiteCookieAbility.php:45
+#: src/Cookies/UI/SiteCookieAbility.php:46
 msgid "Its category is necessary, preferences, statistics or marketing."
 msgstr "La sua categoria è necessary, preferences, statistics o marketing."
 
-#: src/Dashboard/UI/StatusAbility.php:34
+#: src/Dashboard/UI/StatusAbility.php:35
 msgid "Returns what makes the consent valid, like the banner, the policy link and the vendors."
 msgstr "Restituisce ciò che rende valido il consenso, come il banner, il link alla policy e i fornitori."
 
-#: src/Dashboard/UI/StatusAbility.php:38
+#: src/Dashboard/UI/StatusAbility.php:39
 msgid "The state warning is what is missing, info is a suggestion."
 msgstr "Lo stato warning è ciò che manca, info è un suggerimento."
 
-#: src/Migration/UI/MigrationAbilities.php:52
+#: src/Migration/UI/MigrationAbilities.php:53
 msgid "Lists the other consent plugins whose settings are in the database."
 msgstr "Elenca gli altri plugin per il consenso le cui impostazioni sono nel database."
 
-#: src/Migration/UI/MigrationAbilities.php:53
+#: src/Migration/UI/MigrationAbilities.php:54
 msgid "Each one has what its import changes: a preview, nothing is saved."
 msgstr "Ognuno ha cosa cambia la sua importazione: un'anteprima, nulla viene salvato."
 
-#: src/Migration/UI/MigrationAbilities.php:68
+#: src/Migration/UI/MigrationAbilities.php:69
 msgid "Imports the settings of another consent plugin, by its id from list-migration-sources."
 msgstr "Importa le impostazioni di un altro plugin per il consenso, dal suo id di list-migration-sources."
 
-#: src/Migration/UI/MigrationAbilities.php:72
+#: src/Migration/UI/MigrationAbilities.php:73
 msgid "The texts replace the saved ones, the vendors, the cookies and the scripts are added."
 msgstr "I testi sostituiscono quelli salvati, i fornitori, i cookie e gli script vengono aggiunti."
 
 #. translators: %d: the number of pages of a batch.
-#: src/Scan/UI/ScanAbilities.php:49
+#: src/Scan/UI/ScanAbilities.php:50
 #, php-format
 msgid "Reads the chosen pages from the server, %d at a time."
 msgstr "Legge le pagine scelte dal server, %d alla volta."
 
-#: src/Scan/UI/ScanAbilities.php:52
+#: src/Scan/UI/ScanAbilities.php:53
 msgid "It finds the vendors of their scripts, frames and pixels, and the unknown third parties."
 msgstr "Trova i fornitori dei loro script, frame e pixel, e le terze parti sconosciute."
 
-#: src/Scan/UI/ScanAbilities.php:56
+#: src/Scan/UI/ScanAbilities.php:57
 msgid "Run it again with nextOffset until it is null."
 msgstr "Eseguila di nuovo con nextOffset finché è null."
 
-#: src/Scan/UI/ScanAbilities.php:57
+#: src/Scan/UI/ScanAbilities.php:58
 msgid "It changes nothing: block the vendors with switch-vendor, add the others with add-custom-vendor."
 msgstr "Non cambia nulla: blocca i fornitori con switch-vendor, aggiungi gli altri con add-custom-vendor."
 
-#: src/Scan/UI/ScanAbilities.php:103
+#: src/Scan/UI/ScanAbilities.php:104
 msgid "Returns the last scheduled scan: the vendors not blocked and the unknown third parties."
 msgstr "Restituisce l'ultima scansione programmata: i fornitori non bloccati e le terze parti sconosciute."
 
-#: src/Scan/UI/ScanAbilities.php:107
+#: src/Scan/UI/ScanAbilities.php:108
 msgid "Null when no scan has run."
 msgstr "Null quando nessuna scansione è stata eseguita."
 
@@ -2311,19 +2311,19 @@ msgstr "Null quando nessuna scansione è stata eseguita."
 msgid "This site uses the main site settings, only its texts change, not: %1$s. Texts: %2$s."
 msgstr "Questo sito usa le impostazioni del sito principale, cambiano solo i suoi testi, non: %1$s. Testi: %2$s."
 
-#: src/Settings/UI/SettingsAbility.php:52
+#: src/Settings/UI/SettingsAbility.php:53
 msgid "Changes only the settings given, with the names of get-settings, and returns the saved settings."
 msgstr "Cambia solo le impostazioni indicate, con i nomi di get-settings, e restituisce le impostazioni salvate."
 
-#: src/Settings/UI/SettingsAbility.php:56
+#: src/Settings/UI/SettingsAbility.php:57
 msgid "A checkbox is on with 1, null removes a setting, like a checkbox turned off."
 msgstr "Una casella è attiva con 1, null rimuove un'impostazione, come una casella disattivata."
 
-#: src/Settings/UI/SettingsAbility.php:60
+#: src/Settings/UI/SettingsAbility.php:61
 msgid "A list replaces the saved list, the values not valid are not saved."
 msgstr "Un elenco sostituisce quello salvato, i valori non validi non vengono salvati."
 
-#: src/ConsentLog/UI/PrivacyPolicyText.php:63
+#: src/ConsentLog/UI/PrivacyPolicyText.php:64
 msgid "To describe its cookies and third parties, the site owner used an AI service with the AI Client of WordPress. Only the names of the cookies and of the third-party sites were sent to it, never the data of the visitors or of their consents."
 msgstr "Per descrivere i suoi cookie e le terze parti, il gestore del sito ha usato un servizio di IA con l'AI Client di WordPress. Gli sono stati inviati solo i nomi dei cookie e dei siti di terze parti, mai i dati dei visitatori o dei loro consensi."
 
@@ -2356,3 +2356,27 @@ msgstr "Suggerito: %1$s, %2$s. %3$s"
 #: assets/build/settings.js:12
 msgid "Discard the suggestion"
 msgstr "Scarta il suggerimento"
+
+#: src/Cookies/Application/PresetCookies.php:336
+msgid "Keeps the choices of the visitor while booking."
+msgstr "Conserva le scelte del visitatore durante la prenotazione."
+
+#: src/Cookies/Application/PresetCookies.php:343
+msgid "Remembers that the visitor closed the sign-up form."
+msgstr "Ricorda che il visitatore ha chiuso il modulo di iscrizione."
+
+#: src/Cookies/Application/PresetCookies.php:350
+msgid "Counts the visitors of the comments who are not logged in."
+msgstr "Conta i visitatori dei commenti che non hanno effettuato l'accesso."
+
+#: src/Cookies/Application/PresetCookies.php:357
+msgid "Tells the visitors apart, for the statistics and the ads of the videos."
+msgstr "Distingue i visitatori, per le statistiche e la pubblicità dei video."
+
+#: src/Cookies/Application/PresetCookies.php:362
+msgid "Keeps the video playing without breaks."
+msgstr "Mantiene la riproduzione del video senza interruzioni."
+
+#: src/Cookies/Application/PresetCookies.php:369
+msgid "Protects the session of the video player."
+msgstr "Protegge la sessione del lettore video."
