@@ -38,15 +38,15 @@ class E2eTester extends \Codeception\Actor
      *
      * The dump has no version of the schema, so every request runs the Migration: a request left by the
      * previous test finds no option and adds the defaults over the options of the test (#327).
-     * The current version first, then the requests leave the option as it is.
+     * The current version first, then the requests leave the option as it is. Each option is written in one query,
+     * a request can write it at the same time.
      *
      * @param array<string, mixed> $options
      */
     public function haveCookieChoicesOptions(array $options): void
     {
-        $this->haveOptionInDatabase(self::VERSION_OPTION_NAME, Schema::VERSION);
-        $this->dontHaveOptionInDatabase(self::OPTION_NAME);
-        $this->haveOptionInDatabase(
+        $this->haveOptionInDatabaseAtOnce(self::VERSION_OPTION_NAME, Schema::VERSION);
+        $this->haveOptionInDatabaseAtOnce(
             self::OPTION_NAME,
             \array_filter(
                 \array_merge($this->defaultOptions(), $options),
