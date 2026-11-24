@@ -2,6 +2,7 @@
  * The suggestions of the scan assistant, see ItalyCookieChoices\Scan\Application\ScanAssistant:
  * the AI provider of the site suggests the unknown third parties and cookies, the admin accepts or discards them.
  */
+import { isRecord } from '../shared/is-record';
 
 export interface HostSuggestion {
 	host: string;
@@ -25,10 +26,6 @@ export interface ScanSuggestions {
 }
 
 type Fields< Item > = { [ Key in keyof Item ]: string };
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return typeof value === 'object' && value !== null;
-}
 
 function recordsOf< Item extends Fields< Item > >(
 	value: unknown,

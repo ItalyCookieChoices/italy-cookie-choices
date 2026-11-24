@@ -1,4 +1,5 @@
 import { parseScanSchedule, type ScanSchedule } from './scan';
+import { isRecord } from '../shared/is-record';
 
 /**
  * The shape of the option saved through /wp/v2/settings, see ItalyCookieChoices\Settings\Schema.
@@ -200,12 +201,6 @@ export interface PostType {
 
 /** The version of the option, as Schema::VERSION in src/Settings/Schema.php. */
 export const SCHEMA_VERSION = 10;
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return (
-		typeof value === 'object' && value !== null && ! Array.isArray( value )
-	);
-}
 
 function categoryFrom( value: unknown ): Category | null {
 	if ( ! isRecord( value ) || typeof value.id !== 'string' ) {

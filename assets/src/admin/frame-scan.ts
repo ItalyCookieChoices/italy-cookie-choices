@@ -8,6 +8,7 @@ import {
 	SERVER_COOKIES,
 	type RecordedCookie,
 } from '../cookie-recorder/recorded';
+import { isRecord } from '../shared/is-record';
 
 /** The time the scripts that start after the load get to set their cookies. */
 export const SETTLE_TIME = 3000;
@@ -41,17 +42,15 @@ export function loadsAsAnonymousVisitor(
 }
 
 function isRecordedCookie( value: unknown ): value is RecordedCookie {
-	if ( typeof value !== 'object' || value === null ) {
+	if ( ! isRecord( value ) ) {
 		return false;
 	}
 
-	const cookie = value as Record< string, unknown >;
-
 	return (
-		typeof cookie.name === 'string' &&
-		typeof cookie.path === 'string' &&
-		( cookie.duration === null || typeof cookie.duration === 'number' ) &&
-		typeof cookie.httpOnly === 'boolean'
+		typeof value.name === 'string' &&
+		typeof value.path === 'string' &&
+		( value.duration === null || typeof value.duration === 'number' ) &&
+		typeof value.httpOnly === 'boolean'
 	);
 }
 

@@ -1,4 +1,5 @@
 import type { Category, ConsentConfig, LegacyCookie, Vendor } from './types';
+import { isRecord } from '../shared/is-record';
 
 const DEFAULTS: ConsentConfig = {
 	cookieName: 'icc_consent',
@@ -7,10 +8,6 @@ const DEFAULTS: ConsentConfig = {
 	durationDays: 182,
 	legacyCookie: null,
 };
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return typeof value === 'object' && value !== null;
-}
 
 function categoryFrom( value: unknown ): Category | null {
 	if (

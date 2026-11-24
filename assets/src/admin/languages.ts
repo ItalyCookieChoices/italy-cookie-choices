@@ -1,15 +1,10 @@
 import type { Settings } from './settings';
+import { isRecord } from '../shared/is-record';
 
 /**
  * The texts of the languages tab, see the Multilingual context in src/Multilingual.
  */
 type Texts = Record< string, unknown >;
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return (
-		typeof value === 'object' && value !== null && ! Array.isArray( value )
-	);
-}
 
 function isEmpty( value: unknown ): boolean {
 	return (
