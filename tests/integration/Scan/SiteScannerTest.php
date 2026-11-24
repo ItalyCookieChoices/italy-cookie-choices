@@ -23,7 +23,8 @@ final class SiteScannerTest extends WPTestCase
         $this->assertIsInt($page);
         $this->assertIsInt($missing);
         $fetcher = new FakePageFetcher([
-            \home_url('/') => '<script src="https://static.hotjar.com/c/hotjar.js"></script>',
+            \home_url('/') => '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter">'
+                . '<script src="https://static.hotjar.com/c/hotjar.js"></script>',
             (string) \get_permalink($page) => '<iframe src="https://forms.example.net/embed"></iframe>',
         ]);
 
@@ -31,12 +32,20 @@ final class SiteScannerTest extends WPTestCase
 
         $this->assertSame(
             [
-                ['id' => 0, 'url' => \home_url('/'), 'vendors' => ['hotjar'], 'hosts' => [], 'error' => ''],
+                [
+                    'id' => 0,
+                    'url' => \home_url('/'),
+                    'vendors' => ['hotjar'],
+                    'hosts' => [],
+                    'googleFonts' => true,
+                    'error' => '',
+                ],
                 [
                     'id' => $page,
                     'url' => (string) \get_permalink($page),
                     'vendors' => [],
                     'hosts' => ['forms.example.net'],
+                    'googleFonts' => false,
                     'error' => '',
                 ],
                 [
@@ -44,6 +53,7 @@ final class SiteScannerTest extends WPTestCase
                     'url' => (string) \get_permalink($missing),
                     'vendors' => [],
                     'hosts' => [],
+                    'googleFonts' => false,
                     'error' => 'The page answered with the status 404.',
                 ],
             ],

@@ -23,6 +23,8 @@ export interface ScannedPage {
 	url: string;
 	vendors: string[];
 	hosts: string[];
+	/** True when the page loads fonts from Google, they get the IP address of the visitor. */
+	googleFonts?: boolean;
 	error: string;
 }
 
@@ -31,6 +33,8 @@ export interface ScanReport {
 	vendors: Record< string, string[] >;
 	/** The pages where each unknown third party is, by host. */
 	hosts: Record< string, string[] >;
+	/** The pages that load the Google Fonts from Google. */
+	googleFonts: string[];
 	errors: Array< { url: string; error: string } >;
 	scanned: number;
 }
@@ -50,7 +54,7 @@ export function pagesCount( pages: readonly string[] ): string {
 }
 
 export function emptyReport(): ScanReport {
-	return { vendors: {}, hosts: {}, errors: [], scanned: 0 };
+	return { vendors: {}, hosts: {}, googleFonts: [], errors: [], scanned: 0 };
 }
 
 function withPage(
@@ -79,6 +83,10 @@ export function mergeScan(
 		( merged, page ) => ( {
 			vendors: withPage( merged.vendors, page.vendors, page.url ),
 			hosts: withPage( merged.hosts, page.hosts, page.url ),
+			googleFonts:
+				page.googleFonts === true
+					? [ ...merged.googleFonts, page.url ]
+					: merged.googleFonts,
 			errors:
 				page.error === ''
 					? merged.errors

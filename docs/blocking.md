@@ -70,6 +70,15 @@ The guidelines of the Italian Data Protection Authority ask that the visitors ca
 
 The scan reads the HTML of the pages: it finds the scripts, the frames and the tracking pixels, not the cookies that JavaScript sets in the browser, see [Cookies in the browser](#cookies-in-the-browser). The cookies of the vendors come from their presets, see the cookie table. A selection scans 500 pages at most. When the host blocks the requests of the site to itself, like the Site Health of WordPress reports, the scan shows the error of each page.
 
+### Google Fonts
+
+A font loaded from the servers of Google sends the IP address of the visitor to Google before any consent: in 2022 a German court fined a site for it. The scan reports the pages that load fonts from `fonts.googleapis.com` or `fonts.gstatic.com`, also in WP-CLI and in the `scan-site` ability. The plugin does not block them, the page would lose its fonts: serve them from the site instead.
+
+* With a block theme, open **Appearance > Editor > Styles > Typography** and install the fonts in the Font Library: WordPress downloads them in `wp-content/fonts` and Google gets no more requests. The fonts of the `theme.json` of the theme are already served by the theme.
+* With a classic theme or a page builder, turn on its option to host the fonts locally, like **Load Google Fonts Locally** of Elementor, or use a plugin that hosts the Google Fonts on the site.
+
+Scan the pages again to check that the fonts are gone.
+
 ### Scheduled scan
 
 The same pages can be scanned by themselves, with WP-Cron. In **Scheduled scan**, choose how often in **Scan the chosen pages**: never, every day, every week or every month, and click **Save the schedule**. The schedule is saved apart from the other settings, it is not in the exported file.

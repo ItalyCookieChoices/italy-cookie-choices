@@ -36,11 +36,13 @@ final readonly class ScanSite implements HandlerInterface
 
         $vendors = [];
         $hosts = [];
+        $googleFonts = 0;
         $scanned = 0;
         foreach (\array_chunk($ids, ScanEndpoint::BATCH) as $batch) {
             foreach ($this->scanner->scan($batch) as $page) {
                 $this->count($vendors, $page['vendors']);
                 $this->count($hosts, $page['hosts']);
+                $googleFonts += $page['googleFonts'] ? 1 : 0;
                 $this->reportError($io, $page['url'], $page['error']);
             }
 
@@ -54,6 +56,18 @@ final readonly class ScanSite implements HandlerInterface
         }
 
         $io->items([...$this->vendorItems($vendors), ...$this->hostItems($hosts)], self::FIELDS);
+        if ($googleFonts > 0) {
+            $io->line(\sprintf(
+                /* translators: %d: the number of pages. */
+                \_n(
+                    '%d page loads the Google Fonts from Google: serve them from the site.',
+                    '%d pages load the Google Fonts from Google: serve them from the site.',
+                    $googleFonts,
+                    'italy-cookie-choices'
+                ),
+                $googleFonts
+            ));
+        }
 
         return StatusCode::Success;
     }

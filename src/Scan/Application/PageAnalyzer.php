@@ -19,14 +19,20 @@ final readonly class PageAnalyzer
 {
     private const FRAMES = ['IFRAME', 'EMBED'];
     private const PIXELS = ['IMG'];
+    /** The hosts of the Google Fonts, the style sheets and the font files. */
+    private const GOOGLE_FONTS_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
+    /** The links that load a style sheet or a font. */
+    private const LOADING_LINKS = ['stylesheet', 'preload'];
 
     public function analyze(string $html, Vendors $vendors, string $siteHost): Findings
     {
         $found = [];
         $hosts = [];
+        $googleFonts = false;
         $processor = new \WP_HTML_Tag_Processor($html);
         while ($processor->next_tag()) {
             $tag = (string) $processor->get_tag();
+            $googleFonts = $googleFonts || $this->loadsGoogleFonts($processor, $tag);
             $source = $this->sourceOf($processor, $tag);
             $vendor = $source === ''
                 ? $this->inlineVendor($processor, $tag, $vendors)
@@ -42,7 +48,37 @@ final readonly class PageAnalyzer
             }
         }
 
-        return new Findings(\array_keys($found), \array_keys($hosts));
+        return new Findings(\array_keys($found), \array_keys($hosts), $googleFonts);
+    }
+
+    /**
+     * A style sheet or a font linked from Google, or a style that imports them.
+     */
+    private function loadsGoogleFonts(\WP_HTML_Tag_Processor $processor, string $tag): bool
+    {
+        if ($tag === 'STYLE') {
+            return $this->mentionsGoogleFonts($processor->get_modifiable_text());
+        }
+
+        if ($tag !== 'LINK') {
+            return false;
+        }
+
+        $rel = \explode(' ', \strtolower($this->attribute($processor, 'rel')));
+
+        return \array_intersect($rel, self::LOADING_LINKS) !== []
+            && $this->mentionsGoogleFonts($this->attribute($processor, 'href'));
+    }
+
+    private function mentionsGoogleFonts(string $text): bool
+    {
+        foreach (self::GOOGLE_FONTS_HOSTS as $host) {
+            if (\str_contains($text, $host)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function sourceOf(\WP_HTML_Tag_Processor $processor, string $tag): string

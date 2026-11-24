@@ -89,6 +89,10 @@ final readonly class ScanAbilities implements SubscriberInterface
                                 'url' => ['type' => 'string'],
                                 'vendors' => [...$texts, 'description' => 'The ids of the vendors, from list-vendors.'],
                                 'hosts' => [...$texts, 'description' => 'The unknown third parties.'],
+                                'googleFonts' => [
+                                    'type' => 'boolean',
+                                    'description' => 'True when the page loads fonts from Google.',
+                                ],
                                 'error' => ['type' => 'string'],
                             ],
                         ],

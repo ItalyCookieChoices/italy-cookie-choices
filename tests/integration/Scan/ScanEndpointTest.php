@@ -65,7 +65,14 @@ final class ScanEndpointTest extends WPTestCase
 
         $this->assertSame(200, $response->get_status());
         $this->assertSame(
-            ['pages' => [['id' => 0, 'url' => \home_url('/'), 'vendors' => ['youtube'], 'hosts' => [], 'error' => '']]],
+            ['pages' => [[
+                'id' => 0,
+                'url' => \home_url('/'),
+                'vendors' => ['youtube'],
+                'hosts' => [],
+                'googleFonts' => false,
+                'error' => '',
+            ]]],
             $response->get_data()
         );
     }

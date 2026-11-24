@@ -407,3 +407,32 @@ it( 'hides the AI suggestions without an AI provider', async () => {
 		screen.queryByRole( 'button', { name: 'Suggest with AI' } )
 	).toBeNull();
 } );
+
+it( 'reports the pages that load the Google Fonts from Google', async () => {
+	mocked.scanTargets.mockResolvedValue( {
+		targets: [ { id: 0, title: 'Home page', url: 'https://example.com/' } ],
+		truncated: false,
+	} );
+	mocked.scanPages.mockResolvedValue( [
+		{
+			id: 0,
+			url: 'https://example.com/',
+			vendors: [],
+			hosts: [],
+			googleFonts: true,
+			error: '',
+		},
+	] );
+	renderPanel();
+
+	fireEvent.click( screen.getByLabelText( 'Home page' ) );
+	fireEvent.click( screen.getByRole( 'button', { name: 'Scan the site' } ) );
+
+	expect(
+		(
+			await screen.findAllByText(
+				/Google Fonts loaded from Google: 1 page\./
+			)
+		).length
+	).toBeGreaterThan( 0 );
+} );

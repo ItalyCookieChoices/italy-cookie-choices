@@ -42,7 +42,8 @@ final class ScanCommandTest extends WPTestCase
         $other = $this->page();
 
         $io = $this->scan(['home' => true, 'post' => $page . ',' . $other], [
-            \home_url('/') => '<script src="https://static.hotjar.com/c/hotjar.js"></script>',
+            \home_url('/') => '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter">'
+                . '<script src="https://static.hotjar.com/c/hotjar.js"></script>',
             (string) \get_permalink($page) => '<iframe src="https://www.youtube.com/embed/a"></iframe>'
                 . '<script src="https://static.hotjar.com/c/hotjar.js"></script>'
                 . '<script src="https://cdn.tracker.example.org/t.js"></script>',
@@ -59,6 +60,7 @@ final class ScanCommandTest extends WPTestCase
         );
         $this->assertSame(['vendor', 'name', 'category', 'enabled', 'pages'], $io->fields);
         $this->assertContains('Scanned 3 of 3 pages.', $io->lines);
+        $this->assertContains('1 page loads the Google Fonts from Google: serve them from the site.', $io->lines);
         $this->assertSame(
             ['The page ' . \get_permalink($other) . ' was not scanned: The page answered with the status 404.'],
             $io->errors
