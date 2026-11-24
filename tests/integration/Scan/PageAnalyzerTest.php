@@ -70,6 +70,41 @@ final class PageAnalyzerTest extends WPTestCase
         $this->assertSame([], $findings->hosts());
     }
 
+    /**
+     * @return iterable<string, array{string}>
+     */
+    public function googleFonts(): iterable
+    {
+        yield 'style sheet' => ['<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter">'];
+        yield 'preloaded font' => [
+            '<link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v1/a.woff2" crossorigin>',
+        ];
+        yield 'import in a style' => ['<style>@import url("https://fonts.googleapis.com/css?family=Roboto");</style>'];
+        yield 'font face in a style' => [
+            "<style>@font-face{font-family:A;src:url(https://fonts.gstatic.com/s/a/v1/a.woff2)}</style>",
+        ];
+    }
+
+    /**
+     * @dataProvider googleFonts
+     */
+    public function testItFindsTheGoogleFontsLoadedFromGoogle(string $html): void
+    {
+        $this->assertTrue($this->analyze($html)->loadsGoogleFonts());
+    }
+
+    public function testTheFontsOfTheSiteAndAPreconnectAreNotGoogleFonts(): void
+    {
+        $findings = $this->analyze(
+            '<link rel="preconnect" href="https://fonts.googleapis.com">'
+                . '<link rel="stylesheet" href="https://example.com/wp-content/fonts/inter.css">'
+                . '<style>@font-face{font-family:A;src:url(/wp-content/fonts/a.woff2)}</style>'
+        );
+
+        $this->assertFalse($findings->loadsGoogleFonts());
+        $this->assertSame([], $findings->hosts());
+    }
+
     private function analyze(string $html): \ItalyCookieChoices\Scan\Domain\Findings
     {
         return (new PageAnalyzer())->analyze(

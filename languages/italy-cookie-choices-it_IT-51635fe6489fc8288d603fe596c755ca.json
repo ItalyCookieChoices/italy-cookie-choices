@@ -828,6 +828,9 @@
             ],
             "The two letters of the country, like IT. Empty: the country of the language of the site. The plugin does not locate the visitors.": [
                 "Le due lettere del paese, come IT. Vuoto: il paese della lingua del sito. Il plugin non localizza i visitatori."
+            ],
+            "Google Fonts loaded from Google: %s. Google gets the IP address of the visitors before the consent. Serve the fonts from the site: with a block theme, install them in the Font Library of the Site Editor; otherwise use the local fonts option of the theme or of the page builder, or a plugin that hosts the fonts locally.": [
+                "Google Fonts caricati da Google: %s. Google riceve l'indirizzo IP dei visitatori prima del consenso. Servi i font dal sito: con un tema a blocchi, installali nella Libreria dei font dell'Editor del sito; altrimenti usa l'opzione dei font locali del tema o del page builder, oppure un plugin che ospita i font in locale."
             ]
         }
     }

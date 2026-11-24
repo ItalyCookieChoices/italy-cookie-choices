@@ -70,6 +70,15 @@ Le linee guida del Garante per la protezione dei dati personali chiedono che i v
 
 La scansione legge l'HTML delle pagine: trova gli script, i frame e i pixel di tracciamento, non i cookie che JavaScript imposta nel browser, vedi [Cookie nel browser](#cookie-nel-browser). I cookie dei fornitori arrivano dai loro preset, vedi la tabella dei cookie. Una selezione scansiona al massimo 500 pagine. Quando l'hosting blocca le richieste del sito a sé stesso, come segnala Salute del sito di WordPress, la scansione mostra l'errore di ogni pagina.
 
+### Google Fonts
+
+Un font caricato dai server di Google invia l'indirizzo IP del visitatore a Google prima di qualsiasi consenso: nel 2022 un tribunale tedesco ha multato un sito per questo. La scansione segnala le pagine che caricano font da `fonts.googleapis.com` o `fonts.gstatic.com`, anche in WP-CLI e nell'abilità `scan-site`. Il plugin non li blocca, la pagina perderebbe i suoi font: servili invece dal sito.
+
+* Con un tema a blocchi, apri **Aspetto > Editor > Stili > Tipografia** e installa i font nella Libreria dei font: WordPress li scarica in `wp-content/fonts` e Google non riceve più richieste. I font del `theme.json` del tema sono già serviti dal tema.
+* Con un tema classico o un page builder, attiva la sua opzione per ospitare i font in locale, come **Load Google Fonts Locally** di Elementor, oppure usa un plugin che ospita i Google Fonts sul sito.
+
+Scansiona di nuovo le pagine per controllare che i font non ci siano più.
+
 ### Scansione programmata
 
 Le stesse pagine possono essere scansionate da sole, con WP-Cron. In **Scansione programmata**, scegli ogni quanto in **Scansiona le pagine scelte**: mai, ogni giorno, ogni settimana o ogni mese, e fai clic su **Salva la programmazione**. La programmazione viene salvata a parte dalle altre impostazioni, non è nel file esportato.

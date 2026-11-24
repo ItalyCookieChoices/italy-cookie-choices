@@ -458,6 +458,18 @@ export function ScanPanel( props: ScanPanelProps ) {
 							) }
 						</Fragment>
 					) }
+					{ report.googleFonts.length > 0 && (
+						<Notice status="warning" isDismissible={ false }>
+							{ sprintf(
+								/* translators: %s: the number of pages, like "3 pages". */
+								__(
+									'Google Fonts loaded from Google: %s. Google gets the IP address of the visitors before the consent. Serve the fonts from the site: with a block theme, install them in the Font Library of the Site Editor; otherwise use the local fonts option of the theme or of the page builder, or a plugin that hosts the fonts locally.',
+									'italy-cookie-choices'
+								),
+								pagesCount( report.googleFonts )
+							) }
+						</Notice>
+					) }
 					{ report.errors.map( ( failure ) => (
 						<Notice
 							key={ failure.url }

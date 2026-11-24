@@ -18,6 +18,7 @@ it( 'merges the pages of the batches in a report', () => {
 				url: 'https://example.com/about/',
 				vendors: [ 'youtube', 'hotjar' ],
 				hosts: [],
+				googleFonts: true,
 				error: '',
 			},
 			{
@@ -34,6 +35,7 @@ it( 'merges the pages of the batches in a report', () => {
 			hotjar: [ 'https://example.com/about/' ],
 		},
 		hosts: { 'cdn.example.org': [ 'https://example.com/' ] },
+		googleFonts: [ 'https://example.com/about/' ],
 		errors: [
 			{
 				url: 'https://example.com/broken/',

@@ -61,6 +61,7 @@ final class ScanAbilitiesTest extends WPTestCase
                     'url' => \home_url('/'),
                     'vendors' => ['youtube'],
                     'hosts' => ['cdn.tracker.example'],
+                    'googleFonts' => false,
                     'error' => '',
                 ]],
             ],
