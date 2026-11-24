@@ -12,6 +12,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * GDPR Cookie Compliance, by Moove Agency, the free version
 * Borlabs Cookie, version 3
 * Real Cookie Banner, the free version 5
+* CookieAdmin, the free version
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -145,6 +146,21 @@ The texts are read in the language of the site. Not imported: the services witho
 | The cookies of the essential services | The site cookies |
 
 The texts are read in the language of the site, with WPML or Polylang too. Only the published services and blockers are imported, the fields of the code, like `{{measurementId}}`, are filled. Not imported: the services without blocker rules whose code needs Real Cookie Banner, the HTML selectors of the blockers, the opt-out code, the headline, the texts of the content blockers, the IAB TCF, the consent forwarding and the country bypass.
+
+## From CookieAdmin
+
+| CookieAdmin | Cookie Choices |
+| --- | --- |
+| The notice and the texts of its buttons, of the GDPR banner | The banner text and the button texts |
+| The privacy policy link, a page or an address | The policy link |
+| The layout and position, the background and the text colors | The **Style** tab: the box on its side, the footer at the top or at the bottom, the pop-up in the middle |
+| The days of the consent | The duration of the consent |
+| Google Consent Mode, the advanced mode, the Clarity consent, the Global Privacy Control | The same settings |
+| The YouTube, Vimeo, SoundCloud, Dailymotion and Google Maps embeds it blocks | Those common vendors, turned on |
+| The cookies of its scans of a common vendor, like `_ga` | That common vendor, turned on |
+| The other cookies of its scans, with their category | The site cookies, with their duration and description |
+
+The texts left at the defaults of CookieAdmin are not saved by it, so the ones of Cookie Choices stay. Not imported: the titles, the texts of the preferences, the US laws, the custom icon and the cookies without a category.
 
 ## Add a plugin
 

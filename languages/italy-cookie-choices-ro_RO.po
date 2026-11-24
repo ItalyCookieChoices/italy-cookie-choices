@@ -2423,3 +2423,17 @@ msgstr ""
 #: src/Migration/Infrastructure/RealCookieBanner/RealCookieBannerSource.php:98
 msgid "Deactivate Real Cookie Banner after the import, or the site shows two banners. Its settings stay."
 msgstr ""
+
+#. translators: %s: the names of the cookies, separated by commas.
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:123
+#, php-format
+msgid "These cookies have no category in CookieAdmin and are not imported: %s."
+msgstr ""
+
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:126
+msgid "The titles, the texts of the preferences, the US laws and the custom icon are not imported."
+msgstr ""
+
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:130
+msgid "Deactivate CookieAdmin after the import, or the site shows two banners. Its settings stay."
+msgstr ""
