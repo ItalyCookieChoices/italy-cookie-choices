@@ -7,6 +7,7 @@ namespace ItalyCookieChoices\Migration\Infrastructure;
 use ItalyCookieChoices\Migration\Application\BuildingMigrationSources;
 use ItalyCookieChoices\Migration\Infrastructure\Borlabs\BorlabsSource;
 use ItalyCookieChoices\Migration\Infrastructure\Complianz\ComplianzSource;
+use ItalyCookieChoices\Migration\Infrastructure\CookieAdmin\CookieAdminSource;
 use ItalyCookieChoices\Migration\Infrastructure\CookieNotice\CookieNoticeSource;
 use ItalyCookieChoices\Migration\Infrastructure\CookieYes\CookieYesSource;
 use ItalyCookieChoices\Migration\Infrastructure\GdprCookieCompliance\GdprCookieComplianceSource;
@@ -25,6 +26,7 @@ final readonly class BuiltInSources implements SubscriberInterface
         private GdprCookieComplianceSource $gdprCookieCompliance,
         private BorlabsSource $borlabs,
         private RealCookieBannerSource $realCookieBanner,
+        private CookieAdminSource $cookieAdmin,
     ) {
     }
 
@@ -41,5 +43,6 @@ final readonly class BuiltInSources implements SubscriberInterface
         $event->addSource($this->gdprCookieCompliance);
         $event->addSource($this->borlabs);
         $event->addSource($this->realCookieBanner);
+        $event->addSource($this->cookieAdmin);
     }
 }

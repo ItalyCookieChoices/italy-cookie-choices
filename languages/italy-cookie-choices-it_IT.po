@@ -2424,3 +2424,17 @@ msgstr "Il titolo, i testi dei content blocker, IAB TCF, l'inoltro del consenso 
 #: src/Migration/Infrastructure/RealCookieBanner/RealCookieBannerSource.php:98
 msgid "Deactivate Real Cookie Banner after the import, or the site shows two banners. Its settings stay."
 msgstr "Disattiva Real Cookie Banner dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."
+
+#. translators: %s: the names of the cookies, separated by commas.
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:123
+#, php-format
+msgid "These cookies have no category in CookieAdmin and are not imported: %s."
+msgstr "Questi cookie non hanno una categoria in CookieAdmin e non vengono importati: %s."
+
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:126
+msgid "The titles, the texts of the preferences, the US laws and the custom icon are not imported."
+msgstr "I titoli, i testi delle preferenze, le leggi degli Stati Uniti e l'icona personalizzata non vengono importati."
+
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:130
+msgid "Deactivate CookieAdmin after the import, or the site shows two banners. Its settings stay."
+msgstr "Disattiva CookieAdmin dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."

@@ -11,10 +11,10 @@ use ItalyCookieChoices\Blocking\Domain\VendorId;
 use ItalyCookieChoices\Blocking\Domain\Vendors;
 use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\Category;
-use ItalyCookieChoices\Cookies\Application\CookieDurations;
 use ItalyCookieChoices\Cookies\Application\CookieSetting;
 use ItalyCookieChoices\Integrations\Application\IntegrationSetting;
 use ItalyCookieChoices\Migration\Application\Conversions;
+use ItalyCookieChoices\Migration\Application\CookieLifetime;
 
 /**
  * The service groups, the services and the content blockers of Real Cookie Banner.
@@ -77,6 +77,16 @@ final readonly class RealCookieBannerServices
     private const FIELD = '/\{\{\s*([A-Za-z0-9_-]+)\s*\}\}/';
     private const PLACEHOLDER = '{{';
 
+    /** The units of the durations of Real Cookie Banner, in seconds. */
+    private const UNITS = [
+        'y' => CookieLifetime::YEAR,
+        'mo' => CookieLifetime::MONTH,
+        'd' => CookieLifetime::DAY,
+        'h' => 3600,
+        'm' => CookieLifetime::MINUTE,
+        's' => 1,
+    ];
+
     /** The type of the technical definitions that are cookies, not local or session storage. */
     private const HTTP_COOKIE = 'http';
 
@@ -84,7 +94,7 @@ final readonly class RealCookieBannerServices
         private RealCookieBannerStorage $storage,
         private Conversions $conversions,
         private VendorsFactory $vendors,
-        private CookieDurations $durations,
+        private CookieLifetime $lifetime,
     ) {
     }
 
@@ -314,28 +324,13 @@ final readonly class RealCookieBannerServices
     private function duration(array $definition): string
     {
         if ($this->conversions->isOn($definition['isSessionDuration'] ?? false)) {
-            return $this->durations->session();
+            return $this->lifetime->text(null);
         }
 
         $duration = (int) $this->conversions->text($definition['duration'] ?? '0');
-        if ($duration <= 0) {
-            return '';
-        }
+        $unit = self::UNITS[$this->conversions->text($definition['durationUnit'] ?? '')] ?? 0;
 
-        return match ($this->conversions->text($definition['durationUnit'] ?? '')) {
-            'y' => $this->durations->years($duration),
-            'mo' => $this->durations->months($duration),
-            'd' => $this->durations->days($duration),
-            'h' => $this->hours($duration),
-            'm' => $this->durations->minutes($duration),
-            's' => $this->durations->minutes(\max(1, \intdiv($duration, 60))),
-            default => '',
-        };
-    }
-
-    private function hours(int $hours): string
-    {
-        return $hours % 24 === 0 ? $this->durations->days(\intdiv($hours, 24)) : $this->durations->minutes($hours * 60);
+        return $this->lifetime->text($duration * $unit);
     }
 
     /**

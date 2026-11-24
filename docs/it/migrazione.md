@@ -12,6 +12,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 * GDPR Cookie Compliance, di Moove Agency, la versione gratuita
 * Borlabs Cookie, la versione 3
 * Real Cookie Banner, la versione gratuita 5
+* CookieAdmin, la versione gratuita
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -145,6 +146,21 @@ I testi vengono letti nella lingua del sito. Non vengono importati: i servizi se
 | I cookie dei servizi essenziali | I cookie del sito |
 
 I testi vengono letti nella lingua del sito, anche con WPML o Polylang. Vengono importati solo i servizi e i blocchi pubblicati, i campi del codice, come `{{measurementId}}`, vengono compilati. Non vengono importati: i servizi senza regole dei blocchi il cui codice richiede Real Cookie Banner, i selettori HTML dei blocchi, il codice di opt-out, il titolo, i testi dei content blocker, IAB TCF, l'inoltro del consenso e il bypass per paese.
+
+## Da CookieAdmin
+
+| CookieAdmin | Cookie Choices |
+| --- | --- |
+| L'avviso e i testi dei suoi pulsanti, del banner GDPR | Il testo del banner e i testi dei pulsanti |
+| Il link alla privacy policy, una pagina o un indirizzo | Il link alla policy |
+| Il layout e la posizione, i colori dello sfondo e del testo | La scheda **Stile**: il box sul suo lato, il footer in alto o in basso, il pop-up al centro |
+| I giorni del consenso | La durata del consenso |
+| Google Consent Mode, la modalità avanzata, il consenso di Clarity, il Global Privacy Control | Le stesse impostazioni |
+| Gli embed di YouTube, Vimeo, SoundCloud, Dailymotion e Google Maps che blocca | Quei fornitori comuni, attivati |
+| I cookie delle sue scansioni di un fornitore comune, come `_ga` | Quel fornitore comune, attivato |
+| Gli altri cookie delle sue scansioni, con la loro categoria | I cookie del sito, con la durata e la descrizione |
+
+I testi lasciati ai valori predefiniti di CookieAdmin non vengono salvati da lui, quindi restano quelli di Cookie Choices. Non vengono importati: i titoli, i testi delle preferenze, le leggi degli Stati Uniti, l'icona personalizzata e i cookie senza categoria.
 
 ## Aggiungere un plugin
 
