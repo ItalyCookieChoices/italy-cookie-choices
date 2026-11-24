@@ -18,6 +18,7 @@ import {
 	type LinkTranslation,
 	type Settings,
 } from './settings';
+import { isRecord } from '../shared/is-record';
 
 /**
  * The REST requests of the settings page, the routes check the manage_options capability.
@@ -30,10 +31,6 @@ export interface Page {
 	slug: string;
 	link: string;
 	title: string;
-}
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return typeof value === 'object' && value !== null;
 }
 
 export async function loadSettings(): Promise< Settings > {

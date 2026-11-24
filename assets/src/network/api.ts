@@ -2,10 +2,7 @@
  * The REST requests of the network page, the routes check the manage_network_options capability.
  */
 import apiFetch from '@wordpress/api-fetch';
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return typeof value === 'object' && value !== null;
-}
+import { isRecord } from '../shared/is-record';
 
 export async function saveNetwork(
 	shared: boolean

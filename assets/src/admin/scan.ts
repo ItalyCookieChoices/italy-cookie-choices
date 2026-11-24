@@ -3,6 +3,7 @@
  * the results of the batches are merged in a report.
  */
 import { _n, sprintf } from '@wordpress/i18n';
+import { isRecord } from '../shared/is-record';
 
 export interface ScanSelection {
 	home: boolean;
@@ -138,12 +139,6 @@ const FREQUENCIES: readonly Frequency[] = [
 	'weekly',
 	'monthly',
 ];
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return (
-		typeof value === 'object' && value !== null && ! Array.isArray( value )
-	);
-}
 
 function strings( value: unknown ): string[] {
 	return Array.isArray( value )

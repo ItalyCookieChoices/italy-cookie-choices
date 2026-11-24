@@ -1,6 +1,8 @@
 /**
  * The data printed by ItalyCookieChoices\Settings\UI\NetworkSettingsPage.
  */
+import { isRecord } from '../shared/is-record';
+
 export interface Site {
 	id: number;
 	name: string;
@@ -11,10 +13,6 @@ export interface NetworkData {
 	shared: boolean;
 	mainSiteId: number;
 	sites: Site[];
-}
-
-function isRecord( value: unknown ): value is Record< string, unknown > {
-	return typeof value === 'object' && value !== null;
 }
 
 function isSite( value: unknown ): value is Site {
