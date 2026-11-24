@@ -42,6 +42,7 @@ final readonly class VendorPresets
         VendorId::DISQUS => 'Disqus',
         VendorId::DAILYMOTION => 'Dailymotion',
         VendorId::TWITCH => 'Twitch',
+        VendorId::AMAZON_ADS => 'Amazon Ads',
     ];
 
     /**
@@ -216,6 +217,13 @@ final readonly class VendorPresets
                 Category::MARKETING,
                 ['player.twitch.tv', 'clips.twitch.tv', 'embed.twitch.tv'],
                 ['embed.twitch.tv/embed/v1.js']
+            ),
+            // The Amazon Ad Tag and its consent helper, both served from the aat path.
+            new Vendor(
+                VendorId::AMAZON_ADS,
+                Category::MARKETING,
+                ['c.amazon-adsystem.com/aat'],
+                ['c.amazon-adsystem.com/aat/amzn.js']
             ),
         ];
     }

@@ -37,6 +37,7 @@ A vendor is a third party, like YouTube, with the addresses it loads from and th
 | Disqus | Marketing |
 | Dailymotion | Marketing |
 | Twitch | Marketing |
+| Amazon Ads | Marketing |
 | Google reCAPTCHA | Marketing, turned off |
 
 In **Blocking > Common vendors** you can turn off a vendor the site does not need to block.

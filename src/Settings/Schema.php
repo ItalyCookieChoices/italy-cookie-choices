@@ -41,6 +41,7 @@ final readonly class Schema
         IntegrationSetting::YOUTUBE_NOCOOKIE,
         IntegrationSetting::UET_CONSENT_MODE,
         IntegrationSetting::CLARITY_CONSENT_MODE,
+        IntegrationSetting::AMAZON_CONSENT_MODE,
         ConsentSetting::FLOATING_BUTTON,
         ConsentSetting::GLOBAL_PRIVACY_CONTROL,
         BlockingSetting::VENDOR_CONSENT,
@@ -116,6 +117,8 @@ final readonly class Schema
         IntegrationSetting::GA_MEASUREMENT_ID => '^(G-[A-Z0-9]+)?$',
         IntegrationSetting::GTM_CONTAINER_ID => '^(GTM-[A-Z0-9]+)?$',
         IntegrationSetting::FACEBOOK_PIXEL_ID => '^([0-9]+)?$',
+        // Not a tag, the two letters of the country are checked and stored in upper case like the ids.
+        IntegrationSetting::AMAZON_COUNTRY => '^([A-Z]{2})?$',
     ];
 
     /**

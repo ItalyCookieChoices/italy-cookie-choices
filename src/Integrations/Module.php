@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Integrations;
 
 use ItalyCookieChoices\Integrations\UI\AdvancedConsentMode;
+use ItalyCookieChoices\Integrations\UI\AmazonConsentScript;
 use ItalyCookieChoices\Integrations\UI\ConsentModeScript;
 use ItalyCookieChoices\Integrations\UI\MicrosoftConsentScript;
 use ItalyCookieChoices\Integrations\UI\TrackingTags;
@@ -58,6 +59,7 @@ final readonly class Module implements ModuleInterface
                 WpConsentApiFilters::class,
                 WpConsentApiScript::class,
                 MicrosoftConsentScript::class,
+                AmazonConsentScript::class,
                 WpConsentApiCookies::class,
             ],
         ];

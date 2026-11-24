@@ -6,6 +6,7 @@ namespace ItalyCookieChoices\Tests\Integration\Integrations;
 
 use ItalyCookieChoices\Integrations\Module;
 use ItalyCookieChoices\Integrations\UI\AdvancedConsentMode;
+use ItalyCookieChoices\Integrations\UI\AmazonConsentScript;
 use ItalyCookieChoices\Integrations\UI\ConsentModeScript;
 use ItalyCookieChoices\Integrations\UI\MicrosoftConsentScript;
 use ItalyCookieChoices\Integrations\UI\TrackingTags;
@@ -35,6 +36,7 @@ final class ModuleTest extends WPTestCase
                 WpConsentApiFilters::class,
                 WpConsentApiScript::class,
                 MicrosoftConsentScript::class,
+                AmazonConsentScript::class,
                 WpConsentApiCookies::class,
             ],
             $config[SubscribersConfigExtension::SUBSCRIBERS]

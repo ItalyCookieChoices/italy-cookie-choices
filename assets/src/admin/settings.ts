@@ -19,6 +19,7 @@ export type Checkbox =
 	| 'youtube_nocookie'
 	| 'uet_consent_mode'
 	| 'clarity_consent_mode'
+	| 'amazon_consent_mode'
 	| 'floating_button'
 	| 'global_privacy_control'
 	| 'vendor_consent';
@@ -56,6 +57,7 @@ export type Text =
 	| 'ga_measurement_id'
 	| 'gtm_container_id'
 	| 'facebook_pixel_id'
+	| 'amazon_country'
 	| 'google_tag_gateway_path'
 	| 'floating_button_position'
 	| 'floating_button_label'

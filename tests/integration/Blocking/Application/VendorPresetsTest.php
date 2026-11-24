@@ -126,6 +126,12 @@ final class VendorPresetsTest extends WPTestCase
         yield 'Twitch player' => ['https://player.twitch.tv/?channel=a&parent=example.com', 'twitch', 'marketing'];
         yield 'Twitch clip' => ['https://clips.twitch.tv/embed?clip=a&parent=example.com', 'twitch', 'marketing'];
         yield 'Twitch embed' => ['https://embed.twitch.tv/embed/v1.js', 'twitch', 'marketing'];
+        yield 'Amazon Ad Tag' => ['https://c.amazon-adsystem.com/aat/amzn.js', 'amazon-ads', 'marketing'];
+        yield 'Amazon consent helper' => [
+            'https://c.amazon-adsystem.com/aat/amzn-consent.js',
+            'amazon-ads',
+            'marketing',
+        ];
     }
 
     /**
@@ -192,6 +198,12 @@ final class VendorPresetsTest extends WPTestCase
         yield 'Disqus' => [
             "var d = document, s = d.createElement('script');s.src = 'https://example.disqus.com/embed.js';",
             'disqus',
+        ];
+        yield 'Amazon Ad Tag' => [
+            '!function(w,d,s,t,a){if(w.amzn)return;w.amzn=a=function(){a.q.push(arguments)};a.q=[];'
+                . 't=d.createElement(s);t.src="https://c.amazon-adsystem.com/aat/amzn.js";}(window,document,"script");'
+                . 'amzn("setRegion", "EU");',
+            'amazon-ads',
         ];
         yield 'Mailchimp connected site' => [
             '!function(c,h,i,m,p){m=c.createElement(h),m.src=p}(document,"script",'

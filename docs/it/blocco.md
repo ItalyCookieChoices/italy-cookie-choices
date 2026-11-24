@@ -37,6 +37,7 @@ Un fornitore è una terza parte, come YouTube, con gli indirizzi da cui carica i
 | Disqus | Marketing |
 | Dailymotion | Marketing |
 | Twitch | Marketing |
+| Amazon Ads | Marketing |
 | Google reCAPTCHA | Marketing, disattivato |
 
 In **Blocco > Fornitori comuni** puoi disattivare un fornitore che il sito non ha bisogno di bloccare.

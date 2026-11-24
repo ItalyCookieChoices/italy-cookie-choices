@@ -74,6 +74,12 @@ window.clarity( 'consentv2', { analytics_Storage: 'granted', ad_Storage: 'denied
 | `statistics` | | `analytics_Storage` |
 | `marketing` | `ad_storage` | `ad_Storage` |
 
+## Amazon Consent Signal
+
+Da giugno 2026 Amazon Ads usa i dati dei visitatori dello SEE e del Regno Unito solo con un segnale del consenso. Con **Integrazioni > Invia il consenso ad Amazon Ads** attivo, il plugin stampa all'inizio del `<head>` lo script del consenso di Amazon, `amzn-consent.js`, e la sua chiamata `amznConsent()`, bloccati fino al consenso al marketing. Dopo il consenso partono prima dell'Amazon Ad Tag, `amzn.js`, con l'archiviazione pubblicitaria e i dati dell'utente concessi. Senza consenso non si carica nulla da Amazon: il preset **Amazon Ads** blocca anche il tag.
+
+Amazon chiede il paese del visitatore. Il plugin non localizza i visitatori: scrivi le due lettere del paese dei tuoi visitatori in **Paese dei visitatori, per Amazon**, come `IT`, oppure lascialo vuoto per il paese della lingua del sito. Attiva il segnale solo quando il sito usa l'Amazon Ad Tag, lo script del consenso è di Amazon. Quando il banner usa l'IAB TCF, Amazon legge invece il segnale TCF.
+
 ## WP Consent API
 
 Quando il plugin [WP Consent API](https://wordpress.org/plugins/wp-consent-api/) è attivo e il banner è acceso, Cookie Choices gli scrive il consenso, così i plugin che lo leggono, come WooCommerce e Site Kit, rispettano la scelta del visitatore. Non c'è nessuna impostazione.
