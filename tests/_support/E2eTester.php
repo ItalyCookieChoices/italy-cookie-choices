@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use ItalyCookieChoices\Settings\Schema;
 
 /**
  * Inherited Methods
@@ -29,15 +30,21 @@ class E2eTester extends \Codeception\Actor
 
     public const COOKIE_VALUE = 'y';
 
+    public const VERSION_OPTION_NAME = 'italy_cookie_choices_version';
+
     /**
      * Store the plugin options, merged over a minimal active configuration.
      * A null value removes the option key.
+     *
+     * The dump has no version of the schema, so every request runs the Migration: a request left by the
+     * previous test finds no option and adds the defaults over the options of the test (#327).
+     * The current version first, then the requests leave the option as it is.
      *
      * @param array<string, mixed> $options
      */
     public function haveCookieChoicesOptions(array $options): void
     {
-        // A request left by the previous test can write the option after the database is reset.
+        $this->haveOptionInDatabase(self::VERSION_OPTION_NAME, Schema::VERSION);
         $this->dontHaveOptionInDatabase(self::OPTION_NAME);
         $this->haveOptionInDatabase(
             self::OPTION_NAME,
@@ -82,7 +89,7 @@ class E2eTester extends \Codeception\Actor
     }
 
     /**
-     * @return array<string, string>
+     * @return array<string, mixed>
      */
     private function defaultOptions(): array
     {
@@ -104,6 +111,8 @@ class E2eTester extends \Codeception\Actor
             'closeClass' => 'italybtn',
             'content_message_text' => 'Content blocked',
             'content_message_button_text' => 'Allow',
+            // Like a new installation, the reCAPTCHA preset starts turned off.
+            'disabled_vendors' => ['google-recaptcha'],
         ];
     }
 }

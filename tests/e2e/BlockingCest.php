@@ -296,6 +296,8 @@ final class BlockingCest
             'block_script' => ['iccHeadTracker' => 'iccHeadTracker'],
             'allow_script' => ['iccFooterTracker' => 'iccFooterTracker'],
         ]);
+        // Saved by 2.x, without a version: the first request migrates the lists.
+        $I->dontHaveOptionInDatabase(E2eTester::VERSION_OPTION_NAME);
 
         $I->amOnPage('/');
 
