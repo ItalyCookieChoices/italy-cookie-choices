@@ -16,6 +16,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 * WPConsent, la versione gratuita
 * My Agile Privacy, la versione gratuita
 * SureCookie, la versione gratuita
+* Beautiful Cookie Consent, la versione gratuita
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -212,6 +213,22 @@ My Agile Privacy non ha categorie, solo servizi necessari o no, e blocca gli alt
 | Le altre regole di blocco | Fornitori personalizzati nella loro categoria |
 
 SureCookie blocca i servizi del suo catalogo con un suo elenco, non con indirizzi: aggiungi come fornitori personalizzati gli indirizzi degli script dei servizi aggiunti che non sono fornitori comuni, il resoconto dell'importazione li elenca. Non vengono importati: il titolo, i colori, i testi delle preferenze, la privacy policy, la geolocalizzazione e i valori predefiniti di Google Consent Mode.
+
+## Da Beautiful Cookie Consent
+
+| Beautiful Cookie Consent | Cookie Choices |
+| --- | --- |
+| Il banner attivo o no, il suo messaggio e i testi dei suoi pulsanti: Got it per il banner informativo, Allow, Deny e Save Settings per gli altri | Il banner, il suo testo e i testi dei pulsanti |
+| Il primo link | Il link alla policy, con la pagina del sito quando l'indirizzo è una sua pagina |
+| Il secondo link, spesso l'imprint | Il link alle note legali |
+| La posizione e i colori del banner | La scheda **Stile**: la barra in alto o in basso, il box sul suo lato, il banner al centro |
+| Il pulsante di revoca, il suo lato e il suo testo | Il pulsante per cambiare il consenso |
+| La scadenza e il dominio del cookie del consenso | La durata del consenso e il dominio del cookie |
+| Google Consent Mode, le modalità di consenso di Microsoft UET e Clarity | Le stesse impostazioni |
+| Le etichette dei tipi di cookie | Le etichette delle categorie, dal loro suffisso: quelli personalizzati sono marketing |
+| Il contenitore di Google Tag Manager | La stessa impostazione, e Google Tag Manager attivato |
+
+Non vengono importati: il tema, le descrizioni dei tipi di cookie, le statistiche e il blocco dei servizi dell'add-on premium.
 
 ## Aggiungere un plugin
 

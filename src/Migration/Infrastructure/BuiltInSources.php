@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ItalyCookieChoices\Migration\Infrastructure;
 
 use ItalyCookieChoices\Migration\Application\BuildingMigrationSources;
+use ItalyCookieChoices\Migration\Infrastructure\BeautifulCookieConsent\BeautifulCookieConsentSource;
 use ItalyCookieChoices\Migration\Infrastructure\Borlabs\BorlabsSource;
 use ItalyCookieChoices\Migration\Infrastructure\Complianz\ComplianzSource;
 use ItalyCookieChoices\Migration\Infrastructure\CookieAdmin\CookieAdminSource;
@@ -33,6 +34,7 @@ final readonly class BuiltInSources implements SubscriberInterface
         private WpConsentSource $wpConsent,
         private MyAgilePrivacySource $myAgilePrivacy,
         private SureCookieSource $sureCookie,
+        private BeautifulCookieConsentSource $beautifulCookieConsent,
     ) {
     }
 
@@ -53,5 +55,6 @@ final readonly class BuiltInSources implements SubscriberInterface
         $event->addSource($this->wpConsent);
         $event->addSource($this->myAgilePrivacy);
         $event->addSource($this->sureCookie);
+        $event->addSource($this->beautifulCookieConsent);
     }
 }

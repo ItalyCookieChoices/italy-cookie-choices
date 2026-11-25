@@ -2486,3 +2486,11 @@ msgstr "Non vengono importati il titolo, i colori, i testi delle preferenze, la 
 #: src/Migration/Infrastructure/SureCookie/SureCookieSource.php:110
 msgid "Deactivate SureCookie after the import, or the site shows two banners. Its settings stay."
 msgstr "Disattiva SureCookie dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."
+
+#: src/Migration/Infrastructure/BeautifulCookieConsent/BeautifulCookieConsentSource.php:135
+msgid "The theme, the descriptions of the cookie types, the statistics and the service blocking of the premium add-on are not imported."
+msgstr "Non vengono importati il tema, le descrizioni dei tipi di cookie, le statistiche e il blocco dei servizi dell'add-on premium."
+
+#: src/Migration/Infrastructure/BeautifulCookieConsent/BeautifulCookieConsentSource.php:140
+msgid "Deactivate Beautiful Cookie Consent after the import, or the site shows two banners. Its settings stay."
+msgstr "Disattiva Beautiful Cookie Consent dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."
