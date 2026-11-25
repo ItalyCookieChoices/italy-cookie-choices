@@ -2485,3 +2485,11 @@ msgstr ""
 #: src/Migration/Infrastructure/SureCookie/SureCookieSource.php:110
 msgid "Deactivate SureCookie after the import, or the site shows two banners. Its settings stay."
 msgstr ""
+
+#: src/Migration/Infrastructure/BeautifulCookieConsent/BeautifulCookieConsentSource.php:135
+msgid "The theme, the descriptions of the cookie types, the statistics and the service blocking of the premium add-on are not imported."
+msgstr ""
+
+#: src/Migration/Infrastructure/BeautifulCookieConsent/BeautifulCookieConsentSource.php:140
+msgid "Deactivate Beautiful Cookie Consent after the import, or the site shows two banners. Its settings stay."
+msgstr ""

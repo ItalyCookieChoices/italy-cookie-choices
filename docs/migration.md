@@ -16,6 +16,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * WPConsent, the free version
 * My Agile Privacy, the free version
 * SureCookie, the free version
+* Beautiful Cookie Consent, the free version
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -212,6 +213,22 @@ My Agile Privacy has no categories, only necessary services or not, and it block
 | The other blocking rules | Custom vendors in their category |
 
 SureCookie blocks the services of its catalog with its own list, not with addresses: add the addresses of the scripts of the added services that are not common vendors as custom vendors, the import report lists them. Not imported: the title, the colors, the texts of the preferences, the privacy policy, the geolocation and the defaults of Google Consent Mode.
+
+## From Beautiful Cookie Consent
+
+| Beautiful Cookie Consent | Cookie Choices |
+| --- | --- |
+| The banner on or off, its message and the texts of its buttons: Got it for the information banner, Allow, Deny and Save Settings for the others | The banner, its text and the button texts |
+| The first link | The policy link, with the page of the site when the address is one |
+| The second link, often the imprint | The legal notice link |
+| The position and the colors of the banner | The **Style** tab: the bar at the top or at the bottom, the box on its side, the banner in the middle |
+| The revoke button, its side and its text | The button to change the consent |
+| The expiry and the domain of the consent cookie | The duration of the consent and the cookie domain |
+| Google Consent Mode, Microsoft UET and Clarity consent modes | The same settings |
+| The labels of the cookie types | The labels of the categories, by their suffix: the custom ones are marketing |
+| The Google Tag Manager container | The same setting, and Google Tag Manager turned on |
+
+Not imported: the theme, the descriptions of the cookie types, the statistics and the service blocking of the premium add-on.
 
 ## Add a plugin
 
