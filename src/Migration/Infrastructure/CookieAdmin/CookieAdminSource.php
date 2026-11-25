@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Migration\Infrastructure\CookieAdmin;
 
-use ItalyCookieChoices\Blocking\Application\VendorPresets;
 use ItalyCookieChoices\Blocking\Domain\VendorId;
 use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\BannerLink;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Cookies\Application\CookieSetting;
-use ItalyCookieChoices\Cookies\Application\PresetCookies;
 use ItalyCookieChoices\Integrations\Application\IntegrationSetting;
 use ItalyCookieChoices\Migration\Application\Conversions;
 use ItalyCookieChoices\Migration\Application\CookieLifetime;
+use ItalyCookieChoices\Migration\Application\KnownCookies;
 use ItalyCookieChoices\Migration\Domain\ImportedSettings;
 use ItalyCookieChoices\Migration\Domain\MigrationSource;
 use ItalyCookieChoices\Settings\PluginSetting;
@@ -68,8 +67,7 @@ final readonly class CookieAdminSource implements MigrationSource
         private CookieAdminStorage $storage,
         private Conversions $conversions,
         private CookieLifetime $lifetime,
-        private VendorPresets $presets,
-        private PresetCookies $presetCookies,
+        private KnownCookies $knownCookies,
     ) {
     }
 
@@ -236,10 +234,9 @@ final readonly class CookieAdminSource implements MigrationSource
      */
     private function cookies(): array
     {
-        $known = $this->presetCookieNames();
         $result = ['site' => [], 'vendors' => [], 'unknown' => []];
         foreach ($this->storage->cookies() as $cookie) {
-            $vendor = $this->vendorOf($cookie['name'], $known);
+            $vendor = $this->knownCookies->vendorOf($cookie['name']);
             if ($vendor !== null) {
                 $result['vendors'][] = $vendor;
                 continue;
@@ -260,40 +257,6 @@ final readonly class CookieAdminSource implements MigrationSource
         }
 
         return $result;
-    }
-
-    /**
-     * The names of the cookies of the common vendors, with a * at the end for a prefix, by vendor.
-     *
-     * @return array<string, list<string>>
-     */
-    private function presetCookieNames(): array
-    {
-        $names = [];
-        foreach ($this->presets->all() as $vendor) {
-            $names[$vendor->id()] = \array_column($this->presetCookies->of($vendor->id()), 'name');
-        }
-
-        return $names;
-    }
-
-    /**
-     * @param array<string, list<string>> $known
-     */
-    private function vendorOf(string $name, array $known): ?string
-    {
-        foreach ($known as $vendor => $names) {
-            foreach ($names as $pattern) {
-                $matches = \str_ends_with($pattern, '*')
-                    ? \str_starts_with($name, \substr($pattern, 0, -1))
-                    : $pattern === $name;
-                if ($matches) {
-                    return $vendor;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**

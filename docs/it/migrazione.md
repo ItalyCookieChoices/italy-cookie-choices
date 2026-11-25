@@ -15,6 +15,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 * CookieAdmin, la versione gratuita
 * WPConsent, la versione gratuita
 * My Agile Privacy, la versione gratuita
+* SureCookie, la versione gratuita
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -195,6 +196,22 @@ WPConsent blocca gli altri servizi con un suo elenco, non con indirizzi: aggiung
 | Il codice degli altri servizi | Uno script personalizzato dopo il consenso: la categoria del fornitore, o marketing |
 
 My Agile Privacy non ha categorie, solo servizi necessari o no, e blocca gli altri servizi con un suo elenco, non con indirizzi: aggiungi gli indirizzi dei loro script come fornitori personalizzati, il resoconto dell'importazione li elenca. I servizi necessari non hanno i nomi dei cookie: aggiungi i loro cookie alla tabella dei cookie. Non vengono importati: il titolo, i testi delle preferenze, le policy, la geolocalizzazione e IAB TCF.
+
+## Da SureCookie
+
+| SureCookie | Cookie Choices |
+| --- | --- |
+| Il banner attivo o no, il suo messaggio e i testi dei pulsanti Accetta tutto, Rifiuta e Preferenze | Il banner, il suo testo e i testi dei pulsanti |
+| Le pagine della cookie policy e delle note legali | I link alla policy e alle note legali |
+| Il banner a tutta larghezza in alto o in basso, quello flottante sul suo lato, il logo | La scheda **Stile** |
+| La durata del consenso, il pulsante flottante per cambiarlo, Google Consent Mode | Le stesse impostazioni |
+| Il CSS personalizzato | Il CSS personalizzato, in un commento |
+| I testi delle categorie predefinite | I testi delle categorie: Essenziali diventa Necessari, Funzionali Preferenze, Analitici Statistiche |
+| I servizi aggiunti dal suo catalogo, i cookie e le regole di blocco di un fornitore comune | Quel fornitore comune, attivato |
+| I cookie personalizzati e i cookie delle sue scansioni | I cookie del sito, con la durata e la descrizione: quelli senza categoria sono marketing |
+| Le altre regole di blocco | Fornitori personalizzati nella loro categoria |
+
+SureCookie blocca i servizi del suo catalogo con un suo elenco, non con indirizzi: aggiungi come fornitori personalizzati gli indirizzi degli script dei servizi aggiunti che non sono fornitori comuni, il resoconto dell'importazione li elenca. Non vengono importati: il titolo, i colori, i testi delle preferenze, la privacy policy, la geolocalizzazione e i valori predefiniti di Google Consent Mode.
 
 ## Aggiungere un plugin
 

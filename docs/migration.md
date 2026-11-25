@@ -15,6 +15,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * CookieAdmin, the free version
 * WPConsent, the free version
 * My Agile Privacy, the free version
+* SureCookie, the free version
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -195,6 +196,22 @@ WPConsent blocks the other services with its own list, not with addresses: add t
 | The code of the other services | A custom script after the consent: the category of the vendor, or marketing |
 
 My Agile Privacy has no categories, only necessary services or not, and it blocks the other services with its own list, not with addresses: add the addresses of their scripts as custom vendors, the import report lists them. The necessary services have no cookie names: add their cookies to the cookie table. Not imported: the title, the texts of the preferences, the policies, the geolocation and the IAB TCF.
+
+## From SureCookie
+
+| SureCookie | Cookie Choices |
+| --- | --- |
+| The banner on or off, its message and the texts of the Accept All, Decline and Preferences buttons | The banner, its text and the button texts |
+| The cookie policy and the legal notice pages | The policy and the legal notice links |
+| The full-width banner at the top or at the bottom, the floating one on its side, the logo | The **Style** tab |
+| The duration of the consent, the floating button to change it, Google Consent Mode | The same settings |
+| The custom CSS | The custom CSS, in a comment |
+| The texts of the default categories | The texts of the categories: Essential becomes Necessary, Functional Preferences, Analytics Statistics |
+| The services added from its catalog, the cookies and the blocking rules of a common vendor | That common vendor, turned on |
+| The custom cookies and the cookies of its scans | The site cookies, with their duration and description: the uncategorized ones are marketing |
+| The other blocking rules | Custom vendors in their category |
+
+SureCookie blocks the services of its catalog with its own list, not with addresses: add the addresses of the scripts of the added services that are not common vendors as custom vendors, the import report lists them. Not imported: the title, the colors, the texts of the preferences, the privacy policy, the geolocation and the defaults of Google Consent Mode.
 
 ## Add a plugin
 
