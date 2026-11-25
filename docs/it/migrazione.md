@@ -13,6 +13,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 * Borlabs Cookie, la versione 3
 * Real Cookie Banner, la versione gratuita 5
 * CookieAdmin, la versione gratuita
+* WPConsent, la versione gratuita
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -161,6 +162,21 @@ I testi vengono letti nella lingua del sito, anche con WPML o Polylang. Vengono 
 | Gli altri cookie delle sue scansioni, con la loro categoria | I cookie del sito, con la durata e la descrizione |
 
 I testi lasciati ai valori predefiniti di CookieAdmin non vengono salvati da lui, quindi restano quelli di Cookie Choices. Non vengono importati: i titoli, i testi delle preferenze, le leggi degli Stati Uniti, l'icona personalizzata e i cookie senza categoria.
+
+## Da WPConsent
+
+| WPConsent | Cookie Choices |
+| --- | --- |
+| Il banner attivo o no, il suo messaggio e i testi dei suoi pulsanti | Il banner, il suo testo e i testi dei pulsanti |
+| La pagina della cookie policy | Il link alla policy |
+| Il layout e la posizione, il logo, i colori dello sfondo e del testo | La scheda **Stile**: il banner lungo in alto o in basso, quello flottante sul suo lato, il modale al centro |
+| La durata del consenso | La stessa impostazione |
+| Google Consent Mode, il Global Privacy Control | Le stesse impostazioni |
+| Le categorie | I testi delle categorie: Essenziali diventa Necessari |
+| I servizi di un fornitore comune, come Google Analytics o Facebook Pixel | Quel fornitore comune, attivato |
+| I cookie della categoria essenziale e degli altri servizi | I cookie del sito, con la durata e la descrizione |
+
+WPConsent blocca gli altri servizi con un suo elenco, non con indirizzi: aggiungi gli indirizzi dei loro script come fornitori personalizzati, il resoconto dell'importazione li elenca. Non vengono importati: i testi delle preferenze, la geolocalizzazione, IAB TCF e i documenti legali.
 
 ## Aggiungere un plugin
 

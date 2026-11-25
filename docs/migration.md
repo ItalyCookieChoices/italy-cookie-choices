@@ -13,6 +13,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * Borlabs Cookie, version 3
 * Real Cookie Banner, the free version 5
 * CookieAdmin, the free version
+* WPConsent, the free version
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -161,6 +162,21 @@ The texts are read in the language of the site, with WPML or Polylang too. Only 
 | The other cookies of its scans, with their category | The site cookies, with their duration and description |
 
 The texts left at the defaults of CookieAdmin are not saved by it, so the ones of Cookie Choices stay. Not imported: the titles, the texts of the preferences, the US laws, the custom icon and the cookies without a category.
+
+## From WPConsent
+
+| WPConsent | Cookie Choices |
+| --- | --- |
+| The banner on or off, its message and the texts of its buttons | The banner, its text and the button texts |
+| The cookie policy page | The policy link |
+| The layout and position, the logo, the background and the text colors | The **Style** tab: the long banner at the top or at the bottom, the floating one on its side, the modal in the middle |
+| The duration of the consent | The same setting |
+| Google Consent Mode, the Global Privacy Control | The same settings |
+| The categories | The texts of the categories: Essential becomes Necessary |
+| The services of a common vendor, like Google Analytics or Facebook Pixel | That common vendor, turned on |
+| The cookies of the essential category and of the other services | The site cookies, with their duration and description |
+
+WPConsent blocks the other services with its own list, not with addresses: add the addresses of their scripts as custom vendors, the import report lists them. Not imported: the texts of the preferences, the geolocation, the IAB TCF and the legal documents.
 
 ## Add a plugin
 
