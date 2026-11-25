@@ -13,6 +13,7 @@ use ItalyCookieChoices\Migration\Infrastructure\CookieYes\CookieYesSource;
 use ItalyCookieChoices\Migration\Infrastructure\GdprCookieCompliance\GdprCookieComplianceSource;
 use ItalyCookieChoices\Migration\Infrastructure\MyAgilePrivacy\MyAgilePrivacySource;
 use ItalyCookieChoices\Migration\Infrastructure\RealCookieBanner\RealCookieBannerSource;
+use ItalyCookieChoices\Migration\Infrastructure\SureCookie\SureCookieSource;
 use ItalyCookieChoices\Migration\Infrastructure\WpConsent\WpConsentSource;
 use ItalyStrap\Event\SubscriberInterface;
 
@@ -31,6 +32,7 @@ final readonly class BuiltInSources implements SubscriberInterface
         private CookieAdminSource $cookieAdmin,
         private WpConsentSource $wpConsent,
         private MyAgilePrivacySource $myAgilePrivacy,
+        private SureCookieSource $sureCookie,
     ) {
     }
 
@@ -50,5 +52,6 @@ final readonly class BuiltInSources implements SubscriberInterface
         $event->addSource($this->cookieAdmin);
         $event->addSource($this->wpConsent);
         $event->addSource($this->myAgilePrivacy);
+        $event->addSource($this->sureCookie);
     }
 }

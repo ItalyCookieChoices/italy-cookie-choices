@@ -2425,16 +2425,16 @@ msgid "Deactivate Real Cookie Banner after the import, or the site shows two ban
 msgstr ""
 
 #. translators: %s: the names of the cookies, separated by commas.
-#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:123
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:121
 #, php-format
 msgid "These cookies have no category in CookieAdmin and are not imported: %s."
 msgstr ""
 
-#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:129
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:127
 msgid "The titles, the texts of the preferences, the US laws and the custom icon are not imported."
 msgstr ""
 
-#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:133
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:131
 msgid "Deactivate CookieAdmin after the import, or the site shows two banners. Its settings stay."
 msgstr ""
 
@@ -2470,4 +2470,18 @@ msgstr ""
 
 #: src/Migration/Infrastructure/MyAgilePrivacy/MyAgilePrivacySource.php:156
 msgid "Deactivate My Agile Privacy after the import, or the site shows two banners. Its settings stay."
+msgstr ""
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/SureCookie/SureCookieSource.php:97
+#, php-format
+msgid "These services are not common vendors: add the addresses of their scripts as custom vendors, their cookies are site cookies: %s."
+msgstr ""
+
+#: src/Migration/Infrastructure/SureCookie/SureCookieSource.php:105
+msgid "The title, the colors, the texts of the preferences, the privacy policy, the geolocation and the defaults of Google Consent Mode are not imported."
+msgstr ""
+
+#: src/Migration/Infrastructure/SureCookie/SureCookieSource.php:110
+msgid "Deactivate SureCookie after the import, or the site shows two banners. Its settings stay."
 msgstr ""
