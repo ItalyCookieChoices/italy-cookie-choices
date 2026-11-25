@@ -14,6 +14,7 @@ Cookie Choices importa le impostazioni di un altro plugin per il consenso: il ba
 * Real Cookie Banner, la versione gratuita 5
 * CookieAdmin, la versione gratuita
 * WPConsent, la versione gratuita
+* My Agile Privacy, la versione gratuita
 
 Gli altri plugin arrivano nelle prossime versioni. Uno sviluppatore ne aggiunge uno con l'evento `BuildingMigrationSources`, vedi [Aggiungere un plugin](#aggiungere-un-plugin).
 
@@ -177,6 +178,23 @@ I testi lasciati ai valori predefiniti di CookieAdmin non vengono salvati da lui
 | I cookie della categoria essenziale e degli altri servizi | I cookie del sito, con la durata e la descrizione |
 
 WPConsent blocca gli altri servizi con un suo elenco, non con indirizzi: aggiungi gli indirizzi dei loro script come fornitori personalizzati, il resoconto dell'importazione li elenca. Non vengono importati: i testi delle preferenze, la geolocalizzazione, IAB TCF e i documenti legali.
+
+## Da My Agile Privacy
+
+| My Agile Privacy | Cookie Choices |
+| --- | --- |
+| Il banner attivo o no | La stessa impostazione |
+| I testi del banner e dei suoi pulsanti che hai cambiato, nella lingua del banner | Il testo del banner e i testi dei pulsanti |
+| La pagina o l'indirizzo della cookie policy | Il link alla policy |
+| La posizione e la dimensione, i colori dello sfondo e del testo | La scheda **Stile**: la barra in alto o in basso, il box sul suo lato, il banner al centro |
+| Il pulsante per mostrare di nuovo il banner, sul suo lato | Il pulsante per cambiare il consenso |
+| Google Consent Mode, le modalità di consenso di Microsoft UET e Clarity, la modalità privacy di YouTube | Le stesse impostazioni |
+| Il CSS personalizzato | Il CSS personalizzato, in un commento |
+| I servizi in uso di un fornitore comune, come Google Analytics o YouTube | Quel fornitore comune, attivato |
+| Gli id di Google Analytics, Google Tag Manager e Facebook nel codice dei loro servizi | I tag che stampa Cookie Choices |
+| Il codice degli altri servizi | Uno script personalizzato dopo il consenso: la categoria del fornitore, o marketing |
+
+My Agile Privacy non ha categorie, solo servizi necessari o no, e blocca gli altri servizi con un suo elenco, non con indirizzi: aggiungi gli indirizzi dei loro script come fornitori personalizzati, il resoconto dell'importazione li elenca. I servizi necessari non hanno i nomi dei cookie: aggiungi i loro cookie alla tabella dei cookie. Non vengono importati: il titolo, i testi delle preferenze, le policy, la geolocalizzazione e IAB TCF.
 
 ## Aggiungere un plugin
 

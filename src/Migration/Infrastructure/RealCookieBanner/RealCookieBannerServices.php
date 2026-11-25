@@ -12,9 +12,9 @@ use ItalyCookieChoices\Blocking\Domain\Vendors;
 use ItalyCookieChoices\Consent\Application\ConsentSetting;
 use ItalyCookieChoices\Consent\Domain\Category;
 use ItalyCookieChoices\Cookies\Application\CookieSetting;
-use ItalyCookieChoices\Integrations\Application\IntegrationSetting;
 use ItalyCookieChoices\Migration\Application\Conversions;
 use ItalyCookieChoices\Migration\Application\CookieLifetime;
+use ItalyCookieChoices\Migration\Application\TagIds;
 
 /**
  * The service groups, the services and the content blockers of Real Cookie Banner.
@@ -57,21 +57,6 @@ final readonly class RealCookieBannerServices
     private const ITSELF = 'real-cookie-banner';
 
     /**
-     * The ids of the tags the plugin prints, as they appear in the code of the services.
-     */
-    private const TAGS = [
-        IntegrationSetting::GA_MEASUREMENT_ID => '/\b(G-[A-Z0-9]{4,})\b/',
-        IntegrationSetting::GTM_CONTAINER_ID => '/\b(GTM-[A-Z0-9]{4,})\b/',
-        IntegrationSetting::FACEBOOK_PIXEL_ID => '/fbq\(\s*[\'"]init[\'"]\s*,\s*[\'"](\d+)[\'"]/',
-    ];
-
-    private const TAG_VENDORS = [
-        VendorId::GOOGLE_ANALYTICS,
-        VendorId::GOOGLE_TAG_MANAGER,
-        VendorId::FACEBOOK,
-    ];
-
-    /**
      * The fields of the code, replaced by Real Cookie Banner with the values of the service, like {{measurementId}}.
      */
     private const FIELD = '/\{\{\s*([A-Za-z0-9_-]+)\s*\}\}/';
@@ -95,6 +80,7 @@ final readonly class RealCookieBannerServices
         private Conversions $conversions,
         private VendorsFactory $vendors,
         private CookieLifetime $lifetime,
+        private TagIds $tagIds,
     ) {
     }
 
@@ -179,9 +165,9 @@ final readonly class RealCookieBannerServices
         $vendor = self::PRESETS[$preset] ?? $this->knownVendor($known, $code, $patterns);
         if ($vendor !== null) {
             $result['inUse'][] = $vendor;
-            $tags = $this->tags($code);
+            $tags = $this->tagIds->of($code);
             $result['tags'] = [...$result['tags'], ...$tags];
-            if (\in_array($vendor, self::TAG_VENDORS, true) && $tags !== []) {
+            if ($this->tagIds->isPrinted($vendor) && $tags !== []) {
                 return $result;
             }
 
@@ -251,23 +237,6 @@ final readonly class RealCookieBannerServices
         }
 
         return $code === '' ? null : $known->running($code)?->id();
-    }
-
-    /**
-     * The ids of the tags the plugin prints, from the code of a service.
-     *
-     * @return array<string, string>
-     */
-    private function tags(string $code): array
-    {
-        $tags = [];
-        foreach (self::TAGS as $setting => $pattern) {
-            if (\preg_match($pattern, $code, $match) === 1) {
-                $tags[$setting] = $match[1];
-            }
-        }
-
-        return $tags;
     }
 
     /**

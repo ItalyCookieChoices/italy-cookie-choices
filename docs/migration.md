@@ -14,6 +14,7 @@ Cookie Choices imports the settings of another consent plugin: the banner, the l
 * Real Cookie Banner, the free version 5
 * CookieAdmin, the free version
 * WPConsent, the free version
+* My Agile Privacy, the free version
 
 The other plugins come in the next versions. A developer adds one with the `BuildingMigrationSources` event, see [Add a plugin](#add-a-plugin).
 
@@ -177,6 +178,23 @@ The texts left at the defaults of CookieAdmin are not saved by it, so the ones o
 | The cookies of the essential category and of the other services | The site cookies, with their duration and description |
 
 WPConsent blocks the other services with its own list, not with addresses: add the addresses of their scripts as custom vendors, the import report lists them. Not imported: the texts of the preferences, the geolocation, the IAB TCF and the legal documents.
+
+## From My Agile Privacy
+
+| My Agile Privacy | Cookie Choices |
+| --- | --- |
+| The banner on or off | The same setting |
+| The texts of the banner and of its buttons you changed, in the language of the banner | The banner text and the button texts |
+| The cookie policy page or address | The policy link |
+| The position and size, the background and the text colors | The **Style** tab: the bar at the top or at the bottom, the box on its side, the banner in the middle |
+| The button to show the banner again, on its side | The button to change the consent |
+| Google Consent Mode, Microsoft UET and Clarity consent modes, the YouTube privacy mode | The same settings |
+| The custom CSS | The custom CSS, in a comment |
+| The services in use of a common vendor, like Google Analytics or YouTube | That common vendor, turned on |
+| The Google Analytics, Google Tag Manager and Facebook ids in the code of their services | The tags Cookie Choices prints |
+| The code of the other services | A custom script after the consent: the category of the vendor, or marketing |
+
+My Agile Privacy has no categories, only necessary services or not, and it blocks the other services with its own list, not with addresses: add the addresses of their scripts as custom vendors, the import report lists them. The necessary services have no cookie names: add their cookies to the cookie table. Not imported: the title, the texts of the preferences, the policies, the geolocation and the IAB TCF.
 
 ## Add a plugin
 
