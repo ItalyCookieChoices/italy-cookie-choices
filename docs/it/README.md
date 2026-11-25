@@ -12,7 +12,7 @@ Cookie Choices, prima Italy Cookie Choices, chiede il consenso dei visitatori pr
 * [Tabella dei cookie](tabella-cookie.md): i cookie del sito per la cookie policy.
 * [Siti multilingua](multilingua.md): WPML, Polylang e gli altri plugin.
 * [Reti multisito](multisito.md): le impostazioni del sito principale su tutti i siti.
-* [Importare da un altro plugin](migrazione.md): le impostazioni di Complianz, CookieYes, Cookie Notice, GDPR Cookie Compliance, Borlabs Cookie, Real Cookie Banner, CookieAdmin e WPConsent.
+* [Importare da un altro plugin](migrazione.md): le impostazioni di Complianz, CookieYes, Cookie Notice, GDPR Cookie Compliance, Borlabs Cookie, Real Cookie Banner, CookieAdmin, WPConsent e My Agile Privacy.
 * [Aggiornamento dalla 2.x](aggiornamento-3.0.md): cosa cambia con la versione 3.0.
 
 ## Per gli sviluppatori

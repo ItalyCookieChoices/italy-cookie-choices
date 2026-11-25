@@ -2452,3 +2452,23 @@ msgstr "I testi delle preferenze, la geolocalizzazione, IAB TCF e i documenti le
 #: src/Migration/Infrastructure/WpConsent/WpConsentSource.php:141
 msgid "Deactivate WPConsent after the import, or the site shows two banners. Its settings stay."
 msgstr "Disattiva WPConsent dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/MyAgilePrivacy/MyAgilePrivacySource.php:135
+#, php-format
+msgid "These services are not common vendors: add the addresses of their scripts as custom vendors, their code runs after the consent to marketing: %s."
+msgstr "Questi servizi non sono fornitori comuni: aggiungi gli indirizzi dei loro script come fornitori personalizzati, il loro codice viene eseguito dopo il consenso al marketing: %s."
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/MyAgilePrivacy/MyAgilePrivacySource.php:144
+#, php-format
+msgid "These necessary services are not imported, add their cookies to the cookie table: %s."
+msgstr "Questi servizi necessari non vengono importati, aggiungi i loro cookie alla tabella dei cookie: %s."
+
+#: src/Migration/Infrastructure/MyAgilePrivacy/MyAgilePrivacySource.php:151
+msgid "The title, the texts of the preferences, the policies, the geolocation and the IAB TCF are not imported."
+msgstr "Non vengono importati il titolo, i testi delle preferenze, le policy, la geolocalizzazione e IAB TCF."
+
+#: src/Migration/Infrastructure/MyAgilePrivacy/MyAgilePrivacySource.php:156
+msgid "Deactivate My Agile Privacy after the import, or the site shows two banners. Its settings stay."
+msgstr "Disattiva My Agile Privacy dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."
