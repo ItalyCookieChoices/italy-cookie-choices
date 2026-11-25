@@ -2431,10 +2431,24 @@ msgstr "Disattiva Real Cookie Banner dopo l'importazione, altrimenti il sito mos
 msgid "These cookies have no category in CookieAdmin and are not imported: %s."
 msgstr "Questi cookie non hanno una categoria in CookieAdmin e non vengono importati: %s."
 
-#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:126
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:129
 msgid "The titles, the texts of the preferences, the US laws and the custom icon are not imported."
 msgstr "I titoli, i testi delle preferenze, le leggi degli Stati Uniti e l'icona personalizzata non vengono importati."
 
-#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:130
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:133
 msgid "Deactivate CookieAdmin after the import, or the site shows two banners. Its settings stay."
 msgstr "Disattiva CookieAdmin dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/WpConsent/WpConsentSource.php:129
+#, php-format
+msgid "WPConsent blocks these services with its own list: their cookies are site cookies now, add the addresses of their scripts as custom vendors: %s."
+msgstr "WPConsent blocca questi servizi con un suo elenco: i loro cookie ora sono cookie del sito, aggiungi gli indirizzi dei loro script come fornitori personalizzati: %s."
+
+#: src/Migration/Infrastructure/WpConsent/WpConsentSource.php:136
+msgid "The texts of the preferences, the geolocation, the IAB TCF and the legal documents are not imported."
+msgstr "I testi delle preferenze, la geolocalizzazione, IAB TCF e i documenti legali non vengono importati."
+
+#: src/Migration/Infrastructure/WpConsent/WpConsentSource.php:141
+msgid "Deactivate WPConsent after the import, or the site shows two banners. Its settings stay."
+msgstr "Disattiva WPConsent dopo l'importazione, altrimenti il sito mostra due banner. Le sue impostazioni restano."

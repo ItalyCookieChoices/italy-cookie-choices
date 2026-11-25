@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-24T21:46:39+00:00\n"
+"POT-Creation-Date: 2026-11-24T22:31:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: italy-cookie-choices\n"
@@ -733,11 +733,11 @@ msgstr ""
 msgid "These cookies have no category in CookieAdmin and are not imported: %s."
 msgstr ""
 
-#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:126
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:129
 msgid "The titles, the texts of the preferences, the US laws and the custom icon are not imported."
 msgstr ""
 
-#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:130
+#: src/Migration/Infrastructure/CookieAdmin/CookieAdminSource.php:133
 msgid "Deactivate CookieAdmin after the import, or the site shows two banners. Its settings stay."
 msgstr ""
 
@@ -823,6 +823,20 @@ msgstr ""
 
 #: src/Migration/Infrastructure/RealCookieBanner/RealCookieBannerSource.php:98
 msgid "Deactivate Real Cookie Banner after the import, or the site shows two banners. Its settings stay."
+msgstr ""
+
+#. translators: %s: the names of the services, separated by commas.
+#: src/Migration/Infrastructure/WpConsent/WpConsentSource.php:129
+#, php-format
+msgid "WPConsent blocks these services with its own list: their cookies are site cookies now, add the addresses of their scripts as custom vendors: %s."
+msgstr ""
+
+#: src/Migration/Infrastructure/WpConsent/WpConsentSource.php:136
+msgid "The texts of the preferences, the geolocation, the IAB TCF and the legal documents are not imported."
+msgstr ""
+
+#: src/Migration/Infrastructure/WpConsent/WpConsentSource.php:141
+msgid "Deactivate WPConsent after the import, or the site shows two banners. Its settings stay."
 msgstr ""
 
 #: src/Migration/UI/Cli/Handlers/MigrateSettings.php:59

@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace ItalyCookieChoices\Migration\Infrastructure\RealCookieBanner;
 
+use ItalyCookieChoices\Migration\Infrastructure\UnregisteredContent;
+
 /**
  * Reads the settings Real Cookie Banner keeps in the database, also when it is deactivated.
  *
  * Each setting is its own option, the texts have an option for each language with WPML or Polylang,
  * like rcb-banner-texts-headline-it. The services, the content blockers and the legal links are posts,
- * the service groups the terms of a taxonomy: they are read with queries, their types are not registered
- * when the plugin is deactivated. Only the structure of its data is read, nothing of it is used.
+ * the service groups the terms of a taxonomy. Only the structure of its data is read, nothing of it is used.
  *
- * @phpstan-type Post array{id: int, title: string, content: string}
+ * @phpstan-import-type Post from UnregisteredContent
  * @phpstan-type Group array{id: int, name: string, description: string, essential: bool, default: bool, order: int}
  */
 final readonly class RealCookieBannerStorage
@@ -23,10 +24,9 @@ final readonly class RealCookieBannerStorage
 
     private const VERSION = 'rcb_db_version';
     private const GROUPS = 'rcb-cookie-group';
-    private const PUBLISHED = 'publish';
 
     public function __construct(
-        private \wpdb $database,
+        private UnregisteredContent $content,
     ) {
     }
 
@@ -52,26 +52,7 @@ final readonly class RealCookieBannerStorage
      */
     public function posts(string $type): array
     {
-        if (!$this->hasSettings()) {
-            return [];
-        }
-
-        $rows = $this->database->get_results($this->database->prepare(
-            'SELECT ID, post_title, post_content FROM %i WHERE post_type = %s AND post_status = %s'
-                . ' ORDER BY menu_order ASC, ID ASC',
-            $this->database->posts,
-            $type,
-            self::PUBLISHED
-        ), \ARRAY_A);
-
-        return \array_map(
-            fn(array $row): array => [
-                'id' => $this->int($row['ID'] ?? 0),
-                'title' => $this->string($row['post_title'] ?? ''),
-                'content' => $this->string($row['post_content'] ?? ''),
-            ],
-            $rows ?? []
-        );
+        return $this->hasSettings() ? $this->content->posts($type) : [];
     }
 
     public function meta(int $post, string $key): mixed
@@ -90,18 +71,20 @@ final readonly class RealCookieBannerStorage
             return [];
         }
 
-        $rows = $this->database->get_results($this->database->prepare(
-            'SELECT t.term_id, t.name, tt.description FROM %i t INNER JOIN %i tt ON tt.term_id = t.term_id'
-                . ' WHERE tt.taxonomy = %s ORDER BY t.term_id ASC',
-            $this->database->terms,
-            $this->database->term_taxonomy,
-            self::GROUPS
-        ), \ARRAY_A);
+        $groups = [];
+        foreach ($this->content->terms(self::GROUPS) as $term) {
+            $order = \get_term_meta($term['id'], 'order', true);
+            $groups[] = [
+                'id' => $term['id'],
+                'name' => $term['name'],
+                'description' => $term['description'],
+                'essential' => \get_term_meta($term['id'], 'isEssential', true) === '1',
+                'default' => \get_term_meta($term['id'], 'isDefault', true) === '1',
+                'order' => \is_numeric($order) ? (int) $order : 0,
+            ];
+        }
 
-        return \array_map(
-            fn(array $row): array => $this->group($this->int($row['term_id'] ?? 0), $row),
-            $rows ?? []
-        );
+        return $groups;
     }
 
     /**
@@ -109,41 +92,6 @@ final readonly class RealCookieBannerStorage
      */
     public function groupOf(int $post): int
     {
-        $group = $this->database->get_var($this->database->prepare(
-            'SELECT tt.term_id FROM %i tr INNER JOIN %i tt ON tt.term_taxonomy_id = tr.term_taxonomy_id'
-                . ' WHERE tr.object_id = %d AND tt.taxonomy = %s ORDER BY tr.term_order ASC LIMIT 1',
-            $this->database->term_relationships,
-            $this->database->term_taxonomy,
-            $post,
-            self::GROUPS
-        ));
-
-        return \is_numeric($group) ? (int) $group : 0;
-    }
-
-    /**
-     * @param array<array-key, mixed> $row
-     * @return Group
-     */
-    private function group(int $id, array $row): array
-    {
-        return [
-            'id' => $id,
-            'name' => $this->string($row['name'] ?? ''),
-            'description' => $this->string($row['description'] ?? ''),
-            'essential' => \get_term_meta($id, 'isEssential', true) === '1',
-            'default' => \get_term_meta($id, 'isDefault', true) === '1',
-            'order' => $this->int(\get_term_meta($id, 'order', true)),
-        ];
-    }
-
-    private function int(mixed $value): int
-    {
-        return \is_numeric($value) ? (int) $value : 0;
-    }
-
-    private function string(mixed $value): string
-    {
-        return \is_scalar($value) ? (string) $value : '';
+        return $this->content->termsOf($post, self::GROUPS)[0] ?? 0;
     }
 }

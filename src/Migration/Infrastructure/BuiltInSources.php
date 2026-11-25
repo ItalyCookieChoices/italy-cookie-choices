@@ -12,6 +12,7 @@ use ItalyCookieChoices\Migration\Infrastructure\CookieNotice\CookieNoticeSource;
 use ItalyCookieChoices\Migration\Infrastructure\CookieYes\CookieYesSource;
 use ItalyCookieChoices\Migration\Infrastructure\GdprCookieCompliance\GdprCookieComplianceSource;
 use ItalyCookieChoices\Migration\Infrastructure\RealCookieBanner\RealCookieBannerSource;
+use ItalyCookieChoices\Migration\Infrastructure\WpConsent\WpConsentSource;
 use ItalyStrap\Event\SubscriberInterface;
 
 /**
@@ -27,6 +28,7 @@ final readonly class BuiltInSources implements SubscriberInterface
         private BorlabsSource $borlabs,
         private RealCookieBannerSource $realCookieBanner,
         private CookieAdminSource $cookieAdmin,
+        private WpConsentSource $wpConsent,
     ) {
     }
 
@@ -44,5 +46,6 @@ final readonly class BuiltInSources implements SubscriberInterface
         $event->addSource($this->borlabs);
         $event->addSource($this->realCookieBanner);
         $event->addSource($this->cookieAdmin);
+        $event->addSource($this->wpConsent);
     }
 }

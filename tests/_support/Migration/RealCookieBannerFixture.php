@@ -24,15 +24,7 @@ final class RealCookieBannerFixture
 
     public static function group(string $name, string $description, bool $essential, int $order): int
     {
-        global $wpdb;
-        /** @var \wpdb $wpdb */
-        $wpdb->insert($wpdb->terms, ['name' => $name, 'slug' => \sanitize_title($name)]);
-        $term = (int) $wpdb->insert_id;
-        $wpdb->insert($wpdb->term_taxonomy, [
-            'term_id' => $term,
-            'taxonomy' => 'rcb-cookie-group',
-            'description' => $description,
-        ]);
+        $term = UnregisteredTerms::insert('rcb-cookie-group', $name, '', $description);
         \update_term_meta($term, 'isEssential', $essential ? '1' : '');
         \update_term_meta($term, 'isDefault', '1');
         \update_term_meta($term, 'order', (string) $order);
@@ -45,15 +37,8 @@ final class RealCookieBannerFixture
      */
     public static function service(string $name, int $group, array $meta = [], string $status = 'publish'): int
     {
-        global $wpdb;
-        /** @var \wpdb $wpdb */
         $service = self::post('rcb-cookie', $name, $meta, $status);
-        $taxonomy = $wpdb->get_var($wpdb->prepare(
-            'SELECT term_taxonomy_id FROM %i WHERE term_id = %d',
-            $wpdb->term_taxonomy,
-            $group
-        ));
-        $wpdb->insert($wpdb->term_relationships, ['object_id' => $service, 'term_taxonomy_id' => (int) $taxonomy]);
+        UnregisteredTerms::relate($service, $group);
 
         return $service;
     }
