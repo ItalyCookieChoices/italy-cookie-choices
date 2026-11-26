@@ -88,7 +88,7 @@ Le stesse pagine possono essere scansionate da sole, con WP-Cron. In **Scansione
 * I nuovi risultati mostrano un avviso agli amministratori: **Controllali** apre la scheda Blocco, **Ignora** nasconde l'avviso fino ai prossimi risultati. Spunta **Invia i nuovi risultati via email** per riceverli anche all'email dell'amministratore del sito.
 * La scheda mostra la data e i risultati dell'ultima scansione programmata.
 
-WP-Cron parte quando il sito riceve visite: su un sito con poche visite, o con `DISABLE_WP_CRON`, usa un vero cron job del server.
+WP-Cron parte quando il sito riceve visite: su un sito con poche visite, o con `DISABLE_WP_CRON`, usa un vero cron job del server. Disattivare il plugin ferma la scansione programmata, riparte con la stessa programmazione dopo l'attivazione.
 
 ### Cookie nel browser
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "170742cafaab7b9ba9db2f5e5831cd2b",
+    "content-hash": "a7f7610fd52ab39e59a9ac59efe46e73",
     "packages": [
         {
             "name": "fig/cache-util",
@@ -344,6 +344,69 @@
             },
             "time": "2026-11-21T14:12:26+00:00",
             "published-time": "2026-11-21T14:12:46+00:00"
+        },
+        {
+            "name": "italystrap/cron",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ItalyStrap/cron.git",
+                "reference": "75d34f7efb628ae465f3b073bd0221871b3fd3a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ItalyStrap/cron/zipball/75d34f7efb628ae465f3b073bd0221871b3fd3a1",
+                "reference": "75d34f7efb628ae465f3b073bd0221871b3fd3a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "psr/clock": "^1.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "^5.1",
+                "codeception/module-asserts": "^3.0",
+                "italystrap/event": "^0.2.2",
+                "lucatume/wp-browser": "^4.4",
+                "php-stubs/wordpress-stubs": "^6.8",
+                "phpstan/phpstan": "^2.1",
+                "rector/rector": "^2.0",
+                "symplify/easy-coding-standard": "^12.5"
+            },
+            "suggest": {
+                "italystrap/event": "Add the custom recurrences to WP-Cron with the GlobalRecurrences subscriber"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ItalyStrap\\Cron\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Enea Overclokk",
+                    "email": "info@overclokk.net",
+                    "homepage": "https://www.italystrap.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Schedule the recurring and the single events, with an in-memory scheduler and the WP-Cron one",
+            "keywords": [
+                "cron",
+                "scheduler",
+                "wordpress",
+                "wp-cron"
+            ],
+            "support": {
+                "issues": "https://github.com/ItalyStrap/cron/issues",
+                "source": "https://github.com/ItalyStrap/cron"
+            },
+            "time": "2026-11-26T15:32:37+00:00",
+            "published-time": "2026-11-26T15:33:25+00:00"
         },
         {
             "name": "italystrap/empress",

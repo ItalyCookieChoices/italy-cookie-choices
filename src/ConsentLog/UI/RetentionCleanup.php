@@ -7,7 +7,10 @@ namespace ItalyCookieChoices\ConsentLog\UI;
 use ItalyCookieChoices\ConsentLog\Application\LogSettings;
 use ItalyCookieChoices\ConsentLog\Domain\ConsentLog;
 use ItalyCookieChoices\WordPress\Hook;
+use ItalyStrap\Cron\RecurringEvent;
+use ItalyStrap\Cron\SchedulerInterface;
 use ItalyStrap\Event\SubscriberInterface;
+use Psr\Clock\ClockInterface;
 
 /**
  * Deletes every day the records older than the retention.
@@ -15,11 +18,17 @@ use ItalyStrap\Event\SubscriberInterface;
 final readonly class RetentionCleanup implements SubscriberInterface
 {
     public const EVENT_NAME = 'italy_cookie_choices_consent_log_cleanup';
+    private const RECURRENCE = 'daily';
+
+    private RecurringEvent $event;
 
     public function __construct(
         private ConsentLog $log,
         private LogSettings $settings,
+        SchedulerInterface $scheduler,
+        private ClockInterface $clock,
     ) {
+        $this->event = new RecurringEvent(self::EVENT_NAME, $scheduler, $clock);
     }
 
     public function getSubscribedEvents(): iterable
@@ -28,14 +37,12 @@ final readonly class RetentionCleanup implements SubscriberInterface
         yield self::EVENT_NAME => 'cleanup';
     }
 
+    /**
+     * Schedules the cleanup when the log is on, it is not stopped when the log is turned off.
+     */
     public function schedule(): void
     {
-        $isScheduled = \wp_next_scheduled(self::EVENT_NAME) !== false;
-        if ($isScheduled || !$this->settings->isEnabled()) {
-            return;
-        }
-
-        \wp_schedule_event(\time(), 'daily', self::EVENT_NAME);
+        $this->event->scheduleIfMissing($this->settings->isEnabled() ? self::RECURRENCE : RecurringEvent::OFF);
     }
 
     /**
@@ -43,8 +50,6 @@ final readonly class RetentionCleanup implements SubscriberInterface
      */
     public function cleanup(): int
     {
-        $now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
-
-        return $this->log->deleteBefore($this->settings->retention()->cutoff($now));
+        return $this->log->deleteBefore($this->settings->retention()->cutoff($this->clock->now()));
     }
 }

@@ -13,12 +13,16 @@ use ItalyStrap\Asset\ScriptRegistry;
 use ItalyStrap\Asset\StyleRegistry;
 use ItalyStrap\Config\Config;
 use ItalyStrap\Config\ConfigInterface;
+use ItalyStrap\Cron\GlobalScheduler;
+use ItalyStrap\Cron\SchedulerInterface;
+use ItalyStrap\Cron\SystemClock;
 use ItalyStrap\Empress\AurynConfig;
 use ItalyStrap\Empress\ModuleInterface;
 use ItalyStrap\Event\SubscribersConfigExtension;
 use ItalyStrap\Finder\FinderFactory;
 use ItalyStrap\View\View;
 use ItalyStrap\View\ViewInterface;
+use Psr\Clock\ClockInterface;
 
 /**
  * The plugin services, autowired by the container.
@@ -49,6 +53,9 @@ final readonly class Module implements ModuleInterface
                 // The scripts and the styles of the UI classes, registered in the core
                 ScriptRegistry::class => CoreScriptRegistry::class,
                 StyleRegistry::class => CoreStyleRegistry::class,
+                // The events of WP-Cron, scheduled at the current time in UTC.
+                SchedulerInterface::class => GlobalScheduler::class,
+                ClockInterface::class => SystemClock::class,
             ],
             AurynConfig::DELEGATIONS => [
                 ViewInterface::class => fn(): ViewInterface => $this->view(),

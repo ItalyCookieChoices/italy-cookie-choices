@@ -39,6 +39,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+use ItalyCookieChoices\ConsentLog\UI\RetentionCleanup;
+use ItalyCookieChoices\Scan\UI\ScanCron;
+use ItalyStrap\Cron\GlobalScheduler;
+use ItalyStrap\Cron\ScheduledEvents;
+
 require __DIR__ . '/vendor/autoload.php';
 
 require __DIR__ . '/legacy/define-constants.php';
@@ -47,7 +52,8 @@ icc_set_plugin_default_constant();
 
 require __DIR__ . '/bootstrap.php';
 
-// The daily cleanup of the consent log starts again on the next request after the activation.
+// The events of WP-Cron are scheduled again on the next request after the activation.
 register_deactivation_hook( __FILE__, static function (): void {
-	wp_clear_scheduled_hook( 'italy_cookie_choices_consent_log_cleanup' );
+	( new ScheduledEvents( new GlobalScheduler(), RetentionCleanup::EVENT_NAME, ScanCron::RUN, ScanCron::BATCH ) )
+		->clearAll();
 } );
