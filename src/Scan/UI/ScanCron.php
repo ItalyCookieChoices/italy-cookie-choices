@@ -9,7 +9,13 @@ use ItalyCookieChoices\Scan\Application\ScanSchedule;
 use ItalyCookieChoices\Scan\Application\ScheduledScan;
 use ItalyCookieChoices\Scan\Domain\Frequency;
 use ItalyCookieChoices\WordPress\Hook;
+use ItalyStrap\Cron\GlobalRecurrences;
+use ItalyStrap\Cron\Recurrence;
+use ItalyStrap\Cron\RecurringEvent;
+use ItalyStrap\Cron\SchedulerInterface;
+use ItalyStrap\Cron\SingleEvent;
 use ItalyStrap\Event\SubscriberInterface;
+use Psr\Clock\ClockInterface;
 
 /**
  * The scheduled scan on WP-Cron: the recurring event starts it, a single event scans each batch
@@ -25,34 +31,43 @@ final readonly class ScanCron implements SubscriberInterface
      */
     private const FIRST_RUN_DELAY = 3600;
 
+    private RecurringEvent $run;
+    private SingleEvent $batch;
+
     public function __construct(
         private ScheduledScan $scan,
         private ScanSchedule $schedule,
         private ScanReports $reports,
         private ScanMailer $mailer,
+        SchedulerInterface $scheduler,
+        ClockInterface $clock,
     ) {
+        $this->run = new RecurringEvent(self::RUN, $scheduler, $clock, self::FIRST_RUN_DELAY);
+        $this->batch = new SingleEvent(self::BATCH, $scheduler, $clock);
     }
 
     public function getSubscribedEvents(): iterable
     {
-        yield 'cron_schedules' => 'addMonthly';
+        yield GlobalRecurrences::EVENT_NAME => 'addMonthly';
         yield self::RUN => 'start';
         yield self::BATCH => 'next';
         yield Hook::INIT => 'keepScheduled';
     }
 
     /**
+     * The monthly recurrence, built when WP-Cron reads the recurrences: its label is translated after init.
+     *
      * @return array<array-key, mixed>
      */
     public function addMonthly(mixed $schedules): array
     {
-        return [
-            ...(\is_array($schedules) ? $schedules : []),
-            Frequency::MONTHLY_RECURRENCE => [
-                'interval' => Frequency::MONTHLY_INTERVAL,
-                'display' => \__('Once a month', 'italy-cookie-choices'),
-            ],
-        ];
+        $monthly = new Recurrence(
+            Frequency::MONTHLY_RECURRENCE,
+            Frequency::MONTHLY_INTERVAL,
+            \__('Once a month', 'italy-cookie-choices')
+        );
+
+        return (new GlobalRecurrences($monthly))->add($schedules);
     }
 
     public function start(): void
@@ -61,13 +76,13 @@ final readonly class ScanCron implements SubscriberInterface
             return;
         }
 
-        \wp_schedule_single_event(\time(), self::BATCH);
+        $this->batch->schedule();
     }
 
     public function next(): void
     {
         if ($this->scan->next()) {
-            \wp_schedule_single_event(\time(), self::BATCH);
+            $this->batch->schedule();
             return;
         }
 
@@ -84,12 +99,7 @@ final readonly class ScanCron implements SubscriberInterface
      */
     public function reschedule(Frequency $frequency): void
     {
-        \wp_clear_scheduled_hook(self::RUN);
-        if ($frequency->recurrence() === '') {
-            return;
-        }
-
-        \wp_schedule_event(\time() + self::FIRST_RUN_DELAY, $frequency->recurrence(), self::RUN);
+        $this->run->reschedule($frequency->recurrence());
     }
 
     /**
@@ -97,11 +107,6 @@ final readonly class ScanCron implements SubscriberInterface
      */
     public function keepScheduled(): void
     {
-        $frequency = $this->schedule->get()->frequency;
-        if ($frequency === Frequency::Off || \wp_next_scheduled(self::RUN) !== false) {
-            return;
-        }
-
-        $this->reschedule($frequency);
+        $this->run->scheduleIfMissing($this->schedule->get()->frequency->recurrence());
     }
 }

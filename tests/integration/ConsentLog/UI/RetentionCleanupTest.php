@@ -13,6 +13,8 @@ use ItalyCookieChoices\ConsentLog\Infrastructure\LogTable;
 use ItalyCookieChoices\ConsentLog\UI\RetentionCleanup;
 use ItalyCookieChoices\Settings\Schema;
 use ItalyCookieChoices\Tests\Support\BuildsOptions;
+use ItalyStrap\Cron\GlobalScheduler;
+use ItalyStrap\Cron\SystemClock;
 use lucatume\WPBrowser\TestCase\WPTestCase;
 
 final class RetentionCleanupTest extends WPTestCase
@@ -106,6 +108,11 @@ final class RetentionCleanupTest extends WPTestCase
 
     private function makeSut(): RetentionCleanup
     {
-        return new RetentionCleanup($this->log(), new LogSettings($this->options()));
+        return new RetentionCleanup(
+            $this->log(),
+            new LogSettings($this->options()),
+            new GlobalScheduler(),
+            new SystemClock()
+        );
     }
 }

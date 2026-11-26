@@ -88,7 +88,7 @@ The same pages can be scanned by themselves, with WP-Cron. In **Scheduled scan**
 * The new findings show a notice to the administrators: **Check them** opens the Blocking tab, **Ignore** hides the notice until the next findings. Check **Email the new findings** to receive them at the admin email of the site too.
 * The tab shows the date and the findings of the last scheduled scan.
 
-WP-Cron runs when the site gets visits: on a site with few visits, or with `DISABLE_WP_CRON`, use a real cron job of the server.
+WP-Cron runs when the site gets visits: on a site with few visits, or with `DISABLE_WP_CRON`, use a real cron job of the server. Deactivating the plugin stops the scheduled scan, it starts again with the same schedule after the activation.
 
 ### Cookies in the browser
 
